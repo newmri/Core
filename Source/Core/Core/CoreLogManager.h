@@ -1,0 +1,75 @@
+#pragma once
+
+#define CORE_CONSOLE_LOG GET_INSTANCE(CoreLogManager<CoreConsoleLogger>)
+#define CORE_FILE_LOG GET_INSTANCE(CoreLogManager<CoreFileLogger>)
+
+#define CORE_ALL_LOG(LOG_TYPE, LOG_MESSAGE) \
+		CORE_CONSOLE_LOG.Log(LOG_TYPE, LOG_MESSAGE); \
+		CORE_FILE_LOG.Log(LOG_TYPE, LOG_MESSAGE);
+
+#if _DEBUG
+#define CORE_LOG CORE_CONSOLE_LOG
+#else
+#define CORE_LOG CORE_CONSOLE_LOG
+#endif // _DEBUG
+
+template<typename T>
+class CoreLogManager
+{
+	DECLARE_SINGLETON(CoreLogManager<T>)
+
+public:
+	std::string MakeLog(const LogType logType, std::string_view logMessage, std::string_view file, const char* function, const size_t line);
+
+	void Log(std::string_view logMessage);
+	void Log(const LogType logType, std::string_view logMessage);
+
+private:
+	std::unique_ptr<CoreLogger> logger;
+	std::shared_mutex mutex;
+};
+
+template<typename T>
+std::unique_ptr<CoreLogManager<T>> CoreLogManager<T>::instance;
+
+template<typename T>
+std::once_flag CoreLogManager<T>::onceFlag;
+
+template<typename T>
+CoreLogManager<T>& CoreLogManager<T>::GetInstance(void)
+{
+	call_once(CoreLogManager<T>::onceFlag, []()
+	{
+		instance.reset(new CoreLogManager<T>);
+		(*(instance.get())).Init();
+	});
+
+	return *(instance.get());
+}
+
+template<typename T>
+void CoreLogManager<T>::Init(void)
+{
+	logger = std::make_unique<T>();
+}
+
+template<typename T>
+std::string CoreLogManager<T>::MakeLog(const LogType logType, std::string_view logMessage, std::string_view file, const char* function, const size_t line)
+{
+	WRITE_LOCK(mutex);
+	return logger->MakeLog(logType, logMessage, file, function, line);
+}
+
+template<typename T>
+void CoreLogManager<T>::Log(std::string_view logMessage)
+{
+	WRITE_LOCK(mutex);
+	logger->Log(logMessage);
+}
+
+template<typename T>
+void CoreLogManager<T>::Log(const LogType logType, std::string_view logMessage)
+{
+	WRITE_LOCK(mutex);
+	logger->Log(logType, logMessage);
+}
