@@ -51,9 +51,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CoreMemoryPool.cpp">
-      <Filter>02.CoreMemoryPool</Filter>
-    </ClCompile>
     <ClCompile Include="CoreTimeManager.cpp">
       <Filter>06.CoreTimeManager</Filter>
     </ClCompile>

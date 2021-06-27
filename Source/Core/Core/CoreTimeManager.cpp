@@ -29,7 +29,7 @@ TIME_VALUE CoreTimeManager::GetEndSeconds(TIME_VALUE limitTime) const
 
 void CoreTimeManager::Start(void)
 {
-	mutex.lock();
+	this->mutex.lock();
 	this->start = GetNow();
 }
 
@@ -43,7 +43,7 @@ void CoreTimeManager::End(void)
 
 	CORE_LOG.Log(LogType::LOG_INFO, this->time);
 
-	mutex.unlock();
+	this->mutex.unlock();
 }
 
 void CoreTimeManager::GetTime(std::string_view format, std::string& time)

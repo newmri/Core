@@ -4,33 +4,32 @@
 
 class Test
 {
-	DECLARE_MEMORY_POOL(Test);
-
 public:
 	int i = 0;
-	int k = 0;
 };
-
-IMPLEMENAT_MEMORY_POOL(Test);
 
 class Test2
 {
 
 public:
 	int i = 0;
-	int k = 0;
 };
+
+CoreMemoryPool<Test> p(10);
 
 void DoTest(size_t threadID)
 {
-	Test* test = new Test;
-	delete test;
+	Test* test = p.Alloc(1);
+
+	if (test)
+		p.DeAlloc(test);
 }
 
 void DoTest2(size_t threadID)
 {
 	Test2* test2 = new Test2;
-	delete test2;
+	if(test2)
+		delete test2;
 }
 
 int main(void)
@@ -39,36 +38,34 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	Test::InitMemoryPool();
+	//CORE_TIME_MANAGER.Start();
 
-	CORE_TIME_MANAGER.Start();
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	std::vector<std::thread> threads;
 
-	for (int i = 0; i < 100; ++i)
-	{
-		std::vector<std::thread> threads;
+	//	for (size_t j = 0; j < 16; ++j)
+	//		threads.emplace_back(std::thread([=]() { DoTest(j); }));
 
-		for (size_t j = 0; j < 16; ++j)
-			threads.emplace_back(std::thread([=]() { DoTest(j); }));
+	//	for (auto& d : threads)
+	//		d.join();
+	//}
 
-		for (auto& d : threads)
-			d.join();
-	}
+	//CORE_TIME_MANAGER.End();
 
-	CORE_TIME_MANAGER.End();
+	//CORE_TIME_MANAGER.Start();
 
-	CORE_TIME_MANAGER.Start();
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	std::vector<std::thread> threads;
 
-	for (int i = 0; i < 100; ++i)
-	{
-		std::vector<std::thread> threads;
+	//	for (size_t j = 0; j < 16; ++j)
+	//		threads.emplace_back(std::thread([=]() { DoTest2(j); }));
 
-		for (size_t j = 0; j < 16; ++j)
-			threads.emplace_back(std::thread([=]() { DoTest(j); }));
+	//	for (auto& d : threads)
+	//		d.join();
+	//}
 
-		for (auto& d : threads)
-			d.join();
-	}
-
-	CORE_TIME_MANAGER.End();
+	//CORE_TIME_MANAGER.End();
 	return 0;
 }

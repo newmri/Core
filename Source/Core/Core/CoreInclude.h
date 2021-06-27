@@ -20,10 +20,10 @@
 
 #include "CoreMacro.h"
 #include "CoreDataType.h"
-#include "CoreMemoryPool.h"
 #include "CoreObj.h"
-#include "CoreDummyManager.h"
 #include "CoreLogInclude.h"
+#include "CoreMemoryPool.h"
+#include "CoreDummyManager.h"
 #include "CoreTimeManager.h"
 #include "CoreParallelSTL.h"
 #include "CoreParallelArray.h"

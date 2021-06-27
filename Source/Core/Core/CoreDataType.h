@@ -9,3 +9,5 @@ typedef unsigned char* CORE_BYTE_PTR;
 typedef int CORE_INT;
 typedef int* CORE_INT_PTR;
 typedef unsigned int CORE_UINT;
+
+typedef size_t* CORE_SIZE_PTR;
