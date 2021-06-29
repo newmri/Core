@@ -4,20 +4,27 @@
 
 #include "CoreInclude.h"
 
-/*
-struct Block
-{
-	bool used;
-	bool allocatedNum;
-	T* data;
-}
-
-size_t currIndex;
-T*의 주소값을 해시 키로 사용, Block의 인덱스에 바로 접근
-*/
 template<typename T>
 class CoreMemoryPool
 {
+private:
+	typedef struct stBlockInfo
+	{
+		stBlockInfo()
+		{
+			offset = 0;
+			allocatedNum = 0;
+		}
+
+		stBlockInfo(size_t offset) : offset(offset)
+		{
+			allocatedNum = 0;
+		}
+
+		size_t offset;
+		size_t allocatedNum;
+	}BlockInfo;
+
 public:
 	DEFAULT_CONSTRUCTOR(CoreMemoryPool<T>)
 
@@ -28,7 +35,7 @@ public:
 
 	~CoreMemoryPool()
 	{
-
+		free(this->block);
 	}
 
 public:
@@ -37,8 +44,22 @@ public:
 		if (maxBlockNum > CORE_BYTE_MAX)
 			return false;
 
-		this->maxBlockNum = maxBlockNum;
-		this->remainedBlockNum = this->maxBlockNum;
+		this->maxBlockNum = this->remainedBlockNum = maxBlockNum;
+		this->blockInfoSize = sizeof(BlockInfo);
+		this->blockDataSize = sizeof(T);
+		this->blockTotalSize = this->blockInfoSize + this->blockDataSize;
+
+		this->block = (CORE_BYTE_PTR)malloc(this->blockTotalSize * this->maxBlockNum);
+
+		size_t offset = 0;
+
+		for (size_t i = 0; i < this->maxBlockNum; ++i)
+		{
+			new((this->block + offset)) BlockInfo(offset);
+			offset += this->blockInfoSize;
+			new((this->block + offset)) T();
+			offset += this->blockDataSize;
+		}
 
 		return true;
 	}
@@ -50,23 +71,28 @@ public:
 		if (!CanAlloc(needBlockNum))
 			return nullptr;
 
+		T* data = GetData(this->currOffset);
+
+		SetBlockInfo(this->currOffset);
 		SetRemainedBlockNum(this->remainedBlockNum - needBlockNum);
 
-		return nullptr;
+		return data;
 	}
 
 	void DeAlloc(T* block) noexcept
 	{
 		WRITE_LOCK(this->mutex);
 
-		size_t allocatedBlockNum = CanDeAlloc(block);
-
-		if (IS_SAME(0, allocatedBlockNum))
+		if (IS_SAME(0, CanDeAlloc(block)))
 		{
 			return;
 		}
 
-		SetRemainedBlockNum(this->remainedBlockNum + allocatedBlockNum);
+		BlockInfo* blockInfo = GetBlockInfo(block);
+
+		SetRemainedBlockNum(this->remainedBlockNum + blockInfo->allocatedNum);
+		blockInfo->allocatedNum = 0;
+		block->~T();
 	}
 
 public:
@@ -92,15 +118,51 @@ private:
 	size_t CanDeAlloc(T* block)
 	{
 		if (IS_SAME(this->remainedBlockNum, this->maxBlockNum))
-			return 0;
+			return false;
 
 		if (IS_NULL(block))
-			return 0;
+			return false;
 
-		return 1;
+		return true;
 	}
 
+
 private:
+
+	size_t GetBlockInfoOffset(const size_t offset)
+	{
+		return offset * this->blockTotalSize;
+	}
+
+	BlockInfo* GetBlockInfo(const size_t offset)
+	{
+		return reinterpret_cast<BlockInfo*>(this->block + GetBlockInfoOffset(offset));
+	}
+
+	BlockInfo* GetBlockInfo(T* data)
+	{
+		CORE_BYTE_PTR rawPtr = reinterpret_cast<CORE_BYTE_PTR>(data);
+		rawPtr -= this->blockInfoSize;
+		return reinterpret_cast<BlockInfo*>(rawPtr);
+	}
+
+	size_t GetDataOffset(const size_t offset)
+	{
+		return (offset * this->blockTotalSize) + this->blockInfoSize;
+	}
+
+	T* GetData(const size_t offset)
+	{
+		return reinterpret_cast<T*>(this->block + GetDataOffset(offset));
+	}
+
+	void SetBlockInfo(const size_t offset, const size_t allocatedNum = 1)
+	{
+		BlockInfo* blockInfo = GetBlockInfo(offset);
+
+		blockInfo->allocatedNum = allocatedNum;
+	}
+
 	void SetRemainedBlockNum(const size_t remainedBlockNum)
 	{
 		this->remainedBlockNum = remainedBlockNum;
@@ -109,9 +171,12 @@ private:
 private:
 	size_t remainedBlockNum = 0;
 	size_t maxBlockNum = 0;
-
+	size_t blockInfoSize = 0;
+	size_t blockDataSize = 0;
+	size_t blockTotalSize = 0;
 private:
-
+	CORE_BYTE_PTR block = nullptr;
+	size_t currOffset = 0;
 private:
 	std::shared_mutex mutex;
 };

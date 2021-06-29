@@ -20,7 +20,7 @@ CoreMemoryPool<Test> p(10);
 void DoTest(size_t threadID)
 {
 	Test* test = p.Alloc(1);
-
+	std::cout << test->i << std::endl;
 	if (test)
 		p.DeAlloc(test);
 }
@@ -37,6 +37,8 @@ int main(void)
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
+
+	DoTest(1);
 
 	//CORE_TIME_MANAGER.Start();
 
