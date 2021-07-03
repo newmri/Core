@@ -4,6 +4,14 @@
 
 #include "CoreInclude.h"
 
+/* 지금 구조에서는 포인터 받는 곳에서 배열 처럼 사용 불가
+현재 구조: [헤더, 데이터]
+          [헤더, 데이터]
+		  -> 데이터가 순차적이 아니다.
+필요 구조: [헤더], [헤더]
+          [데이터], [데이터]
+          
+*/
 template<typename T>
 class CoreMemoryPool
 {
