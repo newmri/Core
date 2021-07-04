@@ -4,14 +4,6 @@
 
 #include "CoreInclude.h"
 
-/* 지금 구조에서는 포인터 받는 곳에서 배열 처럼 사용 불가
-현재 구조: [헤더, 데이터]
-          [헤더, 데이터]
-		  -> 데이터가 순차적이 아니다.
-필요 구조: [헤더], [헤더]
-          [데이터], [데이터]
-          
-*/
 template<typename T>
 class CoreMemoryPool
 {
@@ -20,16 +12,9 @@ private:
 	{
 		stBlockInfo()
 		{
-			offset = 0;
 			allocatedNum = 0;
 		}
 
-		stBlockInfo(size_t offset) : offset(offset)
-		{
-			allocatedNum = 0;
-		}
-
-		size_t offset;
 		size_t allocatedNum;
 	}BlockInfo;
 
@@ -52,22 +37,8 @@ public:
 		if (maxBlockNum > CORE_BYTE_MAX)
 			return false;
 
-		this->maxBlockNum = this->remainedBlockNum = maxBlockNum;
-		this->blockInfoSize = sizeof(BlockInfo);
-		this->blockDataSize = sizeof(T);
-		this->blockTotalSize = this->blockInfoSize + this->blockDataSize;
-
-		this->block = (CORE_BYTE_PTR)malloc(this->blockTotalSize * this->maxBlockNum);
-
-		size_t offset = 0;
-
-		for (size_t i = 0; i < this->maxBlockNum; ++i)
-		{
-			new((this->block + offset)) BlockInfo(offset);
-			offset += this->blockInfoSize;
-			new((this->block + offset)) T();
-			offset += this->blockDataSize;
-		}
+		SetInfo(maxBlockNum);
+		SetBlock();
 
 		return true;
 	}
@@ -76,12 +47,20 @@ public:
 	{
 		WRITE_LOCK(this->mutex);
 
-		if (!CanAlloc(needBlockNum))
+		size_t startIndex = 0, endIndex = 0;
+
+		if (!CanAlloc(needBlockNum, startIndex, endIndex))
 			return nullptr;
 
-		T* data = GetData(this->currOffset);
+		SetBlockInfo(startIndex, needBlockNum);
 
-		SetBlockInfo(this->currOffset);
+		for (size_t i = startIndex + 1; i <= endIndex; ++i)
+		{
+			SetBlockInfo(i);
+		}
+
+		T* data = GetData(startIndex);
+
 		SetRemainedBlockNum(this->remainedBlockNum - needBlockNum);
 
 		return data;
@@ -118,9 +97,36 @@ public:
 
 private:
 
-	bool CanAlloc(const size_t needBlockNum)
+	bool CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
 	{
-		return (needBlockNum <= this->remainedBlockNum);
+		if (needBlockNum > this->remainedBlockNum)
+			return false;
+
+		size_t availableNum = 0;
+
+		for (size_t i = 0; i < this->maxBlockNum; ++i)
+		{
+			BlockInfo* blockInfo = GetBlockInfo(i);
+
+			if (IS_SAME(0, blockInfo->allocatedNum))
+			{
+				++availableNum;
+			}
+
+			else
+			{
+				availableNum = 0;
+			}
+
+			if (availableNum == needBlockNum)
+			{
+				startIndex = (needBlockNum - 1) - i;
+				endIndex = i;
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	size_t CanDeAlloc(T* block)
@@ -137,14 +143,14 @@ private:
 
 private:
 
-	size_t GetBlockInfoOffset(const size_t offset)
+	size_t GetBlockInfoOffset(const size_t index)
 	{
-		return offset * this->blockTotalSize;
+		return index * this->blockInfoSize;
 	}
 
-	BlockInfo* GetBlockInfo(const size_t offset)
+	BlockInfo* GetBlockInfo(const size_t index)
 	{
-		return reinterpret_cast<BlockInfo*>(this->block + GetBlockInfoOffset(offset));
+		return reinterpret_cast<BlockInfo*>(this->block + GetBlockInfoOffset(index));
 	}
 
 	BlockInfo* GetBlockInfo(T* data)
@@ -154,19 +160,54 @@ private:
 		return reinterpret_cast<BlockInfo*>(rawPtr);
 	}
 
-	size_t GetDataOffset(const size_t offset)
+	size_t GetDataOffset(const size_t index)
 	{
-		return (offset * this->blockTotalSize) + this->blockInfoSize;
+		return (this->blockInfoTotalSize + (index * this->blockDataSize));
 	}
 
-	T* GetData(const size_t offset)
+	T* GetData(const size_t index)
 	{
-		return reinterpret_cast<T*>(this->block + GetDataOffset(offset));
+		return reinterpret_cast<T*>(this->block + GetDataOffset(index));
 	}
 
-	void SetBlockInfo(const size_t offset, const size_t allocatedNum = 1)
+	void SetInfo(const size_t maxBlockNum)
 	{
-		BlockInfo* blockInfo = GetBlockInfo(offset);
+		this->maxBlockNum = this->remainedBlockNum = maxBlockNum;
+
+		this->blockInfoSize = sizeof(BlockInfo);
+		this->blockInfoTotalSize = this->blockInfoSize * this->maxBlockNum;
+
+		this->blockDataSize = sizeof(T);
+		this->blockTotalSize = this->blockInfoSize + this->blockDataSize;
+	}
+
+	void SetBlock(void)
+	{
+		this->block = (CORE_BYTE_PTR)malloc(this->blockTotalSize * this->maxBlockNum);
+
+		size_t offset = 0;
+
+		for (size_t i = 0; i < this->maxBlockNum; ++i)
+		{
+			new((this->block + offset)) BlockInfo();
+			offset += this->blockInfoSize;
+		}
+
+		for (size_t i = 0; i < this->maxBlockNum; ++i)
+		{
+			new((this->block + offset)) T();
+			offset += this->blockDataSize;
+		}
+	}
+
+	void SetBlockInfo(BlockInfo* blockInfo, const size_t allocatedNum = 1)
+	{
+		blockInfo->allocatedNum = allocatedNum;
+	}
+
+	void SetBlockInfo(const size_t index, const size_t allocatedNum = 1)
+	{
+		BlockInfo* blockInfo = GetBlockInfo(index);
 
 		blockInfo->allocatedNum = allocatedNum;
 	}
@@ -180,11 +221,13 @@ private:
 	size_t remainedBlockNum = 0;
 	size_t maxBlockNum = 0;
 	size_t blockInfoSize = 0;
+	size_t blockInfoTotalSize = 0;
 	size_t blockDataSize = 0;
 	size_t blockTotalSize = 0;
+
 private:
 	CORE_BYTE_PTR block = nullptr;
-	size_t currOffset = 0;
+
 private:
 	std::shared_mutex mutex;
 };

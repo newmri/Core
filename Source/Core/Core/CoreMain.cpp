@@ -15,14 +15,18 @@ public:
 	int i = 0;
 };
 
-CoreMemoryPool<Test> p(10);
+static const size_t max = 10;
+
+CoreMemoryPool<Test> p(max);
 
 void DoTest(size_t threadID)
 {
-	Test* test = p.Alloc(1);
-	std::cout << test->i << std::endl;
-	if (test)
-		p.DeAlloc(test);
+	Test* test = p.Alloc(max);
+
+	for(size_t i = 0; i < max; ++i)
+		std::cout << test[i].i << std::endl;
+	//if (test)
+	//	p.DeAlloc(test);
 }
 
 void DoTest2(size_t threadID)
