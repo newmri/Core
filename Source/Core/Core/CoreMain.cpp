@@ -24,6 +24,9 @@ void DoTest(const size_t threadID)
 
 	if (test)
 		p.DeAlloc(test);
+
+	else
+		std::cout << "nullptr" << std::endl;
 }
 
 void DoTest2(const size_t threadID)
@@ -45,7 +48,7 @@ int main(void)
 	{
 		std::vector<std::thread> threads;
 
-		for (size_t j = 0; j < 16; ++j)
+		for (size_t j = 0; j < 32; ++j)
 			threads.emplace_back(std::thread([=]() { DoTest(j); }));
 
 		for (auto& d : threads)
@@ -60,7 +63,7 @@ int main(void)
 	{
 		std::vector<std::thread> threads;
 
-		for (size_t j = 0; j < 16; ++j)
+		for (size_t j = 0; j < 32; ++j)
 			threads.emplace_back(std::thread([=]() { DoTest2(j); }));
 
 		for (auto& d : threads)

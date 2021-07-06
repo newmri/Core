@@ -74,13 +74,13 @@ public:
 			return;
 		}
 
-		for (size_t i = startIndex; i < endIndex; ++i)
+		for (size_t i = startIndex; i <= endIndex; ++i)
 		{
-			SetBlockHeader(i);
+			SetBlockHeader(i, 0);
 			GetBody(i)->~T();
 		}
 
-		SetRemainedBlockNum(this->remainedBlockNum + endIndex - startIndex);
+		SetRemainedBlockNum(this->remainedBlockNum + (endIndex - startIndex) + 1);
 	}
 
 public:
@@ -144,7 +144,7 @@ private:
 		if (IS_SAME(0, blockHeader->allocatedNum))
 			return false;
 
-		endIndex = blockHeader->allocatedNum - 1;
+		endIndex = startIndex + (blockHeader->allocatedNum - 1);
 
 		return true;
 	}
