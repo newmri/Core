@@ -8,15 +8,15 @@ template<typename T>
 class CoreMemoryPool
 {
 private:
-	typedef struct stBlockInfo
+	typedef struct stBlockHeader
 	{
-		stBlockInfo()
+		stBlockHeader()
 		{
 			allocatedNum = 0;
 		}
 
 		size_t allocatedNum;
-	}BlockInfo;
+	}BlockHeader;
 
 public:
 	DEFAULT_CONSTRUCTOR(CoreMemoryPool<T>)
@@ -34,9 +34,6 @@ public:
 public:
 	bool Init(const size_t maxBlockNum)
 	{
-		if (maxBlockNum > CORE_BYTE_MAX)
-			return false;
-
 		SetInfo(maxBlockNum);
 		SetBlock();
 
@@ -45,22 +42,22 @@ public:
 
 	T* Alloc(const size_t needBlockNum)
 	{
-		WRITE_LOCK(this->mutex);
-
 		size_t startIndex = 0, endIndex = 0;
 
-		if (!CanAlloc(needBlockNum, startIndex, endIndex))
+		WRITE_LOCK(this->mutex);
+
+		if (IS_SAME(0, CanAlloc(needBlockNum, startIndex, endIndex)))
 			return nullptr;
 
-		SetBlockInfo(startIndex, needBlockNum);
+		SetBlockHeader(startIndex, needBlockNum);
 
 		for (size_t i = startIndex + 1; i <= endIndex; ++i)
 		{
-			SetBlockInfo(i);
+			SetBlockHeader(i);
 		}
 
-		T* data = GetData(startIndex);
-
+		T* data = GetBody(startIndex);
+		
 		SetRemainedBlockNum(this->remainedBlockNum - needBlockNum);
 
 		return data;
@@ -68,18 +65,22 @@ public:
 
 	void DeAlloc(T* block) noexcept
 	{
+		size_t startIndex = 0, endIndex = 0;
+
 		WRITE_LOCK(this->mutex);
 
-		if (IS_SAME(0, CanDeAlloc(block)))
+		if (IS_SAME(0, CanDeAlloc(block, startIndex, endIndex)))
 		{
 			return;
 		}
 
-		BlockInfo* blockInfo = GetBlockInfo(block);
+		for (size_t i = startIndex; i < endIndex; ++i)
+		{
+			SetBlockHeader(i);
+			GetBody(i)->~T();
+		}
 
-		SetRemainedBlockNum(this->remainedBlockNum + blockInfo->allocatedNum);
-		blockInfo->allocatedNum = 0;
-		block->~T();
+		SetRemainedBlockNum(this->remainedBlockNum + endIndex - startIndex);
 	}
 
 public:
@@ -96,7 +97,6 @@ public:
 	}
 
 private:
-
 	bool CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
 	{
 		if (needBlockNum > this->remainedBlockNum)
@@ -106,9 +106,9 @@ private:
 
 		for (size_t i = 0; i < this->maxBlockNum; ++i)
 		{
-			BlockInfo* blockInfo = GetBlockInfo(i);
+			BlockHeader* blockHeader = GetBlockHeader(i);
 
-			if (IS_SAME(0, blockInfo->allocatedNum))
+			if (IS_SAME(0, blockHeader->allocatedNum))
 			{
 				++availableNum;
 			}
@@ -120,7 +120,7 @@ private:
 
 			if (availableNum == needBlockNum)
 			{
-				startIndex = (needBlockNum - 1) - i;
+				startIndex = (i + 1) - needBlockNum;
 				endIndex = i;
 				return true;
 			}
@@ -129,87 +129,96 @@ private:
 		return false;
 	}
 
-	size_t CanDeAlloc(T* block)
+	size_t CanDeAlloc(T* block, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
 	{
+		if (IS_NULL(block))
+			return false;
+
 		if (IS_SAME(this->remainedBlockNum, this->maxBlockNum))
 			return false;
 
-		if (IS_NULL(block))
+		startIndex = GetIndex(block);
+
+		BlockHeader* blockHeader = GetBlockHeader(startIndex);
+
+		if (IS_SAME(0, blockHeader->allocatedNum))
 			return false;
+
+		endIndex = blockHeader->allocatedNum - 1;
 
 		return true;
 	}
 
-
 private:
 
-	size_t GetBlockInfoOffset(const size_t index)
+	size_t GetBlockHeaderOffset(const size_t index)
 	{
-		return index * this->blockInfoSize;
+		return index * this->blockHeaderSize;
 	}
 
-	BlockInfo* GetBlockInfo(const size_t index)
+	BlockHeader* GetBlockHeader(const size_t index)
 	{
-		return reinterpret_cast<BlockInfo*>(this->block + GetBlockInfoOffset(index));
+		return reinterpret_cast<BlockHeader*>(this->block + GetBlockHeaderOffset(index));
 	}
 
-	BlockInfo* GetBlockInfo(T* data)
+	size_t GetIndex(T* data)
 	{
-		CORE_BYTE_PTR rawPtr = reinterpret_cast<CORE_BYTE_PTR>(data);
-		rawPtr -= this->blockInfoSize;
-		return reinterpret_cast<BlockInfo*>(rawPtr);
+		size_t offset = reinterpret_cast<size_t>(data) - reinterpret_cast<size_t>(GetBlockHeader(this->maxBlockNum));
+		return offset / blockBodySize;
 	}
 
-	size_t GetDataOffset(const size_t index)
+	size_t GetBodyOffset(const size_t index)
 	{
-		return (this->blockInfoTotalSize + (index * this->blockDataSize));
+		return (this->blockHeaderTotalSize + (index * this->blockBodySize));
 	}
 
-	T* GetData(const size_t index)
+	T* GetBody(const size_t index)
 	{
-		return reinterpret_cast<T*>(this->block + GetDataOffset(index));
+		return reinterpret_cast<T*>(this->block + GetBodyOffset(index));
 	}
 
 	void SetInfo(const size_t maxBlockNum)
 	{
 		this->maxBlockNum = this->remainedBlockNum = maxBlockNum;
 
-		this->blockInfoSize = sizeof(BlockInfo);
-		this->blockInfoTotalSize = this->blockInfoSize * this->maxBlockNum;
+		this->blockHeaderSize = sizeof(BlockHeader);
+		this->blockHeaderTotalSize = this->blockHeaderSize * this->maxBlockNum;
 
-		this->blockDataSize = sizeof(T);
-		this->blockTotalSize = this->blockInfoSize + this->blockDataSize;
+		this->blockBodySize = sizeof(T);
+		this->blockBodyTotalSize = this->blockBodySize * this->maxBlockNum;
+
+		this->blockTotalSize = this->blockHeaderTotalSize + this->blockBodyTotalSize;
 	}
 
 	void SetBlock(void)
 	{
-		this->block = (CORE_BYTE_PTR)malloc(this->blockTotalSize * this->maxBlockNum);
+		this->block = (CORE_BYTE_PTR)malloc(this->blockTotalSize);
 
 		size_t offset = 0;
 
 		for (size_t i = 0; i < this->maxBlockNum; ++i)
 		{
-			new((this->block + offset)) BlockInfo();
-			offset += this->blockInfoSize;
+			new((this->block + offset)) BlockHeader();
+			offset += this->blockHeaderSize;
 		}
 
 		for (size_t i = 0; i < this->maxBlockNum; ++i)
 		{
 			new((this->block + offset)) T();
-			offset += this->blockDataSize;
+			offset += this->blockBodySize;
 		}
 	}
 
-	void SetBlockInfo(BlockInfo* blockInfo, const size_t allocatedNum = 1)
+	void SetBlockHeader(BlockHeader* blockHeader, const size_t allocatedNum = 1)
 	{
-		blockInfo->allocatedNum = allocatedNum;
+		blockHeader->allocatedNum = allocatedNum;
 	}
 
-	void SetBlockInfo(const size_t index, const size_t allocatedNum = 1)
+	void SetBlockHeader(const size_t index, const size_t allocatedNum = 1)
 	{
-		BlockInfo* blockInfo = GetBlockInfo(index);
+		BlockHeader* blockHeader = GetBlockHeader(index);
 
-		blockInfo->allocatedNum = allocatedNum;
+		blockHeader->allocatedNum = allocatedNum;
 	}
 
 	void SetRemainedBlockNum(const size_t remainedBlockNum)
@@ -220,9 +229,10 @@ private:
 private:
 	size_t remainedBlockNum = 0;
 	size_t maxBlockNum = 0;
-	size_t blockInfoSize = 0;
-	size_t blockInfoTotalSize = 0;
-	size_t blockDataSize = 0;
+	size_t blockHeaderSize = 0;
+	size_t blockHeaderTotalSize = 0;
+	size_t blockBodySize = 0;
+	size_t blockBodyTotalSize = 0;
 	size_t blockTotalSize = 0;
 
 private:

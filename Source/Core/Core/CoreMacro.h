@@ -5,6 +5,7 @@
 #define CORE_PURE = 0
 
 #define CORE_OUT(TYPE) TYPE&
+#define CORE_CONST_PTR(TYPE) const TYPE* const
 #define CORE_REF(TYPE) const TYPE&
 
 #define READ_LOCK(MUTEX) std::shared_lock<std::shared_mutex> lock(MUTEX)
