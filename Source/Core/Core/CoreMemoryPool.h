@@ -1,7 +1,5 @@
 #pragma once
 
-#include <map>
-
 #include "CoreInclude.h"
 
 template<typename T>
@@ -156,7 +154,6 @@ private:
 	}
 
 private:
-
 	size_t GetBlockHeaderOffset(const size_t index)
 	{
 		return index * this->blockHeaderSize;

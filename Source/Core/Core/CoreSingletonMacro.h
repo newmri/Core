@@ -65,4 +65,24 @@
 		return *(instance.get());											\
 	}												
 
+
+#define IMPLEMENT_TEMPLATE_SINGLETON(CLASS)									\
+	template<typename T>													\
+	std::unique_ptr<CLASS<T>> CLASS<T>::instance;							\
+																			\
+	template<typename T>													\
+	std::once_flag CLASS<T>::onceFlag;										\
+																			\
+	template<typename T>													\
+	CLASS<T>& CLASS<T>::GetInstance(void)									\
+	{																		\
+		call_once(CLASS<T>::onceFlag, []()									\
+		{																	\
+			instance.reset(new CLASS<T>);									\
+			(*(instance.get())).Init();										\
+		});																	\
+																			\
+		return *(instance.get());											\
+	}
+
 #define GET_INSTANCE(CLASS) CLASS::GetInstance()	

@@ -13,9 +13,6 @@
     <Filter Include="01.CoreGlobal\00.CoreInclude">
       <UniqueIdentifier>{ec3ca700-be24-472b-a0e6-8e91a2b7d53a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.CoreMemoryPool">
-      <UniqueIdentifier>{b4680988-879f-4979-be8e-66d439481c95}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.CoreGlobal\01.CoreMacro\00.CoreSingletonMacro">
       <UniqueIdentifier>{10102ac8-e117-4804-931c-0ed3fc3ff9fa}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,12 @@
     <Filter Include="00.CoreMain">
       <UniqueIdentifier>{d7008c86-642d-48fe-9975-b51efcd2e6d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.CoreMemoryPoolManager">
+      <UniqueIdentifier>{b4680988-879f-4979-be8e-66d439481c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.CoreMemoryPoolManager\00.CoreMemoryPool">
+      <UniqueIdentifier>{63ae1b6c-fbf6-44ba-926c-6b6c6b2afafd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -69,6 +72,9 @@
     <ClCompile Include="CoreMain.cpp">
       <Filter>00.CoreMain</Filter>
     </ClCompile>
+    <ClCompile Include="CoreMemoryPoolManager.cpp">
+      <Filter>02.CoreMemoryPoolManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoreInclude.h">
@@ -82,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="CoreParallelArray.hpp">
       <Filter>07.CoreParallelSTL\00.CoreParallelArray</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreMemoryPool.h">
-      <Filter>02.CoreMemoryPool</Filter>
     </ClInclude>
     <ClInclude Include="CoreMacro.h">
       <Filter>01.CoreGlobal\01.CoreMacro</Filter>
@@ -118,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="CoreFileLogger.h">
       <Filter>05.CoreLogManager\00.CoreLogger\01.CoreFileLogger</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreMemoryPool.h">
+      <Filter>02.CoreMemoryPoolManager\00.CoreMemoryPool</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreMemoryPoolManager.h">
+      <Filter>02.CoreMemoryPoolManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

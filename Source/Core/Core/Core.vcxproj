@@ -208,6 +208,7 @@
     <ClCompile Include="CoreMain.cpp" />
     <ClCompile Include="CoreLogger.cpp" />
     <ClCompile Include="CoreDummyManager.cpp" />
+    <ClCompile Include="CoreMemoryPoolManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +217,7 @@
     <ClInclude Include="CoreDummyManager.h" />
     <ClInclude Include="CoreFileLogger.h" />
     <ClInclude Include="CoreLogInclude.h" />
+    <ClInclude Include="CoreMemoryPoolManager.h" />
     <ClInclude Include="CoreParallelArray.h" />
     <ClInclude Include="CoreParallelArray.hpp" />
     <ClInclude Include="CoreParallelSTL.h" />

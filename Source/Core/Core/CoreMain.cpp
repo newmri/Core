@@ -19,9 +19,13 @@ public:
 	{
 		std::cout << "Detor" << std::endl;
 	}
+
 public:
 	int i[10000];
 };
+
+static const size_t max = 1;
+CoreMemoryPool<Test> p(max);
 
 class Test2
 {
@@ -29,13 +33,13 @@ public:
 	int i[10000];
 };
 
-static const size_t max = 10;
 
-CoreMemoryPool<Test> p(max);
 
 void DoTest(const size_t threadID)
 {
-	Test* test = p.Alloc(rand() % max);
+	GET_INSTANCE(CoreMemoryPoolManager<Test>).Alloc(3);
+
+	Test* test = p.Alloc(3);
 	if (test)
 		p.DeAlloc(test);
 
@@ -73,19 +77,19 @@ int main(void)
 
 	//CORE_TIME_MANAGER.End();
 
-	//CORE_TIME_MANAGER.Start();
+	CORE_TIME_MANAGER.Start();
 
-	//for (int i = 0; i < 100; ++i)
-	//{
-	//	std::vector<std::thread> threads;
+	for (int i = 0; i < 100; ++i)
+	{
+		std::vector<std::thread> threads;
 
-	//	for (size_t j = 0; j < 32; ++j)
-	//		threads.emplace_back(std::thread([=]() { DoTest2(j); }));
+		for (size_t j = 0; j < 32; ++j)
+			threads.emplace_back(std::thread([=]() { DoTest2(j); }));
 
-	//	for (auto& d : threads)
-	//		d.join();
-	//}
+		for (auto& d : threads)
+			d.join();
+	}
 
-	//CORE_TIME_MANAGER.End();
+	CORE_TIME_MANAGER.End();
 	return 0;
 }

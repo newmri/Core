@@ -29,23 +29,7 @@ private:
 	std::shared_mutex mutex;
 };
 
-template<typename T>
-std::unique_ptr<CoreLogManager<T>> CoreLogManager<T>::instance;
-
-template<typename T>
-std::once_flag CoreLogManager<T>::onceFlag;
-
-template<typename T>
-CoreLogManager<T>& CoreLogManager<T>::GetInstance(void)
-{
-	call_once(CoreLogManager<T>::onceFlag, []()
-	{
-		instance.reset(new CoreLogManager<T>);
-		(*(instance.get())).Init();
-	});
-
-	return *(instance.get());
-}
+IMPLEMENT_TEMPLATE_SINGLETON(CoreLogManager)
 
 template<typename T>
 void CoreLogManager<T>::Init(void)

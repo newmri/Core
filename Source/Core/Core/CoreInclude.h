@@ -23,6 +23,7 @@
 #include "CoreObj.h"
 #include "CoreLogInclude.h"
 #include "CoreMemoryPool.h"
+#include "CoreMemoryPoolManager.h"
 #include "CoreDummyManager.h"
 #include "CoreTimeManager.h"
 #include "CoreParallelSTL.h"
