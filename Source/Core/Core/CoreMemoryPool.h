@@ -40,7 +40,8 @@ public:
 		return true;
 	}
 
-	T* Alloc(const size_t needBlockNum)
+	template<typename... Types>
+	T* Alloc(const size_t needBlockNum, Types... args)
 	{
 		size_t startIndex = 0, endIndex = 0;
 
@@ -49,12 +50,17 @@ public:
 		if (IS_SAME(0, CanAlloc(needBlockNum, startIndex, endIndex)))
 			return nullptr;
 
-		SetBlockHeader(startIndex, needBlockNum);
+		size_t offset = GetBodyOffset(startIndex);
 
-		for (size_t i = startIndex + 1; i <= endIndex; ++i)
+		for (size_t i = startIndex; i <= endIndex; ++i)
 		{
 			SetBlockHeader(i);
+
+			new((this->block + offset)) T(args...);
+			offset += this->blockBodySize;
 		}
+
+		SetBlockHeader(startIndex, needBlockNum);
 
 		T* data = GetBody(startIndex);
 		
@@ -200,12 +206,6 @@ private:
 		{
 			new((this->block + offset)) BlockHeader();
 			offset += this->blockHeaderSize;
-		}
-
-		for (size_t i = 0; i < this->maxBlockNum; ++i)
-		{
-			new((this->block + offset)) T();
-			offset += this->blockBodySize;
 		}
 	}
 
