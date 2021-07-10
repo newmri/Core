@@ -60,20 +60,25 @@ public:
 
 		SetBlockHeader(startIndex, needBlockNum);
 
-		T* data = GetBody(startIndex);
+		T* body = GetBody(startIndex);
 		
 		SetRemainedBlockNum(this->remainedBlockNum - needBlockNum);
 
-		return data;
+		return body;
 	}
 
-	void DeAlloc(T* block) noexcept
+	bool IsMyBody(CORE_BYTE_PTR body)
+	{
+		return ((this->block < body) && ((this->block + GetBodyOffset(this->maxBlockNum - 1)) >= body));
+	}
+
+	void DeAlloc(T* body) noexcept
 	{
 		size_t startIndex = 0, endIndex = 0;
 
 		WRITE_LOCK(this->mutex);
 
-		if (IS_SAME(0, CanDeAlloc(block, startIndex, endIndex)))
+		if (IS_SAME(false, CanDeAlloc(body, startIndex, endIndex)))
 		{
 			return;
 		}
@@ -85,6 +90,8 @@ public:
 		}
 
 		SetRemainedBlockNum(this->remainedBlockNum + (endIndex - startIndex) + 1);
+
+		return;
 	}
 
 public:
@@ -133,15 +140,15 @@ private:
 		return false;
 	}
 
-	size_t CanDeAlloc(T* block, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
+	size_t CanDeAlloc(T* body, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
 	{
-		if (IS_NULL(block))
+		if (IS_NULL(body))
 			return false;
 
 		if (IS_SAME(this->remainedBlockNum, this->maxBlockNum))
 			return false;
 
-		startIndex = GetIndex(block);
+		startIndex = GetIndex(body);
 
 		BlockHeader* blockHeader = GetBlockHeader(startIndex);
 
@@ -164,9 +171,9 @@ private:
 		return reinterpret_cast<BlockHeader*>(this->block + GetBlockHeaderOffset(index));
 	}
 
-	size_t GetIndex(T* data)
+	size_t GetIndex(T* body)
 	{
-		size_t offset = reinterpret_cast<size_t>(data) - reinterpret_cast<size_t>(GetBlockHeader(this->maxBlockNum));
+		size_t offset = reinterpret_cast<size_t>(body) - reinterpret_cast<size_t>(GetBlockHeader(this->maxBlockNum));
 		return offset / blockBodySize;
 	}
 

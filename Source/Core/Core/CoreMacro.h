@@ -12,6 +12,7 @@
 #define WRITE_LOCK(MUTEX) std::unique_lock<std::shared_mutex> lock(MUTEX)
 
 #define IS_SAME(A, B) (A == B)
+#define IS_NOT_SAME(A, B) (A != B)
 #define IS_ZERO(NUMBER) (IS_SAME(0, NUMBER))
 #define IS_NULL(PTR) (IS_SAME(nullptr, PTR))
 
