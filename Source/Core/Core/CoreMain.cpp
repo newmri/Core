@@ -21,31 +21,29 @@ public:
 	//}
 
 public:
-	int i[10000];
+	int i[100];
 };
 
-
-CoreMemoryPool<Test> p(1000);
 
 class Test2
 {
 public:
-	int i[10000];
+	int i[100];
 };
 
 
 
 void DoTest(const size_t threadID)
 {
-	Test* test = GET_INSTANCE(CoreMemoryPoolManager<Test>).Alloc(10, rand() % 10);
-	
-	//if (rand() % 2)
-	//	GET_INSTANCE(CoreMemoryPoolManager<Test>).DeAlloc(test);
+	Test* test = GET_INSTANCE(CoreMemoryPoolManager<Test>).Alloc(10000, CORE_RANDOM_MANAGER.GetRandom(9000, 10000));
+
+	if (test)
+		GET_INSTANCE(CoreMemoryPoolManager<Test>).DeAlloc(test);
 }
 
 void DoTest2(const size_t threadID)
 {
-	Test2* test2 = new Test2[rand() % 10];
+	Test2* test2 = new Test2[CORE_RANDOM_MANAGER.GetRandom(100, 10000)];
 	if(test2)
 		delete[] test2;
 }
@@ -63,7 +61,10 @@ int main(void)
 		std::vector<std::thread> threads;
 
 		for (size_t j = 0; j < 32; ++j)
-			threads.emplace_back(std::thread([=]() { DoTest(j); }));
+		{
+			std::thread th(DoTest, j);
+			threads.push_back(std::move(th));
+		}
 
 		for (auto& d : threads)
 			d.join();
@@ -80,7 +81,10 @@ int main(void)
 		std::vector<std::thread> threads;
 
 		for (size_t j = 0; j < 32; ++j)
-			threads.emplace_back(std::thread([=]() { DoTest2(j); }));
+		{
+			std::thread th(DoTest, j);
+			threads.push_back(std::move(th));
+		}
 
 		for (auto& d : threads)
 			d.join();

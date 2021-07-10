@@ -209,6 +209,7 @@
     <ClCompile Include="CoreLogger.cpp" />
     <ClCompile Include="CoreDummyManager.cpp" />
     <ClCompile Include="CoreMemoryPoolManager.cpp" />
+    <ClCompile Include="CoreRandomManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +225,7 @@
     <ClInclude Include="CoreInclude.h" />
     <ClInclude Include="CoreMacro.h" />
     <ClInclude Include="CoreMemoryPool.h" />
+    <ClInclude Include="CoreRandomManager.h" />
     <ClInclude Include="CoreSingletonMacro.h" />
     <ClInclude Include="CoreLogger.h" />
     <ClInclude Include="CoreLogManager.h" />

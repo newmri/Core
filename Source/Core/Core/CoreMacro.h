@@ -15,5 +15,6 @@
 #define IS_NOT_SAME(A, B) (A != B)
 #define IS_ZERO(NUMBER) (IS_SAME(0, NUMBER))
 #define IS_NULL(PTR) (IS_SAME(nullptr, PTR))
+#define IS_NOT_NULL(PTR) (IS_NOT_SAME(nullptr, PTR))
 
 #include "CoreSingletonMacro.h"

@@ -50,6 +50,13 @@ template<typename T>
 template<typename... Types>
 T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum, Types... args)
 {
+	if (needBlockNum > maxBlockNum)
+	{
+		std::string errorMessage = "maxBlockNum: " + std::to_string(maxBlockNum) + " needBlockNum: " + std::to_string(needBlockNum);
+		CORE_LOG.Log(LogType::LOG_ERROR, errorMessage);
+		return nullptr;
+	}
+
 	{
 		WRITE_LOCK(this->mutex);
 
@@ -80,6 +87,7 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 
 			currNode = currNode->next;
 		}
+
 	} while (IS_NULL(body));
 
 	return body;

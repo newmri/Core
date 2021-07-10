@@ -25,12 +25,6 @@
     <Filter Include="05.CoreLogManager\00.CoreLogger">
       <UniqueIdentifier>{631da0dd-70fd-45ad-859e-ea5d8c2168ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07.CoreParallelSTL">
-      <UniqueIdentifier>{02ad79ac-3475-4755-9be8-67b388edbc63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07.CoreParallelSTL\00.CoreParallelArray">
-      <UniqueIdentifier>{7bcca1df-9f4e-401e-b082-b17ac00f0f9c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.CoreDummyManager">
       <UniqueIdentifier>{892d3bd3-6dbd-4d82-b273-476a29bdc4bd}</UniqueIdentifier>
     </Filter>
@@ -51,6 +45,15 @@
     </Filter>
     <Filter Include="02.CoreMemoryPoolManager\00.CoreMemoryPool">
       <UniqueIdentifier>{63ae1b6c-fbf6-44ba-926c-6b6c6b2afafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08.CoreParallelSTL">
+      <UniqueIdentifier>{02ad79ac-3475-4755-9be8-67b388edbc63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08.CoreParallelSTL\00.CoreParallelArray">
+      <UniqueIdentifier>{7bcca1df-9f4e-401e-b082-b17ac00f0f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07.CoreRandomManager">
+      <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,19 +78,22 @@
     <ClCompile Include="CoreMemoryPoolManager.cpp">
       <Filter>02.CoreMemoryPoolManager</Filter>
     </ClCompile>
+    <ClCompile Include="CoreRandomManager.cpp">
+      <Filter>07.CoreRandomManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoreInclude.h">
       <Filter>01.CoreGlobal\00.CoreInclude</Filter>
     </ClInclude>
     <ClInclude Include="CoreParallelSTL.h">
-      <Filter>07.CoreParallelSTL</Filter>
+      <Filter>08.CoreParallelSTL</Filter>
     </ClInclude>
     <ClInclude Include="CoreParallelArray.h">
-      <Filter>07.CoreParallelSTL\00.CoreParallelArray</Filter>
+      <Filter>08.CoreParallelSTL\00.CoreParallelArray</Filter>
     </ClInclude>
     <ClInclude Include="CoreParallelArray.hpp">
-      <Filter>07.CoreParallelSTL\00.CoreParallelArray</Filter>
+      <Filter>08.CoreParallelSTL\00.CoreParallelArray</Filter>
     </ClInclude>
     <ClInclude Include="CoreMacro.h">
       <Filter>01.CoreGlobal\01.CoreMacro</Filter>
@@ -127,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="CoreMemoryPoolManager.h">
       <Filter>02.CoreMemoryPoolManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreRandomManager.h">
+      <Filter>07.CoreRandomManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
