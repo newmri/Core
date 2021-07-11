@@ -26,6 +26,10 @@ public:
 	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum, Types... args);
 
 public:
+	bool IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum);
+	void CheckAndAllocHead(const size_t maxBlockNum);
+
+public:
 	void DeAlloc(T* body);
 
 public:

@@ -67,9 +67,7 @@ void CoreMemoryPool<T>::DeAlloc(T* body) noexcept
 	WRITE_LOCK(this->mutex);
 
 	if (IS_SAME(false, CanDeAlloc(body, startIndex, endIndex)))
-	{
 		return;
-	}
 
 	for (size_t i = startIndex; i <= endIndex; ++i)
 	{
@@ -109,14 +107,10 @@ bool CoreMemoryPool<T>::CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) sta
 		BlockHeader* blockHeader = GetBlockHeader(i);
 
 		if (IS_SAME(0, blockHeader->allocatedNum))
-		{
 			++availableNum;
-		}
 
 		else
-		{
 			availableNum = 0;
-		}
 
 		if (availableNum == needBlockNum)
 		{
