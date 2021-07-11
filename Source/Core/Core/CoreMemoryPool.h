@@ -33,9 +33,9 @@ public:
 	template<typename... Types>
 	T* Alloc(const size_t needBlockNum, Types... args);
 
-	bool IsMyBody(CORE_BYTE_PTR body);
+	bool IsMyBody(CORE_BYTE_PTR blockBody);
 
-	void DeAlloc(T* body) noexcept;
+	void DeAlloc(T* blockBody) noexcept;
 
 public:
 	size_t GetRemainedBlockNum(void);
@@ -43,14 +43,14 @@ public:
 
 private:
 	bool CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex);
-	bool CanDeAlloc(T* body, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex);
+	bool CanDeAlloc(T* blockBody, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex);
 
 private:
 	size_t GetBlockHeaderOffset(const size_t index);
 	BlockHeader* GetBlockHeader(const size_t index);
-	size_t GetIndex(T* body);
-	size_t GetBodyOffset(const size_t index);
-	T* GetBody(const size_t index);
+	size_t GetIndex(T* blockBody);
+	size_t GetBlockBodyOffset(const size_t index);
+	T* GetBlockBody(const size_t index);
 
 private:
 	void SetInfo(const size_t maxBlockNum);

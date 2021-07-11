@@ -19,13 +19,13 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 	CheckAndAllocHead(maxBlockNum);
 
 	std::shared_ptr<Node> currNode = this->head;
-	T* body = nullptr;
+	T* blockBody = nullptr;
 
 	do
 	{
-		body = currNode->page.Alloc(needBlockNum, args...);
+		blockBody = currNode->page.Alloc(needBlockNum, args...);
 
-		if (IS_NULL(body))
+		if (IS_NULL(blockBody))
 		{
 			WRITE_LOCK(this->mutex);
 
@@ -39,9 +39,9 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 			currNode = currNode->next;
 		}
 
-	} while (IS_NULL(body));
+	} while (IS_NULL(blockBody));
 
-	return body;
+	return blockBody;
 }
 
 template<typename T>
@@ -70,16 +70,22 @@ void CoreMemoryPoolManager<T>::CheckAndAllocHead(const size_t maxBlockNum)
 }
 
 template<typename T>
-void CoreMemoryPoolManager<T>::DeAlloc(T* body)
+void CoreMemoryPoolManager<T>::DeAlloc(void* block)
+{
+	DeAlloc(reinterpret_cast<T*>(block));
+}
+
+template<typename T>
+void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody)
 {
 	std::shared_ptr<Node> currNode = this->head;
-	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(body);
+	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
 
 	while (currNode)
 	{
 		if (currNode->page.IsMyBody(byteBody))
 		{
-			currNode->page.DeAlloc(body);
+			currNode->page.DeAlloc(blockBody);
 			break;
 		}
 

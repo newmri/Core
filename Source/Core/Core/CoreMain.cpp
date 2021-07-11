@@ -4,23 +4,6 @@
 
 class Test
 {
-public:
-	//Test()
-	//{
-	//	//std::cout << "Ctor" << std::endl;
-	//}
-
-	//Test(int k)
-	//{
-	//	std::cout << "Ctor k" << std::endl;
-	//}
-
-	//~Test()
-	//{
-	//	//std::cout << "Detor" << std::endl;
-	//}
-
-public:
 	int i[100];
 };
 

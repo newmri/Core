@@ -34,45 +34,41 @@ T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum, Types... args)
 	if (IS_SAME(0, CanAlloc(needBlockNum, startIndex, endIndex)))
 		return nullptr;
 
-	size_t offset = GetBodyOffset(startIndex);
-
 	for (size_t i = startIndex; i <= endIndex; ++i)
 	{
 		SetBlockHeader(i);
-
-		new((this->block + offset)) T(args...);
-		offset += this->blockInfo.blockBodySize;
+		new(GetBlockBody(i)) T(args...);
 	}
 
 	SetBlockHeader(startIndex, needBlockNum);
 
-	T* body = GetBody(startIndex);
+	T* blockBody = GetBlockBody(startIndex);
 
 	SetRemainedBlockNum(this->blockInfo.remainedBlockNum - needBlockNum);
 
-	return body;
+	return blockBody;
 }
 
 template<typename T>
-bool CoreMemoryPool<T>::IsMyBody(CORE_BYTE_PTR body)
+bool CoreMemoryPool<T>::IsMyBody(CORE_BYTE_PTR blockBody)
 {
-	return ((this->block < body) && ((this->block + GetBodyOffset(this->blockInfo.maxBlockNum - 1)) >= body));
+	return ((this->block < blockBody) && ((this->block + GetBlockBodyOffset(this->blockInfo.maxBlockNum - 1)) >= blockBody));
 }
 
 template<typename T>
-void CoreMemoryPool<T>::DeAlloc(T* body) noexcept
+void CoreMemoryPool<T>::DeAlloc(T* blockBody) noexcept
 {
 	size_t startIndex = 0, endIndex = 0;
 
 	WRITE_LOCK(this->mutex);
 
-	if (IS_SAME(false, CanDeAlloc(body, startIndex, endIndex)))
+	if (IS_SAME(false, CanDeAlloc(blockBody, startIndex, endIndex)))
 		return;
 
 	for (size_t i = startIndex; i <= endIndex; ++i)
 	{
 		SetBlockHeader(i, 0);
-		GetBody(i)->~T();
+		GetBlockBody(i)->~T();
 	}
 
 	SetRemainedBlockNum(this->blockInfo.remainedBlockNum + (endIndex - startIndex) + 1);
@@ -124,15 +120,15 @@ bool CoreMemoryPool<T>::CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) sta
 }
 
 template<typename T>
-bool CoreMemoryPool<T>::CanDeAlloc(T* body, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
+bool CoreMemoryPool<T>::CanDeAlloc(T* blockBody, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
 {
-	if (IS_NULL(body))
+	if (IS_NULL(blockBody))
 		return false;
 
 	if (IS_SAME(this->blockInfo.remainedBlockNum, this->blockInfo.maxBlockNum))
 		return false;
 
-	startIndex = GetIndex(body);
+	startIndex = GetIndex(blockBody);
 
 	BlockHeader* blockHeader = GetBlockHeader(startIndex);
 
@@ -157,22 +153,22 @@ BlockHeader* CoreMemoryPool<T>::GetBlockHeader(const size_t index)
 }
 
 template<typename T>
-size_t CoreMemoryPool<T>::GetIndex(T* body)
+size_t CoreMemoryPool<T>::GetIndex(T* blockBody)
 {
-	size_t offset = reinterpret_cast<size_t>(body) - reinterpret_cast<size_t>(GetBlockHeader(this->blockInfo.maxBlockNum));
+	size_t offset = reinterpret_cast<size_t>(blockBody) - reinterpret_cast<size_t>(GetBlockHeader(this->blockInfo.maxBlockNum));
 	return offset / this->blockInfo.blockBodySize;
 }
 
 template<typename T>
-size_t CoreMemoryPool<T>::GetBodyOffset(const size_t index)
+size_t CoreMemoryPool<T>::GetBlockBodyOffset(const size_t index)
 {
 	return (this->blockInfo.blockHeaderTotalSize + (index * this->blockInfo.blockBodySize));
 }
 
 template<typename T>
-T* CoreMemoryPool<T>::GetBody(const size_t index)
+T* CoreMemoryPool<T>::GetBlockBody(const size_t index)
 {
-	return reinterpret_cast<T*>(this->block + GetBodyOffset(index));
+	return reinterpret_cast<T*>(this->block + GetBlockBodyOffset(index));
 }
 
 template<typename T>
@@ -194,13 +190,8 @@ void CoreMemoryPool<T>::SetBlock(void)
 {
 	this->block = (CORE_BYTE_PTR)malloc(this->blockInfo.blockTotalSize);
 
-	size_t offset = 0;
-
 	for (size_t i = 0; i < this->blockInfo.maxBlockNum; ++i)
-	{
-		new((this->block + offset)) BlockHeader();
-		offset += this->blockInfo.blockHeaderSize;
-	}
+		new(GetBlockHeader(i)) BlockHeader();
 }
 
 template<typename T>

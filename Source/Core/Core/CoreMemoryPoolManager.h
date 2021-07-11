@@ -27,10 +27,13 @@ public:
 
 public:
 	bool IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum);
+
+private:
 	void CheckAndAllocHead(const size_t maxBlockNum);
 
 public:
-	void DeAlloc(T* body);
+	void DeAlloc(void* block);
+	void DeAlloc(T* blockBody);
 
 public:
 	size_t GetPageNum(void);
