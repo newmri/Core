@@ -75,9 +75,6 @@
     <ClCompile Include="CoreMain.cpp">
       <Filter>00.CoreMain</Filter>
     </ClCompile>
-    <ClCompile Include="CoreMemoryPoolManager.cpp">
-      <Filter>02.CoreMemoryPoolManager</Filter>
-    </ClCompile>
     <ClCompile Include="CoreRandomManager.cpp">
       <Filter>07.CoreRandomManager</Filter>
     </ClCompile>
@@ -136,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="CoreRandomManager.h">
       <Filter>07.CoreRandomManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreMemoryPoolManager.hpp">
+      <Filter>02.CoreMemoryPoolManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreMemoryPool.hpp">
+      <Filter>02.CoreMemoryPoolManager\00.CoreMemoryPool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
