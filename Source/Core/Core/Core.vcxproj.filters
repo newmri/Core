@@ -78,6 +78,9 @@
     <ClCompile Include="CoreRandomManager.cpp">
       <Filter>07.CoreRandomManager</Filter>
     </ClCompile>
+    <ClCompile Include="CoreParallelSTL.hpp">
+      <Filter>08.CoreParallelSTL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoreInclude.h">
