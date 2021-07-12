@@ -208,7 +208,6 @@
     <ClCompile Include="CoreMain.cpp" />
     <ClCompile Include="CoreLogger.cpp" />
     <ClCompile Include="CoreDummyManager.cpp" />
-    <ClCompile Include="CoreParallelSTL.hpp" />
     <ClCompile Include="CoreRandomManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
   </ItemGroup>

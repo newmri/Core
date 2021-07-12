@@ -5,33 +5,46 @@ class CoreParallelSTL
 {
 public:
 	CoreParallelSTL() CORE_DEFAULT;
-	CoreParallelSTL(const size_t newCapacity);
+	CoreParallelSTL(const size_t size);
 	virtual ~CoreParallelSTL() CORE_DEFAULT;
 
 public:
-	virtual void Push(const T newData) CORE_PURE;
-
-protected:
-	virtual void Push(void);
-
-public:
-	virtual void Pop(void);
 	virtual void Clear(void);
 
 public:
-	size_t GetCapacity(void);
 	size_t GetSize(void);
 
-private:
+protected:
 	void SetSize(const size_t newSize);
-	void SetCapacity(const size_t newCapacity);
 
 protected:
-	size_t capacity = 0;
 	size_t size = 0;
 
 protected:
 	std::shared_mutex mutex;
 };
 
-#include "CoreParallelSTL.h"
+template<typename T>
+CoreParallelSTL<T>::CoreParallelSTL(const size_t size)
+{
+}
+
+
+template<typename T>
+void CoreParallelSTL<T>::Clear(void)
+{
+	SetSize(0);
+};
+
+template<typename T>
+size_t CoreParallelSTL<T>::GetSize(void)
+{
+	READ_LOCK(this->mutex);
+	return this->size;
+}
+
+template<typename T>
+void CoreParallelSTL<T>::SetSize(const size_t newSize)
+{
+	this->size = newSize;
+}

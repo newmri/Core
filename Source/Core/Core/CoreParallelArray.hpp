@@ -3,28 +3,22 @@
 #include "CoreParallelArray.h"
 
 template<typename T>
-CoreParallelArray<T>::CoreParallelArray(const size_t newCapacity) : CoreParallelSTL<T>::CoreParallelArray(newCapacity)
+CoreParallelArray<T>::CoreParallelArray(const size_t size) : CoreParallelSTL<T>::CoreParallelSTL(size)
 {
-	
+	this->data = GET_INSTANCE(CoreMemoryPoolManager<T>).Alloc(size, size);
+	CoreParallelSTL<T>::SetSize(size);
 }
 
 template<typename T>
-void CoreParallelArray<T>::Push(const T newData)
+CoreParallelArray<T>::~CoreParallelArray()
 {
-
-	CoreParallelSTL<T>::Push();
-}
-
-template<typename T>
-void CoreParallelArray<T>::Pop(void)
-{
-
-	CoreParallelSTL<T>::Pop();
+	Clear();
 }
 
 template<typename T>
 void CoreParallelArray<T>::Clear(void)
 {
-
+	WRITE_LOCK(this->mutex);
+	GET_INSTANCE(CoreMemoryPoolManager<T>).DeAlloc(this->data);
 	CoreParallelSTL<T>::Clear();
 }

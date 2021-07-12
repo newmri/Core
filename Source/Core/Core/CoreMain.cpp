@@ -37,42 +37,44 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	CORE_TIME_MANAGER.Start();
+	CoreParallelArray<int> arr(3);
 
-	for (int i = 0; i < 100; ++i)
-	{
-		std::vector<std::thread> threads;
+	//CORE_TIME_MANAGER.Start();
 
-		for (size_t j = 0; j < 32; ++j)
-		{
-			std::thread th(DoTest, j);
-			threads.push_back(std::move(th));
-		}
+	//for (int i = 0; i < 100; ++i)
+	//{
+	//	std::vector<std::thread> threads;
 
-		for (auto& d : threads)
-			d.join();
-	}
+	//	for (size_t j = 0; j < 32; ++j)
+	//	{
+	//		std::thread th(DoTest, j);
+	//		threads.push_back(std::move(th));
+	//	}
 
-	CORE_TIME_MANAGER.End();
+	//	for (auto& d : threads)
+	//		d.join();
+	//}
 
-	CORE_LOG.Log(LogType::LOG_INFO, "page num: " + std::to_string(GET_INSTANCE(CoreMemoryPoolManager<Test>).GetPageNum()));
+	//CORE_TIME_MANAGER.End();
 
-	CORE_TIME_MANAGER.Start();
+	//CORE_LOG.Log(LogType::LOG_INFO, "page num: " + std::to_string(GET_INSTANCE(CoreMemoryPoolManager<Test>).GetPageNum()));
 
-	for (int i = 0; i < 100; ++i)
-	{
-		std::vector<std::thread> threads;
+	//CORE_TIME_MANAGER.Start();
 
-		for (size_t j = 0; j < 32; ++j)
-		{
-			std::thread th(DoTest, j);
-			threads.push_back(std::move(th));
-		}
+	//for (int i = 0; i < 100; ++i)
+	//{
+	//	std::vector<std::thread> threads;
 
-		for (auto& d : threads)
-			d.join();
-	}
+	//	for (size_t j = 0; j < 32; ++j)
+	//	{
+	//		std::thread th(DoTest, j);
+	//		threads.push_back(std::move(th));
+	//	}
 
-	CORE_TIME_MANAGER.End();
+	//	for (auto& d : threads)
+	//		d.join();
+	//}
+
+	//CORE_TIME_MANAGER.End();
 	return 0;
 }
