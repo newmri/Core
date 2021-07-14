@@ -1,6 +1,8 @@
 #include "../../Core/Core/CoreInclude.h"
 
 #include <vector>
+#include <array>
+#include <algorithm>
 
 class Test
 {
@@ -14,21 +16,56 @@ public:
 	int i[100];
 };
 
+CoreArray<size_t, 1000> arr;
+std::array<size_t, 1000> arr2;
 
+std::shared_mutex mutex1;
+std::shared_mutex mutex2;
 
 void DoTest(const size_t threadID)
 {
-	Test* test = GET_INSTANCE(CoreMemoryPoolManager<Test>).Alloc(10000, CORE_RANDOM_MANAGER.GetRandom(9000, 10000));
+	CoreArray<size_t, 1000> arrTemp;
 
-	if (test)
-		GET_INSTANCE(CoreMemoryPoolManager<Test>).DeAlloc(test);
+
+	for (size_t i = 0; i < arrTemp.size(); ++i)
+	{
+		arrTemp[i] = i;
+	}
+
+	arr = arrTemp;
 }
 
 void DoTest2(const size_t threadID)
 {
-	Test2* test2 = new Test2[CORE_RANDOM_MANAGER.GetRandom(100, 10000)];
-	if(test2)
-		delete[] test2;
+	std::array<size_t, 1000> arrTemp;
+
+	for (size_t i = 0; i < arr2.size(); ++i)
+	{
+		arrTemp[i] = i;
+	}
+
+	arr2 = arrTemp;
+}
+
+void Test(void (*fp)(const size_t))
+{
+	CORE_TIME_MANAGER.Start();
+
+	for (size_t i = 0; i < 100; ++i)
+	{
+		std::vector<std::thread> threads;
+
+		for (size_t j = 0; j < 16; ++j)
+		{
+			std::thread th(fp, j);
+			threads.push_back(std::move(th));
+		}
+
+		for (auto& d : threads)
+			d.join();
+	}
+
+	CORE_TIME_MANAGER.End();
 }
 
 int main(void)
@@ -36,45 +73,25 @@ int main(void)
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
+	
+	CoreArray<int, 10> ar{ 1 };
 
-	CoreParallelArray<int> arr(3);
+	for(auto d : ar)
+		std::cout<<d<<std::endl;
 
-	//CORE_TIME_MANAGER.Start();
+	//CORE_LOG.Log("----------- Test -----------------");
+	//for (size_t i = 0; i < 3; ++i)
+	//	Test(DoTest2);
 
-	//for (int i = 0; i < 100; ++i)
-	//{
-	//	std::vector<std::thread> threads;
+	//CORE_LOG.Log("----------- stl -----------------");
 
-	//	for (size_t j = 0; j < 32; ++j)
-	//	{
-	//		std::thread th(DoTest, j);
-	//		threads.push_back(std::move(th));
-	//	}
+	//for (size_t i = 0; i < 10; ++i)
+	//	Test(DoTest2);
 
-	//	for (auto& d : threads)
-	//		d.join();
-	//}
+	//CORE_LOG.Log("----------- mine -----------------");
 
-	//CORE_TIME_MANAGER.End();
+	//for (size_t i = 0; i < 10; ++i)
+	//	Test(DoTest);
 
-	//CORE_LOG.Log(LogType::LOG_INFO, "page num: " + std::to_string(GET_INSTANCE(CoreMemoryPoolManager<Test>).GetPageNum()));
-
-	//CORE_TIME_MANAGER.Start();
-
-	//for (int i = 0; i < 100; ++i)
-	//{
-	//	std::vector<std::thread> threads;
-
-	//	for (size_t j = 0; j < 32; ++j)
-	//	{
-	//		std::thread th(DoTest, j);
-	//		threads.push_back(std::move(th));
-	//	}
-
-	//	for (auto& d : threads)
-	//		d.join();
-	//}
-
-	//CORE_TIME_MANAGER.End();
 	return 0;
 }

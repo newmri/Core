@@ -27,5 +27,6 @@
 #include "CoreDummyManager.h"
 #include "CoreTimeManager.h"
 #include "CoreRandomManager.h"
-#include "CoreParallelSTL.h"
-#include "CoreParallelArray.h"
+#include "CoreContainer.h"
+#include "CoreArray.h"
+#include "CoreAlgorithm.h"

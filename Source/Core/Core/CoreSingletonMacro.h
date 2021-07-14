@@ -8,14 +8,14 @@
 		virtual ~CLASS() CORE_DEFAULT;										\
 																			\
 	private:																\
-		virtual void Init(void) CORE_PURE;											
+		virtual void Init(void) CORE_PURE;																										
 
 #define OVERRIDE_OBJ(CLASS)													\
 	public:																	\
 		CLASS();															\
 		virtual ~CLASS() override;											\
 																			\
-	private:																\
+	protected:																\
 		virtual void Init(void) override;									
 
 #define OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CLASS)						\

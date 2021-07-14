@@ -49,7 +49,7 @@ bool CoreMemoryPoolManager<T>::IsValidBlockNum(const size_t maxBlockNum, const s
 {
 	if (needBlockNum > maxBlockNum)
 	{
-		std::string errorMessage = "maxBlockNum: " + std::to_string(maxBlockNum) + " needBlockNum: " + std::to_string(needBlockNum);
+		std::string errorMessage = "maxBlockNum: " + TO_STR(maxBlockNum) + " needBlockNum: " + TO_STR(needBlockNum);
 		CORE_LOG.Log(LogType::LOG_ERROR, errorMessage);
 		return false;
 	}

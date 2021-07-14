@@ -212,6 +212,7 @@
     <ClCompile Include="CoreTimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CoreAlgorithm.h" />
     <ClInclude Include="CoreConsoleLogger.h" />
     <ClInclude Include="CoreDataType.h" />
     <ClInclude Include="CoreDummyManager.h" />
@@ -220,9 +221,9 @@
     <ClInclude Include="CoreMemoryPool.hpp" />
     <ClInclude Include="CoreMemoryPoolManager.h" />
     <ClInclude Include="CoreMemoryPoolManager.hpp" />
-    <ClInclude Include="CoreParallelArray.h" />
-    <ClInclude Include="CoreParallelArray.hpp" />
-    <ClInclude Include="CoreParallelSTL.h" />
+    <ClInclude Include="CoreContainer.h" />
+    <ClInclude Include="CoreArray.h" />
+    <ClInclude Include="CoreArray.hpp" />
     <ClInclude Include="CoreInclude.h" />
     <ClInclude Include="CoreMacro.h" />
     <ClInclude Include="CoreMemoryPool.h" />
@@ -231,6 +232,8 @@
     <ClInclude Include="CoreLogger.h" />
     <ClInclude Include="CoreLogManager.h" />
     <ClInclude Include="CoreObj.h" />
+    <ClInclude Include="CoreSort.h" />
+    <ClInclude Include="CoreSort.hpp" />
     <ClInclude Include="CoreTimeManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

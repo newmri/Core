@@ -46,14 +46,20 @@
     <Filter Include="02.CoreMemoryPoolManager\00.CoreMemoryPool">
       <UniqueIdentifier>{63ae1b6c-fbf6-44ba-926c-6b6c6b2afafd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08.CoreParallelSTL">
-      <UniqueIdentifier>{02ad79ac-3475-4755-9be8-67b388edbc63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08.CoreParallelSTL\00.CoreParallelArray">
-      <UniqueIdentifier>{7bcca1df-9f4e-401e-b082-b17ac00f0f9c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07.CoreRandomManager">
       <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08.CoreContainer">
+      <UniqueIdentifier>{02ad79ac-3475-4755-9be8-67b388edbc63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08.CoreContainer\00.CoreArray">
+      <UniqueIdentifier>{7bcca1df-9f4e-401e-b082-b17ac00f0f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09.CoreAlgorithm">
+      <UniqueIdentifier>{1e09837c-370e-4ab3-9bcb-fbc5a836aede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09.CoreAlgorithm\00.CoreSort">
+      <UniqueIdentifier>{557aa9c6-11a7-4e3a-b80f-ae74aad9a0b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -83,14 +89,11 @@
     <ClInclude Include="CoreInclude.h">
       <Filter>01.CoreGlobal\00.CoreInclude</Filter>
     </ClInclude>
-    <ClInclude Include="CoreParallelSTL.h">
-      <Filter>08.CoreParallelSTL</Filter>
+    <ClInclude Include="CoreArray.h">
+      <Filter>08.CoreContainer\00.CoreArray</Filter>
     </ClInclude>
-    <ClInclude Include="CoreParallelArray.h">
-      <Filter>08.CoreParallelSTL\00.CoreParallelArray</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreParallelArray.hpp">
-      <Filter>08.CoreParallelSTL\00.CoreParallelArray</Filter>
+    <ClInclude Include="CoreArray.hpp">
+      <Filter>08.CoreContainer\00.CoreArray</Filter>
     </ClInclude>
     <ClInclude Include="CoreMacro.h">
       <Filter>01.CoreGlobal\01.CoreMacro</Filter>
@@ -139,6 +142,18 @@
     </ClInclude>
     <ClInclude Include="CoreMemoryPool.hpp">
       <Filter>02.CoreMemoryPoolManager\00.CoreMemoryPool</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreContainer.h">
+      <Filter>08.CoreContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreSort.h">
+      <Filter>09.CoreAlgorithm\00.CoreSort</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreSort.hpp">
+      <Filter>09.CoreAlgorithm\00.CoreSort</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreAlgorithm.h">
+      <Filter>09.CoreAlgorithm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

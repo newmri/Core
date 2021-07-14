@@ -17,4 +17,6 @@
 #define IS_NULL(PTR) (IS_SAME(nullptr, PTR))
 #define IS_NOT_NULL(PTR) (IS_NOT_SAME(nullptr, PTR))
 
+#define TO_STR(NUMBER) (std::to_string(NUMBER))
+
 #include "CoreSingletonMacro.h"

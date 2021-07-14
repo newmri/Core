@@ -39,7 +39,7 @@ void CoreTimeManager::End(void)
 
 	this->sec = this->end - this->start;
 
-	this->time = timeEndMessage + std::to_string(this->sec.count());
+	this->time = timeEndMessage + TO_STR(this->sec.count());
 
 	CORE_LOG.Log(LogType::LOG_INFO, this->time);
 
