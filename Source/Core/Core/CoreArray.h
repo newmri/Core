@@ -10,8 +10,8 @@ public:
 
 public:
 	CoreArray<T, N>& operator=(const CoreArray<T, N>& rhs);
-	T& operator[](const size_t index);
-	const T& operator[](const size_t index) const;
+	CORE_OUT(T) operator[](const size_t index);
+	CORE_REF(T) operator[](const size_t index) const;
 
 public:
 	size_t size(void) const;
@@ -26,8 +26,8 @@ public:
 public:
 	iterator begin(void) { return this->data; }
 	const_iterator cbegin(void) const { return this->data; }
-	iterator end(void) { return this->data + N; };
-	const_iterator cend(void) const { return this->data + N; };
+	iterator end(void) { return this->data + N; }
+	const_iterator cend(void) const { return this->data + N; }
 
 private:
 	std::shared_mutex mutex;
