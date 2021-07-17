@@ -1,12 +1,16 @@
 #pragma once
 
 template<typename T, const size_t N>
-class CoreArray
+class CoreArray : public CoreObj
 {
 public:
 	CoreArray();
 	CoreArray(std::initializer_list<T> list);
 	CoreArray(CoreArray<T, N>& rhs);
+	virtual ~CoreArray() override;
+
+protected:																
+	virtual void Init(void) override;
 
 public:
 	CoreArray<T, N>& operator=(const CoreArray<T, N>& rhs);

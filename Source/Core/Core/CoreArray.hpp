@@ -5,7 +5,7 @@
 template<typename T, const size_t N>
 CoreArray<T, N>::CoreArray()
 {
-	memset(this->data, 0, sizeof(T) * N);
+	Init();
 }
 
 template<typename T, const size_t N>
@@ -27,6 +27,18 @@ CoreArray<T, N>::CoreArray(CoreArray<T, N>& rhs)
 }
 
 template<typename T, const size_t N>
+CoreArray<T, N>::~CoreArray()
+{
+
+}
+
+template<typename T, const size_t N>
+void CoreArray<T, N>::Init(void)
+{
+	memset(this->data, 0, sizeof(T) * N);
+}
+
+template<typename T, const size_t N>
 CoreArray<T, N>& CoreArray<T, N>::operator=(const CoreArray<T, N>& rhs)
 {
 	Copy(rhs);
@@ -34,13 +46,13 @@ CoreArray<T, N>& CoreArray<T, N>::operator=(const CoreArray<T, N>& rhs)
 }
 
 template<typename T, const size_t N>
-T& CoreArray<T, N>::operator[](const size_t index)
+CORE_OUT(T) CoreArray<T, N>::operator[](const size_t index)
 {
 	return this->data[index];
 }
 
 template<typename T, const size_t N>
-const T& CoreArray<T, N>::operator[](const size_t index) const
+CORE_REF(T) CoreArray<T, N>::operator[](const size_t index) const
 {
 	return this->operator[](index);
 }

@@ -73,11 +73,8 @@ int main(void)
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
-	
-	CoreArray<int, 10> ar{ 1 };
 
-	for(auto d : ar)
-		std::cout<<d<<std::endl;
+	std::vector<size_t> v;
 
 	//CORE_LOG.Log("----------- Test -----------------");
 	//for (size_t i = 0; i < 3; ++i)

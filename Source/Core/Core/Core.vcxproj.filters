@@ -61,6 +61,9 @@
     <Filter Include="09.CoreAlgorithm\00.CoreSort">
       <UniqueIdentifier>{557aa9c6-11a7-4e3a-b80f-ae74aad9a0b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08.CoreContainer\01.CoreVector">
+      <UniqueIdentifier>{6e1f6c68-58b8-4555-bf2c-b02babf86a2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -154,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="CoreAlgorithm.h">
       <Filter>09.CoreAlgorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreVector.h">
+      <Filter>08.CoreContainer\01.CoreVector</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreVector.hpp">
+      <Filter>08.CoreContainer\01.CoreVector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,4 +29,5 @@
 #include "CoreRandomManager.h"
 #include "CoreContainer.h"
 #include "CoreArray.h"
+#include "CoreVector.h"
 #include "CoreAlgorithm.h"
