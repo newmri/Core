@@ -25,7 +25,7 @@ bool CoreMemoryPool<T>::Init(const size_t maxBlockNum)
 
 template<typename T>
 template<typename... Types>
-T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum, Types... args)
+T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum, const bool needCallCtor, Types... args)
 {
 	size_t startIndex = 0, endIndex = 0;
 
@@ -37,7 +37,10 @@ T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum, Types... args)
 	for (size_t i = startIndex; i <= endIndex; ++i)
 	{
 		SetBlockHeader(i);
-		new(GetBlockBody(i)) T(args...);
+		if (needCallCtor)
+		{
+			new(GetBlockBody(i)) T(args...);
+		}
 	}
 
 	SetBlockHeader(startIndex, needBlockNum);
@@ -56,7 +59,7 @@ bool CoreMemoryPool<T>::IsMyBody(CORE_BYTE_PTR blockBody)
 }
 
 template<typename T>
-void CoreMemoryPool<T>::DeAlloc(T* blockBody) noexcept
+void CoreMemoryPool<T>::DeAlloc(T* blockBody, const bool needCallDtor) noexcept
 {
 	size_t startIndex = 0, endIndex = 0;
 
@@ -68,7 +71,10 @@ void CoreMemoryPool<T>::DeAlloc(T* blockBody) noexcept
 	for (size_t i = startIndex; i <= endIndex; ++i)
 	{
 		SetBlockHeader(i, 0);
-		GetBlockBody(i)->~T();
+		if (needCallDtor)
+		{
+			GetBlockBody(i)->~T();
+		}
 	}
 
 	SetRemainedBlockNum(this->blockInfo.remainedBlockNum + (endIndex - startIndex) + 1);

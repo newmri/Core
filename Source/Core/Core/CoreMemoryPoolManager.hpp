@@ -11,7 +11,7 @@ void CoreMemoryPoolManager<T>::Init(void)
 
 template<typename T>
 template<typename... Types>
-T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum, Types... args)
+T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor, Types... args)
 {
 	if (!IsValidBlockNum(maxBlockNum, needBlockNum))
 		return nullptr;
@@ -23,7 +23,7 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 
 	do
 	{
-		blockBody = currNode->page.Alloc(needBlockNum, args...);
+		blockBody = currNode->page.Alloc(needBlockNum, needCallCtor, args...);
 
 		if (IS_NULL(blockBody))
 		{
@@ -70,13 +70,13 @@ void CoreMemoryPoolManager<T>::CheckAndAllocHead(const size_t maxBlockNum)
 }
 
 template<typename T>
-void CoreMemoryPoolManager<T>::DeAlloc(void* block)
+void CoreMemoryPoolManager<T>::DeAlloc(void* block, const bool needCallDtor)
 {
-	DeAlloc(reinterpret_cast<T*>(block));
+	DeAlloc(reinterpret_cast<T*>(block), needCallDtor);
 }
 
 template<typename T>
-void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody)
+void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody, const bool needCallDtor)
 {
 	std::shared_ptr<Node> currNode = this->head;
 	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
@@ -85,7 +85,7 @@ void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody)
 	{
 		if (currNode->page.IsMyBody(byteBody))
 		{
-			currNode->page.DeAlloc(blockBody);
+			currNode->page.DeAlloc(blockBody, needCallDtor);
 			break;
 		}
 

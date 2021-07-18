@@ -7,15 +7,15 @@ class CoreContainer : public CoreObj
 
 public:
 	template<typename... Types>
-	CoreContainer(const size_t maxBlockNum, const size_t needBlockNum, Types... args);
+	CoreContainer(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor = true, Types... args);
 
 protected:
 	template<typename... Types>
-	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum, Types... args);
+	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor = true, Types... args);
 	void DeAlloc(void);
 
 public:
-	virtual void Clear(void) CORE_PURE;
+	virtual void clear(void) CORE_PURE;
 
 public:
 	size_t size(void);
@@ -48,9 +48,9 @@ CoreContainer<T>::~CoreContainer()
 
 template<typename T>
 template<typename... Types>
-CoreContainer<T>::CoreContainer(const size_t maxBlockNum, const size_t needBlockNum, Types... args)
+CoreContainer<T>::CoreContainer(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor, Types... args)
 {
-	this->data = Alloc(maxBlockNum, needBlockNum, args...);
+	this->data = Alloc(maxBlockNum, needBlockNum, needCallCtor, args...);
 }
 
 template<typename T>
@@ -60,9 +60,9 @@ void CoreContainer<T>::Init(void)
 
 template<typename T>
 template<typename... Types>
-T* CoreContainer<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum, Types... args)
+T* CoreContainer<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor, Types... args)
 {
-	T* body = GET_INSTANCE(CoreMemoryPoolManager<T>).Alloc(maxBlockNum, needBlockNum, args...);
+	T* body = GET_INSTANCE(CoreMemoryPoolManager<T>).Alloc(maxBlockNum, needBlockNum, needCallCtor, args...);
 
 	if (body)
 		SetSize(this->dataSize + needBlockNum);
@@ -75,7 +75,7 @@ void CoreContainer<T>::DeAlloc(void)
 {
 	if (this->data)
 	{
-		GET_INSTANCE(CoreMemoryPoolManager<T>).DeAlloc(this->data);
+		GET_INSTANCE(CoreMemoryPoolManager<T>).DeAlloc(this->data, false);
 		SetSize(0);
 	}
 }

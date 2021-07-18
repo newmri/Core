@@ -9,6 +9,15 @@ class Test
 	int i[100];
 };
 
+class Test3
+{
+public:
+	Test3()
+	{
+		std::cout << "ctor" << std::endl;
+	}
+	int i[100];
+};
 
 class Test2
 {
@@ -74,8 +83,14 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	std::vector<size_t> v;
+	CoreVector<Test3> v;
+	v.reserve(100);
+	Test3 t;
+	t.i[0] = 999;
 
+	v.push_back(t);
+
+	std::cout << v[0].i[0] << std::endl;
 	//CORE_LOG.Log("----------- Test -----------------");
 	//for (size_t i = 0; i < 3; ++i)
 	//	Test(DoTest2);

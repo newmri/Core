@@ -23,7 +23,7 @@ public:
 
 public:
 	template<typename... Types>
-	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum, Types... args);
+	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor = true, Types... args);
 
 public:
 	bool IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum);
@@ -32,8 +32,8 @@ private:
 	void CheckAndAllocHead(const size_t maxBlockNum);
 
 public:
-	void DeAlloc(void* block);
-	void DeAlloc(T* blockBody);
+	void DeAlloc(void* block, const bool needCallDtor = true);
+	void DeAlloc(T* blockBody, const bool needCallDtor = true);
 
 public:
 	size_t GetPageNum(void);

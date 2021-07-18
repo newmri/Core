@@ -31,11 +31,11 @@ public:
 	bool Init(const size_t maxBlockNum);
 
 	template<typename... Types>
-	T* Alloc(const size_t needBlockNum, Types... args);
+	T* Alloc(const size_t needBlockNum, const bool needCallCtor = true, Types... args);
 
 	bool IsMyBody(CORE_BYTE_PTR blockBody);
 
-	void DeAlloc(T* blockBody) noexcept;
+	void DeAlloc(T* blockBody, const bool needCallDtor = true) noexcept;
 
 public:
 	size_t GetRemainedBlockNum(void);
