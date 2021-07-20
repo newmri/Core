@@ -25,11 +25,22 @@ public:
 public:
 	size_t capacity(void);
 	void reserve(const size_t newCapacity);
-	void push_back(const T data);
+	void push_back(const T& data);
+	void push_back(T&& data);
 	void pop_back(void);
 
 private:
 	void SetCapacity(const size_t newCapacity);
+
+public:
+	typedef T* iterator;
+	typedef const T* const_iterator;
+
+public:
+	iterator begin(void) { return this->data; }
+	const_iterator cbegin(void) const { return begin(); }
+	iterator end(void) { return &this->data[this->dataSize]; }
+	const_iterator cend(void) const { return end(); }
 
 private:
 	size_t dataCapacity = 0;

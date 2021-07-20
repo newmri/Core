@@ -91,7 +91,7 @@ void CoreVector<T>::reserve(const size_t newCapacity)
 }
 
 template<typename T>
-void CoreVector<T>::push_back(const T data)
+void CoreVector<T>::push_back(const T& data)
 {
 	WRITE_LOCK(this->mutex);
 
@@ -100,7 +100,23 @@ void CoreVector<T>::push_back(const T data)
 		// 재할당
 	}
 
-	this->data[this->dataSize++] = data;
+	new(&this->data[this->dataSize]) T(data);
+	//memcpy_s(&this->data[this->dataSize], sizeof(T), &data, sizeof(T));
+	++this->dataSize;
+}
+
+template<typename T>
+void CoreVector<T>::push_back(T&& data)
+{
+	WRITE_LOCK(this->mutex);
+
+	if (this->dataSize == this->dataCapacity)
+	{
+		// 재할당
+	}
+
+	new(&this->data[this->dataSize]) T(std::move(data));
+	++this->dataSize;
 }
 
 template<typename T>

@@ -4,22 +4,48 @@
 #include <array>
 #include <algorithm>
 
+class Object
+{
+public:
+	Object()
+	{
+		CORE_LOG.Log("Default Construct Object");
+	}
+	Object(int v) : value(v)
+	{
+		CORE_LOG.Log("Construct Object");
+	}
+	virtual ~Object()
+	{
+		CORE_LOG.Log("Destruct Object");
+	}
+
+	Object(const Object& o) : value(o.GetValue())
+	{
+		CORE_LOG.Log("Copy Object");
+	}
+	Object(const Object&& o) : value(o.GetValue())
+	{
+		CORE_LOG.Log("Move Object");
+	}
+
+	int GetValue() const { return value; }
+private:
+	int value;
+};
+
 class Test
 {
 	int i[100];
 };
 
-class Test3
+class Test2
 {
 public:
-	Test3()
-	{
-		std::cout << "ctor" << std::endl;
-	}
 	int i[100];
 };
 
-class Test2
+class Test3
 {
 public:
 	int i[100];
@@ -83,14 +109,19 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	CoreVector<Test3> v;
+	CoreVector<Object> v;
+	//std::vector<Object> v;
 	v.reserve(100);
-	Test3 t;
-	t.i[0] = 999;
 
-	v.push_back(t);
+	for (int i = 0; i < 10; ++i)
+	{
+		v.push_back(Object(i));
+	}
 
-	std::cout << v[0].i[0] << std::endl;
+
+	for (auto& d : v)
+		std::cout << d.GetValue() << std::endl;
+
 	//CORE_LOG.Log("----------- Test -----------------");
 	//for (size_t i = 0; i < 3; ++i)
 	//	Test(DoTest2);
