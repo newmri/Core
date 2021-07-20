@@ -29,9 +29,9 @@ public:
 
 public:
 	iterator begin(void) { return this->data; }
-	const_iterator cbegin(void) const { return this->data; }
+	const_iterator cbegin(void) const { return begin(); }
 	iterator end(void) { return this->data + N; }
-	const_iterator cend(void) const { return this->data + N; }
+	const_iterator cend(void) const { return end(); }
 
 private:
 	std::shared_mutex mutex;

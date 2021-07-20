@@ -11,13 +11,8 @@ CoreArray<T, N>::CoreArray()
 template<typename T, const size_t N>
 CoreArray<T, N>::CoreArray(std::initializer_list<T> list)
 {
-	auto iterBegin = list.begin();
-	auto iterEnd = list.end();
-
-	for (size_t i = 0; iterBegin != iterEnd; ++iterBegin, ++i)
-	{
-		this->data[i] = *iterBegin;
-	}
+	size_t len = list.size();
+	memcpy_s(this->data, sizeof(T) * len, list.begin(), sizeof(T) * len);
 }
 
 template<typename T, const size_t N>
