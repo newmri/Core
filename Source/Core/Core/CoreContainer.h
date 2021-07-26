@@ -75,7 +75,7 @@ void CoreContainer<T>::DeAlloc(void)
 {
 	if (this->data)
 	{
-		GET_INSTANCE(CoreMemoryPoolManager<T>).DeAlloc(this->data, false);
+		GET_INSTANCE(CoreMemoryPoolManager<T>).DeAlloc(this->data);
 		SetSize(0);
 	}
 }

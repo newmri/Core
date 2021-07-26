@@ -9,7 +9,8 @@ class CoreVector : public CoreContainer<T>
 
 public:
 	template<typename... Types>
-	CoreVector(const size_t maxBlockNum, const size_t needBlockNum, Types... args);
+	CoreVector(const size_t maxBlockNum, Types... args);
+	CoreVector(const CoreVector<T>& rhs);
 
 public:
 	CoreVector<T>& operator=(const CoreVector<T>& rhs);
@@ -31,6 +32,8 @@ public:
 
 private:
 	void SetCapacity(const size_t newCapacity);
+	void CheckCapacityAndReAlloc(void);
+	T* ReAlloc(void);
 
 public:
 	typedef T* iterator;
@@ -44,6 +47,8 @@ public:
 
 private:
 	size_t dataCapacity = 0;
+	size_t dataDefaultReserveSize = 5;
+	size_t dataCapacityIncrease = 2;
 };
 
 #include "CoreVector.hpp"
