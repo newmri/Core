@@ -1,26 +1,137 @@
 #include "../../Core/Core/CoreInclude.h"
 
-//class Test
-//{
-//	DECLARE_MEMORY_POOL(Test);
-//
-//public:
-//	int i = 0;
-//	int k = 0;
-//};
-//
-//IMPLEMENAT_MEMORY_POOL(Test);
+#include <vector>
+#include <array>
+#include <algorithm>
+
+class Object
+{
+public:
+	Object()
+	{
+		CORE_LOG.Log("Default Construct Object");
+	}
+	Object(int v) : value(v)
+	{
+		CORE_LOG.Log("Construct Object");
+	}
+	virtual ~Object()
+	{
+		CORE_LOG.Log("Destruct Object");
+	}
+
+	Object(const Object& o) : value(o.GetValue())
+	{
+		CORE_LOG.Log("Copy Object");
+	}
+	Object(const Object&& o) : value(o.GetValue())
+	{
+		CORE_LOG.Log("Move Object");
+	}
+
+	int GetValue() const { return value; }
+private:
+	int value;
+};
+
+class Test
+{
+	int i[100];
+};
+
+class Test2
+{
+public:
+	int i[100];
+};
+
+class Test3
+{
+public:
+	int i[100];
+};
+
+CoreVector<Test3> vec;
+std::vector<Test3> vec2;
+
+std::shared_mutex mutex1;
+std::shared_mutex mutex2;
+
+void DoTest(const size_t threadID)
+{
+	vec.push_back(Test3());
+
+	WRITE_LOCK(mutex1);
+	for (auto& d : vec)
+		Test3 t = d;
+}
+
+void DoTest2(const size_t threadID)
+{
+	WRITE_LOCK(mutex2);
+	vec2.push_back(Test3());
+
+	for (auto& d : vec2)
+		Test3 t = d;
+}
+
+void Test(void (*fp)(const size_t))
+{
+	CORE_TIME_MANAGER.Start();
+
+	for (size_t i = 0; i < 100; ++i)
+	{
+		std::vector<std::thread> threads;
+
+		for (size_t j = 0; j < 10; ++j)
+		{
+			std::thread th(fp, j);
+			threads.push_back(std::move(th));
+		}
+
+		for (auto& d : threads)
+			d.join();
+	}
+
+	CORE_TIME_MANAGER.End();
+}
 
 int main(void)
 {
-	CoreParallelArray<size_t> arr;
-	std::cout << arr.GetSize() << std::endl;
+#if _DEBUG
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif // _DEBUG
 
-	//Test::InitMemoryPool();
+	//CoreVector<int> v;
+	////std::vector<Object> v;
 
-	GET_INSTANCE(CoreTimeManager);
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	std::cout << v.capacity() << std::endl;
+	//	v.push_back(i);
+	//}
 
-	//CORE_TIME_MANAGER.End();
+
+	//for (auto& d : v)
+	//	std::cout << d.GetValue() << std::endl;
+
+	//CORE_LOG.Log("----------- Test -----------------");
+	//for (size_t i = 0; i < 3; ++i)
+	//	Test(DoTest2);
+
+	CORE_LOG.Log("----------- stl -----------------");
+
+	for (size_t i = 0; i < 10; ++i)
+		Test(DoTest2);
+
+	CORE_LOG.Log(TO_STR(vec2.size()));
+
+	CORE_LOG.Log("----------- mine -----------------");
+
+	for (size_t i = 0; i < 10; ++i)
+		Test(DoTest);
+
+	CORE_LOG.Log(TO_STR(vec.size()));
 
 	return 0;
 }

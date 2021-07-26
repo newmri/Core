@@ -1,168 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="01.CoreGlobal">
+    <Filter Include="00.CoreGlobal">
       <UniqueIdentifier>{a36ed90a-019d-4737-a235-015749f99d26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.CoreGlobal\01.CoreMacro">
+    <Filter Include="00.CoreGlobal\01.CoreMacro">
       <UniqueIdentifier>{4ee8d6d0-f7bb-4482-a2d0-2111480cdc77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.CoreGlobal\02.CoreDataType">
-      <UniqueIdentifier>{ac7d9ce2-5bcd-4f95-9811-e77ec7d054be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.CoreGlobal\00.CoreInclude">
-      <UniqueIdentifier>{ec3ca700-be24-472b-a0e6-8e91a2b7d53a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.CoreGlobal\01.CoreMacro\00.CoreSingletonMacro">
+    <Filter Include="00.CoreGlobal\01.CoreMacro\00.CoreSingletonMacro">
       <UniqueIdentifier>{10102ac8-e117-4804-931c-0ed3fc3ff9fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.CoreObj">
-      <UniqueIdentifier>{47d62c0f-0939-4630-8b90-4a2ca7a1697b}</UniqueIdentifier>
+    <Filter Include="00.CoreGlobal\02.CoreDataType">
+      <UniqueIdentifier>{ac7d9ce2-5bcd-4f95-9811-e77ec7d054be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.CoreLogManager">
-      <UniqueIdentifier>{34d44c10-f932-4780-8666-683fc3d8bfe5}</UniqueIdentifier>
+    <Filter Include="00.CoreGlobal\00.CoreInclude">
+      <UniqueIdentifier>{ec3ca700-be24-472b-a0e6-8e91a2b7d53a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.CoreLogManager\00.CoreLogger">
-      <UniqueIdentifier>{631da0dd-70fd-45ad-859e-ea5d8c2168ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.CoreDummyManager">
-      <UniqueIdentifier>{892d3bd3-6dbd-4d82-b273-476a29bdc4bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.CoreTimeManager">
-      <UniqueIdentifier>{09895ad5-fd9d-4ff7-a219-4224f1aa0558}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.CoreLogManager\00.CoreLogger\00.CoreConsoleLogger">
-      <UniqueIdentifier>{66aa72bd-9ad9-45db-9278-075958441ecb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.CoreLogManager\00.CoreLogger\01.CoreFileLogger">
-      <UniqueIdentifier>{2bdea757-69e0-4c49-809b-4e487932e88a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.CoreMain">
-      <UniqueIdentifier>{d7008c86-642d-48fe-9975-b51efcd2e6d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.CoreMemoryPoolManager">
+    <Filter Include="01.CoreMemoryPoolManager">
       <UniqueIdentifier>{b4680988-879f-4979-be8e-66d439481c95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.CoreMemoryPoolManager\00.CoreMemoryPool">
+    <Filter Include="01.CoreMemoryPoolManager\00.CoreMemoryPool">
       <UniqueIdentifier>{63ae1b6c-fbf6-44ba-926c-6b6c6b2afafd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07.CoreRandomManager">
+    <Filter Include="02.CoreObj">
+      <UniqueIdentifier>{47d62c0f-0939-4630-8b90-4a2ca7a1697b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.CoreDummyManager">
+      <UniqueIdentifier>{892d3bd3-6dbd-4d82-b273-476a29bdc4bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.CoreLogManager">
+      <UniqueIdentifier>{34d44c10-f932-4780-8666-683fc3d8bfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.CoreLogManager\00.CoreLogger">
+      <UniqueIdentifier>{631da0dd-70fd-45ad-859e-ea5d8c2168ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.CoreLogManager\00.CoreLogger\00.CoreConsoleLogger">
+      <UniqueIdentifier>{66aa72bd-9ad9-45db-9278-075958441ecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.CoreLogManager\00.CoreLogger\01.CoreFileLogger">
+      <UniqueIdentifier>{2bdea757-69e0-4c49-809b-4e487932e88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.CoreTimeManager">
+      <UniqueIdentifier>{09895ad5-fd9d-4ff7-a219-4224f1aa0558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.CoreRandomManager">
       <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08.CoreContainer">
+    <Filter Include="07.CoreContainer">
       <UniqueIdentifier>{02ad79ac-3475-4755-9be8-67b388edbc63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08.CoreContainer\00.CoreArray">
+    <Filter Include="07.CoreContainer\00.CoreArray">
       <UniqueIdentifier>{7bcca1df-9f4e-401e-b082-b17ac00f0f9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="09.CoreAlgorithm">
+    <Filter Include="07.CoreContainer\01.CoreVector">
+      <UniqueIdentifier>{6e1f6c68-58b8-4555-bf2c-b02babf86a2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08.CoreAlgorithm">
       <UniqueIdentifier>{1e09837c-370e-4ab3-9bcb-fbc5a836aede}</UniqueIdentifier>
     </Filter>
-    <Filter Include="09.CoreAlgorithm\00.CoreSort">
+    <Filter Include="08.CoreAlgorithm\00.CoreSort">
       <UniqueIdentifier>{557aa9c6-11a7-4e3a-b80f-ae74aad9a0b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08.CoreContainer\01.CoreVector">
-      <UniqueIdentifier>{6e1f6c68-58b8-4555-bf2c-b02babf86a2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
-      <Filter>06.CoreTimeManager</Filter>
+      <Filter>05.CoreTimeManager</Filter>
     </ClCompile>
     <ClCompile Include="CoreLogger.cpp">
-      <Filter>05.CoreLogManager\00.CoreLogger</Filter>
+      <Filter>04.CoreLogManager\00.CoreLogger</Filter>
     </ClCompile>
     <ClCompile Include="CoreDummyManager.cpp">
-      <Filter>04.CoreDummyManager</Filter>
+      <Filter>03.CoreDummyManager</Filter>
     </ClCompile>
     <ClCompile Include="CoreConsoleLogger.cpp">
-      <Filter>05.CoreLogManager\00.CoreLogger\00.CoreConsoleLogger</Filter>
+      <Filter>04.CoreLogManager\00.CoreLogger\00.CoreConsoleLogger</Filter>
     </ClCompile>
     <ClCompile Include="CoreFileLogger.cpp">
-      <Filter>05.CoreLogManager\00.CoreLogger\01.CoreFileLogger</Filter>
-    </ClCompile>
-    <ClCompile Include="CoreMain.cpp">
-      <Filter>00.CoreMain</Filter>
+      <Filter>04.CoreLogManager\00.CoreLogger\01.CoreFileLogger</Filter>
     </ClCompile>
     <ClCompile Include="CoreRandomManager.cpp">
-      <Filter>07.CoreRandomManager</Filter>
+      <Filter>06.CoreRandomManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoreInclude.h">
-      <Filter>01.CoreGlobal\00.CoreInclude</Filter>
+      <Filter>00.CoreGlobal\00.CoreInclude</Filter>
     </ClInclude>
     <ClInclude Include="CoreArray.h">
-      <Filter>08.CoreContainer\00.CoreArray</Filter>
+      <Filter>07.CoreContainer\00.CoreArray</Filter>
     </ClInclude>
     <ClInclude Include="CoreArray.hpp">
-      <Filter>08.CoreContainer\00.CoreArray</Filter>
+      <Filter>07.CoreContainer\00.CoreArray</Filter>
     </ClInclude>
     <ClInclude Include="CoreMacro.h">
-      <Filter>01.CoreGlobal\01.CoreMacro</Filter>
+      <Filter>00.CoreGlobal\01.CoreMacro</Filter>
     </ClInclude>
     <ClInclude Include="CoreDataType.h">
-      <Filter>01.CoreGlobal\02.CoreDataType</Filter>
+      <Filter>00.CoreGlobal\02.CoreDataType</Filter>
     </ClInclude>
     <ClInclude Include="CoreTimeManager.h">
-      <Filter>06.CoreTimeManager</Filter>
+      <Filter>05.CoreTimeManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreSingletonMacro.h">
-      <Filter>01.CoreGlobal\01.CoreMacro\00.CoreSingletonMacro</Filter>
+      <Filter>00.CoreGlobal\01.CoreMacro\00.CoreSingletonMacro</Filter>
     </ClInclude>
     <ClInclude Include="CoreLogManager.h">
-      <Filter>05.CoreLogManager</Filter>
+      <Filter>04.CoreLogManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreLogger.h">
-      <Filter>05.CoreLogManager\00.CoreLogger</Filter>
+      <Filter>04.CoreLogManager\00.CoreLogger</Filter>
     </ClInclude>
     <ClInclude Include="CoreObj.h">
-      <Filter>03.CoreObj</Filter>
+      <Filter>02.CoreObj</Filter>
     </ClInclude>
     <ClInclude Include="CoreLogInclude.h">
-      <Filter>05.CoreLogManager\00.CoreLogger</Filter>
+      <Filter>04.CoreLogManager\00.CoreLogger</Filter>
     </ClInclude>
     <ClInclude Include="CoreDummyManager.h">
-      <Filter>04.CoreDummyManager</Filter>
+      <Filter>03.CoreDummyManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreConsoleLogger.h">
-      <Filter>05.CoreLogManager\00.CoreLogger\00.CoreConsoleLogger</Filter>
+      <Filter>04.CoreLogManager\00.CoreLogger\00.CoreConsoleLogger</Filter>
     </ClInclude>
     <ClInclude Include="CoreFileLogger.h">
-      <Filter>05.CoreLogManager\00.CoreLogger\01.CoreFileLogger</Filter>
+      <Filter>04.CoreLogManager\00.CoreLogger\01.CoreFileLogger</Filter>
     </ClInclude>
     <ClInclude Include="CoreMemoryPool.h">
-      <Filter>02.CoreMemoryPoolManager\00.CoreMemoryPool</Filter>
+      <Filter>01.CoreMemoryPoolManager\00.CoreMemoryPool</Filter>
     </ClInclude>
     <ClInclude Include="CoreMemoryPoolManager.h">
-      <Filter>02.CoreMemoryPoolManager</Filter>
+      <Filter>01.CoreMemoryPoolManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreRandomManager.h">
-      <Filter>07.CoreRandomManager</Filter>
+      <Filter>06.CoreRandomManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreMemoryPoolManager.hpp">
-      <Filter>02.CoreMemoryPoolManager</Filter>
+      <Filter>01.CoreMemoryPoolManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreMemoryPool.hpp">
-      <Filter>02.CoreMemoryPoolManager\00.CoreMemoryPool</Filter>
+      <Filter>01.CoreMemoryPoolManager\00.CoreMemoryPool</Filter>
     </ClInclude>
     <ClInclude Include="CoreContainer.h">
-      <Filter>08.CoreContainer</Filter>
+      <Filter>07.CoreContainer</Filter>
     </ClInclude>
     <ClInclude Include="CoreSort.h">
-      <Filter>09.CoreAlgorithm\00.CoreSort</Filter>
+      <Filter>08.CoreAlgorithm\00.CoreSort</Filter>
     </ClInclude>
     <ClInclude Include="CoreSort.hpp">
-      <Filter>09.CoreAlgorithm\00.CoreSort</Filter>
+      <Filter>08.CoreAlgorithm\00.CoreSort</Filter>
     </ClInclude>
     <ClInclude Include="CoreAlgorithm.h">
-      <Filter>09.CoreAlgorithm</Filter>
+      <Filter>08.CoreAlgorithm</Filter>
     </ClInclude>
     <ClInclude Include="CoreVector.h">
-      <Filter>08.CoreContainer\01.CoreVector</Filter>
+      <Filter>07.CoreContainer\01.CoreVector</Filter>
     </ClInclude>
     <ClInclude Include="CoreVector.hpp">
-      <Filter>08.CoreContainer\01.CoreVector</Filter>
+      <Filter>07.CoreContainer\01.CoreVector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
