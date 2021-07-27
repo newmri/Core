@@ -40,49 +40,81 @@
 	public:																	\
 		static CLASS& GetInstance(void);									\
 																			\
-		friend std::unique_ptr<CLASS> std::make_unique<CLASS>();			\
-		friend std::unique_ptr<CLASS>::deleter_type;						\
+	private:																\
+		~CLASS();															\
 																			\
 	private:																\
 		void Init(void);													\
+		static void Release(void);											\
 																			\
 	private:																\
-		static std::unique_ptr<CLASS> instance;								\
-		static std::once_flag onceFlag;					
+		static CLASS* instance;												\
+		static std::once_flag onceFlag;										\
+		static bool isDestroyed;
 
 #define IMPLEMENT_SINGLETON(CLASS)											\
-	std::unique_ptr<CLASS> CLASS::instance;									\
+	CLASS* CLASS::instance;													\
 	std::once_flag CLASS::onceFlag;											\
+    bool CLASS::isDestroyed;												\
 																			\
 	CLASS& CLASS::GetInstance(void)											\
 	{																		\
 		call_once(CLASS::onceFlag, []()										\
 		{																	\
-			instance = std::make_unique<CLASS>();							\
-			(*(instance.get())).Init();										\
+			static CLASS inst;												\
+			instance = &inst;												\
+			instance->Init();												\
+			isDestroyed = false;											\
 		});																	\
 																			\
-		return *(instance.get());											\
-	}												
-
+		if(isDestroyed)														\
+		{																	\
+			new(instance) CLASS();											\
+			atexit(Release);												\
+			isDestroyed = false;											\
+		}																	\
+																			\
+		return *instance;													\
+	}																		\
+																			\
+	CLASS::~CLASS()															\
+	{																		\
+		isDestroyed = true;													\
+	}
 
 #define IMPLEMENT_TEMPLATE_SINGLETON(CLASS)									\
 	template<typename T>													\
-	std::unique_ptr<CLASS<T>> CLASS<T>::instance;							\
-																			\
+	CLASS<T>* CLASS<T>::instance;											\
 	template<typename T>													\
 	std::once_flag CLASS<T>::onceFlag;										\
+	template<typename T>													\
+	bool CLASS<T>::isDestroyed;												\
 																			\
 	template<typename T>													\
 	CLASS<T>& CLASS<T>::GetInstance(void)									\
 	{																		\
 		call_once(CLASS<T>::onceFlag, []()									\
 		{																	\
-			instance.reset(new CLASS<T>);									\
-			(*(instance.get())).Init();										\
+			static CLASS<T> inst;											\
+			instance = &inst;												\
+			instance->Init();												\
+			isDestroyed = false;											\
 		});																	\
 																			\
-		return *(instance.get());											\
+		if(isDestroyed)														\
+		{																	\
+			new(instance) CLASS<T>();										\
+			atexit(Release);												\
+			isDestroyed = false;											\
+		}																	\
+																			\
+		return *instance;													\
+	}																		\
+																			\
+	template<typename T>													\
+	CLASS<T>::~CLASS()														\
+	{																		\
+		isDestroyed = true;													\
 	}
 
 #define GET_INSTANCE(CLASS) CLASS::GetInstance()	

@@ -7,6 +7,11 @@ void CoreTimeManager::Init(void)
 
 }
 
+void CoreTimeManager::Release(void)
+{
+	GetInstance().~CoreTimeManager();
+}
+
 TIME_POINT CoreTimeManager::GetNow(void) const
 {
 	return std::chrono::system_clock::now();

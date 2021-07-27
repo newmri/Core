@@ -10,6 +10,12 @@ void CoreMemoryPoolManager<T>::Init(void)
 }
 
 template<typename T>
+void CoreMemoryPoolManager<T>::Release(void)
+{
+	GetInstance().~CoreMemoryPoolManager();
+}
+
+template<typename T>
 template<typename... Types>
 T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor, Types... args)
 {
@@ -43,6 +49,12 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 
 	return blockBody;
 }
+
+//template<typename T>
+//CoreMemoryPoolManager<T>::~CoreMemoryPoolManager()
+//{
+//	this->isDestroyed = true;
+//}
 
 template<typename T>
 bool CoreMemoryPoolManager<T>::IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum)

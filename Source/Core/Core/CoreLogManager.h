@@ -38,6 +38,12 @@ void CoreLogManager<T>::Init(void)
 }
 
 template<typename T>
+void CoreLogManager<T>::Release(void)
+{
+	GetInstance().~CoreLogManager<T>();
+}
+
+template<typename T>
 std::string CoreLogManager<T>::MakeLog(const LogType logType, std::string_view logMessage, std::string_view file, const char* function, const size_t line)
 {
 	WRITE_LOCK(mutex);

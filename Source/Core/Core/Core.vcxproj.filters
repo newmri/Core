@@ -43,23 +43,23 @@
     <Filter Include="05.CoreTimeManager">
       <UniqueIdentifier>{09895ad5-fd9d-4ff7-a219-4224f1aa0558}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06.CoreRandomManager">
-      <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07.CoreContainer">
+    <Filter Include="06.CoreContainer">
       <UniqueIdentifier>{02ad79ac-3475-4755-9be8-67b388edbc63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07.CoreContainer\00.CoreArray">
+    <Filter Include="06.CoreContainer\00.CoreArray">
       <UniqueIdentifier>{7bcca1df-9f4e-401e-b082-b17ac00f0f9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07.CoreContainer\01.CoreVector">
+    <Filter Include="06.CoreContainer\01.CoreVector">
       <UniqueIdentifier>{6e1f6c68-58b8-4555-bf2c-b02babf86a2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08.CoreAlgorithm">
+    <Filter Include="07.CoreAlgorithm">
       <UniqueIdentifier>{1e09837c-370e-4ab3-9bcb-fbc5a836aede}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08.CoreAlgorithm\00.CoreSort">
+    <Filter Include="07.CoreAlgorithm\00.CoreSort">
       <UniqueIdentifier>{557aa9c6-11a7-4e3a-b80f-ae74aad9a0b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08.CoreRandomManager">
+      <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,7 +79,7 @@
       <Filter>04.CoreLogManager\00.CoreLogger\01.CoreFileLogger</Filter>
     </ClCompile>
     <ClCompile Include="CoreRandomManager.cpp">
-      <Filter>06.CoreRandomManager</Filter>
+      <Filter>08.CoreRandomManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,10 +87,10 @@
       <Filter>00.CoreGlobal\00.CoreInclude</Filter>
     </ClInclude>
     <ClInclude Include="CoreArray.h">
-      <Filter>07.CoreContainer\00.CoreArray</Filter>
+      <Filter>06.CoreContainer\00.CoreArray</Filter>
     </ClInclude>
     <ClInclude Include="CoreArray.hpp">
-      <Filter>07.CoreContainer\00.CoreArray</Filter>
+      <Filter>06.CoreContainer\00.CoreArray</Filter>
     </ClInclude>
     <ClInclude Include="CoreMacro.h">
       <Filter>00.CoreGlobal\01.CoreMacro</Filter>
@@ -132,7 +132,7 @@
       <Filter>01.CoreMemoryPoolManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreRandomManager.h">
-      <Filter>06.CoreRandomManager</Filter>
+      <Filter>08.CoreRandomManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreMemoryPoolManager.hpp">
       <Filter>01.CoreMemoryPoolManager</Filter>
@@ -141,22 +141,22 @@
       <Filter>01.CoreMemoryPoolManager\00.CoreMemoryPool</Filter>
     </ClInclude>
     <ClInclude Include="CoreContainer.h">
-      <Filter>07.CoreContainer</Filter>
+      <Filter>06.CoreContainer</Filter>
     </ClInclude>
     <ClInclude Include="CoreSort.h">
-      <Filter>08.CoreAlgorithm\00.CoreSort</Filter>
+      <Filter>07.CoreAlgorithm\00.CoreSort</Filter>
     </ClInclude>
     <ClInclude Include="CoreSort.hpp">
-      <Filter>08.CoreAlgorithm\00.CoreSort</Filter>
+      <Filter>07.CoreAlgorithm\00.CoreSort</Filter>
     </ClInclude>
     <ClInclude Include="CoreAlgorithm.h">
-      <Filter>08.CoreAlgorithm</Filter>
+      <Filter>07.CoreAlgorithm</Filter>
     </ClInclude>
     <ClInclude Include="CoreVector.h">
-      <Filter>07.CoreContainer\01.CoreVector</Filter>
+      <Filter>06.CoreContainer\01.CoreVector</Filter>
     </ClInclude>
     <ClInclude Include="CoreVector.hpp">
-      <Filter>07.CoreContainer\01.CoreVector</Filter>
+      <Filter>06.CoreContainer\01.CoreVector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

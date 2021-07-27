@@ -36,6 +36,7 @@ public:
 	bool IsMyBody(CORE_BYTE_PTR blockBody);
 
 	void DeAlloc(T* blockBody, const bool needCallDtor = true) noexcept;
+	void DeAllocAll(void) noexcept;
 
 public:
 	size_t GetRemainedBlockNum(void);

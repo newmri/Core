@@ -83,6 +83,12 @@ void CoreMemoryPool<T>::DeAlloc(T* blockBody, const bool needCallDtor) noexcept
 }
 
 template<typename T>
+void CoreMemoryPool<T>::DeAllocAll(void) noexcept
+{
+	SAFE_FREE(this->block);
+}
+
+template<typename T>
 size_t CoreMemoryPool<T>::GetRemainedBlockNum(void)
 {
 	READ_LOCK(this->mutex);
