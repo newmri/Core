@@ -19,4 +19,14 @@
 
 #define TO_STR(NUMBER) (std::to_string(NUMBER))
 
+template< typename T >
+void SAFE_FREE(T* PTR) { free(PTR); PTR = nullptr; }
+
+template< typename T >
+void SAFE_DELETE(T* PTR) { delete PTR; PTR = nullptr; }
+
+template< typename T >
+void SAFE_DELETE_ARRAY(T* PTR) { delete[] PTR; PTR = nullptr; }
+
+
 #include "CoreSingletonMacro.h"
