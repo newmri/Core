@@ -14,8 +14,8 @@ protected:
 
 public:
 	CoreArray<T, N>& operator=(const CoreArray<T, N>& rhs);
-	CORE_OUT(T) operator[](const size_t index);
 	CORE_REF(T) operator[](const size_t index) const;
+	CORE_OUT(T) operator[](const size_t index);
 
 public:
 	size_t size(void) const;
@@ -28,10 +28,10 @@ public:
 	typedef const T* const_iterator;
 
 public:
-	iterator begin(void) { return this->data; }
-	const_iterator cbegin(void) const { return begin(); }
-	iterator end(void) { return this->data + N; }
-	const_iterator cend(void) const { return end(); }
+	const_iterator cbegin(void) const { return this->data; }
+	iterator begin(void) { return const_cast<iterator>(static_cast<const CoreArray<T, N>&>(*this).cbegin()); }
+	const_iterator cend(void) const { return this->data + N; }
+	iterator end(void) { return const_cast<iterator>(static_cast<const CoreArray<T, N>&>(*this).cend()); }
 
 private:
 	std::shared_mutex mutex;

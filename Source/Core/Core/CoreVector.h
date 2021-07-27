@@ -14,8 +14,8 @@ public:
 
 public:
 	CoreVector<T>& operator=(const CoreVector<T>& rhs);
-	CORE_OUT(T) operator[](const size_t index);
 	CORE_REF(T) operator[](const size_t index) const;
+	CORE_OUT(T) operator[](const size_t index);
 
 private:
 	void Copy(const CoreVector<T>& rhs);
@@ -40,10 +40,10 @@ public:
 	typedef const T* const_iterator;
 
 public:
-	iterator begin(void) { return this->data; }
-	const_iterator cbegin(void) const { return begin(); }
-	iterator end(void) { return &this->data[this->dataSize]; }
-	const_iterator cend(void) const { return end(); }
+	const_iterator cbegin(void) const { return this->data; }
+	iterator begin(void) { return const_cast<iterator>(static_cast<const CoreVector<T>&>(*this).cbegin()); }
+	const_iterator cend(void) const { return &this->data[this->dataSize]; }
+	iterator end(void) { return const_cast<iterator>(static_cast<const CoreVector<T>&>(*this).cend()); }
 
 private:
 	size_t dataCapacity = 0;

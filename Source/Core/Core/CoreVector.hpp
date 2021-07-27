@@ -45,15 +45,15 @@ CoreVector<T>& CoreVector<T>::operator=(const CoreVector<T>& rhs)
 }
 
 template<typename T>
-CORE_OUT(T) CoreVector<T>::operator[](const size_t index)
+CORE_REF(T) CoreVector<T>::operator[](const size_t index) const
 {
 	return this->data[index];
 }
 
 template<typename T>
-CORE_REF(T) CoreVector<T>::operator[](const size_t index) const
+CORE_OUT(T) CoreVector<T>::operator[](const size_t index)
 {
-	return this->operator[](index);
+	return const_cast<CORE_OUT(T)>(static_cast<const CoreVector<T>&>(*this)[index]);
 }
 
 template<typename T>
