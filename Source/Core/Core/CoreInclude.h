@@ -17,6 +17,7 @@
 #include <ctime>
 #include <iomanip>
 #include <direct.h>
+#include <type_traits>
 
 #include "CoreMacro.h"
 #include "CoreDataType.h"
@@ -29,5 +30,6 @@
 #include "CoreContainer.h"
 #include "CoreArray.h"
 #include "CoreVector.h"
+#include "CoreList.h"
 #include "CoreAlgorithm.h"
 #include "CoreRandomManager.h"

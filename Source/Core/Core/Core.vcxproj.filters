@@ -61,6 +61,9 @@
     <Filter Include="08.CoreRandomManager">
       <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06.CoreContainer\02.CoreList">
+      <UniqueIdentifier>{1587ca71-a195-4544-9ba0-00ef1f07da8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -77,9 +80,6 @@
     </ClCompile>
     <ClCompile Include="CoreFileLogger.cpp">
       <Filter>04.CoreLogManager\00.CoreLogger\01.CoreFileLogger</Filter>
-    </ClCompile>
-    <ClCompile Include="CoreRandomManager.cpp">
-      <Filter>08.CoreRandomManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +157,15 @@
     </ClInclude>
     <ClInclude Include="CoreVector.hpp">
       <Filter>06.CoreContainer\01.CoreVector</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreNode.h">
+      <Filter>06.CoreContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreList.h">
+      <Filter>06.CoreContainer\02.CoreList</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreList.hpp">
+      <Filter>06.CoreContainer\02.CoreList</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

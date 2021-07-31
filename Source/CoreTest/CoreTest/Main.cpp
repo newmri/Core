@@ -4,6 +4,7 @@
 #include <array>
 #include <algorithm>
 #include <map>
+#include <list>
 
 class Object
 {
@@ -120,19 +121,23 @@ int main(void)
 	//for (size_t i = 0; i < 3; ++i)
 	//	Test(DoTest2);
 
-	CORE_LOG.Log("----------- stl -----------------");
+	//CoreRandomManager<int>::GetInstance().GetRandom(v);
 
-	for (size_t i = 0; i < 10; ++i)
-		Test(DoTest2);
+	//CORE_LOG.Log("----------- stl -----------------");
 
-	CORE_LOG.Log(TO_STR(vec2.size()));
+	//for (size_t i = 0; i < 10; ++i)
+	//	Test(DoTest2);
 
-	CORE_LOG.Log("----------- mine -----------------");
+	//CORE_LOG.Log(TO_STR(vec2.size()));
 
-	for (size_t i = 0; i < 10; ++i)
-		Test(DoTest);
+	//CORE_LOG.Log("----------- mine -----------------");
 
-	CORE_LOG.Log(TO_STR(vec.size()));
+	//for (size_t i = 0; i < 10; ++i)
+	//	Test(DoTest);
+
+	//CORE_LOG.Log(TO_STR(vec.size()));
+	std::list<int> li;
+	CoreList<int> li2;
 
 	return 0;
 }
