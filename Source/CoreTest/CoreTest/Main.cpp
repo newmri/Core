@@ -53,27 +53,27 @@ public:
 	int i[100];
 };
 
-CoreVector<Test3> vec;
-std::vector<Test3> vec2;
+CoreList<Test3> list;
+std::list<Test3> list2;
 
 std::shared_mutex mutex1;
 std::shared_mutex mutex2;
 
 void DoTest(const size_t threadID)
 {
-	vec.push_back(Test3());
+	list.push_back(Test3());
 
 	WRITE_LOCK(mutex1);
-	for (auto& d : vec)
+	for (auto& d : list)
 		Test3 t = d;
 }
 
 void DoTest2(const size_t threadID)
 {
 	WRITE_LOCK(mutex2);
-	vec2.push_back(Test3());
+	list2.push_back(Test3());
 
-	for (auto& d : vec2)
+	for (auto& d : list2)
 		Test3 t = d;
 }
 
@@ -104,40 +104,26 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	//CoreVector<int> v;
-	////std::vector<Object> v;
-
-	//for (int i = 0; i < 10; ++i)
-	//{
-	//	std::cout << v.capacity() << std::endl;
-	//	v.push_back(i);
-	//}
-
-
-	//for (auto& d : v)
-	//	std::cout << d.GetValue() << std::endl;
-
 	//CORE_LOG.Log("----------- Test -----------------");
 	//for (size_t i = 0; i < 3; ++i)
 	//	Test(DoTest2);
 
 	//CoreRandomManager<int>::GetInstance().GetRandom(v);
 
-	//CORE_LOG.Log("----------- stl -----------------");
+	CORE_LOG.Log("----------- stl -----------------");
 
-	//for (size_t i = 0; i < 10; ++i)
-	//	Test(DoTest2);
+	for (size_t i = 0; i < 10; ++i)
+		Test(DoTest2);
 
-	//CORE_LOG.Log(TO_STR(vec2.size()));
+	CORE_LOG.Log(TO_STR(list2.size()));
 
-	//CORE_LOG.Log("----------- mine -----------------");
+	CORE_LOG.Log("----------- mine -----------------");
 
-	//for (size_t i = 0; i < 10; ++i)
-	//	Test(DoTest);
+	for (size_t i = 0; i < 10; ++i)
+		Test(DoTest);
 
-	//CORE_LOG.Log(TO_STR(vec.size()));
-	std::list<int> li;
-	CoreList<int> li2;
+	CORE_LOG.Log(TO_STR(list.size()));
+
 
 	return 0;
 }

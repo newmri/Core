@@ -7,11 +7,11 @@ class CoreContainer : public CoreObj
 
 public:
 	template<typename... Types>
-	CoreContainer(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor = true, Types... args);
+	CoreContainer(const size_t maxBlockNum, const size_t needBlockNum = 1, const bool needCallCtor = true, Types... args);
 
 protected:
 	template<typename... Types>
-	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor = true, Types... args);
+	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum = 1, const bool needCallCtor = true, Types... args);
 	void DeAlloc(void);
 
 public:

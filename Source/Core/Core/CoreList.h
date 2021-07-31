@@ -25,17 +25,19 @@ public:
 	void push_back(T&& data);
 
 public:
-	typedef T* iterator;
-	typedef const T* const_iterator;
+	typedef CoreIterator<T> iterator;
+	typedef const CoreIterator<T> const_iterator;
 
-//public:
-//	const_iterator cbegin(void) const { return this->data; }
-//	iterator begin(void) { return const_cast<iterator>(static_cast<const CoreVector<T>&>(*this).cbegin()); }
-//	const_iterator cend(void) const { return &this->data[this->dataSize]; }
-//	iterator end(void) { return const_cast<iterator>(static_cast<const CoreVector<T>&>(*this).cend()); }
+public:
+	const_iterator cbegin(void) const { return const_iterator(this->head->next); }
+	iterator begin(void) { return iterator(this->head->next); }
+	const_iterator cend(void) const { return const_iterator(this->tail->next); }
+	iterator end(void) { return iterator(this->tail->next); }
 
 private:
-	CoreNode<T>* head;
+	CoreNode<T>* head = nullptr;
+	CoreNode<T>* tail = nullptr;
+	size_t dataDefaultReserveSize = 10;
 };
 
 #include "CoreList.hpp"
