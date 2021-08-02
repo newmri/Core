@@ -13,7 +13,7 @@ protected:
 	virtual void Init(void) override;
 
 public:
-	CoreArray<T, N>& operator=(const CoreArray<T, N>& rhs);
+	CoreArray<T, N>& operator=(CoreArray<T, N>& rhs);
 	CORE_REF(T) operator[](const size_t index) const;
 	CORE_OUT(T) operator[](const size_t index);
 

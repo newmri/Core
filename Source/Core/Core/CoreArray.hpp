@@ -18,6 +18,7 @@ CoreArray<T, N>::CoreArray(std::initializer_list<T> list)
 template<typename T, const size_t N>
 CoreArray<T, N>::CoreArray(CoreArray<T, N>& rhs)
 {
+	READ_LOCK(rhs.mutex);
 	Copy(rhs);
 }
 
@@ -34,8 +35,9 @@ void CoreArray<T, N>::Init(void)
 }
 
 template<typename T, const size_t N>
-CoreArray<T, N>& CoreArray<T, N>::operator=(const CoreArray<T, N>& rhs)
+CoreArray<T, N>& CoreArray<T, N>::operator=(CoreArray<T, N>& rhs)
 {
+	READ_LOCK(rhs.mutex);
 	Copy(rhs);
 	return *this;
 }
