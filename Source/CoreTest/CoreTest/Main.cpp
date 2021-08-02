@@ -53,28 +53,21 @@ public:
 	int i[100];
 };
 
-CoreList<Test3> list;
-std::list<Test3> list2;
+CoreList<int> data;
+std::list<int> data2;
 
 std::shared_mutex mutex1;
 std::shared_mutex mutex2;
 
 void DoTest(const size_t threadID)
 {
-	list.push_back(Test3());
-
-	WRITE_LOCK(mutex1);
-	for (auto& d : list)
-		Test3 t = d;
+	CoreList<int> copy(data);
 }
 
 void DoTest2(const size_t threadID)
 {
 	WRITE_LOCK(mutex2);
-	list2.push_back(Test3());
-
-	for (auto& d : list2)
-		Test3 t = d;
+	std::list<int> copy(data2);
 }
 
 void Test(void (*fp)(const size_t))
@@ -110,20 +103,25 @@ int main(void)
 
 	//CoreRandomManager<int>::GetInstance().GetRandom(v);
 
+	for (size_t i = 0; i < 10; ++i)
+	{
+		data.push_back(i);
+		data2.push_back(i);
+	}
+
 	CORE_LOG.Log("----------- stl -----------------");
 
 	for (size_t i = 0; i < 10; ++i)
 		Test(DoTest2);
 
-	CORE_LOG.Log(TO_STR(list2.size()));
+	CORE_LOG.Log(TO_STR(data2.size()));
 
 	CORE_LOG.Log("----------- mine -----------------");
 
 	for (size_t i = 0; i < 10; ++i)
 		Test(DoTest);
 
-	CORE_LOG.Log(TO_STR(list.size()));
-
+	CORE_LOG.Log(TO_STR(data.size()));
 
 	return 0;
 }

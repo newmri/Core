@@ -17,15 +17,25 @@ class CoreIterator
 public:
 	CoreIterator(CoreNode<T>* head = nullptr) : currNode(head) {}
 
-	CoreIterator& operator++()
+	const CoreIterator& operator++() const
 	{
 		this->currNode = this->currNode->next;
 		return *this;
 	}
 
-	T& operator*()
+	CoreIterator& operator++()
+	{
+		return const_cast<CoreIterator&>(static_cast<const CoreIterator<T>&>(*this).operator++());
+	}
+
+	const T& operator*() const
 	{
 		return this->currNode->data;
+	}
+
+	T& operator*()
+	{
+		return const_cast<T&>(static_cast<const CoreIterator<T>&>(*this).operator*());
 	}
 
 	bool operator==(CORE_REF(CoreIterator) rhs) const
@@ -39,5 +49,5 @@ public:
 	}
 
 private:
-	CoreNode<T>* currNode = nullptr;
+	mutable CoreNode<T>* currNode = nullptr;
 };

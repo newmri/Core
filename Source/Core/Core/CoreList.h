@@ -9,10 +9,10 @@ class CoreList : public CoreContainer<T>
 	OVERRIDE_OBJ(CoreList<T>)
 
 public:
-	CoreList(const CoreList<T>& rhs);
+	CoreList(CoreList<T>& rhs);
 
 public:
-	CoreList<T>& operator=(const CoreList<T>& rhs);
+	CoreList<T>& operator=(CoreList<T>& rhs);
 
 private:
 	void Copy(const CoreList<T>& rhs);
@@ -21,8 +21,16 @@ public:
 	virtual void clear(void) override;
 
 public:
+	void push_front(const T& data);
+	void push_front(T&& data);
 	void push_back(const T& data);
 	void push_back(T&& data);
+
+private:
+	CoreNode<T>* CreateNewNode(const T& data);
+	CoreNode<T>* CreateNewNode(T&& data);
+	void push_front(CoreNode<T>* newNode);
+	void push_back(CoreNode<T>* newNode);
 
 public:
 	typedef CoreIterator<T> iterator;
@@ -37,7 +45,6 @@ public:
 private:
 	CoreNode<T>* head = nullptr;
 	CoreNode<T>* tail = nullptr;
-	size_t dataDefaultReserveSize = 10;
 };
 
 #include "CoreList.hpp"
