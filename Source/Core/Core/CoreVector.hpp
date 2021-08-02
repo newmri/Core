@@ -32,14 +32,16 @@ void CoreVector<T>::Init(void)
 }
 
 template<typename T>
-CoreVector<T>::CoreVector(const CoreVector<T>& rhs)
+CoreVector<T>::CoreVector(CoreVector<T>& rhs)
 {
+	READ_LOCK(rhs.mutex);
 	Copy(rhs);
 }
 
 template<typename T>
-CoreVector<T>& CoreVector<T>::operator=(const CoreVector<T>& rhs)
+CoreVector<T>& CoreVector<T>::operator=(CoreVector<T>& rhs)
 {
+	READ_LOCK(rhs.mutex);
 	Copy(rhs);
 	return *this;
 }
@@ -69,6 +71,7 @@ void CoreVector<T>::Copy(const CoreVector<T>& rhs)
 		size_t copySize = sizeof(T) * rhs.dataSize;
 		memcpy_s(this->data, copySize, rhs.data, copySize);
 		SetCapacity(rhs.dataCapacity);
+		CoreContainer<T>::SetDefaultReserveSize(rhs.dataDefaultReserveSize);
 	}
 }
 

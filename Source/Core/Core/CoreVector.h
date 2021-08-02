@@ -10,10 +10,10 @@ class CoreVector : public CoreContainer<T>
 public:
 	template<typename... Types>
 	CoreVector(const size_t maxBlockNum, Types... args);
-	CoreVector(const CoreVector<T>& rhs);
+	CoreVector(CoreVector<T>& rhs);
 
 public:
-	CoreVector<T>& operator=(const CoreVector<T>& rhs);
+	CoreVector<T>& operator=(CoreVector<T>& rhs);
 	CORE_REF(T) operator[](const size_t index) const;
 	CORE_OUT(T) operator[](const size_t index);
 
@@ -47,7 +47,6 @@ public:
 
 private:
 	size_t dataCapacity = 0;
-	size_t dataDefaultReserveSize = 5;
 	size_t dataCapacityIncrease = 2;
 };
 
