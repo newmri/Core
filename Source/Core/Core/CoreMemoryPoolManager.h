@@ -18,7 +18,7 @@ public:
 		}
 
 		CoreMemoryPool<T> page;
-		std::shared_ptr<Node> next;
+		std::unique_ptr<Node> next;
 	};
 
 public:
@@ -42,7 +42,7 @@ private:
 	size_t pageNum = 0;
 
 private:
-	std::shared_ptr<Node> head;
+	std::unique_ptr<Node> head;
 	std::shared_mutex mutex;
 };
 

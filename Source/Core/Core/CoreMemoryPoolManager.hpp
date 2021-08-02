@@ -24,7 +24,7 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 
 	CheckAndAllocHead(maxBlockNum);
 
-	std::shared_ptr<Node> currNode = this->head;
+	Node* currNode = this->head.get();
 	T* blockBody = nullptr;
 
 	do
@@ -37,24 +37,17 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 
 			if (IS_NULL(currNode->next))
 			{
-				std::shared_ptr<Node> newNode = std::make_shared<Node>(maxBlockNum);
-				currNode->next = newNode;
+				currNode->next = std::make_unique<Node>(maxBlockNum);
 				++pageNum;
 			}
 
-			currNode = currNode->next;
+			currNode = currNode->next.get();
 		}
 
 	} while (IS_NULL(blockBody));
 
 	return blockBody;
 }
-
-//template<typename T>
-//CoreMemoryPoolManager<T>::~CoreMemoryPoolManager()
-//{
-//	this->isDestroyed = true;
-//}
 
 template<typename T>
 bool CoreMemoryPoolManager<T>::IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum)
@@ -76,7 +69,7 @@ void CoreMemoryPoolManager<T>::CheckAndAllocHead(const size_t maxBlockNum)
 
 	if (IS_NULL(this->head))
 	{
-		this->head = std::make_shared<Node>(maxBlockNum);
+		this->head = std::make_unique<Node>(maxBlockNum);
 		++pageNum;
 	}
 }
@@ -90,7 +83,7 @@ void CoreMemoryPoolManager<T>::DeAlloc(void* block, const bool needCallDtor)
 template<typename T>
 void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody, const bool needCallDtor)
 {
-	std::shared_ptr<Node> currNode = this->head;
+	Node* currNode = this->head.get();
 	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
 
 	while (currNode)
@@ -101,7 +94,7 @@ void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody, const bool needCallDtor)
 			break;
 		}
 
-		currNode = currNode->next;
+		currNode = currNode->next.get();
 	}
 }
 
