@@ -152,16 +152,17 @@ bool CoreMemoryPool<T>::CanDeAlloc(T* blockBody, CORE_OUT(size_t) startIndex, CO
 	return true;
 }
 
-template<typename T>
-size_t CoreMemoryPool<T>::GetBlockHeaderOffset(const size_t index)
-{
-	return index * this->blockInfo.blockHeaderSize;
-}
 
 template<typename T>
 BlockHeader* CoreMemoryPool<T>::GetBlockHeader(const size_t index)
 {
 	return reinterpret_cast<BlockHeader*>(this->block + GetBlockHeaderOffset(index));
+}
+
+template<typename T>
+size_t CoreMemoryPool<T>::GetBlockHeaderOffset(const size_t index)
+{
+	return (this->blockInfo.blockHeaderSize * index);
 }
 
 template<typename T>

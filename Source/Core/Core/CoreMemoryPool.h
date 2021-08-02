@@ -47,8 +47,8 @@ private:
 	bool CanDeAlloc(T* blockBody, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex);
 
 private:
-	size_t GetBlockHeaderOffset(const size_t index);
 	BlockHeader* GetBlockHeader(const size_t index);
+	size_t GetBlockHeaderOffset(const size_t index);
 	size_t GetIndex(T* blockBody);
 	size_t GetBlockBodyOffset(const size_t index);
 	T* GetBlockBody(const size_t index);
