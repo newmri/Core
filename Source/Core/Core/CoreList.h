@@ -25,6 +25,9 @@ public:
 	void push_front(T&& data);
 	void push_back(const T& data);
 	void push_back(T&& data);
+	void remove(const T& data);
+	template<typename FUNC = bool(*)(const T&, const T&)>
+	void remove_if(FUNC Compare);
 
 private:
 	CoreNode<T>* CreateNewNode(const T& data);

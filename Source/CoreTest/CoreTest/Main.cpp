@@ -61,13 +61,22 @@ std::shared_mutex mutex2;
 
 void DoTest(const size_t threadID)
 {
-	CoreList<int> copy(data);
+	for (int i = 0; i < 100; ++i)
+	{
+		if(CORE_RANDOM_MANAGER_INT.GetRandomByPercent(0.5))
+			data.push_back(i);
+	}
 }
 
 void DoTest2(const size_t threadID)
 {
-	WRITE_LOCK(mutex2);
-	std::list<int> copy(data2);
+	for (int i = 0; i < 100; ++i)
+	{
+		WRITE_LOCK(mutex2);
+
+		if (CORE_RANDOM_MANAGER_INT.GetRandomByPercent(0.5))
+			data2.push_back(i);
+	}
 }
 
 void Test(void (*fp)(const size_t))
@@ -103,25 +112,21 @@ int main(void)
 
 	//CoreRandomManager<int>::GetInstance().GetRandom(v);
 
-	for (size_t i = 0; i < 10; ++i)
-	{
-		data.push_back(i);
-		data2.push_back(i);
-	}
-
 	CORE_LOG.Log("----------- stl -----------------");
 
-	for (size_t i = 0; i < 10; ++i)
+	for (size_t i = 0; i < 2; ++i)
 		Test(DoTest2);
 
 	CORE_LOG.Log(TO_STR(data2.size()));
 
 	CORE_LOG.Log("----------- mine -----------------");
 
-	for (size_t i = 0; i < 10; ++i)
+	for (size_t i = 0; i < 2; ++i)
 		Test(DoTest);
 
 	CORE_LOG.Log(TO_STR(data.size()));
+	CORE_LOG.Log("Memory Page: " + TO_STR(GET_INSTANCE(CoreMemoryPoolManager<CoreNode<int>>).GetPageNum()));
+
 
 	return 0;
 }

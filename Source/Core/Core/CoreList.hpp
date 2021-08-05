@@ -5,7 +5,7 @@
 template<typename T>
 CoreList<T>::CoreList()
 {
-	this->head = this->tail = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
+	this->head = this->tail = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize * 100000);
 
 	if (this->head)
 	{
@@ -67,7 +67,7 @@ void CoreList<T>::clear(void)
 {
 	WRITE_LOCK(this->mutex);
 
-	if (IS_NULL(this->head))
+	if (IS_SAME(this->dataSize, 0))
 		return;
 
 	CoreNode<T>* currNode = this->head->next;
@@ -85,37 +85,72 @@ void CoreList<T>::clear(void)
 template<typename T>
 void CoreList<T>::push_front(const T& data)
 {
-	CoreNode<T>* newNode = CreateNewNode(data);
-
 	WRITE_LOCK(this->mutex);
+	CoreNode<T>* newNode = CreateNewNode(data);
 	push_front(newNode);
 }
 
 template<typename T>
 void CoreList<T>::push_front(T&& data)
 {
-	CoreNode<T>* newNode = CreateNewNode(data);
-
 	WRITE_LOCK(this->mutex);
+	CoreNode<T>* newNode = CreateNewNode(data);
 	push_front(newNode);
 }
 
 template<typename T>
 void CoreList<T>::push_back(const T& data)
 {
-	CoreNode<T>* newNode = CreateNewNode(data);
-
 	WRITE_LOCK(this->mutex);
+	CoreNode<T>* newNode = CreateNewNode(data);
 	push_back(newNode);
 }
 
 template<typename T>
 void CoreList<T>::push_back(T&& data)
 {
+	WRITE_LOCK(this->mutex);
 	CoreNode<T>* newNode = CreateNewNode(data);
+	push_back(newNode);
+}
+
+template<typename T>
+void CoreList<T>::remove(const T& data)
+{
+	return remove_if([&](const T& other) { return data == other; });
+}
+
+template<typename T>
+template<typename FUNC>
+void CoreList<T>::remove_if(FUNC Compare)
+{
+	size_t decreaseNum = 0;
 
 	WRITE_LOCK(this->mutex);
-	push_back(newNode);
+
+	if (IS_SAME(this->dataSize, 0))
+		return;
+
+	CoreNode<T>* currNode = this->head;
+
+	while (IS_NOT_NULL(currNode) && IS_NOT_NULL(currNode->next))
+	{
+		if (Compare(currNode->next->data))
+		{
+			GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(currNode->next);
+
+			currNode->next = currNode->next->next;
+
+			if (IS_NULL(currNode->next))
+				this->tail = currNode;
+
+			++decreaseNum;
+		}
+
+		currNode = currNode->next;
+	}
+
+	CoreContainer<T>::SetSize(this->dataSize - decreaseNum);
 }
 
 template<typename T>
