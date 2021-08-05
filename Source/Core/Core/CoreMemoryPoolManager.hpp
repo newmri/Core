@@ -22,10 +22,13 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 	if (!IsValidBlockNum(maxBlockNum, needBlockNum))
 		return nullptr;
 
+	T* blockBody = nullptr;
+
+	WRITE_LOCK(this->mutex);
+
 	CheckAndAllocHead(maxBlockNum);
 
 	Node* currNode = this->head.get();
-	T* blockBody = nullptr;
 
 	do
 	{
@@ -33,8 +36,6 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 
 		if (IS_NULL(blockBody))
 		{
-			WRITE_LOCK(this->mutex);
-
 			if (IS_NULL(currNode->next))
 			{
 				currNode->next = std::make_unique<Node>(maxBlockNum);
@@ -65,8 +66,6 @@ bool CoreMemoryPoolManager<T>::IsValidBlockNum(const size_t maxBlockNum, const s
 template<typename T>
 void CoreMemoryPoolManager<T>::CheckAndAllocHead(const size_t maxBlockNum)
 {
-	WRITE_LOCK(this->mutex);
-
 	if (IS_NULL(this->head))
 	{
 		this->head = std::make_unique<Node>(maxBlockNum);
@@ -85,6 +84,8 @@ void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody, const bool needCallDtor)
 {
 	Node* currNode = this->head.get();
 	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
+
+	WRITE_LOCK(this->mutex);
 
 	while (currNode)
 	{

@@ -63,9 +63,6 @@ private:
 private:
 	BlockInfo blockInfo;
 	CORE_BYTE_PTR block = nullptr;
-
-private:
-	std::shared_mutex mutex;
 };
 
 #include "CoreMemoryPool.hpp"

@@ -29,8 +29,6 @@ T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum, const bool needCallCtor, 
 {
 	size_t startIndex = 0, endIndex = 0;
 
-	WRITE_LOCK(this->mutex);
-
 	if (IS_SAME(0, CanAlloc(needBlockNum, startIndex, endIndex)))
 		return nullptr;
 
@@ -63,8 +61,6 @@ void CoreMemoryPool<T>::DeAlloc(T* blockBody, const bool needCallDtor) noexcept
 {
 	size_t startIndex = 0, endIndex = 0;
 
-	WRITE_LOCK(this->mutex);
-
 	if (IS_SAME(false, CanDeAlloc(blockBody, startIndex, endIndex)))
 		return;
 
@@ -91,14 +87,12 @@ void CoreMemoryPool<T>::DeAllocAll(void) noexcept
 template<typename T>
 size_t CoreMemoryPool<T>::GetRemainedBlockNum(void)
 {
-	READ_LOCK(this->mutex);
 	return this->blockInfo.remainedBlockNum;
 }
 
 template<typename T>
 size_t CoreMemoryPool<T>::GetMaxBlockNum(void)
 {
-	READ_LOCK(this->mutex);
 	return this->blockInfo.maxBlockNum;
 }
 
