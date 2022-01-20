@@ -75,16 +75,6 @@ int main(void)
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
-	//CoreVector<int> v;
-	//v.push_back(1);
-	//v.push_back(0);
-	//v.push_back(5);
-	//v.push_back(5);
-	//v.push_back(5);
-	//CoreBubbleSort(v.begin(), v.end());
-
-	//for (int i = 0; i < v.size(); ++i)
-	//	CORE_LOG.Log(TO_STR(v[i]));
 
 	//CORE_LOG.Log("----------- mine -----------------");
 	//CORE_TEST_MANAGER.Work(DoTest);

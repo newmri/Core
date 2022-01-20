@@ -29,7 +29,7 @@ size_t CoreGetLen(T* start, T* end)
 	{
 		std::string errorMessage = "start " + TO_STR(*start) + " is Greater or Same than end " + TO_STR(*end);
 		CORE_LOG.Log(LogType::LOG_ERROR, errorMessage);
-		return false;
+		return 0;
 	}
 
 	return (end - start);
@@ -40,7 +40,7 @@ void CoreBubbleSort(T* start, T* end, FUNC Compare)
 {
 	size_t len = CoreGetLen(start, end);
 
-	if (false == len) return;
+	if (IS_SAME(0, len)) return;
 
 	for (size_t i = 0; i < len; ++i)
 	{
@@ -52,18 +52,12 @@ void CoreBubbleSort(T* start, T* end, FUNC Compare)
 	}
 }
 
-template<typename T>
-void CoreBubbleSort(T* start, T* end)
-{
-	CoreBubbleSort(start, end, CoreAscendingOrder);
-}
-
 template<typename T, typename FUNC>
 void CoreSelectionSort(T* start, T* end, FUNC Compare)
 {
 	size_t len = CoreGetLen(start, end);
 
-	if (false == len) return;
+	if (IS_SAME(0, len)) return;
 
 	size_t targetIndex = 0;
 
@@ -84,18 +78,12 @@ void CoreSelectionSort(T* start, T* end, FUNC Compare)
 	}
 }
 
-template<typename T>
-void CoreSelectionSort(T* start, T* end)
-{
-	CoreSelectionSort(start, end, CoreAscendingOrder);
-}
-
 template<typename T, typename FUNC>
 void CoreInsertionSort(T* start, T* end, FUNC Compare)
 {
 	size_t len = CoreGetLen(start, end);
 
-	if (false == len) return;
+	if (IS_SAME(0, len)) return;
 
 	size_t targetIndex;
 
@@ -117,8 +105,38 @@ void CoreInsertionSort(T* start, T* end, FUNC Compare)
 	}
 }
 
-template<typename T>
-void CoreInsertionSort(T* start, T* end)
+template<typename T, typename FUNC>
+void CoreQuickSort(T* start, T* end, FUNC Compare)
 {
-	InsertionSort(start, end, CoreAscendingOrder);
+	size_t len = CoreGetLen(start, end);
+
+	if (IS_SAME(0, len)) return;
+
+	CoreQuickSortRecursive(start, 0, static_cast<int>(len - 1), Compare);
+}
+
+template<typename T, typename FUNC>
+void CoreQuickSortRecursive(T* data, int start, int end, FUNC Compare)
+{
+	if (start >= end) return;
+
+	int pivot = start;
+	int low = start + 1;
+	int high = end;
+
+	while (low <= high)
+	{
+		while (Compare(data[pivot], data[low]) && low <= end)
+			++low;
+		while (Compare(data[high], data[pivot]) && high > start)
+			--high;
+
+		if (low > high)
+			CoreSwap(data[pivot], data[high]);
+		else 
+			CoreSwap(data[low], data[high]);
+	}
+
+	CoreQuickSortRecursive(data, start, high - 1, Compare);
+	CoreQuickSortRecursive(data, high + 1, end, Compare);
 }
