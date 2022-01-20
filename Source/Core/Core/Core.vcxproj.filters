@@ -64,9 +64,6 @@
     <Filter Include="06.CoreContainer\02.CoreList">
       <UniqueIdentifier>{1587ca71-a195-4544-9ba0-00ef1f07da8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="99.CoreTestManager">
-      <UniqueIdentifier>{74bf5bce-abd6-4d07-acee-24db258a94ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="09.CoreLoadManager">
       <UniqueIdentifier>{82e1f301-ba5a-4dcc-afce-389a0a0722f5}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,9 @@
     </Filter>
     <Filter Include="09.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader">
       <UniqueIdentifier>{f080eeb8-7095-480f-94c3-100ad5c51ada}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.CoreTestManager">
+      <UniqueIdentifier>{74bf5bce-abd6-4d07-acee-24db258a94ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
