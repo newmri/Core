@@ -59,45 +59,15 @@ std::list<int> data2;
 std::shared_mutex mutex1;
 std::shared_mutex mutex2;
 
-void DoTest(const size_t threadID)
+void DoTest(void)
 {
-	for (int i = 0; i < 100; ++i)
-	{
-		if(CORE_RANDOM_MANAGER_INT.GetRandomByPercent(0.5))
-			data.push_back(i);
-	}
+	data.push_back(1);
 }
 
-void DoTest2(const size_t threadID)
+void DoTest2(void)
 {
-	for (int i = 0; i < 100; ++i)
-	{
-		WRITE_LOCK(mutex2);
-
-		if (CORE_RANDOM_MANAGER_INT.GetRandomByPercent(0.5))
-			data2.push_back(i);
-	}
-}
-
-void Test(void (*fp)(const size_t))
-{
-	CORE_TIME_MANAGER.Start();
-
-	for (size_t i = 0; i < 100; ++i)
-	{
-		std::vector<std::thread> threads;
-
-		for (size_t j = 0; j < 10; ++j)
-		{
-			std::thread th(fp, j);
-			threads.push_back(std::move(th));
-		}
-
-		for (auto& d : threads)
-			d.join();
-	}
-
-	CORE_TIME_MANAGER.End();
+	WRITE_LOCK(mutex2);
+	data2.push_back(1);
 }
 
 int main(void)
@@ -105,28 +75,27 @@ int main(void)
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
+	//CoreVector<int> v;
+	//v.push_back(1);
+	//v.push_back(0);
+	//v.push_back(5);
+	//v.push_back(5);
+	//v.push_back(5);
+	//CoreBubbleSort(v.begin(), v.end());
 
-	//CORE_LOG.Log("----------- Test -----------------");
-	//for (size_t i = 0; i < 3; ++i)
-	//	Test(DoTest2);
+	//for (int i = 0; i < v.size(); ++i)
+	//	CORE_LOG.Log(TO_STR(v[i]));
 
-	//CoreRandomManager<int>::GetInstance().GetRandom(v);
+	//CORE_LOG.Log("----------- mine -----------------");
+	//CORE_TEST_MANAGER.Work(DoTest);
+	//CORE_LOG.Log("size: " + TO_STR(data.size()));
 
-	CORE_LOG.Log("----------- stl -----------------");
+	//CORE_LOG.Log("Memory Page: " + TO_STR(GET_INSTANCE(CoreMemoryPoolManager<CoreNode<int>>).GetPageNum()));
+	//CORE_LOG.Log("");
 
-	for (size_t i = 0; i < 2; ++i)
-		Test(DoTest2);
-
-	CORE_LOG.Log(TO_STR(data2.size()));
-
-	CORE_LOG.Log("----------- mine -----------------");
-
-	for (size_t i = 0; i < 2; ++i)
-		Test(DoTest);
-
-	CORE_LOG.Log(TO_STR(data.size()));
-	CORE_LOG.Log("Memory Page: " + TO_STR(GET_INSTANCE(CoreMemoryPoolManager<CoreNode<int>>).GetPageNum()));
-
+	//CORE_LOG.Log("----------- stl -----------------");
+	//CORE_TEST_MANAGER.Work(DoTest2);
+	//CORE_LOG.Log("size: " + TO_STR(data2.size()));
 
 	return 0;
 }

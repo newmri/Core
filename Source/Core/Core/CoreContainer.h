@@ -33,7 +33,7 @@ protected:
 	T* data = nullptr;
 
 protected:
-	std::shared_mutex mutex;
+	CACHE_ALIGN std::shared_mutex mutex;
 };
 
 template<typename T>

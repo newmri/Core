@@ -53,7 +53,10 @@ T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum, const bool needCallCtor, 
 template<typename T>
 bool CoreMemoryPool<T>::IsMyBody(CORE_BYTE_PTR blockBody)
 {
-	return ((this->block < blockBody) && ((this->block + GetBlockBodyOffset(this->blockInfo.maxBlockNum - 1)) >= blockBody));
+	CORE_BYTE_PTR minBlockBody = this->block + this->blockInfo.blockHeaderTotalSize;
+	CORE_BYTE_PTR maxBlockBody = this->block + GetBlockBodyOffset(this->blockInfo.maxBlockNum - 1);
+
+	return (minBlockBody <= blockBody && maxBlockBody >= blockBody);
 }
 
 template<typename T>

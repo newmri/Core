@@ -32,18 +32,17 @@ private:
 	void CheckAndAllocHead(const size_t maxBlockNum);
 
 public:
-	void DeAlloc(void* block, const bool needCallDtor = true);
 	void DeAlloc(T* blockBody, const bool needCallDtor = true);
 
 public:
 	size_t GetPageNum(void);
 
 private:
-	size_t pageNum = 0;
+	CACHE_ALIGN size_t pageNum = 0;
 
 private:
 	std::unique_ptr<Node> head;
-	std::shared_mutex mutex;
+	CACHE_ALIGN std::shared_mutex mutex;
 };
 
 #include "CoreMemoryPoolManager.hpp"

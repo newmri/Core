@@ -64,6 +64,24 @@
     <Filter Include="06.CoreContainer\02.CoreList">
       <UniqueIdentifier>{1587ca71-a195-4544-9ba0-00ef1f07da8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99.CoreTestManager">
+      <UniqueIdentifier>{74bf5bce-abd6-4d07-acee-24db258a94ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09.CoreLoadManager">
+      <UniqueIdentifier>{82e1f301-ba5a-4dcc-afce-389a0a0722f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09.CoreLoadManager\00.CoreLoader">
+      <UniqueIdentifier>{6b3c726f-f50e-4d02-8eb3-db97c6c1bf57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.CoreDataTypeManager">
+      <UniqueIdentifier>{b52ce057-cfce-428a-9fed-a5294bb2d1c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="11.CoreStringManager">
+      <UniqueIdentifier>{d453b0d1-67b7-4d90-83ff-e1c4b0c6be73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader">
+      <UniqueIdentifier>{f080eeb8-7095-480f-94c3-100ad5c51ada}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -80,6 +98,21 @@
     </ClCompile>
     <ClCompile Include="CoreFileLogger.cpp">
       <Filter>04.CoreLogManager\00.CoreLogger\01.CoreFileLogger</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreTestManager.cpp">
+      <Filter>99.CoreTestManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreLoader.cpp">
+      <Filter>09.CoreLoadManager\00.CoreLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreDataTypeManager.cpp">
+      <Filter>10.CoreDataTypeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreStringManager.cpp">
+      <Filter>11.CoreStringManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreCSVLoader.cpp">
+      <Filter>09.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +199,24 @@
     </ClInclude>
     <ClInclude Include="CoreList.hpp">
       <Filter>06.CoreContainer\02.CoreList</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreTestManager.h">
+      <Filter>99.CoreTestManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreLoadManager.h">
+      <Filter>09.CoreLoadManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreLoader.h">
+      <Filter>09.CoreLoadManager\00.CoreLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreDataTypeManager.h">
+      <Filter>10.CoreDataTypeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreStringManager.h">
+      <Filter>11.CoreStringManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreCSVLoader.h">
+      <Filter>09.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

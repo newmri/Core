@@ -74,12 +74,6 @@ void CoreMemoryPoolManager<T>::CheckAndAllocHead(const size_t maxBlockNum)
 }
 
 template<typename T>
-void CoreMemoryPoolManager<T>::DeAlloc(void* block, const bool needCallDtor)
-{
-	DeAlloc(reinterpret_cast<T*>(block), needCallDtor);
-}
-
-template<typename T>
 void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody, const bool needCallDtor)
 {
 	Node* currNode = this->head.get();

@@ -5,7 +5,7 @@
 template<typename T>
 CoreList<T>::CoreList()
 {
-	this->head = this->tail = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize * 100000);
+	this->head = this->tail = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
 
 	if (this->head)
 	{
@@ -85,7 +85,6 @@ void CoreList<T>::clear(void)
 template<typename T>
 void CoreList<T>::push_front(const T& data)
 {
-	WRITE_LOCK(this->mutex);
 	CoreNode<T>* newNode = CreateNewNode(data);
 	push_front(newNode);
 }
@@ -93,7 +92,6 @@ void CoreList<T>::push_front(const T& data)
 template<typename T>
 void CoreList<T>::push_front(T&& data)
 {
-	WRITE_LOCK(this->mutex);
 	CoreNode<T>* newNode = CreateNewNode(data);
 	push_front(newNode);
 }
@@ -101,7 +99,6 @@ void CoreList<T>::push_front(T&& data)
 template<typename T>
 void CoreList<T>::push_back(const T& data)
 {
-	WRITE_LOCK(this->mutex);
 	CoreNode<T>* newNode = CreateNewNode(data);
 	push_back(newNode);
 }
@@ -109,7 +106,6 @@ void CoreList<T>::push_back(const T& data)
 template<typename T>
 void CoreList<T>::push_back(T&& data)
 {
-	WRITE_LOCK(this->mutex);
 	CoreNode<T>* newNode = CreateNewNode(data);
 	push_back(newNode);
 }
@@ -172,6 +168,8 @@ CoreNode<T>* CoreList<T>::CreateNewNode(T&& data)
 template<typename T>
 void CoreList<T>::push_front(CoreNode<T>* newNode)
 {
+	WRITE_LOCK(this->mutex);
+
 	newNode->next = this->head->next;
 	this->head->next = newNode;
 
@@ -181,6 +179,8 @@ void CoreList<T>::push_front(CoreNode<T>* newNode)
 template<typename T>
 void CoreList<T>::push_back(CoreNode<T>* newNode)
 {
+	WRITE_LOCK(this->mutex);
+
 	this->tail->next = newNode;
 	this->tail = newNode;
 

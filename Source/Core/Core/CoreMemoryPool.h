@@ -4,7 +4,7 @@
 
 struct BlockInfo
 {
-	size_t remainedBlockNum = 0;
+	CACHE_ALIGN size_t remainedBlockNum = 0;
 	size_t maxBlockNum = 0;
 	size_t blockHeaderSize = 0;
 	size_t blockHeaderTotalSize = 0;

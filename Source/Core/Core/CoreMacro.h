@@ -28,5 +28,12 @@ void SAFE_DELETE(T* PTR) { delete PTR; PTR = nullptr; }
 template< typename T >
 void SAFE_DELETE_ARRAY(T* PTR) { delete[] PTR; PTR = nullptr; }
 
+#ifdef KNOWN_L1_CACHE_LINE_SIZE
+inline constexpr size_t LINE = KNOWN_L1_CACHE_LINE_SIZE;
+#else
+inline constexpr size_t LINE = std::hardware_destructive_interference_size;
+#endif
+
+#define CACHE_ALIGN __declspec(align(LINE))
 
 #include "CoreSingletonMacro.h"

@@ -218,19 +218,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CoreConsoleLogger.cpp" />
+    <ClCompile Include="CoreCSVLoader.cpp" />
     <ClCompile Include="CoreFileLogger.cpp" />
+    <ClCompile Include="CoreLoader.cpp" />
     <ClCompile Include="CoreLogger.cpp" />
     <ClCompile Include="CoreDummyManager.cpp" />
+    <ClCompile Include="CoreStringManager.cpp" />
+    <ClCompile Include="CoreTestManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
+    <ClCompile Include="CoreDataTypeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoreAlgorithm.h" />
     <ClInclude Include="CoreConsoleLogger.h" />
+    <ClInclude Include="CoreCSVLoader.h" />
     <ClInclude Include="CoreDataType.h" />
     <ClInclude Include="CoreDummyManager.h" />
     <ClInclude Include="CoreFileLogger.h" />
     <ClInclude Include="CoreList.h" />
     <ClInclude Include="CoreList.hpp" />
+    <ClInclude Include="CoreLoader.h" />
+    <ClInclude Include="CoreLoadManager.h" />
     <ClInclude Include="CoreLogInclude.h" />
     <ClInclude Include="CoreMemoryPool.hpp" />
     <ClInclude Include="CoreMemoryPoolManager.h" />
@@ -249,9 +257,12 @@
     <ClInclude Include="CoreObj.h" />
     <ClInclude Include="CoreSort.h" />
     <ClInclude Include="CoreSort.hpp" />
+    <ClInclude Include="CoreStringManager.h" />
+    <ClInclude Include="CoreTestManager.h" />
     <ClInclude Include="CoreTimeManager.h" />
     <ClInclude Include="CoreVector.h" />
     <ClInclude Include="CoreVector.hpp" />
+    <ClInclude Include="CoreDataTypeManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
