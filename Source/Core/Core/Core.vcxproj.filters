@@ -82,6 +82,9 @@
     <Filter Include="99.CoreTestManager">
       <UniqueIdentifier>{74bf5bce-abd6-4d07-acee-24db258a94ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06.CoreContainer\03.CoreQueue">
+      <UniqueIdentifier>{88aba5e9-dae2-4049-97a4-a8a4412209f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -217,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="CoreCSVLoader.h">
       <Filter>09.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreQueue.h">
+      <Filter>06.CoreContainer\03.CoreQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreQueue.hpp">
+      <Filter>06.CoreContainer\03.CoreQueue</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

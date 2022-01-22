@@ -32,6 +32,7 @@
 #include "CoreArray.h"
 #include "CoreVector.h"
 #include "CoreList.h"
+#include "CoreQueue.h"
 #include "CoreAlgorithm.h"
 #include "CoreRandomManager.h"
 #include "CoreLoader.h"
