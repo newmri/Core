@@ -85,6 +85,9 @@
     <Filter Include="06.CoreContainer\03.CoreQueue">
       <UniqueIdentifier>{88aba5e9-dae2-4049-97a4-a8a4412209f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06.CoreContainer\03.CoreQueue\00.CorePriorityQueue">
+      <UniqueIdentifier>{dc4f73c5-374b-4b97-9234-bd09b0fc3bc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -226,6 +229,12 @@
     </ClInclude>
     <ClInclude Include="CoreQueue.hpp">
       <Filter>06.CoreContainer\03.CoreQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="CorePriorityQueue.h">
+      <Filter>06.CoreContainer\03.CoreQueue\00.CorePriorityQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="CorePriorityQueue.hpp">
+      <Filter>06.CoreContainer\03.CoreQueue\00.CorePriorityQueue</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

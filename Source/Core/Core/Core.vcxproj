@@ -250,6 +250,8 @@
     <ClInclude Include="CoreMacro.h" />
     <ClInclude Include="CoreMemoryPool.h" />
     <ClInclude Include="CoreNode.h" />
+    <ClInclude Include="CorePriorityQueue.h" />
+    <ClInclude Include="CorePriorityQueue.hpp" />
     <ClInclude Include="CoreQueue.h" />
     <ClInclude Include="CoreQueue.hpp" />
     <ClInclude Include="CoreRandomManager.h" />

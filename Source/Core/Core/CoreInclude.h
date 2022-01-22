@@ -19,6 +19,7 @@
 #include <direct.h>
 #include <type_traits>
 #include <map> // 추후 제작한걸로 대체
+#include <functional>
 
 #include "CoreMacro.h"
 #include "CoreDataType.h"
@@ -33,6 +34,7 @@
 #include "CoreVector.h"
 #include "CoreList.h"
 #include "CoreQueue.h"
+#include "CorePriorityQueue.h"
 #include "CoreAlgorithm.h"
 #include "CoreRandomManager.h"
 #include "CoreLoader.h"

@@ -77,15 +77,6 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	CoreQueue<int> q;
-	q.push(1);
-	q.push(2);
-	q.push(3);
-	q.push(4);
-
-	q.pop();
-	CORE_LOG.Log(TO_STR(q.empty()));
-
 	//CORE_LOG.Log("----------- mine -----------------");
 	//CORE_TEST_MANAGER.Work(DoTest);
 	//CORE_LOG.Log("size: " + TO_STR(data.size()));
