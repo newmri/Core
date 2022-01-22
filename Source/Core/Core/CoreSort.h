@@ -21,9 +21,6 @@ void CoreSelectionSort(T* start, T* end, FUNC Compare = CoreAscendingOrder);
 template<typename T, typename FUNC = bool(*)(const T&, const T&)>
 void CoreInsertionSort(T* start, T* end, FUNC Compare);
 
-template<typename T>
-void CoreInsertionSort(T* start, T* end);
-
 template<typename T, typename FUNC = bool(*)(const T&, const T&)>
 void CoreQuickSort(T* start, T* end, FUNC Compare = CoreAscendingOrder);
 
