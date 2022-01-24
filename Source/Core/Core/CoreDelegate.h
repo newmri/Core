@@ -32,7 +32,7 @@ public:
 
     CoreDelegate& operator+=(std::function<void(Types...)> const& func)
     {
-        functions.push_back(func);
+        this->functions.push_back(func);
         return *this;
     }
 
@@ -43,23 +43,23 @@ public:
 
         if (nullptr == func_ptr)
         {
-            for (auto iter = functions.begin(); iter != functions.end(); ++iter)
+            for (auto iter = this->functions.begin(); iter != this->functions.end(); ++iter)
             {
                 if (func_hash == (*iter).target_type().hash_code())
                 {
-                    functions.erase(iter);
+                    this->functions.erase(iter);
                     return *this;
                 }
             }
         }
         else
         {
-            for (auto iter = functions.begin(); iter != functions.end(); ++iter)
+            for (auto iter = this->functions.begin(); iter != this->functions.end(); ++iter)
             {
                 void (* const* delegate_ptr)(Types...) = (*iter).template target<void(*)(Types...)>();
                 if (nullptr != delegate_ptr && *func_ptr == *delegate_ptr)
                 {
-                    functions.erase(iter);
+                    this->functions.erase(iter);
                     return *this;
                 }
             }
@@ -70,17 +70,17 @@ public:
 
     iterator begin() noexcept
     {
-        return functions.begin();
+        return this->functions.begin();
     }
 
     iterator end() noexcept
     {
-        return functions.end();
+        return this->functions.end();
     }
 
     void clear()
     {
-        functions.clear();
+        this->functions.clear();
     }
 
 private:

@@ -71,9 +71,9 @@ void DoTest2(void)
 	data2.push_back(1);
 }
 
-void Render(int k)
+void Attack(int attacker, int victim)
 {
-	CORE_LOG.Log(TO_STR(k));
+	CORE_LOG.Log(TO_STR(attacker) + " is attacking " + TO_STR(victim));
 }
 
 int main(void)
@@ -86,16 +86,17 @@ int main(void)
 	//c += CoreTimeInfo<int>(func);
 
 	//std::queue<CoreTimeInfo<int>> q;
-	CorePriorityQueue<CoreTimeInfo<int>> q;
-	q.push(CoreTimeInfo<int>(Render, 1, 0));
-	q.push(CoreTimeInfo<int>(Render, 3, 5000));
-	q.push(CoreTimeInfo<int>(Render, 2, 3000));
+	CorePriorityQueue<CoreTimeInfo<int, int>> q;
+	q.push(CoreTimeInfo<int, int>(Attack, 0, 1));
+	q.push(CoreTimeInfo<int, int>(Attack, 2, 3, 5000));
+	q.push(CoreTimeInfo<int, int>(Attack, 1, 2, 3000));
+	q.push(CoreTimeInfo<int, int>(Attack, 10, 11, 7000, 1000, 10));
 
 	while (true)
 	{
 		if (!q.empty())
 		{
-			if (q.top().Run())
+			if (q.top()->Run())
 				q.pop();
 		}
 	}

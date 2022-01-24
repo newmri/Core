@@ -29,7 +29,7 @@ public:
 	void pop(void);
 
 public:
-	T top(void);
+	T* top(void);
 
 private:
 	CoreNode<T>* CreateNewNode(const T& data);

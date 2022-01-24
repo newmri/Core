@@ -1,7 +1,5 @@
 #pragma once
 
-static const int INSTANT_TIME = -1;
-
 template <typename... Types>
 class CoreTimeInfo
 {
@@ -11,11 +9,10 @@ public:
 
     }
 
-    CoreTimeInfo(std::function<void(Types...)> func, Types... args, TIME_VALUE after = INSTANT_TIME, int maxCallCnt = 1) :
-                 func(func), args(args...), calledCnt(0), maxCallCnt(maxCallCnt)
+    CoreTimeInfo(std::function<void(Types...)> func, Types... args, TIME_VALUE after = 0, TIME_VALUE tick = 0, int maxCallCnt = 1) :
+        func(func), args(args...), tickTime(tick), calledCnt(0), maxCallCnt(maxCallCnt)
     {
-        if (IS_NOT_SAME(INSTANT_TIME, after))
-            this->activeTime = CORE_TIME_MANAGER.GetNowMilliSeconds() + after;
+        this->activeTime = CORE_TIME_MANAGER.GetNowMilliSeconds() + after;
     }
 
     bool operator==(const CoreTimeInfo& rhs) const
@@ -41,18 +38,15 @@ public:
 public:
     bool Run(void)
     {
-        if (IS_SAME(INSTANT_TIME, this->activeTime))
+        TIME_VALUE currTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
+
+        if (this->activeTime <= currTime)
         {
+            if (this->tickTime)
+                this->activeTime += this->tickTime;
+
             std::apply(this->func, this->args);
             return (++this->calledCnt == this->maxCallCnt);
-        }
-        else
-        {
-            if (this->activeTime <= CORE_TIME_MANAGER.GetNowMilliSeconds())
-            {
-                std::apply(this->func, this->args);
-                return true;
-            }
         }
 
         return false;
@@ -62,9 +56,11 @@ private:
     std::function<void(Types...)> func;
     std::tuple<Types...> args;
 
-    int calledCnt;
+    CACHE_ALIGN int calledCnt;
+    CACHE_ALIGN TIME_VALUE activeTime;
+
     int maxCallCnt;
-    TIME_VALUE activeTime;
+    TIME_VALUE tickTime;
 };
 
 template <typename... Types>

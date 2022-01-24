@@ -116,14 +116,14 @@ void CorePriorityQueue<T>::pop(void)
 }
 
 template<typename T>
-T CorePriorityQueue<T>::top(void)
+T* CorePriorityQueue<T>::top(void)
 {
 	READ_LOCK(this->mutex);
 
 	if (IS_SAME(this->dataSize, 0))
-		return T();
+		return nullptr;
 
-	return this->head->next->data;
+	return &this->head->next->data;
 }
 
 template<typename T>
