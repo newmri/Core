@@ -263,10 +263,12 @@
     <ClInclude Include="CoreSort.hpp" />
     <ClInclude Include="CoreStringManager.h" />
     <ClInclude Include="CoreTestManager.h" />
+    <ClInclude Include="CoreTimeDelegate.h" />
     <ClInclude Include="CoreTimeManager.h" />
     <ClInclude Include="CoreVector.h" />
     <ClInclude Include="CoreVector.hpp" />
     <ClInclude Include="CoreDataTypeManager.h" />
+    <ClInclude Include="CoreDelegate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

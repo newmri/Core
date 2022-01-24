@@ -71,11 +71,34 @@ void DoTest2(void)
 	data2.push_back(1);
 }
 
+void Render(int k)
+{
+	CORE_LOG.Log(TO_STR(k));
+}
+
 int main(void)
 {
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
+
+	//CoreTimeDelegate<int> c;
+	//c += CoreTimeInfo<int>(func);
+
+	//std::queue<CoreTimeInfo<int>> q;
+	CorePriorityQueue<CoreTimeInfo<int>> q;
+	q.push(CoreTimeInfo<int>(Render, 1, 0));
+	q.push(CoreTimeInfo<int>(Render, 3, 5000));
+	q.push(CoreTimeInfo<int>(Render, 2, 3000));
+
+	while (true)
+	{
+		if (!q.empty())
+		{
+			if (q.top().Run())
+				q.pop();
+		}
+	}
 
 	//CORE_LOG.Log("----------- mine -----------------");
 	//CORE_TEST_MANAGER.Work(DoTest);

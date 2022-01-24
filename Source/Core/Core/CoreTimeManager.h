@@ -14,6 +14,7 @@ private:
 
 public:
 	TIME_VALUE GetNowSeconds(void) const;
+	TIME_VALUE GetNowMilliSeconds(void) const;
 	TIME_VALUE GetEndSeconds(TIME_VALUE limitTime) const;
 
 public:

@@ -22,6 +22,11 @@ TIME_VALUE CoreTimeManager::GetNowSeconds(void) const
 	return std::chrono::duration_cast<std::chrono::seconds>(GetNow().time_since_epoch()).count();
 }
 
+TIME_VALUE CoreTimeManager::GetNowMilliSeconds(void) const
+{
+	return std::chrono::duration_cast<std::chrono::milliseconds>(GetNow().time_since_epoch()).count();
+}
+
 TIME_VALUE CoreTimeManager::GetEndSeconds(TIME_VALUE limitTime) const
 {
 	TIME_VALUE endSeconds = limitTime;

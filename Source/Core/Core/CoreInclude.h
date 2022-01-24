@@ -42,4 +42,6 @@
 #include "CoreLoadManager.h"
 #include "CoreDataTypeManager.h"
 #include "CoreStringManager.h"
+#include "CoreDelegate.h"
+#include "CoreTimeDelegate.h"
 #include "CoreTestManager.h"
