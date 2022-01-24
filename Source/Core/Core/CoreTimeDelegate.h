@@ -1,36 +1,36 @@
 #pragma once
 
 template <typename... Types>
-class CoreTimeInfo
+class CoreTimeDelegate
 {
 public:
-    CoreTimeInfo()
+    CoreTimeDelegate()
     {
 
     }
 
-    CoreTimeInfo(std::function<void(Types...)> func, Types... args, TIME_VALUE after = 0, TIME_VALUE tick = 0, int maxCallCnt = 1) :
+    CoreTimeDelegate(std::function<void(Types...)> func, Types... args, TIME_VALUE after = 0, TIME_VALUE tick = 0, int maxCallCnt = 1) :
         func(func), args(args...), tickTime(tick), calledCnt(0), maxCallCnt(maxCallCnt)
     {
         this->activeTime = CORE_TIME_MANAGER.GetNowMilliSeconds() + after;
     }
 
-    bool operator==(const CoreTimeInfo& rhs) const
+    bool operator==(const CoreTimeDelegate& rhs) const
     {
         return (this->activeTime == rhs.activeTime);
     }
 
-    bool operator!=(const CoreTimeInfo& rhs) const
+    bool operator!=(const CoreTimeDelegate& rhs) const
     {
         return !operator==(rhs);
     }
 
-    bool operator<(const CoreTimeInfo& rhs) const
+    bool operator<(const CoreTimeDelegate& rhs) const
     {
         return (this->activeTime < rhs.activeTime);
     }
 
-    bool operator>(const CoreTimeInfo& rhs) const
+    bool operator>(const CoreTimeDelegate& rhs) const
     {
         return (this->activeTime > rhs.activeTime);
     }
@@ -61,22 +61,4 @@ private:
 
     int maxCallCnt;
     TIME_VALUE tickTime;
-};
-
-template <typename... Types>
-class CoreTimeDelegate
-{
-    CoreTimeDelegate& operator+=(CoreTimeInfo<Types...> info)
-    {
-        this->functions.push(info);
-        return *this;
-    }
-
-    void clear()
-    {
-        this->functions.clear();
-    }
-
-private:
-    CorePriorityQueue<CoreTimeInfo<Types...>> functions;
 };

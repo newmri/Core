@@ -86,11 +86,11 @@ int main(void)
 	//c += CoreTimeInfo<int>(func);
 
 	//std::queue<CoreTimeInfo<int>> q;
-	CorePriorityQueue<CoreTimeInfo<int, int>> q;
-	q.push(CoreTimeInfo<int, int>(Attack, 0, 1));
-	q.push(CoreTimeInfo<int, int>(Attack, 2, 3, 5000));
-	q.push(CoreTimeInfo<int, int>(Attack, 1, 2, 3000));
-	q.push(CoreTimeInfo<int, int>(Attack, 10, 11, 7000, 1000, 10));
+	CorePriorityQueue<CoreTimeDelegate<int, int>> q;
+	q.push(CoreTimeDelegate<int, int>(Attack, 0, 1));
+	q.push(CoreTimeDelegate<int, int>(Attack, 2, 3, 5000));
+	q.push(CoreTimeDelegate<int, int>(Attack, 1, 2, 3000));
+	q.push(CoreTimeDelegate<int, int>(Attack, 10, 11, 7000, 1000, 10));
 
 	while (true)
 	{
