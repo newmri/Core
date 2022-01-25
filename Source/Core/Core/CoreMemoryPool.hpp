@@ -41,13 +41,31 @@ T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum, const bool needCallCtor, 
 		}
 	}
 
-	SetBlockHeader(startIndex, needBlockNum);
+	SetBlockHeader(startIndex, needBlockNum, false);
 
 	T* blockBody = GetBlockBody(startIndex);
 
 	SetRemainedBlockNum(this->blockInfo.remainedBlockNum - needBlockNum);
 
 	return blockBody;
+}
+
+template<typename T>
+void CoreMemoryPool<T>::Share(T*& blockBody)
+{
+	size_t startIndex = 0, endIndex = 0;
+
+	if (IS_NULL(blockBody))
+		return;
+
+	startIndex = GetIndex(blockBody);
+	BlockHeader* blockHeader = GetBlockHeader(startIndex);
+	endIndex = startIndex + (blockHeader->allocatedNum - 1);
+
+	for (size_t i = startIndex; i <= endIndex; ++i)
+	{
+		IncreaseRefCnt(i);
+	}
 }
 
 template<typename T>
@@ -60,12 +78,21 @@ bool CoreMemoryPool<T>::IsMyBody(CORE_BYTE_PTR blockBody)
 }
 
 template<typename T>
-void CoreMemoryPool<T>::DeAlloc(T* blockBody, const bool needCallDtor) noexcept
+void CoreMemoryPool<T>::DeAlloc(T*& blockBody, const bool needCallDtor) noexcept
 {
 	size_t startIndex = 0, endIndex = 0;
 
 	if (IS_SAME(false, CanDeAlloc(blockBody, startIndex, endIndex)))
 		return;
+
+	BlockHeader* blockHeader = GetBlockHeader(startIndex);
+	if (IS_NOT_SAME(1, blockHeader->refNum))
+	{
+		for (size_t i = startIndex; i <= endIndex; ++i)
+			IncreaseRefCnt(i, -1);
+
+		return;
+	}
 
 	for (size_t i = startIndex; i <= endIndex; ++i)
 	{
@@ -77,6 +104,7 @@ void CoreMemoryPool<T>::DeAlloc(T* blockBody, const bool needCallDtor) noexcept
 	}
 
 	SetRemainedBlockNum(this->blockInfo.remainedBlockNum + (endIndex - startIndex) + 1);
+	blockBody = nullptr;
 
 	return;
 }
@@ -205,17 +233,26 @@ void CoreMemoryPool<T>::SetBlock(void)
 }
 
 template<typename T>
-void CoreMemoryPool<T>::SetBlockHeader(BlockHeader* blockHeader, const size_t allocatedNum)
+void CoreMemoryPool<T>::SetBlockHeader(BlockHeader* blockHeader, const size_t allocatedNum, const bool changeRefCnt)
 {
 	blockHeader->allocatedNum = allocatedNum;
+
+	if(changeRefCnt)
+		blockHeader->refNum = (allocatedNum) ? blockHeader->refNum + 1 : 0;
 }
 
 template<typename T>
-void CoreMemoryPool<T>::SetBlockHeader(const size_t index, const size_t allocatedNum)
+void CoreMemoryPool<T>::SetBlockHeader(const size_t index, const size_t allocatedNum, const bool changeRefCnt)
 {
 	BlockHeader* blockHeader = GetBlockHeader(index);
+	SetBlockHeader(blockHeader, allocatedNum, changeRefCnt);
+}
 
-	blockHeader->allocatedNum = allocatedNum;
+template<typename T>
+void CoreMemoryPool<T>::IncreaseRefCnt(const size_t index, const size_t increaseRefCnt)
+{
+	BlockHeader* blockHeader = GetBlockHeader(index);
+	blockHeader->refNum += increaseRefCnt;
 }
 
 template<typename T>

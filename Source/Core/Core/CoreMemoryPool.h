@@ -16,6 +16,7 @@ struct BlockInfo
 struct BlockHeader
 {
 	size_t allocatedNum = 0;
+	size_t refNum = 0;
 };
 
 template<typename T>
@@ -32,10 +33,11 @@ public:
 
 	template<typename... Types>
 	T* Alloc(const size_t needBlockNum, const bool needCallCtor = true, Types... args);
+	void Share(T*& blockBody);
 
 	bool IsMyBody(CORE_BYTE_PTR blockBody);
 
-	void DeAlloc(T* blockBody, const bool needCallDtor = true) noexcept;
+	void DeAlloc(T*& blockBody, const bool needCallDtor = true) noexcept;
 	void DeAllocAll(void) noexcept;
 
 public:
@@ -56,8 +58,10 @@ private:
 private:
 	void SetInfo(const size_t maxBlockNum);
 	void SetBlock(void);
-	void SetBlockHeader(BlockHeader* blockHeader, const size_t allocatedNum = 1);
-	void SetBlockHeader(const size_t index, const size_t allocatedNum = 1);
+	void SetBlockHeader(BlockHeader* blockHeader, const size_t allocatedNum, const bool changeRefCnt);
+	void SetBlockHeader(const size_t index, const size_t allocatedNum = 1, const bool changeRefCnt = true);
+	void IncreaseRefCnt(const size_t index, const size_t increaseRefCnt = 1);
+
 	void SetRemainedBlockNum(const size_t remainedBlockNum);
 
 private:

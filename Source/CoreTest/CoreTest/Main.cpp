@@ -82,24 +82,20 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	//CoreTimeDelegate<int> c;
-	//c += CoreTimeInfo<int>(func);
+	//CorePriorityQueue<CoreTimeDelegate<int, int>> q;
+	//q.push(CoreTimeDelegate<int, int>(Attack, 0, 1));
+	//q.push(CoreTimeDelegate<int, int>(Attack, 2, 3, 5000));
+	//q.push(CoreTimeDelegate<int, int>(Attack, 1, 2, 3000));
+	//q.push(CoreTimeDelegate<int, int>(Attack, 10, 11, 7000, 1000, 10));
 
-	//std::queue<CoreTimeInfo<int>> q;
-	CorePriorityQueue<CoreTimeDelegate<int, int>> q;
-	q.push(CoreTimeDelegate<int, int>(Attack, 0, 1));
-	q.push(CoreTimeDelegate<int, int>(Attack, 2, 3, 5000));
-	q.push(CoreTimeDelegate<int, int>(Attack, 1, 2, 3000));
-	q.push(CoreTimeDelegate<int, int>(Attack, 10, 11, 7000, 1000, 10));
-
-	while (true)
-	{
-		if (!q.empty())
-		{
-			if (q.top()->Run())
-				q.pop();
-		}
-	}
+	//while (true)
+	//{
+	//	if (!q.empty())
+	//	{
+	//		if (q.top()->Run())
+	//			q.pop();
+	//	}
+	//}
 
 	//CORE_LOG.Log("----------- mine -----------------");
 	//CORE_TEST_MANAGER.Work(DoTest);

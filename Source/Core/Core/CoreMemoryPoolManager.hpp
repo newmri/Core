@@ -51,6 +51,29 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 }
 
 template<typename T>
+T*& CoreMemoryPoolManager<T>::Share(T*& blockBody)
+{
+	Node* currNode = this->head.get();
+	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
+
+	WRITE_LOCK(this->mutex);
+
+	while (currNode)
+	{
+		if (currNode->page.IsMyBody(byteBody))
+		{
+			currNode->page.Share(blockBody);
+			return blockBody;
+		}
+
+		currNode = currNode->next.get();
+	}
+
+	T* ret = nullptr;
+	return ret;
+}
+
+template<typename T>
 bool CoreMemoryPoolManager<T>::IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum)
 {
 	if (needBlockNum > maxBlockNum)
@@ -74,7 +97,7 @@ void CoreMemoryPoolManager<T>::CheckAndAllocHead(const size_t maxBlockNum)
 }
 
 template<typename T>
-void CoreMemoryPoolManager<T>::DeAlloc(T* blockBody, const bool needCallDtor)
+void CoreMemoryPoolManager<T>::DeAlloc(T*& blockBody, const bool needCallDtor)
 {
 	Node* currNode = this->head.get();
 	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
