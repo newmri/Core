@@ -2,43 +2,38 @@
 
 #include "CoreMemoryPoolManager.h"
 
-IMPLEMENT_TEMPLATE_SINGLETON(CoreMemoryPoolManager)
+template<typename T>
+size_t CoreMemoryPoolManager<T>::pageNum = 0;
 
 template<typename T>
-void CoreMemoryPoolManager<T>::Init(void)
-{
-}
+std::unique_ptr<Node<T>> CoreMemoryPoolManager<T>::head;
 
 template<typename T>
-void CoreMemoryPoolManager<T>::Release(void)
-{
-	GetInstance().~CoreMemoryPoolManager();
-}
+std::shared_mutex CoreMemoryPoolManager<T>::mutex;
 
 template<typename T>
-template<typename... Types>
-T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor, Types... args)
+T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum)
 {
 	if (!IsValidBlockNum(maxBlockNum, needBlockNum))
 		return nullptr;
 
 	T* blockBody = nullptr;
 
-	WRITE_LOCK(this->mutex);
+	WRITE_LOCK(mutex);
 
 	CheckAndAllocHead(maxBlockNum);
 
-	Node* currNode = this->head.get();
+	Node<T>* currNode = head.get();
 
 	do
 	{
-		blockBody = currNode->page.Alloc(needBlockNum, needCallCtor, args...);
+		blockBody = currNode->page.Alloc(needBlockNum);
 
 		if (IS_NULL(blockBody))
 		{
 			if (IS_NULL(currNode->next))
 			{
-				currNode->next = std::make_unique<Node>(maxBlockNum);
+				currNode->next = std::make_unique<Node<T>>(maxBlockNum);
 				++pageNum;
 			}
 
@@ -53,10 +48,10 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 template<typename T>
 T*& CoreMemoryPoolManager<T>::Share(T*& blockBody)
 {
-	Node* currNode = this->head.get();
+	Node<T>* currNode = head.get();
 	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
 
-	WRITE_LOCK(this->mutex);
+	WRITE_LOCK(mutex);
 
 	while (currNode)
 	{
@@ -89,26 +84,26 @@ bool CoreMemoryPoolManager<T>::IsValidBlockNum(const size_t maxBlockNum, const s
 template<typename T>
 void CoreMemoryPoolManager<T>::CheckAndAllocHead(const size_t maxBlockNum)
 {
-	if (IS_NULL(this->head))
+	if (IS_NULL(head))
 	{
-		this->head = std::make_unique<Node>(maxBlockNum);
+		head = std::make_unique<Node<T>>(maxBlockNum);
 		++pageNum;
 	}
 }
 
 template<typename T>
-void CoreMemoryPoolManager<T>::DeAlloc(T*& blockBody, const bool needCallDtor)
+void CoreMemoryPoolManager<T>::DeAlloc(T*& blockBody)
 {
-	Node* currNode = this->head.get();
+	Node<T>* currNode = head.get();
 	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
 
-	WRITE_LOCK(this->mutex);
+	WRITE_LOCK(mutex);
 
 	while (currNode)
 	{
 		if (currNode->page.IsMyBody(byteBody))
 		{
-			currNode->page.DeAlloc(blockBody, needCallDtor);
+			currNode->page.DeAlloc(blockBody);
 			break;
 		}
 
@@ -119,6 +114,25 @@ void CoreMemoryPoolManager<T>::DeAlloc(T*& blockBody, const bool needCallDtor)
 template<typename T>
 size_t CoreMemoryPoolManager<T>::GetPageNum(void)
 {
-	READ_LOCK(this->mutex);
-	return this->pageNum;
+	READ_LOCK(mutex);
+	return pageNum;
+}
+
+template<typename T>
+bool CoreMemoryPoolManager<T>::IsValid(T*& blockBody)
+{
+	Node<T>* currNode = head.get();
+	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
+
+	READ_LOCK(mutex);
+
+	while (currNode)
+	{
+		if (currNode->page.IsMyBody(byteBody))
+			return currNode->page.IsValid(blockBody);
+
+		currNode = currNode->next.get();
+	}
+
+	return false;
 }

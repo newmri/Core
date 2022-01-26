@@ -31,18 +31,18 @@ public:
 public:
 	bool Init(const size_t maxBlockNum);
 
-	template<typename... Types>
-	T* Alloc(const size_t needBlockNum, const bool needCallCtor = true, Types... args);
+	T* Alloc(const size_t needBlockNum);
 	void Share(T*& blockBody);
 
 	bool IsMyBody(CORE_BYTE_PTR blockBody);
 
-	void DeAlloc(T*& blockBody, const bool needCallDtor = true) noexcept;
+	void DeAlloc(T*& blockBody) noexcept;
 	void DeAllocAll(void) noexcept;
 
 public:
 	size_t GetRemainedBlockNum(void);
 	size_t GetMaxBlockNum(void);
+	bool IsValid(T* blockBody);
 
 private:
 	bool CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex);

@@ -3,52 +3,75 @@
 #include "CoreMemoryPool.h"
 
 template<typename T>
+struct Node
+{
+	Node() CORE_DEFAULT;
+
+	Node(const size_t maxBlockNum)
+	{
+		page.Init(maxBlockNum);
+	}
+
+	CoreMemoryPool<T> page;
+	std::unique_ptr<Node> next;
+};
+
+template<typename T>
 class CoreMemoryPoolManager
 {
-	DECLARE_SINGLETON(CoreMemoryPoolManager<T>)
-
 public:
-	struct Node
+	template <typename... Types>
+	static void* operator new(size_t size, Types... args)
 	{
-		Node() CORE_DEFAULT;
+		return Alloc(1, 1);
+	}
 
-		Node(const size_t maxBlockNum)
-		{
-			page.Init(maxBlockNum);
-		}
+	template <typename... Types>
+	static void* operator new[](size_t size, Types... args)
+	{
+		return Alloc(1, 1);
+	}
 
-		CoreMemoryPool<T> page;
-		std::unique_ptr<Node> next;
-	};
+	static void operator delete(void* p)
+	{
+		DeAlloc((T*&)p);
+	}
 
-public:
-	template<typename... Types>
-	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum = 1, const bool needCallCtor = true, Types... args);
+	static void operator delete[](void* p)
+	{
+		DeAlloc((T*&)p);
+	}
+
+private:
+	static T* Alloc(const size_t maxBlockNum, const size_t needBlockNum = 1);
 
 	// EX
 	//int* value = GET_INSTANCE(CoreMemoryPoolManager<int>).Alloc(1, 1);
 	//int*& value2 = GET_INSTANCE(CoreMemoryPoolManager<int>).Share(value);
 
-	T*& Share(T*& blockBody);
-
-public:
-	bool IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum);
+	static T*& Share(T*& blockBody);
 
 private:
-	void CheckAndAllocHead(const size_t maxBlockNum);
-
-public:
-	void DeAlloc(T*& blockBody, const bool needCallDtor = true);
-
-public:
-	size_t GetPageNum(void);
+	static bool IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum);
 
 private:
-	CACHE_ALIGN size_t pageNum = 0;
+	static void CheckAndAllocHead(const size_t maxBlockNum);
 
 private:
-	std::unique_ptr<Node> head;
-	CACHE_ALIGN std::shared_mutex mutex;
+	static void DeAlloc(T*& blockBody);
+
+public:
+	static size_t GetPageNum(void);
+
+public:
+	static bool IsValid(T*& blockBody);
+
+private:
+	CACHE_ALIGN static size_t pageNum;
+
+private:
+	static std::unique_ptr<Node<T>> head;
+	CACHE_ALIGN static std::shared_mutex mutex;
 };
 
 #include "CoreMemoryPoolManager.hpp"

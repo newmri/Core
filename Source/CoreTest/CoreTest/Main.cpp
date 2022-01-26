@@ -7,34 +7,56 @@
 #include <list>
 #include <queue>
 
-class Object
+class Object : public CoreMemoryPoolManager<Object>
 {
 public:
+
 	Object()
 	{
-		CORE_LOG.Log("Default Construct Object");
-	}
-	Object(int v) : value(v)
-	{
-		CORE_LOG.Log("Construct Object");
-	}
-	virtual ~Object()
-	{
-		CORE_LOG.Log("Destruct Object");
+		value = 0;
+		std::cout << "aa" << std::endl; 
 	}
 
-	Object(const Object& o) : value(o.GetValue())
+	~Object()
 	{
-		CORE_LOG.Log("Copy Object");
-	}
-	Object(const Object&& o) : value(o.GetValue())
-	{
-		CORE_LOG.Log("Move Object");
+		std::cout << "bb" << std::endl;
 	}
 
 	int GetValue() const { return value; }
-private:
+public:
 	int value;
+};
+
+template<typename T>
+class CoreSharedPtr
+{
+public:
+	CoreSharedPtr(T* target) : target(target)
+	{
+
+	}
+
+	~CoreSharedPtr()
+	{
+		delete target;
+		target = nullptr;
+	}
+
+	bool IsValid(void)
+	{
+		if (IS_SAME(nullptr, target))
+			return false;
+
+		return target->IsValid(target);
+	}
+
+	T* operator->()
+	{
+		return target;
+	}
+
+private:
+	T* target;
 };
 
 class Test
@@ -54,22 +76,22 @@ public:
 	int i[100];
 };
 
-CoreList<int> data;
-std::list<int> data2;
-
-std::shared_mutex mutex1;
-std::shared_mutex mutex2;
-
-void DoTest(void)
-{
-	data.push_back(1);
-}
-
-void DoTest2(void)
-{
-	WRITE_LOCK(mutex2);
-	data2.push_back(1);
-}
+//CoreList<int> data;
+//std::list<int> data2;
+//
+//std::shared_mutex mutex1;
+//std::shared_mutex mutex2;
+//
+//void DoTest(void)
+//{
+//	data.push_back(1);
+//}
+//
+//void DoTest2(void)
+//{
+//	WRITE_LOCK(mutex2);
+//	data2.push_back(1);
+//}
 
 void Attack(int attacker, int victim)
 {
@@ -81,6 +103,16 @@ int main(void)
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
+
+	CoreSharedPtr<Object> t(new Object);
+
+	if (t.IsValid())
+		std::cout << t->value << std::endl;
+
+	//delete p;
+	//p = nullptr;
+
+	//p2->value = 3;
 
 	//CorePriorityQueue<CoreTimeDelegate<int, int>> q;
 	//q.push(CoreTimeDelegate<int, int>(Attack, 0, 1));
