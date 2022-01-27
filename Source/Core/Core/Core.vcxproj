@@ -249,12 +249,16 @@
     <ClInclude Include="CoreInclude.h" />
     <ClInclude Include="CoreMacro.h" />
     <ClInclude Include="CoreMemoryPool.h" />
+    <ClInclude Include="CoreMemoryPoolObj.h" />
+    <ClInclude Include="CoreMemoryPoolObj.hpp" />
     <ClInclude Include="CoreNode.h" />
     <ClInclude Include="CorePriorityQueue.h" />
     <ClInclude Include="CorePriorityQueue.hpp" />
     <ClInclude Include="CoreQueue.h" />
     <ClInclude Include="CoreQueue.hpp" />
     <ClInclude Include="CoreRandomManager.h" />
+    <ClInclude Include="CoreSharedPtr.h" />
+    <ClInclude Include="CoreSharedPtr.hpp" />
     <ClInclude Include="CoreSingletonMacro.h" />
     <ClInclude Include="CoreLogger.h" />
     <ClInclude Include="CoreLogManager.h" />

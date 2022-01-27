@@ -5,7 +5,9 @@
 template<typename T>
 CoreQueue<T>::CoreQueue()
 {
-	this->head = this->tail = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
+	this->head = new CoreNode<T>();
+	this->tail = new CoreNode<T>();
+	this->head->next = this->tail;
 
 	if (this->head)
 	{
@@ -16,8 +18,10 @@ CoreQueue<T>::CoreQueue()
 template<typename T>
 CoreQueue<T>::~CoreQueue()
 {
-	GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(this->head);
 	clear();
+
+	SAFE_DELETE(this->tail);
+	SAFE_DELETE(this->head);
 }
 
 template<typename T>
@@ -47,7 +51,7 @@ void CoreQueue<T>::Copy(const CoreQueue<T>& rhs)
 	clear();
 
 	WRITE_LOCK(this->mutex);
-	this->head = this->tail = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(rhs.dataSize);
+	CoreQueue();
 
 	if (this->head)
 	{
@@ -58,7 +62,6 @@ void CoreQueue<T>::Copy(const CoreQueue<T>& rhs)
 			push(CreateNewNode(*begin));
 
 		CoreContainer<T>::SetSize(rhs.dataSize);
-		CoreContainer<T>::SetDefaultReserveSize(rhs.dataDefaultReserveSize);
 	}
 }
 
@@ -72,14 +75,13 @@ void CoreQueue<T>::clear(void)
 
 	CoreNode<T>* currNode = this->head->next;
 
-	while (currNode)
+	while (currNode != this->tail)
 	{
-		GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(currNode);
+		SAFE_DELETE(currNode);
 		currNode = currNode->next;
 	}
 
-	this->head->next = nullptr;
-	this->tail = this->head;
+	this->head->next = this->tail;
 }
 
 template<typename T>
@@ -111,7 +113,7 @@ void CoreQueue<T>::pop(void)
 		CoreContainer<T>::SetSize(this->dataSize - 1);
 	}
 
-	GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(deleteNode);
+	SAFE_DELETE(deleteNode);
 }
 
 template<typename T>
@@ -139,16 +141,14 @@ T CoreQueue<T>::back(void)
 template<typename T>
 CoreNode<T>* CoreQueue<T>::CreateNewNode(const T& data)
 {
-	CoreNode<T>* newNode = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
-	new(&newNode->data) T(data);
+	CoreNode<T>* newNode = new CoreNode<T>(data);
 	return newNode;
 }
 
 template<typename T>
 CoreNode<T>* CoreQueue<T>::CreateNewNode(T&& data)
 {
-	CoreNode<T>* newNode = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
-	new(&newNode->data) T(std::move(data));
+	CoreNode<T>* newNode = new CoreNode<T>(std::move(data));
 	return newNode;
 }
 

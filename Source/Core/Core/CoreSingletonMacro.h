@@ -117,4 +117,39 @@
 		isDestroyed = true;													\
 	}
 
+#define IMPLEMENT_BLOCK_TEMPLATE_SINGLETON(CLASS)							\
+	template<typename T, size_t MAX_BLOCK_NUM>								\
+	CLASS<T, MAX_BLOCK_NUM>* CLASS<T, MAX_BLOCK_NUM>::instance;				\
+	template<typename T, size_t MAX_BLOCK_NUM>								\
+	std::once_flag CLASS<T, MAX_BLOCK_NUM>::onceFlag;						\
+	template<typename T, size_t MAX_BLOCK_NUM>								\
+	bool CLASS<T, MAX_BLOCK_NUM>::isDestroyed;								\
+																			\
+	template<typename T, size_t MAX_BLOCK_NUM>								\
+	CLASS<T, MAX_BLOCK_NUM>& CLASS<T, MAX_BLOCK_NUM>::GetInstance(void)		\
+	{																		\
+		call_once(CLASS<T, MAX_BLOCK_NUM>::onceFlag, []()					\
+		{																	\
+			static CLASS<T, MAX_BLOCK_NUM> inst;							\
+			instance = &inst;												\
+			instance->Init();												\
+			isDestroyed = false;											\
+		});																	\
+																			\
+		if(isDestroyed)														\
+		{																	\
+			new(instance) CLASS<T, MAX_BLOCK_NUM>();						\
+			atexit(Release);												\
+			isDestroyed = false;											\
+		}																	\
+																			\
+		return *instance;													\
+	}																		\
+																			\
+	template<typename T, size_t MAX_BLOCK_NUM>								\
+	CLASS<T, MAX_BLOCK_NUM>::~CLASS()										\
+	{																		\
+		isDestroyed = true;													\
+	}
+
 #define GET_INSTANCE(CLASS) CLASS::GetInstance()	

@@ -153,42 +153,42 @@ std::string CoreLoader::Parse(std::string& in)
 	return str;
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(int) out)
+void CoreLoader::Parse(std::string& in, int& out)
 {
 	out = stoi(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(long) out)
+void CoreLoader::Parse(std::string& in, long& out)
 {
 	out = stol(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(long long) out)
+void CoreLoader::Parse(std::string& in, long long& out)
 {
 	out = stoll(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(unsigned long) out)
+void CoreLoader::Parse(std::string& in, unsigned long& out)
 {
 	out = stoul(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(unsigned long long) out)
+void CoreLoader::Parse(std::string& in, unsigned long long& out)
 {
 	out = stoull(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(float) out)
+void CoreLoader::Parse(std::string& in, float& out)
 {
 	out = stof(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(double) out)
+void CoreLoader::Parse(std::string& in, double& out)
 {
 	out = stod(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(long double) out)
+void CoreLoader::Parse(std::string& in, long double& out)
 {
 	out = stold(Parse(in));
 }
@@ -214,7 +214,7 @@ void CoreLoader::ParseDataTypesAndCalRowSize(std::string& strForParse)
 	}
 }
 
-void CoreLoader::Parse(std::string& in, CORE_OUT(std::string) out)
+void CoreLoader::Parse(std::string& in, std::string& out)
 {
 	out = Parse(in);
 }

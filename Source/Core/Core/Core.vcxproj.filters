@@ -16,12 +16,6 @@
     <Filter Include="00.CoreGlobal\00.CoreInclude">
       <UniqueIdentifier>{ec3ca700-be24-472b-a0e6-8e91a2b7d53a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.CoreMemoryPoolManager">
-      <UniqueIdentifier>{b4680988-879f-4979-be8e-66d439481c95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.CoreMemoryPoolManager\00.CoreMemoryPool">
-      <UniqueIdentifier>{63ae1b6c-fbf6-44ba-926c-6b6c6b2afafd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.CoreObj">
       <UniqueIdentifier>{47d62c0f-0939-4630-8b90-4a2ca7a1697b}</UniqueIdentifier>
     </Filter>
@@ -93,6 +87,18 @@
     </Filter>
     <Filter Include="12.CoreDelegate\00.CoreTimeDelegate">
       <UniqueIdentifier>{4849ed00-e527-493a-82f9-e3e59c6bf59c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.CoreMemoryPoolManager">
+      <UniqueIdentifier>{b4680988-879f-4979-be8e-66d439481c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.CoreMemoryPoolManager\00.CoreMemoryPool">
+      <UniqueIdentifier>{63ae1b6c-fbf6-44ba-926c-6b6c6b2afafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.CoreMemoryPoolManager\01.CoreMemoryPoolObj">
+      <UniqueIdentifier>{8124f67b-31b3-4621-b14e-f63891ff383d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.CoreMemoryPoolManager\02.CoreSharedPtr">
+      <UniqueIdentifier>{688cc129-12fc-4a9b-a2dd-08ca28619241}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +253,18 @@
     </ClInclude>
     <ClInclude Include="CoreTimeDelegate.h">
       <Filter>12.CoreDelegate\00.CoreTimeDelegate</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreSharedPtr.h">
+      <Filter>01.CoreMemoryPoolManager\02.CoreSharedPtr</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreSharedPtr.hpp">
+      <Filter>01.CoreMemoryPoolManager\02.CoreSharedPtr</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreMemoryPoolObj.h">
+      <Filter>01.CoreMemoryPoolManager\01.CoreMemoryPoolObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreMemoryPoolObj.hpp">
+      <Filter>01.CoreMemoryPoolManager\01.CoreMemoryPoolObj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

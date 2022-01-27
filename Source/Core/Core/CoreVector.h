@@ -14,8 +14,8 @@ public:
 
 public:
 	CoreVector<T>& operator=(CoreVector<T>& rhs);
-	CORE_REF(T) operator[](const size_t index) const;
-	CORE_OUT(T) operator[](const size_t index);
+	const T& operator[](const size_t index) const;
+	T& operator[](const size_t index);
 
 private:
 	void Copy(const CoreVector<T>& rhs);

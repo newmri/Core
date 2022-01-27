@@ -26,6 +26,8 @@
 #include "CoreObj.h"
 #include "CoreLogInclude.h"
 #include "CoreMemoryPool.h"
+#include "CoreMemoryPoolObj.h"
+#include "CoreSharedPtr.h"
 #include "CoreMemoryPoolManager.h"
 #include "CoreDummyManager.h"
 #include "CoreTimeManager.h"

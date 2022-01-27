@@ -2,51 +2,44 @@
 
 #include "CoreInclude.h"
 
-struct BlockInfo
-{
-	CACHE_ALIGN size_t remainedBlockNum = 0;
-	size_t maxBlockNum = 0;
-	size_t blockHeaderSize = 0;
-	size_t blockHeaderTotalSize = 0;
-	size_t blockBodySize = 0;
-	size_t blockBodyTotalSize = 0;
-	size_t blockTotalSize = 0;
-};
-
 struct BlockHeader
 {
 	size_t allocatedNum = 0;
-	size_t refNum = 0;
 };
 
-template<typename T>
+template<typename T, size_t MAX_BLOCK_NUM>
 class CoreMemoryPool
 {
-public:
-	DEFAULT_CONSTRUCTOR(CoreMemoryPool<T>)
+	struct BlockInfo
+	{
+		CACHE_ALIGN size_t remainedBlockNum = MAX_BLOCK_NUM;
+		static constexpr size_t blockHeaderSize = sizeof(BlockHeader);
+		static constexpr size_t blockHeaderTotalSize = blockHeaderSize * MAX_BLOCK_NUM;
+		static constexpr size_t blockBodySize = sizeof(T);
+		static constexpr size_t blockBodyTotalSize = blockBodySize * MAX_BLOCK_NUM;
+		static constexpr size_t blockTotalSize = blockHeaderTotalSize + blockBodyTotalSize;
+	};
 
-	CoreMemoryPool(const size_t maxBlockNum);
+public:
+	CoreMemoryPool();
 	~CoreMemoryPool();
 
 public:
-	bool Init(const size_t maxBlockNum);
+	bool Init(void);
 
 	T* Alloc(const size_t needBlockNum);
-	void Share(T*& blockBody);
 
-	bool IsMyBody(CORE_BYTE_PTR blockBody);
+	bool IsMyBody(T* blockBody);
 
-	void DeAlloc(T*& blockBody) noexcept;
-	void DeAllocAll(void) noexcept;
+	void DeAlloc(T* blockBody) noexcept;
 
 public:
 	size_t GetRemainedBlockNum(void);
 	size_t GetMaxBlockNum(void);
-	bool IsValid(T* blockBody);
 
 private:
-	bool CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex);
-	bool CanDeAlloc(T* blockBody, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex);
+	bool CanAlloc(const size_t needBlockNum, size_t& startIndex, size_t& endIndex);
+	bool CanDeAlloc(T* blockBody, size_t& startIndex, size_t& endIndex);
 
 private:
 	BlockHeader* GetBlockHeader(const size_t index);
@@ -56,66 +49,15 @@ private:
 	T* GetBlockBody(const size_t index);
 
 private:
-	void SetInfo(const size_t maxBlockNum);
 	void SetBlock(void);
 	void SetBlockHeader(BlockHeader* blockHeader, const size_t allocatedNum, const bool changeRefCnt);
 	void SetBlockHeader(const size_t index, const size_t allocatedNum = 1, const bool changeRefCnt = true);
-	void IncreaseRefCnt(const size_t index, const size_t increaseRefCnt = 1);
 
 	void SetRemainedBlockNum(const size_t remainedBlockNum);
 
 private:
 	BlockInfo blockInfo;
-	CORE_BYTE_PTR block = nullptr;
+	CORE_BYTE_PTR block[BlockInfo::blockTotalSize];
 };
 
 #include "CoreMemoryPool.hpp"
-
-//#define DECLARE_MEMORY_POOL(CLASS)																					\
-//	public:																											\
-//	static bool InitMemoryPool(const size_t maxBlockNum = CORE_BYTE_MAX);											\
-//	static size_t GetMemoryPoolRemainedBlockNum(void);																\
-//																													\
-//	static void* operator new(const size_t size)																	\
-//	{																												\
-//		return instance->Alloc(size);																				\
-//	}																												\
-//																													\
-//	static void* operator new[](const size_t size)																	\
-//	{																												\
-//		return instance->Alloc(size);																				\
-//	}																												\
-//																													\
-//	static void operator delete(void* block) noexcept																\
-//	{																												\
-//		instance->DeAlloc(block);																					\
-//	}																												\
-//																													\
-//	static void operator delete[](void* block) noexcept																\
-//	{																												\
-//		instance->DeAlloc(block);																					\
-//	}																												\
-//																													\
-//    private:																										\
-//    static std::unique_ptr<CoreMemoryPool> instance;																\
-//    static std::once_flag onceFlag;
-//
-//#define IMPLEMENAT_MEMORY_POOL(CLASS)																				\
-//	std::unique_ptr<CoreMemoryPool> CLASS::instance;																\
-//	std::once_flag CLASS::onceFlag;																					\
-//	bool CLASS::InitMemoryPool(const size_t maxBlockNum)															\
-//	{																												\
-//		bool ret = false;																							\
-//		call_once(CLASS::onceFlag, [&]()																			\
-//		{																											\
-//			CLASS::instance = std::make_unique<CoreMemoryPool>();													\
-//			ret = (*(CLASS::instance.get())).Init(sizeof(CLASS), maxBlockNum);										\
-//		});																											\
-//		return ret;																									\
-//	};																												\
-//																													\
-//	size_t CLASS::GetMemoryPoolRemainedBlockNum(void)																\
-//	{																												\
-//		return (*(CLASS::instance.get())).GetRemainedBlockNum();													\
-//	}
-

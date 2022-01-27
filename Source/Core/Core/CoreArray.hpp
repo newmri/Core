@@ -43,15 +43,15 @@ CoreArray<T, N>& CoreArray<T, N>::operator=(CoreArray<T, N>& rhs)
 }
 
 template<typename T, const size_t N>
-CORE_REF(T) CoreArray<T, N>::operator[](const size_t index) const
+const T& CoreArray<T, N>::operator[](const size_t index) const
 {
 	return this->data[index];
 }
 
 template<typename T, const size_t N>
-CORE_OUT(T) CoreArray<T, N>::operator[](const size_t index)
+T& CoreArray<T, N>::operator[](const size_t index)
 {
-	return const_cast<CORE_OUT(T)>(static_cast<const CoreArray<T, N>&>(*this)[index]);
+	return const_cast<T&>(static_cast<const CoreArray<T, N>&>(*this)[index]);
 }
 
 template<typename T, const size_t N>

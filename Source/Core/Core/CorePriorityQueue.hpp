@@ -5,7 +5,7 @@
 template<typename T>
 CorePriorityQueue<T>::CorePriorityQueue(bool (*compare)(const T&, const T&)) : compare(compare)
 {
-	this->head = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
+	this->head = new CoreNode<T>();
 
 	if (this->head)
 	{
@@ -16,8 +16,8 @@ CorePriorityQueue<T>::CorePriorityQueue(bool (*compare)(const T&, const T&)) : c
 template<typename T>
 CorePriorityQueue<T>::~CorePriorityQueue()
 {
-	GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(this->head);
 	clear();
+	SAFE_DELETE(this->head);
 }
 
 template<typename T>
@@ -47,7 +47,7 @@ void CorePriorityQueue<T>::Copy(const CorePriorityQueue<T>& rhs)
 	clear();
 
 	WRITE_LOCK(this->mutex);
-	this->head = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(rhs.dataSize);
+	this->head = new CoreNode<T>();
 
 	if (this->head)
 	{
@@ -76,7 +76,7 @@ void CorePriorityQueue<T>::clear(void)
 
 	while (currNode)
 	{
-		GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(currNode);
+		SAFE_DELETE(currNode);
 		currNode = currNode->next;
 	}
 
@@ -112,7 +112,7 @@ void CorePriorityQueue<T>::pop(void)
 		CoreContainer<T>::SetSize(this->dataSize - 1);
 	}
 
-	GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(deleteNode);
+	SAFE_DELETE(deleteNode);
 }
 
 template<typename T>
@@ -129,16 +129,14 @@ T* CorePriorityQueue<T>::top(void)
 template<typename T>
 CoreNode<T>* CorePriorityQueue<T>::CreateNewNode(const T& data)
 {
-	CoreNode<T>* newNode = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
-	new(&newNode->data) T(data);
+	CoreNode<T>* newNode = new CoreNode<T>(data);
 	return newNode;
 }
 
 template<typename T>
 CoreNode<T>* CorePriorityQueue<T>::CreateNewNode(T&& data)
 {
-	CoreNode<T>* newNode = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
-	new(&newNode->data) T(std::move(data));
+	CoreNode<T>* newNode = new CoreNode<T>(std::move(data));
 	return newNode;
 }
 

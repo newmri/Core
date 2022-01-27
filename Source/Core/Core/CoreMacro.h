@@ -4,10 +4,6 @@
 #define CORE_DELETE = delete
 #define CORE_PURE = 0
 
-#define CORE_OUT(TYPE) TYPE&
-#define CORE_CONST_PTR(TYPE) const TYPE* const
-#define CORE_REF(TYPE) const TYPE&
-
 #define READ_LOCK(MUTEX) std::shared_lock<std::shared_mutex> lock(MUTEX)
 #define WRITE_LOCK(MUTEX) std::unique_lock<std::shared_mutex> lock(MUTEX)
 
@@ -20,13 +16,13 @@
 #define TO_STR(NUMBER) (std::to_string(NUMBER))
 
 template< typename T >
-void SAFE_FREE(T* PTR) { free(PTR); PTR = nullptr; }
+void SAFE_FREE(T * PTR) { if (PTR) { free(PTR); PTR = nullptr; } }
 
 template< typename T >
-void SAFE_DELETE(T* PTR) { delete PTR; PTR = nullptr; }
+void SAFE_DELETE(T* PTR) { if (PTR) { delete PTR; PTR = nullptr; } }
 
 template< typename T >
-void SAFE_DELETE_ARRAY(T* PTR) { delete[] PTR; PTR = nullptr; }
+void SAFE_DELETE_ARRAY(T* PTR) { if (PTR) { delete[] PTR; PTR = nullptr; } }
 
 #ifdef KNOWN_L1_CACHE_LINE_SIZE
 inline constexpr size_t LINE = KNOWN_L1_CACHE_LINE_SIZE;

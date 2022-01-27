@@ -6,7 +6,7 @@ static const size_t TEST_START_THREAD_NUMBER = 1;
 static const size_t TEST_END_THREAD_NUMBER = 64;
 static const size_t TEST_INCREASE_THREAD_NUMBER_TIMES = 2;
 
-static const size_t TEST_NUMBER = 3000;
+static const size_t TEST_NUMBER = 30000;
 static const size_t TEST_RESERVE_DEVIDE_NUMBER = 10;
 
 struct TestInfo

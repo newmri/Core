@@ -6,15 +6,6 @@ class CoreContainer : public CoreObj
 	OVERRIDE_OBJ(CoreContainer<T>)
 
 public:
-	template<typename... Types>
-	CoreContainer(const size_t maxBlockNum, const size_t needBlockNum = 1, const bool needCallCtor = true, Types... args);
-
-protected:
-	template<typename... Types>
-	T* Alloc(const size_t maxBlockNum, const size_t needBlockNum = 1, const bool needCallCtor = true, Types... args);
-	void DeAlloc(void);
-
-public:
 	virtual void clear(void) CORE_PURE;
 
 public:
@@ -25,12 +16,9 @@ public:
 
 protected:
 	void SetSize(const size_t newSize);
-	void SetDefaultReserveSize(const size_t newDefaultSize);
 
 protected:
-	size_t dataSize = 0;
-	size_t dataDefaultReserveSize = 5;
-	T* data = nullptr;
+	CACHE_ALIGN size_t dataSize = 0;
 
 protected:
 	CACHE_ALIGN std::shared_mutex mutex;
@@ -45,43 +33,11 @@ template<typename T>
 CoreContainer<T>::~CoreContainer()
 {
 	WRITE_LOCK(this->mutex);
-	DeAlloc();
-}
-
-template<typename T>
-template<typename... Types>
-CoreContainer<T>::CoreContainer(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor, Types... args) :
-								dataDefaultReserveSize(maxBlockNum)
-{
-	this->data = Alloc(maxBlockNum, needBlockNum, needCallCtor, args...);
 }
 
 template<typename T>
 void CoreContainer<T>::Init(void)
 {
-}
-
-template<typename T>
-template<typename... Types>
-T* CoreContainer<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum, const bool needCallCtor, Types... args)
-{
-	T* body = GET_INSTANCE(CoreMemoryPoolManager<T>).Alloc(maxBlockNum, needBlockNum, needCallCtor, args...);
-
-	if (body)
-		SetSize(this->dataSize + needBlockNum);
-
-	return body;
-}
-
-template<typename T>
-void CoreContainer<T>::DeAlloc(void)
-{
-	if (this->data)
-	{
-		GET_INSTANCE(CoreMemoryPoolManager<T>).DeAlloc(this->data);
-		this->data = nullptr;
-		SetSize(0);
-	}
 }
 
 template<typename T>
@@ -101,10 +57,4 @@ template<typename T>
 void CoreContainer<T>::SetSize(const size_t newSize)
 {
 	this->dataSize = newSize;
-}
-
-template<typename T>
-void CoreContainer<T>::SetDefaultReserveSize(const size_t newDefaultSize)
-{
-	this->dataDefaultReserveSize = newDefaultSize;
 }

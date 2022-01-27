@@ -2,29 +2,28 @@
 
 #include "CoreMemoryPool.h"
 
-template<typename T>
-CoreMemoryPool<T>::CoreMemoryPool(const size_t maxBlockNum)
+template<typename T, size_t MAX_BLOCK_NUM>
+CoreMemoryPool<T, MAX_BLOCK_NUM>::CoreMemoryPool()
 {
-	Init(maxBlockNum);
+	Init();
 }
 
-template<typename T>
-CoreMemoryPool<T>::~CoreMemoryPool()
+template<typename T, size_t MAX_BLOCK_NUM>
+CoreMemoryPool<T, MAX_BLOCK_NUM>::~CoreMemoryPool()
 {
-	free(this->block);
+
 }
 
-template<typename T>
-bool CoreMemoryPool<T>::Init(const size_t maxBlockNum)
+template<typename T, size_t MAX_BLOCK_NUM>
+bool CoreMemoryPool<T, MAX_BLOCK_NUM>::Init(void)
 {
-	SetInfo(maxBlockNum);
 	SetBlock();
 
 	return true;
 }
 
-template<typename T>
-T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum)
+template<typename T, size_t MAX_BLOCK_NUM>
+T* CoreMemoryPool<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
 {
 	size_t startIndex = 0, endIndex = 0;
 
@@ -43,49 +42,19 @@ T* CoreMemoryPool<T>::Alloc(const size_t needBlockNum)
 	return blockBody;
 }
 
-template<typename T>
-void CoreMemoryPool<T>::Share(T*& blockBody)
+template<typename T, size_t MAX_BLOCK_NUM>
+bool CoreMemoryPool<T, MAX_BLOCK_NUM>::IsMyBody(T* blockBody)
 {
-	size_t startIndex = 0, endIndex = 0;
-
-	if (IS_NULL(blockBody))
-		return;
-
-	startIndex = GetIndex(blockBody);
-	BlockHeader* blockHeader = GetBlockHeader(startIndex);
-	endIndex = startIndex + (blockHeader->allocatedNum - 1);
-
-	for (size_t i = startIndex; i <= endIndex; ++i)
-	{
-		IncreaseRefCnt(i);
-	}
+	return (MAX_BLOCK_NUM > GetIndex(blockBody));
 }
 
-template<typename T>
-bool CoreMemoryPool<T>::IsMyBody(CORE_BYTE_PTR blockBody)
-{
-	CORE_BYTE_PTR minBlockBody = this->block + this->blockInfo.blockHeaderTotalSize;
-	CORE_BYTE_PTR maxBlockBody = this->block + GetBlockBodyOffset(this->blockInfo.maxBlockNum - 1);
-
-	return (minBlockBody <= blockBody && maxBlockBody >= blockBody);
-}
-
-template<typename T>
-void CoreMemoryPool<T>::DeAlloc(T*& blockBody) noexcept
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPool<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody) noexcept
 {
 	size_t startIndex = 0, endIndex = 0;
 
 	if (IS_SAME(false, CanDeAlloc(blockBody, startIndex, endIndex)))
 		return;
-
-	BlockHeader* blockHeader = GetBlockHeader(startIndex);
-	if (IS_NOT_SAME(1, blockHeader->refNum))
-	{
-		for (size_t i = startIndex; i <= endIndex; ++i)
-			IncreaseRefCnt(i, -1);
-
-		return;
-	}
 
 	for (size_t i = startIndex; i <= endIndex; ++i)
 		SetBlockHeader(i, 0);
@@ -96,43 +65,27 @@ void CoreMemoryPool<T>::DeAlloc(T*& blockBody) noexcept
 	return;
 }
 
-template<typename T>
-void CoreMemoryPool<T>::DeAllocAll(void) noexcept
-{
-	SAFE_FREE(this->block);
-}
-
-template<typename T>
-size_t CoreMemoryPool<T>::GetRemainedBlockNum(void)
+template<typename T, size_t MAX_BLOCK_NUM>
+size_t CoreMemoryPool<T, MAX_BLOCK_NUM>::GetRemainedBlockNum(void)
 {
 	return this->blockInfo.remainedBlockNum;
 }
 
-template<typename T>
-size_t CoreMemoryPool<T>::GetMaxBlockNum(void)
+template<typename T, size_t MAX_BLOCK_NUM>
+size_t CoreMemoryPool<T, MAX_BLOCK_NUM>::GetMaxBlockNum(void)
 {
-	return this->blockInfo.maxBlockNum;
+	return MAX_BLOCK_NUM;
 }
 
-template<typename T>
-bool CoreMemoryPool<T>::IsValid(T* blockBody)
-{
-	size_t startIndex = 0, ;
-
-	startIndex = GetIndex(blockBody);
-	BlockHeader* blockHeader = GetBlockHeader(startIndex);
-	return (IS_NOT_SAME(0, blockHeader->refNum));
-}
-
-template<typename T>
-bool CoreMemoryPool<T>::CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
+template<typename T, size_t MAX_BLOCK_NUM>
+bool CoreMemoryPool<T, MAX_BLOCK_NUM>::CanAlloc(const size_t needBlockNum, size_t& startIndex, size_t& endIndex)
 {
 	if (needBlockNum > this->blockInfo.remainedBlockNum)
 		return false;
 
 	size_t availableNum = 0;
 
-	for (size_t i = 0; i < this->blockInfo.maxBlockNum; ++i)
+	for (size_t i = 0; i < MAX_BLOCK_NUM; ++i)
 	{
 		BlockHeader* blockHeader = GetBlockHeader(i);
 
@@ -153,13 +106,13 @@ bool CoreMemoryPool<T>::CanAlloc(const size_t needBlockNum, CORE_OUT(size_t) sta
 	return false;
 }
 
-template<typename T>
-bool CoreMemoryPool<T>::CanDeAlloc(T* blockBody, CORE_OUT(size_t) startIndex, CORE_OUT(size_t) endIndex)
+template<typename T, size_t MAX_BLOCK_NUM>
+bool CoreMemoryPool<T, MAX_BLOCK_NUM>::CanDeAlloc(T* blockBody, size_t& startIndex, size_t& endIndex)
 {
 	if (IS_NULL(blockBody))
 		return false;
 
-	if (IS_SAME(this->blockInfo.remainedBlockNum, this->blockInfo.maxBlockNum))
+	if (IS_SAME(this->blockInfo.remainedBlockNum, MAX_BLOCK_NUM))
 		return false;
 
 	startIndex = GetIndex(blockBody);
@@ -175,85 +128,60 @@ bool CoreMemoryPool<T>::CanDeAlloc(T* blockBody, CORE_OUT(size_t) startIndex, CO
 }
 
 
-template<typename T>
-BlockHeader* CoreMemoryPool<T>::GetBlockHeader(const size_t index)
+template<typename T, size_t MAX_BLOCK_NUM>
+BlockHeader* CoreMemoryPool<T, MAX_BLOCK_NUM>::GetBlockHeader(const size_t index)
 {
 	return reinterpret_cast<BlockHeader*>(this->block + GetBlockHeaderOffset(index));
 }
 
-template<typename T>
-size_t CoreMemoryPool<T>::GetBlockHeaderOffset(const size_t index)
+template<typename T, size_t MAX_BLOCK_NUM>
+size_t CoreMemoryPool<T, MAX_BLOCK_NUM>::GetBlockHeaderOffset(const size_t index)
 {
 	return (this->blockInfo.blockHeaderSize * index);
 }
 
-template<typename T>
-size_t CoreMemoryPool<T>::GetIndex(T* blockBody)
+template<typename T, size_t MAX_BLOCK_NUM>
+size_t CoreMemoryPool<T, MAX_BLOCK_NUM>::GetIndex(T* blockBody)
 {
-	size_t offset = reinterpret_cast<size_t>(blockBody) - reinterpret_cast<size_t>(GetBlockHeader(this->blockInfo.maxBlockNum));
+	size_t offset = reinterpret_cast<size_t>(blockBody) - reinterpret_cast<size_t>(GetBlockBody(0));
+	offset /= sizeof(void*);
 	return offset / this->blockInfo.blockBodySize;
 }
 
-template<typename T>
-size_t CoreMemoryPool<T>::GetBlockBodyOffset(const size_t index)
+template<typename T, size_t MAX_BLOCK_NUM>
+size_t CoreMemoryPool<T, MAX_BLOCK_NUM>::GetBlockBodyOffset(const size_t index)
 {
 	return (this->blockInfo.blockHeaderTotalSize + (index * this->blockInfo.blockBodySize));
 }
 
-template<typename T>
-T* CoreMemoryPool<T>::GetBlockBody(const size_t index)
+template<typename T, size_t MAX_BLOCK_NUM>
+T* CoreMemoryPool<T, MAX_BLOCK_NUM>::GetBlockBody(const size_t index)
 {
 	return reinterpret_cast<T*>(this->block + GetBlockBodyOffset(index));
 }
 
-template<typename T>
-void CoreMemoryPool<T>::SetInfo(const size_t maxBlockNum)
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPool<T, MAX_BLOCK_NUM>::SetBlock(void)
 {
-	this->blockInfo.maxBlockNum = this->blockInfo.remainedBlockNum = maxBlockNum;
-
-	this->blockInfo.blockHeaderSize = sizeof(BlockHeader);
-	this->blockInfo.blockHeaderTotalSize = this->blockInfo.blockHeaderSize * this->blockInfo.maxBlockNum;
-
-	this->blockInfo.blockBodySize = sizeof(T);
-	this->blockInfo.blockBodyTotalSize = this->blockInfo.blockBodySize * this->blockInfo.maxBlockNum;
-
-	this->blockInfo.blockTotalSize = this->blockInfo.blockHeaderTotalSize + this->blockInfo.blockBodyTotalSize;
-}
-
-template<typename T>
-void CoreMemoryPool<T>::SetBlock(void)
-{
-	this->block = (CORE_BYTE_PTR)malloc(this->blockInfo.blockTotalSize);
-
-	for (size_t i = 0; i < this->blockInfo.maxBlockNum; ++i)
+	for (size_t i = 0; i < MAX_BLOCK_NUM; ++i)
 		new(GetBlockHeader(i)) BlockHeader();
 }
 
-template<typename T>
-void CoreMemoryPool<T>::SetBlockHeader(BlockHeader* blockHeader, const size_t allocatedNum, const bool changeRefCnt)
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPool<T, MAX_BLOCK_NUM>::SetBlockHeader(BlockHeader* blockHeader, const size_t allocatedNum, const bool changeRefCnt)
 {
 	blockHeader->allocatedNum = allocatedNum;
-
-	if(changeRefCnt)
-		blockHeader->refNum = (allocatedNum) ? blockHeader->refNum + 1 : 0;
 }
 
-template<typename T>
-void CoreMemoryPool<T>::SetBlockHeader(const size_t index, const size_t allocatedNum, const bool changeRefCnt)
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPool<T, MAX_BLOCK_NUM>::SetBlockHeader(const size_t index, const size_t allocatedNum, const bool changeRefCnt)
 {
 	BlockHeader* blockHeader = GetBlockHeader(index);
 	SetBlockHeader(blockHeader, allocatedNum, changeRefCnt);
 }
 
-template<typename T>
-void CoreMemoryPool<T>::IncreaseRefCnt(const size_t index, const size_t increaseRefCnt)
-{
-	BlockHeader* blockHeader = GetBlockHeader(index);
-	blockHeader->refNum += increaseRefCnt;
-}
-
-template<typename T>
-void CoreMemoryPool<T>::SetRemainedBlockNum(const size_t remainedBlockNum)
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPool<T, MAX_BLOCK_NUM>::SetRemainedBlockNum(const size_t remainedBlockNum)
 {
 	this->blockInfo.remainedBlockNum = remainedBlockNum;
 }

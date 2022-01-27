@@ -24,18 +24,18 @@ protected:
 
 private:
 	std::string Parse(std::string& in);
-	void Parse(std::string& in, CORE_OUT(int) out);
-	void Parse(std::string& in, CORE_OUT(long) out);
-	void Parse(std::string& in, CORE_OUT(long long) out);
-	void Parse(std::string& in, CORE_OUT(unsigned long) out);
-	void Parse(std::string& in, CORE_OUT(unsigned long long) out);
-	void Parse(std::string& in, CORE_OUT(float) out);
-	void Parse(std::string& in, CORE_OUT(double) out);
-	void Parse(std::string& in, CORE_OUT(long double) out);
+	void Parse(std::string& in,int& out);
+	void Parse(std::string& in,long& out);
+	void Parse(std::string& in,long long& out);
+	void Parse(std::string& in,unsigned long& out);
+	void Parse(std::string& in,unsigned long long& out);
+	void Parse(std::string& in,float& out);
+	void Parse(std::string& in,double& out);
+	void Parse(std::string& in,long double& out);
 
 protected:
 	void ParseDataTypesAndCalRowSize(std::string& strForParse);
-	void Parse(std::string& in, CORE_OUT(std::string) out);
+	void Parse(std::string& in, std::string& out);
 
 protected:
 	std::string delimiter;

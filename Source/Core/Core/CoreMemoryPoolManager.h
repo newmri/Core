@@ -2,76 +2,44 @@
 
 #include "CoreMemoryPool.h"
 
-template<typename T>
+template<typename T, size_t MAX_BLOCK_NUM>
 struct Node
 {
-	Node() CORE_DEFAULT;
-
-	Node(const size_t maxBlockNum)
+	Node()
 	{
-		page.Init(maxBlockNum);
+		page.Init();
 	}
 
-	CoreMemoryPool<T> page;
-	std::unique_ptr<Node> next;
+	CoreMemoryPool<T, MAX_BLOCK_NUM> page;
+	std::unique_ptr<Node<T, MAX_BLOCK_NUM>> next;
 };
 
-template<typename T>
+template<typename T, size_t MAX_BLOCK_NUM>
 class CoreMemoryPoolManager
 {
-public:
-	template <typename... Types>
-	static void* operator new(size_t size, Types... args)
-	{
-		return Alloc(1, 1);
-	}
-
-	template <typename... Types>
-	static void* operator new[](size_t size, Types... args)
-	{
-		return Alloc(1, 1);
-	}
-
-	static void operator delete(void* p)
-	{
-		DeAlloc((T*&)p);
-	}
-
-	static void operator delete[](void* p)
-	{
-		DeAlloc((T*&)p);
-	}
-
-private:
-	static T* Alloc(const size_t maxBlockNum, const size_t needBlockNum = 1);
-
-	// EX
-	//int* value = GET_INSTANCE(CoreMemoryPoolManager<int>).Alloc(1, 1);
-	//int*& value2 = GET_INSTANCE(CoreMemoryPoolManager<int>).Share(value);
-
-	static T*& Share(T*& blockBody);
-
-private:
-	static bool IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum);
-
-private:
-	static void CheckAndAllocHead(const size_t maxBlockNum);
-
-private:
-	static void DeAlloc(T*& blockBody);
+	DECLARE_SINGLETON(CoreMemoryPoolManager)
 
 public:
-	static size_t GetPageNum(void);
+	T* Alloc(const size_t needBlockNum = 1);
+
+private:
+	bool IsValidBlockNum(const size_t needBlockNum);
+
+private:
+	void CheckAndAllocHead(void);
 
 public:
-	static bool IsValid(T*& blockBody);
+	void DeAlloc(T* blockBody);
+
+public:
+	size_t GetPageNum(void);
 
 private:
-	CACHE_ALIGN static size_t pageNum;
+	CACHE_ALIGN size_t pageNum = 0;
 
 private:
-	static std::unique_ptr<Node<T>> head;
-	CACHE_ALIGN static std::shared_mutex mutex;
+	std::unique_ptr<Node<T, MAX_BLOCK_NUM>> head;
+	CACHE_ALIGN std::shared_mutex mutex;
 };
 
 #include "CoreMemoryPoolManager.hpp"

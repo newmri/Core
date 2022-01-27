@@ -2,28 +2,32 @@
 
 #include "CoreMemoryPoolManager.h"
 
-template<typename T>
-size_t CoreMemoryPoolManager<T>::pageNum = 0;
+IMPLEMENT_BLOCK_TEMPLATE_SINGLETON(CoreMemoryPoolManager)
 
-template<typename T>
-std::unique_ptr<Node<T>> CoreMemoryPoolManager<T>::head;
-
-template<typename T>
-std::shared_mutex CoreMemoryPoolManager<T>::mutex;
-
-template<typename T>
-T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBlockNum)
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Init(void)
 {
-	if (!IsValidBlockNum(maxBlockNum, needBlockNum))
+}
+
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Release(void)
+{
+	GetInstance().~CoreMemoryPoolManager();
+}
+
+template<typename T, size_t MAX_BLOCK_NUM>
+T* CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
+{
+	if (!IsValidBlockNum(needBlockNum))
 		return nullptr;
 
 	T* blockBody = nullptr;
 
 	WRITE_LOCK(mutex);
 
-	CheckAndAllocHead(maxBlockNum);
+	CheckAndAllocHead();
 
-	Node<T>* currNode = head.get();
+	Node<T, MAX_BLOCK_NUM>* currNode = head.get();
 
 	do
 	{
@@ -33,7 +37,7 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 		{
 			if (IS_NULL(currNode->next))
 			{
-				currNode->next = std::make_unique<Node<T>>(maxBlockNum);
+				currNode->next = std::make_unique<Node<T, MAX_BLOCK_NUM>>();
 				++pageNum;
 			}
 
@@ -45,35 +49,12 @@ T* CoreMemoryPoolManager<T>::Alloc(const size_t maxBlockNum, const size_t needBl
 	return blockBody;
 }
 
-template<typename T>
-T*& CoreMemoryPoolManager<T>::Share(T*& blockBody)
+template<typename T, size_t MAX_BLOCK_NUM>
+bool CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::IsValidBlockNum(const size_t needBlockNum)
 {
-	Node<T>* currNode = head.get();
-	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
-
-	WRITE_LOCK(mutex);
-
-	while (currNode)
+	if (needBlockNum > MAX_BLOCK_NUM)
 	{
-		if (currNode->page.IsMyBody(byteBody))
-		{
-			currNode->page.Share(blockBody);
-			return blockBody;
-		}
-
-		currNode = currNode->next.get();
-	}
-
-	T* ret = nullptr;
-	return ret;
-}
-
-template<typename T>
-bool CoreMemoryPoolManager<T>::IsValidBlockNum(const size_t maxBlockNum, const size_t needBlockNum)
-{
-	if (needBlockNum > maxBlockNum)
-	{
-		std::string errorMessage = "maxBlockNum: " + TO_STR(maxBlockNum) + " needBlockNum: " + TO_STR(needBlockNum);
+		std::string errorMessage = "maxBlockNum: " + TO_STR(MAX_BLOCK_NUM) + " needBlockNum: " + TO_STR(needBlockNum);
 		CORE_LOG.Log(LogType::LOG_ERROR, errorMessage);
 		return false;
 	}
@@ -81,27 +62,26 @@ bool CoreMemoryPoolManager<T>::IsValidBlockNum(const size_t maxBlockNum, const s
 	return true;
 }
 
-template<typename T>
-void CoreMemoryPoolManager<T>::CheckAndAllocHead(const size_t maxBlockNum)
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::CheckAndAllocHead(void)
 {
 	if (IS_NULL(head))
 	{
-		head = std::make_unique<Node<T>>(maxBlockNum);
+		head = std::make_unique<Node<T, MAX_BLOCK_NUM>>();
 		++pageNum;
 	}
 }
 
-template<typename T>
-void CoreMemoryPoolManager<T>::DeAlloc(T*& blockBody)
+template<typename T, size_t MAX_BLOCK_NUM>
+void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody)
 {
-	Node<T>* currNode = head.get();
-	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
+	Node<T, MAX_BLOCK_NUM>* currNode = head.get();
 
 	WRITE_LOCK(mutex);
 
 	while (currNode)
 	{
-		if (currNode->page.IsMyBody(byteBody))
+		if (currNode->page.IsMyBody(blockBody))
 		{
 			currNode->page.DeAlloc(blockBody);
 			break;
@@ -111,28 +91,9 @@ void CoreMemoryPoolManager<T>::DeAlloc(T*& blockBody)
 	}
 }
 
-template<typename T>
-size_t CoreMemoryPoolManager<T>::GetPageNum(void)
+template<typename T, size_t MAX_BLOCK_NUM>
+size_t CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::GetPageNum(void)
 {
 	READ_LOCK(mutex);
 	return pageNum;
-}
-
-template<typename T>
-bool CoreMemoryPoolManager<T>::IsValid(T*& blockBody)
-{
-	Node<T>* currNode = head.get();
-	CORE_BYTE_PTR byteBody = reinterpret_cast<CORE_BYTE_PTR>(blockBody);
-
-	READ_LOCK(mutex);
-
-	while (currNode)
-	{
-		if (currNode->page.IsMyBody(byteBody))
-			return currNode->page.IsValid(blockBody);
-
-		currNode = currNode->next.get();
-	}
-
-	return false;
 }

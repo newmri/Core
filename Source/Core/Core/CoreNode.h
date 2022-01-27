@@ -1,9 +1,11 @@
 #pragma once
 
 template<typename T>
-struct CoreNode
+struct CoreNode : public CoreMemoryPoolObj<CoreNode<T>, 1024>
 {
 	CoreNode() CORE_DEFAULT;
+
+	CoreNode(const T& data) : data(data) {}
 
 	CoreNode(const T& data, CoreNode<T>* next) : data(data), next(next) {}
 
@@ -38,12 +40,12 @@ public:
 		return const_cast<T&>(static_cast<const CoreIterator<T>&>(*this).operator*());
 	}
 
-	bool operator==(CORE_REF(CoreIterator) rhs) const
+	bool operator==(const CoreIterator& rhs) const
 	{
 		return currNode == rhs.currNode;
 	}
 
-	bool operator!=(CORE_REF(CoreIterator) rhs) const
+	bool operator!=(const CoreIterator& rhs) const
 	{
 		return currNode != rhs.currNode;
 	}
