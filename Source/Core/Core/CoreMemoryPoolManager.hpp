@@ -24,8 +24,6 @@ T* CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
 
 	T* blockBody = nullptr;
 
-	WRITE_LOCK(mutex);
-
 	Node<T, MAX_BLOCK_NUM>* currNode = head.get();
 
 	do
@@ -36,14 +34,21 @@ T* CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
 		{
 			if (IS_NULL(currNode->next))
 			{
-				currNode->next = std::make_unique<Node<T, MAX_BLOCK_NUM>>();
-				++pageNum;
+				std::unique_ptr<Node<T, MAX_BLOCK_NUM>> newNode = std::make_unique<Node<T, MAX_BLOCK_NUM>>();
+				
+				WRITE_LOCK(this->mutex);
+				if (IS_NULL(currNode->next))
+				{
+					currNode->next.swap(newNode);
+					++pageNum;
+				}
 			}
 
 			currNode = currNode->next.get();
 		}
 
 	} while (IS_NULL(blockBody));
+
 
 	return blockBody;
 }
@@ -76,9 +81,9 @@ void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody)
 {
 	Node<T, MAX_BLOCK_NUM>* currNode = head.get();
 
-	WRITE_LOCK(mutex);
+	READ_LOCK(this->mutex);
 
-	while (currNode)
+	do
 	{
 		if (currNode->page.IsMyBody(blockBody))
 		{
@@ -87,7 +92,7 @@ void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody)
 		}
 
 		currNode = currNode->next.get();
-	}
+	} while (currNode);
 }
 
 template<typename T, size_t MAX_BLOCK_NUM>

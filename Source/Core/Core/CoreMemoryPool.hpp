@@ -27,19 +27,23 @@ T* CoreMemoryPool<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
 {
 	size_t startIndex = 0, endIndex = 0;
 
-	if (IS_SAME(0, CanAlloc(needBlockNum, startIndex, endIndex)))
-		return nullptr;
+	{
+		WRITE_LOCK(this->mutex);
 
-	for (size_t i = startIndex; i <= endIndex; ++i)
-		SetBlockHeader(i);
+		if (IS_SAME(0, CanAlloc(needBlockNum, startIndex, endIndex)))
+			return nullptr;
 
-	SetBlockHeader(startIndex, needBlockNum, false);
 
-	T* blockBody = GetBlockBody(startIndex);
+		for (size_t i = startIndex; i <= endIndex; ++i)
+			SetBlockHeader(i);
 
-	SetRemainedBlockNum(this->blockInfo.remainedBlockNum - needBlockNum);
+		SetBlockHeader(startIndex, needBlockNum, false);
 
-	return blockBody;
+		this->allocPos = endIndex + 1;
+		SetRemainedBlockNum(this->blockInfo.remainedBlockNum - needBlockNum);
+	}
+
+	return GetBlockBody(startIndex);
 }
 
 template<typename T, size_t MAX_BLOCK_NUM>
@@ -53,12 +57,15 @@ void CoreMemoryPool<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody) noexcept
 {
 	size_t startIndex = 0, endIndex = 0;
 
+	WRITE_LOCK(this->mutex);
+
 	if (IS_SAME(false, CanDeAlloc(blockBody, startIndex, endIndex)))
 		return;
 
 	for (size_t i = startIndex; i <= endIndex; ++i)
 		SetBlockHeader(i, 0);
 
+	this->allocPos = startIndex;
 	SetRemainedBlockNum(this->blockInfo.remainedBlockNum + (endIndex - startIndex) + 1);
 	blockBody = nullptr;
 
@@ -68,6 +75,7 @@ void CoreMemoryPool<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody) noexcept
 template<typename T, size_t MAX_BLOCK_NUM>
 size_t CoreMemoryPool<T, MAX_BLOCK_NUM>::GetRemainedBlockNum(void)
 {
+	READ_LOCK(this->mutex);
 	return this->blockInfo.remainedBlockNum;
 }
 
@@ -85,7 +93,7 @@ bool CoreMemoryPool<T, MAX_BLOCK_NUM>::CanAlloc(const size_t needBlockNum, size_
 
 	size_t availableNum = 0;
 
-	for (size_t i = 0; i < MAX_BLOCK_NUM; ++i)
+	for (size_t i = this->allocPos; i < MAX_BLOCK_NUM; ++i)
 	{
 		BlockHeader* blockHeader = GetBlockHeader(i);
 

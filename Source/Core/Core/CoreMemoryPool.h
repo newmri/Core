@@ -57,7 +57,9 @@ private:
 
 private:
 	BlockInfo blockInfo;
+	size_t allocPos = 0;
 	CORE_BYTE_PTR block[BlockInfo::blockTotalSize];
+	CACHE_ALIGN std::shared_mutex mutex;
 };
 
 #include "CoreMemoryPool.hpp"

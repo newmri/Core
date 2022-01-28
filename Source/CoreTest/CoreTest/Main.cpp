@@ -14,17 +14,36 @@ public:
 	Object()
 	{
 		value = 0;
-		std::cout << "aa" << std::endl; 
 	}
 
 	Object(int value) : value(value)
 	{
-		std::cout << "11" << std::endl;
 	}
 
 	virtual ~Object()
 	{
-		std::cout << "bb" << std::endl;
+	}
+
+	int GetValue() const { return value; }
+public:
+	int value;
+};
+
+class Object2
+{
+public:
+
+	Object2()
+	{
+		value = 0;
+	}
+
+	Object2(int value) : value(value)
+	{
+	}
+
+	virtual ~Object2()
+	{
 	}
 
 	int GetValue() const { return value; }
@@ -59,12 +78,14 @@ std::shared_mutex mutex2;
 void DoTest(void)
 {
 	data.push(1);
+	data.pop();
 }
 
 void DoTest2(void)
 {
 	WRITE_LOCK(mutex2);
 	data2.push(1);
+	data2.pop();
 }
 
 void Attack(int attacker, int victim)
@@ -98,10 +119,11 @@ int main(void)
 	//	t.push(1);
 	//}
 
+
 	CORE_LOG.Log("----------- mine -----------------");
 	CORE_TEST_MANAGER.Work(DoTest);
 	CORE_LOG.Log("size: " + TO_STR(data.size()));
-
+	
 	CORE_LOG.Log("----------- stl -----------------");
 	CORE_TEST_MANAGER.Work(DoTest2);
 	CORE_LOG.Log("size: " + TO_STR(data2.size()));
