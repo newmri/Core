@@ -41,7 +41,7 @@ public:
         void (* const* func_ptr)(Types...) = func.template target<void(*)(Types...)>();
         const std::size_t func_hash = func.target_type().hash_code();
 
-        if (nullptr == func_ptr)
+        if (IS_NULL(func_ptr))
         {
             for (auto iter = this->functions.begin(); iter != this->functions.end(); ++iter)
             {
@@ -57,7 +57,7 @@ public:
             for (auto iter = this->functions.begin(); iter != this->functions.end(); ++iter)
             {
                 void (* const* delegate_ptr)(Types...) = (*iter).template target<void(*)(Types...)>();
-                if (nullptr != delegate_ptr && *func_ptr == *delegate_ptr)
+                if (IS_NOT_NULL(delegate_ptr) && *func_ptr == *delegate_ptr)
                 {
                     this->functions.erase(iter);
                     return *this;

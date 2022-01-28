@@ -49,7 +49,7 @@ T* CoreSharedPtr<T>::get(void)
 template<typename T>
 bool CoreSharedPtr<T>::IsValid(void)
 {
-	if (IS_SAME(nullptr, this->blockBody))
+	if (IS_NULL(this->blockBody))
 		return false;
 
 	return this->blockBody->IsValid(blockBody);
@@ -93,5 +93,5 @@ CoreSharedPtr<T>& CoreSharedPtr<T>::operator=(const CoreSharedPtr<T>& other)
 template<typename T>
 CoreSharedPtr<T>::operator bool() const
 {
-	return (IS_NOT_SAME(nullptr, this->blockBody));
+	return (IS_NOT_NULL(this->blockBody));
 }

@@ -174,7 +174,7 @@ void CorePriorityQueue<T>::push(CoreNode<T>* newNode)
 			break;
 		}
 
-		else if (IS_SAME(nullptr, nextNode))
+		else if (IS_NULL(nextNode))
 		{
 			currNode->next = newNode;
 			break;

@@ -7,6 +7,7 @@ IMPLEMENT_BLOCK_TEMPLATE_SINGLETON(CoreMemoryPoolManager)
 template<typename T, size_t MAX_BLOCK_NUM>
 void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Init(void)
 {
+	CheckAndAllocHead();
 }
 
 template<typename T, size_t MAX_BLOCK_NUM>
@@ -24,8 +25,6 @@ T* CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
 	T* blockBody = nullptr;
 
 	WRITE_LOCK(mutex);
-
-	CheckAndAllocHead();
 
 	Node<T, MAX_BLOCK_NUM>* currNode = head.get();
 
