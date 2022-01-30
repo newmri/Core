@@ -113,8 +113,13 @@ void CoreQueue<T>::pop(void)
 			return;
 
 		deleteNode = this->head->next;
-		this->head->next = deleteNode->next;
+
 		CoreContainer<T>::SetSize(this->dataSize - 1);
+
+		if (IS_SAME(this->dataSize, 0))
+			this->head->next = this->tail;
+		else
+			this->head->next = deleteNode->next;
 	}
 
 	SAFE_DELETE(deleteNode);
