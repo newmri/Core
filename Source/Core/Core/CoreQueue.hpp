@@ -6,7 +6,7 @@ template<typename T>
 CoreQueue<T>::CoreQueue()
 {
 	this->head = new CoreNode<T>();
-	this->tail = new CoreNode<T>();
+	this->tail = this->head;
 	this->head->next = this->tail;
 
 	if (this->head)
@@ -20,7 +20,6 @@ CoreQueue<T>::~CoreQueue()
 {
 	clear();
 
-	SAFE_DELETE(this->tail);
 	SAFE_DELETE(this->head);
 }
 
@@ -68,6 +67,8 @@ void CoreQueue<T>::Copy(const CoreQueue<T>& rhs)
 template<typename T>
 void CoreQueue<T>::clear(void)
 {
+	CoreNode<T>* deleteNode = nullptr;
+
 	WRITE_LOCK(this->mutex);
 
 	if (IS_SAME(this->dataSize, 0))
@@ -75,13 +76,16 @@ void CoreQueue<T>::clear(void)
 
 	CoreNode<T>* currNode = this->head->next;
 
-	while (currNode != this->tail)
+	while (IS_NOT_NULL(currNode))
 	{
-		SAFE_DELETE(currNode);
+		deleteNode = currNode;
 		currNode = currNode->next;
+		SAFE_DELETE(deleteNode);
 	}
 
+	this->tail = this->head;
 	this->head->next = this->tail;
+	CoreContainer<T>::SetSize(0);
 }
 
 template<typename T>

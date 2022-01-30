@@ -67,6 +67,8 @@ void CorePriorityQueue<T>::Copy(const CorePriorityQueue<T>& rhs)
 template<typename T>
 void CorePriorityQueue<T>::clear(void)
 {
+	CoreNode<T>* deleteNode = nullptr;
+
 	WRITE_LOCK(this->mutex);
 
 	if (IS_SAME(this->dataSize, 0))
@@ -76,11 +78,13 @@ void CorePriorityQueue<T>::clear(void)
 
 	while (currNode)
 	{
-		SAFE_DELETE(currNode);
+		deleteNode = currNode;
 		currNode = currNode->next;
+		SAFE_DELETE(deleteNode);
 	}
 
 	this->head->next = nullptr;
+	CoreContainer<T>::SetSize(0);
 }
 
 template<typename T>

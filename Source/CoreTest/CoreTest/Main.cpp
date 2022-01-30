@@ -119,14 +119,15 @@ int main(void)
 	//	t.push(1);
 	//}
 
-
-	CORE_LOG.Log("----------- mine -----------------");
-	CORE_TEST_MANAGER.Work(DoTest);
-	CORE_LOG.Log("size: " + TO_STR(data.size()));
 	
-	CORE_LOG.Log("----------- stl -----------------");
-	CORE_TEST_MANAGER.Work(DoTest2);
-	CORE_LOG.Log("size: " + TO_STR(data2.size()));
+
+	//CORE_LOG.Log("----------- mine -----------------");
+	//CORE_TEST_MANAGER.Work(DoTest);
+	//CORE_LOG.Log("size: " + TO_STR(data.size()));
+	//
+	//CORE_LOG.Log("----------- stl -----------------");
+	//CORE_TEST_MANAGER.Work(DoTest2);
+	//CORE_LOG.Log("size: " + TO_STR(data2.size()));
 
 	return 0;
 }
