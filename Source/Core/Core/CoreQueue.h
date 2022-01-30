@@ -29,7 +29,7 @@ public:
 	T front(void);
 	T back(void);
 
-private:
+protected:
 	CoreNode<T>* CreateNewNode(const T& data);
 	CoreNode<T>* CreateNewNode(T&& data);
 	void push(CoreNode<T>* newNode);
@@ -44,7 +44,7 @@ public:
 	const_iterator cend(void) const { return const_iterator(this->tail->next); }
 	iterator end(void) { return iterator(this->tail->next); }
 
-private:
+protected:
 	CoreNode<T>* head = nullptr;
 	CoreNode<T>* tail = nullptr;
 };

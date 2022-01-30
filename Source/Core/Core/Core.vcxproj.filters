@@ -55,9 +55,6 @@
     <Filter Include="08.CoreRandomManager">
       <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06.CoreContainer\02.CoreList">
-      <UniqueIdentifier>{1587ca71-a195-4544-9ba0-00ef1f07da8c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="09.CoreLoadManager">
       <UniqueIdentifier>{82e1f301-ba5a-4dcc-afce-389a0a0722f5}</UniqueIdentifier>
     </Filter>
@@ -76,12 +73,6 @@
     <Filter Include="99.CoreTestManager">
       <UniqueIdentifier>{74bf5bce-abd6-4d07-acee-24db258a94ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06.CoreContainer\03.CoreQueue">
-      <UniqueIdentifier>{88aba5e9-dae2-4049-97a4-a8a4412209f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.CoreContainer\03.CoreQueue\00.CorePriorityQueue">
-      <UniqueIdentifier>{dc4f73c5-374b-4b97-9234-bd09b0fc3bc8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="12.CoreDelegate">
       <UniqueIdentifier>{2e99422f-7d28-4cf1-adaf-77c02a2e85c5}</UniqueIdentifier>
     </Filter>
@@ -99,6 +90,15 @@
     </Filter>
     <Filter Include="01.CoreMemoryPoolManager\02.CoreSharedPtr">
       <UniqueIdentifier>{688cc129-12fc-4a9b-a2dd-08ca28619241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.CoreContainer\02.CoreQueue">
+      <UniqueIdentifier>{88aba5e9-dae2-4049-97a4-a8a4412209f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.CoreContainer\02.CoreQueue\00.CorePriorityQueue">
+      <UniqueIdentifier>{dc4f73c5-374b-4b97-9234-bd09b0fc3bc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.CoreContainer\03.CoreList">
+      <UniqueIdentifier>{1587ca71-a195-4544-9ba0-00ef1f07da8c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -213,10 +213,10 @@
       <Filter>06.CoreContainer</Filter>
     </ClInclude>
     <ClInclude Include="CoreList.h">
-      <Filter>06.CoreContainer\02.CoreList</Filter>
+      <Filter>06.CoreContainer\03.CoreList</Filter>
     </ClInclude>
     <ClInclude Include="CoreList.hpp">
-      <Filter>06.CoreContainer\02.CoreList</Filter>
+      <Filter>06.CoreContainer\03.CoreList</Filter>
     </ClInclude>
     <ClInclude Include="CoreTestManager.h">
       <Filter>99.CoreTestManager</Filter>
@@ -237,16 +237,16 @@
       <Filter>09.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader</Filter>
     </ClInclude>
     <ClInclude Include="CoreQueue.h">
-      <Filter>06.CoreContainer\03.CoreQueue</Filter>
+      <Filter>06.CoreContainer\02.CoreQueue</Filter>
     </ClInclude>
     <ClInclude Include="CoreQueue.hpp">
-      <Filter>06.CoreContainer\03.CoreQueue</Filter>
+      <Filter>06.CoreContainer\02.CoreQueue</Filter>
     </ClInclude>
     <ClInclude Include="CorePriorityQueue.h">
-      <Filter>06.CoreContainer\03.CoreQueue\00.CorePriorityQueue</Filter>
+      <Filter>06.CoreContainer\02.CoreQueue\00.CorePriorityQueue</Filter>
     </ClInclude>
     <ClInclude Include="CorePriorityQueue.hpp">
-      <Filter>06.CoreContainer\03.CoreQueue\00.CorePriorityQueue</Filter>
+      <Filter>06.CoreContainer\02.CoreQueue\00.CorePriorityQueue</Filter>
     </ClInclude>
     <ClInclude Include="CoreDelegate.h">
       <Filter>12.CoreDelegate</Filter>

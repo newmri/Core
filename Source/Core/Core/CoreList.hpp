@@ -5,25 +5,21 @@
 template<typename T>
 CoreList<T>::CoreList()
 {
-	this->head = this->tail = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
-
-	if (this->head)
-	{
-		CoreContainer<T>::SetSize(0);
-	}
+	Init();
 }
 
 template<typename T>
 CoreList<T>::~CoreList()
 {
-	GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(this->head);
 	clear();
+
+	SAFE_DELETE(this->head);
 }
 
 template<typename T>
 void CoreList<T>::Init(void)
 {
-	CoreContainer<T>::Init();
+	
 }
 
 template<typename T>
@@ -47,67 +43,54 @@ void CoreList<T>::Copy(const CoreList<T>& rhs)
 	clear();
 
 	WRITE_LOCK(this->mutex);
-	this->head = this->tail = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(rhs.dataSize);
+	SAFE_DELETE(this->head);
+	CoreQueue<T>::Init();
+	Init();
 
 	if (this->head)
 	{
 		const_iterator begin = rhs.cbegin();
 		const_iterator end = rhs.cend();
 
-		for(; begin != end; ++begin)
+		for (; begin != end; ++begin)
 			push_back(CreateNewNode(*begin));
 
 		CoreContainer<T>::SetSize(rhs.dataSize);
-		CoreContainer<T>::SetDefaultReserveSize(rhs.dataDefaultReserveSize);
 	}
 }
 
 template<typename T>
 void CoreList<T>::clear(void)
 {
-	WRITE_LOCK(this->mutex);
-
-	if (IS_SAME(this->dataSize, 0))
-		return;
-
-	CoreNode<T>* currNode = this->head->next;
-
-	while (currNode)
-	{
-		GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(currNode);
-		currNode = currNode->next;
-	}
-
-	this->head->next = nullptr;
-	this->tail = this->head;
+	CoreQueue<T>::clear();
 }
 
 template<typename T>
 void CoreList<T>::push_front(const T& data)
 {
-	CoreNode<T>* newNode = CreateNewNode(data);
+	CoreNode<T>* newNode = CoreQueue<T>::CreateNewNode(data);
 	push_front(newNode);
 }
 
 template<typename T>
 void CoreList<T>::push_front(T&& data)
 {
-	CoreNode<T>* newNode = CreateNewNode(data);
+	CoreNode<T>* newNode = CoreQueue<T>::CreateNewNode(data);
 	push_front(newNode);
 }
 
 template<typename T>
 void CoreList<T>::push_back(const T& data)
 {
-	CoreNode<T>* newNode = CreateNewNode(data);
-	push_back(newNode);
+	CoreNode<T>* newNode = CoreQueue<T>::CreateNewNode(data);
+	CoreQueue<T>::push(newNode);
 }
 
 template<typename T>
 void CoreList<T>::push_back(T&& data)
 {
-	CoreNode<T>* newNode = CreateNewNode(data);
-	push_back(newNode);
+	CoreNode<T>* newNode = CoreQueue<T>::CreateNewNode(data);
+	CoreQueue<T>::push(newNode);
 }
 
 template<typename T>
@@ -133,7 +116,7 @@ void CoreList<T>::remove_if(FUNC Compare)
 	{
 		if (Compare(currNode->next->data))
 		{
-			GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).DeAlloc(currNode->next);
+			SAFE_DELETE(currNode->next);
 
 			currNode->next = currNode->next->next;
 
@@ -150,39 +133,12 @@ void CoreList<T>::remove_if(FUNC Compare)
 }
 
 template<typename T>
-CoreNode<T>* CoreList<T>::CreateNewNode(const T& data)
-{
-	CoreNode<T>* newNode = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
-	new(&newNode->data) T(data);
-	return newNode;
-}
-
-template<typename T>
-CoreNode<T>* CoreList<T>::CreateNewNode(T&& data)
-{
-	CoreNode<T>* newNode = GET_INSTANCE(CoreMemoryPoolManager<CoreNode<T>>).Alloc(this->dataDefaultReserveSize);
-	new(&newNode->data) T(std::move(data));
-	return newNode;
-}
-
-template<typename T>
 void CoreList<T>::push_front(CoreNode<T>* newNode)
 {
 	WRITE_LOCK(this->mutex);
 
 	newNode->next = this->head->next;
 	this->head->next = newNode;
-
-	CoreContainer<T>::SetSize(this->dataSize + 1);
-}
-
-template<typename T>
-void CoreList<T>::push_back(CoreNode<T>* newNode)
-{
-	WRITE_LOCK(this->mutex);
-
-	this->tail->next = newNode;
-	this->tail = newNode;
 
 	CoreContainer<T>::SetSize(this->dataSize + 1);
 }

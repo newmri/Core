@@ -5,14 +5,7 @@
 template<typename T>
 CoreQueue<T>::CoreQueue()
 {
-	this->head = new CoreNode<T>();
-	this->tail = this->head;
-	this->head->next = this->tail;
-
-	if (this->head)
-	{
-		CoreContainer<T>::SetSize(0);
-	}
+	Init();
 }
 
 template<typename T>
@@ -27,6 +20,15 @@ template<typename T>
 void CoreQueue<T>::Init(void)
 {
 	CoreContainer<T>::Init();
+
+	this->head = new CoreNode<T>();
+	this->tail = this->head;
+	this->head->next = this->tail;
+
+	if (this->head)
+	{
+		CoreContainer<T>::SetSize(0);
+	}
 }
 
 template<typename T>
@@ -50,7 +52,9 @@ void CoreQueue<T>::Copy(const CoreQueue<T>& rhs)
 	clear();
 
 	WRITE_LOCK(this->mutex);
-	CoreQueue();
+
+	SAFE_DELETE(this->head);
+	Init();
 
 	if (this->head)
 	{
