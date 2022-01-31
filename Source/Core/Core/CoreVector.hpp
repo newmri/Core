@@ -11,7 +11,7 @@ CoreVector<T>::CoreVector()
 template<typename T>
 CoreVector<T>::~CoreVector()
 {
-
+	clear();
 }
 
 template<typename T>
@@ -64,14 +64,23 @@ void CoreVector<T>::Copy(const CoreVector<T>& rhs)
 	clear();
 
 	WRITE_LOCK(this->mutex);
-	this->data = CoreContainer<T>::Alloc(rhs.dataCapacity, rhs.dataSize);
+
+	if (1 < rhs.dataCapacity)
+		this->data = new T[rhs.dataCapacity];
+	else
+		this->data = new T;
 
 	if (this->data)
 	{
 		size_t copySize = sizeof(T) * rhs.dataSize;
 		memcpy_s(this->data, copySize, rhs.data, copySize);
+
 		SetCapacity(rhs.dataCapacity);
-		CoreContainer<T>::SetDefaultReserveSize(rhs.dataDefaultReserveSize);
+		CoreContainer<T>::SetSize(rhs.dataSize);
+
+		this->dataDefaultReserveSize = rhs.dataDefaultReserveSize;
+		this->dataCapacityIncrease = rhs.dataCapacityIncrease;
+
 	}
 }
 
@@ -79,8 +88,11 @@ template<typename T>
 void CoreVector<T>::clear(void)
 {
 	WRITE_LOCK(this->mutex);
-	CoreContainer<T>::DeAlloc();
-	this->dataCapacity = 0;
+
+	SAFE_DELETE(this->dataCapacity, this->data);
+
+	SetCapacity(0);
+	CoreContainer<T>::SetSize(0);
 }
 
 template<typename T>
@@ -95,12 +107,14 @@ void CoreVector<T>::reserve(const size_t newCapacity)
 {
 	WRITE_LOCK(this->mutex);
 
-	this->data = CoreContainer<T>::Alloc(newCapacity, newCapacity, false);
+	if(1 < newCapacity)
+		this->data = new T[newCapacity];
+	else
+		this->data = new T;
 
 	if (this->data)
 	{
 		SetCapacity(newCapacity);
-		CoreContainer<T>::SetSize(0);
 	}
 }
 
@@ -110,9 +124,8 @@ void CoreVector<T>::push_back(const T& data)
 	WRITE_LOCK(this->mutex);
 
 	CheckCapacityAndReAlloc();
-
 	new(&this->data[this->dataSize]) T(data);
-	++this->dataSize;
+	CoreContainer<T>::SetSize(this->dataSize + 1);
 }
 
 template<typename T>
@@ -121,9 +134,8 @@ void CoreVector<T>::push_back(T&& data)
 	WRITE_LOCK(this->mutex);
 
 	CheckCapacityAndReAlloc();
-
 	new(&this->data[this->dataSize]) T(std::move(data));
-	++this->dataSize;
+	CoreContainer<T>::SetSize(this->dataSize + 1);
 }
 
 template<typename T>
@@ -146,12 +158,13 @@ void CoreVector<T>::CheckCapacityAndReAlloc(void)
 {
 	if (IS_SAME(this->dataSize, this->dataCapacity))
 	{
+		size_t oldCapacity = this->dataCapacity;
 		T* newData = ReAlloc();
 
 		if (IS_NULL(newData))
 			return; // assert ÇÊ¿ä
 
-		GET_INSTANCE(CoreMemoryPoolManager<T>).DeAlloc(this->data, false);
+		SAFE_DELETE(oldCapacity, this->data);
 
 		this->data = newData;
 	}
@@ -164,14 +177,13 @@ T* CoreVector<T>::ReAlloc(void)
 	size_t oldSize = this->dataSize;
 	size_t copySize = sizeof(T) * oldSize;
 
-	T* newData = CoreContainer<T>::Alloc(newCapacity, newCapacity, false);
+	T* newData = new T[newCapacity];
 
 	if (newData)
 	{
 		memcpy_s(newData, copySize, this->data, copySize);
 
 		SetCapacity(newCapacity);
-		CoreContainer<T>::SetSize(oldSize);
 
 		return newData;
 	}

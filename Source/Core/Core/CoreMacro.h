@@ -16,13 +16,26 @@
 #define TO_STR(NUMBER) (std::to_string(NUMBER))
 
 template< typename T >
-void SAFE_FREE(T * PTR) { if (PTR) { free(PTR); PTR = nullptr; } }
+void SAFE_FREE(T* PTR) { if (PTR) { free(PTR); PTR = nullptr; } }
+
 
 template< typename T >
 void SAFE_DELETE(T* PTR) { if (PTR) { delete PTR; PTR = nullptr; } }
 
 template< typename T >
 void SAFE_DELETE_ARRAY(T* PTR) { if (PTR) { delete[] PTR; PTR = nullptr; } }
+
+template< typename T >
+void SAFE_DELETE(size_t num, T* PTR)
+{
+	if (IS_SAME(0, num))
+		return;
+
+	if (1 < num)
+		SAFE_DELETE_ARRAY(PTR);
+	else
+		SAFE_DELETE(PTR);
+}
 
 #ifdef KNOWN_L1_CACHE_LINE_SIZE
 inline constexpr size_t LINE = KNOWN_L1_CACHE_LINE_SIZE;

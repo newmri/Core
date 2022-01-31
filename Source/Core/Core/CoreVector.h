@@ -46,6 +46,8 @@ public:
 	iterator end(void) { return const_cast<iterator>(static_cast<const CoreVector<T>&>(*this).cend()); }
 
 private:
+	T* data = nullptr;
+	size_t dataDefaultReserveSize = 5;
 	size_t dataCapacity = 0;
 	size_t dataCapacityIncrease = 2;
 };

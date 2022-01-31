@@ -32,12 +32,7 @@ CoreSharedPtr<T>::~CoreSharedPtr()
 	if (IS_NOT_SAME(0, --this->refNum))
 		return;
 
-	if(IS_SAME(1, allocatedBlockNum))
-		delete this->blockBody;
-	else
-		delete[] this->blockBody;
-
-	this->blockBody = nullptr;
+	SAFE_DELETE(this->allocatedBlockNum, this->blockBody);
 }
 
 template<typename T>

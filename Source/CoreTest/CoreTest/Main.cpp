@@ -13,15 +13,20 @@ public:
 
 	Object()
 	{
+		CORE_LOG.Log("ctor");
 		value = 0;
 	}
 
 	Object(int value) : value(value)
 	{
+		CORE_LOG.Log("ctor2");
+
 	}
 
 	virtual ~Object()
 	{
+		CORE_LOG.Log("detor");
+
 	}
 
 	int GetValue() const { return value; }
@@ -69,23 +74,23 @@ public:
 };
 
 
-CoreQueue<int> data;
-std::queue<int> data2;
+CoreVector<int> data;
+std::vector<int> data2;
 
 std::shared_mutex mutex1;
 std::shared_mutex mutex2;
 
 void DoTest(void)
 {
-	data.push(1);
-	data.pop();
+	data.push_back(1);
+	//data.
 }
 
 void DoTest2(void)
 {
 	WRITE_LOCK(mutex2);
-	data2.push(1);
-	data2.pop();
+	data2.push_back(1);
+	//data2.pop();
 }
 
 void Attack(int attacker, int victim)
@@ -119,15 +124,15 @@ int main(void)
 	//	t.push(1);
 	//}
 
-	
 
-	//CORE_LOG.Log("----------- mine -----------------");
-	//CORE_TEST_MANAGER.Work(DoTest);
-	//CORE_LOG.Log("size: " + TO_STR(data.size()));
-	//
-	//CORE_LOG.Log("----------- stl -----------------");
-	//CORE_TEST_MANAGER.Work(DoTest2);
-	//CORE_LOG.Log("size: " + TO_STR(data2.size()));
+
+	CORE_LOG.Log("----------- mine -----------------");
+	CORE_TEST_MANAGER.Work(DoTest);
+	CORE_LOG.Log("size: " + TO_STR(data.size()));
+	
+	CORE_LOG.Log("----------- stl -----------------");
+	CORE_TEST_MANAGER.Work(DoTest2);
+	CORE_LOG.Log("size: " + TO_STR(data2.size()));
 
 	return 0;
 }
