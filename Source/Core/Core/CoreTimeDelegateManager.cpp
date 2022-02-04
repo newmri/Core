@@ -12,6 +12,17 @@ void CoreTimeDelegateManager::Release(void)
 	GetInstance().~CoreTimeDelegateManager();
 }
 
+void CoreTimeDelegateManager::Push(CoreTimeDelegate<> func)
+{
+	this->queueNoneArguments.push(func);
+}
+
+
+void CoreTimeDelegateManager::Push(CoreTimeDelegate<int> func)
+{
+	this->queueOneIntArguments.push(func);
+}
+
 void CoreTimeDelegateManager::Push(CoreTimeDelegate<int, int> func)
 {
 	this->queueTwoIntArguments.push(func);
@@ -21,6 +32,18 @@ void CoreTimeDelegateManager::Run(void)
 {
 	while (true)
 	{
+		if (!this->queueNoneArguments.empty())
+		{
+			if (this->queueNoneArguments.top()->Run())
+				this->queueNoneArguments.pop();
+		}
+
+		if (!this->queueOneIntArguments.empty())
+		{
+			if (this->queueOneIntArguments.top()->Run())
+				this->queueOneIntArguments.pop();
+		}
+
 		if (!this->queueTwoIntArguments.empty())
 		{
 			if (this->queueTwoIntArguments.top()->Run())

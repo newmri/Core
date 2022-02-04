@@ -40,6 +40,7 @@ public:
 
 	Object2()
 	{
+		CORE_LOG.Log("ctor");
 		value = 0;
 	}
 
@@ -49,6 +50,7 @@ public:
 
 	virtual ~Object2()
 	{
+		CORE_LOG.Log("detor");
 	}
 
 	int GetValue() const { return value; }
@@ -83,7 +85,6 @@ std::shared_mutex mutex2;
 void DoTest(void)
 {
 	data.push_back(1);
-	//data.
 }
 
 void DoTest2(void)
@@ -103,10 +104,12 @@ void Run()
 	CORE_LOG.Log("----------- mine -----------------");
 	CORE_TEST_MANAGER.Work(DoTest);
 	CORE_LOG.Log("size: " + TO_STR(data.size()));
+	data.clear();
 
 	CORE_LOG.Log("----------- stl -----------------");
 	CORE_TEST_MANAGER.Work(DoTest2);
 	CORE_LOG.Log("size: " + TO_STR(data2.size()));
+	data2.clear();
 }
 
 int main(void)
@@ -115,7 +118,11 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	CORE_THREAD_MANAGER.Push(Run);
+
+	//CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<int, int>(Attack, 0, 1));
+	//CORE_THREAD_MANAGER.Push(Run);
+
+	CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(Run, 0, 0, 10));
 	CORE_THREAD_MANAGER.Run();
 
 	return 0;
