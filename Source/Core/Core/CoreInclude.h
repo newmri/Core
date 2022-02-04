@@ -46,4 +46,6 @@
 #include "CoreStringManager.h"
 #include "CoreDelegate.h"
 #include "CoreTimeDelegate.h"
+#include "CoreTimeDelegateManager.h"
+#include "CoreThreadManager.h"
 #include "CoreTestManager.h"

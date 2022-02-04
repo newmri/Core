@@ -100,6 +100,9 @@
     <Filter Include="06.CoreContainer\03.CoreList">
       <UniqueIdentifier>{1587ca71-a195-4544-9ba0-00ef1f07da8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="13.CoreThreadManager">
+      <UniqueIdentifier>{065d0d35-036d-48d0-944e-6922fb433630}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -131,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="CoreCSVLoader.cpp">
       <Filter>09.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreTimeDelegateManager.cpp">
+      <Filter>12.CoreDelegate\00.CoreTimeDelegate</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreThreadManager.cpp">
+      <Filter>13.CoreThreadManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +274,12 @@
     </ClInclude>
     <ClInclude Include="CoreMemoryPoolObj.hpp">
       <Filter>01.CoreMemoryPoolManager\01.CoreMemoryPoolObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreTimeDelegateManager.h">
+      <Filter>12.CoreDelegate\00.CoreTimeDelegate</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreThreadManager.h">
+      <Filter>13.CoreThreadManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

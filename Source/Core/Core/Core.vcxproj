@@ -225,6 +225,8 @@
     <ClCompile Include="CoreDummyManager.cpp" />
     <ClCompile Include="CoreStringManager.cpp" />
     <ClCompile Include="CoreTestManager.cpp" />
+    <ClCompile Include="CoreThreadManager.cpp" />
+    <ClCompile Include="CoreTimeDelegateManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
     <ClCompile Include="CoreDataTypeManager.cpp" />
   </ItemGroup>
@@ -268,11 +270,13 @@
     <ClInclude Include="CoreStringManager.h" />
     <ClInclude Include="CoreTestManager.h" />
     <ClInclude Include="CoreTimeDelegate.h" />
+    <ClInclude Include="CoreTimeDelegateManager.h" />
     <ClInclude Include="CoreTimeManager.h" />
     <ClInclude Include="CoreVector.h" />
     <ClInclude Include="CoreVector.hpp" />
     <ClInclude Include="CoreDataTypeManager.h" />
     <ClInclude Include="CoreDelegate.h" />
+    <ClInclude Include="CoreThreadManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

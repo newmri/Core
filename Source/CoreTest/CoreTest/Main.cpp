@@ -98,41 +98,25 @@ void Attack(int attacker, int victim)
 	CORE_LOG.Log(TO_STR(attacker) + " is attacking " + TO_STR(victim));
 }
 
+void Run()
+{
+	CORE_LOG.Log("----------- mine -----------------");
+	CORE_TEST_MANAGER.Work(DoTest);
+	CORE_LOG.Log("size: " + TO_STR(data.size()));
+
+	CORE_LOG.Log("----------- stl -----------------");
+	CORE_TEST_MANAGER.Work(DoTest2);
+	CORE_LOG.Log("size: " + TO_STR(data2.size()));
+}
+
 int main(void)
 {
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	//CorePriorityQueue<CoreTimeDelegate<int, int>> q;
-	//q.push(CoreTimeDelegate<int, int>(Attack, 0, 1));
-	//q.push(CoreTimeDelegate<int, int>(Attack, 2, 3, 5000));
-	//q.push(CoreTimeDelegate<int, int>(Attack, 1, 2, 3000));
-	//q.push(CoreTimeDelegate<int, int>(Attack, 10, 11, 7000, 1000, 10));
-
-	//while (true)
-	//{
-	//	if (!q.empty())
-	//	{
-	//		if (q.top()->Run())
-	//			q.pop();
-	//	}
-	//}
-
-	//{
-	//	CoreQueue<int> t;
-	//	t.push(1);
-	//}
-
-
-
-	CORE_LOG.Log("----------- mine -----------------");
-	CORE_TEST_MANAGER.Work(DoTest);
-	CORE_LOG.Log("size: " + TO_STR(data.size()));
-	
-	CORE_LOG.Log("----------- stl -----------------");
-	CORE_TEST_MANAGER.Work(DoTest2);
-	CORE_LOG.Log("size: " + TO_STR(data2.size()));
+	CORE_THREAD_MANAGER.Push(Run);
+	CORE_THREAD_MANAGER.Run();
 
 	return 0;
 }
