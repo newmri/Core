@@ -11,7 +11,9 @@ CoreVector<T>::CoreVector()
 template<typename T>
 CoreVector<T>::~CoreVector()
 {
-	clear();
+	SAFE_DELETE(this->dataCapacity, this->data);
+	SetCapacity(0);
+	CoreContainer<T>::SetSize(0);
 }
 
 template<typename T>
@@ -89,9 +91,11 @@ void CoreVector<T>::clear(void)
 {
 	WRITE_LOCK(this->mutex);
 
-	SAFE_DELETE(this->dataCapacity, this->data);
+	for (size_t i = 0; i < this->dataSize; ++i)
+	{
+		this->data[i].~T();
+	}
 
-	SetCapacity(0);
 	CoreContainer<T>::SetSize(0);
 }
 
