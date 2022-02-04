@@ -111,22 +111,25 @@ void CoreList<T>::remove_if(FUNC Compare)
 		return;
 
 	CoreNode<T>* currNode = this->head;
+	CoreNode<T>* deleteNode = nullptr;
 
 	while (IS_NOT_NULL(currNode) && IS_NOT_NULL(currNode->next))
 	{
 		if (Compare(currNode->next->data))
 		{
-			SAFE_DELETE(currNode->next);
+			deleteNode = currNode->next;
 
 			currNode->next = currNode->next->next;
 
 			if (IS_NULL(currNode->next))
 				this->tail = currNode;
 
+			SAFE_DELETE(deleteNode);
 			++decreaseNum;
 		}
-
-		currNode = currNode->next;
+		
+		else
+			currNode = currNode->next;
 	}
 
 	CoreContainer<T>::SetSize(this->dataSize - decreaseNum);
