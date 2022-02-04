@@ -34,12 +34,10 @@ T* CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
 		{
 			if (IS_NULL(currNode->next))
 			{
-				std::unique_ptr<Node<T, MAX_BLOCK_NUM>> newNode = std::make_unique<Node<T, MAX_BLOCK_NUM>>();
-				
 				WRITE_LOCK(this->mutex);
 				if (IS_NULL(currNode->next))
 				{
-					currNode->next.swap(newNode);
+					currNode->next = std::make_unique<Node<T, MAX_BLOCK_NUM>>();
 					++pageNum;
 				}
 			}
