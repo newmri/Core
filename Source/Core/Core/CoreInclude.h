@@ -29,7 +29,6 @@
 #include "CoreMemoryPoolObj.h"
 #include "CoreSharedPtr.h"
 #include "CoreMemoryPoolManager.h"
-#include "CoreDummyManager.h"
 #include "CoreTimeManager.h"
 #include "CoreContainer.h"
 #include "CoreArray.h"

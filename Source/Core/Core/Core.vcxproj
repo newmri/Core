@@ -222,7 +222,6 @@
     <ClCompile Include="CoreFileLogger.cpp" />
     <ClCompile Include="CoreLoader.cpp" />
     <ClCompile Include="CoreLogger.cpp" />
-    <ClCompile Include="CoreDummyManager.cpp" />
     <ClCompile Include="CoreStringManager.cpp" />
     <ClCompile Include="CoreTestManager.cpp" />
     <ClCompile Include="CoreThreadManager.cpp" />
@@ -235,7 +234,6 @@
     <ClInclude Include="CoreConsoleLogger.h" />
     <ClInclude Include="CoreCSVLoader.h" />
     <ClInclude Include="CoreDataType.h" />
-    <ClInclude Include="CoreDummyManager.h" />
     <ClInclude Include="CoreFileLogger.h" />
     <ClInclude Include="CoreList.h" />
     <ClInclude Include="CoreList.hpp" />

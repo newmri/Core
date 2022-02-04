@@ -84,13 +84,19 @@ std::shared_mutex mutex2;
 
 void DoTest(void)
 {
-	data.push_back(1);
+	std::string str("", CORE_BIG_SIZE);
+	str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+	//data.push_back(1);
 }
 
 void DoTest2(void)
 {
-	WRITE_LOCK(mutex2);
-	data2.push_back(1);
+	std::string str;
+	str.reserve(CORE_BIG_SIZE);
+	str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
+	//WRITE_LOCK(mutex2);
+	//data2.push_back(1);
 	//data2.pop();
 }
 
@@ -122,7 +128,7 @@ int main(void)
 	//CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<int, int>(Attack, 0, 1));
 	//CORE_THREAD_MANAGER.Push(Run);
 
-	CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(Run, 0, 0, 10));
+	CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(Run));
 	CORE_THREAD_MANAGER.Run();
 
 	return 0;

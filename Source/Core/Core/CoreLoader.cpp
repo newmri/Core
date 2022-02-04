@@ -12,8 +12,11 @@ CoreLoader::~CoreLoader()
 
 void CoreLoader::Init(void)
 {
-	this->logStart = CORE_DUMMY_MANAGER.GetDummyString();
-	this->logEnd = CORE_DUMMY_MANAGER.GetDummyString();
+	this->logStart;
+	this->logStart.reserve(CORE_BIG_SIZE);
+
+	this->logEnd;
+	this->logEnd.reserve(CORE_BIG_SIZE);
 }
 
 void CoreLoader::PreLoad(std::string_view filePath, char*& out)
@@ -138,7 +141,8 @@ void CoreLoader::Parse(std::string& in, const size_t dataTypeIndex, char* out)
 
 std::string CoreLoader::Parse(std::string& in)
 {
-	std::string str(CORE_DUMMY_MANAGER.GetDummyString().data());
+	std::string str;
+	str.reserve(CORE_BIG_SIZE);
 	std::string::size_type findPos = 0;
 
 	findPos = in.find(this->delimiter);

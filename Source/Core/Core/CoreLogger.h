@@ -32,4 +32,5 @@ private:
 	std::string logHeader[static_cast<size_t>(LogType::LOG_TYPE_NUM)] = { "[LOG_INFO]", "[LOG_ERROR]" };
 
 	std::ostringstream output;
+	std::string dummyStr;
 };

@@ -45,4 +45,8 @@ inline constexpr size_t LINE = std::hardware_destructive_interference_size;
 
 #define CACHE_ALIGN __declspec(align(LINE))
 
+static constexpr size_t CORE_SMALL_SIZE = 128;
+static constexpr size_t CORE_MIDDLE_SIZE = 512;
+static constexpr size_t CORE_BIG_SIZE = 1024;
+
 #include "CoreSingletonMacro.h"

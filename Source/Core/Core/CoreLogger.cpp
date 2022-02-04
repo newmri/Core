@@ -12,7 +12,8 @@ CoreLogger::~CoreLogger()
 
 void CoreLogger::Init(void)
 {
-	this->log = CORE_DUMMY_MANAGER.GetDummyString();
+	this->log.reserve(CORE_BIG_SIZE);
+	this->dummyStr.reserve(CORE_BIG_SIZE);
 }
 
 void CoreLogger::MakeLog(const LogType logType)
@@ -30,7 +31,7 @@ std::string CoreLogger::MakeLog(const LogType logType, std::string_view logMessa
 {
 	MakeLog(logType, logMessage);
 
-	this->output.str(CORE_DUMMY_MANAGER.GetDummyString().data());
+	this->output.str(this->dummyStr);
 
 	this->output << this->log;
 	this->output << file << this->delimiter;

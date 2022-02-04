@@ -19,9 +19,14 @@ void CoreCSVLoader::PreLoad(std::string_view filePath, char*& out)
 {
 	CoreLoader::PreLoad(filePath, out);
 
-	std::string str(CORE_DUMMY_MANAGER.GetDummyString().data());
-	std::string log(CORE_DUMMY_MANAGER.GetDummyString().data());
-	std::string strForParse(CORE_DUMMY_MANAGER.GetDummyString().data());
+	std::string str;
+	str.reserve(CORE_BIG_SIZE);
+
+	std::string log;
+	log.reserve(CORE_BIG_SIZE);
+
+	std::string strForParse;
+	strForParse.reserve(CORE_BIG_SIZE);
 
 	std::string::size_type newLinePos = 0;
 
@@ -69,8 +74,11 @@ void CoreCSVLoader::PreLoad(std::string_view filePath, char*& out)
 
 void CoreCSVLoader::Load(char*& out)
 {
-	std::string str(CORE_DUMMY_MANAGER.GetDummyString().data());
-	std::string strForParse(CORE_DUMMY_MANAGER.GetDummyString().data());
+	std::string str;
+	str.reserve(CORE_BIG_SIZE);
+
+	std::string strForParse;
+	strForParse.reserve(CORE_BIG_SIZE);
 
 	std::string::size_type newLinePos = 0;
 
