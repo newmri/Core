@@ -12,10 +12,7 @@ CoreLoader::~CoreLoader()
 
 void CoreLoader::Init(void)
 {
-	this->logStart;
 	this->logStart.reserve(CORE_BIG_SIZE);
-
-	this->logEnd;
 	this->logEnd.reserve(CORE_BIG_SIZE);
 }
 
