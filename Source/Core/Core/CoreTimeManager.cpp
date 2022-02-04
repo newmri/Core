@@ -51,7 +51,7 @@ void CoreTimeManager::End(void)
 
 	this->time = timeEndMessage + TO_STR(this->sec.count());
 
-	CORE_LOG.Log(LogType::LOG_INFO, this->time);
+	CORE_ALL_LOG(LogType::LOG_INFO, this->time);
 
 	this->mutex.unlock();
 }

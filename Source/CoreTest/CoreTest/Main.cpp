@@ -101,14 +101,14 @@ void Attack(int attacker, int victim)
 
 void Run()
 {
-	CORE_LOG.Log("----------- mine -----------------");
+	CORE_ALL_LOG(LogType::LOG_INFO, "----------- mine -----------------");
 	CORE_TEST_MANAGER.Work(DoTest);
-	CORE_LOG.Log("size: " + TO_STR(data.size()));
+	CORE_ALL_LOG(LogType::LOG_INFO, "size: " + TO_STR(data.size()));
 	data.clear();
 
-	CORE_LOG.Log("----------- stl -----------------");
+	CORE_ALL_LOG(LogType::LOG_INFO, "----------- stl -----------------");
 	CORE_TEST_MANAGER.Work(DoTest2);
-	CORE_LOG.Log("size: " + TO_STR(data2.size()));
+	CORE_ALL_LOG(LogType::LOG_INFO, "size: " + TO_STR(data2.size()));
 	data2.clear();
 }
 

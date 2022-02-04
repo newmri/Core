@@ -32,7 +32,7 @@ void CoreTestManager::Work(void (*func)(void), TestInfo testInfo)
 						func();
 				}));
 
-		CORE_LOG.Log("[threadNumber]: " + TO_STR(threadNumber));
+		CORE_ALL_LOG(LogType::LOG_INFO, "[threadNumber]: " + TO_STR(threadNumber));
 
 		CORE_TIME_MANAGER.Start();
 
