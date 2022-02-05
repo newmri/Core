@@ -222,6 +222,9 @@
     <ClCompile Include="CoreFileLogger.cpp" />
     <ClCompile Include="CoreLoader.cpp" />
     <ClCompile Include="CoreLogger.cpp" />
+    <ClCompile Include="CoreServer.cpp" />
+    <ClCompile Include="CorePacket.cpp" />
+    <ClCompile Include="CoreClientSession.cpp" />
     <ClCompile Include="CoreStringManager.cpp" />
     <ClCompile Include="CoreTestManager.cpp" />
     <ClCompile Include="CoreThreadManager.cpp" />
@@ -251,12 +254,15 @@
     <ClInclude Include="CoreMemoryPool.h" />
     <ClInclude Include="CoreMemoryPoolObj.h" />
     <ClInclude Include="CoreMemoryPoolObj.hpp" />
+    <ClInclude Include="CoreServer.h" />
     <ClInclude Include="CoreNode.h" />
+    <ClInclude Include="CorePacket.h" />
     <ClInclude Include="CorePriorityQueue.h" />
     <ClInclude Include="CorePriorityQueue.hpp" />
     <ClInclude Include="CoreQueue.h" />
     <ClInclude Include="CoreQueue.hpp" />
     <ClInclude Include="CoreRandomManager.h" />
+    <ClInclude Include="CoreClientSession.h" />
     <ClInclude Include="CoreSharedPtr.h" />
     <ClInclude Include="CoreSharedPtr.hpp" />
     <ClInclude Include="CoreSingletonMacro.h" />
@@ -276,7 +282,23 @@
     <ClInclude Include="CoreDelegate.h" />
     <ClInclude Include="CoreThreadManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\CoreTest\packages\boost.1.78.0\build\boost.targets" Condition="Exists('..\..\CoreTest\packages\boost.1.78.0\build\boost.targets')" />
+    <Import Project="..\..\CoreTest\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets" Condition="Exists('..\..\CoreTest\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets')" />
+    <Import Project="..\..\CoreTest\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets" Condition="Exists('..\..\CoreTest\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets')" />
+    <Import Project="..\..\CoreTest\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets" Condition="Exists('..\..\CoreTest\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>이 프로젝트는 이 컴퓨터에 없는 NuGet 패키지를 참조합니다. 해당 패키지를 다운로드하려면 NuGet 패키지 복원을 사용하십시오. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkID=322105를 참조하십시오. 누락된 파일은 {0}입니다.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\CoreTest\packages\boost.1.78.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\CoreTest\packages\boost.1.78.0\build\boost.targets'))" />
+    <Error Condition="!Exists('..\..\CoreTest\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\CoreTest\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets'))" />
+    <Error Condition="!Exists('..\..\CoreTest\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\CoreTest\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets'))" />
+    <Error Condition="!Exists('..\..\CoreTest\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\CoreTest\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets'))" />
+  </Target>
 </Project>

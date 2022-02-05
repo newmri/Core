@@ -30,7 +30,7 @@
 	private:																\
 		CLASS()	CORE_DEFAULT;												\
 		CLASS(const CLASS&) CORE_DELETE;									\
-		CLASS(const CLASS&&)CORE_DELETE;									\
+		CLASS(const CLASS&&) CORE_DELETE;									\
 		CLASS& operator= (const CLASS&) CORE_DELETE;						\
 		CLASS& operator= (const CLASS&&) CORE_DELETE;		
 

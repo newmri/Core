@@ -1,5 +1,7 @@
 #include "../../Core/Core/CoreInclude.h"
 
+#include "person_generated.h"
+
 #include <vector>
 #include <array>
 #include <algorithm>
@@ -128,8 +130,12 @@ int main(void)
 	//CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<int, int>(Attack, 0, 1));
 	//CORE_THREAD_MANAGER.Push(Run);
 
-	CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(Run));
-	CORE_THREAD_MANAGER.Run();
+	//CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(Run));
+	//CORE_THREAD_MANAGER.Run();
+
+	CoreServer server(7777);
+	server.Start();
+	server.Stop();
 
 	return 0;
 }

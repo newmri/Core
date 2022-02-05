@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0A00
+#endif // _WIN32_WINNT
+
 #if _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
@@ -20,6 +24,10 @@
 #include <type_traits>
 #include <map> // 추후 제작한걸로 대체
 #include <functional>
+#include <boost/asio.hpp>
+#include <boost/thread/thread.hpp>
+
+#include "flatbuffers/flatbuffers.h"
 
 #include "CoreMacro.h"
 #include "CoreDataType.h"
@@ -47,4 +55,7 @@
 #include "CoreTimeDelegate.h"
 #include "CoreTimeDelegateManager.h"
 #include "CoreThreadManager.h"
+#include "CorePacket.h"
+#include "CoreClientSession.h"
+#include "CoreServer.h"
 #include "CoreTestManager.h"

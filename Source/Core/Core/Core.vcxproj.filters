@@ -100,6 +100,15 @@
     <Filter Include="12.CoreThreadManager">
       <UniqueIdentifier>{065d0d35-036d-48d0-944e-6922fb433630}</UniqueIdentifier>
     </Filter>
+    <Filter Include="13.CoreNetwork">
+      <UniqueIdentifier>{dd6de2a1-ea8c-4835-9d03-2a49affabfd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="13.CoreNetwork\00.CorePacket">
+      <UniqueIdentifier>{5dc90fe8-f071-4ea6-a8a4-fb4e30595520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="13.CoreNetwork\01.CoreClientSession">
+      <UniqueIdentifier>{dacddb96-b930-4c15-80c2-6ac67021b755}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -134,6 +143,15 @@
     </ClCompile>
     <ClCompile Include="CoreThreadManager.cpp">
       <Filter>12.CoreThreadManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CorePacket.cpp">
+      <Filter>13.CoreNetwork\00.CorePacket</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreClientSession.cpp">
+      <Filter>13.CoreNetwork\01.CoreClientSession</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreServer.cpp">
+      <Filter>13.CoreNetwork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,5 +290,17 @@
     <ClInclude Include="CoreThreadManager.h">
       <Filter>12.CoreThreadManager</Filter>
     </ClInclude>
+    <ClInclude Include="CoreClientSession.h">
+      <Filter>13.CoreNetwork\01.CoreClientSession</Filter>
+    </ClInclude>
+    <ClInclude Include="CorePacket.h">
+      <Filter>13.CoreNetwork\00.CorePacket</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreServer.h">
+      <Filter>13.CoreNetwork</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
