@@ -165,6 +165,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CoreLoginPacketHandler.cpp" />
+    <ClCompile Include="CoreLoginServer.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +176,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CoreLoginPacketHandler.h" />
+    <ClInclude Include="CoreLoginServer.h" />
+    <ClInclude Include="Include.h" />
+    <ClInclude Include="login_protocol_generated.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -54,18 +54,3 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 	session->GetSocket().close();
 	this->sessionList.remove(session);
 }
-
-void  CoreServer::ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size)
-{
-	//auto verifier = flatbuffers::Verifier(data, size);
-
-	//if (fbs::VerifyRootBuffer(verifier))
-	//{
-	//	auto root = fbs::GetRoot(data);
-
-	//	// 패킷 식별 후 처리
-	//	switch (root->packet_type())
-	//	{
-	//	}
-	//}
-}

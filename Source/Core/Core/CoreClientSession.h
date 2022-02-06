@@ -6,16 +6,16 @@ class CoreClientSession : public CoreSession, public std::enable_shared_from_thi
 {
 public:
 	CoreClientSession(boost::asio::ip::tcp::socket socket, CoreServer* server);
-	virtual ~CoreClientSession();
+	virtual ~CoreClientSession() override;
 
 public:
 	void Start(void);
-	virtual void Write(const CorePacket& packet);
+	virtual void Write(const CorePacket& packet) override;
 
 private:
-	virtual void Write(void);
-	virtual void ReadHeader(void);
-	virtual void ReadBody(void);
+	virtual void Write(void) override;
+	virtual void ReadHeader(void) override;
+	virtual void ReadBody(void) override;
 
 private:
 	CoreServer* server;

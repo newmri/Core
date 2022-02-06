@@ -1,10 +1,8 @@
-#include "../../Core/Core/CoreInclude.h"
-
-#include "person_generated.h"
+#include "Include.h"
 
 void Run()
 {
-	CoreServer server(7777);
+	CoreLoginServer server(7777);
 	server.Run();
 
 	getchar();

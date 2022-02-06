@@ -16,9 +16,9 @@ public:
 	void Close(std::shared_ptr<CoreClientSession> session);
 
 public:
-	void ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size);
+	virtual void ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size) CORE_PURE;
 
-private:
+protected:
 	boost::asio::io_context ioContext;
 	boost::asio::ip::tcp::acceptor acceptor;
 

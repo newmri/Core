@@ -59,6 +59,6 @@ bool CorePacket::DecodeHeader(void)
 void CorePacket::EncodeHeader(void)
 {
 	char header[HEADER_SIZE + 1] = { 0, };
-	strncat_s(header, "%4d", static_cast<int>(this->bodySize));
+	sprintf_s(header, "%4d", static_cast<int>(this->bodySize));
 	memcpy(this->data, header, HEADER_SIZE);
 }

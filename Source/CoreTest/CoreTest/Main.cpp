@@ -15,15 +15,21 @@ int main(void)
 	session.Connect(resolver.resolve("127.0.0.1", "7777"));
 	std::thread t([&ioContext]() { ioContext.run(); });
 
-	flatbuffers::FlatBufferBuilder builder;
+	while (true)
+	{
+		if (session.IsConnected())
+		{
+			flatbuffers::FlatBufferBuilder builder;
 
-	auto name = builder.CreateString("aa");
-	auto data = Login::CreateCS_LOGIN_REQ(builder, name);
-	auto root = Login::CreateRoot(builder, Login::Packet_CS_LOGIN_REQ, data.Union());
+			auto name = builder.CreateString("aa");
+			auto data = Login::CreateCS_LOGIN_REQ(builder, name);
+			auto root = Login::CreateRoot(builder, Login::Packet_CS_LOGIN_REQ, data.Union());
 
-	builder.Finish(root);
+			builder.Finish(root);
 
-	session.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
+			session.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
+		}
+	}
 
 	t.join();
 
