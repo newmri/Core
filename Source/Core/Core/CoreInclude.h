@@ -56,6 +56,8 @@
 #include "CoreTimeDelegateManager.h"
 #include "CoreThreadManager.h"
 #include "CorePacket.h"
+#include "CoreSession.h"
 #include "CoreClientSession.h"
+#include "CoreServerSession.h"
 #include "CoreServer.h"
 #include "CoreTestManager.h"

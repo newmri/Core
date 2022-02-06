@@ -106,8 +106,14 @@
     <Filter Include="13.CoreNetwork\00.CorePacket">
       <UniqueIdentifier>{5dc90fe8-f071-4ea6-a8a4-fb4e30595520}</UniqueIdentifier>
     </Filter>
-    <Filter Include="13.CoreNetwork\01.CoreClientSession">
+    <Filter Include="13.CoreNetwork\01.CoreSession">
       <UniqueIdentifier>{dacddb96-b930-4c15-80c2-6ac67021b755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="13.CoreNetwork\01.CoreSession\00.CoreClientSession">
+      <UniqueIdentifier>{7ed3c320-64a9-4ed5-b726-cafa29a204de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="13.CoreNetwork\01.CoreSession\01.CoreServerSession">
+      <UniqueIdentifier>{9d319ec6-7a7f-4075-872a-6c1a6170eff0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -147,11 +153,17 @@
     <ClCompile Include="CorePacket.cpp">
       <Filter>13.CoreNetwork\00.CorePacket</Filter>
     </ClCompile>
-    <ClCompile Include="CoreClientSession.cpp">
-      <Filter>13.CoreNetwork\01.CoreClientSession</Filter>
-    </ClCompile>
     <ClCompile Include="CoreServer.cpp">
       <Filter>13.CoreNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreClientSession.cpp">
+      <Filter>13.CoreNetwork\01.CoreSession\00.CoreClientSession</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreSession.cpp">
+      <Filter>13.CoreNetwork\01.CoreSession</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreServerSession.cpp">
+      <Filter>13.CoreNetwork\01.CoreSession\01.CoreServerSession</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -290,14 +302,20 @@
     <ClInclude Include="CoreThreadManager.h">
       <Filter>12.CoreThreadManager</Filter>
     </ClInclude>
-    <ClInclude Include="CoreClientSession.h">
-      <Filter>13.CoreNetwork\01.CoreClientSession</Filter>
-    </ClInclude>
     <ClInclude Include="CorePacket.h">
       <Filter>13.CoreNetwork\00.CorePacket</Filter>
     </ClInclude>
     <ClInclude Include="CoreServer.h">
       <Filter>13.CoreNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreClientSession.h">
+      <Filter>13.CoreNetwork\01.CoreSession\00.CoreClientSession</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreSession.h">
+      <Filter>13.CoreNetwork\01.CoreSession</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreServerSession.h">
+      <Filter>13.CoreNetwork\01.CoreSession\01.CoreServerSession</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

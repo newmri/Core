@@ -225,6 +225,8 @@
     <ClCompile Include="CoreServer.cpp" />
     <ClCompile Include="CorePacket.cpp" />
     <ClCompile Include="CoreClientSession.cpp" />
+    <ClCompile Include="CoreServerSession.cpp" />
+    <ClCompile Include="CoreSession.cpp" />
     <ClCompile Include="CoreStringManager.cpp" />
     <ClCompile Include="CoreTestManager.cpp" />
     <ClCompile Include="CoreThreadManager.cpp" />
@@ -263,6 +265,8 @@
     <ClInclude Include="CoreQueue.hpp" />
     <ClInclude Include="CoreRandomManager.h" />
     <ClInclude Include="CoreClientSession.h" />
+    <ClInclude Include="CoreServerSession.h" />
+    <ClInclude Include="CoreSession.h" />
     <ClInclude Include="CoreSharedPtr.h" />
     <ClInclude Include="CoreSharedPtr.hpp" />
     <ClInclude Include="CoreSingletonMacro.h" />

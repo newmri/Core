@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CoreClientSession::CoreClientSession(boost::asio::ip::tcp::socket socket, CoreServer* server) : socket(std::move(socket)), server(server)
+CoreClientSession::CoreClientSession(boost::asio::ip::tcp::socket socket, CoreServer* server) : CoreSession(std::move(socket)), server(server)
 {
 
 }
@@ -8,11 +8,6 @@ CoreClientSession::CoreClientSession(boost::asio::ip::tcp::socket socket, CoreSe
 CoreClientSession::~CoreClientSession()
 {
 
-}
-
-boost::asio::ip::tcp::socket& CoreClientSession::GetSocket(void)
-{
-	return this->socket;
 }
 
 void CoreClientSession::Start(void)
@@ -61,6 +56,12 @@ void CoreClientSession::ReadHeader(void)
 		{
 			if (error)
 			{
+				if (IS_SAME(boost::asio::error::eof, error))
+					CORE_LOG.Log("Disconnected");
+
+				else
+					CORE_LOG.Log(LogType::LOG_ERROR, "read error " + error.value() + error.message());
+
 				this->server->Close(shared_from_this());
 			}
 			else if(this->read.DecodeHeader())

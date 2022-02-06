@@ -17,14 +17,19 @@ echo !exec!
 rem copy .h files
 
 set com=XCOPY /Y output\
-set dest="../../CoreTest/CoreTest"
+set client="../../CoreTest/CoreTest"
+set server="../../CoreTestServer/CoreTestServer"
 
 FOR /R output/ %%F in (*.h) do (
 set filename=%%~nxF
-set exec=%com%!filename! %dest%
 
-echo !exec!
-!exec!
+set execClient=%com%!filename! %client%
+echo !execClient!
+!execClient!
+
+set execServer=%com%!filename! %server%
+echo !execServer!
+!execServer!
 )
 
 endlocal
