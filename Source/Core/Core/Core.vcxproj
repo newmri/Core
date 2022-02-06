@@ -217,6 +217,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CoreClient.cpp" />
     <ClCompile Include="CoreConsoleLogger.cpp" />
     <ClCompile Include="CoreCSVLoader.cpp" />
     <ClCompile Include="CoreFileLogger.cpp" />
@@ -236,6 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoreAlgorithm.h" />
+    <ClInclude Include="CoreClient.h" />
     <ClInclude Include="CoreConsoleLogger.h" />
     <ClInclude Include="CoreCSVLoader.h" />
     <ClInclude Include="CoreDataType.h" />

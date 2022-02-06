@@ -59,5 +59,6 @@
 #include "CoreSession.h"
 #include "CoreClientSession.h"
 #include "CoreServerSession.h"
+#include "CoreClient.h"
 #include "CoreServer.h"
 #include "CoreTestManager.h"

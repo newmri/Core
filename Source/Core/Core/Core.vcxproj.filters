@@ -115,8 +115,11 @@
     <Filter Include="13.CoreNetwork\01.CoreSession\01.CoreServerSession">
       <UniqueIdentifier>{9d319ec6-7a7f-4075-872a-6c1a6170eff0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="13.CoreNetwork\02.CoreServer">
+    <Filter Include="13.CoreNetwork\03.CoreServer">
       <UniqueIdentifier>{5726b343-6d6b-4e1f-b893-28b237416da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="13.CoreNetwork\02.CoreClient">
+      <UniqueIdentifier>{b9769e9e-5222-41f6-9ccb-2b1630f4425f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +169,10 @@
       <Filter>13.CoreNetwork\01.CoreSession\01.CoreServerSession</Filter>
     </ClCompile>
     <ClCompile Include="CoreServer.cpp">
-      <Filter>13.CoreNetwork\02.CoreServer</Filter>
+      <Filter>13.CoreNetwork\03.CoreServer</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreClient.cpp">
+      <Filter>13.CoreNetwork\02.CoreClient</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -318,7 +324,10 @@
       <Filter>13.CoreNetwork\01.CoreSession\01.CoreServerSession</Filter>
     </ClInclude>
     <ClInclude Include="CoreServer.h">
-      <Filter>13.CoreNetwork\02.CoreServer</Filter>
+      <Filter>13.CoreNetwork\03.CoreServer</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreClient.h">
+      <Filter>13.CoreNetwork\02.CoreClient</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

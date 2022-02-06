@@ -1,9 +1,9 @@
 #include "CoreInclude.h"
-#include "CoreServerSession.h"
 
-CoreServerSession::CoreServerSession(boost::asio::io_context& ioContext) :
+CoreServerSession::CoreServerSession(boost::asio::io_context& ioContext, CoreClient* client) :
 	ioContext(ioContext),
-	CoreSession(ioContext)
+	CoreSession(ioContext),
+	client(client)
 {
 }
 
@@ -109,13 +109,8 @@ void CoreServerSession::ReadBody(void)
 			}
 			else
 			{
-				ProcessPacket(this->read.GetBody(), this->read.GetBodySize());
+				client->ProcessPacket(this->read.GetBody(), this->read.GetBodySize());
 				ReadHeader();
 			}
 		});
-}
-
-void CoreServerSession::ProcessPacket(const uint8_t* data, size_t size)
-{
-
 }

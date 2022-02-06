@@ -1,9 +1,11 @@
 #pragma once
 
+class CoreClient;
+
 class CoreServerSession : public CoreSession
 {
 public:
-	CoreServerSession(boost::asio::io_context& ioContext);
+	CoreServerSession(boost::asio::io_context& ioContext, CoreClient* client);
 	virtual ~CoreServerSession() override;
 
 public:
@@ -18,9 +20,9 @@ private:
 	virtual void ReadHeader(void) override;
 	virtual void ReadBody(void) override;
 
-protected:
-	void ProcessPacket(const uint8_t* data, size_t size);
-
 private:
 	boost::asio::io_context& ioContext;
+
+private:
+	CoreClient* client;
 };

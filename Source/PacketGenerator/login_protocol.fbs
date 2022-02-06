@@ -1,0 +1,21 @@
+namespace Login;
+
+union Packet {
+    SC_CONNECTED_OK,
+    CS_LOGIN_REQ,
+    SC_LOGIN_RES
+}
+
+table CS_LOGIN_REQ {
+    name:string;
+}
+
+table SC_LOGIN_RES {
+    result:bool;
+}
+
+table Root {
+    packet:Packet;
+}
+
+root_type Root;

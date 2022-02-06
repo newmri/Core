@@ -4,6 +4,7 @@ class CoreServer
 {
 public:
 	CoreServer(const unsigned short port);
+	virtual ~CoreServer();
 
 public:
 	void Run(void);

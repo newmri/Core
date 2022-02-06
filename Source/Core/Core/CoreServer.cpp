@@ -5,6 +5,11 @@ CoreServer::CoreServer(const unsigned short port) : acceptor(ioContext, boost::a
 
 }
 
+CoreServer::~CoreServer()
+{
+
+}
+
 void CoreServer::Run(void)
 {
 	this->asyncWork.reset(new boost::asio::io_context::work(this->ioContext));
@@ -50,7 +55,10 @@ void CoreServer::Accept(void)
 
 void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 {
-	CORE_LOG.Log("Client Disconnected");
-	session->GetSocket().close();
-	this->sessionList.remove(session);
+	if (session->IsConnected())
+	{
+		CORE_LOG.Log("Client Disconnected");
+		session->GetSocket().close();
+		this->sessionList.remove(session);
+	}
 }

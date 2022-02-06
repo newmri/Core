@@ -1,6 +1,4 @@
-#include "../../Core/Core/CoreInclude.h"
-
-#include "login_protocol_generated.h"
+#include "Include.h"
 
 int main(void)
 {
@@ -8,16 +6,16 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	boost::asio::io_context ioContext;
-	boost::asio::ip::tcp::resolver resolver(ioContext);
+	LoginClient client;
 
-	CoreServerSession session(ioContext);
-	session.Connect(resolver.resolve("127.0.0.1", "7777"));
+	client.Connect("127.0.0.1", "7777");
+	boost::asio::io_context& ioContext = client.GetContext();
 	std::thread t([&ioContext]() { ioContext.run(); });
+
 
 	while (true)
 	{
-		if (session.IsConnected())
+		if (client.IsConnected())
 		{
 			flatbuffers::FlatBufferBuilder builder;
 
@@ -27,7 +25,8 @@ int main(void)
 
 			builder.Finish(root);
 
-			session.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
+			client.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
+			Sleep(1000);
 		}
 	}
 
