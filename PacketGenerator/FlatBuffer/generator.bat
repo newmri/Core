@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 
 rem make .h files
 
-set com=flatc.exe -c -o output/ fbs/
+set com=flatc.exe --cpp -o output/ fbs/
 
 FOR /R fbs/ %%F in (*.fbs) do (
 set filename=%%~nxF
