@@ -7,3 +7,5 @@ XCOPY /Y Server\LoginPacketHandler.cpp "../../Source/CoreTestServer/CoreTestServ
 
 XCOPY /Y Common\LoginPacketHandler.h "../../Source/CoreTest/CoreTest/*"
 XCOPY /Y Client\LoginPacketHandler.cpp "../../Source/CoreTest/CoreTest/*"
+
+pause
