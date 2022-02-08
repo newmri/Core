@@ -19,12 +19,12 @@ namespace PacketGenerator
     Register();
 }}
 
-void {0}PacketHandler::Handle(const {0}::Packet packetID, const void* data)
+void {0}PacketHandler::Handle({1}, const {0}::Packet packetID, const void* data)
 {{
 	if (func.end() == func.find(packetID))
 		return;
 
-	func[packetID](this->packetFunc, data);
+	func[packetID](this->packetFunc, session, data);
 }}
 
 void {0}PacketHandler::Register(void)

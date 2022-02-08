@@ -18,8 +18,8 @@ namespace PacketGenerator
 
             string nameSpaceName = ParseNamespaceName(file);
 
-            serverRegister += string.Format(PacketFormat.FunctionBasicFormatForCpp, nameSpaceName);
-            clientRegister += string.Format(PacketFormat.FunctionBasicFormatForCpp, nameSpaceName);
+            serverRegister += string.Format(PacketFormat.FunctionBasicFormatForCpp, nameSpaceName, "std::shared_ptr<CoreClientSession> session");
+            clientRegister += string.Format(PacketFormat.FunctionBasicFormatForCpp, nameSpaceName, "CoreServerSession& session");
 
             List<string> packetNames = ParsePacketName(file);
             foreach (string packetName in packetNames)

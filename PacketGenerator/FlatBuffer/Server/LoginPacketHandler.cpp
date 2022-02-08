@@ -5,12 +5,12 @@ LoginPacketHandler::LoginPacketHandler()
     Register();
 }
 
-void LoginPacketHandler::Handle(const Login::Packet packetID, const void* data)
+void LoginPacketHandler::Handle(std::shared_ptr<CoreClientSession> session, const Login::Packet packetID, const void* data)
 {
 	if (func.end() == func.find(packetID))
 		return;
 
-	func[packetID](this->packetFunc, data);
+	func[packetID](this->packetFunc, session, data);
 }
 
 void LoginPacketHandler::Register(void)
