@@ -12,24 +12,6 @@ int main(void)
 	boost::asio::io_context& ioContext = client.GetContext();
 	std::thread t([&ioContext]() { ioContext.run(); });
 
-
-	while (true)
-	{
-		if (client.IsConnected())
-		{
-			flatbuffers::FlatBufferBuilder builder;
-
-			auto name = builder.CreateString("aa");
-			auto data = Login::CreateCS_LOGIN_REQ(builder, name);
-			auto root = Login::CreateRoot(builder, Login::Packet_CS_LOGIN_REQ, data.Union());
-
-			builder.Finish(root);
-
-			client.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
-			Sleep(1000);
-		}
-	}
-
 	t.join();
 
 	return 0;

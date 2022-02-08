@@ -18,6 +18,6 @@ void LoginServer::ProcessPacket(std::shared_ptr<CoreClientSession> session, cons
 	{
 		auto root = Login::GetRoot(data);
 
-		this->handler->Handle(root->packet_type(), session, root->packet());
+		this->handler->Handle(session, root->packet_type(), root->packet());
 	}
 }

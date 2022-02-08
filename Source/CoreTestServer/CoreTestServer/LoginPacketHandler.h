@@ -6,7 +6,7 @@ public:
 	LoginPacketHandler();
 
 public:
-	void Handle(const Login::Packet packetID, std::shared_ptr<CoreClientSession> session, const void* data);
+	void Handle(std::shared_ptr<CoreClientSession> session, const Login::Packet packetID, const void* data);
 
 private:
 	void Register(void);

@@ -2,7 +2,7 @@
 
 void LoginPacketFunc::Write(std::shared_ptr<CoreClientSession> session, flatbuffers::FlatBufferBuilder& builder, Login::Packet packetType, flatbuffers::Offset<void> packet)
 {
-	auto data = Login::CreateRoot(builder, Login::Packet_SC_LOGIN_RES, packet);
+	auto data = Login::CreateRoot(builder, packetType, packet);
 	builder.Finish(data);
 	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }
