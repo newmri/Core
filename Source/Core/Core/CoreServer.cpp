@@ -58,7 +58,9 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 	if (session->IsConnected())
 	{
 		CORE_LOG.Log("Client Disconnected");
-		session->GetSocket().close();
+		boost::asio::ip::tcp::socket& socket = session->GetSocket();
+		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
+		socket.close();
 		this->sessionList.remove(session);
 	}
 }

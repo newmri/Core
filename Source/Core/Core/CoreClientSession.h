@@ -18,5 +18,14 @@ private:
 	virtual void ReadBody(void) override;
 
 private:
+	bool IsValidPacketSpeed(void);
+
+private:
 	CoreServer* server;
+
+private:
+	TIME_VALUE speedHackCheckTime = SEC;
+	TIME_VALUE prevPacketTime = 0;
+	size_t packetCount = 0;
+	size_t maxPacketCount = 10;
 };

@@ -64,9 +64,11 @@ void CoreClientSession::ReadHeader(void)
 
 				this->server->Close(shared_from_this());
 			}
-			else if(this->read.DecodeHeader())
+			else
 			{
-				ReadBody();
+
+				if (IsValidPacketSpeed() && this->read.DecodeHeader())
+					ReadBody();
 			}
 		});
 }
@@ -94,4 +96,34 @@ void CoreClientSession::ReadBody(void)
 				ReadHeader();
 			}
 		});
+}
+
+bool CoreClientSession::IsValidPacketSpeed(void)
+{
+	if (IS_SAME(0, this->prevPacketTime))
+		this->prevPacketTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
+	else
+	{
+		TIME_VALUE now = CORE_TIME_MANAGER.GetNowMilliSeconds();
+		TIME_VALUE timeDiff = now - this->prevPacketTime;
+
+		if (this->speedHackCheckTime < timeDiff)
+		{
+			this->prevPacketTime = now;
+			this->packetCount = 0;
+		}
+		else
+		{
+			++this->packetCount;
+		}
+
+		if (this->maxPacketCount <= this->packetCount)
+		{
+			CORE_LOG.Log("Packet Speed Hack!!");
+			this->server->Close(shared_from_this());
+			return false;
+		}
+	}
+
+	return true;
 }
