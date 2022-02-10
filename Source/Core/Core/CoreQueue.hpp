@@ -121,7 +121,10 @@ void CoreQueue<T>::pop(void)
 		CoreContainer<T>::SetSize(this->dataSize - 1);
 
 		if (IS_SAME(this->dataSize, 0))
+		{
+			this->tail = this->head;
 			this->head->next = this->tail;
+		}
 		else
 			this->head->next = deleteNode->next;
 	}
