@@ -57,17 +57,10 @@ void CoreClientSession::ReadHeader(void)
 		{
 			if (error)
 			{
-				if (IS_SAME(boost::asio::error::eof, error))
-					CORE_LOG.Log("Disconnected");
-
-				else
-					CORE_LOG.Log(LogType::LOG_ERROR, "read error " + error.value() + error.message());
-
 				this->server->Close(shared_from_this());
 			}
 			else
 			{
-
 				if (IsValidPacketSpeed() && this->read.DecodeHeader())
 					ReadBody();
 			}
@@ -84,11 +77,6 @@ void CoreClientSession::ReadBody(void)
 		{
 			if (error)
 			{
-				if (IS_SAME(boost::asio::error::eof, error))
-					CORE_LOG.Log("Disconnected");
-				else
-					CORE_LOG.Log(LogType::LOG_ERROR, "read error " + error.value() + error.message());
-
 				this->server->Close(shared_from_this());
 			}
 			else
@@ -120,7 +108,7 @@ bool CoreClientSession::IsValidPacketSpeed(void)
 
 		if (this->maxPacketCount <= this->packetCount)
 		{
-			CORE_LOG.Log("Packet Speed Hack!!");
+			CORE_LOG.Log(LogType::LOG_HACK, "Packet Speed Too Fast");
 			this->server->Close(shared_from_this());
 			return false;
 		}

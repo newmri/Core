@@ -2,8 +2,12 @@
 
 enum class LogType : size_t
 {
+	LOG_DEBUG,
 	LOG_INFO,
+	LOG_CONNECT,
+	LOG_DISCONNECT,
 	LOG_ERROR,
+	LOG_HACK,
 	LOG_TYPE_NUM
 };
 
@@ -29,7 +33,7 @@ protected:
 	std::string log;
 
 private:
-	std::string logHeader[static_cast<size_t>(LogType::LOG_TYPE_NUM)] = { "[LOG_INFO]", "[LOG_ERROR]" };
+	std::string logHeader[static_cast<size_t>(LogType::LOG_TYPE_NUM)] = { "[LOG_DEBUG]", "[LOG_INFO]", "[LOG_CONNECT]", "[LOG_DISCONNECT]", "[LOG_ERROR]", "[LOG_HACK]" };
 
 	std::ostringstream output;
 	std::string dummyStr;

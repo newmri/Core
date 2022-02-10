@@ -8,9 +8,9 @@
 		CORE_FILE_LOG.Log(LOG_TYPE, LOG_MESSAGE);
 
 #if _DEBUG
-#define CORE_LOG CORE_CONSOLE_LOG
+#define CORE_LOG CORE_FILE_LOG
 #else
-#define CORE_LOG CORE_CONSOLE_LOG
+#define CORE_LOG CORE_FILE_LOG
 #endif // _DEBUG
 
 template<typename T>

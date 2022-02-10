@@ -18,8 +18,8 @@ void CoreServer::Run(void)
 	for(unsigned int i = 0; i < threadNum; ++i)
 		this->asyncThread.create_thread(boost::bind(&boost::asio::io_context::run, &this->ioContext));
 
-	CORE_LOG.Log("Server is Running Thread Num: " + 
-		         TO_STR(threadNum) + " Port Num: " +
+	CORE_LOG.Log(LogType::LOG_DEBUG, "Server is Running [Thread Num]: " +
+		         TO_STR(threadNum) + " [Port]: " +
 		         TO_STR(this->acceptor.local_endpoint().port()));
 
 	Accept();
@@ -45,9 +45,10 @@ void CoreServer::Accept(void)
 			}
 			else
 			{
-				CORE_LOG.Log("Client Connected");
-
 				size_t uid = this->uid.fetch_add(1);
+				std::string ip = socket.remote_endpoint().address().to_string();
+				CORE_LOG.Log(LogType::LOG_CONNECT, "[uid]: " + TO_STR(uid) + " [ip]: " + ip);
+
 				auto session = std::make_shared<CoreClientSession>(std::move(socket), uid, this);
 				session->Start();
 
@@ -63,12 +64,15 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 {
 	if (session->IsConnected())
 	{
-		CORE_LOG.Log("Client Disconnected");
 		boost::asio::ip::tcp::socket& socket = session->GetSocket();
+		size_t uid = session->GetUID();
+		std::string ip = socket.remote_endpoint().address().to_string();
+		CORE_LOG.Log(LogType::LOG_DISCONNECT, "[uid]: " + TO_STR(uid) + " [ip]: " + ip);
+
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 		socket.close();
 
 		WRITE_LOCK(this->mutex);
-		this->sessionList.erase(this->sessionList.find(session->GetUID()));
+		this->sessionList.erase(this->sessionList.find(uid));
 	}
 }
