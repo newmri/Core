@@ -1,6 +1,7 @@
 #include "CoreInclude.h"
 
-CoreClientSession::CoreClientSession(boost::asio::ip::tcp::socket socket, CoreServer* server) : CoreSession(std::move(socket)), server(server)
+CoreClientSession::CoreClientSession(boost::asio::ip::tcp::socket socket, const size_t uid, CoreServer* server) :
+	CoreSession(std::move(socket), uid), server(server)
 {
 
 }

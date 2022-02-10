@@ -5,7 +5,7 @@ class CoreServer;
 class CoreClientSession : public CoreSession, public std::enable_shared_from_this<CoreClientSession>
 {
 public:
-	CoreClientSession(boost::asio::ip::tcp::socket socket, CoreServer* server);
+	CoreClientSession(boost::asio::ip::tcp::socket socket, const size_t uid, CoreServer* server);
 	virtual ~CoreClientSession() override;
 
 public:
@@ -27,5 +27,5 @@ private:
 	TIME_VALUE speedHackCheckTime = SEC;
 	TIME_VALUE prevPacketTime = 0;
 	size_t packetCount = 0;
-	size_t maxPacketCount = 10;
+	size_t maxPacketCount = 10000;
 };

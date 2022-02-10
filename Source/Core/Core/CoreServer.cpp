@@ -13,9 +13,14 @@ CoreServer::~CoreServer()
 void CoreServer::Run(void)
 {
 	this->asyncWork.reset(new boost::asio::io_context::work(this->ioContext));
-	this->asyncThread.create_thread(boost::bind(&boost::asio::io_context::run, &this->ioContext));
 
-	CORE_LOG.Log("Server is Running Port: " + TO_STR(this->acceptor.local_endpoint().port()));
+	unsigned int threadNum = (std::thread::hardware_concurrency() * 2) + 1;
+	for(unsigned int i = 0; i < threadNum; ++i)
+		this->asyncThread.create_thread(boost::bind(&boost::asio::io_context::run, &this->ioContext));
+
+	CORE_LOG.Log("Server is Running Thread Num: " + 
+		         TO_STR(threadNum) + " Port Num: " +
+		         TO_STR(this->acceptor.local_endpoint().port()));
 
 	Accept();
 }
@@ -42,11 +47,12 @@ void CoreServer::Accept(void)
 			{
 				CORE_LOG.Log("Client Connected");
 
-				auto session = std::make_shared<CoreClientSession>(std::move(socket), this);
-
-				this->sessionList.push_back(session);
-
+				size_t uid = this->uid.fetch_add(1);
+				auto session = std::make_shared<CoreClientSession>(std::move(socket), uid, this);
 				session->Start();
+
+				WRITE_LOCK(this->mutex);
+				this->sessionList[uid] = session;
 			}
 
 			Accept();
@@ -61,6 +67,8 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 		boost::asio::ip::tcp::socket& socket = session->GetSocket();
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 		socket.close();
-		this->sessionList.remove(session);
+
+		WRITE_LOCK(this->mutex);
+		this->sessionList.erase(this->sessionList.find(session->GetUID()));
 	}
 }
