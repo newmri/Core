@@ -9,5 +9,5 @@ public:
 	void CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 
 private:
-	flatbuffers::FlatBufferBuilder builder;
+	static thread_local flatbuffers::FlatBufferBuilder builder;
 };
