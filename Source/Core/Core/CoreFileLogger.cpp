@@ -47,7 +47,7 @@ void CoreFileLogger::Log(std::string_view logMessage)
 {
     UpdateFile();
 
-    this->output << CORE_TIME_MANAGER.GetTime() << this->delimiter << logMessage << '\n';
+    this->output << CORE_TIME_MANAGER.GetTime() << this->delimiter << logMessage << std::endl;
 }
 
 void CoreFileLogger::Log(const LogType logType, std::string_view logMessage)
@@ -56,5 +56,5 @@ void CoreFileLogger::Log(const LogType logType, std::string_view logMessage)
 
     UpdateFile();
 
-    this->output << CORE_TIME_MANAGER.GetTime() << this->delimiter << this->log << '\n';
+    this->output << CORE_TIME_MANAGER.GetTime() << this->delimiter << this->log << std::endl;
 }
