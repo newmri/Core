@@ -30,7 +30,7 @@ void CoreTimeDelegateManager::Push(CoreTimeDelegate<int, int> func)
 
 void CoreTimeDelegateManager::Run(void)
 {
-	while (true)
+	while (IsRunning)
 	{
 		if (!this->queueNoneArguments.empty())
 		{
@@ -52,4 +52,9 @@ void CoreTimeDelegateManager::Run(void)
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
+}
+
+void CoreTimeDelegateManager::Stop(void)
+{
+	IsRunning = false;
 }

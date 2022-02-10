@@ -13,6 +13,10 @@ public:
 
 public:
 	void Run(void);
+	void Stop(void);
+
+private:
+	bool IsRunning = true;
 
 private:
 	CorePriorityQueue<CoreTimeDelegate<>> queueNoneArguments;
