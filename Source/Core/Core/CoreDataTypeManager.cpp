@@ -12,6 +12,11 @@ void CoreDataTypeManager::Init(void)
 	getSizeOfTypeMap.insert(ProcessingMap::value_type(std::string(GET_STRING_NAME), &CoreDataTypeManager::GetSizeOfString));
 }
 
+void CoreDataTypeManager::Release(void)
+{
+	GetInstance().~CoreDataTypeManager();
+}
+
 size_t CoreDataTypeManager::GetSizeOfInt(void) const
 {
 	return SIZE_OF_INT;

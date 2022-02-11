@@ -50,4 +50,49 @@ static constexpr size_t CORE_SMALL_SIZE = 128;
 static constexpr size_t CORE_MIDDLE_SIZE = 512;
 static constexpr size_t CORE_BIG_SIZE = 1024;
 
+#define SAFE_DELETE_DTOR(ROWS, RAW_PTR, DATA_TYPE, DATA_PTR)				\
+	if(RAW_PTR)																\
+	{																		\
+		if(1 < ROWS)														\
+		{																	\
+			for (size_t i = 0; i < ROWS; ++i)								\
+				DATA_PTR[i].~DATA_TYPE();									\
+																			\
+			delete[] RAW_PTR;												\
+		}																	\
+		else																\
+		{																	\
+			DATA_PTR->~DATA_TYPE();											\
+			delete RAW_PTR;													\
+		}																	\
+		RAW_PTR = nullptr;													\
+		DATA_PTR = nullptr;													\
+	}
+
+#define RAW_DATA_TO_HASH_MAP(ROWS, RAW_PTR, IN_TYPE, OUT, KEY)				\
+	IN_TYPE* data = reinterpret_cast<IN_TYPE*>(RAW_PTR);					\
+																			\
+	for (size_t i = 0; i < ROWS; ++i)										\
+	{																		\
+		IN_TYPE info = data[i];												\
+		OUT[data[i].KEY] = std::make_shared<IN_TYPE>(info);					\
+	}																		\
+	SAFE_DELETE_DTOR(ROWS, RAW_PTR, IN_TYPE, data);
+
+#define CSV_LOAD_AND_TO_HAS_MAP(FILE_PATH, IN_TYPE, OUT, KEY)				\
+	{																		\
+		char* table = nullptr;												\
+		size_t rows = CSV_LOAD.Load(FILE_PATH, table);						\
+		RAW_DATA_TO_HASH_MAP(rows, table, IN_TYPE, OUT, KEY);				\
+	}
+
+#define CSV_LOAD_ONE_ROW(FILE_PATH, IN_TYPE, OUT)							\
+	{																		\
+		char* table = nullptr;												\
+		size_t rows = CSV_LOAD.Load(FILE_PATH, table);						\
+		IN_TYPE* data = reinterpret_cast<IN_TYPE*>(table);					\
+		OUT = std::make_shared<IN_TYPE>(data[0]);							\
+		SAFE_DELETE_DTOR(rows, table, IN_TYPE, data);						\
+	}
+
 #include "CoreSingletonMacro.h"

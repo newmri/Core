@@ -2,12 +2,12 @@
 
 CoreServer::CoreServer(const unsigned short port) : acceptor(ioContext, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
 {
-
+	CSV_LOAD_ONE_ROW("config.csv", ServerConfig, this->serverConfig);
 }
 
 CoreServer::~CoreServer()
 {
-
+	
 }
 
 void CoreServer::Run(void)
@@ -18,9 +18,13 @@ void CoreServer::Run(void)
 	for(unsigned int i = 0; i < threadNum; ++i)
 		this->asyncThread.create_thread(boost::bind(&boost::asio::io_context::run, &this->ioContext));
 
-	CORE_LOG.Log(LogType::LOG_DEBUG, "Server is Running [Thread Num]: " +
-		         TO_STR(threadNum) + " [Port]: " +
-		         TO_STR(this->acceptor.local_endpoint().port()));
+	CORE_LOG.Log(LogType::LOG_DEBUG, "Server is Running...");
+	CORE_LOG.Log(LogType::LOG_DEBUG, "[Thread Num]: " + TO_STR(threadNum));
+	CORE_LOG.Log(LogType::LOG_DEBUG, "[Port]: " + TO_STR(this->acceptor.local_endpoint().port()));
+	CORE_LOG.Log(LogType::LOG_DEBUG, "[Server Type]: " + this->serverConfig->ServerType);
+	CORE_LOG.Log(LogType::LOG_DEBUG, "[GroupID]: " + TO_STR(this->serverConfig->GroupID));
+	CORE_LOG.Log(LogType::LOG_DEBUG, "[WorldID]: " + TO_STR(this->serverConfig->WorldID));
+	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
 
 	Accept();
 }

@@ -20,8 +20,10 @@ int main(void)
 		{
 			flatbuffers::FlatBufferBuilder builder;
 
-			auto name = builder.CreateString("Hello World!");
-			auto data = Login::CreateCS_LOGIN_REQ(builder, name);
+			auto name = builder.CreateString("test1");
+			auto password = builder.CreateString("0000");
+
+			auto data = Login::CreateCS_LOGIN_REQ(builder, name, password);
 			auto root = Login::CreateRoot(builder, Login::Packet_CS_LOGIN_REQ, data.Union());
 
 			builder.Finish(root);

@@ -41,7 +41,7 @@ void CoreLogManager<T>::Init(void)
 template<typename T>
 void CoreLogManager<T>::Release(void)
 {
-	GetInstance().~CoreLogManager<T>();
+	GetInstance().~CoreLogManager();
 }
 
 template<typename T>

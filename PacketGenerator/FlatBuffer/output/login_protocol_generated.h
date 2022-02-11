@@ -68,15 +68,21 @@ bool VerifyPacketVector(flatbuffers::Verifier &verifier, const flatbuffers::Vect
 struct CS_LOGIN_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef CS_LOGIN_REQBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_NAME = 4
+    VT_NAME = 4,
+    VT_PASSWORD = 6
   };
   const flatbuffers::String *name() const {
     return GetPointer<const flatbuffers::String *>(VT_NAME);
+  }
+  const flatbuffers::String *password() const {
+    return GetPointer<const flatbuffers::String *>(VT_PASSWORD);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NAME) &&
            verifier.VerifyString(name()) &&
+           VerifyOffset(verifier, VT_PASSWORD) &&
+           verifier.VerifyString(password()) &&
            verifier.EndTable();
   }
 };
@@ -87,6 +93,9 @@ struct CS_LOGIN_REQBuilder {
   flatbuffers::uoffset_t start_;
   void add_name(flatbuffers::Offset<flatbuffers::String> name) {
     fbb_.AddOffset(CS_LOGIN_REQ::VT_NAME, name);
+  }
+  void add_password(flatbuffers::Offset<flatbuffers::String> password) {
+    fbb_.AddOffset(CS_LOGIN_REQ::VT_PASSWORD, password);
   }
   explicit CS_LOGIN_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -101,19 +110,24 @@ struct CS_LOGIN_REQBuilder {
 
 inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> name = 0) {
+    flatbuffers::Offset<flatbuffers::String> name = 0,
+    flatbuffers::Offset<flatbuffers::String> password = 0) {
   CS_LOGIN_REQBuilder builder_(_fbb);
+  builder_.add_password(password);
   builder_.add_name(name);
   return builder_.Finish();
 }
 
 inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    const char *name = nullptr) {
+    const char *name = nullptr,
+    const char *password = nullptr) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
+  auto password__ = password ? _fbb.CreateString(password) : 0;
   return Login::CreateCS_LOGIN_REQ(
       _fbb,
-      name__);
+      name__,
+      password__);
 }
 
 struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {

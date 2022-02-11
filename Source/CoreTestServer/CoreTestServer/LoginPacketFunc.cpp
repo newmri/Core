@@ -13,7 +13,9 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 {
 	auto raw = static_cast<const Login::CS_LOGIN_REQ*>(data);
 
-	this->builder.Clear();
-	auto message = Login::CreateSC_LOGIN_RES(this->builder, CORE_RANDOM_MANAGER_INT.GetRandom(0, 1));
-	Write(session, Login::Packet_SC_LOGIN_RES, message.Union());
+	//raw->name()->c_str();
+
+	//this->builder.Clear();
+	//auto message = Login::CreateSC_LOGIN_RES(this->builder, CORE_RANDOM_MANAGER_INT.GetRandom(0, 1));
+	//Write(session, Login::Packet_SC_LOGIN_RES, message.Union());
 }

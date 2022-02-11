@@ -25,7 +25,7 @@ void CoreLoadManager<T>::Init(void)
 template<typename T>
 void CoreLoadManager<T>::Release(void)
 {
-	CoreLoadManager().~CoreLoadManager();
+	GetInstance().~CoreLoadManager();
 }
 
 template<typename T>
