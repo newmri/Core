@@ -23,6 +23,7 @@ public:
 
 	void Log(std::string_view logMessage);
 	void Log(const LogType logType, std::string_view logMessage);
+	void Log(const LogType logType, const size_t oid, std::string_view logMessage);
 
 private:
 	std::unique_ptr<CoreLogger> logger;
@@ -62,4 +63,11 @@ void CoreLogManager<T>::Log(const LogType logType, std::string_view logMessage)
 {
 	WRITE_LOCK(mutex);
 	logger->Log(logType, logMessage);
+}
+
+template<typename T>
+void CoreLogManager<T>::Log(const LogType logType, const size_t oid, std::string_view logMessage)
+{
+	WRITE_LOCK(mutex);
+	logger->Log(logType, oid, logMessage);
 }

@@ -58,3 +58,12 @@ void CoreFileLogger::Log(const LogType logType, std::string_view logMessage)
 
     this->output << CORE_TIME_MANAGER.GetTime() << this->delimiter << this->log << std::endl;
 }
+
+void CoreFileLogger::Log(const LogType logType, const size_t oid, std::string_view logMessage)
+{
+    MakeLog(logType, oid, logMessage);
+
+    UpdateFile();
+
+    this->output << CORE_TIME_MANAGER.GetTime() << this->delimiter << this->log << std::endl;
+}

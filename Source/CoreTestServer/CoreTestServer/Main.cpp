@@ -13,8 +13,14 @@ void Input(void)
 
 		switch (HashCode(command.c_str()))
 		{
-		case HashCode("quit"):
+		case HashCode("/quit"):
 			IsRunning = false;
+			break;
+		case HashCode("/help"):
+			CORE_CONSOLE_LOG.Log("/quit: quit server");
+			break;
+		default:
+			CORE_CONSOLE_LOG.Log("Input /help");
 			break;
 		}
 	}

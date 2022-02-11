@@ -5,7 +5,7 @@ class CoreServer;
 class CoreClientSession : public CoreSession, public std::enable_shared_from_this<CoreClientSession>
 {
 public:
-	CoreClientSession(boost::asio::ip::tcp::socket socket, const size_t uid, CoreServer* server);
+	CoreClientSession(boost::asio::ip::tcp::socket socket, const size_t oid, CoreServer* server);
 	virtual ~CoreClientSession() override;
 
 public:

@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CoreSession::CoreSession(boost::asio::ip::tcp::socket socket, const size_t uid) : socket(std::move(socket)), uid(uid)
+CoreSession::CoreSession(boost::asio::ip::tcp::socket socket, const size_t oid) : socket(std::move(socket)), oid(oid)
 {
 
 }
@@ -15,14 +15,14 @@ CoreSession::~CoreSession()
 
 }
 
-size_t CoreSession::GetUID(void)
+size_t CoreSession::GetOID(void)
 {
-	return this->uid;
+	return this->oid;
 }
 
-void CoreSession::SetUID(const size_t uid)
+void CoreSession::SetOID(const size_t oid)
 {
-	this->uid = uid;
+	this->oid = oid;
 }
 
 boost::asio::ip::tcp::socket& CoreSession::GetSocket(void)

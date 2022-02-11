@@ -21,9 +21,21 @@ void CoreLogger::MakeLog(const LogType logType)
 	this->log = this->logHeader[static_cast<size_t>(logType)] + this->delimiter;
 }
 
+void CoreLogger::MakeLog(const LogType logType, const size_t oid)
+{
+	MakeLog(logType);
+	this->log += "oid(" + TO_STR(oid) + ")" + this->delimiter;
+}
+
 void CoreLogger::MakeLog(const LogType logType, std::string_view logMessage)
 {
 	MakeLog(logType);
+	this->log.append(logMessage);
+}
+
+void CoreLogger::MakeLog(const LogType logType, const size_t oid, std::string_view logMessage)
+{
+	MakeLog(logType, oid);
 	this->log.append(logMessage);
 }
 

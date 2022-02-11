@@ -31,6 +31,8 @@ void CoreServer::Stop(void)
 	this->ioContext.stop();
 	this->asyncThread.join_all();
 
+	CORE_TIME_DELEGATE_MANAGER.Stop();
+
 	CORE_LOG.Log("Server Stoped");
 }
 
@@ -45,15 +47,15 @@ void CoreServer::Accept(void)
 			}
 			else
 			{
-				size_t uid = this->uid.fetch_add(1);
+				size_t oid = this->oid.fetch_add(1);
 				std::string ip = socket.remote_endpoint().address().to_string();
-				CORE_LOG.Log(LogType::LOG_CONNECT, "[uid]: " + TO_STR(uid) + " [ip]: " + ip);
+				CORE_LOG.Log(LogType::LOG_CONNECT, oid, "[ip]: " + ip);
 
-				auto session = std::make_shared<CoreClientSession>(std::move(socket), uid, this);
+				auto session = std::make_shared<CoreClientSession>(std::move(socket), oid, this);
 				session->Start();
 
 				WRITE_LOCK(this->mutex);
-				this->sessionList[uid] = session;
+				this->sessionList[oid] = session;
 			}
 
 			Accept();
@@ -65,14 +67,14 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 	if (session->IsConnected())
 	{
 		boost::asio::ip::tcp::socket& socket = session->GetSocket();
-		size_t uid = session->GetUID();
+		size_t oid = session->GetOID();
 		std::string ip = socket.remote_endpoint().address().to_string();
-		CORE_LOG.Log(LogType::LOG_DISCONNECT, "[uid]: " + TO_STR(uid) + " [ip]: " + ip);
+		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "[ip]: " + ip);
 
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 		socket.close();
 
 		WRITE_LOCK(this->mutex);
-		this->sessionList.erase(this->sessionList.find(uid));
+		this->sessionList.erase(this->sessionList.find(oid));
 	}
 }

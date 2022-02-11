@@ -1,7 +1,7 @@
 #include "CoreInclude.h"
 
-CoreClientSession::CoreClientSession(boost::asio::ip::tcp::socket socket, const size_t uid, CoreServer* server) :
-	CoreSession(std::move(socket), uid), server(server)
+CoreClientSession::CoreClientSession(boost::asio::ip::tcp::socket socket, const size_t oid, CoreServer* server) :
+	CoreSession(std::move(socket), oid), server(server)
 {
 
 }
@@ -108,7 +108,7 @@ bool CoreClientSession::IsValidPacketSpeed(void)
 
 		if (this->maxPacketCount <= this->packetCount)
 		{
-			CORE_LOG.Log(LogType::LOG_HACK, "Packet Speed Too Fast");
+			CORE_LOG.Log(LogType::LOG_HACK, GetOID(), ENUM_TO_STR(SPEED_HACK));
 			this->server->Close(shared_from_this());
 			return false;
 		}
