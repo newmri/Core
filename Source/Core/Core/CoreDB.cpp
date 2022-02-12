@@ -56,7 +56,8 @@ bool CoreDB::Connect(void)
 			{
 				SQLSetConnectAttr(this->hdbc, SQL_LOGIN_TIMEOUT, reinterpret_cast<SQLPOINTER>(5), 0);
 
-				this->retCode = SQLConnect(this->hdbc, const_cast<SQLWCHAR*>(this->dbName.c_str()), SQL_NTS, NULL, 0, NULL, 0);
+				//this->retCode = SQLConnect(this->hdbc, const_cast<SQLWCHAR*>(this->dbName.c_str()), SQL_NTS, NULL, 0, NULL, 0);
+				this->retCode = SQLConnect(hdbc, const_cast<SQLWCHAR*>(this->dbName.c_str()), SQL_NTS, (SQLWCHAR*)"newmri", SQL_NTS, (SQLWCHAR*)"!a123123123", SQL_NTS);
 
 				// Allocate statement handle  
 				return IsSuccess();
