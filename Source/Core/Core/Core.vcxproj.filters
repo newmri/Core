@@ -121,6 +121,9 @@
     <Filter Include="13.CoreNetwork\02.CoreClient">
       <UniqueIdentifier>{b9769e9e-5222-41f6-9ccb-2b1630f4425f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="14.CoreDB">
+      <UniqueIdentifier>{df50df2a-38ce-4913-b168-5326863fa02a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -173,6 +176,9 @@
     </ClCompile>
     <ClCompile Include="CoreClient.cpp">
       <Filter>13.CoreNetwork\02.CoreClient</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreDB.cpp">
+      <Filter>14.CoreDB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="CoreClient.h">
       <Filter>13.CoreNetwork\02.CoreClient</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreDB.h">
+      <Filter>14.CoreDB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

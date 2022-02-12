@@ -43,4 +43,6 @@ protected:
 
 protected:
 	std::shared_ptr<ServerConfig> serverConfig;
+	std::unordered_map<std::string, std::shared_ptr<DBConfig>> dbConfig;
+	static thread_local std::unordered_map<std::string, CoreDB> db;
 };

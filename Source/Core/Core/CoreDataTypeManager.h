@@ -2,12 +2,14 @@
 
 #define CORE_DATA_TYPE_MANAGER GET_INSTANCE(CoreDataTypeManager)
 
+#define GET_SHORT_NAME "short"
 #define GET_INT_NAME "int"
 #define GET_LONG_LONG_NAME "long long"
 #define GET_SIZE_T_NAME "size_t"
 #define GET_FLOAT_NAME "float"
 #define GET_DOUBLE_NAME "double"
 #define GET_STRING_NAME "string"
+#define GET_CHAR_NAME "char"
 
 #define SIZE_OF_INT sizeof(int)
 #define SIZE_OF_LONG_LONG sizeof(long long)
@@ -37,6 +39,7 @@ private:
 
 public:
 	size_t GetSizeOfType(std::string_view dataType) const;
+	SQLUSMALLINT GetSQLType(const char* const dataType) const;
 
 private:
 	typedef size_t(CoreDataTypeManager::* FUNC)() const;

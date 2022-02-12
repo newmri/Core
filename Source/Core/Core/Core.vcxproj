@@ -220,6 +220,7 @@
     <ClCompile Include="CoreClient.cpp" />
     <ClCompile Include="CoreConsoleLogger.cpp" />
     <ClCompile Include="CoreCSVLoader.cpp" />
+    <ClCompile Include="CoreDB.cpp" />
     <ClCompile Include="CoreFileLogger.cpp" />
     <ClCompile Include="CoreLoader.cpp" />
     <ClCompile Include="CoreLogger.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="CoreConsoleLogger.h" />
     <ClInclude Include="CoreCSVLoader.h" />
     <ClInclude Include="CoreDataType.h" />
+    <ClInclude Include="CoreDB.h" />
     <ClInclude Include="CoreFileLogger.h" />
     <ClInclude Include="CoreList.h" />
     <ClInclude Include="CoreList.hpp" />

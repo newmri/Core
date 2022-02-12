@@ -69,6 +69,13 @@ static constexpr size_t CORE_BIG_SIZE = 1024;
 		DATA_PTR = nullptr;													\
 	}
 
+#define CSV_LOAD_AND_TO_HAS_MAP(FILE_PATH, IN_TYPE, OUT, KEY)				\
+	{																		\
+		char* table = nullptr;												\
+		size_t rows = CSV_LOAD.Load(FILE_PATH, table);						\
+		RAW_DATA_TO_HASH_MAP(rows, table, IN_TYPE, OUT, KEY);				\
+	}
+
 #define RAW_DATA_TO_HASH_MAP(ROWS, RAW_PTR, IN_TYPE, OUT, KEY)				\
 	IN_TYPE* data = reinterpret_cast<IN_TYPE*>(RAW_PTR);					\
 																			\
@@ -77,14 +84,8 @@ static constexpr size_t CORE_BIG_SIZE = 1024;
 		IN_TYPE info = data[i];												\
 		OUT[data[i].KEY] = std::make_shared<IN_TYPE>(info);					\
 	}																		\
+																			\
 	SAFE_DELETE_DTOR(ROWS, RAW_PTR, IN_TYPE, data);
-
-#define CSV_LOAD_AND_TO_HAS_MAP(FILE_PATH, IN_TYPE, OUT, KEY)				\
-	{																		\
-		char* table = nullptr;												\
-		size_t rows = CSV_LOAD.Load(FILE_PATH, table);						\
-		RAW_DATA_TO_HASH_MAP(rows, table, IN_TYPE, OUT, KEY);				\
-	}
 
 #define CSV_LOAD_ONE_ROW(FILE_PATH, IN_TYPE, OUT)							\
 	{																		\

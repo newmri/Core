@@ -56,3 +56,23 @@ size_t CoreDataTypeManager::GetSizeOfType(std::string_view dataType) const
 
 	return 0;
 }
+
+SQLUSMALLINT CoreDataTypeManager::GetSQLType(const char* const dataType) const
+{
+	switch (HashCode(dataType))
+	{
+	case HashCode(GET_STRING_NAME):
+	case HashCode(GET_CHAR_NAME):
+		return SQL_CHAR;
+	case HashCode(GET_SHORT_NAME):
+		return SQL_SMALLINT;
+	case HashCode(GET_INT_NAME):
+		return SQL_INTEGER;
+	case HashCode(GET_FLOAT_NAME):
+		return SQL_FLOAT;
+	case HashCode(GET_SIZE_T_NAME):
+		return SQL_BIGINT;
+	default:
+		return SQL_UNKNOWN_TYPE;
+	}
+}

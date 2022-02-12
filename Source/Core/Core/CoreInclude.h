@@ -26,6 +26,8 @@
 #include <functional>
 #include <boost/asio.hpp>
 #include <boost/thread/thread.hpp>
+#include <windows.h>  
+#include <sqlext.h>
 
 #include "flatbuffers/flatbuffers.h"
 
@@ -60,5 +62,6 @@
 #include "CoreClientSession.h"
 #include "CoreServerSession.h"
 #include "CoreClient.h"
+#include "CoreDB.h"
 #include "CoreServer.h"
 #include "CoreTestManager.h"
