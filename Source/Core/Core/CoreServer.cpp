@@ -1,11 +1,8 @@
 #include "CoreInclude.h"
 
-thread_local std::unordered_map<std::string, CoreDB> CoreServer::db;
-
 CoreServer::CoreServer(const unsigned short port) : acceptor(ioContext, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
 {
 	CSV_LOAD_ONE_ROW("ServerConfig.csv", ServerConfig, this->serverConfig);
-	CSV_LOAD_AND_TO_HAS_MAP("DBConfig.csv", DBConfig, this->dbConfig, Name);
 }
 
 CoreServer::~CoreServer()
@@ -28,16 +25,6 @@ void CoreServer::Run(void)
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[GroupID]: " + TO_STR(this->serverConfig->GroupID));
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[WorldID]: " + TO_STR(this->serverConfig->WorldID));
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
-
-	auto begin = this->dbConfig.cbegin();
-	auto end = this->dbConfig.cend();
-	for (; begin != end; ++begin)
-	{
-		CORE_LOG.Log(LogType::LOG_DEBUG, "[DBName]: " + begin->second->Name);
-		CORE_LOG.Log(LogType::LOG_DEBUG, "[DB IP]: " + begin->second->IP);
-
-		this->db[begin->second->Name] = CoreDB(std::wstring(begin->second->Name.begin(), begin->second->Name.end()));
-	}
 
 	Accept();
 }

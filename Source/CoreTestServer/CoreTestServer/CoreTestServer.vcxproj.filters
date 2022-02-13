@@ -22,6 +22,9 @@
     <Filter Include="02.Packet\03.LoginPacketFunc">
       <UniqueIdentifier>{5858db9b-2a77-4f97-8bdb-2965824a0755}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.DB">
+      <UniqueIdentifier>{ede77b35-6c64-466e-a091-2e95a54c07b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -35,6 +38,12 @@
     </ClCompile>
     <ClCompile Include="LoginPacketFunc.cpp">
       <Filter>02.Packet\03.LoginPacketFunc</Filter>
+    </ClCompile>
+    <ClCompile Include="AccountDB.cpp">
+      <Filter>03.DB</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginServerManager.cpp">
+      <Filter>02.Packet\01.LoginServer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="LoginPacketFunc.h">
       <Filter>02.Packet\03.LoginPacketFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountDB.h">
+      <Filter>03.DB</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginServerManager.h">
+      <Filter>02.Packet\01.LoginServer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,4 +8,8 @@ class CoreStringManager
 
 public:
 	std::string ReplaceAll(std::string_view source, std::string_view from, std::string_view to);
+
+public:
+    std::wstring Widen(std::string_view source);
+    std::string Narrow(std::wstring_view source);
 };

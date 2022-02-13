@@ -15,8 +15,8 @@ public:
 	virtual ~CoreServer();
 
 public:
-	void Run(void);
-	void Stop(void);
+	virtual void Run(void);
+	virtual void Stop(void);
 
 private:
 	void Accept(void);
@@ -43,6 +43,4 @@ protected:
 
 protected:
 	std::shared_ptr<ServerConfig> serverConfig;
-	std::unordered_map<std::string, std::shared_ptr<DBConfig>> dbConfig;
-	static thread_local std::unordered_map<std::string, CoreDB> db;
 };

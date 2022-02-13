@@ -9,6 +9,10 @@ public:
 	virtual ~LoginServer() override;
 
 public:
+	virtual void Run(void) override;
+	virtual void Stop(void) override;
+
+public:
 	virtual void ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size) override;
 
 private:

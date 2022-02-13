@@ -165,9 +165,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AccountDB.cpp" />
     <ClCompile Include="LoginPacketFunc.cpp" />
     <ClCompile Include="LoginPacketHandler.cpp" />
     <ClCompile Include="LoginServer.cpp" />
+    <ClCompile Include="LoginServerManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,10 +181,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccountDB.h" />
     <ClInclude Include="LoginPacketFunc.h" />
     <ClInclude Include="LoginPacketHandler.h" />
     <ClInclude Include="LoginServer.h" />
     <ClInclude Include="Include.h" />
+    <ClInclude Include="LoginServerManager.h" />
     <ClInclude Include="login_protocol_generated.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

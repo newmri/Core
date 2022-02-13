@@ -2,7 +2,7 @@
 
 CoreDB::CoreDB()
 {
-	
+	abort();
 }
 
 CoreDB::CoreDB(std::wstring_view dbName) : dbName(dbName)
@@ -31,11 +31,6 @@ void CoreDB::Init(void)
 
 }
 
-void CoreDB::SetDBName(std::wstring_view dbName)
-{
-	this->dbName = dbName;
-}
-
 bool CoreDB::Connect(void)
 {
 	// Allocate environment handle  
@@ -44,7 +39,7 @@ bool CoreDB::Connect(void)
 	// Set the ODBC version environment attribute  
 	if (IsSuccess())
 	{
-		this->retCode = SQLSetEnvAttr(this->henv, SQL_ATTR_ODBC_VERSION, reinterpret_cast<SQLPOINTER*>(SQL_OV_ODBC3), 0);
+		this->retCode = SQLSetEnvAttr(this->henv, SQL_ATTR_ODBC_VERSION, reinterpret_cast<SQLPOINTER*>(SQL_OV_ODBC3), SQL_IS_INTEGER);
 
 		// Allocate connection handle  
 		if (IsSuccess())
@@ -56,8 +51,8 @@ bool CoreDB::Connect(void)
 			{
 				SQLSetConnectAttr(this->hdbc, SQL_LOGIN_TIMEOUT, reinterpret_cast<SQLPOINTER>(5), 0);
 
-				//this->retCode = SQLConnect(this->hdbc, const_cast<SQLWCHAR*>(this->dbName.c_str()), SQL_NTS, NULL, 0, NULL, 0);
-				this->retCode = SQLConnect(hdbc, const_cast<SQLWCHAR*>(this->dbName.c_str()), SQL_NTS, (SQLWCHAR*)"newmri", SQL_NTS, (SQLWCHAR*)"!a123123123", SQL_NTS);
+				this->retCode = SQLConnect(this->hdbc, const_cast<SQLWCHAR*>(this->dbName.c_str()), SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);
+				this->retCode = SQLAllocHandle(SQL_HANDLE_STMT, this->hdbc, &this->hstmt);
 
 				// Allocate statement handle  
 				return IsSuccess();
@@ -70,55 +65,67 @@ bool CoreDB::Connect(void)
 
 bool CoreDB::IsSuccess(void)
 {
-	return(IS_SAME(SQL_SUCCESS, this->retCode) || IS_SAME(SQL_SUCCESS_WITH_INFO, this->retCode));
+	return (IS_SAME(SQL_SUCCESS, this->retCode) || IS_SAME(SQL_SUCCESS_WITH_INFO, this->retCode));
 }
 
-void CoreDB::Prepare(SQLWCHAR* spName)
+void CoreDB::Prepare(const SQLWCHAR* spName)
 {
-	SQLAllocHandle(SQL_HANDLE_STMT, this->hdbc, &this->hstmt);
+	this->currIndex = 0;
 
-	this->command = L"EXCE ";
-	this->command += spName + L' ';
+	this->command = L"EXEC ";
+	this->command += L"dbo.";
+	this->command += spName;
 }
 
-template<typename T>
-void CoreDB::BindCol(T& data, const size_t size)
+void CoreDB::BindCol(int* data, const SQLLEN size)
 {
-	SQLUSMALLINT sqlType = CORE_DATA_TYPE_MANAGER.GetSQLType(typeid(T).name());
-	if (IS_SAME(SQL_UNKNOWN_TYPE, sqlType))
-	{
-		std::string err = CORE_LOG.MakeLog(LogType::LOG_ERROR, "DB ERROR", __FILE__, __FUNCTION__, __LINE__);
-		CORE_LOG.Log(err);
-		abort();
-	}
-
-	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1,
-			    sqlType, data, size, this->colLen[this->currIndex]);
-
+	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1, SQL_INTEGER, data, size, &this->colLen[this->currIndex]);
 	++this->currIndex;
 }
 
-template<typename T>
-void CoreDB::BindArgument(T& data)
+void CoreDB::BindCol(const wchar_t* data, const SQLLEN size)
 {
+	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1, SQL_VARCHAR, &data, size, &this->colLen[this->currIndex]);
+	++this->currIndex;
+}
 
+void CoreDB::BindArgument(const wchar_t* data)
+{
+	this->command += L" N'";
+	this->command += data;
+	this->command += L"'";
+	this->command += L",";
 }
 
 bool CoreDB::Execute(void)
 {
+	size_t index = this->command.length() - 1;
+	this->command.replace(index, index, L"\0");
+
 	this->retCode = SQLExecDirect(this->hstmt, const_cast<SQLWCHAR*>(this->command.c_str()), SQL_NTS);
+
 	return IsSuccess();
 }
 
 void CoreDB::Release(void)
 {
-	if (IsSuccess())
+	if (this->hstmt)
 	{
-		SQLCancel(this->hstmt);
-		SQLFreeHandle(SQL_HANDLE_STMT, this->hstmt);
+		if (IsSuccess())
+			this->retCode = SQLCancel(this->hstmt);
+
+		this->retCode = SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		this->retCode = SQLFreeHandle(SQL_HANDLE_STMT, this->hstmt);
 	}
 
-	SQLDisconnect(this->hdbc);
-	SQLFreeHandle(SQL_HANDLE_DBC, this->hdbc);
-	SQLFreeHandle(SQL_HANDLE_ENV, this->henv);
+	if (this->hdbc)
+	{
+		this->retCode = SQLDisconnect(this->hdbc);
+		this->retCode = SQLFreeHandle(SQL_HANDLE_DBC, this->hdbc);
+	}
+
+	if (this->henv)
+	{
+		this->retCode = SQLFreeHandle(SQL_HANDLE_ENV, this->henv);
+	}
 }

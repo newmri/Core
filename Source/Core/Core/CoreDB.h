@@ -13,21 +13,27 @@ class CoreDB : CoreObj
 public:
 	CoreDB(std::wstring_view dbName);
 
-public:
-	void SetDBName(std::wstring_view dbName);
-
-public:
+protected:
 	bool Connect(void);
 
 protected:
 	bool IsSuccess(void);
-	void Prepare(SQLWCHAR* spName);
-	template<typename T>
-	void BindCol(T& data, const size_t size);
-	template<typename T>
-	void BindArgument(T& data);
+
+protected:
+	void Prepare(const SQLWCHAR* spName);
+
+protected:
+	void BindCol(int* data, const SQLLEN size);
+	void BindCol(const wchar_t* data, const SQLLEN size);
+	
+protected:
+	void BindArgument(const wchar_t* data);
+
+protected:
 	bool Execute(void);
-	void Release(void);
+
+private:
+	virtual void Release(void);
 
 protected:
 	std::wstring dbName;
@@ -35,11 +41,13 @@ protected:
 private:
 	std::wstring command;
 
-private:
-	SQLHENV henv;
-	SQLHDBC hdbc;
-	SQLHSTMT hstmt = 0;
+protected:
 	SQLRETURN retCode;
-	size_t currIndex = 0;
+	SQLHSTMT hstmt = SQL_NULL_HSTMT;
+
+private:
+	SQLHENV henv = SQL_NULL_HENV;
+	SQLHDBC hdbc = SQL_NULL_HDBC;
+	SQLSMALLINT currIndex = 0;
 	SQLLEN colLen[10];
 };

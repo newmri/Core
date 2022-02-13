@@ -28,12 +28,11 @@ void Input(void)
 
 void Run(void)
 {
-	LoginServer server(7777);
-	server.Run();
+	LOGIN_SERVER.Run();
 
 	Input();
 
-	server.Stop();
+	LOGIN_SERVER.Stop();
 }
 
 int main(void)

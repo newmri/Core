@@ -10,6 +10,16 @@ LoginServer::~LoginServer()
 	SAFE_DELETE(this->handler);
 }
 
+void LoginServer::Run(void)
+{
+	CoreServer::Run();
+}
+
+void LoginServer::Stop(void)
+{
+	CoreServer::Stop();
+}
+
 void LoginServer::ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size)
 {
 	auto verifier = flatbuffers::Verifier(data, size);

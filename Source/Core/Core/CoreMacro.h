@@ -96,4 +96,14 @@ static constexpr size_t CORE_BIG_SIZE = 1024;
 		SAFE_DELETE_DTOR(rows, table, IN_TYPE, data);						\
 	}
 
+#ifdef _UNICODE
+#define WIDEN(x)        L ## x
+#define WIDEN2(x)       WIDEN(x)
+#define __WFILE__       WIDEN2(__FILE__)
+#define __WFUNCTION__	WIDEN2(__FUNCTION__)
+#else
+#define __WFILE__          __FILE__
+#define __WFUNCTION__ __FUNCTION__
+#endif
+
 #include "CoreSingletonMacro.h"

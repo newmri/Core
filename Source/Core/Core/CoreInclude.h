@@ -28,6 +28,7 @@
 #include <boost/thread/thread.hpp>
 #include <windows.h>  
 #include <sqlext.h>
+#include <locale>
 
 #include "flatbuffers/flatbuffers.h"
 

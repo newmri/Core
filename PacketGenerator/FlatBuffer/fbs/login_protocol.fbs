@@ -11,7 +11,7 @@ table CS_LOGIN_REQ {
 }
 
 table SC_LOGIN_RES {
-    result:bool;
+    result:int;
 }
 
 table Root {
