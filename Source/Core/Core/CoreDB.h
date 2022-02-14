@@ -6,6 +6,12 @@ struct DBConfig
 	std::string IP;
 };
 
+enum DBType
+{
+	World = 0,
+	Account
+};
+
 class CoreDB : CoreObj
 {
 	OVERRIDE_OBJ(CoreDB)
@@ -28,6 +34,7 @@ protected:
 	
 protected:
 	void BindArgument(const wchar_t* data);
+	void BindArgument(const int data);
 
 protected:
 	bool Execute(void);

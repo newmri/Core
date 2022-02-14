@@ -14,6 +14,7 @@ public:
 	std::shared_ptr<AccountDB> GetAccountDB(void);
 
 private:
+	void MakeWorldDB(void);
 	void MakeAccountDB(void);
 
 private:
@@ -21,5 +22,10 @@ private:
 
 private:
 	std::unordered_map<std::string, std::shared_ptr<DBConfig>> dbConfig;
+	std::shared_ptr<ServerConfig> serverConfig;
+	ServerInfo serverInfo;
+
+private:
+	static thread_local std::shared_ptr<WorldDB> worldDB;
 	static thread_local std::shared_ptr<AccountDB> accountDB;
 };

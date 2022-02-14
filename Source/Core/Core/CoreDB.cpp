@@ -21,7 +21,7 @@ void CoreDB::Init(void)
 
 	if (Connect())
 	{
-		CORE_LOG.Log(LogType::LOG_CONNECT, "Connected");
+		CORE_LOG.Log(LogType::LOG_CONNECT, STRING_MANAGER.Narrow(this->dbName) + "DB is Connected");
 	}
 	else
 	{
@@ -94,6 +94,13 @@ void CoreDB::BindArgument(const wchar_t* data)
 	this->command += L" N'";
 	this->command += data;
 	this->command += L"'";
+	this->command += L",";
+}
+
+void CoreDB::BindArgument(const int data)
+{
+	this->command += L" ";
+	this->command += TO_WSTR(data);
 	this->command += L",";
 }
 

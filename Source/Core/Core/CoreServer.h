@@ -1,9 +1,14 @@
 #pragma once
 
+struct ServerInfo
+{
+	int GroupID = 0;
+	int ServerPort = 0;
+};
+
 struct ServerConfig
 {
 	std::string ServerType;
-	int GroupID = 0;
 	int WorldID = 0;
 	int ServerID = 0;
 };
@@ -40,7 +45,4 @@ protected:
 protected:
 	std::shared_mutex mutex;
 	std::map<size_t, std::shared_ptr<CoreClientSession>> sessionList;
-
-protected:
-	std::shared_ptr<ServerConfig> serverConfig;
 };

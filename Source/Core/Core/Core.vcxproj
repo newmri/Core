@@ -135,6 +135,7 @@
     <ClCompile Include="CoreTimeDelegateManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
     <ClCompile Include="CoreDataTypeManager.cpp" />
+    <ClCompile Include="WorldDB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoreAlgorithm.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="CoreDataTypeManager.h" />
     <ClInclude Include="CoreDelegate.h" />
     <ClInclude Include="CoreThreadManager.h" />
+    <ClInclude Include="WorldDB.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

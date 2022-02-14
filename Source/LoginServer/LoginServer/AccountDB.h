@@ -1,11 +1,6 @@
 #pragma once
 
-enum DBType
-{
-	Account = 0
-};
-
-class AccountDB : CoreDB
+class AccountDB : public CoreDB
 {
 public:
 	AccountDB(std::wstring_view dbName);

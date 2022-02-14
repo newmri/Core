@@ -63,6 +63,7 @@
 #include "CoreClientSession.h"
 #include "CoreServerSession.h"
 #include "CoreClient.h"
-#include "CoreDB.h"
 #include "CoreServer.h"
+#include "CoreDB.h"
+#include "WorldDB.h"
 #include "CoreTestManager.h"

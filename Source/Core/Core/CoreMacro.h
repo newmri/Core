@@ -14,6 +14,7 @@
 #define IS_NOT_NULL(PTR) (IS_NOT_SAME(nullptr, PTR))
 
 #define TO_STR(NUMBER) (std::to_string(NUMBER))
+#define TO_WSTR(NUMBER) (std::to_wstring(NUMBER))
 #define ENUM_TO_STR(ENUM) std::string(#ENUM)
 
 template< typename T >

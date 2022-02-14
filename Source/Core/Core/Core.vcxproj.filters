@@ -124,6 +124,9 @@
     <Filter Include="14.CoreDB">
       <UniqueIdentifier>{df50df2a-38ce-4913-b168-5326863fa02a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="14.CoreDB\00.WorldDB">
+      <UniqueIdentifier>{75de028a-93ad-44af-add4-c2687f155a65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -179,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="CoreDB.cpp">
       <Filter>14.CoreDB</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldDB.cpp">
+      <Filter>14.CoreDB\00.WorldDB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="CoreDB.h">
       <Filter>14.CoreDB</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldDB.h">
+      <Filter>14.CoreDB\00.WorldDB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
