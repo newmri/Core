@@ -9,22 +9,22 @@ namespace WorldListServer
 {
 	public class DB
 	{
-        private static string info = "Data Source={0}; Initial Catalog={1}; User ID=newmri; Password=!a123123123";
+        private static string info = "Data Source=localhost;Initial Catalog=World;Integrated Security=True;";
 
         public DB()
         {
-            StreamReader sr = new StreamReader("DBConfig.csv");
-            if(!sr.EndOfStream)
-                sr.ReadLine();
+            //StreamReader sr = new StreamReader("DBConfig.csv");
+            //if (!sr.EndOfStream)
+            //    sr.ReadLine();
 
-            if(!sr.EndOfStream)
-            {
-                string line = sr.ReadLine();
-                string[] data = line.Split(',');
+            //if (!sr.EndOfStream)
+            //{
+            //    string line = sr.ReadLine();
+            //    string[] data = line.Split(',');
 
-                info = string.Format(info, data[1], data[0]);
-                Console.WriteLine("IP: {0}, DB: {1}", data[1], data[0]);
-            }
+            //    info = string.Format(info, data[1], data[0]);
+            //    Console.WriteLine(info);
+            //}
         }
 
         public List<WorldListInfo> GetWorldList()
@@ -34,10 +34,9 @@ namespace WorldListServer
             using (SqlConnection connection = new SqlConnection(info))
             {
                 connection.Open();
-                using (SqlCommand cmd = new SqlCommand("GetWorldList", connection))
-                {
-                    Console.WriteLine("aa");
 
+                using (SqlCommand cmd = new SqlCommand("dbo.GetWorldList", connection))
+                {
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     using (SqlDataReader rdr = cmd.ExecuteReader())
@@ -45,7 +44,7 @@ namespace WorldListServer
                         while (rdr.Read())
                         {
                             WorldListInfo worldInfo = new WorldListInfo();
-                            worldInfo.Name = rdr["Name"].ToString();
+                            worldInfo.Name = rdr["WorldName"].ToString();
                             worldInfo.BusyScore = Convert.ToInt32(rdr["BusyScore"].ToString());
 
                             worldInfos.Add(worldInfo);
