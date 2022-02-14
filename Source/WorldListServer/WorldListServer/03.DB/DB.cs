@@ -9,22 +9,22 @@ namespace WorldListServer
 {
 	public class DB
 	{
-        private static string info = "Data Source=localhost;Initial Catalog=World;Integrated Security=True;";
+        private static string info = "Data Source=127.0.0.1;Initial Catalog={0};Integrated Security=True;";
 
         public DB()
         {
-            //StreamReader sr = new StreamReader("DBConfig.csv");
-            //if (!sr.EndOfStream)
-            //    sr.ReadLine();
+            StreamReader sr = new StreamReader("DBConfig.csv");
+            if (!sr.EndOfStream)
+                sr.ReadLine();
 
-            //if (!sr.EndOfStream)
-            //{
-            //    string line = sr.ReadLine();
-            //    string[] data = line.Split(',');
+            if (!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+                string[] data = line.Split(',');
 
-            //    info = string.Format(info, data[1], data[0]);
-            //    Console.WriteLine(info);
-            //}
+                info = string.Format(info, data[0]);
+                Console.WriteLine(info);
+            }
         }
 
         public List<WorldListInfo> GetWorldList()
