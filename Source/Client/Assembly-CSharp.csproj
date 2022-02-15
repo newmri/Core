@@ -105,9 +105,15 @@
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterVariation.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\AnchorManager.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\CustomGrid.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\InventoryIconsManager.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearButtonClicker.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearEquipper.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\CharacterAnimator.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\ThirdParty\Spine\version.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
@@ -124,9 +130,12 @@
     <None Include="Assets\ThirdParty\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\ThirdParty\FantaziaCharacterEditor\readme.txt" />
+    <None Include="Assets\ThirdParty\FantaziaCharacterEditor\SpineSkeletonData\Character.atlas.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\ThirdParty\FantaziaCharacterEditor\SpineProjectFile\Character.atlas.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
@@ -800,6 +809,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="spine-unity.csproj">
+      <Project>{E8A9D7EA-73F8-B7F5-1B4D-6E7800E3A064}</Project>
+      <Name>spine-unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-csharp.csproj">
+      <Project>{A245DAA6-90AC-1177-E006-26984F22B171}</Project>
+      <Name>spine-csharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-unity-editor.csproj">
+      <Project>{4042B1AA-6C60-BDAD-1EE0-4ECB41011DF5}</Project>
+      <Name>spine-unity-editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-unity-examples.csproj">
+      <Project>{70A4D1A2-A761-4EA2-9D55-48B09E4DC2F8}</Project>
+      <Name>spine-unity-examples</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-unity-examples-editor.csproj">
+      <Project>{1191741A-1D57-8706-38EF-BFA7B73FCB4B}</Project>
+      <Name>spine-unity-examples-editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
