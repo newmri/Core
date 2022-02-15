@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\VersionHelper.cs" />
     <Compile Include="Assets\Editor\InitProjectEditor.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Editor\LayerManagerEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
