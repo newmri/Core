@@ -56,31 +56,47 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\SoloState.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Scripts\PanelControlFantasyRPG.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\CharacterAnimator.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+    <Compile Include="Assets\Scripts\UI\UITitleScene.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\AnchorManager.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\CustomGrid.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Tweens\ScaleSpring.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterVariation.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Scripts\PanelFantasyRPG.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Demo.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Inanimate.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearButtonClicker.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Monster.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\LayerManager.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\StateHandler.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\InventoryIconsManager.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearsManager.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\UIParticleSystem.cs" />
+    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearEquipper.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
@@ -88,28 +104,16 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Tweens\TweenBase.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterState.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Demo.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Monster.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\LayerManager.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\SoloState.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Tweens\TweenBase.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Inanimate.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterState.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Tweens\ScaleSpring.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\StateHandler.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterVariation.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\AnchorManager.cs" />
-    <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\CustomGrid.cs" />
-    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\InventoryIconsManager.cs" />
-    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearButtonClicker.cs" />
-    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearEquipper.cs" />
-    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\CharacterAnimator.cs" />
-    <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearsManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UIExtension.cs" />
+    <Compile Include="Assets\Scripts\Managers\Managers.cs" />
+    <Compile Include="Assets\Scripts\Scenes\TitleScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -809,25 +813,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="spine-unity-examples-editor.csproj">
+      <Project>{1191741A-1D57-8706-38EF-BFA7B73FCB4B}</Project>
+      <Name>spine-unity-examples-editor</Name>
+    </ProjectReference>
     <ProjectReference Include="spine-unity.csproj">
       <Project>{E8A9D7EA-73F8-B7F5-1B4D-6E7800E3A064}</Project>
       <Name>spine-unity</Name>
-    </ProjectReference>
-    <ProjectReference Include="spine-csharp.csproj">
-      <Project>{A245DAA6-90AC-1177-E006-26984F22B171}</Project>
-      <Name>spine-csharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="spine-unity-editor.csproj">
-      <Project>{4042B1AA-6C60-BDAD-1EE0-4ECB41011DF5}</Project>
-      <Name>spine-unity-editor</Name>
     </ProjectReference>
     <ProjectReference Include="spine-unity-examples.csproj">
       <Project>{70A4D1A2-A761-4EA2-9D55-48B09E4DC2F8}</Project>
       <Name>spine-unity-examples</Name>
     </ProjectReference>
-    <ProjectReference Include="spine-unity-examples-editor.csproj">
-      <Project>{1191741A-1D57-8706-38EF-BFA7B73FCB4B}</Project>
-      <Name>spine-unity-examples-editor</Name>
+    <ProjectReference Include="spine-unity-editor.csproj">
+      <Project>{4042B1AA-6C60-BDAD-1EE0-4ECB41011DF5}</Project>
+      <Name>spine-unity-editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-csharp.csproj">
+      <Project>{A245DAA6-90AC-1177-E006-26984F22B171}</Project>
+      <Name>spine-csharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

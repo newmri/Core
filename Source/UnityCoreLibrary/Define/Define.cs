@@ -13,6 +13,7 @@ namespace UnityCoreLibrary
         public enum Scene
         {
             Unknown,
+            Title,
             Login,
             Lobby,
             Game,
@@ -21,6 +22,8 @@ namespace UnityCoreLibrary
 
         public enum UIEvent
         {
+            Enter,
+            Exit,
             Click,
             Drag,
         }

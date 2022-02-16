@@ -40,10 +40,13 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 5c776bc01c9c28841a7c66090ef86664, type: 3}
     bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: -5890888257780047973, guid: e3b75df3b9c94a642afaaba5f2d06e47, type: 3}
@@ -117,5 +120,6 @@ SpriteAtlas:
   - Body
   - HeadDead
   - LegBack
+  m_RenderDataMap: {}
   m_Tag: SpriteAtlas
   m_IsVariant: 0

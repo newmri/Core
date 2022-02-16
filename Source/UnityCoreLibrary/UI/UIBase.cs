@@ -33,7 +33,7 @@ namespace UnityCoreLibrary
             }
         }
 
-        protected T Get<T>(int index) where T : UnityEngine.Object
+        public T Get<T>(int index) where T : UnityEngine.Object
         {
             UnityEngine.Object[] objects = null;
             if (_objests.TryGetValue(typeof(T), out objects) == false)
@@ -68,6 +68,14 @@ namespace UnityCoreLibrary
 
             switch (type)
             {
+                case Define.UIEvent.Enter:
+                    uiEvent.OnEnterHander -= action;
+                    uiEvent.OnEnterHander += action;
+                    break;
+                case Define.UIEvent.Exit:
+                    uiEvent.OnExitHander -= action;
+                    uiEvent.OnExitHander += action;
+                    break;
                 case Define.UIEvent.Click:
                     uiEvent.OnClickHander -= action;
                     uiEvent.OnClickHander += action;

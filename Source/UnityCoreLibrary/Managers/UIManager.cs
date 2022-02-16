@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnityCoreLibrary
 {
@@ -38,13 +39,16 @@ namespace UnityCoreLibrary
             {
                 canvas.sortingOrder = 0;
             }
+
+            Util.GetOrAddComponent<CanvasScaler>(go).uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            Util.GetOrAddComponent<CanvasScaler>(go).referenceResolution = new Vector2(1920, 1080);
+            Util.GetOrAddComponent<CanvasScaler>(go).screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
+
+            Util.GetOrAddComponent<GraphicRaycaster>(go);
         }
 
-        public T ShowPopupUI<T>(string name = null) where T : UIPopup
+        public T ShowPopupUI<T>(string name) where T : UIPopup
         {
-            if (string.IsNullOrEmpty(name))
-                name = typeof(T).Name;
-
             GameObject go = CoreManagers.Resource.Instantiate($"UI/Popup/{name}");
 
             T popup = Util.GetOrAddComponent<T>(go);
@@ -55,11 +59,8 @@ namespace UnityCoreLibrary
             return popup;
         }
 
-        public T ShowSceneUI<T>(string name = null) where T : UIScene
+        public T ShowSceneUI<T>(string name) where T : UIScene
         {
-            if (string.IsNullOrEmpty(name))
-                name = typeof(T).Name;
-
             GameObject go = CoreManagers.Resource.Instantiate($"UI/Scene/{name}");
 
             T sceneUI = Util.GetOrAddComponent<T>(go);
@@ -70,11 +71,8 @@ namespace UnityCoreLibrary
             return sceneUI;
         }
 
-        public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null) where T : UIBase
+        public T MakeWorldSpaceUI<T>(string name, Transform parent = null) where T : UIBase
         {
-            if (string.IsNullOrEmpty(name))
-                name = typeof(T).Name;
-
             GameObject go = CoreManagers.Resource.Instantiate($"UI/WorldSpace/{name}");
 
             if (parent != null)
@@ -87,11 +85,8 @@ namespace UnityCoreLibrary
             return go.GetOrAddComponent<T>();
         }
 
-        public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UIBase
+        public T MakeSubItem<T>(string name, Transform parent = null) where T : UIBase
         {
-            if (string.IsNullOrEmpty(name))
-                name = typeof(T).Name;
-
             GameObject go = CoreManagers.Resource.Instantiate($"UI/SubItem/{name}");
 
             if (parent != null)
