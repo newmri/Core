@@ -64,7 +64,7 @@
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\CharacterAnimator.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
-    <Compile Include="Assets\Scripts\UI\UITitleScene.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UITitleScene.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\AnchorManager.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\CustomGrid.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -91,7 +91,9 @@
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\StateHandler.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Scripts\Scenes\TitleScene.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Managers\Managers.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\InventoryIconsManager.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearsManager.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
@@ -108,12 +110,14 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterState.cs" />
+    <Compile Include="Assets\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\Scripts\UI\UIExtension.cs" />
-    <Compile Include="Assets\Scripts\Managers\Managers.cs" />
-    <Compile Include="Assets\Scripts\Scenes\TitleScene.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UILoginScene.cs" />
+    <Compile Include="Assets\Scripts\Scenes\LoginScene.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UILoginPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UISignupPopup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

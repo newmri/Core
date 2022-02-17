@@ -109,7 +109,7 @@ namespace UnityCoreLibrary
         }
 
 
-        public void ClosePopupUI()
+        public void ClosePopupUI(bool setActive = false)
         {
             if (_popupStack.Count == 0)
                 return;
@@ -119,6 +119,11 @@ namespace UnityCoreLibrary
             popup = null;
 
             _sortOrder--;
+
+            if (setActive && _popupStack.Count > 0)
+            {
+                _popupStack.Peek().gameObject.SetActive(true);
+            }
         }
 
 

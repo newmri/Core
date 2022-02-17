@@ -43,6 +43,6 @@ public class UITitleScene : UIScene
 
     public void OnClickStartButton(PointerEventData evt)
     {
-        //CoreManagers.Scene.LoadScene(Define.Scene.Game);
+        CoreManagers.Scene.LoadScene(Define.Scene.Login);
     }
 }
