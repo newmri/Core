@@ -33,12 +33,12 @@ public class UITitleScene : UIScene
 
     public void OnEnterButton(PointerEventData evt)
     {
-        this.GetTextMsh((int)TextMeshProUGUIs.Text_TapToStart).color = Color.green;
+        this.GetTextMesh((int)TextMeshProUGUIs.Text_TapToStart).color = Color.green;
     }
 
     public void OnExitButton(PointerEventData evt)
     {
-        this.GetTextMsh((int)TextMeshProUGUIs.Text_TapToStart).color = Color.white;
+        this.GetTextMesh((int)TextMeshProUGUIs.Text_TapToStart).color = Color.white;
     }
 
     public void OnClickStartButton(PointerEventData evt)

@@ -25,6 +25,6 @@ public class UILoginScene : UIScene
 
     public void OnClickStartButton(PointerEventData evt)
     {
-        CoreManagers.UI.ShowPopupUI<UILoginPopup>("UILoginPopup");
+        Managers.UI.ShowPopupUI<UILoginPopup>();
     }
 }

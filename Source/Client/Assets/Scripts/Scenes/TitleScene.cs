@@ -11,7 +11,7 @@ public class TitleScene : BaseScene
     protected override void Init(Define.Scene scene)
     {
         base.Init(scene);
-        CoreManagers.UI.ShowSceneUI<UITitleScene>("UITitleScene");
+        Managers.UI.ShowSceneUI<UITitleScene>();
     }
 
     public override void Clear()

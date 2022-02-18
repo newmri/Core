@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public static class UIExtension
 {
@@ -14,9 +15,14 @@ public static class UIExtension
 
     }
 
-    public static TextMeshProUGUI GetTextMsh(this UIBase uiBase, int index)
+    public static TextMeshProUGUI GetTextMesh(this UIBase uiBase, int index)
     {
         return uiBase.Get<TextMeshProUGUI>(index);
+    }
+
+    public static void BindEvent(this GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    {
+        UIBase.BindEvent(go, action, type);
     }
 }
 

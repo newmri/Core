@@ -118,6 +118,14 @@
     <Compile Include="Assets\Scripts\Scenes\LoginScene.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\UILoginPopup.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\UISignupPopup.cs" />
+    <Compile Include="Assets\Scripts\Web\WebPacket.cs" />
+    <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UIMessagePopup.cs" />
+    <Compile Include="Assets\Scripts\Managers\Core\UIManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UIEventHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\UIBase.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UIScene.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UIPopup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -19,7 +19,18 @@ namespace WorldListServer.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpPost]
+		[Route("signup")]
+		public SignupAccountPacketRes SignupAccount([FromBody] SignupAccountPacketReq req)
+		{
+            SignupAccountPacketRes res = new SignupAccountPacketRes();
+
+            res.IsSuccess = _DB.SignupAccount(req);
+
+            return res;
+		}
+
+		[HttpGet]
         public IEnumerable<WorldListInfo> Get()
         {
             List<WorldListInfo> worldInfos = _DB.GetWorldList();

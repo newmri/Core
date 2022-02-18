@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityCoreLibrary;
-using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UILoginPopup : UIPopup
@@ -27,11 +22,11 @@ public class UILoginPopup : UIPopup
     public void OnClickSignupButton(PointerEventData evt)
     {
         gameObject.SetActive(false);
-        CoreManagers.UI.ShowPopupUI<UISignupPopup>("UISignupPopup");
+        Managers.UI.ShowPopupUI<UISignupPopup>();
     }
 
     public void OnClickCloseButton(PointerEventData evt)
     {
-        CoreManagers.UI.ClosePopupUI();
+        Managers.UI.ClosePopupUI();
     }
 }

@@ -5,16 +5,14 @@ namespace UnityCoreLibrary
     public class CoreManagers : MonoBehaviour
     {
         static CoreManagers s_instance; // 유일성이 보장된다
-        static CoreManagers Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
+        public static CoreManagers Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
 
-        UIManager _ui = new UIManager();
         PoolManager _pool = new PoolManager();
         ResourceManager _resource = new ResourceManager();
         SceneManagerEx _scene = new SceneManagerEx();
         ObjectManager _obj = new ObjectManager();
         CoroutineManager _coroutine;
 
-        public static UIManager UI { get { return Instance._ui; } }
         public static PoolManager Pool { get { return Instance._pool; } }
         public static ResourceManager Resource { get { return Instance._resource; } }
         public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -53,7 +51,6 @@ namespace UnityCoreLibrary
 
         public static void Clear()
         {
-            UI.Clear();
             Pool.Clear();
         }
     }

@@ -9,22 +9,37 @@ namespace WorldListServer
 {
 	public class DB
 	{
-        private static string info = "Data Source=127.0.0.1;Initial Catalog={0};Integrated Security=True;";
+        private static string info = "Data Source=127.0.0.1;Initial Catalog=World;Integrated Security=True;";
 
-        public DB()
+        public bool SignupAccount(SignupAccountPacketReq req)
         {
-            StreamReader sr = new StreamReader("DBConfig.csv");
-            if (!sr.EndOfStream)
-                sr.ReadLine();
+            bool IsSuccess = false;
 
-            if (!sr.EndOfStream)
+            using (SqlConnection connection = new SqlConnection(info))
             {
-                string line = sr.ReadLine();
-                string[] data = line.Split(',');
+                connection.Open();
 
-                info = string.Format(info, data[0]);
-                Console.WriteLine(info);
+                using (SqlCommand cmd = new SqlCommand("dbo.SignupAccount", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@IN_ID", req.AccountName);
+                    cmd.Parameters.AddWithValue("@IN_Password", req.Password);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            IsSuccess = Convert.ToBoolean(rdr["IsSuccess"].ToString());
+                        }
+                    }
+                }
+
+                connection.Close();
+                connection.Dispose();
             }
+
+            return IsSuccess;
         }
 
         public List<WorldListInfo> GetWorldList()

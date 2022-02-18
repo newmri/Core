@@ -11,7 +11,7 @@ public class LoginScene : BaseScene
     protected override void Init(Define.Scene scene)
     {
         base.Init(scene);
-        CoreManagers.UI.ShowSceneUI<UILoginScene>("UILoginScene");
+        Managers.UI.ShowSceneUI<UILoginScene>();
     }
 
     public override void Clear()
