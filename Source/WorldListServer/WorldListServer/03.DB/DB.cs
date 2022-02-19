@@ -9,10 +9,16 @@ namespace WorldListServer
 {
 	public class DB
 	{
+        public static int MaxIDLen = 10;
+        public static int MaxPasswordLen = 15;
+
         private static string info = "Data Source=127.0.0.1;Initial Catalog=World;Integrated Security=True;";
 
         public bool SignupAccount(SignupAccountPacketReq req)
         {
+            if (!IsValidLen(req.ID, req.Password))
+                return false;
+
             bool IsSuccess = false;
 
             using (SqlConnection connection = new SqlConnection(info))
@@ -23,7 +29,7 @@ namespace WorldListServer
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@IN_ID", req.AccountName);
+                    cmd.Parameters.AddWithValue("@IN_ID", req.ID);
                     cmd.Parameters.AddWithValue("@IN_Password", req.Password);
 
                     using (SqlDataReader rdr = cmd.ExecuteReader())
@@ -40,6 +46,11 @@ namespace WorldListServer
             }
 
             return IsSuccess;
+        }
+
+        public bool IsValidLen(string id, string password)
+        {
+            return (id.Length <= MaxIDLen && password.Length <= MaxPasswordLen);
         }
 
         public List<WorldListInfo> GetWorldList()

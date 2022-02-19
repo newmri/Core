@@ -38,6 +38,7 @@ public class WebManager : MonoBehaviour
             if (uwr.isNetworkError || uwr.isHttpError)
             {
                 Debug.Log(uwr.error);
+                Managers.UI.ShowPopupUI<UINetworkErrorPopup>();
             }
             else
             {

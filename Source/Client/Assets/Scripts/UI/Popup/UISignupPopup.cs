@@ -11,14 +11,15 @@ public class UISignupPopup : UIPopup
 {
     enum GameObjects
     {
-        AccountName,
+        ID,
         Password
     }
 
     enum Buttons
     {
         SignupButton,
-        CloseButton
+        CloseButton,
+        LoginButton
     }
 
     public override void Init()
@@ -30,17 +31,18 @@ public class UISignupPopup : UIPopup
 
         GetButton((int)Buttons.SignupButton).gameObject.BindEvent(OnClickSignupButton);
         GetButton((int)Buttons.CloseButton).gameObject.BindEvent(OnClickCloseButton);
+        GetButton((int)Buttons.LoginButton).gameObject.BindEvent(OnClickLoginButton);
     }
 
     [System.Obsolete]
     public void OnClickSignupButton(PointerEventData evt)
     {
-        string account = Get<GameObject>((int)GameObjects.AccountName).GetComponent<TMP_InputField>().text;
+        string id = Get<GameObject>((int)GameObjects.ID).GetComponent<TMP_InputField>().text;
         string password = Get<GameObject>((int)GameObjects.Password).GetComponent<TMP_InputField>().text;
 
         SignupAccountPacketReq packet = new SignupAccountPacketReq()
         {
-            AccountName = account,
+            ID = id,
             Password = password
         };
 
@@ -50,12 +52,17 @@ public class UISignupPopup : UIPopup
             {
                 Managers.UI.ClosePopupUI(true);
                 UIMessagePopup p = Managers.UI.ShowPopupUI<UIMessagePopup>();
-                p.SetText("Welcome to our world!", "Mr." + account);
+                p.SetText("환영합니다", "모험가 " + id + "님");
             }
         });
     }
 
     public void OnClickCloseButton(PointerEventData evt)
+    {
+        Managers.UI.CloseAllPopupUI();
+    }
+
+    public void OnClickLoginButton(PointerEventData evt)
     {
         Managers.UI.ClosePopupUI(true);
     }

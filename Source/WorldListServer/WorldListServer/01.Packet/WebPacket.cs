@@ -2,7 +2,7 @@
 
 public class SignupAccountPacketReq
 {
-	public string AccountName { get; set; }
+	public string ID { get; set; }
 	public string Password { get; set; }
 }
 
@@ -13,7 +13,7 @@ public class SignupAccountPacketRes
 
 public class LoginAccountPacketReq
 {
-	public string AccountName;
+	public string ID;
 	public string Password;
 }
 

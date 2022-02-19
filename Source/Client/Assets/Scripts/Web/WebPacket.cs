@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SignupAccountPacketReq
 {
-	public string AccountName;
+	public string ID;
 	public string Password;
 }
 
@@ -15,7 +15,7 @@ public class SignupAccountPacketRes
 
 public class LoginAccountPacketReq
 {
-	public string AccountName;
+	public string ID;
 	public string Password;
 }
 

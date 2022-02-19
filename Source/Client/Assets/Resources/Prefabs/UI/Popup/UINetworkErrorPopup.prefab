@@ -143,13 +143,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<color=#D03A39>Network connection failed. </color>
-
-    Please check your
-    cellular or Wi-Fi connection and retry.'
+  m_text: "<color=#D03A39>\uB124\uD2B8\uC6CC\uD06C \uC5F0\uACB0 \uC2E4\uD328</color>\n\uB124\uD2B8\uC6CC\uD06C
+    \uC5F0\uACB0 \uC0C1\uD0DC\uC640 \uC124\uC815\uC744 \uD655\uC778\uD574\uC8FC\uC138\uC694."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
-  m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f770a341726097f4ca2cae96819b8cb9, type: 2}
+  m_sharedMaterial: {fileID: -7888779541269734114, guid: f770a341726097f4ca2cae96819b8cb9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -378,7 +376,7 @@ GameObject:
   - component: {fileID: 5651197349410522925}
   - component: {fileID: 5651197349410522924}
   m_Layer: 5
-  m_Name: Button_OK
+  m_Name: OKButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,10 +549,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ok
+  m_text: "\uD655\uC778"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
-  m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f770a341726097f4ca2cae96819b8cb9, type: 2}
+  m_sharedMaterial: {fileID: -7888779541269734114, guid: f770a341726097f4ca2cae96819b8cb9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -666,14 +664,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651197349810248208}
-  - component: {fileID: 5651197349810248209}
+  - component: {fileID: 1113241465724288012}
   m_Layer: 5
-  m_Name: TitleScene_NetworkError
+  m_Name: UINetworkErrorPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5651197349810248208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -694,7 +692,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5651197349810248209
+--- !u!114 &1113241465724288012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -703,8 +701,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5651197349810248211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a00128818eda43dfaa959b83527b255, type: 3}
+  m_Script: {fileID: 11500000, guid: fbfee872737e9bc479d36ce53be86e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPanels:
-  - {fileID: 0}
