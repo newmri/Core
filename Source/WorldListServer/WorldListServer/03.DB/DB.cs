@@ -9,14 +9,11 @@ namespace WorldListServer
 {
 	public class DB
 	{
-        public static int MaxIDLen = 10;
-        public static int MaxPasswordLen = 15;
-
         private static string info = "Data Source=127.0.0.1;Initial Catalog=World;Integrated Security=True;";
 
         public bool SignupAccount(SignupAccountPacketReq req)
         {
-            if (!IsValidLen(req.ID, req.Password))
+            if (!AccountDefine.IsValidAccount(req.ID, req.Password))
                 return false;
 
             bool IsSuccess = false;
@@ -46,11 +43,6 @@ namespace WorldListServer
             }
 
             return IsSuccess;
-        }
-
-        public bool IsValidLen(string id, string password)
-        {
-            return (id.Length <= MaxIDLen && password.Length <= MaxPasswordLen);
         }
 
         public List<WorldListInfo> GetWorldList()

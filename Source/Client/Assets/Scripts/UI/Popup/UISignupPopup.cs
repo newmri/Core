@@ -40,6 +40,9 @@ public class UISignupPopup : UIPopup
         string id = Get<GameObject>((int)GameObjects.ID).GetComponent<TMP_InputField>().text;
         string password = Get<GameObject>((int)GameObjects.Password).GetComponent<TMP_InputField>().text;
 
+        if (!AccountDefine.IsValidAccount(id, password))
+            return;
+
         SignupAccountPacketReq packet = new SignupAccountPacketReq()
         {
             ID = id,
@@ -48,18 +51,30 @@ public class UISignupPopup : UIPopup
 
         Managers.Web.SendPostRequest<SignupAccountPacketRes>("signup", packet, (res) =>
         {
+            ClearText();
+
+            UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+
             if (res.IsSuccess)
             {
-                Managers.UI.ClosePopupUI(true);
-                UIMessagePopup p = Managers.UI.ShowPopupUI<UIMessagePopup>();
-                p.SetText("환영합니다", "모험가 " + id + "님");
+                messagePopup.SetText("환영합니다", "모험가 " + id + "님");
+            }
+            else
+            {
+                messagePopup.SetText("이미 존재하는 아이디입니다", "다른 아이디를 입력해주세요.");
             }
         });
     }
 
+    public void ClearText()
+    {
+        Get<GameObject>((int)GameObjects.ID).GetComponent<TMP_InputField>().text = "";
+        Get<GameObject>((int)GameObjects.Password).GetComponent<TMP_InputField>().text = "";
+    }
+
     public void OnClickCloseButton(PointerEventData evt)
     {
-        Managers.UI.CloseAllPopupUI();
+        Managers.UI.ClosePopupUI(true);
     }
 
     public void OnClickLoginButton(PointerEventData evt)
