@@ -20,6 +20,7 @@ public class LoginAccountPacketReq
 
 public class WorldListInfo
 {
+	public int ID { get; set; }
 	public string Name { get; set; }
 	public int BusyScore { get; set; }
 }
@@ -30,4 +31,15 @@ public class LoginAccountPacketRes
 	public long UID { get; set; }
 	public long Token { get; set; }
 	public List<WorldListInfo> WorldList { get; set; }
+}
+
+public class LoginServerInfoPacketReq
+{
+	public int WorldID { get; set; }
+}
+
+public class LoginServerInfoPacketRes
+{
+	public string ServerIP { get; set; }
+	public int ServerPort { get; set; }
 }

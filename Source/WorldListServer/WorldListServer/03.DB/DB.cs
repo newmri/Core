@@ -141,6 +141,7 @@ namespace WorldListServer
                         while (rdr.Read())
                         {
                             WorldListInfo worldInfo = new WorldListInfo();
+                            worldInfo.ID = Convert.ToInt32(rdr["WorldID"].ToString());
                             worldInfo.Name = rdr["WorldName"].ToString();
                             worldInfo.BusyScore = Convert.ToInt32(rdr["BusyScore"].ToString());
 
@@ -154,6 +155,38 @@ namespace WorldListServer
             }
 
             return worldList;
+        }
+
+        public LoginServerInfoPacketRes GetMinServerInfo(LoginServerInfoPacketReq req)
+        {
+            LoginServerInfoPacketRes serverInfo = new LoginServerInfoPacketRes();
+
+            using (SqlConnection connection = new SqlConnection(info))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand("dbo.GetMinServerInfo", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@IN_WorldID", req.WorldID);
+                    cmd.Parameters.AddWithValue("@IN_ServerName", "Login");
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            serverInfo.ServerIP = rdr["ServerIP"].ToString();
+                            serverInfo.ServerPort = Convert.ToInt32(rdr["ServerPort"].ToString());
+                        }
+                    }
+                }
+
+                connection.Close();
+                connection.Dispose();
+            }
+
+            return serverInfo;
         }
     }
 }

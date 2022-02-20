@@ -43,16 +43,37 @@ public class UIWorldListPopup : UIPopup
         }
     }
 
+    [System.Obsolete]
     public void OnClickLoginButton(PointerEventData evt)
+    {
+        if (WorldList.Count == 0)
+            return;
+
+        int WorldID = GetSelectedWorldID();
+
+        LoginServerInfoPacketReq packet = new LoginServerInfoPacketReq()
+        {
+            WorldID = WorldID
+        };
+
+        Managers.Web.SendPostRequest<LoginServerInfoPacketRes>("serverselect", packet, (res) =>
+        {
+            Debug.Log(res.ServerIP);
+            Debug.Log(res.ServerPort);
+        });
+    }
+
+    int GetSelectedWorldID()
     {
         foreach (var worldInfo in WorldList)
         {
             if (worldInfo.IsSelected)
             {
-                Debug.Log(worldInfo.Info.Name);
-                break;
+                return worldInfo.Info.ID;
             }
         }
+
+        return 0;
     }
 
     public void OnClickCloseButton(PointerEventData evt)

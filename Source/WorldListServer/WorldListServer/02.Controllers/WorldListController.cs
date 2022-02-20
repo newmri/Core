@@ -41,6 +41,17 @@ namespace WorldListServer.Controllers
             return res;
         }
 
+        [HttpPost]
+        [Route("serverselect")]
+        public LoginServerInfoPacketRes SignupAccount([FromBody] LoginServerInfoPacketReq req)
+        {
+            LoginServerInfoPacketRes res;
+
+            res = _DB.GetMinServerInfo(req);
+
+            return res;
+        }
+
         [HttpGet]
         public IEnumerable<WorldListInfo> Get()
         {
