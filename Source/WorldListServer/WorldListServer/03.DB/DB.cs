@@ -45,9 +45,88 @@ namespace WorldListServer
             return IsSuccess;
         }
 
+        public LoginAccountPacketRes LoginAccount(LoginAccountPacketReq req)
+        {
+            LoginAccountPacketRes res = new LoginAccountPacketRes();
+            if (!AccountDefine.IsValidAccount(req.ID, req.Password))
+                return res;
+
+            if (!LoginAccount(req, ref res))
+                return res;
+
+            UpdateAccountToken(req, ref res);
+
+            res.WorldList = GetWorldList();
+
+            return res;
+        }
+
+        private bool LoginAccount(LoginAccountPacketReq req, ref LoginAccountPacketRes res)
+        {
+            using (SqlConnection connection = new SqlConnection(info))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand("dbo.LoginAccount", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@IN_ID", req.ID);
+                    cmd.Parameters.AddWithValue("@IN_Password", req.Password);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            res.IsSuccess = Convert.ToBoolean(rdr["IsSuccess"].ToString());
+                        }
+                    }
+                }
+
+                connection.Close();
+                connection.Dispose();
+            }
+
+            return res.IsSuccess;
+        }
+
+        private void UpdateAccountToken(LoginAccountPacketReq req, ref LoginAccountPacketRes res)
+        {
+            using (SqlConnection connection = new SqlConnection(info))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand("dbo.UpdateAccountToken", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@IN_ID", req.ID);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            res.UID = Convert.ToInt64(rdr["UID"].ToString());
+                            res.Token = ConvertToUnixTimestamp(Convert.ToDateTime(rdr["Token"].ToString()));
+                        }
+                    }
+                }
+
+                connection.Close();
+                connection.Dispose();
+            }
+        }
+
+        static long ConvertToUnixTimestamp(DateTime date)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan diff = date - origin;
+            return (long)Math.Floor(diff.TotalSeconds);
+        }
+
         public List<WorldListInfo> GetWorldList()
         {
-            List<WorldListInfo> worldInfos = new List<WorldListInfo>();
+            List<WorldListInfo> worldList = new List<WorldListInfo>();
 
             using (SqlConnection connection = new SqlConnection(info))
             {
@@ -65,7 +144,7 @@ namespace WorldListServer
                             worldInfo.Name = rdr["WorldName"].ToString();
                             worldInfo.BusyScore = Convert.ToInt32(rdr["BusyScore"].ToString());
 
-                            worldInfos.Add(worldInfo);
+                            worldList.Add(worldInfo);
                         }
                     }
                 }
@@ -74,7 +153,7 @@ namespace WorldListServer
                 connection.Dispose();
             }
 
-            return worldInfos;
+            return worldList;
         }
     }
 }

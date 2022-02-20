@@ -30,7 +30,18 @@ namespace WorldListServer.Controllers
             return res;
 		}
 
-		[HttpGet]
+        [HttpPost]
+        [Route("login")]
+        public LoginAccountPacketRes SignupAccount([FromBody] LoginAccountPacketReq req)
+        {
+            LoginAccountPacketRes res;
+
+            res = _DB.LoginAccount(req);
+
+            return res;
+        }
+
+        [HttpGet]
         public IEnumerable<WorldListInfo> Get()
         {
             List<WorldListInfo> worldInfos = _DB.GetWorldList();

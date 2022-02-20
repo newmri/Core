@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 72680138837385775}
   - component: {fileID: 72680138837385773}
   m_Layer: 5
-  m_Name: Button_Blue
+  m_Name: LoginButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 72680139493899098}
   - component: {fileID: 72680139493899099}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: Password
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1790,7 +1790,7 @@ GameObject:
   - component: {fileID: 72680139944716904}
   - component: {fileID: 72680139944716905}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: ID
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

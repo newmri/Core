@@ -25,7 +25,6 @@ public class UIMessagePopup : UIPopup
 
         Bind<GameObject>(typeof(GameObjects));
         Get<GameObject>((int)GameObjects.OKButton).gameObject.BindEvent(OnClickOKButton);
-
         Get<GameObject>((int)GameObjects.TitleText).GetComponent<TextMeshProUGUI>().text = _title;
         Get<GameObject>((int)GameObjects.MessageText).GetComponent<TextMeshProUGUI>().text = _message;
     }

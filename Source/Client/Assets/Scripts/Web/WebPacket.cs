@@ -19,18 +19,16 @@ public class LoginAccountPacketReq
 	public string Password;
 }
 
-public class ServerInfo
+public class WorldListInfo
 {
 	public string Name;
-	public string Ip;
-	public int Port;
 	public int BusyScore;
 }
 
 public class LoginAccountPacketRes
 {
-	public bool LoginOk;
-	public int AccountId;
-	public int Token;
-	public List<ServerInfo> ServerList = new List<ServerInfo>();
+	public bool IsSuccess;
+	public long UID;
+	public long Token;
+	public List<WorldListInfo> WorldList = new List<WorldListInfo>();
 }

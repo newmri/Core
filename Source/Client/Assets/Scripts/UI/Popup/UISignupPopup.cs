@@ -57,11 +57,11 @@ public class UISignupPopup : UIPopup
 
             if (res.IsSuccess)
             {
-                messagePopup.SetText("환영합니다", "모험가 " + id + "님");
+                messagePopup.SetText("회원가입 성공", "환영합니다 모험가 " + id + "님");
             }
             else
             {
-                messagePopup.SetText("이미 존재하는 아이디입니다", "다른 아이디를 입력해주세요.");
+                messagePopup.SetText("회원가입 실패", "이미 존재하는 아이디입니다\n 다른 아이디를 입력해주세요.");
             }
         });
     }

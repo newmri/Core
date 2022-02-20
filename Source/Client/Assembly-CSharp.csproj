@@ -128,6 +128,8 @@
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\UINetworkErrorPopup.cs" />
     <Compile Include="Assets\Scripts\Defines\AccountDefine.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UIWorldListPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UIWorldListPopupInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
