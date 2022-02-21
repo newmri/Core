@@ -15,9 +15,11 @@ public class Managers : MonoBehaviour
     #region Core
     UIManager _ui = new UIManager();
     WebManager _web = new WebManager();
+    NetworkManager _network = new NetworkManager();
 
     public static UIManager UI { get { return Instance._ui; } }
     public static WebManager Web { get { return Instance._web; } }
+    public static NetworkManager Network { get { return Instance._network; } }
 
     #endregion
 

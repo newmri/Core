@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServerCore
+namespace UnityCoreLibrary
 {
 	public class RecvBuffer
 	{

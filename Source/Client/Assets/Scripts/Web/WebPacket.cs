@@ -39,8 +39,7 @@ public class LoginServerInfoPacketReq
 	public int WorldID;
 }
 
-public class LoginServerInfoPacketRes
+public class LoginServerInfoPacketRes : ServerInfo
 {
-	public string ServerIP;
-	public int ServerPort;
+	
 }

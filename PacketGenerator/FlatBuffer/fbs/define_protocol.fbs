@@ -1,0 +1,8 @@
+namespace Define;
+
+enum Job : byte
+{
+  Warrior = 0,
+  Archer,
+  Sorcerer
+}

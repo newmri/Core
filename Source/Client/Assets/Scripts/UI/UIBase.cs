@@ -61,25 +61,25 @@ public abstract class UIBase : MonoBehaviour
         return Get<Image>(index);
     }
 
-    public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    public static void BindEvent(GameObject go, Action<PointerEventData> action, CoreDefine.UIEvent type = CoreDefine.UIEvent.Click)
     {
         UIEventHandler uiEvent = Util.GetOrAddComponent<UIEventHandler>(go);
 
         switch (type)
         {
-            case Define.UIEvent.Enter:
+            case CoreDefine.UIEvent.Enter:
                 uiEvent.OnEnterHander -= action;
                 uiEvent.OnEnterHander += action;
                 break;
-            case Define.UIEvent.Exit:
+            case CoreDefine.UIEvent.Exit:
                 uiEvent.OnExitHander -= action;
                 uiEvent.OnExitHander += action;
                 break;
-            case Define.UIEvent.Click:
+            case CoreDefine.UIEvent.Click:
                 uiEvent.OnClickHander -= action;
                 uiEvent.OnClickHander += action;
                 break;
-            case Define.UIEvent.Drag:
+            case CoreDefine.UIEvent.Drag:
                 uiEvent.OnDragHandler -= action;
                 uiEvent.OnDragHandler += action;
                 break;

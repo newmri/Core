@@ -9,9 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="FlatBuffers">
-      <HintPath>FlatBuffers.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Newtonsoft.Json.dll</HintPath>
     </Reference>

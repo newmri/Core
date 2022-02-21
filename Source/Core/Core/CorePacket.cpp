@@ -43,11 +43,9 @@ void CorePacket::SetBodySize(const size_t newSize)
 
 bool CorePacket::DecodeHeader(void)
 {
-	char header[HEADER_SIZE + 1] = { 0, };
-	strncat_s(header, (char*)this->data, HEADER_SIZE);
+	memcpy_s(&this->bodySize, sizeof(this->bodySize), (char*)this->data, HEADER_SIZE);
 
-	this->bodySize = std::atoi(header);
-	if (this->bodySize > MAX_BODY_SIZE)
+	if (this->bodySize > MAX_BODY_SIZE || this->bodySize <= 0)
 	{
 		this->bodySize = 0;
 		return false;
@@ -60,5 +58,5 @@ void CorePacket::EncodeHeader(void)
 {
 	char header[HEADER_SIZE + 1] = { 0, };
 	sprintf_s(header, "%4d", static_cast<int>(this->bodySize));
-	memcpy(this->data, header, HEADER_SIZE);
+	memcpy_s(this->data, sizeof(this->data), header, HEADER_SIZE);
 }

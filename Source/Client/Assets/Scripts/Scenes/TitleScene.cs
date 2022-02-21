@@ -5,10 +5,10 @@ public class TitleScene : BaseScene
 {
     private void Awake()
     {
-        Init(Define.Scene.Title);
+        Init(CoreDefine.Scene.Title);
     }
 
-    protected override void Init(Define.Scene scene)
+    protected override void Init(CoreDefine.Scene scene)
     {
         base.Init(scene);
         Managers.UI.ShowSceneUI<UITitleScene>();

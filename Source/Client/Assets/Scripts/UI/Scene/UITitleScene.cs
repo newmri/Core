@@ -26,8 +26,8 @@ public class UITitleScene : UIScene
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
 
-        GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnEnterButton, Define.UIEvent.Enter);
-        GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnExitButton, Define.UIEvent.Exit);
+        GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnEnterButton, CoreDefine.UIEvent.Enter);
+        GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnExitButton, CoreDefine.UIEvent.Exit);
         GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnClickStartButton);
     }
 
@@ -43,6 +43,6 @@ public class UITitleScene : UIScene
 
     public void OnClickStartButton(PointerEventData evt)
     {
-        CoreManagers.Scene.LoadScene(Define.Scene.Login);
+        CoreManagers.Scene.LoadScene(CoreDefine.Scene.Login);
     }
 }

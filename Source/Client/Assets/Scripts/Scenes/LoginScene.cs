@@ -5,10 +5,10 @@ public class LoginScene : BaseScene
 {
     private void Awake()
     {
-        Init(Define.Scene.Login);
+        Init(CoreDefine.Scene.Login);
     }
 
-    protected override void Init(Define.Scene scene)
+    protected override void Init(CoreDefine.Scene scene)
     {
         base.Init(scene);
         Managers.UI.ShowSceneUI<UILoginScene>();

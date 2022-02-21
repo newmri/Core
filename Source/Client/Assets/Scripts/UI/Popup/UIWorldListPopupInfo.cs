@@ -43,7 +43,6 @@ public class UIWorldListPopupInfo : UIPopup
             busyScore = "<color=green>ฟ๘วา</color>";
 
         Get<GameObject>((int)GameObjects.BusyScore).GetComponent<TextMeshProUGUI>().text = busyScore;
-
     }
 
 

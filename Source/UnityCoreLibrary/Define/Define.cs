@@ -2,7 +2,7 @@
 
 namespace UnityCoreLibrary
 {
-    public class Define
+    public class CoreDefine
     {
         public enum Sound
         {

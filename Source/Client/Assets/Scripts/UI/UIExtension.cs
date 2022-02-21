@@ -20,7 +20,7 @@ public static class UIExtension
         return uiBase.Get<TextMeshProUGUI>(index);
     }
 
-    public static void BindEvent(this GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    public static void BindEvent(this GameObject go, Action<PointerEventData> action, CoreDefine.UIEvent type = CoreDefine.UIEvent.Click)
     {
         UIBase.BindEvent(go, action, type);
     }
