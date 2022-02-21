@@ -30,7 +30,7 @@ public class Managers : MonoBehaviour
 
     void Update()
     {
-
+        _network.Update();
     }
 
     static void Init()

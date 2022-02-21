@@ -9,9 +9,9 @@ namespace UnityCoreLibrary
 {
 	public abstract class PacketSession : Session
 	{
-		public static readonly int HeaderSize = 2;
+		public static readonly int HeaderSize = 4;
 
-		// [size(2)][packetId(2)][ ... ][size(2)][packetId(2)][ ... ]
+		// [size(4)][packetId(1)][ ... ][size(4)][packetId(1)][ ... ]
 		public sealed override int OnRecv(ArraySegment<byte> buffer)
 		{
 			int processLen = 0;
@@ -24,7 +24,7 @@ namespace UnityCoreLibrary
 					break;
 
 				// 패킷이 완전체로 도착했는지 확인
-				ushort dataSize = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+				int dataSize = BitConverter.ToInt32(buffer.Array, buffer.Offset);
 				if (buffer.Count < dataSize)
 					break;
 
