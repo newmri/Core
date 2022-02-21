@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="FlatBuffers">
+      <HintPath>FlatBuffers.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -35,6 +38,7 @@
   <ItemGroup>
     <Folder Include="Input\Joystick\Prefabs\" />
     <Folder Include="Input\Joystick\Sprites\" />
+    <Folder Include="Network\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -12,36 +12,88 @@ namespace PacketGenerator
 
         static void Main(string[] args)
         {
-            string file = "../../../FlatBuffer/output/login_protocol_generated.h";
-            if (args.Length >= 1)
-                file = args[0];
+            string file = "../../../FlatBuffer/output/cpp/login_protocol_generated.h";
+            string type = "server";
+            string language = "cpp";
 
+            if (args.Length >= 1)
+            {
+                file = args[0];
+                type = args[1];
+                language = args[2];
+            }
+
+            if (type == "server")
+            {
+                if (language == "cpp")
+                    MakeServerPacketForCpp(file);
+                else
+                    MakeServerPacketForCS(file);
+            }
+
+            else
+            {
+                if (language == "cpp")
+                    MakeClientPacketForCpp(file);
+                else
+                    MakeClientPacketForCS(file);
+            }
+        }
+
+        public static void MakeServerPacketForCpp(string file)
+        {
             string nameSpaceName = ParseNamespaceName(file);
 
-            serverRegister += string.Format(PacketFormat.FunctionBasicFormatForCpp, nameSpaceName, "std::shared_ptr<CoreClientSession> session");
-            clientRegister += string.Format(PacketFormat.FunctionBasicFormatForCpp, nameSpaceName, "CoreServerSession& session");
+            serverRegister += string.Format(PacketFormatForCpp.FunctionBasicFormat, nameSpaceName, "std::shared_ptr<CoreClientSession> session");
 
             List<string> packetNames = ParsePacketName(file);
             foreach (string packetName in packetNames)
             {
                 string[] funcNames = packetName.Trim().Split("Packet_");
- 
-                if(packetName.Contains("CS"))
-                    serverRegister += string.Format(PacketFormat.FunctionRegisterFormatForCpp, nameSpaceName, packetName, funcNames[1]);
-                else
-                    clientRegister += string.Format(PacketFormat.FunctionRegisterFormatForCpp, nameSpaceName, packetName, funcNames[1]);
+
+                if (packetName.Contains("CS"))
+                    serverRegister += string.Format(PacketFormatForCpp.FunctionRegisterFormat, nameSpaceName, packetName, funcNames[1]);
             }
 
-            serverRegister += PacketFormat.FunctionRegisterEndFormatForCpp;
-            clientRegister += PacketFormat.FunctionRegisterEndFormatForCpp;
+            serverRegister += PacketFormatForCpp.FunctionRegisterEndFormat;
 
-            string fileName = string.Format(PacketFormat.FileNameForCpp, nameSpaceName);
+            string fileName = string.Format(PacketFormatForCpp.FileName, nameSpaceName);
 
-            CheckDirectoryAndCreate("Server");
-            CheckDirectoryAndCreate("Client");
+            CheckDirectoryAndCreate("Server/cpp");
 
-            File.WriteAllText("Server/" + fileName, serverRegister);
-            File.WriteAllText("Client/" + fileName, clientRegister);
+            File.WriteAllText("Server/cpp/" + fileName, serverRegister);
+        }
+        public static void MakeServerPacketForCS(string file)
+        {
+
+        }
+        public static void MakeClientPacketForCpp(string file)
+        {
+            string nameSpaceName = ParseNamespaceName(file);
+
+            clientRegister += string.Format(PacketFormatForCpp.FunctionBasicFormat, nameSpaceName, "CoreServerSession& session");
+
+            List<string> packetNames = ParsePacketName(file);
+            foreach (string packetName in packetNames)
+            {
+                string[] funcNames = packetName.Trim().Split("Packet_");
+
+                if (packetName.Contains("SC"))
+                    clientRegister += string.Format(PacketFormatForCpp.FunctionRegisterFormat, nameSpaceName, packetName, funcNames[1]);
+            }
+
+            clientRegister += PacketFormatForCpp.FunctionRegisterEndFormat;
+
+            string fileName = string.Format(PacketFormatForCpp.FileName, nameSpaceName);
+
+            CheckDirectoryAndCreate("Client/cpp");
+
+            File.WriteAllText("Client/cpp/" + fileName, clientRegister);
+        }
+
+        public static void MakeClientPacketForCS(string file)
+        {
+
         }
 
         static string ParseNamespaceName(string file)

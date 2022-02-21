@@ -1,1 +1,3 @@
 version: 2020.3.28f1
+flatbuffer dll
+flatbuffers-2.0.0\net\FlatBuffers 에서 빌드
