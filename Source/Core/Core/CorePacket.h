@@ -8,7 +8,7 @@ public:
 
 public:
 	DEFAULT_CONSTRUCTOR(CorePacket)
-	CorePacket(const uint8_t* body, const size_t bodySize);
+	CorePacket(const uint8_t* body, const uint32_t bodySize);
 
 public:
 	const uint8_t* GetData(void) const;
@@ -19,9 +19,9 @@ public:
 	uint8_t* GetBody(void);
 
 public:
-	size_t GetSize() const;
-	size_t GetBodySize(void) const;
-	void SetBodySize(const size_t newSize);
+	uint32_t GetSize() const;
+	uint32_t GetBodySize(void) const;
+	void SetBodySize(const uint32_t newSize);
 
 public:
 	bool DecodeHeader(void);
@@ -29,5 +29,5 @@ public:
 
 private:
 	uint8_t data[HEADER_SIZE + MAX_BODY_SIZE] = { 0, };
-	size_t bodySize = 0;
+	uint32_t bodySize = 0;
 };

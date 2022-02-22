@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CorePacket::CorePacket(const uint8_t* body, const size_t bodySize) : bodySize(bodySize)
+CorePacket::CorePacket(const uint8_t* body, const uint32_t bodySize) : bodySize(bodySize)
 {
 	std::copy(body, body + bodySize, GetBody());
 	EncodeHeader();
@@ -26,24 +26,24 @@ uint8_t* CorePacket::GetBody(void)
 	return this->data + HEADER_SIZE;
 }
 
-size_t CorePacket::GetSize() const
+uint32_t CorePacket::GetSize() const
 {
 	return HEADER_SIZE + this->bodySize;
 }
 
-size_t CorePacket::GetBodySize(void) const
+uint32_t CorePacket::GetBodySize(void) const
 {
-	return  this->bodySize;
+	return this->bodySize;
 }
 
-void CorePacket::SetBodySize(const size_t newSize)
+void CorePacket::SetBodySize(const uint32_t newSize)
 {
 	this->bodySize = newSize;
 }
 
 bool CorePacket::DecodeHeader(void)
 {
-	memcpy_s(&this->bodySize, sizeof(this->bodySize), (char*)this->data, HEADER_SIZE);
+	memcpy_s(&this->bodySize, sizeof(this->bodySize), &this->data, HEADER_SIZE);
 
 	if (this->bodySize > MAX_BODY_SIZE || this->bodySize <= 0)
 	{
@@ -56,7 +56,5 @@ bool CorePacket::DecodeHeader(void)
 
 void CorePacket::EncodeHeader(void)
 {
-	char header[HEADER_SIZE + 1] = { 0, };
-	sprintf_s(header, "%4d", static_cast<int>(this->bodySize));
-	memcpy_s(this->data, sizeof(this->data), header, HEADER_SIZE);
+	memcpy_s(this->data, sizeof(this->data), &this->bodySize, HEADER_SIZE);
 }
