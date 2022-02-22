@@ -1,4 +1,6 @@
-﻿public class UIPopup : UIBase
+﻿using UnityCoreLibrary;
+
+public class UIPopup : UIBase
 {
     public override void Init()
     {

@@ -1,4 +1,5 @@
-﻿
+﻿using UnityCoreLibrary;
+
 public class UIScene : UIBase
 {
     public override void Init()
