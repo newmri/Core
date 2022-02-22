@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spine-unity-examples-editor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{5544F79C-5306-909F-C855-53D6959D5DFD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityCoreLibrary", "..\UnityCoreLibrary\UnityCoreLibrary.csproj", "{8FEA4300-C1CD-4C1E-B931-C234321EC48F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{5544F79C-5306-909F-C855-53D6959D5DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5544F79C-5306-909F-C855-53D6959D5DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5544F79C-5306-909F-C855-53D6959D5DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FEA4300-C1CD-4C1E-B931-C234321EC48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FEA4300-C1CD-4C1E-B931-C234321EC48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FEA4300-C1CD-4C1E-B931-C234321EC48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FEA4300-C1CD-4C1E-B931-C234321EC48F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
