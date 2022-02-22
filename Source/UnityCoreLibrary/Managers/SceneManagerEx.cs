@@ -2,25 +2,28 @@
 using UnityCoreLibrary;
 using UnityEngine.SceneManagement;
 
-public class SceneManagerEx
+namespace UnityCoreLibrary
 {
-    public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
-
-    public void LoadScene(CoreDefine.Scene type)
+    public class SceneManagerEx
     {
-        CoreManagers.Clear();
+        public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
 
-        SceneManager.LoadScene(GetSceneName(type));
-    }
+        public void LoadScene(CoreDefine.Scene type)
+        {
+            CoreManagers.Clear();
 
-    string GetSceneName(CoreDefine.Scene type)
-    {
-        string name = System.Enum.GetName(typeof(CoreDefine.Scene), type);
-        return name;
-    }
+            SceneManager.LoadScene(GetSceneName(type));
+        }
 
-    public void Clear()
-    {
-        CurrentScene.Clear();
+        string GetSceneName(CoreDefine.Scene type)
+        {
+            string name = System.Enum.GetName(typeof(CoreDefine.Scene), type);
+            return name;
+        }
+
+        public void Clear()
+        {
+            CurrentScene.Clear();
+        }
     }
 }
