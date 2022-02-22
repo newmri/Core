@@ -16,6 +16,6 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	//int result = LOGIN_SERVER.GetAccountDB()->Login(STRING_MANAGER.Widen(raw->name()->str()).c_str(), STRING_MANAGER.Widen(raw->password()->str()).c_str());
 
 	this->builder.Clear();
-	auto message = Login::CreateSC_LOGIN_RES(this->builder, 1);
+	auto message = Login::CreateSC_LOGIN_RES(this->builder, 0);
 	Write(session, Login::Packet_SC_LOGIN_RES, message.Union());
 }

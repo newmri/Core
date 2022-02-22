@@ -15,11 +15,11 @@ public class Managers : MonoBehaviour
     #region Core
     UIManager _ui = new UIManager();
     WebManager _web = new WebManager();
-    NetworkManager _network = new NetworkManager();
+    LoginNetworkManager _loginNetwork = new LoginNetworkManager();
 
     public static UIManager UI { get { return Instance._ui; } }
     public static WebManager Web { get { return Instance._web; } }
-    public static NetworkManager Network { get { return Instance._network; } }
+    public static LoginNetworkManager LoginNetwork { get { return Instance._loginNetwork; } }
 
     #endregion
 
@@ -30,7 +30,7 @@ public class Managers : MonoBehaviour
 
     void Update()
     {
-        _network.Update();
+        _loginNetwork.Update();
     }
 
     static void Init()

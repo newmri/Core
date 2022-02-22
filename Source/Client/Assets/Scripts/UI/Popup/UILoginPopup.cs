@@ -67,8 +67,8 @@ public class UILoginPopup : UIPopup
 
             if (res.IsSuccess)
             {
-                Managers.Network.UID = res.UID;
-                Managers.Network.Token = res.Token;
+                Managers.LoginNetwork.UID = res.UID;
+                Managers.LoginNetwork.Token = res.Token;
                 Managers.UI.ShowPopupUI<UIWorldListPopup>().SetWorldList(res.WorldList);
             }
             else

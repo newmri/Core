@@ -5,26 +5,21 @@ using System.Net;
 using UnityEngine;
 using UnityCoreLibrary;
 using FlatBuffers;
+using Login;
 
-public class ServerInfo
-{
-    public string ServerIP;
-    public int ServerPort;
-}
-
-public class NetworkManager
+public class LoginNetworkManager
 {
     public long UID { get; set; }
     public long Token { get; set; }
 
-    ServerSession _session = new ServerSession();
+    LoginServerSession _session = new LoginServerSession();
 
     public void Send(FlatBufferBuilder packet)
     {
         _session.Send(packet);
     }
 
-    public void ConntectToGame(ServerInfo info)
+    public void Conntect(ServerInfo info)
     {
         IPAddress ipAddr = IPAddress.Parse(info.ServerIP);
         IPEndPoint endPoint = new IPEndPoint(ipAddr, info.ServerPort);
@@ -38,10 +33,10 @@ public class NetworkManager
 
     public void Update()
     {
-        List<PacketMessage> list = PacketQueue.Instance.PopAll();
-        foreach (PacketMessage packet in list)
+        List<LoginPacketMessage> list = LoginPacketQueue.Instance.PopAll();
+        foreach (LoginPacketMessage packet in list)
         {
-            Action<PacketSession, IFlatbufferObject> handler = PacketManager.Instance.GetPacketHandler(packet.Id);
+            Action<PacketSession, Root> handler = LoginPacketManager.Instance.GetPacketHandler(packet.ID);
             if (handler != null)
                 handler.Invoke(_session, packet.Message);
         }

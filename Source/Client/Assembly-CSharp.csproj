@@ -65,6 +65,8 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\CharacterAnimator.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UIWorldListPopup.cs" />
+    <Compile Include="Assets\Scripts\Network\LoginServer\LoginPacketQueue.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Scripts\UI\Scene\UITitleScene.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\AnchorManager.cs" />
@@ -76,15 +78,19 @@
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterVariation.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Scripts\PanelFantasyRPG.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UIWorldListPopupInfo.cs" />
     <Compile Include="Assets\Scripts\Web\WebPacket.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UINetworkErrorPopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\UILoginPopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\Network\LoginServer\LoginPacketManager.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Demo.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Inanimate.cs" />
     <Compile Include="Assets\Scripts\Scenes\LoginScene.cs" />
+    <Compile Include="Assets\Scripts\Network\define_protocol.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
@@ -98,12 +104,16 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Scenes\TitleScene.cs" />
     <Compile Include="Assets\Scripts\UI\Scene\UILoginScene.cs" />
+    <Compile Include="Assets\Scripts\Network\LoginServer\LoginServerSession.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Managers\Managers.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\InventoryIconsManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Network\LoginServer\LoginPacketHandler.cs" />
+    <Compile Include="Assets\Scripts\Managers\Core\LoginNetworkManager.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearsManager.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Network\LoginServer\login_protocol.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\UIParticleSystem.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearEquipper.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
@@ -117,6 +127,7 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterState.cs" />
+    <Compile Include="Assets\Scripts\Defines\AccountDefine.cs" />
     <Compile Include="Assets\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\UISignupPopup.cs" />
@@ -124,17 +135,8 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UINetworkErrorPopup.cs" />
-    <Compile Include="Assets\Scripts\Defines\AccountDefine.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UIWorldListPopup.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UIWorldListPopupInfo.cs" />
-    <Compile Include="Assets\Scripts\Managers\Core\NetworkManager.cs" />
-    <Compile Include="Assets\Scripts\Network\PacketQueue.cs" />
     <Compile Include="Assets\Scripts\Network\ServerSession.cs" />
-    <Compile Include="Assets\Scripts\Network\PacketHandler.cs" />
-    <Compile Include="Assets\Scripts\Network\ClientPacketManager.cs" />
-    <Compile Include="Assets\Scripts\Network\define_protocol.cs" />
-    <Compile Include="Assets\Scripts\Network\login_protocol.cs" />
+    <Compile Include="Assets\Scripts\Network\ServerInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -391,14 +393,14 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.28f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>Assets\Plugins\FlatBuffers.dll</HintPath>
+    </Reference>
     <Reference Include="UnityCoreLibrary">
       <HintPath>Assets\Plugins\UnityCoreLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="FlatBuffers">
-      <HintPath>Assets\Plugins\FlatBuffers.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.28f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
