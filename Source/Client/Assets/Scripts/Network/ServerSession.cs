@@ -20,17 +20,6 @@ public class ServerSession : PacketSession
     public override void OnConnected(EndPoint endPoint)
     {
         Debug.Log($"OnConnected : {endPoint}");
-
-        PacketManager.Instance.CustomHandler = (s, m, i) =>
-        {
-            PacketQueue.Instance.Push(i, m);
-        };
-
-        FlatBufferBuilder builder = new FlatBufferBuilder(1);
-        var message = Login.CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, Managers.Network.UID, Managers.Network.Token);
-        var data = Login.Root.CreateRoot(builder, Login.Packet.CS_LOGIN_REQ, message.Value);
-        builder.Finish(data.Value);
-        Managers.Network.Send(builder);
     }
 
     public override void OnDisconnected(EndPoint endPoint)
@@ -40,11 +29,11 @@ public class ServerSession : PacketSession
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)
     {
-        PacketManager.Instance.OnRecvPacket(this, buffer);
+       
     }
 
     public override void OnSend(int numOfBytes)
     {
-       
+
     }
 }
