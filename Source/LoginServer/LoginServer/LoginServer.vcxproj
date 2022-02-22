@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccountDB.h" />
+    <ClInclude Include="define_protocol_generated.h" />
     <ClInclude Include="LoginPacketFunc.h" />
     <ClInclude Include="LoginPacketHandler.h" />
     <ClInclude Include="LoginServer.h" />

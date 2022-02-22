@@ -10,37 +10,39 @@ namespace PacketGenerator
         static string serverRegister;
         static string clientRegister;
 
+        static string file = "../../../FlatBuffer/output/cpp/login/login_protocol_generated.h";
+        static string type = "server";
+        static string language = "cpp";
+        static string serverName = "login";
+
         static void Main(string[] args)
         {
-            string file = "../../../FlatBuffer/output/cpp/login_protocol_generated.h";
-            string type = "server";
-            string language = "cpp";
-
             if (args.Length >= 1)
             {
                 file = args[0];
                 type = args[1];
                 language = args[2];
+                serverName = args[3];
             }
 
             if (type == "server")
             {
                 if (language == "cpp")
-                    MakeServerPacketForCpp(file);
+                    MakeServerPacketForCpp();
                 else
-                    MakeServerPacketForCS(file);
+                    MakeServerPacketForCS();
             }
 
             else
             {
                 if (language == "cpp")
-                    MakeClientPacketForCpp(file);
+                    MakeClientPacketForCpp();
                 else
-                    MakeClientPacketForCS(file);
+                    MakeClientPacketForCS();
             }
         }
 
-        public static void MakeServerPacketForCpp(string file)
+        public static void MakeServerPacketForCpp()
         {
             string nameSpaceName = ParseNamespaceName(file);
 
@@ -59,15 +61,17 @@ namespace PacketGenerator
 
             string fileName = string.Format(PacketFormatForCpp.FileName, nameSpaceName);
 
-            CheckDirectoryAndCreate("Server/cpp");
+            string outPath = type + "/" + language + "/" + serverName;
 
-            File.WriteAllText("Server/cpp/" + fileName, serverRegister);
+            CheckDirectoryAndCreate(outPath);
+
+            File.WriteAllText(outPath + "/" + fileName, serverRegister);
         }
-        public static void MakeServerPacketForCS(string file)
+        public static void MakeServerPacketForCS()
         {
 
         }
-        public static void MakeClientPacketForCpp(string file)
+        public static void MakeClientPacketForCpp()
         {
             string nameSpaceName = ParseNamespaceName(file);
 
@@ -86,12 +90,14 @@ namespace PacketGenerator
 
             string fileName = string.Format(PacketFormatForCpp.FileName, nameSpaceName);
 
-            CheckDirectoryAndCreate("Client/cpp");
+            string outPath = type + "/" + language + "/" + serverName;
 
-            File.WriteAllText("Client/cpp/" + fileName, clientRegister);
+            CheckDirectoryAndCreate(outPath);
+
+            File.WriteAllText(outPath + "/" + fileName, clientRegister);
         }
 
-        public static void MakeClientPacketForCS(string file)
+        public static void MakeClientPacketForCS()
         {
 
         }

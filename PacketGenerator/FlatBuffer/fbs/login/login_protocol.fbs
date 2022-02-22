@@ -1,4 +1,4 @@
-include "define_protocol.fbs";
+include "../common/define_protocol.fbs";
 
 namespace Login;
 

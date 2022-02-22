@@ -19,3 +19,8 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	auto message = Login::CreateSC_LOGIN_RES(this->builder, 0);
 	Write(session, Login::Packet_SC_LOGIN_RES, message.Union());
 }
+
+void LoginPacketFunc::CS_CHARACTER_CREATE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto raw = static_cast<const Login::CS_CHARACTER_CREATE_REQ*>(data);
+}

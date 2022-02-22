@@ -71,5 +71,8 @@
     <ClInclude Include="LoginServerManager.h">
       <Filter>02.Packet\01.LoginServer</Filter>
     </ClInclude>
+    <ClInclude Include="define_protocol_generated.h">
+      <Filter>02.Packet\00.FlatBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

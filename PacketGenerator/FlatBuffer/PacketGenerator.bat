@@ -2,23 +2,36 @@ rem make flatbuffer files
 
 setlocal enabledelayedexpansion
 
-call generator.bat "flatc.exe --cpp -o output/cpp/ fbs/"
-call generator.bat "flatc.exe --csharp --gen-onefile -o output/cs/ fbs/"
+rem common
+call generator.bat "flatc.exe --cpp -o output/cpp/common/ fbs/common/" fbs/common/
+call generator.bat "flatc.exe --csharp --gen-onefile -o output/cs/common/ fbs/common/" fbs/common/
+
+rem login
+call generator.bat "flatc.exe --cpp -o output/cpp/login/ fbs/login/" fbs/login/
+call generator.bat "flatc.exe --csharp --gen-onefile -o output/cs/login/ fbs/login/" fbs/login/
 
 rem copy flatbuffer files
 
-set loginpath="../../Source/LoginServer/LoginServer/*"
+rem common
+set serverpath="../../Source/LoginServer/LoginServer/*"
 set clientpath="../../Source/Client/Assets/Scripts/Network/*"
 
-call copy.bat %loginpath% cpp
-call copy.bat %clientpath% cs
+call copy.bat %serverpath% cpp\common
+call copy.bat %clientpath% cs\common
+
+rem login
+set serverpath="../../Source/LoginServer/LoginServer/*"
+set clientpath="../../Source/Client/Assets/Scripts/Network/LoginServer/*"
+
+call copy.bat %serverpath% cpp\login
+call copy.bat %clientpath% cs\login
 
 rem copy PacketHandler
 
-START ../Binary/PacketGenerator.exe ../FlatBuffer/output/cpp/login_protocol_generated.h server cpp
+START ../Binary/PacketGenerator.exe ../FlatBuffer/output/cpp/login/login_protocol_generated.h server cpp login
 
-XCOPY /Y Server\cpp\LoginPacketHandler.h %loginpath%
-XCOPY /Y Server\cpp\LoginPacketHandler.cpp %loginpath%
+XCOPY /Y server\cpp\login\LoginPacketHandler.h %serverpath%
+XCOPY /Y server\cpp\login\LoginPacketHandler.cpp %serverpath%
 
 
 endlocal
