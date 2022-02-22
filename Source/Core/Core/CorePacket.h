@@ -3,7 +3,7 @@
 class CorePacket
 {
 public:
-	enum { HEADER_SIZE = 4 };
+	enum { HEADER_SIZE = 2 };
 	enum { MAX_BODY_SIZE = 512 };
 
 public:

@@ -28,13 +28,10 @@ class LoginPacketManager
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
     {
-        ushort count = 0;
-
-        int size = BitConverter.ToInt32(buffer.Array, buffer.Offset);
-        count += sizeof(int);
+        ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
 
         byte[] recvBuffer = new byte[size];
-        Array.Copy(buffer.Array, sizeof(int), recvBuffer, 0, size);
+        Array.Copy(buffer.Array, PackeSize.HEADER_SIZE, recvBuffer, 0, size);
         ByteBuffer byteBuffer = new ByteBuffer(recvBuffer);
 
         Root root = Root.GetRootAsRoot(byteBuffer);

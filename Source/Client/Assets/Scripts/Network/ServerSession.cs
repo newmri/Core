@@ -11,9 +11,10 @@ public class ServerSession : PacketSession
     public void Send(FlatBufferBuilder packet)
     {
         int size = packet.Offset;
-        byte[] sendBuffer = new byte[size + 4];
-        Array.Copy(BitConverter.GetBytes(size), 0, sendBuffer, 0, sizeof(int));
-        Array.Copy(packet.DataBuffer.ToArray(packet.DataBuffer.Position, size), 0, sendBuffer, sizeof(int), size);
+        byte[] sendBuffer = new byte[size + PackeSize.HEADER_SIZE];
+        Array.Copy(BitConverter.GetBytes(size), 0, sendBuffer, 0, PackeSize.HEADER_SIZE);
+        Array.Copy(packet.DataBuffer.ToArray(packet.DataBuffer.Position, size), 0,
+                   sendBuffer, PackeSize.HEADER_SIZE, size);
         Send(new ArraySegment<byte>(sendBuffer));
     }
 

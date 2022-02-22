@@ -7,11 +7,15 @@ using System.Threading;
 
 namespace UnityCoreLibrary
 {
+	public static class PackeSize
+	{
+		public static readonly int HEADER_SIZE = 2;
+	}
+
 	public abstract class PacketSession : Session
 	{
-		public static readonly int HeaderSize = 4;
 
-		// [size(4)][packetId(1)][ ... ][size(4)][packetId(1)][ ... ]
+		// [size(2)][packetId(1)][ ... ][size(2)][packetId(1)][ ... ]
 		public sealed override int OnRecv(ArraySegment<byte> buffer)
 		{
 			int processLen = 0;
@@ -20,11 +24,11 @@ namespace UnityCoreLibrary
 			while (true)
 			{
 				// 최소한 헤더는 파싱할 수 있는지 확인
-				if (buffer.Count < HeaderSize)
+				if (buffer.Count < PackeSize.HEADER_SIZE)
 					break;
 
 				// 패킷이 완전체로 도착했는지 확인
-				int dataSize = BitConverter.ToInt32(buffer.Array, buffer.Offset);
+				ushort dataSize = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
 				if (buffer.Count < dataSize)
 					break;
 
@@ -56,7 +60,7 @@ namespace UnityCoreLibrary
 		SocketAsyncEventArgs _recvArgs = new SocketAsyncEventArgs();
 
 		public abstract void OnConnected(EndPoint endPoint);
-		public abstract int  OnRecv(ArraySegment<byte> buffer);
+		public abstract int OnRecv(ArraySegment<byte> buffer);
 		public abstract void OnSend(int numOfBytes);
 		public abstract void OnDisconnected(EndPoint endPoint);
 
