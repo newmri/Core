@@ -18,16 +18,13 @@ public class LoginServerSession : ServerSession
             LoginPacketQueue.Instance.Push(m, i);
         };
 
-        FlatBufferBuilder builder = new FlatBufferBuilder(1);
-        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, Managers.LoginNetwork.UID, Managers.LoginNetwork.Token);
-        var data = Root.CreateRoot(builder, Packet.CS_LOGIN_REQ, message.Value);
-        builder.Finish(data.Value);
-        Managers.LoginNetwork.Send(builder);
+        Managers.LoginNetwork.CheckLogin();
     }
 
     public override void OnDisconnected(EndPoint endPoint)
     {
         base.OnDisconnected(endPoint);
+        Managers.LoginNetwork.IsLoginSuccess = false;
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)

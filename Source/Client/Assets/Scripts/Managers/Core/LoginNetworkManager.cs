@@ -12,6 +12,8 @@ public class LoginNetworkManager
     public long UID { get; set; }
     public long Token { get; set; }
 
+    public bool IsLoginSuccess { get; set; }
+
     LoginServerSession _session = new LoginServerSession();
 
     public void Send(FlatBufferBuilder packet)
@@ -42,4 +44,15 @@ public class LoginNetworkManager
         }
     }
 
+    public void CheckLogin()
+    {
+        if (!IsLoginSuccess)
+        {
+            FlatBufferBuilder builder = new FlatBufferBuilder(1);
+            var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, Token);
+            var data = Root.CreateRoot(builder, Packet.CS_LOGIN_REQ, message.Value);
+            builder.Finish(data.Value);
+            Send(builder);
+        }
+    }
 }
