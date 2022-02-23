@@ -15,14 +15,14 @@ void AccountDB::Release(void)
 {
 }
 
-int AccountDB::Login(const wchar_t* ID, const wchar_t* password)
+bool AccountDB::Login(const int64_t uid, const int32_t token)
 {
 	Prepare(L"Login");
-	BindArgument(ID);
-	BindArgument(password);
+	BindArgument(uid);
+	BindArgument(token);
 	Execute();
 
-	int result = 0;
+	bool result = 0;
 
 	BindCol(&result, sizeof(result));
 

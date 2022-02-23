@@ -32,7 +32,7 @@ namespace WorldListServer.Controllers
 
         [HttpPost]
         [Route("login")]
-        public LoginAccountPacketRes SignupAccount([FromBody] LoginAccountPacketReq req)
+        public LoginAccountPacketRes LoginAccount([FromBody] LoginAccountPacketReq req)
         {
             LoginAccountPacketRes res;
 

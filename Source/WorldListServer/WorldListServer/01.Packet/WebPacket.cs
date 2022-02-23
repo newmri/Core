@@ -29,7 +29,7 @@ public class LoginAccountPacketRes
 {
 	public bool IsSuccess { get; set; }
 	public long UID { get; set; }
-	public long Token { get; set; }
+	public int Token { get; set; }
 	public List<WorldListInfo> WorldList { get; set; }
 }
 

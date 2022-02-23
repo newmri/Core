@@ -107,7 +107,7 @@ namespace WorldListServer
                         while (rdr.Read())
                         {
                             res.UID = Convert.ToInt64(rdr["UID"].ToString());
-                            res.Token = ConvertToUnixTimestamp(Convert.ToDateTime(rdr["Token"].ToString()));
+                            res.Token = Convert.ToInt32(rdr["Token"].ToString());
                         }
                     }
                 }

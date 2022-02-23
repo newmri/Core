@@ -10,6 +10,6 @@ public:
 	virtual void Release(void) override;
 
 public:
-	int Login(const wchar_t* ID, const wchar_t* password);
+	bool Login(const int64_t uid, const int32_t token);
 
 };

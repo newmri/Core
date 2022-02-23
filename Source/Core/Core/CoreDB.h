@@ -29,12 +29,14 @@ protected:
 	void Prepare(const SQLWCHAR* spName);
 
 protected:
-	void BindCol(int* data, const SQLLEN size);
+	void BindCol(bool* data, const SQLLEN size);
+	void BindCol(int32_t* data, const SQLLEN size);
 	void BindCol(const wchar_t* data, const SQLLEN size);
 	
 protected:
 	void BindArgument(const wchar_t* data);
-	void BindArgument(const int data);
+	void BindArgument(const int32_t data);
+	void BindArgument(const int64_t data);
 
 protected:
 	bool Execute(void);

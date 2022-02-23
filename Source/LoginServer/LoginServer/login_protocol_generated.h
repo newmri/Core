@@ -86,13 +86,13 @@ struct CS_LOGIN_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int64_t uid() const {
     return GetField<int64_t>(VT_UID, 0);
   }
-  int64_t token() const {
-    return GetField<int64_t>(VT_TOKEN, 0);
+  int32_t token() const {
+    return GetField<int32_t>(VT_TOKEN, 0);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int64_t>(verifier, VT_UID) &&
-           VerifyField<int64_t>(verifier, VT_TOKEN) &&
+           VerifyField<int32_t>(verifier, VT_TOKEN) &&
            verifier.EndTable();
   }
 };
@@ -104,8 +104,8 @@ struct CS_LOGIN_REQBuilder {
   void add_uid(int64_t uid) {
     fbb_.AddElement<int64_t>(CS_LOGIN_REQ::VT_UID, uid, 0);
   }
-  void add_token(int64_t token) {
-    fbb_.AddElement<int64_t>(CS_LOGIN_REQ::VT_TOKEN, token, 0);
+  void add_token(int32_t token) {
+    fbb_.AddElement<int32_t>(CS_LOGIN_REQ::VT_TOKEN, token, 0);
   }
   explicit CS_LOGIN_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -121,10 +121,10 @@ struct CS_LOGIN_REQBuilder {
 inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(
     flatbuffers::FlatBufferBuilder &_fbb,
     int64_t uid = 0,
-    int64_t token = 0) {
+    int32_t token = 0) {
   CS_LOGIN_REQBuilder builder_(_fbb);
-  builder_.add_token(token);
   builder_.add_uid(uid);
+  builder_.add_token(token);
   return builder_.Finish();
 }
 

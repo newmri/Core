@@ -77,7 +77,13 @@ void CoreDB::Prepare(const SQLWCHAR* spName)
 	this->command += spName;
 }
 
-void CoreDB::BindCol(int* data, const SQLLEN size)
+void CoreDB::BindCol(bool* data, const SQLLEN size)
+{
+	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1, SQL_BIT, data, size, &this->colLen[this->currIndex]);
+	++this->currIndex;
+}
+
+void CoreDB::BindCol(int32_t* data, const SQLLEN size)
 {
 	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1, SQL_INTEGER, data, size, &this->colLen[this->currIndex]);
 	++this->currIndex;
@@ -97,7 +103,14 @@ void CoreDB::BindArgument(const wchar_t* data)
 	this->command += L",";
 }
 
-void CoreDB::BindArgument(const int data)
+void CoreDB::BindArgument(const int32_t data)
+{
+	this->command += L" ";
+	this->command += TO_WSTR(data);
+	this->command += L",";
+}
+
+void CoreDB::BindArgument(const int64_t data)
 {
 	this->command += L" ";
 	this->command += TO_WSTR(data);

@@ -30,7 +30,7 @@ public class LoginAccountPacketRes
 {
 	public bool IsSuccess;
 	public long UID;
-	public long Token;
+	public int Token;
 	public List<WorldListInfo> WorldList = new List<WorldListInfo>();
 }
 

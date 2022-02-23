@@ -10,7 +10,7 @@ using Login;
 public class LoginNetworkManager
 {
     public long UID { get; set; }
-    public long Token { get; set; }
+    public int Token { get; set; }
 
     public bool IsLoginSuccess { get; set; }
 

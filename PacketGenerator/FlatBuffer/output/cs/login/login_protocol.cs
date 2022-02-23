@@ -28,20 +28,20 @@ public struct CS_LOGIN_REQ : IFlatbufferObject
   public CS_LOGIN_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public long Uid { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public long Token { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public int Token { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<Login.CS_LOGIN_REQ> CreateCS_LOGIN_REQ(FlatBufferBuilder builder,
       long uid = 0,
-      long token = 0) {
+      int token = 0) {
     builder.StartTable(2);
-    CS_LOGIN_REQ.AddToken(builder, token);
     CS_LOGIN_REQ.AddUid(builder, uid);
+    CS_LOGIN_REQ.AddToken(builder, token);
     return CS_LOGIN_REQ.EndCS_LOGIN_REQ(builder);
   }
 
   public static void StartCS_LOGIN_REQ(FlatBufferBuilder builder) { builder.StartTable(2); }
   public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(0, uid, 0); }
-  public static void AddToken(FlatBufferBuilder builder, long token) { builder.AddLong(1, token, 0); }
+  public static void AddToken(FlatBufferBuilder builder, int token) { builder.AddInt(1, token, 0); }
   public static Offset<Login.CS_LOGIN_REQ> EndCS_LOGIN_REQ(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Login.CS_LOGIN_REQ>(o);

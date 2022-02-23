@@ -13,10 +13,10 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 {
 	auto raw = static_cast<const Login::CS_LOGIN_REQ*>(data);
 
-	//int result = LOGIN_SERVER.GetAccountDB()->Login(STRING_MANAGER.Widen(raw->name()->str()).c_str(), STRING_MANAGER.Widen(raw->password()->str()).c_str());
+	bool result = LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), raw->token());
 
 	this->builder.Clear();
-	auto message = Login::CreateSC_LOGIN_RES(this->builder, 0);
+	auto message = Login::CreateSC_LOGIN_RES(this->builder, result);
 	Write(session, Login::Packet_SC_LOGIN_RES, message.Union());
 }
 
