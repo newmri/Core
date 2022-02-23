@@ -13,16 +13,35 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 {
 	auto raw = static_cast<const Login::CS_LOGIN_REQ*>(data);
 
-	Login::ErrorCode result = Login::ErrorCode_SUCCESS;
-	int32_t expireTime = 0;
+	Login::ErrorCode result = Login::ErrorCode_UNKNOWN;
 
-	if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), raw->token(), expireTime))
+	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(raw->uid());
+	CoreToken token(raw->token());
+
+	// 첫 로그인
+	if (IS_NULL(account))
 	{
-
+		if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), token))
+		{
+			CORE_ACCOUNT_MANAGER.Add(raw->uid(), token);
+			result = Login::ErrorCode_SUCCESS;
+		}
 	}
 	else
 	{
-		result = Login::ErrorCode_UNKNOWN;
+		if(account->IsLogined())
+			result = Login::ErrorCode_ALREADY_LOGINED;
+
+		// 토큰 사용 기간이 지났음
+		else if (account->IsTokenExpired())
+		{
+			if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), token))
+			{
+				account->SetLogin();
+				account->UpdateToken(token);
+				result = Login::ErrorCode_SUCCESS;
+			}
+		}
 	}
 
 	this->builder.Clear();

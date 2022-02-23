@@ -66,4 +66,6 @@
 #include "CoreServer.h"
 #include "CoreDB.h"
 #include "WorldDB.h"
+#include "CoreAccount.h"
+#include "CoreAccountManager.h"
 #include "CoreTestManager.h"

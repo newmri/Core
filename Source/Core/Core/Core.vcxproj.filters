@@ -127,6 +127,12 @@
     <Filter Include="14.CoreDB\00.WorldDB">
       <UniqueIdentifier>{75de028a-93ad-44af-add4-c2687f155a65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="15.CoreAccountManager">
+      <UniqueIdentifier>{967eeac4-f532-42f9-ae5c-6f9a77652c84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="15.CoreAccountManager\01.CoreAccount">
+      <UniqueIdentifier>{69ba66b2-747c-4d2d-b089-6362038a66bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -185,6 +191,12 @@
     </ClCompile>
     <ClCompile Include="WorldDB.cpp">
       <Filter>14.CoreDB\00.WorldDB</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreAccountManager.cpp">
+      <Filter>15.CoreAccountManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreAccount.cpp">
+      <Filter>15.CoreAccountManager\01.CoreAccount</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +358,12 @@
     </ClInclude>
     <ClInclude Include="WorldDB.h">
       <Filter>14.CoreDB\00.WorldDB</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreAccountManager.h">
+      <Filter>15.CoreAccountManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreAccount.h">
+      <Filter>15.CoreAccountManager\01.CoreAccount</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -117,6 +117,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CoreAccount.cpp" />
+    <ClCompile Include="CoreAccountManager.cpp" />
     <ClCompile Include="CoreClient.cpp" />
     <ClCompile Include="CoreConsoleLogger.cpp" />
     <ClCompile Include="CoreCSVLoader.cpp" />
@@ -138,6 +140,8 @@
     <ClCompile Include="WorldDB.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CoreAccount.h" />
+    <ClInclude Include="CoreAccountManager.h" />
     <ClInclude Include="CoreAlgorithm.h" />
     <ClInclude Include="CoreClient.h" />
     <ClInclude Include="CoreConsoleLogger.h" />

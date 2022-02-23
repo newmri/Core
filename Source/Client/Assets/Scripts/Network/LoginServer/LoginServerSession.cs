@@ -18,13 +18,12 @@ public class LoginServerSession : ServerSession
             LoginPacketQueue.Instance.Push(m, i);
         };
 
-        Managers.LoginNetwork.CheckLogin();
+        Managers.LoginNetwork.SendLogin();
     }
 
     public override void OnDisconnected(EndPoint endPoint)
     {
         base.OnDisconnected(endPoint);
-        Managers.LoginNetwork.IsLoginSuccess = false;
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)

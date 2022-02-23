@@ -4,14 +4,19 @@ class CoreSession
 {
 
 public:
-	CoreSession(boost::asio::ip::tcp::socket socket, const size_t oid);
+	CoreSession(boost::asio::ip::tcp::socket socket, const int64_t oid);
 	CoreSession(boost::asio::io_context& ioContext);
 	virtual ~CoreSession();
 
 public:
-	size_t GetOID(void);
-	void SetOID(const size_t oid);
+	int64_t GetOID(void);
+	void SetOID(const int64_t oid);
 
+public:
+	int64_t GetAccountID(void);
+	void SetAccountID(const int64_t accountID);
+
+public:
 	boost::asio::ip::tcp::socket& GetSocket(void);
 	bool IsConnected(void);
 
@@ -24,7 +29,8 @@ protected:
 	virtual void ReadBody(void) CORE_PURE;
 
 protected:
-	size_t oid;
+	int64_t oid = 0;
+	int64_t accountID = 0;
 
 protected:
 	boost::asio::ip::tcp::socket socket;

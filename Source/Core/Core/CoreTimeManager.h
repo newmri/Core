@@ -16,7 +16,8 @@ private:
 public:
 	TIME_VALUE GetNowSeconds(void) const;
 	TIME_VALUE GetNowMilliSeconds(void) const;
-	TIME_VALUE GetEndSeconds(TIME_VALUE limitTime) const;
+	TIME_VALUE GetEndSeconds(const TIME_VALUE limitTime) const;
+	bool IsExpired(const TIME_VALUE time) const;
 
 public:
 	void Start(void);

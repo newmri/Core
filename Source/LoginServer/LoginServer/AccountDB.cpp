@@ -15,21 +15,23 @@ void AccountDB::Release(void)
 {
 }
 
-bool AccountDB::Login(const int64_t uid, const int32_t token, int32_t& expireTime)
+bool AccountDB::Login(const int64_t uid, CoreToken& token)
 {
 	Prepare(L"Login");
 	BindArgument(uid);
-	BindArgument(token);
+	BindArgument(token.key);
 	Execute();
 
 	bool result = 0;
+	int32_t time = 0;
 
 	BindCol(&result, sizeof(result));
-	BindCol(&expireTime, sizeof(expireTime));
+	BindCol(&time, sizeof(time));
 
 	do
 	{
 		this->retCode = SQLFetch(this->hstmt);
+		token.expireTime = time;
 
 	} while (IsSuccess());
 

@@ -46,7 +46,7 @@ void CoreServer::Accept(void)
 			}
 			else
 			{
-				size_t oid = this->oid.fetch_add(1);
+				int64_t oid = this->oid.fetch_add(1);
 				std::string ip = socket.remote_endpoint().address().to_string();
 				CORE_LOG.Log(LogType::LOG_CONNECT, oid, "[ip]: " + ip);
 
@@ -66,12 +66,14 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 	if (session->IsConnected())
 	{
 		boost::asio::ip::tcp::socket& socket = session->GetSocket();
-		size_t oid = session->GetOID();
+		int64_t oid = session->GetOID();
 		std::string ip = socket.remote_endpoint().address().to_string();
 		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "[ip]: " + ip);
 
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 		socket.close();
+		
+		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountID());
 
 		WRITE_LOCK(this->mutex);
 		this->sessionList.erase(this->sessionList.find(oid));

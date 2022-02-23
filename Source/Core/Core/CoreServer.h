@@ -33,7 +33,7 @@ public:
 	virtual void ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size) CORE_PURE;
 
 protected:
-	std::atomic<size_t> oid = 0;
+	std::atomic<int64_t> oid = 0;
 
 protected:
 	boost::asio::io_context ioContext;
@@ -44,5 +44,5 @@ protected:
 
 protected:
 	std::shared_mutex mutex;
-	std::map<size_t, std::shared_ptr<CoreClientSession>> sessionList;
+	std::map<int64_t, std::shared_ptr<CoreClientSession>> sessionList;
 };
