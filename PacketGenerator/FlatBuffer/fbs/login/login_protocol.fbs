@@ -2,6 +2,13 @@ include "../common/define_protocol.fbs";
 
 namespace Login;
 
+enum ErrorCode : byte
+{
+  SUCCESS = 0,
+  UNKNOWN,
+  ALREADY_LOGINED
+}
+
 union Packet {
     CS_LOGIN_REQ,
     SC_LOGIN_RES,
@@ -14,7 +21,7 @@ table CS_LOGIN_REQ {
 }
 
 table SC_LOGIN_RES {
-    result:bool;
+    result:ErrorCode;
 }
 
 table CS_CHARACTER_CREATE_REQ {

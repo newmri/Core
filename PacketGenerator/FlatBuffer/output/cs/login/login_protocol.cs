@@ -9,6 +9,13 @@ using global::System;
 using global::System.Collections.Generic;
 using global::FlatBuffers;
 
+public enum ErrorCode : sbyte
+{
+  SUCCESS = 0,
+  UNKNOWN = 1,
+  ALREADY_LOGINED = 2,
+};
+
 public enum Packet : byte
 {
   NONE = 0,
@@ -58,17 +65,17 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_LOGIN_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public bool Result { get { int o = __p.__offset(4); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public Login.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (Login.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : Login.ErrorCode.SUCCESS; } }
 
   public static Offset<Login.SC_LOGIN_RES> CreateSC_LOGIN_RES(FlatBufferBuilder builder,
-      bool result = false) {
+      Login.ErrorCode result = Login.ErrorCode.SUCCESS) {
     builder.StartTable(1);
     SC_LOGIN_RES.AddResult(builder, result);
     return SC_LOGIN_RES.EndSC_LOGIN_RES(builder);
   }
 
   public static void StartSC_LOGIN_RES(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddResult(FlatBufferBuilder builder, bool result) { builder.AddBool(0, result, false); }
+  public static void AddResult(FlatBufferBuilder builder, Login.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
   public static Offset<Login.SC_LOGIN_RES> EndSC_LOGIN_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Login.SC_LOGIN_RES>(o);

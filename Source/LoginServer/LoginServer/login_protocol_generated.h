@@ -22,6 +22,39 @@ struct CS_CHARACTER_CREATE_REQBuilder;
 struct Root;
 struct RootBuilder;
 
+enum ErrorCode : int8_t {
+  ErrorCode_SUCCESS = 0,
+  ErrorCode_UNKNOWN = 1,
+  ErrorCode_ALREADY_LOGINED = 2,
+  ErrorCode_MIN = ErrorCode_SUCCESS,
+  ErrorCode_MAX = ErrorCode_ALREADY_LOGINED
+};
+
+inline const ErrorCode (&EnumValuesErrorCode())[3] {
+  static const ErrorCode values[] = {
+    ErrorCode_SUCCESS,
+    ErrorCode_UNKNOWN,
+    ErrorCode_ALREADY_LOGINED
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesErrorCode() {
+  static const char * const names[4] = {
+    "SUCCESS",
+    "UNKNOWN",
+    "ALREADY_LOGINED",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameErrorCode(ErrorCode e) {
+  if (flatbuffers::IsOutRange(e, ErrorCode_SUCCESS, ErrorCode_ALREADY_LOGINED)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesErrorCode()[index];
+}
+
 enum Packet : uint8_t {
   Packet_NONE = 0,
   Packet_CS_LOGIN_REQ = 1,
@@ -133,12 +166,12 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_RESULT = 4
   };
-  bool result() const {
-    return GetField<uint8_t>(VT_RESULT, 0) != 0;
+  Login::ErrorCode result() const {
+    return static_cast<Login::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_RESULT) &&
+           VerifyField<int8_t>(verifier, VT_RESULT) &&
            verifier.EndTable();
   }
 };
@@ -147,8 +180,8 @@ struct SC_LOGIN_RESBuilder {
   typedef SC_LOGIN_RES Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_result(bool result) {
-    fbb_.AddElement<uint8_t>(SC_LOGIN_RES::VT_RESULT, static_cast<uint8_t>(result), 0);
+  void add_result(Login::ErrorCode result) {
+    fbb_.AddElement<int8_t>(SC_LOGIN_RES::VT_RESULT, static_cast<int8_t>(result), 0);
   }
   explicit SC_LOGIN_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -163,7 +196,7 @@ struct SC_LOGIN_RESBuilder {
 
 inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
-    bool result = false) {
+    Login::ErrorCode result = Login::ErrorCode_SUCCESS) {
   SC_LOGIN_RESBuilder builder_(_fbb);
   builder_.add_result(result);
   return builder_.Finish();

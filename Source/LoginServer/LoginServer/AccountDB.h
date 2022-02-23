@@ -10,6 +10,6 @@ public:
 	virtual void Release(void) override;
 
 public:
-	bool Login(const int64_t uid, const int32_t token);
+	bool Login(const int64_t uid, const int32_t token, int32_t& expireTime);
 
 };

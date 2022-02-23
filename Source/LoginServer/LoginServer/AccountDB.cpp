@@ -15,7 +15,7 @@ void AccountDB::Release(void)
 {
 }
 
-bool AccountDB::Login(const int64_t uid, const int32_t token)
+bool AccountDB::Login(const int64_t uid, const int32_t token, int32_t& expireTime)
 {
 	Prepare(L"Login");
 	BindArgument(uid);
@@ -25,6 +25,7 @@ bool AccountDB::Login(const int64_t uid, const int32_t token)
 	bool result = 0;
 
 	BindCol(&result, sizeof(result));
+	BindCol(&expireTime, sizeof(expireTime));
 
 	do
 	{

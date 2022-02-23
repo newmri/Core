@@ -13,7 +13,17 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 {
 	auto raw = static_cast<const Login::CS_LOGIN_REQ*>(data);
 
-	bool result = LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), raw->token());
+	Login::ErrorCode result = Login::ErrorCode_SUCCESS;
+	int32_t expireTime = 0;
+
+	if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), raw->token(), expireTime))
+	{
+
+	}
+	else
+	{
+		result = Login::ErrorCode_UNKNOWN;
+	}
 
 	this->builder.Clear();
 	auto message = Login::CreateSC_LOGIN_RES(this->builder, result);
