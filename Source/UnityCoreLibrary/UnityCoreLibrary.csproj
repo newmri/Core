@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="XCOPY &quot;$(OutDir)\$(TargetName).dll&quot; &quot;../Client/Assets/Plugins&quot; /Y&#xD;&#xA;XCOPY &quot;Tools\InitProjectEditor.cs&quot; &quot;../Client/Assets/Editor&quot; /Y /I&#xD;&#xA;XCOPY &quot;Tools\VersionHelper.cs&quot; &quot;../Client/Assets/Editor&quot; /Y /I" />
+    <Exec Command="XCOPY &quot;$(OutDir)\$(TargetName).dll&quot; &quot;../Client/Assets/Plugins/*&quot; /Y&#xD;&#xA;XCOPY &quot;Tools\InitProjectEditor.cs&quot; &quot;../Client/Assets/Editor/*&quot; /Y /I&#xD;&#xA;XCOPY &quot;Tools\VersionHelper.cs&quot; &quot;../Client/Assets/Editor/*&quot; /Y /I" />
   </Target>
 
 </Project>
