@@ -8,81 +8,70 @@ namespace PacketGenerator
 {
 	class PacketFormatForCS
 	{
-		// {0} 패킷 등록
-		public static string managerFormat =
-@"using Google.Protobuf;
-using Google.Protobuf.Protocol;
-using ServerCore;
+        public static string FileName =
+@"{0}PacketManager.cs";
+        
+        public static string managerFormat =
+@"using UnityCoreLibrary;
+using FlatBuffers;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using {0};
 
-class PacketManager
+class {0}PacketManager
 {{
 	#region Singleton
-	static PacketManager _instance = new PacketManager();
-	public static PacketManager Instance {{ get {{ return _instance; }} }}
+	static {0}PacketManager _instance = new {0}PacketManager();
+	public static {0}PacketManager Instance {{ get {{ return _instance; }} }}
 	#endregion
 
-	PacketManager()
+	{0}PacketManager()
 	{{
 		Register();
 	}}
 
-	Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>>();
-	Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
-		
-	public Action<PacketSession, IMessage, ushort> CustomHandler {{ get; set; }}
+    Dictionary<Packet, Action<PacketSession, Root>> _handler = new Dictionary<Packet, Action<PacketSession, Root>>();
+
+    public Action<PacketSession, Packet, Root> CustomHandler {{ get; set; }}
 
 	public void Register()
-	{{{0}
-	}}
-
-	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
 	{{
-		ushort count = 0;
-
-		ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
-		count += 2;
-		ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
-		count += 2;
-
-		Action<PacketSession, ArraySegment<byte>, ushort> action = null;
-		if (_onRecv.TryGetValue(id, out action))
-			action.Invoke(session, buffer, id);
+        {1}
 	}}
 
-	void MakePacket<T>(PacketSession session, ArraySegment<byte> buffer, ushort id) where T : IMessage, new()
-	{{
-		T pkt = new T();
-		pkt.MergeFrom(buffer.Array, buffer.Offset + 4, buffer.Count - 4);
+    public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
+    {{
+        ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
 
-		if (CustomHandler != null)
-		{{
-			CustomHandler.Invoke(session, pkt, id);
-		}}
-		else
-		{{
-			Action<PacketSession, IMessage> action = null;
-			if (_handler.TryGetValue(id, out action))
-				action.Invoke(session, pkt);
-		}}
-	}}
+        byte[] recvBuffer = new byte[size];
+        Array.Copy(buffer.Array, PackeSize.HEADER_SIZE, recvBuffer, 0, size);
+        ByteBuffer byteBuffer = new ByteBuffer(recvBuffer);
 
-	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
-	{{
-		Action<PacketSession, IMessage> action = null;
-		if (_handler.TryGetValue(id, out action))
-			return action;
-		return null;
-	}}
+        Root root = Root.GetRootAsRoot(byteBuffer);
+
+        if (CustomHandler != null)
+        {{
+            CustomHandler.Invoke(session, root.PacketType, root);
+        }}
+        else
+        {{
+            Action<PacketSession, Root> action = null;
+            if (_handler.TryGetValue(root.PacketType, out action))
+                action.Invoke(session, root);
+        }}
+    }}
+
+    public Action<PacketSession, Root> GetPacketHandler(Packet id)
+    {{
+        Action<PacketSession, Root> action = null;
+        if (_handler.TryGetValue(id, out action))
+            return action;
+        return null;
+    }}
 }}";
 
-		// {0} MsgId
-		// {1} 패킷 이름
 		public static string managerRegisterFormat =
-@"		
-		_onRecv.Add((ushort)MsgId.{0}, MakePacket<{1}>);
-		_handler.Add((ushort)MsgId.{0}, PacketHandler.{1}Handler);";
-
+@"_handler.Add(Packet.{0}, {1}PacketHandler.{0});";
 	}
 }

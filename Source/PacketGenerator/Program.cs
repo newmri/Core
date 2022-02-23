@@ -10,9 +10,14 @@ namespace PacketGenerator
         static string serverRegister;
         static string clientRegister;
 
-        static string file = "../../../FlatBuffer/output/cpp/login/login_protocol_generated.h";
-        static string type = "server";
-        static string language = "cpp";
+        //static string file = "../../../../../PacketGenerator/output/cpp/login/login_protocol_generated.h";
+        //static string type = "server";
+        //static string language = "cpp";
+        //static string serverName = "login";
+
+        static string file = "../../../../../PacketGenerator/FlatBuffer/output/cs/login/login_protocol.cs";
+        static string type = "client";
+        static string language = "cs";
         static string serverName = "login";
 
         static void Main(string[] args)
@@ -44,11 +49,11 @@ namespace PacketGenerator
 
         public static void MakeServerPacketForCpp()
         {
-            string nameSpaceName = ParseNamespaceName(file);
+            string nameSpaceName = ParseNamespaceName();
 
             serverRegister += string.Format(PacketFormatForCpp.FunctionBasicFormat, nameSpaceName, "std::shared_ptr<CoreClientSession> session");
 
-            List<string> packetNames = ParsePacketName(file);
+            List<string> packetNames = ParsePacketName("Packet_NONE", "Packet_MIN");
             foreach (string packetName in packetNames)
             {
                 string[] funcNames = packetName.Trim().Split("Packet_");
@@ -73,11 +78,11 @@ namespace PacketGenerator
         }
         public static void MakeClientPacketForCpp()
         {
-            string nameSpaceName = ParseNamespaceName(file);
+            string nameSpaceName = ParseNamespaceName();
 
             clientRegister += string.Format(PacketFormatForCpp.FunctionBasicFormat, nameSpaceName, "CoreServerSession& session");
 
-            List<string> packetNames = ParsePacketName(file);
+            List<string> packetNames = ParsePacketName("Packet_NONE", "Packet_MIN");
             foreach (string packetName in packetNames)
             {
                 string[] funcNames = packetName.Trim().Split("Packet_");
@@ -99,10 +104,27 @@ namespace PacketGenerator
 
         public static void MakeClientPacketForCS()
         {
+            string nameSpaceName = ParseNamespaceName();
 
+            List<string> packetNames = ParsePacketName("NONE", "};");
+            foreach (string packetName in packetNames)
+            {
+                if (packetName.Contains("SC"))
+                    clientRegister += string.Format(PacketFormatForCS.managerRegisterFormat, packetName, nameSpaceName);
+            }
+
+            clientRegister = string.Format(PacketFormatForCS.managerFormat, nameSpaceName, clientRegister);
+
+            string fileName = string.Format(PacketFormatForCS.FileName, nameSpaceName);
+
+            string outPath = type + "/" + language + "/" + serverName;
+
+            CheckDirectoryAndCreate(outPath);
+
+            File.WriteAllText(outPath + "/" + fileName, clientRegister);
         }
 
-        static string ParseNamespaceName(string file)
+        static string ParseNamespaceName()
         {
             foreach (string line in File.ReadAllLines(file))
             {
@@ -118,7 +140,7 @@ namespace PacketGenerator
             return "";
         }
 
-        static List<string> ParsePacketName(string file)
+        static List<string> ParsePacketName(string start, string end)
         {
             bool isFoundStartPos = false;
             List<string> packetNames = new List<string>();
@@ -131,13 +153,13 @@ namespace PacketGenerator
                     if (names.Length == 0)
                         continue;
 
-                    if (names[0] == "Packet_MIN")
+                    if (names[0] == end)
                         return packetNames;
 
                     packetNames.Add(names[0]);
                 }
 
-                if (line.Contains("Packet_NONE"))
+                if (line.Contains(start))
                 {
                     isFoundStartPos = true;
                 }

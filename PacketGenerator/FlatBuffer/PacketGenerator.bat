@@ -29,10 +29,12 @@ call copy.bat %clientpath% cs\login
 rem copy PacketHandler
 
 START ../Binary/PacketGenerator.exe ../FlatBuffer/output/cpp/login/login_protocol_generated.h server cpp login
+START ../Binary/PacketGenerator.exe ../FlatBuffer/output/cs/login/login_protocol.cs client cs login
 
 XCOPY /Y server\cpp\login\LoginPacketHandler.h %serverpath%
 XCOPY /Y server\cpp\login\LoginPacketHandler.cpp %serverpath%
 
+XCOPY /Y client\cs\login\LoginPacketManager.cs %clientpath%
 
 endlocal
 
