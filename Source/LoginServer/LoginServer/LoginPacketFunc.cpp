@@ -64,10 +64,9 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 
 void LoginPacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 {
-	Login::ErrorCode result = Login::ErrorCode_UNKNOWN;
 	builder.Clear();
-	auto message = Login::CreateSC_LOGIN_RES(builder, result);
-	Write(session, Login::Packet_SC_LOGIN_RES, message.Union());
+	auto message = Login::CreateSC_PING_REQ(builder);
+	Write(session, Login::Packet_SC_PING_REQ, message.Union());
 
 	CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(std::bind(&CoreClientSession::CheckPingPongTime, session), SEC));
 }
