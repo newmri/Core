@@ -26,14 +26,18 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 			session->SetAccountID(raw->uid());
 
 			CORE_ACCOUNT_MANAGER.Add(raw->uid(), token);
-			CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(std::bind(&CoreClientSession::CheckPingPongTime, session), SEC));
-			
+
+			CORE_TIME_DELEGATE_MANAGER.Push(
+				CoreTimeDelegate<>(
+					std::bind(&CoreClientSession::CheckPingPongTime, session),
+					HALF_MIN));
+
 			result = Login::ErrorCode_SUCCESS;
 		}
 	}
 	else
 	{
-		if(account->IsLogined())
+		if (account->IsLogined())
 			result = Login::ErrorCode_ALREADY_LOGINED;
 
 		// 토큰 사용 기간이 지났음
@@ -46,8 +50,11 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 				account->SetLogin();
 				account->UpdateToken(token);
 
-				CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(std::bind(&CoreClientSession::CheckPingPongTime, session), SEC));
-				
+				CORE_TIME_DELEGATE_MANAGER.Push(
+					CoreTimeDelegate<>(
+						std::bind(&CoreClientSession::CheckPingPongTime, session),
+						HALF_MIN));
+
 				result = Login::ErrorCode_SUCCESS;
 			}
 		}
@@ -68,7 +75,10 @@ void LoginPacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 	auto message = Login::CreateSC_PING_REQ(builder);
 	Write(session, Login::Packet_SC_PING_REQ, message.Union());
 
-	CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(std::bind(&CoreClientSession::CheckPingPongTime, session), SEC));
+	CORE_TIME_DELEGATE_MANAGER.Push(
+		CoreTimeDelegate<>(
+			std::bind(&CoreClientSession::CheckPingPongTime, session),
+			HALF_MIN));
 }
 
 void LoginPacketFunc::CS_PING_RES(std::shared_ptr<CoreClientSession> session, const void* data)
