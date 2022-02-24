@@ -91,25 +91,71 @@ namespace ExcelToCSV
         private void ConvertAndSaveFile(Excel.Worksheet workSheet)
         {
             String directory = Path.GetDirectoryName(this.sourceFullPath);
-
-            directory += "\\" + Path.GetFileNameWithoutExtension(this.sourceFullPath);
             directory += "\\";
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(directory);
+            String serverDirectory = directory + "Server\\";
+            String clientDirectory = directory + "Client\\";
 
+            DirectoryInfo directoryInfo = new DirectoryInfo(serverDirectory);
             if (!directoryInfo.Exists)
                 directoryInfo.Create();
 
-            this.destFullPath = directory + workSheet.Name + this.destExtention;
+            directoryInfo = new DirectoryInfo(clientDirectory);
+            if (!directoryInfo.Exists)
+                directoryInfo.Create();
 
             if (checkDeleteColumnValue == workSheet.Range[checkDeleteColumnCell].Value2.ToString())
             {
                 workSheet.Columns[deleteColumn].Delete();
             }
 
-            ((Excel.Range)workSheet.Rows[deleteRow, Type.Missing]).Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
+            var destBook = excelApp.Workbooks.Add(1);
+            Excel.Worksheet destSheet = GetWorkSheet("Client", workSheet, destBook);
+            if(destSheet != null)
+                destSheet.SaveAs(serverDirectory + workSheet.Name + this.destExtention, Excel.XlFileFormat.xlCSV);
+            destBook.Close(false);
 
-            workSheet.SaveAs(this.destFullPath, Excel.XlFileFormat.xlCSV);
+            destBook = excelApp.Workbooks.Add(1);
+            destSheet = GetWorkSheet("Server", workSheet, destBook);
+            if (destSheet != null)
+                destSheet.SaveAs(clientDirectory + workSheet.Name + this.destExtention, Excel.XlFileFormat.xlCSV);
+            destBook.Close(false);
+        }
+
+        public Excel.Worksheet GetWorkSheet(string deleteName, Excel.Worksheet sourceSheet, Excel.Workbook destBook)
+        {
+            Excel.Range usedRange = sourceSheet.UsedRange;
+
+            List<int> deleteColumnList = new List<int>();
+
+            int originalColumnCount = usedRange.Rows[1].Columns.Count;
+            for (int i = 0; i < originalColumnCount; ++i)
+            {
+                string name = Convert.ToString(usedRange.Rows[1].Cells[1, i + 1].Value2);
+                if (name == deleteName)
+                    deleteColumnList.Add(i + 1);
+            }
+
+            if (originalColumnCount == deleteColumnList.Count)
+                return null;
+
+            sourceSheet.Copy(destBook.Sheets[1]);
+            var destSheet = destBook.Worksheets[1];
+
+            deleteColumnList.Reverse();
+            foreach (int deleteColumn in deleteColumnList)
+            {
+                destSheet.Columns[deleteColumn].Delete(Excel.XlDeleteShiftDirection.xlShiftToLeft);
+            }
+
+            ((Excel.Range)destSheet.Rows[1, Type.Missing]).Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
+
+            if (deleteName == "Client")
+                ((Excel.Range)destSheet.Rows[1, Type.Missing]).Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
+            else
+                ((Excel.Range)destSheet.Rows[2, Type.Missing]).Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
+
+            return destSheet;
         }
 
         private void ExcelToCSVButton_Click(object sender, RoutedEventArgs e)
@@ -163,7 +209,7 @@ namespace ExcelToCSV
         private String sourceExtention = ".xlsx";
         private String destExtention = ".csv";
 
-        private String sourceFullPath, destFullPath;
+        private String sourceFullPath;
 
         private String skipSheetName = "ForReference_";
 
@@ -171,10 +217,7 @@ namespace ExcelToCSV
         private String doneMessage;
 
         private String deleteColumn = "A";
-        private String checkDeleteColumnCell = "A1";
+        private String checkDeleteColumnCell = "A2";
         private String checkDeleteColumnValue = "Index";
-
-        private int deleteRow = 1;
-
     }
 }
