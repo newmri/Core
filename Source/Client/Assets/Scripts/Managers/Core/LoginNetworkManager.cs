@@ -12,7 +12,7 @@ public class LoginNetworkManager
     public long UID { get; set; }
     public int Token { get; set; }
 
-    LoginServerSession _session = new LoginServerSession;
+    LoginServerSession _session = new LoginServerSession();
 
     public void Send(FlatBufferBuilder packet)
     {
