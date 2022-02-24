@@ -14,6 +14,7 @@ public:
 
 public:
 	virtual void ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size) override;
+	virtual void SendPing(std::shared_ptr<CoreClientSession> session) override;
 
 private:
 	LoginPacketHandler* handler;

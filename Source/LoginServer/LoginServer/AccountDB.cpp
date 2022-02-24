@@ -3,7 +3,7 @@
 
 AccountDB::AccountDB(std::wstring_view dbName) : CoreDB(dbName)
 {
-
+	CORE_ACCOUNT_MANAGER.SetLogoutFunc(std::bind(&AccountDB::Logout, this, std::placeholders::_1));
 }
 
 AccountDB::~AccountDB()
@@ -38,4 +38,18 @@ bool AccountDB::Login(const int64_t uid, CoreToken& token)
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 
 	return result;
+}
+
+void AccountDB::Logout(const int64_t uid)
+{
+	Prepare(L"Logout");
+	BindArgument(uid);
+	Execute();
+
+	do
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	} while (IsSuccess());
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }

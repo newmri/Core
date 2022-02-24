@@ -16,5 +16,6 @@ void LoginPacketHandler::Handle(std::shared_ptr<CoreClientSession> session, cons
 void LoginPacketHandler::Register(void)
 {
     this->func[Login::Packet_CS_LOGIN_REQ] = &LoginPacketFunc::CS_LOGIN_REQ;
+    this->func[Login::Packet_CS_PING_RES] = &LoginPacketFunc::CS_PING_RES;
     this->func[Login::Packet_CS_CHARACTER_CREATE_REQ] = &LoginPacketFunc::CS_CHARACTER_CREATE_REQ;
 }

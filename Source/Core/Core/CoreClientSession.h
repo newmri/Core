@@ -20,6 +20,10 @@ private:
 private:
 	bool IsValidPacketSpeed(void);
 
+public:
+	void CheckPingPongTime(void);
+	void UpdatePingPongTime(void);
+
 private:
 	CoreServer* server;
 
@@ -27,5 +31,9 @@ private:
 	TIME_VALUE speedHackCheckTime = SEC;
 	TIME_VALUE prevPacketTime = 0;
 	size_t packetCount = 0;
-	size_t maxPacketCount = 10000;
+	size_t maxPacketCount = 10;
+
+private:
+	TIME_VALUE pingPongCheckTime = MIN;
+	TIME_VALUE prevPingPongTime = 0;
 };

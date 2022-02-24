@@ -21,7 +21,9 @@ public enum Packet : byte
   NONE = 0,
   CS_LOGIN_REQ = 1,
   SC_LOGIN_RES = 2,
-  CS_CHARACTER_CREATE_REQ = 3,
+  SC_PING_REQ = 3,
+  CS_PING_RES = 4,
+  CS_CHARACTER_CREATE_REQ = 5,
 };
 
 public struct CS_LOGIN_REQ : IFlatbufferObject
@@ -82,6 +84,42 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   }
 };
 
+public struct SC_PING_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_PING_REQ GetRootAsSC_PING_REQ(ByteBuffer _bb) { return GetRootAsSC_PING_REQ(_bb, new SC_PING_REQ()); }
+  public static SC_PING_REQ GetRootAsSC_PING_REQ(ByteBuffer _bb, SC_PING_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_PING_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+
+  public static void StartSC_PING_REQ(FlatBufferBuilder builder) { builder.StartTable(0); }
+  public static Offset<Login.SC_PING_REQ> EndSC_PING_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Login.SC_PING_REQ>(o);
+  }
+};
+
+public struct CS_PING_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_PING_RES GetRootAsCS_PING_RES(ByteBuffer _bb) { return GetRootAsCS_PING_RES(_bb, new CS_PING_RES()); }
+  public static CS_PING_RES GetRootAsCS_PING_RES(ByteBuffer _bb, CS_PING_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_PING_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+
+  public static void StartCS_PING_RES(FlatBufferBuilder builder) { builder.StartTable(0); }
+  public static Offset<Login.CS_PING_RES> EndCS_PING_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Login.CS_PING_RES>(o);
+  }
+};
+
 public struct CS_CHARACTER_CREATE_REQ : IFlatbufferObject
 {
   private Table __p;
@@ -133,6 +171,8 @@ public struct Root : IFlatbufferObject
   public TTable? Packet<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(6); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
   public Login.CS_LOGIN_REQ PacketAsCS_LOGIN_REQ() { return Packet<Login.CS_LOGIN_REQ>().Value; }
   public Login.SC_LOGIN_RES PacketAsSC_LOGIN_RES() { return Packet<Login.SC_LOGIN_RES>().Value; }
+  public Login.SC_PING_REQ PacketAsSC_PING_REQ() { return Packet<Login.SC_PING_REQ>().Value; }
+  public Login.CS_PING_RES PacketAsCS_PING_RES() { return Packet<Login.CS_PING_RES>().Value; }
   public Login.CS_CHARACTER_CREATE_REQ PacketAsCS_CHARACTER_CREATE_REQ() { return Packet<Login.CS_CHARACTER_CREATE_REQ>().Value; }
 
   public static Offset<Login.Root> CreateRoot(FlatBufferBuilder builder,

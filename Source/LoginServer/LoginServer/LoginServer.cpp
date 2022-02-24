@@ -31,3 +31,8 @@ void LoginServer::ProcessPacket(std::shared_ptr<CoreClientSession> session, cons
 		this->handler->Handle(session, root->packet_type(), root->packet());
 	}
 }
+
+void LoginServer::SendPing(std::shared_ptr<CoreClientSession> session)
+{
+	LoginPacketFunc::SC_PING_REQ(session);
+}

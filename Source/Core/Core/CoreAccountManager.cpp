@@ -37,4 +37,10 @@ void CoreAccountManager::SetLogout(const int64_t& uid)
 		return;
 
 	account->SetLogout();
+	this->logoutFunc(uid);
+}
+
+void CoreAccountManager::SetLogoutFunc(std::function<void(const int64_t)> func)
+{
+	this->logoutFunc = func;
 }

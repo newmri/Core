@@ -110,7 +110,10 @@ namespace PacketGenerator
             foreach (string packetName in packetNames)
             {
                 if (packetName.Contains("SC"))
+                {
+                    clientRegister += "\n       ";
                     clientRegister += string.Format(PacketFormatForCS.managerRegisterFormat, packetName, nameSpaceName);
+                }
             }
 
             clientRegister = string.Format(PacketFormatForCS.managerFormat, nameSpaceName, clientRegister);

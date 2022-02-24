@@ -36,8 +36,7 @@ class {0}PacketManager
     public Action<PacketSession, Packet, Root> CustomHandler {{ get; set; }}
 
 	public void Register()
-	{{
-        {1}
+	{{{1}
 	}}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

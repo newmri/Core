@@ -30,6 +30,11 @@ class LoginPacketHandler
             return;
         }
     }
+
+    public static void SC_PING_REQ(PacketSession session, Root packet)
+    {
+        Managers.LoginNetwork.SendPing();
+    }
 }
 
 

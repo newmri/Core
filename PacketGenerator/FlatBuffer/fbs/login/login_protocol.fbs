@@ -12,6 +12,8 @@ enum ErrorCode : byte
 union Packet {
     CS_LOGIN_REQ,
     SC_LOGIN_RES,
+    SC_PING_REQ,
+    CS_PING_RES,
     CS_CHARACTER_CREATE_REQ,
 }
 
@@ -22,6 +24,12 @@ table CS_LOGIN_REQ {
 
 table SC_LOGIN_RES {
     result:ErrorCode;
+}
+
+table SC_PING_REQ {
+}
+
+table CS_PING_RES {
 }
 
 table CS_CHARACTER_CREATE_REQ {

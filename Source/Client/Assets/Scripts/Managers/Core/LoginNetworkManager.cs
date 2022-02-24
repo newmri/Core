@@ -52,4 +52,14 @@ public class LoginNetworkManager
         builder.Finish(data.Value);
         Send(builder);
     }
+
+    public void SendPing()
+    {
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        Root.StartRoot(builder);
+        Root.AddPacketType(builder, Packet.CS_PING_RES);
+        var data = Root.EndRoot(builder);
+        builder.Finish(data.Value);
+        Send(builder);
+    }
 }

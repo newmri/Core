@@ -5,6 +5,7 @@
 using TIME_POINT = std::chrono::system_clock::time_point;
 using TIME_VALUE = long long;
 static constexpr TIME_VALUE SEC = 1000;
+static constexpr TIME_VALUE MIN = SEC * 60;
 
 class CoreTimeManager
 {

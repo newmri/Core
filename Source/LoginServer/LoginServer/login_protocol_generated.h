@@ -16,6 +16,12 @@ struct CS_LOGIN_REQBuilder;
 struct SC_LOGIN_RES;
 struct SC_LOGIN_RESBuilder;
 
+struct SC_PING_REQ;
+struct SC_PING_REQBuilder;
+
+struct CS_PING_RES;
+struct CS_PING_RESBuilder;
+
 struct CS_CHARACTER_CREATE_REQ;
 struct CS_CHARACTER_CREATE_REQBuilder;
 
@@ -59,26 +65,32 @@ enum Packet : uint8_t {
   Packet_NONE = 0,
   Packet_CS_LOGIN_REQ = 1,
   Packet_SC_LOGIN_RES = 2,
-  Packet_CS_CHARACTER_CREATE_REQ = 3,
+  Packet_SC_PING_REQ = 3,
+  Packet_CS_PING_RES = 4,
+  Packet_CS_CHARACTER_CREATE_REQ = 5,
   Packet_MIN = Packet_NONE,
   Packet_MAX = Packet_CS_CHARACTER_CREATE_REQ
 };
 
-inline const Packet (&EnumValuesPacket())[4] {
+inline const Packet (&EnumValuesPacket())[6] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
     Packet_SC_LOGIN_RES,
+    Packet_SC_PING_REQ,
+    Packet_CS_PING_RES,
     Packet_CS_CHARACTER_CREATE_REQ
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[5] = {
+  static const char * const names[7] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
+    "SC_PING_REQ",
+    "CS_PING_RES",
     "CS_CHARACTER_CREATE_REQ",
     nullptr
   };
@@ -101,6 +113,14 @@ template<> struct PacketTraits<Login::CS_LOGIN_REQ> {
 
 template<> struct PacketTraits<Login::SC_LOGIN_RES> {
   static const Packet enum_value = Packet_SC_LOGIN_RES;
+};
+
+template<> struct PacketTraits<Login::SC_PING_REQ> {
+  static const Packet enum_value = Packet_SC_PING_REQ;
+};
+
+template<> struct PacketTraits<Login::CS_PING_RES> {
+  static const Packet enum_value = Packet_CS_PING_RES;
 };
 
 template<> struct PacketTraits<Login::CS_CHARACTER_CREATE_REQ> {
@@ -202,6 +222,64 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
   return builder_.Finish();
 }
 
+struct SC_PING_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_PING_REQBuilder Builder;
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           verifier.EndTable();
+  }
+};
+
+struct SC_PING_REQBuilder {
+  typedef SC_PING_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  explicit SC_PING_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_PING_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_PING_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_PING_REQ> CreateSC_PING_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb) {
+  SC_PING_REQBuilder builder_(_fbb);
+  return builder_.Finish();
+}
+
+struct CS_PING_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_PING_RESBuilder Builder;
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           verifier.EndTable();
+  }
+};
+
+struct CS_PING_RESBuilder {
+  typedef CS_PING_RES Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  explicit CS_PING_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_PING_RES> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_PING_RES>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_PING_RES> CreateCS_PING_RES(
+    flatbuffers::FlatBufferBuilder &_fbb) {
+  CS_PING_RESBuilder builder_(_fbb);
+  return builder_.Finish();
+}
+
 struct CS_CHARACTER_CREATE_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef CS_CHARACTER_CREATE_REQBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -284,6 +362,12 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const Login::SC_LOGIN_RES *packet_as_SC_LOGIN_RES() const {
     return packet_type() == Login::Packet_SC_LOGIN_RES ? static_cast<const Login::SC_LOGIN_RES *>(packet()) : nullptr;
   }
+  const Login::SC_PING_REQ *packet_as_SC_PING_REQ() const {
+    return packet_type() == Login::Packet_SC_PING_REQ ? static_cast<const Login::SC_PING_REQ *>(packet()) : nullptr;
+  }
+  const Login::CS_PING_RES *packet_as_CS_PING_RES() const {
+    return packet_type() == Login::Packet_CS_PING_RES ? static_cast<const Login::CS_PING_RES *>(packet()) : nullptr;
+  }
   const Login::CS_CHARACTER_CREATE_REQ *packet_as_CS_CHARACTER_CREATE_REQ() const {
     return packet_type() == Login::Packet_CS_CHARACTER_CREATE_REQ ? static_cast<const Login::CS_CHARACTER_CREATE_REQ *>(packet()) : nullptr;
   }
@@ -302,6 +386,14 @@ template<> inline const Login::CS_LOGIN_REQ *Root::packet_as<Login::CS_LOGIN_REQ
 
 template<> inline const Login::SC_LOGIN_RES *Root::packet_as<Login::SC_LOGIN_RES>() const {
   return packet_as_SC_LOGIN_RES();
+}
+
+template<> inline const Login::SC_PING_REQ *Root::packet_as<Login::SC_PING_REQ>() const {
+  return packet_as_SC_PING_REQ();
+}
+
+template<> inline const Login::CS_PING_RES *Root::packet_as<Login::CS_PING_RES>() const {
+  return packet_as_CS_PING_RES();
 }
 
 template<> inline const Login::CS_CHARACTER_CREATE_REQ *Root::packet_as<Login::CS_CHARACTER_CREATE_REQ>() const {
@@ -350,6 +442,14 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
     }
     case Packet_SC_LOGIN_RES: {
       auto ptr = reinterpret_cast<const Login::SC_LOGIN_RES *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_SC_PING_REQ: {
+      auto ptr = reinterpret_cast<const Login::SC_PING_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_CS_PING_RES: {
+      auto ptr = reinterpret_cast<const Login::CS_PING_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case Packet_CS_CHARACTER_CREATE_REQ: {

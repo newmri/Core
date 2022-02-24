@@ -116,3 +116,29 @@ bool CoreClientSession::IsValidPacketSpeed(void)
 
 	return true;
 }
+
+void CoreClientSession::CheckPingPongTime(void)
+{
+	if (IS_SAME(0, this->prevPingPongTime))
+	{
+		UpdatePingPongTime();
+		this->server->SendPing(shared_from_this());
+		return;
+	}
+
+	TIME_VALUE now = CORE_TIME_MANAGER.GetNowMilliSeconds();
+	TIME_VALUE timeDiff = now - this->prevPingPongTime;
+
+	if (this->pingPongCheckTime < timeDiff)
+	{
+		server->Close(shared_from_this());
+		return;
+	}
+
+	this->server->SendPing(shared_from_this());
+}
+
+void CoreClientSession::UpdatePingPongTime(void)
+{
+	this->prevPingPongTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
+}
