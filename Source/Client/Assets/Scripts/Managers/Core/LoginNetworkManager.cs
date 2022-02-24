@@ -12,7 +12,7 @@ public class LoginNetworkManager
     public long UID { get; set; }
     public int Token { get; set; }
 
-    LoginServerSession _session;
+    LoginServerSession _session = new LoginServerSession;
 
     public void Send(FlatBufferBuilder packet)
     {
@@ -21,8 +21,6 @@ public class LoginNetworkManager
 
     public void Conntect(ServerInfo info)
     {
-        _session = new LoginServerSession();
-
         IPAddress ipAddr = IPAddress.Parse(info.ServerIP);
         IPEndPoint endPoint = new IPEndPoint(ipAddr, info.ServerPort);
 

@@ -27,7 +27,9 @@ namespace UnityCoreLibrary
                     break;
 
                 // 패킷이 완전체로 도착했는지 확인
-                ushort dataSize = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+                ushort bodySize = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+                ushort dataSize = (ushort)(bodySize + PackeSize.HEADER_SIZE);
+
                 if (buffer.Count < dataSize)
                     break;
 
@@ -36,6 +38,7 @@ namespace UnityCoreLibrary
                 packetCount++;
 
                 processLen += dataSize;
+
                 buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize);
             }
 
