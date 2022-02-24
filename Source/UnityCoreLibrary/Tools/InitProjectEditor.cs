@@ -56,6 +56,7 @@ namespace UnityCoreLibrary.Init
         }
 	}
 
+	[System.Obsolete]
 	private static void CreateEventSystem()
 	{
 	    GameObject go = new GameObject("EventSystem");
@@ -65,6 +66,7 @@ namespace UnityCoreLibrary.Init
 		GameObject.DestroyImmediate(go);
 	}
 
+	[System.Obsolete]
 	private static void CreateNewPrefab(GameObject obj, string path, string name)
     {
         CreateFolder(path);

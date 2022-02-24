@@ -9,6 +9,7 @@ class LoginPacketHandler
 {
     public static void SC_LOGIN_RES(PacketSession session, Root packet)
     {
+        Debug.Log("l");
         SC_LOGIN_RES loginRes = packet.PacketAsSC_LOGIN_RES();
         if (ErrorCode.SUCCESS != loginRes.Result)
         {
@@ -33,6 +34,7 @@ class LoginPacketHandler
 
     public static void SC_PING_REQ(PacketSession session, Root packet)
     {
+        Debug.Log("ping");
         Managers.LoginNetwork.SendPing();
     }
 }
