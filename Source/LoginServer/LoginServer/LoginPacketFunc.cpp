@@ -96,3 +96,8 @@ void LoginPacketFunc::CS_PING_RES(std::shared_ptr<CoreClientSession> session, co
 {
 	session->UpdatePingPongTime();
 }
+
+void LoginPacketFunc::CS_LOGOUT_NOTI(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	LOGIN_SERVER.Close(session);
+}

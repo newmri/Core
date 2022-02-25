@@ -55,3 +55,8 @@ void LoginServerManager::MakeAccountDB(void)
 	std::string dbName = ENUM_TO_STR(Account);
 	this->accountDB = std::make_shared<AccountDB>(STRING_MANAGER.Widen(ENUM_TO_STR(Account)));
 }
+
+void LoginServerManager::Close(std::shared_ptr<CoreClientSession> session)
+{
+	this->loginServer->Close(session);
+}

@@ -77,6 +77,18 @@ public class UIManager
         return sceneUI;
     }
 
+    public void HideCurrentSceneUI()
+    {
+        if (_sceneUI)
+            _sceneUI.gameObject.SetActive(false);
+    }
+
+    public void ShowCurrentSceneUI()
+    {
+        if (_sceneUI)
+            _sceneUI.gameObject.SetActive(true);
+    }
+
     public T MakeWorldSpaceUI<T>(string name = null, Transform parent = null) where T : UIBase
     {
         if (name == null)

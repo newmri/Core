@@ -54,29 +54,10 @@ public class UILoginPopup : UIPopup
         if (!AccountDefine.IsValidAccount(id, password))
             return;
 
-        LoginAccountPacketReq packet = new LoginAccountPacketReq()
-        {
-            ID = id,
-            Password = password
-        };
-
-        Managers.Web.SendPostRequest<LoginAccountPacketRes>("login", packet, (res) =>
-        {
-            ClearText();
-
-
-            if (res.IsSuccess)
-            {
-                Managers.LoginNetwork.UID = res.UID;
-                Managers.LoginNetwork.Token = res.Token;
-                Managers.UI.ShowPopupUI<UIWorldListPopup>().SetWorldList(res.WorldList);
-            }
-            else
-            {
-                UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
-                messagePopup.SetText("로그인 실패", "아이디 또는 비밀번호가 틀렸습니다\n 다시 입력해주세요");
-            }
-        });
+        Managers.LoginNetwork.ID = id;
+        Managers.LoginNetwork.Password = password;
+        Managers.LoginNetwork.WorldListServerLogin();
+        ClearText();
     }
 
     public void ClearText()

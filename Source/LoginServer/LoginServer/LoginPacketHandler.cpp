@@ -17,4 +17,5 @@ void LoginPacketHandler::Register(void)
 {
     this->func[Login::Packet_CS_LOGIN_REQ] = &LoginPacketFunc::CS_LOGIN_REQ;
     this->func[Login::Packet_CS_PING_RES] = &LoginPacketFunc::CS_PING_RES;
+    this->func[Login::Packet_CS_LOGOUT_NOTI] = &LoginPacketFunc::CS_LOGOUT_NOTI;
 }

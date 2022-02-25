@@ -17,6 +17,9 @@ private:
 	void MakeWorldDB(void);
 	void MakeAccountDB(void);
 
+public:
+	void Close(std::shared_ptr<CoreClientSession> session);
+
 private:
 	std::unique_ptr<LoginServer> loginServer;
 

@@ -25,6 +25,9 @@ struct SC_PING_REQBuilder;
 struct CS_PING_RES;
 struct CS_PING_RESBuilder;
 
+struct CS_LOGOUT_NOTI;
+struct CS_LOGOUT_NOTIBuilder;
+
 struct Root;
 struct RootBuilder;
 
@@ -67,35 +70,38 @@ enum Packet : uint8_t {
   Packet_SC_LOGIN_RES = 2,
   Packet_SC_PING_REQ = 3,
   Packet_CS_PING_RES = 4,
+  Packet_CS_LOGOUT_NOTI = 5,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_CS_PING_RES
+  Packet_MAX = Packet_CS_LOGOUT_NOTI
 };
 
-inline const Packet (&EnumValuesPacket())[5] {
+inline const Packet (&EnumValuesPacket())[6] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
     Packet_SC_LOGIN_RES,
     Packet_SC_PING_REQ,
-    Packet_CS_PING_RES
+    Packet_CS_PING_RES,
+    Packet_CS_LOGOUT_NOTI
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[6] = {
+  static const char * const names[7] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
     "SC_PING_REQ",
     "CS_PING_RES",
+    "CS_LOGOUT_NOTI",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_CS_PING_RES)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_CS_LOGOUT_NOTI)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -118,6 +124,10 @@ template<> struct PacketTraits<Login::SC_PING_REQ> {
 
 template<> struct PacketTraits<Login::CS_PING_RES> {
   static const Packet enum_value = Packet_CS_PING_RES;
+};
+
+template<> struct PacketTraits<Login::CS_LOGOUT_NOTI> {
+  static const Packet enum_value = Packet_CS_LOGOUT_NOTI;
 };
 
 bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packet type);
@@ -407,6 +417,35 @@ inline flatbuffers::Offset<CS_PING_RES> CreateCS_PING_RES(
   return builder_.Finish();
 }
 
+struct CS_LOGOUT_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_LOGOUT_NOTIBuilder Builder;
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           verifier.EndTable();
+  }
+};
+
+struct CS_LOGOUT_NOTIBuilder {
+  typedef CS_LOGOUT_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  explicit CS_LOGOUT_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_LOGOUT_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_LOGOUT_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb) {
+  CS_LOGOUT_NOTIBuilder builder_(_fbb);
+  return builder_.Finish();
+}
+
 struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef RootBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -432,6 +471,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const Login::CS_PING_RES *packet_as_CS_PING_RES() const {
     return packet_type() == Login::Packet_CS_PING_RES ? static_cast<const Login::CS_PING_RES *>(packet()) : nullptr;
   }
+  const Login::CS_LOGOUT_NOTI *packet_as_CS_LOGOUT_NOTI() const {
+    return packet_type() == Login::Packet_CS_LOGOUT_NOTI ? static_cast<const Login::CS_LOGOUT_NOTI *>(packet()) : nullptr;
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_PACKET_TYPE) &&
@@ -455,6 +497,10 @@ template<> inline const Login::SC_PING_REQ *Root::packet_as<Login::SC_PING_REQ>(
 
 template<> inline const Login::CS_PING_RES *Root::packet_as<Login::CS_PING_RES>() const {
   return packet_as_CS_PING_RES();
+}
+
+template<> inline const Login::CS_LOGOUT_NOTI *Root::packet_as<Login::CS_LOGOUT_NOTI>() const {
+  return packet_as_CS_LOGOUT_NOTI();
 }
 
 struct RootBuilder {
@@ -507,6 +553,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
     }
     case Packet_CS_PING_RES: {
       auto ptr = reinterpret_cast<const Login::CS_PING_RES *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_CS_LOGOUT_NOTI: {
+      auto ptr = reinterpret_cast<const Login::CS_LOGOUT_NOTI *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;

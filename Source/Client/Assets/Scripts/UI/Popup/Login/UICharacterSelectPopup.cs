@@ -51,8 +51,11 @@ public class UICharacterSelectPopup : UIPopup
         _lockList.Add(go.GetOrAddComponent<UICharacterLockSlot>());
     }
 
+    [System.Obsolete]
     public void OnClickBackButton(PointerEventData evt)
     {
-        Managers.UI.ClosePopupUI();
+        Managers.UI.HideCurrentSceneUI();
+        Managers.UI.CloseAllPopupUI();
+        Managers.LoginNetwork.WorldListServerLogin();
     }
 }

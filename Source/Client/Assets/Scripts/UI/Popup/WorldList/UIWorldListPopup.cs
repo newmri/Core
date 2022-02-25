@@ -24,6 +24,8 @@ public class UIWorldListPopup : UIPopup
 
         GetButton((int)Buttons.LoginButton).gameObject.BindEvent(OnClickLoginButton);
         GetButton((int)Buttons.CloseButton).gameObject.BindEvent(OnClickCloseButton);
+
+        Managers.UI.ShowCurrentSceneUI();
     }
 
     public void SetWorldList(List<WorldListInfo> worldListInfos)

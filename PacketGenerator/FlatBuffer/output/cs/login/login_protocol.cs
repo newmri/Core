@@ -23,6 +23,7 @@ public enum Packet : byte
   SC_LOGIN_RES = 2,
   SC_PING_REQ = 3,
   CS_PING_RES = 4,
+  CS_LOGOUT_NOTI = 5,
 };
 
 public struct CS_LOGIN_REQ : IFlatbufferObject
@@ -180,6 +181,24 @@ public struct CS_PING_RES : IFlatbufferObject
   }
 };
 
+public struct CS_LOGOUT_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_LOGOUT_NOTI GetRootAsCS_LOGOUT_NOTI(ByteBuffer _bb) { return GetRootAsCS_LOGOUT_NOTI(_bb, new CS_LOGOUT_NOTI()); }
+  public static CS_LOGOUT_NOTI GetRootAsCS_LOGOUT_NOTI(ByteBuffer _bb, CS_LOGOUT_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_LOGOUT_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+
+  public static void StartCS_LOGOUT_NOTI(FlatBufferBuilder builder) { builder.StartTable(0); }
+  public static Offset<Login.CS_LOGOUT_NOTI> EndCS_LOGOUT_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Login.CS_LOGOUT_NOTI>(o);
+  }
+};
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -196,6 +215,7 @@ public struct Root : IFlatbufferObject
   public Login.SC_LOGIN_RES PacketAsSC_LOGIN_RES() { return Packet<Login.SC_LOGIN_RES>().Value; }
   public Login.SC_PING_REQ PacketAsSC_PING_REQ() { return Packet<Login.SC_PING_REQ>().Value; }
   public Login.CS_PING_RES PacketAsCS_PING_RES() { return Packet<Login.CS_PING_RES>().Value; }
+  public Login.CS_LOGOUT_NOTI PacketAsCS_LOGOUT_NOTI() { return Packet<Login.CS_LOGOUT_NOTI>().Value; }
 
   public static Offset<Login.Root> CreateRoot(FlatBufferBuilder builder,
       Login.Packet packet_type = Login.Packet.NONE,

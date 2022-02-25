@@ -12,6 +12,8 @@ public class LoginNetworkManager
 {
     public long UID { get; set; }
     public int Token { get; set; }
+    public string ID { get; set; }
+    public string Password { get; set; }
 
     LoginServerSession _session = new LoginServerSession();
 
@@ -24,8 +26,11 @@ public class LoginNetworkManager
     {
         if (_session.IsConnected)
         {
+            Managers.LoginNetwork.Send(Packet.CS_LOGOUT_NOTI);
+            Thread.Sleep(100);
             _session.Disconnect();
-            Thread.Sleep(1000);
+            _session = new LoginServerSession();
+            Thread.Sleep(100);
         }
 
         IPAddress ipAddr = IPAddress.Parse(info.ServerIP);
@@ -49,6 +54,32 @@ public class LoginNetworkManager
         }
     }
 
+    [Obsolete]
+    public void WorldListServerLogin()
+    {
+        LoginAccountPacketReq packet = new LoginAccountPacketReq()
+        {
+            ID = ID,
+            Password = Password
+        };
+
+        Managers.Web.SendPostRequest<LoginAccountPacketRes>("login", packet, (res) =>
+        {
+            if (res.IsSuccess)
+            {
+                Managers.LoginNetwork.UID = res.UID;
+                Managers.LoginNetwork.Token = res.Token;
+                Managers.UI.ShowCurrentSceneUI();
+                Managers.UI.ShowPopupUI<UIWorldListPopup>().SetWorldList(res.WorldList);
+            }
+            else
+            {
+                UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+                messagePopup.SetText("로그인 실패", "아이디 또는 비밀번호가 틀렸습니다\n 다시 입력해주세요");
+            }
+        });
+    }
+
     public void SendLogin()
     {
         FlatBufferBuilder builder = new FlatBufferBuilder(1);
@@ -58,11 +89,11 @@ public class LoginNetworkManager
         Send(builder);
     }
 
-    public void SendPing()
+    public void Send(Packet message)
     {
         FlatBufferBuilder builder = new FlatBufferBuilder(1);
         Root.StartRoot(builder);
-        Root.AddPacketType(builder, Packet.CS_PING_RES);
+        Root.AddPacketType(builder, message);
         var data = Root.EndRoot(builder);
         builder.Finish(data.Value);
         Send(builder);

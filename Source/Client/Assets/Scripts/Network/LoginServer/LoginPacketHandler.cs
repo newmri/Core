@@ -37,7 +37,7 @@ class LoginPacketHandler
     public static void SC_PING_REQ(PacketSession session, Root packet)
     {
         Debug.Log("PingCheck");
-        Managers.LoginNetwork.SendPing();
+        Managers.LoginNetwork.Send(Packet.CS_PING_RES);
     }
 }
 

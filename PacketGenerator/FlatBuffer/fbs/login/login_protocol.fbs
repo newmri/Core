@@ -14,6 +14,7 @@ union Packet {
     SC_LOGIN_RES,
     SC_PING_REQ,
     CS_PING_RES,
+    CS_LOGOUT_NOTI,
 }
 
 table CS_LOGIN_REQ {
@@ -39,6 +40,9 @@ table SC_PING_REQ {
 }
 
 table CS_PING_RES {
+}
+
+table CS_LOGOUT_NOTI {
 }
 
 table Root {
