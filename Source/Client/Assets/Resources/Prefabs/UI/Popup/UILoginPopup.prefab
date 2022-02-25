@@ -2359,7 +2359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 72680140240308399}
-  - component: {fileID: 8738015333786852862}
+  - component: {fileID: 7267091169971885503}
   m_Layer: 5
   m_Name: UILoginPopup
   m_TagString: Untagged
@@ -2388,7 +2388,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8738015333786852862
+--- !u!114 &7267091169971885503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2397,7 +2397,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 72680140240308392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05a8520d0f89aa74ca1dcbc36fe0a7ab, type: 3}
+  m_Script: {fileID: 11500000, guid: b249cb79b4811684c8f3109b44d6d537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &72680140308618023

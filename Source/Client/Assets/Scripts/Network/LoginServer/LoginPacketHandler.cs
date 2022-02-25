@@ -9,7 +9,6 @@ class LoginPacketHandler
 {
     public static void SC_LOGIN_RES(PacketSession session, Root packet)
     {
-        Debug.Log("l");
         SC_LOGIN_RES loginRes = packet.PacketAsSC_LOGIN_RES();
         if (ErrorCode.SUCCESS != loginRes.Result)
         {
@@ -30,11 +29,14 @@ class LoginPacketHandler
             session.Disconnect();
             return;
         }
+
+        UICharacterSelectPopup popUp = Managers.UI.ShowPopupUI<UICharacterSelectPopup>();
+        popUp.SetSlot(loginRes.EmptySlotCount, (byte)(loginRes.MaxSlotCount - loginRes.EmptySlotCount));
     }
 
     public static void SC_PING_REQ(PacketSession session, Root packet)
     {
-        Debug.Log("ping");
+        Debug.Log("PingCheck");
         Managers.LoginNetwork.SendPing();
     }
 }

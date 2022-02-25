@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityCoreLibrary;
 using FlatBuffers;
 using Login;
+using System.Threading;
 
 public class LoginNetworkManager
 {
@@ -21,6 +22,12 @@ public class LoginNetworkManager
 
     public void Conntect(ServerInfo info)
     {
+        if (_session.IsConnected)
+        {
+            _session.Disconnect();
+            Thread.Sleep(1000);
+        }
+
         IPAddress ipAddr = IPAddress.Parse(info.ServerIP);
         IPEndPoint endPoint = new IPEndPoint(ipAddr, info.ServerPort);
 

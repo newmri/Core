@@ -87,5 +87,23 @@ namespace UnityCoreLibrary
                     break;
             }
         }
+
+        public GameObject GetEmptyGridLayoutGroup()
+        {
+            GameObject grid = GetComponentInChildren<GridLayoutGroup>().gameObject;
+            foreach (Transform child in grid.transform)
+                Destroy(child.gameObject);
+
+            return grid;
+        }
+
+        public GameObject GetHorizontalLayoutGroup()
+        {
+            GameObject grid = GetComponentInChildren<HorizontalLayoutGroup>().gameObject;
+            foreach (Transform child in grid.transform)
+                Destroy(child.gameObject);
+
+            return grid;
+        }
     }
 }

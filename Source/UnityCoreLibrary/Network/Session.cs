@@ -51,6 +51,18 @@ namespace UnityCoreLibrary
     public abstract class Session
     {
         Socket _socket;
+
+        public bool IsConnected
+        {
+            get
+            {
+                if (null == _socket)
+                    return false;
+
+                return _socket.Connected; 
+            }        
+        }
+
         int _disconnected = 0;
 
         RecvBuffer _recvBuffer = new RecvBuffer(65535);

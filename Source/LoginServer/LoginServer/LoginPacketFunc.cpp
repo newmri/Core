@@ -65,7 +65,18 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	}
 
 	this->builder.Clear();
-	auto message = Login::CreateSC_LOGIN_RES(this->builder, result);
+
+	flatbuffers::Offset<Login::SC_LOGIN_RES> message;
+
+	// 성공
+	if (IS_SAME(Login::ErrorCode_SUCCESS, result))
+	{
+		message = Login::CreateSC_LOGIN_RES(this->builder, result, 5, 2);
+	}
+	// 실패
+	else
+		message = Login::CreateSC_LOGIN_RES(this->builder, result);
+	
 	Write(session, Login::Packet_SC_LOGIN_RES, message.Union());
 }
 
@@ -84,9 +95,4 @@ void LoginPacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 void LoginPacketFunc::CS_PING_RES(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	session->UpdatePingPongTime();
-}
-
-void LoginPacketFunc::CS_CHARACTER_CREATE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
-{
-	auto raw = static_cast<const Login::CS_CHARACTER_CREATE_REQ*>(data);
 }

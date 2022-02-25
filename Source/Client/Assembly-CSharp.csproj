@@ -65,7 +65,6 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\CharacterAnimator.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UIWorldListPopup.cs" />
     <Compile Include="Assets\Scripts\Network\LoginServer\LoginPacketQueue.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Scripts\UI\Scene\UITitleScene.cs" />
@@ -78,13 +77,10 @@
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterVariation.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Scripts\PanelFantasyRPG.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UIWorldListPopupInfo.cs" />
     <Compile Include="Assets\Scripts\Web\WebPacket.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UINetworkErrorPopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Network\ServerInfo.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UILoginPopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Scripts\Network\LoginServer\LoginPacketManager.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\Demo.cs" />
@@ -132,11 +128,18 @@
     <Compile Include="Assets\Scripts\Defines\AccountDefine.cs" />
     <Compile Include="Assets\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UISignupPopup.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\UIMessagePopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterSelectPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Message\UIMessagePopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\WorldList\UIWorldListPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Message\UINetworkErrorPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Login\UILoginPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\WorldList\UISignupPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\WorldList\UIWorldListPopupInfo.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterEmptySlot.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterLockSlot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

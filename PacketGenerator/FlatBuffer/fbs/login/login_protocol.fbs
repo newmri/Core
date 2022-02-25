@@ -14,7 +14,6 @@ union Packet {
     SC_LOGIN_RES,
     SC_PING_REQ,
     CS_PING_RES,
-    CS_CHARACTER_CREATE_REQ,
 }
 
 table CS_LOGIN_REQ {
@@ -22,19 +21,24 @@ table CS_LOGIN_REQ {
     token:int32;
 }
 
+table CHARACTER_INFO {
+    uid:int64;
+    name:string;
+    level:ubyte;
+    job:Define.Job;
+}
+
 table SC_LOGIN_RES {
     result:ErrorCode;
+    max_slot_count:ubyte;
+    empty_slot_count:ubyte;
+    character_info:[CHARACTER_INFO];
 }
 
 table SC_PING_REQ {
 }
 
 table CS_PING_RES {
-}
-
-table CS_CHARACTER_CREATE_REQ {
-    name:string;
-    job:Define.Job;
 }
 
 table Root {
