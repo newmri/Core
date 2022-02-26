@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UIJobExplain : UIPopup
+public class UIJobInfo : UIPopup
 {
     [SerializeField]
     Define.Job _job;
@@ -24,11 +24,22 @@ public class UIJobExplain : UIPopup
         JobExplain
     }
 
+    enum GameObjects
+    {
+        HP,
+        MP,
+        Damage,
+        MagicDamage,
+        Defence,
+        MagicDefence
+    }
+
     public override void Init()
     {
         base.Init();
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
+        Bind<GameObject>(typeof(GameObjects));
 
         gameObject.SetActive(false);
     }
@@ -37,14 +48,25 @@ public class UIJobExplain : UIPopup
     {
         _job = job;
 
+        SetExplain();
+
+        gameObject.SetActive(true);
+    }
+
+    private void SetExplain()
+    {
         Sprite jobIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{_job.ToString()}Icon");
         GetImage((int)Images.Icon).sprite = jobIcon;
 
-        this.GetTextMesh((int)TextMeshProUGUIs.JobText).text = 
+        this.GetTextMesh((int)TextMeshProUGUIs.JobText).text =
             Managers.LoginData.GetJobExplain(_job, "Name").ToString();
-        this.GetTextMesh((int)TextMeshProUGUIs.JobExplain).text = 
+        this.GetTextMesh((int)TextMeshProUGUIs.JobExplain).text =
             Managers.LoginData.GetJobExplain(_job, "Explain").ToString().Replace("\\n", "\n");
 
-        gameObject.SetActive(true);
+        foreach (GameObjects stat in Enum.GetValues(typeof(GameObjects)))
+        {
+            GetObject((int)stat).GetComponentInChildren<Slider>().value = 
+                (float)Managers.LoginData.GetJobExplain(_job, stat.ToString());
+        }
     }
 }

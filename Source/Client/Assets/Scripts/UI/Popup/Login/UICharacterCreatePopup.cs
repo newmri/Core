@@ -16,7 +16,7 @@ public class UICharacterCreatePopup : UIPopup
 
     enum GameObjects
     {
-        UIJobExplain
+        JobInfo
     }
 
     enum Buttons
@@ -55,7 +55,7 @@ public class UICharacterCreatePopup : UIPopup
         foreach (var jobButton in _jobButton)
             jobButton.OnJobSelect(job);
 
-        GetObject((int)GameObjects.UIJobExplain).GetComponent<UIJobExplain>().OnJobSelect(job);
+        GetObject((int)GameObjects.JobInfo).GetComponent<UIJobInfo>().OnJobSelect(job);
     }
 
     public void OnClickCreateButton(PointerEventData evt)
