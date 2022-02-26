@@ -69,7 +69,6 @@ public class LoginNetworkManager
             {
                 Managers.LoginNetwork.UID = res.UID;
                 Managers.LoginNetwork.Token = res.Token;
-                Managers.UI.ShowCurrentSceneUI();
                 Managers.UI.ShowPopupUI<UIWorldListPopup>().SetWorldList(res.WorldList);
             }
             else

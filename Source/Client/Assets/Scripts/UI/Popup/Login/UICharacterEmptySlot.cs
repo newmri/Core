@@ -25,6 +25,7 @@ public class UICharacterEmptySlot : UIPopup
 
     public void OnClickCreateCharacterButton(PointerEventData evt)
     {
-        Debug.Log("Create");
+        UICharacterCreatePopup popUp = Managers.UI.ShowPopupUI<UICharacterCreatePopup>();
+        popUp.SetJobButtons();
     }
 }

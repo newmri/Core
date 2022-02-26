@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{12F44184-A422-5F27-22E6-507969043F15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -141,9 +140,12 @@
     <Compile Include="Assets\Scripts\UI\Popup\WorldList\UIWorldListPopupInfo.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterEmptySlot.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterLockSlot.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterCreatePopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Login\UIJobButton.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Login\UIJobExplain.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".editorconfig" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\ThirdParty\Spine\version.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

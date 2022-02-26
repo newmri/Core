@@ -15,6 +15,8 @@ union Packet {
     SC_PING_REQ,
     CS_PING_RES,
     CS_LOGOUT_NOTI,
+    CS_CREATE_CHARACTER_REQ,
+    SC_CREATE_CHARACTER_RES,
 }
 
 table CS_LOGIN_REQ {
@@ -43,6 +45,16 @@ table CS_PING_RES {
 }
 
 table CS_LOGOUT_NOTI {
+}
+
+table CS_CREATE_CHARACTER_REQ {
+    name:string;
+    job:Define.Job;
+}
+
+table SC_CREATE_CHARACTER_RES {
+    result:ErrorCode;
+    character_info:CHARACTER_INFO;
 }
 
 table Root {
