@@ -29,9 +29,9 @@
 
 // Contributed by: Mitch Thompson
 
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
 namespace Spine.Unity.Examples {
-	public class SkeletonRagdoll2DInspector { }
+	public class SkeletonRagdoll2DInspector {}
 }

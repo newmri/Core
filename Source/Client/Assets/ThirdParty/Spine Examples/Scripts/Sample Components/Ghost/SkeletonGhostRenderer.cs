@@ -29,8 +29,8 @@
 
 // Contributed by: Mitch Thompson
 
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 namespace Spine.Unity.Examples {
 	public class SkeletonGhostRenderer : MonoBehaviour {

@@ -27,16 +27,21 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-namespace Spine.Unity {
+using UnityEngine;
+using UnityEditor;
+using Spine.Unity.Deprecated;
+using System;
 
-	/// <summary>
-	/// TriState enum which can be used to replace and extend a bool variable by
-	/// a third <c>UseGlobalSettings</c> state. Automatically maps serialized
-	/// bool values to corresponding <c>Disable</c> and <c>Enable</c> states.
-	/// </summary>
-	public enum SettingsTriState {
-		Disable,
-		Enable,
-		UseGlobalSetting
+namespace Spine.Unity.Editor {
+	using Editor = UnityEditor.Editor;
+
+	[Obsolete("The spine-unity 3.7 runtime introduced SkeletonDataModifierAssets BlendModeMaterials which replaced SlotBlendModes. Will be removed in spine-unity 3.9.", false)]
+	public class SlotBlendModesEditor : Editor {
+
+		[MenuItem("CONTEXT/SkeletonRenderer/Add Slot Blend Modes Component")]
+		static void AddSlotBlendModesComponent (MenuCommand command) {
+			var skeletonRenderer = (SkeletonRenderer)command.context;
+			skeletonRenderer.gameObject.AddComponent<SlotBlendModes>();
+		}
 	}
 }

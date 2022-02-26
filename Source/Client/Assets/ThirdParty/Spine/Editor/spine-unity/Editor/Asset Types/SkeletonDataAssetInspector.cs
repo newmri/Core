@@ -29,22 +29,23 @@
 
 #define SPINE_SKELETON_MECANIM
 
-#if (UNITY_2017_4 || UNITY_2018_1_OR_NEWER)
-#define SPINE_UNITY_2018_PREVIEW_API
-#endif
+ #if (UNITY_2017_4 || UNITY_2018_1_OR_NEWER )
+ #define SPINE_UNITY_2018_PREVIEW_API
+ #endif
 
 
 using System;
-using System.Collections.Generic;
 using System.Reflection;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+
 using CompatibilityProblemInfo = Spine.Unity.SkeletonDataCompatibility.CompatibilityProblemInfo;
 
 namespace Spine.Unity.Editor {
-	using Animation = Spine.Animation;
 	using Event = UnityEngine.Event;
 	using Icons = SpineEditorUtilities.Icons;
+	using Animation = Spine.Animation;
 
 	[CustomEditor(typeof(SkeletonDataAsset)), CanEditMultipleObjects]
 	public class SkeletonDataAssetInspector : UnityEditor.Editor {
@@ -56,14 +57,14 @@ namespace Spine.Unity.Editor {
 		SerializedProperty atlasAssets, skeletonJSON, scale, fromAnimation, toAnimation, duration, defaultMix;
 		SerializedProperty skeletonDataModifiers;
 		SerializedProperty blendModeMaterials;
-#if SPINE_TK2D
+		#if SPINE_TK2D
 		SerializedProperty spriteCollection;
-#endif
+		#endif
 
-#if SPINE_SKELETON_MECANIM
+		#if SPINE_SKELETON_MECANIM
 		static bool isMecanimExpanded = false;
 		SerializedProperty controller;
-#endif
+		#endif
 
 		SkeletonDataAsset targetSkeletonDataAsset;
 		SkeletonData targetSkeletonData;
@@ -116,17 +117,17 @@ namespace Spine.Unity.Editor {
 			skeletonDataModifiers = serializedObject.FindProperty("skeletonDataModifiers");
 			blendModeMaterials = serializedObject.FindProperty("blendModeMaterials");
 
-#if SPINE_SKELETON_MECANIM
+			#if SPINE_SKELETON_MECANIM
 			controller = serializedObject.FindProperty("controller");
-#endif
+			#endif
 
-#if SPINE_TK2D
+			#if SPINE_TK2D
 			if (newAtlasAssets) atlasAssets.isExpanded = false;
 			spriteCollection = serializedObject.FindProperty("spriteCollection");
-#else
+			#else
 			// Analysis disable once ConvertIfToOrExpression
 			if (newAtlasAssets) atlasAssets.isExpanded = true;
-#endif
+			#endif
 
 			// This handles the case where the managed editor assembly is unloaded before recompilation when code changes.
 			AppDomain.CurrentDomain.DomainUnload -= OnDomainUnload;
@@ -221,7 +222,7 @@ namespace Spine.Unity.Editor {
 				DrawAnimationList();
 				if (targetSkeletonData.Animations.Count > 0) {
 					const string AnimationReferenceButtonText = "Create Animation Reference Assets";
-					const string AnimationReferenceTooltipText = "AnimationReferenceAsset acts as Unity asset for a reference to a Spine.Animation. This can be used in inspectors.\n\nIt serializes a reference to a SkeletonData asset and an animationName.\n\nAt runtime, a reference to its Spine.Animation is loaded and cached into the object to be used as needed. This skips the need to find and cache animation references in individual MonoBehaviours.";
+					const string AnimationReferenceTooltipText = "AnimationReferenceAsset acts as Unity asset for a reference to a Spine.Animation. This can be used in inspectors.\n\nIt serializes a reference to a SkeletonDataAsset and an animationName.\n\nAt runtime, a reference to its Spine.Animation is loaded and cached into the object to be used as needed. This skips the need to find and cache animation references in individual MonoBehaviours.";
 					if (GUILayout.Button(SpineInspectorUtility.TempContent(AnimationReferenceButtonText, Icons.animationRoot, AnimationReferenceTooltipText), GUILayout.Width(250), GUILayout.Height(26))) {
 						CreateAnimationReferenceAssets();
 					}
@@ -233,15 +234,15 @@ namespace Spine.Unity.Editor {
 				DrawUnityTools();
 
 			} else {
-#if !SPINE_TK2D
+				#if !SPINE_TK2D
 				// Draw Reimport Button
 				using (new EditorGUI.DisabledGroupScope(skeletonJSON.objectReferenceValue == null)) {
 					if (GUILayout.Button(SpineInspectorUtility.TempContent("Attempt Reimport", Icons.warning)))
 						DoReimport();
 				}
-#else
+				#else
 				EditorGUILayout.HelpBox("Couldn't load SkeletonData.", MessageType.Error);
-#endif
+				#endif
 
 				DrawWarningList();
 			}
@@ -294,15 +295,15 @@ namespace Spine.Unity.Editor {
 			// Texture source field.
 			using (new SpineInspectorUtility.BoxScope()) {
 				EditorGUILayout.LabelField("Atlas", EditorStyles.boldLabel);
-#if !SPINE_TK2D
+				#if !SPINE_TK2D
 				EditorGUILayout.PropertyField(atlasAssets, true);
-#else
+				#else
 				using (new EditorGUI.DisabledGroupScope(spriteCollection.objectReferenceValue != null)) {
 					EditorGUILayout.PropertyField(atlasAssets, true);
 				}
 				EditorGUILayout.LabelField("spine-tk2d", EditorStyles.boldLabel);
 				EditorGUILayout.PropertyField(spriteCollection, true);
-#endif
+				#endif
 			}
 
 			// Mix settings.
@@ -361,15 +362,15 @@ namespace Spine.Unity.Editor {
 
 		void DrawAtlasAssetsFields () {
 			EditorGUILayout.LabelField("Atlas", EditorStyles.boldLabel);
-#if !SPINE_TK2D
+			#if !SPINE_TK2D
 			EditorGUILayout.PropertyField(atlasAssets, true);
-#else
+			#else
 			using (new EditorGUI.DisabledGroupScope(spriteCollection.objectReferenceValue != null)) {
 				EditorGUILayout.PropertyField(atlasAssets, true);
 			}
 			EditorGUILayout.LabelField("spine-tk2d", EditorStyles.boldLabel);
 			EditorGUILayout.PropertyField(spriteCollection, true);
-#endif
+			#endif
 
 			if (atlasAssets.arraySize == 0)
 				EditorGUILayout.HelpBox("AtlasAssets array is empty. Skeleton's attachments will load without being mapped to images.", MessageType.Info);
@@ -386,7 +387,8 @@ namespace Spine.Unity.Editor {
 			if (hasNulls) {
 				if (targetSkeletonDataAsset.atlasAssets.Length == 1) {
 					EditorGUILayout.HelpBox("Atlas array cannot have null entries!", MessageType.None);
-				} else {
+				}
+				else {
 					EditorGUILayout.HelpBox("Atlas array should not have null entries!", MessageType.Error);
 					if (SpineInspectorUtility.CenteredButton(SpineInspectorUtility.TempContent("Remove null entries"))) {
 						var trimmedAtlasAssets = new List<AtlasAssetBase>();
@@ -537,7 +539,8 @@ namespace Spine.Unity.Editor {
 									if (skin != defaultSkin) {
 										defaultSkin.GetAttachments(i, slotAttachments);
 										defaultSkin.GetAttachments(i, defaultSkinAttachments);
-									} else {
+									}
+									else {
 										defaultSkin.GetAttachments(i, defaultSkinAttachments);
 									}
 								}
@@ -577,7 +580,7 @@ namespace Spine.Unity.Editor {
 		}
 
 		void DrawUnityTools () {
-#if SPINE_SKELETON_MECANIM
+			#if SPINE_SKELETON_MECANIM
 			using (new SpineInspectorUtility.BoxScope()) {
 				isMecanimExpanded = EditorGUILayout.Foldout(isMecanimExpanded, SpineInspectorUtility.TempContent("SkeletonMecanim", SpineInspectorUtility.UnityIcon<SceneAsset>()));
 				if (isMecanimExpanded) {
@@ -606,7 +609,7 @@ namespace Spine.Unity.Editor {
 					}
 				}
 			}
-#endif
+			#endif
 		}
 
 		void DrawWarningList () {
@@ -629,14 +632,14 @@ namespace Spine.Unity.Editor {
 					else
 						warnings.Add("Skeleton data file is not a valid Spine JSON or binary file.");
 				} else {
-#if SPINE_TK2D
-					bool searchForSpineAtlasAssets = (compatibilityProblemInfo == null);
+					#if SPINE_TK2D
+					bool searchForSpineAtlasAssets = true;
 					bool isSpriteCollectionNull = spriteCollection.objectReferenceValue == null;
 					if (!isSpriteCollectionNull) searchForSpineAtlasAssets = false;
-#else
+					#else
 					// Analysis disable once ConvertToConstant.Local
-					bool searchForSpineAtlasAssets = (compatibilityProblemInfo == null);
-#endif
+					bool searchForSpineAtlasAssets = true;
+					#endif
 
 					if (searchForSpineAtlasAssets) {
 						bool detectedNullAtlasEntry = false;
@@ -670,10 +673,10 @@ namespace Spine.Unity.Editor {
 									}
 								}
 
-#if SPINE_TK2D
+								#if SPINE_TK2D
 								if (missingPaths.Count > 0)
-									warnings.Add("Missing regions. SkeletonData asset requires tk2DSpriteCollectionData or Spine AtlasAssets.");
-#endif
+									warnings.Add("Missing regions. SkeletonDataAsset requires tk2DSpriteCollectionData or Spine AtlasAssets.");
+								#endif
 							}
 
 							if (missingPaths != null) {
@@ -689,7 +692,7 @@ namespace Spine.Unity.Editor {
 		}
 
 		void DoReimport () {
-			AssetUtility.ImportSpineContent(new[] { AssetDatabase.GetAssetPath(skeletonJSON.objectReferenceValue) }, null, true);
+			AssetUtility.ImportSpineContent(new [] { AssetDatabase.GetAssetPath(skeletonJSON.objectReferenceValue) }, null, true);
 			preview.Clear();
 			InitializeEditor();
 			EditorUtility.SetDirty(targetSkeletonDataAsset);
@@ -699,7 +702,7 @@ namespace Spine.Unity.Editor {
 			EditorPrefs.SetString(LastSkinKey, skinName);
 		}
 
-		bool NoProblems () {
+		bool NoProblems() {
 			return warnings.Count == 0 && compatibilityProblemInfo == null;
 		}
 
@@ -757,11 +760,11 @@ namespace Spine.Unity.Editor {
 		Camera PreviewUtilityCamera {
 			get {
 				if (previewRenderUtility == null) return null;
-#if UNITY_2017_1_OR_NEWER
+				#if UNITY_2017_1_OR_NEWER
 				return previewRenderUtility.camera;
-#else
+				#else
 				return previewRenderUtility.m_Camera;
-#endif
+				#endif
 			}
 		}
 
@@ -784,8 +787,7 @@ namespace Spine.Unity.Editor {
 			set { if (IsValid) skeletonAnimation.timeScale = value; }
 		}
 
-		public bool IsPlayingAnimation {
-			get {
+		public bool IsPlayingAnimation { get {
 				if (!IsValid) return false;
 				var currentTrack = skeletonAnimation.AnimationState.GetCurrent(0);
 				return currentTrack != null && currentTrack.TimeScale > 0;
@@ -860,7 +862,7 @@ namespace Spine.Unity.Editor {
 
 			if (previewGameObject == null) {
 				try {
-					previewGameObject = EditorInstantiation.InstantiateSkeletonAnimation(skeletonDataAsset, skinName, useObjectFactory: false).gameObject;
+					previewGameObject = EditorInstantiation.InstantiateSkeletonAnimation(skeletonDataAsset, skinName, useObjectFactory:false).gameObject;
 
 					if (previewGameObject != null) {
 						previewGameObject.hideFlags = HideFlags.HideAndDontSave;
@@ -870,9 +872,9 @@ namespace Spine.Unity.Editor {
 						skeletonAnimation.LateUpdate();
 						previewGameObject.GetComponent<Renderer>().enabled = false;
 
-#if SPINE_UNITY_2018_PREVIEW_API
+						#if SPINE_UNITY_2018_PREVIEW_API
 						previewRenderUtility.AddSingleGO(previewGameObject);
-#endif
+						#endif
 					}
 
 					if (this.ActiveTrack != null) cameraAdjustEndFrame = EditorApplication.timeSinceStartup + skeletonAnimation.AnimationState.GetCurrent(0).Alpha;
@@ -1000,14 +1002,14 @@ namespace Spine.Unity.Editor {
 			Event current = Event.current;
 			int controlID = GUIUtility.GetControlID(SliderHash, FocusType.Passive);
 			switch (current.GetTypeForControl(controlID)) {
-			case EventType.ScrollWheel:
-				if (position.Contains(current.mousePosition)) {
-					cameraOrthoGoal += current.delta.y * 0.06f;
-					cameraOrthoGoal = Mathf.Max(0.01f, cameraOrthoGoal);
-					GUIUtility.hotControl = controlID;
-					current.Use();
-				}
-				break;
+				case EventType.ScrollWheel:
+					if (position.Contains(current.mousePosition)) {
+						cameraOrthoGoal += current.delta.y * 0.06f;
+						cameraOrthoGoal = Mathf.Max(0.01f, cameraOrthoGoal);
+						GUIUtility.hotControl = controlID;
+						current.Use();
+					}
+					break;
 			}
 		}
 

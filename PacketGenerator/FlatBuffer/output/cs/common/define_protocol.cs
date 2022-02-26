@@ -14,6 +14,7 @@ public enum Job : sbyte
   Warrior = 0,
   Archer = 1,
   Sorcerer = 2,
+  Duelist = 3,
 };
 
 

@@ -22,11 +22,11 @@ public class GearsManager : MonoBehaviour
     Gears CurrentClickedOnCategory = Gears.Melee;
     string CurrentClicedOnCategory_string;
 
-    Dictionary<Jobs, Gears> JobsAndWeapons = new Dictionary<Jobs, Gears>();
-    Dictionary<Jobs, Gears> JobsAndOffhands = new Dictionary<Jobs, Gears>();
+    Dictionary<Define.Job, Gears> JobsAndWeapons = new Dictionary<Define.Job, Gears>();
+    Dictionary<Define.Job, Gears> JobsAndOffhands = new Dictionary<Define.Job, Gears>();
 
     [HideInInspector]
-    public Jobs MyJob;
+    public Define.Job MyJob;
 
     public Text SpecialAnimationText;
 
@@ -79,16 +79,16 @@ public class GearsManager : MonoBehaviour
         CurrentChosenGears[Gears.Shield] = 1;
 
         //Assign each job with their weapons and offhands
-        JobsAndWeapons.Add(Jobs.Warrior, Gears.Melee);
-        JobsAndOffhands.Add(Jobs.Warrior, Gears.Shield);
+        JobsAndWeapons.Add(Define.Job.Warrior, Gears.Melee);
+        JobsAndOffhands.Add(Define.Job.Warrior, Gears.Shield);
 
-        JobsAndWeapons.Add(Jobs.Archer, Gears.Bow);
+        JobsAndWeapons.Add(Define.Job.Archer, Gears.Bow);
 
-        JobsAndOffhands.Add(Jobs.Archer, Gears.Quiver);
-        JobsAndWeapons.Add(Jobs.Elementalist, Gears.Staff);
+        JobsAndOffhands.Add(Define.Job.Archer, Gears.Quiver);
+        JobsAndWeapons.Add(Define.Job.Sorcerer, Gears.Staff);
 
-        JobsAndWeapons.Add(Jobs.Duelist, Gears.Melee);
-        JobsAndOffhands.Add(Jobs.Duelist, Gears.DuelistOffhand);
+        JobsAndWeapons.Add(Define.Job.Duelist, Gears.Melee);
+        JobsAndOffhands.Add(Define.Job.Duelist, Gears.DuelistOffhand);
 
         ClickOnCategoryButton(Gears.Armor.ToString());
 
@@ -102,7 +102,7 @@ public class GearsManager : MonoBehaviour
     //Manages the UI of the inventory when changing the job
     void ChangeWeaponAndOffhandBasedOnJob()
     {
-        if (MyJob == Jobs.Warrior)
+        if (MyJob == Define.Job.Warrior)
         {
             WeaponButtonGO.Find("BowImage").gameObject.SetActive(false);
             WeaponButtonGO.Find("StaffImage").gameObject.SetActive(false);
@@ -114,7 +114,7 @@ public class GearsManager : MonoBehaviour
             OffhandButtonGO.Find("DuelistOffhandImage").gameObject.SetActive(false);
             OffhandButtonGO.GetComponent<Button>().interactable = true;
         }
-        else if (MyJob == Jobs.Archer)
+        else if (MyJob == Define.Job.Archer)
         {
             WeaponButtonGO.Find("BowImage").gameObject.SetActive(true);
             OffhandButtonGO.Find("QuiverImage").gameObject.SetActive(true);
@@ -126,7 +126,7 @@ public class GearsManager : MonoBehaviour
             OffhandButtonGO.GetComponent<Button>().interactable = true;
             OffhandButtonGO.Find("DuelistOffhandImage").gameObject.SetActive(false);
         }
-        else if (MyJob == Jobs.Elementalist)
+        else if (MyJob == Define.Job.Sorcerer)
         {
             WeaponButtonGO.Find("StaffImage").gameObject.SetActive(true);
 
@@ -138,7 +138,7 @@ public class GearsManager : MonoBehaviour
 
             OffhandButtonGO.GetComponent<Button>().interactable = false;
         }
-        else if (MyJob == Jobs.Duelist)
+        else if (MyJob == Define.Job.Duelist)
         {
             WeaponButtonGO.Find("BowImage").gameObject.SetActive(false);
             WeaponButtonGO.Find("StaffImage").gameObject.SetActive(false);
@@ -199,24 +199,24 @@ public class GearsManager : MonoBehaviour
     //Manages the job changes
     public void ChangeJob(int JobID)
     {
-        MyJob = (Jobs)JobID;
+        MyJob = (Define.Job)JobID;
 
-        if (MyJob == Jobs.Warrior)
+        if (MyJob == Define.Job.Warrior)
         {
             SpecialAnimationText.text = "Defence";
             FireArrowToggleGO.SetActive(false);
         }
-        else if (MyJob == Jobs.Archer)
+        else if (MyJob == Define.Job.Archer)
         {
             SpecialAnimationText.text = "Attack 3";
             FireArrowToggleGO.SetActive(true);
         }
-        else if (MyJob == Jobs.Elementalist)
+        else if (MyJob == Define.Job.Sorcerer)
         {
             SpecialAnimationText.text = "Attack 3";
             FireArrowToggleGO.SetActive(false);
         }
-        else if (MyJob == Jobs.Duelist)
+        else if (MyJob == Define.Job.Duelist)
         {
             SpecialAnimationText.text = "Attack 3";
             FireArrowToggleGO.SetActive(false);

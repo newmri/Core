@@ -11,7 +11,7 @@ public class GearEquipper : MonoBehaviour
     //It must be attached to the parent of the character SkeletionAnimation
 
     SkeletonAnimation characterAnimator;
-    public Jobs Job;
+    public Define.Job Job;
     public int Melee;
     public int Shield;
     public int Bow;
@@ -61,7 +61,7 @@ public class GearEquipper : MonoBehaviour
 
 
         //Combines the skins based on the gear choices
-        if (Job == Jobs.Warrior)
+        if (Job == Define.Job.Warrior)
         {
             NewCustomSkin.AddSkin(skeletonData.FindSkin("MELEE " + Melee.ToString()));
             if (Shield == 0)
@@ -74,16 +74,16 @@ public class GearEquipper : MonoBehaviour
                 NewCustomSkin.AddSkin(skeletonData.FindSkin("SHIELD " + (Shield-1).ToString()));
             }
         }
-        else if (Job == Jobs.Archer)
+        else if (Job == Define.Job.Archer)
         {
             NewCustomSkin.AddSkin(skeletonData.FindSkin("BOW " + Bow.ToString()));
             NewCustomSkin.AddSkin(skeletonData.FindSkin("QUIVER " + Quiver.ToString()));
         }
-        else if (Job == Jobs.Elementalist)
+        else if (Job == Define.Job.Sorcerer)
         {
             NewCustomSkin.AddSkin(skeletonData.FindSkin("STAFF " + Staff.ToString()));
         }
-        else if (Job == Jobs.Duelist)
+        else if (Job == Define.Job.Duelist)
         {
             NewCustomSkin.AddSkin(skeletonData.FindSkin("OFFHAND " + DuelistOffhand.ToString()));
             NewCustomSkin.AddSkin(skeletonData.FindSkin("MELEE " + Melee.ToString()));

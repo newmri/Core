@@ -28,6 +28,12 @@ struct CS_PING_RESBuilder;
 struct CS_LOGOUT_NOTI;
 struct CS_LOGOUT_NOTIBuilder;
 
+struct CS_CREATE_CHARACTER_REQ;
+struct CS_CREATE_CHARACTER_REQBuilder;
+
+struct SC_CREATE_CHARACTER_RES;
+struct SC_CREATE_CHARACTER_RESBuilder;
+
 struct Root;
 struct RootBuilder;
 
@@ -71,37 +77,43 @@ enum Packet : uint8_t {
   Packet_SC_PING_REQ = 3,
   Packet_CS_PING_RES = 4,
   Packet_CS_LOGOUT_NOTI = 5,
+  Packet_CS_CREATE_CHARACTER_REQ = 6,
+  Packet_SC_CREATE_CHARACTER_RES = 7,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_CS_LOGOUT_NOTI
+  Packet_MAX = Packet_SC_CREATE_CHARACTER_RES
 };
 
-inline const Packet (&EnumValuesPacket())[6] {
+inline const Packet (&EnumValuesPacket())[8] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
     Packet_SC_LOGIN_RES,
     Packet_SC_PING_REQ,
     Packet_CS_PING_RES,
-    Packet_CS_LOGOUT_NOTI
+    Packet_CS_LOGOUT_NOTI,
+    Packet_CS_CREATE_CHARACTER_REQ,
+    Packet_SC_CREATE_CHARACTER_RES
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[7] = {
+  static const char * const names[9] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
     "SC_PING_REQ",
     "CS_PING_RES",
     "CS_LOGOUT_NOTI",
+    "CS_CREATE_CHARACTER_REQ",
+    "SC_CREATE_CHARACTER_RES",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_CS_LOGOUT_NOTI)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_CREATE_CHARACTER_RES)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -128,6 +140,14 @@ template<> struct PacketTraits<Login::CS_PING_RES> {
 
 template<> struct PacketTraits<Login::CS_LOGOUT_NOTI> {
   static const Packet enum_value = Packet_CS_LOGOUT_NOTI;
+};
+
+template<> struct PacketTraits<Login::CS_CREATE_CHARACTER_REQ> {
+  static const Packet enum_value = Packet_CS_CREATE_CHARACTER_REQ;
+};
+
+template<> struct PacketTraits<Login::SC_CREATE_CHARACTER_RES> {
+  static const Packet enum_value = Packet_SC_CREATE_CHARACTER_RES;
 };
 
 bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packet type);
@@ -446,6 +466,121 @@ inline flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(
   return builder_.Finish();
 }
 
+struct CS_CREATE_CHARACTER_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_CREATE_CHARACTER_REQBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_NAME = 4,
+    VT_JOB = 6
+  };
+  const flatbuffers::String *name() const {
+    return GetPointer<const flatbuffers::String *>(VT_NAME);
+  }
+  Define::Job job() const {
+    return static_cast<Define::Job>(GetField<int8_t>(VT_JOB, 0));
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_NAME) &&
+           verifier.VerifyString(name()) &&
+           VerifyField<int8_t>(verifier, VT_JOB) &&
+           verifier.EndTable();
+  }
+};
+
+struct CS_CREATE_CHARACTER_REQBuilder {
+  typedef CS_CREATE_CHARACTER_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_name(flatbuffers::Offset<flatbuffers::String> name) {
+    fbb_.AddOffset(CS_CREATE_CHARACTER_REQ::VT_NAME, name);
+  }
+  void add_job(Define::Job job) {
+    fbb_.AddElement<int8_t>(CS_CREATE_CHARACTER_REQ::VT_JOB, static_cast<int8_t>(job), 0);
+  }
+  explicit CS_CREATE_CHARACTER_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_CREATE_CHARACTER_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::String> name = 0,
+    Define::Job job = Define::Job_Warrior) {
+  CS_CREATE_CHARACTER_REQBuilder builder_(_fbb);
+  builder_.add_name(name);
+  builder_.add_job(job);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const char *name = nullptr,
+    Define::Job job = Define::Job_Warrior) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
+  return Login::CreateCS_CREATE_CHARACTER_REQ(
+      _fbb,
+      name__,
+      job);
+}
+
+struct SC_CREATE_CHARACTER_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_CREATE_CHARACTER_RESBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_RESULT = 4,
+    VT_CHARACTER_INFO = 6
+  };
+  Login::ErrorCode result() const {
+    return static_cast<Login::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
+  }
+  const Login::CHARACTER_INFO *character_info() const {
+    return GetPointer<const Login::CHARACTER_INFO *>(VT_CHARACTER_INFO);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int8_t>(verifier, VT_RESULT) &&
+           VerifyOffset(verifier, VT_CHARACTER_INFO) &&
+           verifier.VerifyTable(character_info()) &&
+           verifier.EndTable();
+  }
+};
+
+struct SC_CREATE_CHARACTER_RESBuilder {
+  typedef SC_CREATE_CHARACTER_RES Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_result(Login::ErrorCode result) {
+    fbb_.AddElement<int8_t>(SC_CREATE_CHARACTER_RES::VT_RESULT, static_cast<int8_t>(result), 0);
+  }
+  void add_character_info(flatbuffers::Offset<Login::CHARACTER_INFO> character_info) {
+    fbb_.AddOffset(SC_CREATE_CHARACTER_RES::VT_CHARACTER_INFO, character_info);
+  }
+  explicit SC_CREATE_CHARACTER_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_CREATE_CHARACTER_RES> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_CREATE_CHARACTER_RES>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    Login::ErrorCode result = Login::ErrorCode_SUCCESS,
+    flatbuffers::Offset<Login::CHARACTER_INFO> character_info = 0) {
+  SC_CREATE_CHARACTER_RESBuilder builder_(_fbb);
+  builder_.add_character_info(character_info);
+  builder_.add_result(result);
+  return builder_.Finish();
+}
+
 struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef RootBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -474,6 +609,12 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const Login::CS_LOGOUT_NOTI *packet_as_CS_LOGOUT_NOTI() const {
     return packet_type() == Login::Packet_CS_LOGOUT_NOTI ? static_cast<const Login::CS_LOGOUT_NOTI *>(packet()) : nullptr;
   }
+  const Login::CS_CREATE_CHARACTER_REQ *packet_as_CS_CREATE_CHARACTER_REQ() const {
+    return packet_type() == Login::Packet_CS_CREATE_CHARACTER_REQ ? static_cast<const Login::CS_CREATE_CHARACTER_REQ *>(packet()) : nullptr;
+  }
+  const Login::SC_CREATE_CHARACTER_RES *packet_as_SC_CREATE_CHARACTER_RES() const {
+    return packet_type() == Login::Packet_SC_CREATE_CHARACTER_RES ? static_cast<const Login::SC_CREATE_CHARACTER_RES *>(packet()) : nullptr;
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_PACKET_TYPE) &&
@@ -501,6 +642,14 @@ template<> inline const Login::CS_PING_RES *Root::packet_as<Login::CS_PING_RES>(
 
 template<> inline const Login::CS_LOGOUT_NOTI *Root::packet_as<Login::CS_LOGOUT_NOTI>() const {
   return packet_as_CS_LOGOUT_NOTI();
+}
+
+template<> inline const Login::CS_CREATE_CHARACTER_REQ *Root::packet_as<Login::CS_CREATE_CHARACTER_REQ>() const {
+  return packet_as_CS_CREATE_CHARACTER_REQ();
+}
+
+template<> inline const Login::SC_CREATE_CHARACTER_RES *Root::packet_as<Login::SC_CREATE_CHARACTER_RES>() const {
+  return packet_as_SC_CREATE_CHARACTER_RES();
 }
 
 struct RootBuilder {
@@ -557,6 +706,14 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
     }
     case Packet_CS_LOGOUT_NOTI: {
       auto ptr = reinterpret_cast<const Login::CS_LOGOUT_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_CS_CREATE_CHARACTER_REQ: {
+      auto ptr = reinterpret_cast<const Login::CS_CREATE_CHARACTER_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_SC_CREATE_CHARACTER_RES: {
+      auto ptr = reinterpret_cast<const Login::SC_CREATE_CHARACTER_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;

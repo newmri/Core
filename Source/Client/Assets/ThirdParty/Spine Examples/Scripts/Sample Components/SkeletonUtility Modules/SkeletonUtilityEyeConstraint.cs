@@ -27,8 +27,8 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 namespace Spine.Unity.Examples {
 	public class SkeletonUtilityEyeConstraint : SkeletonUtilityConstraint {

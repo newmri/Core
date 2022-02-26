@@ -12,31 +12,34 @@ enum Job : int8_t {
   Job_Warrior = 0,
   Job_Archer = 1,
   Job_Sorcerer = 2,
+  Job_Duelist = 3,
   Job_MIN = Job_Warrior,
-  Job_MAX = Job_Sorcerer
+  Job_MAX = Job_Duelist
 };
 
-inline const Job (&EnumValuesJob())[3] {
+inline const Job (&EnumValuesJob())[4] {
   static const Job values[] = {
     Job_Warrior,
     Job_Archer,
-    Job_Sorcerer
+    Job_Sorcerer,
+    Job_Duelist
   };
   return values;
 }
 
 inline const char * const *EnumNamesJob() {
-  static const char * const names[4] = {
+  static const char * const names[5] = {
     "Warrior",
     "Archer",
     "Sorcerer",
+    "Duelist",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameJob(Job e) {
-  if (flatbuffers::IsOutRange(e, Job_Warrior, Job_Sorcerer)) return "";
+  if (flatbuffers::IsOutRange(e, Job_Warrior, Job_Duelist)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesJob()[index];
 }

@@ -29,9 +29,9 @@
 
 // Original Contribution by: Mitch Thompson
 
-using Spine.Unity.AttachmentTools;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using Spine.Unity.AttachmentTools;
 
 namespace Spine.Unity.Examples {
 	public class SpriteAttacher : MonoBehaviour {
@@ -45,7 +45,7 @@ namespace Spine.Unity.Examples {
 		[SpineSlot] public string slot;
 		#endregion
 
-#if UNITY_EDITOR
+		#if UNITY_EDITOR
 		void OnValidate () {
 			var skeletonComponent = GetComponent<ISkeletonComponent>();
 			var skeletonRenderer = skeletonComponent as SkeletonRenderer;
@@ -70,7 +70,7 @@ namespace Spine.Unity.Examples {
 				}
 			}
 		}
-#endif
+		#endif
 
 		RegionAttachment attachment;
 		Slot spineSlot;
@@ -170,7 +170,7 @@ namespace Spine.Unity.Examples {
 		public static RegionAttachment AddUnitySprite (this SkeletonData skeletonData, string slotName, Sprite sprite, string skinName, Shader shader, bool applyPMA, float rotation = 0f) {
 			RegionAttachment att = applyPMA ? sprite.ToRegionAttachmentPMAClone(shader, rotation: rotation) : sprite.ToRegionAttachment(new Material(shader), rotation);
 
-			var slotIndex = skeletonData.FindSlot(slotName).Index;
+			var slotIndex = skeletonData.FindSlotIndex(slotName);
 			Skin skin = skeletonData.DefaultSkin;
 			if (skinName != "")
 				skin = skeletonData.FindSkin(skinName);

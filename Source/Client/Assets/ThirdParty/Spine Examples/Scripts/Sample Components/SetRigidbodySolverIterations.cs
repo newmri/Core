@@ -40,7 +40,8 @@ namespace Spine.Unity.Examples {
 	/// will be overwritten by the provided value.
 	/// </summary>
 	[DisallowMultipleComponent]
-	public class SetRigidbodySolverIterations : MonoBehaviour {
+	public class SetRigidbodySolverIterations : MonoBehaviour
+	{
 		public int solverIterations = 30;
 
 		void Awake () {

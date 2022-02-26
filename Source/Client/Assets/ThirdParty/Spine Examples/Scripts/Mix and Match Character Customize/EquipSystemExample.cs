@@ -27,10 +27,11 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using Spine.Unity.AttachmentTools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+using Spine.Unity.AttachmentTools;
 
 namespace Spine.Unity.Examples {
 	public class EquipSystemExample : MonoBehaviour, IHasSkeletonDataAsset {
@@ -53,7 +54,7 @@ namespace Spine.Unity.Examples {
 			public string slot;
 			[SpineSkin]
 			public string templateSkin;
-			[SpineAttachment(skinField: "templateSkin")]
+			[SpineAttachment(skinField:"templateSkin")]
 			public string templateAttachment;
 		}
 
@@ -67,7 +68,7 @@ namespace Spine.Unity.Examples {
 			EquipHook howToEquip = equippables.Find(x => x.type == equipType);
 
 			var skeletonData = skeletonDataAsset.GetSkeletonData(true);
-			int slotIndex = skeletonData.FindSlot(howToEquip.slot).Index;
+			int slotIndex = skeletonData.FindSlotIndex(howToEquip.slot);
 			var attachment = GenerateAttachmentFromEquipAsset(asset, slotIndex, howToEquip.templateSkin, howToEquip.templateAttachment);
 			target.Equip(slotIndex, howToEquip.templateAttachment, attachment);
 		}

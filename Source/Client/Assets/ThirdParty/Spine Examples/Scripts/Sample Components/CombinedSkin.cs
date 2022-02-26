@@ -27,10 +27,10 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using Spine.Unity.AttachmentTools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity.AttachmentTools;
 
 namespace Spine.Unity.Examples {
 	public class CombinedSkin : MonoBehaviour {
@@ -49,7 +49,7 @@ namespace Spine.Unity.Examples {
 			combinedSkin.Clear();
 			foreach (var skinName in skinsToCombine) {
 				var skin = skeleton.Data.FindSkin(skinName);
-				if (skin != null) combinedSkin.AddSkin(skin);
+				if (skin != null) combinedSkin.AddAttachments(skin);
 			}
 
 			skeleton.SetSkin(combinedSkin);

@@ -39,6 +39,11 @@ class LoginPacketHandler
         Debug.Log("PingCheck");
         Managers.LoginNetwork.Send(Packet.CS_PING_RES);
     }
+
+    public static void SC_CREATE_CHARACTER_RES(PacketSession session, Root packet)
+    {
+
+    }
 }
 
 

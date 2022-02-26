@@ -13,13 +13,13 @@ public class CharacterAnimator : MonoBehaviour
     SkeletonAnimation characterSkeleton;
 
     [HideInInspector]
-    public Jobs MyJob;
+    public Define.Job MyJob;
 
     Dictionary<PlayerAnimations, string> WarriorAnimations = new Dictionary<PlayerAnimations, string>();
     Dictionary<PlayerAnimations, string> ArcherAnimations = new Dictionary<PlayerAnimations, string>();
-    Dictionary<PlayerAnimations, string> ElementalistAnimations = new Dictionary<PlayerAnimations, string>();
+    Dictionary<PlayerAnimations, string> SorcererAnimations = new Dictionary<PlayerAnimations, string>();
     Dictionary<PlayerAnimations, string> DuelistAnimations = new Dictionary<PlayerAnimations, string>();
-    Dictionary<Jobs, Dictionary<PlayerAnimations, string>> JobsAnimations = new Dictionary<Jobs, Dictionary<PlayerAnimations, string>>();
+    Dictionary<Define.Job, Dictionary<PlayerAnimations, string>> JobsAnimations = new Dictionary<Define.Job, Dictionary<PlayerAnimations, string>>();
 
     PlayerAnimations AnimationToPlay;
     GearEquipper AccGE;
@@ -113,19 +113,19 @@ public class CharacterAnimator : MonoBehaviour
         ArcherAnimations.Add(PlayerAnimations.Special, "Shoot3");
         ArcherAnimations.Add(PlayerAnimations.Death, "Death");
 
-        ElementalistAnimations.Add(PlayerAnimations.Attack1, "Cast1");
-        ElementalistAnimations.Add(PlayerAnimations.Attack2, "Cast2");
-        ElementalistAnimations.Add(PlayerAnimations.Idle, "Idle");
-        ElementalistAnimations.Add(PlayerAnimations.Walk, "Walk");
-        ElementalistAnimations.Add(PlayerAnimations.Run, "Fly");
-        ElementalistAnimations.Add(PlayerAnimations.FullJump, "Jump");
-        ElementalistAnimations.Add(PlayerAnimations.Jump1, "Jump1");
-        ElementalistAnimations.Add(PlayerAnimations.Jump2, "Jump2");
-        ElementalistAnimations.Add(PlayerAnimations.Jump3, "Jump3");
-        ElementalistAnimations.Add(PlayerAnimations.Buff, "Buff");
-        ElementalistAnimations.Add(PlayerAnimations.Hurt, "Hurt");
-        ElementalistAnimations.Add(PlayerAnimations.Special, "Cast3");
-        ElementalistAnimations.Add(PlayerAnimations.Death, "Death");
+        SorcererAnimations.Add(PlayerAnimations.Attack1, "Cast1");
+        SorcererAnimations.Add(PlayerAnimations.Attack2, "Cast2");
+        SorcererAnimations.Add(PlayerAnimations.Idle, "Idle");
+        SorcererAnimations.Add(PlayerAnimations.Walk, "Walk");
+        SorcererAnimations.Add(PlayerAnimations.Run, "Fly");
+        SorcererAnimations.Add(PlayerAnimations.FullJump, "Jump");
+        SorcererAnimations.Add(PlayerAnimations.Jump1, "Jump1");
+        SorcererAnimations.Add(PlayerAnimations.Jump2, "Jump2");
+        SorcererAnimations.Add(PlayerAnimations.Jump3, "Jump3");
+        SorcererAnimations.Add(PlayerAnimations.Buff, "Buff");
+        SorcererAnimations.Add(PlayerAnimations.Hurt, "Hurt");
+        SorcererAnimations.Add(PlayerAnimations.Special, "Cast3");
+        SorcererAnimations.Add(PlayerAnimations.Death, "Death");
 
         DuelistAnimations.Add(PlayerAnimations.Attack1, "Attack 1 DUELIST");
         DuelistAnimations.Add(PlayerAnimations.Attack2, "Attack 2 DUELIST");
@@ -141,16 +141,16 @@ public class CharacterAnimator : MonoBehaviour
         DuelistAnimations.Add(PlayerAnimations.Special, "Attack 3 DUELIST");
         DuelistAnimations.Add(PlayerAnimations.Death, "Death");
 
-        JobsAnimations.Add(Jobs.Archer, ArcherAnimations);
-        JobsAnimations.Add(Jobs.Warrior, WarriorAnimations);
-        JobsAnimations.Add(Jobs.Elementalist, ElementalistAnimations);
-        JobsAnimations.Add(Jobs.Duelist, DuelistAnimations);
+        JobsAnimations.Add(Define.Job.Archer, ArcherAnimations);
+        JobsAnimations.Add(Define.Job.Warrior, WarriorAnimations);
+        JobsAnimations.Add(Define.Job.Sorcerer, SorcererAnimations);
+        JobsAnimations.Add(Define.Job.Duelist, DuelistAnimations);
     }
 
     //Function called when the job is changed 
-    public void JobChanged(Jobs NewJob)
+    public void JobChanged(Define.Job NewJob)
     {
-        Jobs OldJob = MyJob;
+        Define.Job OldJob = MyJob;
         MyJob = NewJob;
         if (JobsAnimations[MyJob][AnimationToPlay] != JobsAnimations[OldJob][AnimationToPlay])
         {
@@ -177,8 +177,4 @@ public class CharacterAnimator : MonoBehaviour
 public enum PlayerAnimations
 {
     Idle, Walk, Attack1, Death, FullJump,Jump1, Jump2, Jump3, Hurt, Run, Attack2, Special, Buff
-}
-public enum Jobs
-{
-    Warrior, Archer, Elementalist, Duelist
 }

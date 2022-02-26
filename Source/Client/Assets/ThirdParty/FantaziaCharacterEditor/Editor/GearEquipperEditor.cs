@@ -27,27 +27,28 @@ public class GearEquipperEditor : Editor
 
         EditorGUI.BeginChangeCheck();
 
-        GE.Job = (Jobs)EditorGUILayout.EnumPopup("Job", GE.Job);
+        GE.Job = (Define.Job)EditorGUILayout.EnumPopup("Job", GE.Job);
 
-        if (GE.Job == Jobs.Warrior)
+        if (GE.Job == Define.Job.Warrior)
         {
             GE.Melee = EditorGUILayout.IntSlider("Melee", GE.Melee, 0, 45);
             GE.Shield = EditorGUILayout.IntSlider("Shield", GE.Shield, 0, 26); //max +1
         }
-        else if (GE.Job == Jobs.Archer)
+        else if (GE.Job == Define.Job.Archer)
         {
             GE.Bow = EditorGUILayout.IntSlider("Bow", GE.Bow, 0, 25);
             GE.Quiver = EditorGUILayout.IntSlider("Quiver", GE.Quiver, 0, 25);
         }
-        else if (GE.Job == Jobs.Elementalist)
+        else if (GE.Job == Define.Job.Sorcerer)
+        {
+            GE.Staff = EditorGUILayout.IntSlider("Staff", GE.Staff, 0, 25);
+        }
+        else if (GE.Job == Define.Job.Duelist)
         {
             GE.Melee = EditorGUILayout.IntSlider("Melee", GE.Melee, 0, 45);
             GE.DuelistOffhand = EditorGUILayout.IntSlider("Offhand", GE.DuelistOffhand, 0, 45);
         }
-        else if (GE.Job == Jobs.Duelist)
-        {
-            GE.Staff = EditorGUILayout.IntSlider("Staff", GE.Staff, 0, 25);
-        }
+
         GE.Armor = EditorGUILayout.IntSlider("Armor", GE.Armor, 0, 25);
         GE.Helmet = EditorGUILayout.IntSlider("Helmet", GE.Helmet, 0, 27);
         GE.Shoulder = EditorGUILayout.IntSlider("Shoulder", GE.Shoulder, 0, 25);

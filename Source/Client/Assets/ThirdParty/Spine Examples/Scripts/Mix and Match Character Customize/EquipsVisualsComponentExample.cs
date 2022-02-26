@@ -27,10 +27,11 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using Spine.Unity.AttachmentTools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+using Spine.Unity.AttachmentTools;
 
 namespace Spine.Unity.Examples {
 	public class EquipsVisualsComponentExample : MonoBehaviour {
@@ -52,7 +53,7 @@ namespace Spine.Unity.Examples {
 			// OPTIONAL: Add all the attachments from the template skin.
 			var templateSkin = skeletonAnimation.Skeleton.Data.FindSkin(templateSkinName);
 			if (templateSkin != null)
-				equipsSkin.AddSkin(templateSkin);
+				equipsSkin.AddAttachments(templateSkin);
 
 			skeletonAnimation.Skeleton.Skin = equipsSkin;
 			RefreshSkeletonAttachments();
@@ -68,8 +69,8 @@ namespace Spine.Unity.Examples {
 			// 1. Collect all the attachments of all active skins.
 			collectedSkin = collectedSkin ?? new Skin("Collected skin");
 			collectedSkin.Clear();
-			collectedSkin.AddSkin(skeletonAnimation.Skeleton.Data.DefaultSkin);
-			collectedSkin.AddSkin(equipsSkin);
+			collectedSkin.AddAttachments(skeletonAnimation.Skeleton.Data.DefaultSkin);
+			collectedSkin.AddAttachments(equipsSkin);
 
 			// 2. Create a repacked skin.
 			// Note: materials and textures returned by GetRepackedSkin() behave like 'new Texture2D()' and need to be destroyed
@@ -78,7 +79,7 @@ namespace Spine.Unity.Examples {
 			if (runtimeAtlas)
 				Destroy(runtimeAtlas);
 			var repackedSkin = collectedSkin.GetRepackedSkin("Repacked skin", skeletonAnimation.SkeletonDataAsset.atlasAssets[0].PrimaryMaterial,
-				out runtimeMaterial, out runtimeAtlas, maxAtlasSize: 1024, clearCache: false);
+				out runtimeMaterial, out runtimeAtlas, maxAtlasSize : 1024, clearCache: false);
 			collectedSkin.Clear();
 
 			// You can optionally clear the textures cache after each ore multiple repack operations are done.

@@ -27,12 +27,14 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using Spine;
-using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
+
+using Spine;
+using Spine.Unity;
+
+using System.Text;
 
 namespace Spine.Unity.Examples {
 	public class SpineAnimationTesterTool : MonoBehaviour, IHasSkeletonDataAsset, IHasSkeletonComponent {
@@ -46,7 +48,7 @@ namespace Spine.Unity.Examples {
 
 		public bool useOverrideAttachmentThreshold = true;
 
-		[Range(0f, 1f)]
+		[Range(0f,1f)]
 		public float attachmentThreshold = 0.5f;
 
 		public bool useOverrideDrawOrderThreshold;

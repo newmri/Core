@@ -39,6 +39,6 @@ namespace Spine.Unity {
 
 		public abstract bool IsLoaded { get; }
 		public abstract void Clear ();
-		public abstract Atlas GetAtlas (bool onlyMetaData = false);
+		public abstract Atlas GetAtlas ();
 	}
 }

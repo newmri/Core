@@ -16,7 +16,8 @@ public class UICharacterCreatePopup : UIPopup
 
     enum GameObjects
     {
-        JobInfo
+        JobInfo,
+        Character
     }
 
     enum Buttons
@@ -33,6 +34,7 @@ public class UICharacterCreatePopup : UIPopup
 
         GetButton((int)Buttons.CreateButton).gameObject.BindEvent(OnClickCreateButton);
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
+        GetObject((int)GameObjects.Character).SetActive(false);
     }
 
     public void SetJobButtons()
@@ -56,6 +58,10 @@ public class UICharacterCreatePopup : UIPopup
             jobButton.OnJobSelect(job);
 
         GetObject((int)GameObjects.JobInfo).GetComponent<UIJobInfo>().OnJobSelect(job);
+
+        GetObject((int)GameObjects.Character).GetComponent<GearEquipper>().Job = job;
+        GetObject((int)GameObjects.Character).GetComponent<GearEquipper>().ApplySkinChanges();
+        GetObject((int)GameObjects.Character).SetActive(true);
     }
 
     public void OnClickCreateButton(PointerEventData evt)

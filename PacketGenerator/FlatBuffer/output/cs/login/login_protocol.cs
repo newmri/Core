@@ -24,6 +24,8 @@ public enum Packet : byte
   SC_PING_REQ = 3,
   CS_PING_RES = 4,
   CS_LOGOUT_NOTI = 5,
+  CS_CREATE_CHARACTER_REQ = 6,
+  SC_CREATE_CHARACTER_RES = 7,
 };
 
 public struct CS_LOGIN_REQ : IFlatbufferObject
@@ -199,6 +201,74 @@ public struct CS_LOGOUT_NOTI : IFlatbufferObject
   }
 };
 
+public struct CS_CREATE_CHARACTER_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_CREATE_CHARACTER_REQ GetRootAsCS_CREATE_CHARACTER_REQ(ByteBuffer _bb) { return GetRootAsCS_CREATE_CHARACTER_REQ(_bb, new CS_CREATE_CHARACTER_REQ()); }
+  public static CS_CREATE_CHARACTER_REQ GetRootAsCS_CREATE_CHARACTER_REQ(ByteBuffer _bb, CS_CREATE_CHARACTER_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_CREATE_CHARACTER_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public string Name { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(4, 1); }
+#else
+  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(4); }
+#endif
+  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(4); }
+  public Define.Job Job { get { int o = __p.__offset(6); return o != 0 ? (Define.Job)__p.bb.GetSbyte(o + __p.bb_pos) : Define.Job.Warrior; } }
+
+  public static Offset<Login.CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQ(FlatBufferBuilder builder,
+      StringOffset nameOffset = default(StringOffset),
+      Define.Job job = Define.Job.Warrior) {
+    builder.StartTable(2);
+    CS_CREATE_CHARACTER_REQ.AddName(builder, nameOffset);
+    CS_CREATE_CHARACTER_REQ.AddJob(builder, job);
+    return CS_CREATE_CHARACTER_REQ.EndCS_CREATE_CHARACTER_REQ(builder);
+  }
+
+  public static void StartCS_CREATE_CHARACTER_REQ(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(0, nameOffset.Value, 0); }
+  public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddSbyte(1, (sbyte)job, 0); }
+  public static Offset<Login.CS_CREATE_CHARACTER_REQ> EndCS_CREATE_CHARACTER_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Login.CS_CREATE_CHARACTER_REQ>(o);
+  }
+};
+
+public struct SC_CREATE_CHARACTER_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_CREATE_CHARACTER_RES GetRootAsSC_CREATE_CHARACTER_RES(ByteBuffer _bb) { return GetRootAsSC_CREATE_CHARACTER_RES(_bb, new SC_CREATE_CHARACTER_RES()); }
+  public static SC_CREATE_CHARACTER_RES GetRootAsSC_CREATE_CHARACTER_RES(ByteBuffer _bb, SC_CREATE_CHARACTER_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_CREATE_CHARACTER_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Login.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (Login.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : Login.ErrorCode.SUCCESS; } }
+  public Login.CHARACTER_INFO? CharacterInfo { get { int o = __p.__offset(6); return o != 0 ? (Login.CHARACTER_INFO?)(new Login.CHARACTER_INFO()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+
+  public static Offset<Login.SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder,
+      Login.ErrorCode result = Login.ErrorCode.SUCCESS,
+      Offset<Login.CHARACTER_INFO> character_infoOffset = default(Offset<Login.CHARACTER_INFO>)) {
+    builder.StartTable(2);
+    SC_CREATE_CHARACTER_RES.AddCharacterInfo(builder, character_infoOffset);
+    SC_CREATE_CHARACTER_RES.AddResult(builder, result);
+    return SC_CREATE_CHARACTER_RES.EndSC_CREATE_CHARACTER_RES(builder);
+  }
+
+  public static void StartSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddResult(FlatBufferBuilder builder, Login.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
+  public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<Login.CHARACTER_INFO> characterInfoOffset) { builder.AddOffset(1, characterInfoOffset.Value, 0); }
+  public static Offset<Login.SC_CREATE_CHARACTER_RES> EndSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Login.SC_CREATE_CHARACTER_RES>(o);
+  }
+};
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -216,6 +286,8 @@ public struct Root : IFlatbufferObject
   public Login.SC_PING_REQ PacketAsSC_PING_REQ() { return Packet<Login.SC_PING_REQ>().Value; }
   public Login.CS_PING_RES PacketAsCS_PING_RES() { return Packet<Login.CS_PING_RES>().Value; }
   public Login.CS_LOGOUT_NOTI PacketAsCS_LOGOUT_NOTI() { return Packet<Login.CS_LOGOUT_NOTI>().Value; }
+  public Login.CS_CREATE_CHARACTER_REQ PacketAsCS_CREATE_CHARACTER_REQ() { return Packet<Login.CS_CREATE_CHARACTER_REQ>().Value; }
+  public Login.SC_CREATE_CHARACTER_RES PacketAsSC_CREATE_CHARACTER_RES() { return Packet<Login.SC_CREATE_CHARACTER_RES>().Value; }
 
   public static Offset<Login.Root> CreateRoot(FlatBufferBuilder builder,
       Login.Packet packet_type = Login.Packet.NONE,

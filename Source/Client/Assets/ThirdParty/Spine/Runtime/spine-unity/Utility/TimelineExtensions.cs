@@ -27,49 +27,48 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace Spine.Unity.AnimationTools {
 	public static class TimelineExtensions {
 
 		/// <summary>Evaluates the resulting value of a TranslateTimeline at a given time.
 		/// SkeletonData can be accessed from Skeleton.Data or from SkeletonDataAsset.GetSkeletonData.
-		/// If no SkeletonData is given, values are returned as difference to setup pose
-		/// instead of absolute values.</summary>
+		/// If no SkeletonData is given, values are computed relative to setup pose instead of local-absolute.</summary>
 		public static Vector2 Evaluate (this TranslateTimeline timeline, float time, SkeletonData skeletonData = null) {
-			if (time < timeline.Frames[0]) return Vector2.zero;
+			const int PREV_TIME = -3, PREV_X = -2, PREV_Y = -1;
+			const int X = 1, Y = 2;
+
+			var frames = timeline.frames;
+			if (time < frames[0]) return Vector2.zero;
 
 			float x, y;
-			timeline.GetCurveValue(out x, out y, time);
-
-			if (skeletonData == null) {
-				return new Vector2(x, y);
-			} else {
-				BoneData boneData = skeletonData.Bones.Items[timeline.BoneIndex];
-				return new Vector2(boneData.X + x, boneData.Y + y);
+			if (time >= frames[frames.Length - TranslateTimeline.ENTRIES]) { // Time is after last frame.
+				x = frames[frames.Length + PREV_X];
+				y = frames[frames.Length + PREV_Y];
 			}
-		}
+			else {
+				// Interpolate between the previous frame and the current frame.
+				int frame = Animation.BinarySearch(frames, time, TranslateTimeline.ENTRIES);
+				x = frames[frame + PREV_X];
+				y = frames[frame + PREV_Y];
+				float frameTime = frames[frame];
+				float percent = timeline.GetCurvePercent(frame / TranslateTimeline.ENTRIES - 1,
+					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
 
-		/// <summary>Evaluates the resulting value of a pair of split translate timelines at a given time.
-		/// SkeletonData can be accessed from Skeleton.Data or from SkeletonDataAsset.GetSkeletonData.
-		/// If no SkeletonData is given, values are returned as difference to setup pose
-		/// instead of absolute values.</summary>
-		public static Vector2 Evaluate (TranslateXTimeline xTimeline, TranslateYTimeline yTimeline,
-			float time, SkeletonData skeletonData = null) {
+				x += (frames[frame + X] - x) * percent;
+				y += (frames[frame + Y] - y) * percent;
+			}
 
-			float x = 0, y = 0;
-			if (xTimeline != null && time > xTimeline.Frames[0]) x = xTimeline.GetCurveValue(time);
-			if (yTimeline != null && time > yTimeline.Frames[0]) y = yTimeline.GetCurveValue(time);
-
+			Vector2 xy = new Vector2(x, y);
 			if (skeletonData == null) {
-				return new Vector2(x, y);
-			} else {
-				var bonesItems = skeletonData.Bones.Items;
-				BoneData boneDataX = bonesItems[xTimeline.BoneIndex];
-				BoneData boneDataY = bonesItems[yTimeline.BoneIndex];
-				return new Vector2(boneDataX.X + x, boneDataY.Y + y);
+				return xy;
+			}
+			else {
+				var boneData = skeletonData.bones.Items[timeline.boneIndex];
+				return xy + new Vector2(boneData.x, boneData.y);
 			}
 		}
 
@@ -78,25 +77,12 @@ namespace Spine.Unity.AnimationTools {
 		/// The root bone is always boneIndex 0.
 		/// This will return null if a TranslateTimeline is not found.</summary>
 		public static TranslateTimeline FindTranslateTimelineForBone (this Animation a, int boneIndex) {
-			foreach (var timeline in a.Timelines) {
+			foreach (var timeline in a.timelines) {
 				if (timeline.GetType().IsSubclassOf(typeof(TranslateTimeline)))
 					continue;
 
 				var translateTimeline = timeline as TranslateTimeline;
-				if (translateTimeline != null && translateTimeline.BoneIndex == boneIndex)
-					return translateTimeline;
-			}
-			return null;
-		}
-
-		/// <summary>Gets the IBoneTimeline timeline of a given type for a given boneIndex.
-		/// You can get the boneIndex using SkeletonData.FindBoneIndex.
-		/// The root bone is always boneIndex 0.
-		/// This will return null if a timeline of the given type is not found.</summary>
-		public static T FindTimelineForBone<T> (this Animation a, int boneIndex) where T : class, IBoneTimeline {
-			foreach (var timeline in a.Timelines) {
-				T translateTimeline = timeline as T;
-				if (translateTimeline != null && translateTimeline.BoneIndex == boneIndex)
+				if (translateTimeline != null && translateTimeline.boneIndex == boneIndex)
 					return translateTimeline;
 			}
 			return null;

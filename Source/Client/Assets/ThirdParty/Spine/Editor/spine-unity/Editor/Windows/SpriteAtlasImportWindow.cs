@@ -29,8 +29,8 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
 namespace Spine.Unity.Editor {
 
@@ -107,9 +107,11 @@ namespace Spine.Unity.Editor {
 				using (new SpineInspectorUtility.BoxScope()) {
 					if (spriteAtlasAsset == null) {
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Please assign SpriteAtlas file.", Icons.warning), GUILayout.Height(46));
-					} else if (spineSpriteAtlasAsset == null || spineSpriteAtlasAsset.RegionsNeedLoading) {
+					}
+					else if (spineSpriteAtlasAsset == null || spineSpriteAtlasAsset.RegionsNeedLoading) {
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("Please hit 'Load regions ..' to load\nregion info. Play mode is started\nand stopped automatically.", Icons.warning), GUILayout.Height(54));
-					} else {
+					}
+					else {
 						EditorGUILayout.LabelField(SpineInspectorUtility.TempContent("SpriteAtlas imported\nsuccessfully.", Icons.spine), GUILayout.Height(46));
 					}
 				}

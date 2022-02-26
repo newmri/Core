@@ -27,9 +27,9 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-using Spine.Unity.AnimationTools;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using Spine.Unity.AnimationTools;
 
 namespace Spine.Unity {
 
@@ -63,7 +63,7 @@ namespace Spine.Unity {
 
 			var animation = track.Animation;
 			float start = track.AnimationTime;
-			float end = animation.Duration;
+			float end = animation.duration;
 			return GetAnimationRootMotion(start, end, animation);
 		}
 
@@ -79,7 +79,7 @@ namespace Spine.Unity {
 
 		protected override float AdditionalScale {
 			get {
-				return canvas ? canvas.referencePixelsPerUnit : 1.0f;
+				return canvas ? canvas.referencePixelsPerUnit: 1.0f;
 			}
 		}
 
@@ -112,7 +112,7 @@ namespace Spine.Unity {
 				TrackEntry next = null;
 				while (track != null) {
 					var animation = track.Animation;
-					float start = track.AnimationLast;
+					float start = track.animationLast;
 					float end = track.AnimationTime;
 					var currentDelta = GetAnimationRootMotion(start, end, animation);
 					if (currentDelta != Vector2.zero) {
@@ -122,7 +122,7 @@ namespace Spine.Unity {
 
 					// Traverse mixingFrom chain.
 					next = track;
-					track = track.MixingFrom;
+					track = track.mixingFrom;
 				}
 			}
 			return localDelta;
@@ -132,19 +132,22 @@ namespace Spine.Unity {
 			// Apply mix alpha to the delta position (based on AnimationState.cs).
 			float mix;
 			if (next != null) {
-				if (next.MixDuration == 0) { // Single frame mix to undo mixingFrom changes.
+				if (next.mixDuration == 0) { // Single frame mix to undo mixingFrom changes.
 					mix = 1;
-				} else {
-					mix = next.MixTime / next.MixDuration;
+				}
+				else {
+					mix = next.mixTime / next.mixDuration;
 					if (mix > 1) mix = 1;
 				}
-				float mixAndAlpha = track.Alpha * next.InterruptAlpha * (1 - mix);
+				float mixAndAlpha = track.alpha * next.interruptAlpha * (1 - mix);
 				currentDelta *= mixAndAlpha;
-			} else {
-				if (track.MixDuration == 0) {
+			}
+			else {
+				if (track.mixDuration == 0) {
 					mix = 1;
-				} else {
-					mix = track.Alpha * (track.MixTime / track.MixDuration);
+				}
+				else {
+					mix = track.alpha * (track.mixTime / track.mixDuration);
 					if (mix > 1) mix = 1;
 				}
 				currentDelta *= mix;

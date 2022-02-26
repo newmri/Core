@@ -27,9 +27,9 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
+using UnityEngine;
 using Spine;
 using Spine.Unity;
-using UnityEngine;
 
 namespace Spine.Unity.Examples {
 	public class BoneLocalOverride : MonoBehaviour {
@@ -50,22 +50,22 @@ namespace Spine.Unity.Examples {
 		ISkeletonAnimation spineComponent;
 		Bone bone;
 
-#if UNITY_EDITOR
+		#if UNITY_EDITOR
 		void OnValidate () {
 			if (Application.isPlaying) return;
-			if (spineComponent == null) spineComponent = GetComponent<ISkeletonAnimation>();
-			if (spineComponent.IsNullOrDestroyed()) return;
+			spineComponent = spineComponent ?? GetComponent<ISkeletonAnimation>();
+			if (spineComponent == null) return;
 			if (bone != null) bone.SetToSetupPose();
 			OverrideLocal(spineComponent);
 		}
-#endif
+		#endif
 
 		void Awake () {
 			spineComponent = GetComponent<ISkeletonAnimation>();
 			if (spineComponent == null) { this.enabled = false; return; }
 			spineComponent.UpdateLocal += OverrideLocal;
 
-			if (bone == null) { this.enabled = false; return; }
+			if (bone == null) {	this.enabled = false; return; }
 		}
 
 		void OverrideLocal (ISkeletonAnimation animated) {
