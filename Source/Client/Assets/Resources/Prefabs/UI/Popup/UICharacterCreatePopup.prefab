@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 32
-  m_CharacterLimit: 10
+  m_CharacterLimit: 8
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -5657,24 +5657,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 193930379, guid: cfaed108e57a4da42893dd4e8e52ac05, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 13
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 193930379, guid: cfaed108e57a4da42893dd4e8e52ac05, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
+      objectReference: {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
     - target: {fileID: 193930379, guid: cfaed108e57a4da42893dd4e8e52ac05, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
+      objectReference: {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
     - target: {fileID: 193930379, guid: cfaed108e57a4da42893dd4e8e52ac05, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
+      objectReference: {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
     - target: {fileID: 193930379, guid: cfaed108e57a4da42893dd4e8e52ac05, type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
+      objectReference: {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
     - target: {fileID: 193930379, guid: cfaed108e57a4da42893dd4e8e52ac05, type: 3}
       propertyPath: m_Materials.Array.data[4]
       value: 
