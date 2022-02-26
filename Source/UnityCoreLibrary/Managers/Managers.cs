@@ -12,12 +12,14 @@ namespace UnityCoreLibrary
         SceneManagerEx _scene = new SceneManagerEx();
         ObjectManager _obj = new ObjectManager();
         CoroutineManager _coroutine;
+        DataLoadManager _data = new DataLoadManager();
 
         public static PoolManager Pool { get { return Instance._pool; } }
         public static ResourceManager Resource { get { return Instance._resource; } }
         public static SceneManagerEx Scene { get { return Instance._scene; } }
         public static ObjectManager Obj { get { return Instance._obj; } }
         public static CoroutineManager Coroutine { get { return Instance._coroutine; } }
+        public static DataLoadManager Data { get { return Instance._data; } }
 
         void Start()
         {

@@ -112,14 +112,14 @@ namespace ExcelToCSV
             var destBook = excelApp.Workbooks.Add(1);
             Excel.Worksheet destSheet = GetWorkSheet("Client", workSheet, destBook);
             if(destSheet != null)
-                destSheet.SaveAs(serverDirectory + workSheet.Name + this.destExtention, Excel.XlFileFormat.xlCSV);
+                destSheet.SaveAs(serverDirectory + workSheet.Name + this.destExtention, xlCSVUTF8);
 
             destBook.Close(false);
 
             destBook = excelApp.Workbooks.Add(1);
             destSheet = GetWorkSheet("Server", workSheet, destBook);
             if (destSheet != null)
-                destSheet.SaveAs(clientDirectory + workSheet.Name + this.destExtention, Excel.XlFileFormat.xlCSV);
+                destSheet.SaveAs(clientDirectory + workSheet.Name + this.destExtention, xlCSVUTF8);
 
             destBook.Close(false);
         }
@@ -221,5 +221,6 @@ namespace ExcelToCSV
         private String deleteColumn = "A";
         private String checkDeleteColumnCell = "A2";
         private String checkDeleteColumnValue = "Index";
+        private int xlCSVUTF8 = 62;
     }
 }

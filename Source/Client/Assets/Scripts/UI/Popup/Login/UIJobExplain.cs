@@ -20,7 +20,8 @@ public class UIJobExplain : UIPopup
 
     enum TextMeshProUGUIs
     {
-        Text
+        JobText,
+        JobExplain
     }
 
     public override void Init()
@@ -38,6 +39,12 @@ public class UIJobExplain : UIPopup
 
         Sprite jobIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{_job.ToString()}Icon");
         GetImage((int)Images.Icon).sprite = jobIcon;
+
+        this.GetTextMesh((int)TextMeshProUGUIs.JobText).text = 
+            Managers.LoginData.GetJobExplain(_job, "Name").ToString();
+        this.GetTextMesh((int)TextMeshProUGUIs.JobExplain).text = 
+            Managers.LoginData.GetJobExplain(_job, "Explain").ToString().Replace("\\n", "\n");
+
         gameObject.SetActive(true);
     }
 }

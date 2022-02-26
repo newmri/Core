@@ -43,6 +43,10 @@ public class UIJobButton : UIPopup
 
         Sprite jobIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{_job.ToString()}Icon");
         GetImage((int)Images.Icon).sprite = jobIcon;
+
+        this.GetTextMesh((int)TextMeshProUGUIs.Text).text = 
+            Managers.LoginData.GetJobExplain(_job, "Name").ToString();
+
         Deselected();
     }
 

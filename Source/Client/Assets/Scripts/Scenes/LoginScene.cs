@@ -12,6 +12,7 @@ public class LoginScene : BaseScene
     {
         base.Init(scene);
         Managers.UI.ShowSceneUI<UILoginScene>();
+        Managers.LoginData.Load();
     }
 
     public override void Clear()
