@@ -112,7 +112,7 @@ namespace ExcelToCSV
             var destBook = excelApp.Workbooks.Add(1);
             Excel.Worksheet destSheet = GetWorkSheet("Client", workSheet, destBook);
             if(destSheet != null)
-                destSheet.SaveAs(serverDirectory + workSheet.Name + this.destExtention, xlCSVUTF8);
+                destSheet.SaveAs(serverDirectory + workSheet.Name + this.destExtention, Excel.XlFileFormat.xlCSV);
 
             destBook.Close(false);
 

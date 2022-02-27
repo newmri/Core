@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ExcelToCSV.exe" size="23552">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ExcelToCSV.exe" size="25088">
       <assemblyIdentity name="ExcelToCSV" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SfKfSvVSwJYQOXwwEGTGhl5iYbgm8N9OVxHCopWG/v4=</dsig:DigestValue>
+        <dsig:DigestValue>+s6Wv3sgDKw3CffULHxGfvzJH7lAA455DZEjGvYDhkI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
