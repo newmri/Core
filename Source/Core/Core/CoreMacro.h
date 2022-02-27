@@ -97,6 +97,19 @@ static constexpr size_t CORE_BIG_SIZE = 1024;
 		SAFE_DELETE_DTOR(rows, table, IN_TYPE, data);						\
 	}
 
+#define CSV_LOAD_AND_TO_VECTOR(FILE_PATH, IN_TYPE, OUT)						\
+	{																		\
+		char* table = nullptr;												\
+		size_t rows = CSV_LOAD.Load(FILE_PATH, table);						\
+		IN_TYPE* data = reinterpret_cast<IN_TYPE*>(table);					\
+																			\
+		for (size_t i = 0; i < rows; ++i)									\
+		{																	\
+			IN_TYPE info = data[i];											\
+			OUT.push_back(info);											\
+		}																	\
+	}
+
 #ifdef _UNICODE
 #define WIDEN(x)        L ## x
 #define WIDEN2(x)       WIDEN(x)

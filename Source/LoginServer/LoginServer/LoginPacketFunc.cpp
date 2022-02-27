@@ -122,7 +122,8 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 		return;
 
 	int64_t uid = 0;
-	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), STRING_MANAGER.Widen(raw->name()->c_str()).c_str(), 1, raw->job(), uid);
+	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(),
+					 STRING_MANAGER.Widen(raw->name()->c_str()).c_str(), 1, raw->job(), uid);
 
 	if (isSuccess)
 	{

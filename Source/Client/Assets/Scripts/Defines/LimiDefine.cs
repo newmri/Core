@@ -19,8 +19,9 @@ public static class LimiDefine
             string idMessage = "아이디는 {0} ~ {1}자 사이로 입력 해주세요 \n";
             string paswordMessage = "비밀번호는 {0} ~ {1}자 사이로 입력 해주세요 \n";
             string message;
-            message = string.Format(idMessage, AccountLimit.MinIDLen, AccountLimit.MaxIDLen);
-            message += string.Format(paswordMessage, AccountLimit.MinPasswordLen, AccountLimit.MaxPasswordLen);
+            message = string.Format(idMessage, (int)AccountLimit.MinIDLen, (int)AccountLimit.MaxIDLen);
+            message += string.Format(paswordMessage,
+                       (int)AccountLimit.MinPasswordLen, (int)AccountLimit.MaxPasswordLen);
 
             messagePopup.SetText("회원가입 실패", message);
         }
@@ -37,7 +38,7 @@ public static class LimiDefine
         {
             UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
             string message = "캐릭터명은 {0} ~ {1}자 사이로 입력 해주세요 \n";
-            message = string.Format(message, AccountLimit.MinIDLen, AccountLimit.MaxIDLen);
+            message = string.Format(message, (int)AccountLimit.MinIDLen, (int)AccountLimit.MaxIDLen);
 
             messagePopup.SetText("회원가입 실패", message);
         }

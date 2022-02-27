@@ -31,6 +31,9 @@
     <Filter Include="03.DB\01.GameDB">
       <UniqueIdentifier>{ded080ab-e8cc-40df-b845-7c498cdb9a8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.DataManager">
+      <UniqueIdentifier>{db085e40-1991-4de2-be7d-7d00be0559d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -53,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="GameDB.cpp">
       <Filter>03.DB\01.GameDB</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>04.DataManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="GameDB.h">
       <Filter>03.DB\01.GameDB</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>04.DataManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

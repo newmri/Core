@@ -8,3 +8,4 @@
 #include "GameDB.h"
 #include "LoginServer.h"
 #include "LoginServerManager.h"
+#include "DataManager.h"

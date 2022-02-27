@@ -20,6 +20,8 @@ void LoginServerManager::Init(void)
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[GroupID]: " + TO_STR(this->serverInfo.GroupID));
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[WorldID]: " + TO_STR(this->serverConfig->WorldID));
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
+
+	DATA_MANAGER.Load();
 }
 
 void LoginServerManager::Release(void)

@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccountDB.cpp" />
+    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="GameDB.cpp" />
     <ClCompile Include="LoginPacketFunc.cpp" />
     <ClCompile Include="LoginPacketHandler.cpp" />
@@ -108,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccountDB.h" />
+    <ClInclude Include="DataManager.h" />
     <ClInclude Include="define_protocol_generated.h" />
     <ClInclude Include="GameDB.h" />
     <ClInclude Include="LoginPacketFunc.h" />
