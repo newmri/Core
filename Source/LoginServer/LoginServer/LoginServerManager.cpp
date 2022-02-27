@@ -4,6 +4,7 @@ IMPLEMENT_SINGLETON(LoginServerManager)
 
 thread_local std::shared_ptr<WorldDB> LoginServerManager::worldDB;
 thread_local std::shared_ptr<AccountDB> LoginServerManager::accountDB;
+thread_local std::shared_ptr<GameDB> LoginServerManager::gameDB;
 
 void LoginServerManager::Init(void)
 {
