@@ -13,8 +13,8 @@ public:
 	void SetOID(const int64_t oid);
 
 public:
-	int64_t GetAccountID(void);
-	void SetAccountID(const int64_t accountID);
+	int64_t GetAccountUID(void);
+	void SetAccountUID(const int64_t accountUID);
 
 public:
 	boost::asio::ip::tcp::socket& GetSocket(void);
@@ -30,7 +30,7 @@ protected:
 
 protected:
 	int64_t oid = 0;
-	int64_t accountID = 0;
+	int64_t accountUID = 0;
 
 protected:
 	boost::asio::ip::tcp::socket socket;

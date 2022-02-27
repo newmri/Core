@@ -26,8 +26,19 @@ public:
 	void SetLogin(void);
 	void SetLogout(void);
 
+public:
+	size_t GetCharacterCount(void);
+	std::shared_ptr<CoreCharacter> GetCharacter(const int64_t& uid);
+	void GetCharacter(CoreVector<std::shared_ptr<CoreCharacter>>& characterList);
+
+	void AddCharacter(const int64_t& uid);
+
 private:
 	int64_t uid;
 	CoreToken token;
 	bool isLogined;
+
+private:
+	CACHE_ALIGN std::shared_mutex characterMutex;
+	std::map<int64_t, std::shared_ptr<CoreCharacter>> characterList;
 };

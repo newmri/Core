@@ -73,7 +73,7 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 		socket.close();
 		
-		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountID());
+		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountUID());
 
 		WRITE_LOCK(this->mutex);
 		this->sessionList.erase(this->sessionList.find(oid));

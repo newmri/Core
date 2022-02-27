@@ -44,6 +44,90 @@ inline const char *EnumNameJob(Job e) {
   return EnumNamesJob()[index];
 }
 
+enum AccountLimit : int8_t {
+  AccountLimit_MinIDLen = 2,
+  AccountLimit_MinPasswordLen = 4,
+  AccountLimit_MaxIDLen = 10,
+  AccountLimit_MaxPasswordLen = 15,
+  AccountLimit_MIN = AccountLimit_MinIDLen,
+  AccountLimit_MAX = AccountLimit_MaxPasswordLen
+};
+
+inline const AccountLimit (&EnumValuesAccountLimit())[4] {
+  static const AccountLimit values[] = {
+    AccountLimit_MinIDLen,
+    AccountLimit_MinPasswordLen,
+    AccountLimit_MaxIDLen,
+    AccountLimit_MaxPasswordLen
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesAccountLimit() {
+  static const char * const names[15] = {
+    "MinIDLen",
+    "",
+    "MinPasswordLen",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "MaxIDLen",
+    "",
+    "",
+    "",
+    "",
+    "MaxPasswordLen",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameAccountLimit(AccountLimit e) {
+  if (flatbuffers::IsOutRange(e, AccountLimit_MinIDLen, AccountLimit_MaxPasswordLen)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(AccountLimit_MinIDLen);
+  return EnumNamesAccountLimit()[index];
+}
+
+enum CharacterLimit : int8_t {
+  CharacterLimit_MinNameLen = 1,
+  CharacterLimit_MaxCharacterSlot = 5,
+  CharacterLimit_MaxNameLen = 8,
+  CharacterLimit_MIN = CharacterLimit_MinNameLen,
+  CharacterLimit_MAX = CharacterLimit_MaxNameLen
+};
+
+inline const CharacterLimit (&EnumValuesCharacterLimit())[3] {
+  static const CharacterLimit values[] = {
+    CharacterLimit_MinNameLen,
+    CharacterLimit_MaxCharacterSlot,
+    CharacterLimit_MaxNameLen
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesCharacterLimit() {
+  static const char * const names[9] = {
+    "MinNameLen",
+    "",
+    "",
+    "",
+    "MaxCharacterSlot",
+    "",
+    "",
+    "MaxNameLen",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameCharacterLimit(CharacterLimit e) {
+  if (flatbuffers::IsOutRange(e, CharacterLimit_MinNameLen, CharacterLimit_MaxNameLen)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(CharacterLimit_MinNameLen);
+  return EnumNamesCharacterLimit()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_

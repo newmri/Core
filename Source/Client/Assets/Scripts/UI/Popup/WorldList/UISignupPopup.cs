@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using Define;
 
 public class UISignupPopup : UIPopup
 {
@@ -32,6 +33,9 @@ public class UISignupPopup : UIPopup
         GetButton((int)Buttons.SignupButton).gameObject.BindEvent(OnClickSignupButton);
         GetButton((int)Buttons.CloseButton).gameObject.BindEvent(OnClickCloseButton);
         GetButton((int)Buttons.LoginButton).gameObject.BindEvent(OnClickLoginButton);
+
+        Get<GameObject>((int)GameObjects.ID).GetComponent<TMP_InputField>().characterLimit = (int)AccountLimit.MaxIDLen;
+        Get<GameObject>((int)GameObjects.Password).GetComponent<TMP_InputField>().characterLimit = (int)AccountLimit.MaxPasswordLen;
     }
 
     [System.Obsolete]
@@ -40,7 +44,7 @@ public class UISignupPopup : UIPopup
         string id = Get<GameObject>((int)GameObjects.ID).GetComponent<TMP_InputField>().text;
         string password = Get<GameObject>((int)GameObjects.Password).GetComponent<TMP_InputField>().text;
 
-        if (!AccountDefine.IsValidAccount(id, password))
+        if (!LimiDefine.IsValidAccountLen(id, password))
             return;
 
         SignupAccountPacketReq packet = new SignupAccountPacketReq()

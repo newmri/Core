@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using FlatBuffers;
+using Login;
+using Define;
 
 public class UICharacterCreatePopup : UIPopup
 {
@@ -17,6 +20,7 @@ public class UICharacterCreatePopup : UIPopup
     enum GameObjects
     {
         JobInfo,
+        CharacterName,
         Character
     }
 
@@ -34,6 +38,7 @@ public class UICharacterCreatePopup : UIPopup
 
         GetButton((int)Buttons.CreateButton).gameObject.BindEvent(OnClickCreateButton);
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
+        Get<GameObject>((int)GameObjects.CharacterName).GetComponent<TMP_InputField>().characterLimit = (int)CharacterLimit.MaxNameLen;
         GetObject((int)GameObjects.Character).SetActive(false);
     }
 
@@ -66,7 +71,14 @@ public class UICharacterCreatePopup : UIPopup
 
     public void OnClickCreateButton(PointerEventData evt)
     {
-        Managers.UI.ClosePopupUI();
+        string name = Get<GameObject>((int)GameObjects.CharacterName).GetComponent<TMP_InputField>().text;
+        if (!LimiDefine.IsValidCharacterLen(name))
+            return;
+
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        StringOffset sendName = builder.CreateString(name);
+        var message = CS_CREATE_CHARACTER_REQ.CreateCS_CREATE_CHARACTER_REQ(builder, sendName, _selectedJob);
+        Managers.LoginNetwork.Send(builder, Packet.CS_CREATE_CHARACTER_REQ, message.Value);
     }
 
     public void OnClickBackButton(PointerEventData evt)

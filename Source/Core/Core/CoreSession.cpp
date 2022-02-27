@@ -25,14 +25,14 @@ void CoreSession::SetOID(const int64_t oid)
 	this->oid = oid;
 }
 
-int64_t CoreSession::GetAccountID(void)
+int64_t CoreSession::GetAccountUID(void)
 {
-	return this->accountID;
+	return this->accountUID;
 }
 
-void CoreSession::SetAccountID(const int64_t accountID)
+void CoreSession::SetAccountUID(const int64_t accountUID)
 {
-	this->accountID = accountID;
+	this->accountUID = accountUID;
 }
 
 boost::asio::ip::tcp::socket& CoreSession::GetSocket(void)

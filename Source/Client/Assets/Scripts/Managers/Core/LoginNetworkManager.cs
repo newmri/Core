@@ -17,6 +17,23 @@ public class LoginNetworkManager
 
     LoginServerSession _session = new LoginServerSession();
 
+    public void Send(FlatBufferBuilder packet, Packet packetType, int packetOffset)
+    {
+        var data = Root.CreateRoot(packet, packetType, packetOffset);
+        packet.Finish(data.Value);
+        Send(packet);
+    }
+
+    public void Send(Packet packetType)
+    {
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        Root.StartRoot(builder);
+        Root.AddPacketType(builder, packetType);
+        var data = Root.EndRoot(builder);
+        builder.Finish(data.Value);
+        Send(builder);
+    }
+
     public void Send(FlatBufferBuilder packet)
     {
         _session.Send(packet);
@@ -83,18 +100,6 @@ public class LoginNetworkManager
     {
         FlatBufferBuilder builder = new FlatBufferBuilder(1);
         var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, Token);
-        var data = Root.CreateRoot(builder, Packet.CS_LOGIN_REQ, message.Value);
-        builder.Finish(data.Value);
-        Send(builder);
-    }
-
-    public void Send(Packet message)
-    {
-        FlatBufferBuilder builder = new FlatBufferBuilder(1);
-        Root.StartRoot(builder);
-        Root.AddPacketType(builder, message);
-        var data = Root.EndRoot(builder);
-        builder.Finish(data.Value);
-        Send(builder);
+        Send(builder, Packet.CS_LOGIN_REQ, message.Value);
     }
 }

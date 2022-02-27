@@ -23,7 +23,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	{
 		if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), token))
 		{
-			session->SetAccountID(raw->uid());
+			session->SetAccountUID(raw->uid());
 
 			CORE_ACCOUNT_MANAGER.Add(raw->uid(), token);
 
@@ -45,7 +45,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		{
 			if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), token))
 			{
-				session->SetAccountID(raw->uid());
+				session->SetAccountUID(raw->uid());
 
 				account->SetLogin();
 				account->UpdateToken(token);
@@ -100,4 +100,20 @@ void LoginPacketFunc::CS_PING_RES(std::shared_ptr<CoreClientSession> session, co
 void LoginPacketFunc::CS_LOGOUT_NOTI(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	LOGIN_SERVER.Close(session);
+}
+
+void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto raw = static_cast<const Login::CS_CREATE_CHARACTER_REQ*>(data);
+
+	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
+	if (IS_NULL(account))
+		return;
+
+	if (raw->name()->Length() < Define::CharacterLimit_MinNameLen ||
+		raw->name()->Length() > Define::CharacterLimit_MaxNameLen)
+		return;
+
+	if (account->GetCharacterCount() >= Define::CharacterLimit_MaxCharacterSlot)
+		return;
 }

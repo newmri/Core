@@ -7,3 +7,18 @@ enum Job : byte
   Sorcerer,
   Duelist
 }
+
+enum AccountLimit : byte
+{
+  MinIDLen = 2,
+  MaxIDLen = 10,
+  MinPasswordLen = 4,
+  MaxPasswordLen = 15
+}
+
+enum CharacterLimit : byte
+{
+  MinNameLen = 1,
+  MaxNameLen = 8,
+  MaxCharacterSlot = 5
+}

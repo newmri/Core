@@ -130,8 +130,11 @@
     <Filter Include="15.CoreAccountManager">
       <UniqueIdentifier>{967eeac4-f532-42f9-ae5c-6f9a77652c84}</UniqueIdentifier>
     </Filter>
-    <Filter Include="15.CoreAccountManager\01.CoreAccount">
+    <Filter Include="15.CoreAccountManager\00.CoreAccount">
       <UniqueIdentifier>{69ba66b2-747c-4d2d-b089-6362038a66bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="15.CoreAccountManager\00.CoreAccount\00.CoreCharacter">
+      <UniqueIdentifier>{1e42db1d-5768-42ee-a611-551383616ad5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,7 +199,10 @@
       <Filter>15.CoreAccountManager</Filter>
     </ClCompile>
     <ClCompile Include="CoreAccount.cpp">
-      <Filter>15.CoreAccountManager\01.CoreAccount</Filter>
+      <Filter>15.CoreAccountManager\00.CoreAccount</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreCharacter.cpp">
+      <Filter>15.CoreAccountManager\00.CoreAccount\00.CoreCharacter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -363,7 +369,10 @@
       <Filter>15.CoreAccountManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreAccount.h">
-      <Filter>15.CoreAccountManager\01.CoreAccount</Filter>
+      <Filter>15.CoreAccountManager\00.CoreAccount</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreCharacter.h">
+      <Filter>15.CoreAccountManager\00.CoreAccount\00.CoreCharacter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

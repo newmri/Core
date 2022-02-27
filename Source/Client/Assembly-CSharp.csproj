@@ -137,7 +137,7 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterState.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterSelectPopup.cs" />
-    <Compile Include="Assets\Scripts\Defines\AccountDefine.cs" />
+    <Compile Include="Assets\Scripts\Defines\LimiDefine.cs" />
     <Compile Include="Assets\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />

@@ -10,6 +10,7 @@ public:
 	static void SC_PING_REQ(std::shared_ptr<CoreClientSession> session);
 	void CS_PING_RES(std::shared_ptr<CoreClientSession> session, const void* data);
 	void CS_LOGOUT_NOTI(std::shared_ptr<CoreClientSession> session, const void* data);
+	void CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 
 private:
 	static thread_local flatbuffers::FlatBufferBuilder builder;

@@ -17,5 +17,20 @@ public enum Job : sbyte
   Duelist = 3,
 };
 
+public enum AccountLimit : sbyte
+{
+  MinIDLen = 2,
+  MinPasswordLen = 4,
+  MaxIDLen = 10,
+  MaxPasswordLen = 15,
+};
+
+public enum CharacterLimit : sbyte
+{
+  MinNameLen = 1,
+  MaxCharacterSlot = 5,
+  MaxNameLen = 8,
+};
+
 
 }
