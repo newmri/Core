@@ -78,7 +78,7 @@ public struct CHARACTER_INFO : IFlatbufferObject
 #endif
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(6); }
   public byte Level { get { int o = __p.__offset(8); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public Define.Job Job { get { int o = __p.__offset(10); return o != 0 ? (Define.Job)__p.bb.GetSbyte(o + __p.bb_pos) : Define.Job.Warrior; } }
+  public Define.Job Job { get { int o = __p.__offset(10); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.Warrior; } }
 
   public static Offset<Login.CHARACTER_INFO> CreateCHARACTER_INFO(FlatBufferBuilder builder,
       long uid = 0,
@@ -97,7 +97,7 @@ public struct CHARACTER_INFO : IFlatbufferObject
   public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(0, uid, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddLevel(FlatBufferBuilder builder, byte level) { builder.AddByte(2, level, 0); }
-  public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddSbyte(3, (sbyte)job, 0); }
+  public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddByte(3, (byte)job, 0); }
   public static Offset<Login.CHARACTER_INFO> EndCHARACTER_INFO(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Login.CHARACTER_INFO>(o);
@@ -218,7 +218,7 @@ public struct CS_CREATE_CHARACTER_REQ : IFlatbufferObject
   public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(4); }
-  public Define.Job Job { get { int o = __p.__offset(6); return o != 0 ? (Define.Job)__p.bb.GetSbyte(o + __p.bb_pos) : Define.Job.Warrior; } }
+  public Define.Job Job { get { int o = __p.__offset(6); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.Warrior; } }
 
   public static Offset<Login.CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQ(FlatBufferBuilder builder,
       StringOffset nameOffset = default(StringOffset),
@@ -231,7 +231,7 @@ public struct CS_CREATE_CHARACTER_REQ : IFlatbufferObject
 
   public static void StartCS_CREATE_CHARACTER_REQ(FlatBufferBuilder builder) { builder.StartTable(2); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(0, nameOffset.Value, 0); }
-  public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddSbyte(1, (sbyte)job, 0); }
+  public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddByte(1, (byte)job, 0); }
   public static Offset<Login.CS_CREATE_CHARACTER_REQ> EndCS_CREATE_CHARACTER_REQ(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Login.CS_CREATE_CHARACTER_REQ>(o);

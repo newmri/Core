@@ -110,19 +110,21 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if (IS_NULL(account))
 		return;
 
-	if (raw->name()->Length() < Define::CharacterLimit_MinNameLen ||
-		raw->name()->Length() > Define::CharacterLimit_MaxNameLen)
+	if (raw->name()->size() < Define::CharacterLimit_MinNameLen ||
+		raw->name()->size() > Define::CharacterLimit_MaxNameLen)
+		return;
+
+	if (raw->job() < Define::Job_MIN ||
+		raw->job() > Define::Job_MAX)
 		return;
 
 	if (account->GetCharacterCount() >= Define::CharacterLimit_MaxCharacterSlot)
 		return;
 
-	// 직업 체크 추가 필요
-
 	int64_t uid = 0;
-	Login::ErrorCode result = LOGIN_SERVER.GetGameDB()->CreateCharacter(STRING_MANAGER.Widen(raw->name()->c_str()).c_str(), raw->job(), uid);
+	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), STRING_MANAGER.Widen(raw->name()->c_str()).c_str(), 1, raw->job(), uid);
 
-	if (IS_SAME(Login::ErrorCode_SUCCESS, result))
+	if (isSuccess)
 	{
 
 	}

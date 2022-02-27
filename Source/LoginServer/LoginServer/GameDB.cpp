@@ -15,18 +15,19 @@ void GameDB::Release(void)
 {
 }
 
-Login::ErrorCode GameDB::CreateCharacter(const wchar_t* characterName, Define::Job job, int64_t& uid)
+bool GameDB::CreateCharacter(const int64_t accountUID, const wchar_t* name, const uint8_t level, const Define::Job job, int64_t& uid)
 {
 	Prepare(L"CreateCharacter");
-	BindArgument(characterName);
+	BindArgument(accountUID);
+	BindArgument(name);
+	BindArgument(level);
 	BindArgument(job);
 	Execute();
 
-	int8_t result = 0;
-	Login::ErrorCode errorCode = Login::ErrorCode_UNKNOWN;
+	bool isSuccess = false;
 	int64_t characterUID = 0;
 
-	BindCol(&result, sizeof(result));
+	BindCol(&isSuccess, sizeof(isSuccess));
 	BindCol(&characterUID, sizeof(characterUID));
 
 	while (IsSuccess())
@@ -35,12 +36,11 @@ Login::ErrorCode GameDB::CreateCharacter(const wchar_t* characterName, Define::J
 
 		if (IsSuccess())
 		{
-			errorCode = static_cast<Login::ErrorCode>(result);
 			uid = characterUID;
 		}
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 
-	return errorCode;
+	return isSuccess;
 }

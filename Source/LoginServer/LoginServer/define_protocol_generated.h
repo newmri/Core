@@ -8,7 +8,7 @@
 
 namespace Define {
 
-enum Job : int8_t {
+enum Job : uint8_t {
   Job_Warrior = 0,
   Job_Archer = 1,
   Job_Sorcerer = 2,
@@ -44,7 +44,7 @@ inline const char *EnumNameJob(Job e) {
   return EnumNamesJob()[index];
 }
 
-enum AccountLimit : int8_t {
+enum AccountLimit : uint8_t {
   AccountLimit_MinIDLen = 2,
   AccountLimit_MinPasswordLen = 4,
   AccountLimit_MaxIDLen = 10,
@@ -90,7 +90,7 @@ inline const char *EnumNameAccountLimit(AccountLimit e) {
   return EnumNamesAccountLimit()[index];
 }
 
-enum CharacterLimit : int8_t {
+enum CharacterLimit : uint8_t {
   CharacterLimit_MinNameLen = 1,
   CharacterLimit_MaxCharacterSlot = 5,
   CharacterLimit_MaxNameLen = 8,

@@ -9,7 +9,7 @@ using global::System;
 using global::System.Collections.Generic;
 using global::FlatBuffers;
 
-public enum Job : sbyte
+public enum Job : byte
 {
   Warrior = 0,
   Archer = 1,
@@ -17,7 +17,7 @@ public enum Job : sbyte
   Duelist = 3,
 };
 
-public enum AccountLimit : sbyte
+public enum AccountLimit : byte
 {
   MinIDLen = 2,
   MinPasswordLen = 4,
@@ -25,7 +25,7 @@ public enum AccountLimit : sbyte
   MaxPasswordLen = 15,
 };
 
-public enum CharacterLimit : sbyte
+public enum CharacterLimit : byte
 {
   MinNameLen = 1,
   MaxCharacterSlot = 5,

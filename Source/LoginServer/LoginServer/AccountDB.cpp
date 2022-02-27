@@ -22,10 +22,10 @@ bool AccountDB::Login(const int64_t uid, CoreToken& token)
 	BindArgument(token.key);
 	Execute();
 
-	bool result = 0;
+	bool isSuccess = false;
 	int32_t time = 0;
 
-	BindCol(&result, sizeof(result));
+	BindCol(&isSuccess, sizeof(isSuccess));
 	BindCol(&time, sizeof(time));
 
 	while (IsSuccess())
@@ -40,7 +40,7 @@ bool AccountDB::Login(const int64_t uid, CoreToken& token)
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 
-	return result;
+	return isSuccess;
 }
 
 void AccountDB::Logout(const int64_t uid)

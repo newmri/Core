@@ -83,7 +83,7 @@ void CoreDB::BindCol(bool* data, const SQLLEN size)
 	++this->currIndex;
 }
 
-void CoreDB::BindCol(int8_t* data, const SQLLEN size)
+void CoreDB::BindCol(uint8_t* data, const SQLLEN size)
 {
 	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1, SQL_TINYINT, data, size, &this->colLen[this->currIndex]);
 	++this->currIndex;
@@ -111,6 +111,13 @@ void CoreDB::BindCol(const wchar_t* data, const SQLLEN size)
 {
 	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1, SQL_VARCHAR, &data, size, &this->colLen[this->currIndex]);
 	++this->currIndex;
+}
+
+void CoreDB::BindArgument(const uint8_t data)
+{
+	this->command += L" ";
+	this->command += TO_WSTR(data);
+	this->command += L",";
 }
 
 void CoreDB::BindArgument(const int8_t data)

@@ -10,5 +10,5 @@ public:
 	virtual void Release(void) override;
 
 public:
-	Login::ErrorCode CreateCharacter(const wchar_t*, Define::Job job, int64_t& uid);
+	bool CreateCharacter(const int64_t accountUID, const wchar_t* name, const uint8_t level, const Define::Job job, int64_t& uid);
 };

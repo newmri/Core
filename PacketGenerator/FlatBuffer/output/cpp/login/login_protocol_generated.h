@@ -222,7 +222,7 @@ struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return GetField<uint8_t>(VT_LEVEL, 0);
   }
   Define::Job job() const {
-    return static_cast<Define::Job>(GetField<int8_t>(VT_JOB, 0));
+    return static_cast<Define::Job>(GetField<uint8_t>(VT_JOB, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -230,7 +230,7 @@ struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyOffset(verifier, VT_NAME) &&
            verifier.VerifyString(name()) &&
            VerifyField<uint8_t>(verifier, VT_LEVEL) &&
-           VerifyField<int8_t>(verifier, VT_JOB) &&
+           VerifyField<uint8_t>(verifier, VT_JOB) &&
            verifier.EndTable();
   }
 };
@@ -249,7 +249,7 @@ struct CHARACTER_INFOBuilder {
     fbb_.AddElement<uint8_t>(CHARACTER_INFO::VT_LEVEL, level, 0);
   }
   void add_job(Define::Job job) {
-    fbb_.AddElement<int8_t>(CHARACTER_INFO::VT_JOB, static_cast<int8_t>(job), 0);
+    fbb_.AddElement<uint8_t>(CHARACTER_INFO::VT_JOB, static_cast<uint8_t>(job), 0);
   }
   explicit CHARACTER_INFOBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -476,13 +476,13 @@ struct CS_CREATE_CHARACTER_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
     return GetPointer<const flatbuffers::String *>(VT_NAME);
   }
   Define::Job job() const {
-    return static_cast<Define::Job>(GetField<int8_t>(VT_JOB, 0));
+    return static_cast<Define::Job>(GetField<uint8_t>(VT_JOB, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NAME) &&
            verifier.VerifyString(name()) &&
-           VerifyField<int8_t>(verifier, VT_JOB) &&
+           VerifyField<uint8_t>(verifier, VT_JOB) &&
            verifier.EndTable();
   }
 };
@@ -495,7 +495,7 @@ struct CS_CREATE_CHARACTER_REQBuilder {
     fbb_.AddOffset(CS_CREATE_CHARACTER_REQ::VT_NAME, name);
   }
   void add_job(Define::Job job) {
-    fbb_.AddElement<int8_t>(CS_CREATE_CHARACTER_REQ::VT_JOB, static_cast<int8_t>(job), 0);
+    fbb_.AddElement<uint8_t>(CS_CREATE_CHARACTER_REQ::VT_JOB, static_cast<uint8_t>(job), 0);
   }
   explicit CS_CREATE_CHARACTER_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {

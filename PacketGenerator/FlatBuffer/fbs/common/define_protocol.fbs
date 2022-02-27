@@ -1,6 +1,6 @@
 namespace Define;
 
-enum Job : byte
+enum Job : ubyte
 {
   Warrior = 0,
   Archer,
@@ -8,7 +8,7 @@ enum Job : byte
   Duelist
 }
 
-enum AccountLimit : byte
+enum AccountLimit : ubyte
 {
   MinIDLen = 2,
   MaxIDLen = 10,
@@ -16,7 +16,7 @@ enum AccountLimit : byte
   MaxPasswordLen = 15
 }
 
-enum CharacterLimit : byte
+enum CharacterLimit : ubyte
 {
   MinNameLen = 1,
   MaxNameLen = 8,
