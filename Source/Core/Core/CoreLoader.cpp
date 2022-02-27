@@ -82,54 +82,62 @@ void CoreLoader::Parse(std::string& in, const size_t dataTypeIndex, char* out)
 #if _DEBUG
 	unsigned int hashCode = HashCode(this->dataTypes[dataTypeIndex].c_str());
 
-	if (hashCode == HashCode(GET_INT_NAME))
+	if (hashCode == HashCode(INT16_NAME))
 	{
-		Parse(in, CHAR_TO_INT_REF out);
+		Parse(in, CHAR_TO_INT16_REF out);
 	}
 
-	else if (hashCode == HashCode(GET_LONG_LONG_NAME))
+	else if (hashCode == HashCode(INT32_NAME))
 	{
-		Parse(in, CHAR_TO_LONG_LONG_REF out);
+		Parse(in, CHAR_TO_INT32_REF out);
 	}
 
-	else if (hashCode == HashCode(GET_FLOAT_NAME))
+	else if (hashCode == HashCode(INT64_NAME))
 	{
-		Parse(in, CHAR_TO_FLOAT_REF out);
+		Parse(in, CHAR_TO_INT64_REF out);
 	}
 
-	else if (hashCode == HashCode(GET_DOUBLE_NAME))
-	{
-		Parse(in, CHAR_TO_DOUBLE_REF out);
-	}
-
-	else if (hashCode == HashCode(GET_SIZE_T_NAME))
+	else if (hashCode == HashCode(SIZE_T_NAME))
 	{
 		Parse(in, CHAR_TO_SIZE_T_REF out);
 	}
 
-	else if (hashCode == HashCode(GET_STRING_NAME))
+	else if (hashCode == HashCode(FLOAT_NAME))
+	{
+		Parse(in, CHAR_TO_FLOAT_REF out);
+	}
+
+	else if (hashCode == HashCode(DOUBLE_NAME))
+	{
+		Parse(in, CHAR_TO_DOUBLE_REF out);
+	}
+
+	else if (hashCode == HashCode(STRING_NAME))
 	{
 		Parse(in, CHAR_TO_STRING_REF out);
 	}
 #else
 	switch (HashCode(this->dataTypes[dataTypeIndex].c_str()))
 	{
-	case HashCode(GET_INT_NAME):
-		Parse(in, CHAR_TO_INT_REF out);
+	case HashCode(INT16_NAME):
+		Parse(in, CHAR_TO_INT16_REF out);
 		break;
-	case HashCode(GET_LONG_LONG_NAME):
-		Parse(in, CHAR_TO_LONG_LONG_REF out);
+	case HashCode(INT32_NAME):
+		Parse(in, CHAR_TO_INT32_REF out);
 		break;
-	case HashCode(GET_SIZE_T_NAME):
+	case HashCode(INT64_NAME):
+		Parse(in, CHAR_TO_INT64_REF out);
+		break;
+	case HashCode(SIZE_T_NAME):
 		Parse(in, CHAR_TO_SIZE_T_REF out);
 		break;
-	case HashCode(GET_FLOAT_NAME):
+	case HashCode(FLOAT_NAME):
 		Parse(in, CHAR_TO_FLOAT_REF out);
 		break;
-	case HashCode(GET_DOUBLE_NAME):
+	case HashCode(DOUBLE_NAME):
 		Parse(in, CHAR_TO_DOUBLE_REF out);
 		break;
-	case HashCode(GET_STRING_NAME):
+	case HashCode(STRING_NAME):
 		Parse(in, CHAR_TO_STRING_REF out);
 		break;
 	}
@@ -154,44 +162,34 @@ std::string CoreLoader::Parse(std::string& in)
 	return str;
 }
 
-void CoreLoader::Parse(std::string& in, int& out)
+void CoreLoader::Parse(std::string& in, int16_t& out)
 {
 	out = stoi(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, long& out)
+void CoreLoader::Parse(std::string& in, int32_t& out)
 {
-	out = stol(Parse(in));
+	out = stoi(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, long long& out)
+void CoreLoader::Parse(std::string& in, int64_t& out)
 {
 	out = stoll(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, unsigned long& out)
-{
-	out = stoul(Parse(in));
-}
-
-void CoreLoader::Parse(std::string& in, unsigned long long& out)
+void CoreLoader::Parse(std::string& in, size_t& out)
 {
 	out = stoull(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, float& out)
+void CoreLoader::Parse(std::string& in, float_t& out)
 {
 	out = stof(Parse(in));
 }
 
-void CoreLoader::Parse(std::string& in, double& out)
+void CoreLoader::Parse(std::string& in, double_t& out)
 {
 	out = stod(Parse(in));
-}
-
-void CoreLoader::Parse(std::string& in, long double& out)
-{
-	out = stold(Parse(in));
 }
 
 void CoreLoader::ParseDataTypesAndCalRowSize(std::string& strForParse)

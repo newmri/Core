@@ -24,14 +24,12 @@ protected:
 
 private:
 	std::string Parse(std::string& in);
-	void Parse(std::string& in,int& out);
-	void Parse(std::string& in,long& out);
-	void Parse(std::string& in,long long& out);
-	void Parse(std::string& in,unsigned long& out);
-	void Parse(std::string& in,unsigned long long& out);
-	void Parse(std::string& in,float& out);
-	void Parse(std::string& in,double& out);
-	void Parse(std::string& in,long double& out);
+	void Parse(std::string& in, int16_t& out);
+	void Parse(std::string& in, int32_t& out);
+	void Parse(std::string& in, int64_t& out);
+	void Parse(std::string& in, size_t& out);
+	void Parse(std::string& in, float_t& out);
+	void Parse(std::string& in, double_t& out);
 
 protected:
 	void ParseDataTypesAndCalRowSize(std::string& strForParse);

@@ -2,15 +2,15 @@
 
 struct ServerInfo
 {
-	int GroupID = 0;
-	int ServerPort = 0;
+	int32_t GroupID = 0;
+	int32_t ServerPort = 0;
 };
 
 struct ServerConfig
 {
 	std::string ServerType;
-	int WorldID = 0;
-	int ServerID = 0;
+	int32_t WorldID = 0;
+	int32_t ServerID = 0;
 };
 
 class CoreServer

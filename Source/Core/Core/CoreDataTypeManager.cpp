@@ -4,12 +4,13 @@ IMPLEMENT_SINGLETON(CoreDataTypeManager)
 
 void CoreDataTypeManager::Init(void)
 {
-	getSizeOfTypeMap.insert(ProcessingMap::value_type(std::string(GET_INT_NAME), &CoreDataTypeManager::GetSizeOfInt));
-	getSizeOfTypeMap.insert(ProcessingMap::value_type(std::string(GET_LONG_LONG_NAME), &CoreDataTypeManager::GetSizeOfLongLong));
-	getSizeOfTypeMap.insert(ProcessingMap::value_type(std::string(GET_SIZE_T_NAME), &CoreDataTypeManager::GetSizeOfSize_T));
-	getSizeOfTypeMap.insert(ProcessingMap::value_type(std::string(GET_FLOAT_NAME), &CoreDataTypeManager::GetSizeOfFloat));
-	getSizeOfTypeMap.insert(ProcessingMap::value_type(std::string(GET_DOUBLE_NAME), &CoreDataTypeManager::GetSizeOfDouble));
-	getSizeOfTypeMap.insert(ProcessingMap::value_type(std::string(GET_STRING_NAME), &CoreDataTypeManager::GetSizeOfString));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT16_NAME, &CoreDataTypeManager::GetSizeOfInt16));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT32_NAME, &CoreDataTypeManager::GetSizeOfInt32));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT64_NAME, &CoreDataTypeManager::GetSizeOfInt64));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(SIZE_T_NAME, &CoreDataTypeManager::GetSizeOfSize_T));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(FLOAT_NAME, &CoreDataTypeManager::GetSizeOfFloat));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(DOUBLE_NAME, &CoreDataTypeManager::GetSizeOfDouble));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(STRING_NAME, &CoreDataTypeManager::GetSizeOfString));
 }
 
 void CoreDataTypeManager::Release(void)
@@ -17,14 +18,19 @@ void CoreDataTypeManager::Release(void)
 	GetInstance().~CoreDataTypeManager();
 }
 
-size_t CoreDataTypeManager::GetSizeOfInt(void) const
+size_t CoreDataTypeManager::GetSizeOfInt16(void) const
 {
-	return SIZE_OF_INT;
+	return SIZE_OF_INT16;
 }
 
-size_t CoreDataTypeManager::GetSizeOfLongLong(void) const
+size_t CoreDataTypeManager::GetSizeOfInt32(void) const
 {
-	return SIZE_OF_LONG_LONG;
+	return SIZE_OF_INT32;
+}
+
+size_t CoreDataTypeManager::GetSizeOfInt64(void) const
+{
+	return SIZE_OF_INT64;
 }
 
 size_t CoreDataTypeManager::GetSizeOfSize_T(void) const
@@ -55,24 +61,4 @@ size_t CoreDataTypeManager::GetSizeOfType(std::string_view dataType) const
 		return (this->*((*iter).second))();
 
 	return 0;
-}
-
-SQLUSMALLINT CoreDataTypeManager::GetSQLType(const char* const dataType) const
-{
-	switch (HashCode(dataType))
-	{
-	case HashCode(GET_STRING_NAME):
-	case HashCode(GET_CHAR_NAME):
-		return SQL_CHAR;
-	case HashCode(GET_SHORT_NAME):
-		return SQL_SMALLINT;
-	case HashCode(GET_INT_NAME):
-		return SQL_INTEGER;
-	case HashCode(GET_FLOAT_NAME):
-		return SQL_FLOAT;
-	case HashCode(GET_SIZE_T_NAME):
-		return SQL_BIGINT;
-	default:
-		return SQL_UNKNOWN_TYPE;
-	}
 }

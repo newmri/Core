@@ -1,2 +1,2 @@
-string,int,int
+string,int32_t,int32_t
 Login,1,1000
