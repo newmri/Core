@@ -9,7 +9,8 @@ struct DBConfig
 enum DBType
 {
 	World = 0,
-	Account
+	Account,
+	Game
 };
 
 class CoreDB : CoreObj

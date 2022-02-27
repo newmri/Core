@@ -44,6 +44,14 @@ std::shared_ptr<AccountDB> LoginServerManager::GetAccountDB(void)
 	return this->accountDB;
 }
 
+std::shared_ptr<GameDB> LoginServerManager::GetGameDB(void)
+{
+	if (IS_SAME(nullptr, this->gameDB))
+		MakeGameDB();
+
+	return this->gameDB;
+}
+
 void LoginServerManager::MakeWorldDB(void)
 {
 	std::string dbName = ENUM_TO_STR(World);
@@ -55,6 +63,13 @@ void LoginServerManager::MakeAccountDB(void)
 	std::string dbName = ENUM_TO_STR(Account);
 	this->accountDB = std::make_shared<AccountDB>(STRING_MANAGER.Widen(ENUM_TO_STR(Account)));
 }
+
+void LoginServerManager::MakeGameDB(void)
+{
+	std::string dbName = ENUM_TO_STR(Game);
+	this->gameDB = std::make_shared<GameDB>(STRING_MANAGER.Widen(ENUM_TO_STR(Game)));
+}
+
 
 void LoginServerManager::Close(std::shared_ptr<CoreClientSession> session)
 {

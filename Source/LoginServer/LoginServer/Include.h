@@ -5,5 +5,6 @@
 #include "LoginPacketFunc.h"
 #include "LoginPacketHandler.h"
 #include "AccountDB.h"
+#include "GameDB.h"
 #include "LoginServer.h"
 #include "LoginServerManager.h"

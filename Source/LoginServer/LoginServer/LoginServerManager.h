@@ -12,10 +12,12 @@ public:
 
 public:
 	std::shared_ptr<AccountDB> GetAccountDB(void);
+	std::shared_ptr<GameDB> GetGameDB(void);
 
 private:
 	void MakeWorldDB(void);
 	void MakeAccountDB(void);
+	void MakeGameDB(void);
 
 public:
 	void Close(std::shared_ptr<CoreClientSession> session);
@@ -31,4 +33,5 @@ private:
 private:
 	static thread_local std::shared_ptr<WorldDB> worldDB;
 	static thread_local std::shared_ptr<AccountDB> accountDB;
+	static thread_local std::shared_ptr<GameDB> gameDB;
 };
