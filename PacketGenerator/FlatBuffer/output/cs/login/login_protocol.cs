@@ -248,20 +248,20 @@ public struct SC_CREATE_CHARACTER_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_CREATE_CHARACTER_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Login.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (Login.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : Login.ErrorCode.SUCCESS; } }
+  public bool IsSuccess { get { int o = __p.__offset(4); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
   public Login.CHARACTER_INFO? CharacterInfo { get { int o = __p.__offset(6); return o != 0 ? (Login.CHARACTER_INFO?)(new Login.CHARACTER_INFO()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
 
   public static Offset<Login.SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder,
-      Login.ErrorCode result = Login.ErrorCode.SUCCESS,
+      bool is_success = false,
       Offset<Login.CHARACTER_INFO> character_infoOffset = default(Offset<Login.CHARACTER_INFO>)) {
     builder.StartTable(2);
     SC_CREATE_CHARACTER_RES.AddCharacterInfo(builder, character_infoOffset);
-    SC_CREATE_CHARACTER_RES.AddResult(builder, result);
+    SC_CREATE_CHARACTER_RES.AddIsSuccess(builder, is_success);
     return SC_CREATE_CHARACTER_RES.EndSC_CREATE_CHARACTER_RES(builder);
   }
 
   public static void StartSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
-  public static void AddResult(FlatBufferBuilder builder, Login.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
+  public static void AddIsSuccess(FlatBufferBuilder builder, bool isSuccess) { builder.AddBool(0, isSuccess, false); }
   public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<Login.CHARACTER_INFO> characterInfoOffset) { builder.AddOffset(1, characterInfoOffset.Value, 0); }
   public static Offset<Login.SC_CREATE_CHARACTER_RES> EndSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();

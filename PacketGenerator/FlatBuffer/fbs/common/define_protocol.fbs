@@ -20,5 +20,6 @@ enum CharacterLimit : ubyte
 {
   MinNameLen = 1,
   MaxNameLen = 8,
+  EmptyCharacterSlot = 3,
   MaxCharacterSlot = 5
 }

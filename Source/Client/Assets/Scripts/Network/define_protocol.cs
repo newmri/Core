@@ -28,6 +28,7 @@ public enum AccountLimit : byte
 public enum CharacterLimit : byte
 {
   MinNameLen = 1,
+  EmptyCharacterSlot = 3,
   MaxCharacterSlot = 5,
   MaxNameLen = 8,
 };

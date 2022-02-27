@@ -103,7 +103,7 @@ void CoreDB::BindCol(int32_t* data, const SQLLEN size)
 
 void CoreDB::BindCol(int64_t* data, const SQLLEN size)
 {
-	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1, SQL_BIGINT, data, size, &this->colLen[this->currIndex]);
+	this->retCode = SQLBindCol(this->hstmt, this->currIndex + 1, SQL_C_SBIGINT, data, size, &this->colLen[this->currIndex]);
 	++this->currIndex;
 }
 

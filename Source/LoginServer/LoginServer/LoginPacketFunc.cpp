@@ -71,7 +71,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	// 성공
 	if (IS_SAME(Login::ErrorCode_SUCCESS, result))
 	{
-		message = Login::CreateSC_LOGIN_RES(this->builder, result, 5, 2);
+		message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, Define::CharacterLimit_EmptyCharacterSlot);
 	}
 	// 실패
 	else
@@ -110,8 +110,11 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if (IS_NULL(account))
 		return;
 
-	if (raw->name()->size() < Define::CharacterLimit_MinNameLen ||
-		raw->name()->size() > Define::CharacterLimit_MaxNameLen)
+	// 길이 체크 문제가 있다..
+	size_t nameLen = raw->name()->str().length();
+
+	if (nameLen < Define::CharacterLimit_MinNameLen ||
+		nameLen > Define::CharacterLimit_MaxNameLen)
 		return;
 
 	if (raw->job() < Define::Job_MIN ||
@@ -122,15 +125,21 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 		return;
 
 	int64_t uid = 0;
-	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(),
-					 STRING_MANAGER.Widen(raw->name()->c_str()).c_str(), 1, raw->job(), uid);
+	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), STRING_MANAGER.Widen(raw->name()->c_str()).c_str(), 1, raw->job(), uid);
+
+	this->builder.Clear();
+
+	flatbuffers::Offset<Login::SC_CREATE_CHARACTER_RES> message;
 
 	if (isSuccess)
 	{
-
+		auto info = Login::CreateCHARACTER_INFODirect(this->builder, uid, raw->name()->c_str(), 1, raw->job());
+		message = Login::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess, info);
 	}
 	else
 	{
-
+		message = Login::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess);
 	}
+
+	Write(session, Login::Packet_SC_CREATE_CHARACTER_RES, message.Union());
 }

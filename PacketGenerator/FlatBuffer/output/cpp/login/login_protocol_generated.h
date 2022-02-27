@@ -532,18 +532,18 @@ inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_RE
 struct SC_CREATE_CHARACTER_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SC_CREATE_CHARACTER_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_RESULT = 4,
+    VT_IS_SUCCESS = 4,
     VT_CHARACTER_INFO = 6
   };
-  Login::ErrorCode result() const {
-    return static_cast<Login::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
+  bool is_success() const {
+    return GetField<uint8_t>(VT_IS_SUCCESS, 0) != 0;
   }
   const Login::CHARACTER_INFO *character_info() const {
     return GetPointer<const Login::CHARACTER_INFO *>(VT_CHARACTER_INFO);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int8_t>(verifier, VT_RESULT) &&
+           VerifyField<uint8_t>(verifier, VT_IS_SUCCESS) &&
            VerifyOffset(verifier, VT_CHARACTER_INFO) &&
            verifier.VerifyTable(character_info()) &&
            verifier.EndTable();
@@ -554,8 +554,8 @@ struct SC_CREATE_CHARACTER_RESBuilder {
   typedef SC_CREATE_CHARACTER_RES Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_result(Login::ErrorCode result) {
-    fbb_.AddElement<int8_t>(SC_CREATE_CHARACTER_RES::VT_RESULT, static_cast<int8_t>(result), 0);
+  void add_is_success(bool is_success) {
+    fbb_.AddElement<uint8_t>(SC_CREATE_CHARACTER_RES::VT_IS_SUCCESS, static_cast<uint8_t>(is_success), 0);
   }
   void add_character_info(flatbuffers::Offset<Login::CHARACTER_INFO> character_info) {
     fbb_.AddOffset(SC_CREATE_CHARACTER_RES::VT_CHARACTER_INFO, character_info);
@@ -573,11 +573,11 @@ struct SC_CREATE_CHARACTER_RESBuilder {
 
 inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Login::ErrorCode result = Login::ErrorCode_SUCCESS,
+    bool is_success = false,
     flatbuffers::Offset<Login::CHARACTER_INFO> character_info = 0) {
   SC_CREATE_CHARACTER_RESBuilder builder_(_fbb);
   builder_.add_character_info(character_info);
-  builder_.add_result(result);
+  builder_.add_is_success(is_success);
   return builder_.Finish();
 }
 

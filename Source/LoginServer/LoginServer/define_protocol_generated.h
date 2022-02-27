@@ -92,15 +92,17 @@ inline const char *EnumNameAccountLimit(AccountLimit e) {
 
 enum CharacterLimit : uint8_t {
   CharacterLimit_MinNameLen = 1,
+  CharacterLimit_EmptyCharacterSlot = 3,
   CharacterLimit_MaxCharacterSlot = 5,
   CharacterLimit_MaxNameLen = 8,
   CharacterLimit_MIN = CharacterLimit_MinNameLen,
   CharacterLimit_MAX = CharacterLimit_MaxNameLen
 };
 
-inline const CharacterLimit (&EnumValuesCharacterLimit())[3] {
+inline const CharacterLimit (&EnumValuesCharacterLimit())[4] {
   static const CharacterLimit values[] = {
     CharacterLimit_MinNameLen,
+    CharacterLimit_EmptyCharacterSlot,
     CharacterLimit_MaxCharacterSlot,
     CharacterLimit_MaxNameLen
   };
@@ -111,7 +113,7 @@ inline const char * const *EnumNamesCharacterLimit() {
   static const char * const names[9] = {
     "MinNameLen",
     "",
-    "",
+    "EmptyCharacterSlot",
     "",
     "MaxCharacterSlot",
     "",

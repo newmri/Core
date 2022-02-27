@@ -53,7 +53,7 @@ table CS_CREATE_CHARACTER_REQ {
 }
 
 table SC_CREATE_CHARACTER_RES {
-    result:ErrorCode;
+    is_success:bool;
     character_info:CHARACTER_INFO;
 }
 
