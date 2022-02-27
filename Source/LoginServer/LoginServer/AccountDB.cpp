@@ -28,12 +28,15 @@ bool AccountDB::Login(const int64_t uid, CoreToken& token)
 	BindCol(&result, sizeof(result));
 	BindCol(&time, sizeof(time));
 
-	do
+	while (IsSuccess())
 	{
 		this->retCode = SQLFetch(this->hstmt);
-		token.expireTime = time;
 
-	} while (IsSuccess());
+		if (IsSuccess())
+		{
+			token.expireTime = time;
+		}
+	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 
@@ -46,10 +49,10 @@ void AccountDB::Logout(const int64_t uid)
 	BindArgument(uid);
 	Execute();
 
-	do
+	while (IsSuccess())
 	{
 		this->retCode = SQLFetch(this->hstmt);
-	} while (IsSuccess());
+	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }

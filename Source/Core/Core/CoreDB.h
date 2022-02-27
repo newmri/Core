@@ -31,13 +31,18 @@ protected:
 
 protected:
 	void BindCol(bool* data, const SQLLEN size);
+	void BindCol(int8_t* data, const SQLLEN size);
+	void BindCol(int16_t* data, const SQLLEN size);
 	void BindCol(int32_t* data, const SQLLEN size);
+	void BindCol(int64_t* data, const SQLLEN size);
 	void BindCol(const wchar_t* data, const SQLLEN size);
 	
 protected:
-	void BindArgument(const wchar_t* data);
+	void BindArgument(const int8_t data);
+	void BindArgument(const int16_t data);
 	void BindArgument(const int32_t data);
 	void BindArgument(const int64_t data);
+	void BindArgument(const wchar_t* data);
 
 protected:
 	bool Execute(void);

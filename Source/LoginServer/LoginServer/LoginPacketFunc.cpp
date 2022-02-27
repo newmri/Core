@@ -116,4 +116,18 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	if (account->GetCharacterCount() >= Define::CharacterLimit_MaxCharacterSlot)
 		return;
+
+	// 직업 체크 추가 필요
+
+	int64_t uid = 0;
+	Login::ErrorCode result = LOGIN_SERVER.GetGameDB()->CreateCharacter(STRING_MANAGER.Widen(raw->name()->c_str()).c_str(), raw->job(), uid);
+
+	if (IS_SAME(Login::ErrorCode_SUCCESS, result))
+	{
+
+	}
+	else
+	{
+
+	}
 }
