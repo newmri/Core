@@ -110,12 +110,12 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if (IS_NULL(account))
 		return;
 
-	// 길이 체크 문제가 있다..
-	size_t nameLen = raw->name()->str().length();
+	//// 길이 체크 문제가 있다..
+	//size_t nameLen = raw->name()->str().length();
 
-	if (nameLen < Define::CharacterLimit_MinNameLen ||
-		nameLen > Define::CharacterLimit_MaxNameLen)
-		return;
+	//if (nameLen < Define::CharacterLimit_MinNameLen ||
+	//	nameLen > Define::CharacterLimit_MaxNameLen)
+	//	return;
 
 	if (raw->job() < Define::Job_MIN ||
 		raw->job() > Define::Job_MAX)
