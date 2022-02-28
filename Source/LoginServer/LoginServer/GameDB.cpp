@@ -24,9 +24,9 @@ bool GameDB::CreateCharacter(const int64_t accountUID, const wchar_t* name, cons
 	BindArgument(job);
 	BindArgument(100);
 	BindArgument(100);
-	BindArgument(DATA_MANAGER.createStat[job].STR);
-	BindArgument(DATA_MANAGER.createStat[job].DEX);
-	BindArgument(DATA_MANAGER.createStat[job].INT);
+	BindArgument(DATA_MANAGER.characterCreateStat[job].STR);
+	BindArgument(DATA_MANAGER.characterCreateStat[job].DEX);
+	BindArgument(DATA_MANAGER.characterCreateStat[job].INT);
 	Execute();
 
 	bool isSuccess = false;
