@@ -29,6 +29,9 @@
 #include <windows.h>  
 #include <sqlext.h>
 #include <locale>
+#include <regex>
+#include <atlbase.h>
+#include <atlconv.h>
 
 #include "flatbuffers/flatbuffers.h"
 

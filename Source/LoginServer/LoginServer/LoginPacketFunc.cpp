@@ -23,15 +23,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	{
 		if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), token))
 		{
-			session->SetAccountUID(raw->uid());
-
 			CORE_ACCOUNT_MANAGER.Add(raw->uid(), token);
-
-			CORE_TIME_DELEGATE_MANAGER.Push(
-				CoreTimeDelegate<>(
-					std::bind(&CoreClientSession::CheckPingPongTime, session),
-					HALF_MIN));
-
 			result = Login::ErrorCode_SUCCESS;
 		}
 	}
@@ -45,21 +37,14 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		{
 			if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), token))
 			{
-				session->SetAccountUID(raw->uid());
-
 				account->SetLogin();
 				account->UpdateToken(token);
-
-				CORE_TIME_DELEGATE_MANAGER.Push(
-					CoreTimeDelegate<>(
-						std::bind(&CoreClientSession::CheckPingPongTime, session),
-						HALF_MIN));
-
 				result = Login::ErrorCode_SUCCESS;
 			}
 		}
 		else
 		{
+			account->SetLogin();
 			result = Login::ErrorCode_SUCCESS;
 		}
 	}
@@ -71,6 +56,13 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	// 성공
 	if (IS_SAME(Login::ErrorCode_SUCCESS, result))
 	{
+		session->SetAccountUID(raw->uid());
+
+		CORE_TIME_DELEGATE_MANAGER.Push(
+			CoreTimeDelegate<>(
+				std::bind(&CoreClientSession::CheckPingPongTime, session),
+				HALF_MIN));
+
 		message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, Define::CharacterLimit_EmptyCharacterSlot);
 	}
 	// 실패
@@ -110,22 +102,19 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if (IS_NULL(account))
 		return;
 
-	//// 길이 체크 문제가 있다..
-	//size_t nameLen = raw->name()->str().length();
+	std::wstring name = STRING_MANAGER.Widen(raw->name()->string_view());
+	std::wcout << name << std::endl;
+	if(!STRING_MANAGER.IsValidLanguage(name, Define::CharacterLimit_MinNameLen, Define::CharacterLimit_MaxNameLen))
+		return;
 
-	//if (nameLen < Define::CharacterLimit_MinNameLen ||
-	//	nameLen > Define::CharacterLimit_MaxNameLen)
-	//	return;
-
-	if (raw->job() < Define::Job_MIN ||
-		raw->job() > Define::Job_MAX)
+	if (!IsBetween(raw->job(), Define::Job_MIN, Define::Job_MAX))
 		return;
 
 	if (account->GetCharacterCount() >= Define::CharacterLimit_MaxCharacterSlot)
 		return;
 
 	int64_t uid = 0;
-	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), STRING_MANAGER.Widen(raw->name()->c_str()).c_str(), 1, raw->job(), uid);
+	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), name.c_str(), 1, raw->job(), uid);
 
 	this->builder.Clear();
 

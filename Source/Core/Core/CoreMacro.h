@@ -39,6 +39,12 @@ void SAFE_DELETE(size_t num, T* PTR)
 		SAFE_DELETE(PTR);
 }
 
+template<typename T>
+bool IsBetween(T value, T min, T max)
+{
+	return (value >= min && value <= max);
+}
+
 #ifdef KNOWN_L1_CACHE_LINE_SIZE
 inline constexpr size_t LINE = KNOWN_L1_CACHE_LINE_SIZE;
 #else

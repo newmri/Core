@@ -4,7 +4,7 @@ IMPLEMENT_SINGLETON(CoreStringManager)
 
 void CoreStringManager::Init(void)
 {
-
+	setlocale(LC_ALL, "");
 }
 
 void CoreStringManager::Release(void)
@@ -31,24 +31,57 @@ std::string CoreStringManager::ReplaceAll(std::string_view source, std::string_v
 	return newString;
 }
 
+bool CoreStringManager::IsValidEnglish(std::string_view str, const int8_t min, const int8_t max)
+{
+	if (!IsValidLen(str, min, max))
+		return false;
+
+	static std::regex pattern("^[a-z0-9A-Z]+$");
+	return std::regex_match(str.data(), pattern);
+}
+
+bool CoreStringManager::IsValidEnglish(std::wstring_view str, const int8_t min, const int8_t max)
+{
+	if (!IsValidLen(str, min, max))
+		return false;
+
+	static std::wregex pattern(L"^[a-z0-9A-Z]+$");
+	return std::regex_match(str.data(), pattern);
+}
+
+bool CoreStringManager::IsValidLanguage(std::wstring_view str, const int8_t min, const int8_t max)
+{
+	// ÃßÈÄ ¾ð¾î°¡ Ãß°¡ µÉ½Ã ±×¿¡ ¸Â´Â ÇÔ¼ö È£Ãâ
+	return IsValidKorean(str, min, max);
+}
+
+bool CoreStringManager::IsValidKorean(std::wstring_view str, const int8_t min, const int8_t max)
+{
+	if (!IsValidLen(str, min, max))
+		return false;
+
+	static std::wregex pattern(L"^[°¡-ÆRa-z0-9A-Z]+$");
+	return std::regex_match(str.data(), pattern);
+}
+
+bool CoreStringManager::IsValidLen(std::string_view str, const int8_t min, const int8_t max)
+{
+	size_t len = str.length();
+	return (len >= min && len <= max);
+}
+
+bool CoreStringManager::IsValidLen(std::wstring_view str, const int8_t min, const int8_t max)
+{
+	size_t len = str.length();
+	return (len >= min && len <= max);
+}
+
 std::wstring CoreStringManager::Widen(std::string_view source)
 {
-	std::wostringstream wstm;
-	const std::ctype<wchar_t>& ctfacet = std::use_facet<std::ctype<wchar_t>>(wstm.getloc());
-	for (size_t i = 0; i < source.size(); ++i)
-		wstm << ctfacet.widen(source[i]);
-
-	return wstm.str();
+	return CA2W(source.data(), CP_UTF8).m_psz;
 }
 
 std::string CoreStringManager::Narrow(std::wstring_view source)
 {
-	std::ostringstream stm;
-
-	const std::ctype<wchar_t>& ctfacet = std::use_facet<std::ctype<wchar_t>>(stm.getloc());
-
-	for (size_t i = 0; i < source.size(); ++i)
-		stm << ctfacet.narrow(source[i], 0);
-
-	return stm.str();
+	return CW2A(source.data()).m_psz;
 }
