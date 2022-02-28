@@ -81,8 +81,12 @@ void CoreLoader::Parse(std::string& in, const size_t dataTypeIndex, char* out)
 {
 #if _DEBUG
 	unsigned int hashCode = HashCode(this->dataTypes[dataTypeIndex].c_str());
+	if (hashCode == HashCode(UINT8_NAME))
+	{
+		Parse(in, CHAR_TO_UINT8_REF out);
+	}
 
-	if (hashCode == HashCode(INT16_NAME))
+	else if (hashCode == HashCode(INT16_NAME))
 	{
 		Parse(in, CHAR_TO_INT16_REF out);
 	}
@@ -119,6 +123,9 @@ void CoreLoader::Parse(std::string& in, const size_t dataTypeIndex, char* out)
 #else
 	switch (HashCode(this->dataTypes[dataTypeIndex].c_str()))
 	{
+	case HashCode(UINT8_NAME):
+		Parse(in, CHAR_TO_UINT8_REF out);
+		break;
 	case HashCode(INT16_NAME):
 		Parse(in, CHAR_TO_INT16_REF out);
 		break;
@@ -160,6 +167,12 @@ std::string CoreLoader::Parse(std::string& in)
 	in.erase(0, findPos + 1);
 
 	return str;
+}
+
+void CoreLoader::Parse(std::string& in, uint8_t& out)
+{
+	std::string source = Parse(in);
+	std::copy(source.begin(), source.end(), out);
 }
 
 void CoreLoader::Parse(std::string& in, int16_t& out)

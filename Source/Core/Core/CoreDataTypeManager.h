@@ -2,6 +2,7 @@
 
 #define CORE_DATA_TYPE_MANAGER GET_INSTANCE(CoreDataTypeManager)
 
+#define UINT8_NAME "uint8_t"
 #define INT16_NAME "int16_t"
 #define INT32_NAME "int32_t"
 #define INT64_NAME "int64_t"
@@ -11,6 +12,7 @@
 #define STRING_NAME "string"
 #define CHAR_NAME "char"
 
+#define SIZE_OF_UINT8 sizeof(uint8_t)
 #define SIZE_OF_INT16 sizeof(int16_t)
 #define SIZE_OF_INT32 sizeof(int32_t)
 #define SIZE_OF_INT64 sizeof(int64_t)
@@ -19,6 +21,7 @@
 #define SIZE_OF_DOUBLE sizeof(double_t)
 #define SIZE_OF_STRING sizeof(std::string)
 
+#define CHAR_TO_UINT8_REF *(uint8_t*)
 #define CHAR_TO_INT16_REF *(int16_t*)
 #define CHAR_TO_INT32_REF *(int32_t*)
 #define CHAR_TO_INT64_REF *(int64_t*)
@@ -32,6 +35,7 @@ class CoreDataTypeManager
 	DECLARE_SINGLETON(CoreDataTypeManager)
 
 private:
+	size_t GetSizeOfUInt8(void) const;
 	size_t GetSizeOfInt16(void) const;
 	size_t GetSizeOfInt32(void) const;
 	size_t GetSizeOfInt64(void) const;

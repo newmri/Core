@@ -4,6 +4,7 @@ IMPLEMENT_SINGLETON(CoreDataTypeManager)
 
 void CoreDataTypeManager::Init(void)
 {
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(UINT8_NAME, &CoreDataTypeManager::GetSizeOfUInt8));
 	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT16_NAME, &CoreDataTypeManager::GetSizeOfInt16));
 	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT32_NAME, &CoreDataTypeManager::GetSizeOfInt32));
 	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT64_NAME, &CoreDataTypeManager::GetSizeOfInt64));
@@ -16,6 +17,11 @@ void CoreDataTypeManager::Init(void)
 void CoreDataTypeManager::Release(void)
 {
 	GetInstance().~CoreDataTypeManager();
+}
+
+size_t CoreDataTypeManager::GetSizeOfUInt8(void) const
+{
+	return SIZE_OF_UINT8;
 }
 
 size_t CoreDataTypeManager::GetSizeOfInt16(void) const
