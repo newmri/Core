@@ -29,6 +29,7 @@ table CHARACTER_INFO {
     name:string;
     level:ubyte;
     job:Define.Job;
+    gear:[ubyte];
 }
 
 table SC_LOGIN_RES {

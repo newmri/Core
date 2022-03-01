@@ -210,7 +210,8 @@ struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_UID = 4,
     VT_NAME = 6,
     VT_LEVEL = 8,
-    VT_JOB = 10
+    VT_JOB = 10,
+    VT_GEAR = 12
   };
   int64_t uid() const {
     return GetField<int64_t>(VT_UID, 0);
@@ -224,6 +225,9 @@ struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   Define::Job job() const {
     return static_cast<Define::Job>(GetField<uint8_t>(VT_JOB, 0));
   }
+  const flatbuffers::Vector<uint8_t> *gear() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_GEAR);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int64_t>(verifier, VT_UID) &&
@@ -231,6 +235,8 @@ struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(name()) &&
            VerifyField<uint8_t>(verifier, VT_LEVEL) &&
            VerifyField<uint8_t>(verifier, VT_JOB) &&
+           VerifyOffset(verifier, VT_GEAR) &&
+           verifier.VerifyVector(gear()) &&
            verifier.EndTable();
   }
 };
@@ -251,6 +257,9 @@ struct CHARACTER_INFOBuilder {
   void add_job(Define::Job job) {
     fbb_.AddElement<uint8_t>(CHARACTER_INFO::VT_JOB, static_cast<uint8_t>(job), 0);
   }
+  void add_gear(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gear) {
+    fbb_.AddOffset(CHARACTER_INFO::VT_GEAR, gear);
+  }
   explicit CHARACTER_INFOBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -267,9 +276,11 @@ inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(
     int64_t uid = 0,
     flatbuffers::Offset<flatbuffers::String> name = 0,
     uint8_t level = 0,
-    Define::Job job = Define::Job_WARRIOR) {
+    Define::Job job = Define::Job_WARRIOR,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gear = 0) {
   CHARACTER_INFOBuilder builder_(_fbb);
   builder_.add_uid(uid);
+  builder_.add_gear(gear);
   builder_.add_name(name);
   builder_.add_job(job);
   builder_.add_level(level);
@@ -281,14 +292,17 @@ inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFODirect(
     int64_t uid = 0,
     const char *name = nullptr,
     uint8_t level = 0,
-    Define::Job job = Define::Job_WARRIOR) {
+    Define::Job job = Define::Job_WARRIOR,
+    const std::vector<uint8_t> *gear = nullptr) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
+  auto gear__ = gear ? _fbb.CreateVector<uint8_t>(*gear) : 0;
   return Login::CreateCHARACTER_INFO(
       _fbb,
       uid,
       name__,
       level,
-      job);
+      job,
+      gear__);
 }
 
 struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {

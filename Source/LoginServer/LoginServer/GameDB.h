@@ -10,5 +10,6 @@ public:
 	virtual void Release(void) override;
 
 public:
-	bool CreateCharacter(const int64_t accountUID, const wchar_t* name, const uint8_t level, const Define::Job job, int64_t& uid);
+	void LoadCharacter(const int64_t accountUID, std::vector<CharacterLoadInfo>& infoList);
+	bool CreateCharacter(const int64_t accountUID, CharacterLoadInfo& loadInfo);
 };

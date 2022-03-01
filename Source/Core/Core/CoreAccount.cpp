@@ -27,6 +27,7 @@ void CoreAccount::SetLogin(void)
 void CoreAccount::SetLogout(void)
 {
 	this->isLogined = false;
+	Release();
 }
 
 size_t CoreAccount::GetCharacterCount(void)
@@ -61,8 +62,22 @@ void CoreAccount::GetCharacter(CoreVector<std::shared_ptr<CoreCharacter>>& chara
 	}
 }
 
-void CoreAccount::AddCharacter(const int64_t& uid)
+void CoreAccount::AddCharacter(std::shared_ptr<CoreCharacter> character)
 {
 	WRITE_LOCK(this->characterMutex);
-	this->characterList[uid] = std::make_shared<CoreCharacter>(this->uid, uid);
+	this->characterList[character->GetUID()] = character;
+}
+
+void CoreAccount::Release(void)
+{
+	WRITE_LOCK(this->characterMutex);
+
+	auto iter_begin = this->characterList.begin();
+	auto iter_end = this->characterList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		iter_begin = this->characterList.erase(iter_begin);
+	}
+
+	characterList.clear();
 }

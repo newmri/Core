@@ -15,21 +15,49 @@ void GameDB::Release(void)
 {
 }
 
-bool GameDB::CreateCharacter(const int64_t accountUID, const wchar_t* name, const uint8_t level, const Define::Job job, int64_t& uid)
+void GameDB::LoadCharacter(const int64_t accountUID, std::vector<CharacterLoadInfo>& infoList)
+{
+	Prepare(L"LoadLoginCharacter");
+	BindArgument(accountUID);
+	Execute();
+
+	CharacterLoadInfo info;
+	BindCol(&info.uid, sizeof(info.uid));
+	BindCol((wchar_t**)&info.name, Define::CharacterLimit_MaxNameLen);
+	BindCol(&info.info.level, sizeof(info.info.level));
+	BindCol(&info.info.job, sizeof(info.info.job));
+
+	for (int i = 0; i <= Define::GearType_MAX; ++i)
+		BindCol(&info.info.gear.value[i], sizeof(info.info.gear.value[i]));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+
+		if (IsSuccess())
+		{
+			infoList.push_back(info);
+		}
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}
+
+bool GameDB::CreateCharacter(const int64_t accountUID, CharacterLoadInfo& loadInfo)
 {
 	Prepare(L"CreateCharacter");
 	BindArgument(accountUID);
-	BindArgument(name);
-	BindArgument(level);
-	BindArgument(job);
+	BindArgument(loadInfo.name);
+	BindArgument(loadInfo.info.level);
+	BindArgument(loadInfo.info.job);
 	BindArgument(100);
 	BindArgument(100);
 
 	for (int i = 0; i <= Define::StatType_MAX; ++i)
-		BindArgument(DATA_MANAGER.characterCreateStat[job].Stat[i]);
+		BindArgument(loadInfo.info.stat.value[i]);
 
 	for (int i = 0; i <= Define::GearType_MAX; ++i)
-		BindArgument(DATA_MANAGER.characterCreateGear[job].Gear[i]);
+		BindArgument(loadInfo.info.gear.value[i]);
 
 	Execute();
 
@@ -45,7 +73,7 @@ bool GameDB::CreateCharacter(const int64_t accountUID, const wchar_t* name, cons
 
 		if (IsSuccess())
 		{
-			uid = characterUID;
+			loadInfo.uid = characterUID;
 		}
 	};
 

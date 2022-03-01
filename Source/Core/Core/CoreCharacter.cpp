@@ -5,6 +5,11 @@ CoreCharacter::CoreCharacter(const int64_t& accountUID, const int64_t& uid) : ac
 
 }
 
+CoreCharacter::~CoreCharacter()
+{
+
+}
+
 int64_t CoreCharacter::GetAccountUID(void)
 {
 	return this->accountUID;

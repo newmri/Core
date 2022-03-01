@@ -4,6 +4,7 @@ class CoreCharacter : public CoreMemoryPoolObj<CoreCharacter, CORE_BIG_SIZE>, pu
 {
 public:
 	CoreCharacter(const int64_t& accountUID, const int64_t& uid);
+	virtual ~CoreCharacter();
 
 public:
 	int64_t GetAccountUID(void);

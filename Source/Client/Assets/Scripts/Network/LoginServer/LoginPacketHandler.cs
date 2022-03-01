@@ -32,6 +32,13 @@ class LoginPacketHandler
 
         UICharacterSelectPopup popUp = Managers.UI.ShowPopupUI<UICharacterSelectPopup>();
         popUp.SetSlot(loginRes.EmptySlotCount, (byte)(loginRes.MaxSlotCount - loginRes.EmptySlotCount));
+
+        for(int i = 0; i < loginRes.CharacterInfoLength; ++i)
+        {
+            Debug.Log(loginRes.CharacterInfo(i).Value.Name);
+            Debug.Log(loginRes.CharacterInfo(i).Value.Level);
+            Debug.Log(loginRes.CharacterInfo(i).Value.Job);
+        }
     }
 
     public static void SC_PING_REQ(PacketSession session, Root packet)
@@ -43,22 +50,23 @@ class LoginPacketHandler
     public static void SC_CREATE_CHARACTER_RES(PacketSession session, Root packet)
     {
         SC_CREATE_CHARACTER_RES loginRes = packet.PacketAsSC_CREATE_CHARACTER_RES();
-        UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
 
         if (!loginRes.IsSuccess)
         {
+            UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
             messagePopup.SetText("캐릭터 생성 실패", "이미 사용중인 캐릭터명 입니다.");
             return;
         }
-
-        string message = loginRes.CharacterInfo.Value.Name;
-        message += "모험가님 환영합니다!";
-        messagePopup.SetText("캐릭터 생성 성공", message);
 
         Debug.Log(loginRes.CharacterInfo.Value.Uid);
         Debug.Log(loginRes.CharacterInfo.Value.Name);
         Debug.Log(loginRes.CharacterInfo.Value.Level);
         Debug.Log(loginRes.CharacterInfo.Value.Job);
+
+        for (int i = 0; i < loginRes.CharacterInfo.Value.GearLength; ++i)
+        {
+            Debug.Log(loginRes.CharacterInfo.Value.Gear(i));
+        }
     }
 }
 

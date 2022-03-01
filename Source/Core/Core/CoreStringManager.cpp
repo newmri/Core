@@ -83,5 +83,5 @@ std::wstring CoreStringManager::Widen(std::string_view source)
 
 std::string CoreStringManager::Narrow(std::wstring_view source)
 {
-	return CW2A(source.data()).m_psz;
+	return CW2A(source.data(), CP_UTF8).m_psz;
 }

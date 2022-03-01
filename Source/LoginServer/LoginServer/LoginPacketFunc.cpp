@@ -9,6 +9,18 @@ void LoginPacketFunc::Write(std::shared_ptr<CoreClientSession> session, Login::P
 	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }
 
+flatbuffers::Offset<Login::CHARACTER_INFO> LoginPacketFunc::MakeCharacterInfo(const CharacterLoadInfo& loadInfo)
+{
+	auto info = Login::CreateCHARACTER_INFO(this->builder,
+				loadInfo.uid,
+				this->builder.CreateString(STRING_MANAGER.Narrow(loadInfo.name)),
+				loadInfo.info.level,
+				static_cast<Define::Job>(loadInfo.info.job),
+				this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_MAX));
+
+	return info;
+}
+
 void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	auto raw = static_cast<const Login::CS_LOGIN_REQ*>(data);
@@ -58,12 +70,31 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	{
 		session->SetAccountUID(raw->uid());
 
+		std::vector<CharacterLoadInfo> infoList;
+		LOGIN_SERVER.GetGameDB()->LoadCharacter(raw->uid(), infoList);
+
+		size_t size = infoList.size();
+		if (size)
+		{
+			std::vector<flatbuffers::Offset<Login::CHARACTER_INFO>> sendList;
+	
+			for (int i = 0; i < size; ++i)
+			{
+				sendList.push_back(MakeCharacterInfo(infoList[i]));
+			}
+
+			message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, 3, this->builder.CreateVector(sendList));
+		}
+
+		else
+		{
+			message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, 3);
+		}
+
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(
 				std::bind(&CoreClientSession::CheckPingPongTime, session),
 				HALF_MIN));
-
-		message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, Define::CharacterLimit_EmptyCharacterSlot);
 	}
 	// ½ÇÆÐ
 	else
@@ -112,8 +143,11 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if (account->GetCharacterCount() >= Define::CharacterLimit_MaxCharacterSlot)
 		return;
 
-	int64_t uid = 0;
-	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), name.c_str(), 1, raw->job(), uid);
+	CharacterLoadInfo loadInfo;
+	wcscpy_s(loadInfo.name, Define::CharacterLimit_MaxNameLen, name.c_str());
+
+	loadInfo.info = DATA_MANAGER.MakeCharacterInfo(1, raw->job());
+	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), loadInfo);
 
 	this->builder.Clear();
 
@@ -121,8 +155,10 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	if (isSuccess)
 	{
-		account->AddCharacter(uid);
-		auto info = Login::CreateCHARACTER_INFODirect(this->builder, uid, raw->name()->c_str(), 1, raw->job());
+		account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), loadInfo.uid, loadInfo.info));
+
+		auto info = MakeCharacterInfo(loadInfo);
+
 		message = Login::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess, info);
 	}
 	else

@@ -35,7 +35,7 @@ protected:
 	void BindCol(int16_t* data, const SQLLEN size);
 	void BindCol(int32_t* data, const SQLLEN size);
 	void BindCol(int64_t* data, const SQLLEN size);
-	void BindCol(const wchar_t* data, const SQLLEN size);
+	void BindCol(wchar_t** data, const SQLLEN size);
 	
 protected:
 	void BindArgument(const uint8_t data);
@@ -65,5 +65,5 @@ private:
 	SQLHENV henv = SQL_NULL_HENV;
 	SQLHDBC hdbc = SQL_NULL_HDBC;
 	SQLSMALLINT currIndex = 0;
-	SQLLEN colLen[10];
+	SQLLEN colLen[CORE_SMALL_SIZE];
 };

@@ -79,25 +79,39 @@ public struct CHARACTER_INFO : IFlatbufferObject
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(6); }
   public byte Level { get { int o = __p.__offset(8); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
   public Define.Job Job { get { int o = __p.__offset(10); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.WARRIOR; } }
+  public byte Gear(int j) { int o = __p.__offset(12); return o != 0 ? __p.bb.Get(__p.__vector(o) + j * 1) : (byte)0; }
+  public int GearLength { get { int o = __p.__offset(12); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetGearBytes() { return __p.__vector_as_span<byte>(12, 1); }
+#else
+  public ArraySegment<byte>? GetGearBytes() { return __p.__vector_as_arraysegment(12); }
+#endif
+  public byte[] GetGearArray() { return __p.__vector_as_array<byte>(12); }
 
   public static Offset<Login.CHARACTER_INFO> CreateCHARACTER_INFO(FlatBufferBuilder builder,
       long uid = 0,
       StringOffset nameOffset = default(StringOffset),
       byte level = 0,
-      Define.Job job = Define.Job.WARRIOR) {
-    builder.StartTable(4);
+      Define.Job job = Define.Job.WARRIOR,
+      VectorOffset gearOffset = default(VectorOffset)) {
+    builder.StartTable(5);
     CHARACTER_INFO.AddUid(builder, uid);
+    CHARACTER_INFO.AddGear(builder, gearOffset);
     CHARACTER_INFO.AddName(builder, nameOffset);
     CHARACTER_INFO.AddJob(builder, job);
     CHARACTER_INFO.AddLevel(builder, level);
     return CHARACTER_INFO.EndCHARACTER_INFO(builder);
   }
 
-  public static void StartCHARACTER_INFO(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void StartCHARACTER_INFO(FlatBufferBuilder builder) { builder.StartTable(5); }
   public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(0, uid, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddLevel(FlatBufferBuilder builder, byte level) { builder.AddByte(2, level, 0); }
   public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddByte(3, (byte)job, 0); }
+  public static void AddGear(FlatBufferBuilder builder, VectorOffset gearOffset) { builder.AddOffset(4, gearOffset.Value, 0); }
+  public static VectorOffset CreateGearVector(FlatBufferBuilder builder, byte[] data) { builder.StartVector(1, data.Length, 1); for (int i = data.Length - 1; i >= 0; i--) builder.AddByte(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateGearVectorBlock(FlatBufferBuilder builder, byte[] data) { builder.StartVector(1, data.Length, 1); builder.Add(data); return builder.EndVector(); }
+  public static void StartGearVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(1, numElems, 1); }
   public static Offset<Login.CHARACTER_INFO> EndCHARACTER_INFO(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Login.CHARACTER_INFO>(o);
