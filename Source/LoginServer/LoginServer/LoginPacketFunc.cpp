@@ -103,7 +103,6 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 		return;
 
 	std::wstring name = STRING_MANAGER.Widen(raw->name()->string_view());
-	std::wcout << name << std::endl;
 	if(!STRING_MANAGER.IsValidLanguage(name, Define::CharacterLimit_MinNameLen, Define::CharacterLimit_MaxNameLen))
 		return;
 
@@ -122,6 +121,7 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	if (isSuccess)
 	{
+		account->AddCharacter(uid);
 		auto info = Login::CreateCHARACTER_INFODirect(this->builder, uid, raw->name()->c_str(), 1, raw->job());
 		message = Login::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess, info);
 	}

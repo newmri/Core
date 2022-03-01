@@ -14,4 +14,5 @@ void DataManager::Release(void)
 void DataManager::Load(void)
 {
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateStat.csv", CharacterCreateStat, this->characterCreateStat);
+	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateGear.csv", CharacterCreateGear, this->characterCreateGear);
 }

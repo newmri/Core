@@ -171,8 +171,7 @@ std::string CoreLoader::Parse(std::string& in)
 
 void CoreLoader::Parse(std::string& in, uint8_t& out)
 {
-	std::string source = Parse(in);
-	std::copy(source.begin(), source.end(), out);
+	out = stoi(Parse(in));
 }
 
 void CoreLoader::Parse(std::string& in, int16_t& out)

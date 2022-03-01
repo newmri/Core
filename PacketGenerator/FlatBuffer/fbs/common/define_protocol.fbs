@@ -2,10 +2,10 @@ namespace Define;
 
 enum Job : ubyte
 {
-  Warrior = 0,
-  Archer,
-  Sorcerer,
-  Duelist
+  WARRIOR = 0,
+  ARCHER,
+  SORCERER,
+  DUELIST
 }
 
 enum AccountLimit : ubyte
@@ -22,4 +22,24 @@ enum CharacterLimit : ubyte
   MaxNameLen = 8,
   EmptyCharacterSlot = 3,
   MaxCharacterSlot = 5
+}
+
+enum StatType : ubyte
+{
+	STR = 0,
+	DEX,
+	INT
+}
+
+enum GearType : ubyte
+{
+	LEFT_HAND = 0,
+	RIGHT_HAND,
+	ARMOR,
+	HELMET,
+	SHOULDER,
+	ARM,
+	FEET,
+	HAIR,
+	FACE
 }

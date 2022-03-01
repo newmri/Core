@@ -267,7 +267,7 @@ inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(
     int64_t uid = 0,
     flatbuffers::Offset<flatbuffers::String> name = 0,
     uint8_t level = 0,
-    Define::Job job = Define::Job_Warrior) {
+    Define::Job job = Define::Job_WARRIOR) {
   CHARACTER_INFOBuilder builder_(_fbb);
   builder_.add_uid(uid);
   builder_.add_name(name);
@@ -281,7 +281,7 @@ inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFODirect(
     int64_t uid = 0,
     const char *name = nullptr,
     uint8_t level = 0,
-    Define::Job job = Define::Job_Warrior) {
+    Define::Job job = Define::Job_WARRIOR) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
   return Login::CreateCHARACTER_INFO(
       _fbb,
@@ -511,7 +511,7 @@ struct CS_CREATE_CHARACTER_REQBuilder {
 inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQ(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::String> name = 0,
-    Define::Job job = Define::Job_Warrior) {
+    Define::Job job = Define::Job_WARRIOR) {
   CS_CREATE_CHARACTER_REQBuilder builder_(_fbb);
   builder_.add_name(name);
   builder_.add_job(job);
@@ -521,7 +521,7 @@ inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_RE
 inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const char *name = nullptr,
-    Define::Job job = Define::Job_Warrior) {
+    Define::Job job = Define::Job_WARRIOR) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
   return Login::CreateCS_CREATE_CHARACTER_REQ(
       _fbb,

@@ -29,21 +29,21 @@ public class GearEquipperEditor : Editor
 
         GE.Job = (Define.Job)EditorGUILayout.EnumPopup("Job", GE.Job);
 
-        if (GE.Job == Define.Job.Warrior)
+        if (GE.Job == Define.Job.WARRIOR)
         {
             GE.Melee = EditorGUILayout.IntSlider("Melee", GE.Melee, 0, 45);
             GE.Shield = EditorGUILayout.IntSlider("Shield", GE.Shield, 0, 26); //max +1
         }
-        else if (GE.Job == Define.Job.Archer)
+        else if (GE.Job == Define.Job.ARCHER)
         {
             GE.Bow = EditorGUILayout.IntSlider("Bow", GE.Bow, 0, 25);
             GE.Quiver = EditorGUILayout.IntSlider("Quiver", GE.Quiver, 0, 25);
         }
-        else if (GE.Job == Define.Job.Sorcerer)
+        else if (GE.Job == Define.Job.SORCERER)
         {
             GE.Staff = EditorGUILayout.IntSlider("Staff", GE.Staff, 0, 25);
         }
-        else if (GE.Job == Define.Job.Duelist)
+        else if (GE.Job == Define.Job.DUELIST)
         {
             GE.Melee = EditorGUILayout.IntSlider("Melee", GE.Melee, 0, 45);
             GE.DuelistOffhand = EditorGUILayout.IntSlider("Offhand", GE.DuelistOffhand, 0, 45);

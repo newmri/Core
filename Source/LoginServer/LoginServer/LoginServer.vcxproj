@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccountDB.h" />
+    <ClInclude Include="CharacterData.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="define_protocol_generated.h" />
     <ClInclude Include="GameDB.h" />

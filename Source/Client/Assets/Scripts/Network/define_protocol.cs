@@ -11,10 +11,10 @@ using global::FlatBuffers;
 
 public enum Job : byte
 {
-  Warrior = 0,
-  Archer = 1,
-  Sorcerer = 2,
-  Duelist = 3,
+  WARRIOR = 0,
+  ARCHER = 1,
+  SORCERER = 2,
+  DUELIST = 3,
 };
 
 public enum AccountLimit : byte
@@ -31,6 +31,26 @@ public enum CharacterLimit : byte
   EmptyCharacterSlot = 3,
   MaxCharacterSlot = 5,
   MaxNameLen = 8,
+};
+
+public enum StatType : byte
+{
+  STR = 0,
+  DEX = 1,
+  INT = 2,
+};
+
+public enum GearType : byte
+{
+  LEFT_HAND = 0,
+  RIGHT_HAND = 1,
+  ARMOR = 2,
+  HELMET = 3,
+  SHOULDER = 4,
+  ARM = 5,
+  FEET = 6,
+  HAIR = 7,
+  FACE = 8,
 };
 
 

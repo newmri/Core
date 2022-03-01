@@ -9,37 +9,37 @@
 namespace Define {
 
 enum Job : uint8_t {
-  Job_Warrior = 0,
-  Job_Archer = 1,
-  Job_Sorcerer = 2,
-  Job_Duelist = 3,
-  Job_MIN = Job_Warrior,
-  Job_MAX = Job_Duelist
+  Job_WARRIOR = 0,
+  Job_ARCHER = 1,
+  Job_SORCERER = 2,
+  Job_DUELIST = 3,
+  Job_MIN = Job_WARRIOR,
+  Job_MAX = Job_DUELIST
 };
 
 inline const Job (&EnumValuesJob())[4] {
   static const Job values[] = {
-    Job_Warrior,
-    Job_Archer,
-    Job_Sorcerer,
-    Job_Duelist
+    Job_WARRIOR,
+    Job_ARCHER,
+    Job_SORCERER,
+    Job_DUELIST
   };
   return values;
 }
 
 inline const char * const *EnumNamesJob() {
   static const char * const names[5] = {
-    "Warrior",
-    "Archer",
-    "Sorcerer",
-    "Duelist",
+    "WARRIOR",
+    "ARCHER",
+    "SORCERER",
+    "DUELIST",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameJob(Job e) {
-  if (flatbuffers::IsOutRange(e, Job_Warrior, Job_Duelist)) return "";
+  if (flatbuffers::IsOutRange(e, Job_WARRIOR, Job_DUELIST)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesJob()[index];
 }
@@ -128,6 +128,90 @@ inline const char *EnumNameCharacterLimit(CharacterLimit e) {
   if (flatbuffers::IsOutRange(e, CharacterLimit_MinNameLen, CharacterLimit_MaxNameLen)) return "";
   const size_t index = static_cast<size_t>(e) - static_cast<size_t>(CharacterLimit_MinNameLen);
   return EnumNamesCharacterLimit()[index];
+}
+
+enum StatType : uint8_t {
+  StatType_STR = 0,
+  StatType_DEX = 1,
+  StatType_INT = 2,
+  StatType_MIN = StatType_STR,
+  StatType_MAX = StatType_INT
+};
+
+inline const StatType (&EnumValuesStatType())[3] {
+  static const StatType values[] = {
+    StatType_STR,
+    StatType_DEX,
+    StatType_INT
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesStatType() {
+  static const char * const names[4] = {
+    "STR",
+    "DEX",
+    "INT",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameStatType(StatType e) {
+  if (flatbuffers::IsOutRange(e, StatType_STR, StatType_INT)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesStatType()[index];
+}
+
+enum GearType : uint8_t {
+  GearType_LEFT_HAND = 0,
+  GearType_RIGHT_HAND = 1,
+  GearType_ARMOR = 2,
+  GearType_HELMET = 3,
+  GearType_SHOULDER = 4,
+  GearType_ARM = 5,
+  GearType_FEET = 6,
+  GearType_HAIR = 7,
+  GearType_FACE = 8,
+  GearType_MIN = GearType_LEFT_HAND,
+  GearType_MAX = GearType_FACE
+};
+
+inline const GearType (&EnumValuesGearType())[9] {
+  static const GearType values[] = {
+    GearType_LEFT_HAND,
+    GearType_RIGHT_HAND,
+    GearType_ARMOR,
+    GearType_HELMET,
+    GearType_SHOULDER,
+    GearType_ARM,
+    GearType_FEET,
+    GearType_HAIR,
+    GearType_FACE
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesGearType() {
+  static const char * const names[10] = {
+    "LEFT_HAND",
+    "RIGHT_HAND",
+    "ARMOR",
+    "HELMET",
+    "SHOULDER",
+    "ARM",
+    "FEET",
+    "HAIR",
+    "FACE",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameGearType(GearType e) {
+  if (flatbuffers::IsOutRange(e, GearType_LEFT_HAND, GearType_FACE)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesGearType()[index];
 }
 
 }  // namespace Define

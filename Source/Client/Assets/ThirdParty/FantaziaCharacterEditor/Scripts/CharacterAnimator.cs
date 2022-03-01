@@ -141,10 +141,10 @@ public class CharacterAnimator : MonoBehaviour
         DuelistAnimations.Add(PlayerAnimations.Special, "Attack 3 DUELIST");
         DuelistAnimations.Add(PlayerAnimations.Death, "Death");
 
-        JobsAnimations.Add(Define.Job.Archer, ArcherAnimations);
-        JobsAnimations.Add(Define.Job.Warrior, WarriorAnimations);
-        JobsAnimations.Add(Define.Job.Sorcerer, SorcererAnimations);
-        JobsAnimations.Add(Define.Job.Duelist, DuelistAnimations);
+        JobsAnimations.Add(Define.Job.ARCHER, ArcherAnimations);
+        JobsAnimations.Add(Define.Job.WARRIOR, WarriorAnimations);
+        JobsAnimations.Add(Define.Job.SORCERER, SorcererAnimations);
+        JobsAnimations.Add(Define.Job.DUELIST, DuelistAnimations);
     }
 
     //Function called when the job is changed 

@@ -78,13 +78,13 @@ public struct CHARACTER_INFO : IFlatbufferObject
 #endif
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(6); }
   public byte Level { get { int o = __p.__offset(8); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public Define.Job Job { get { int o = __p.__offset(10); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.Warrior; } }
+  public Define.Job Job { get { int o = __p.__offset(10); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.WARRIOR; } }
 
   public static Offset<Login.CHARACTER_INFO> CreateCHARACTER_INFO(FlatBufferBuilder builder,
       long uid = 0,
       StringOffset nameOffset = default(StringOffset),
       byte level = 0,
-      Define.Job job = Define.Job.Warrior) {
+      Define.Job job = Define.Job.WARRIOR) {
     builder.StartTable(4);
     CHARACTER_INFO.AddUid(builder, uid);
     CHARACTER_INFO.AddName(builder, nameOffset);
@@ -218,11 +218,11 @@ public struct CS_CREATE_CHARACTER_REQ : IFlatbufferObject
   public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(4); }
-  public Define.Job Job { get { int o = __p.__offset(6); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.Warrior; } }
+  public Define.Job Job { get { int o = __p.__offset(6); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.WARRIOR; } }
 
   public static Offset<Login.CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQ(FlatBufferBuilder builder,
       StringOffset nameOffset = default(StringOffset),
-      Define.Job job = Define.Job.Warrior) {
+      Define.Job job = Define.Job.WARRIOR) {
     builder.StartTable(2);
     CS_CREATE_CHARACTER_REQ.AddName(builder, nameOffset);
     CS_CREATE_CHARACTER_REQ.AddJob(builder, job);
