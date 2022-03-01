@@ -25,6 +25,7 @@ protected:
 
 protected:
 	bool IsSuccess(void);
+	bool IsNoData(void);
 
 protected:
 	void Prepare(const SQLWCHAR* spName);

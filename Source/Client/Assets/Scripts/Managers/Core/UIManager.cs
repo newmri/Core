@@ -63,6 +63,23 @@ public class UIManager
         return popup;
     }
 
+    public T FindPopupUI<T>(string name = null) where T : UIPopup
+    {
+        if (0 == _popupStack.Count)
+            return null;
+
+        if (name == null)
+            name = typeof(T).Name;
+
+        foreach (UIPopup popup in _popupStack)
+        {
+            if (popup.name == name)
+                return popup as T;
+        }
+
+        return null;
+    }
+
     public T ShowSceneUI<T>(string name = null) where T : UIScene
     {
         if (name == null)

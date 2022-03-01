@@ -27,7 +27,11 @@ public:
 	void SetLogout(void);
 
 public:
-	size_t GetCharacterCount(void);
+	uint8_t GetMaxSlotCount(void);
+	void SetMaxSlotCount(const uint8_t maxCharacterSlotCount);
+	bool CanCreateCharacter(void);
+
+public:
 	std::shared_ptr<CoreCharacter> GetCharacter(const int64_t& uid);
 	void GetCharacter(CoreVector<std::shared_ptr<CoreCharacter>>& characterList);
 
@@ -43,5 +47,6 @@ private:
 
 private:
 	CACHE_ALIGN std::shared_mutex characterMutex;
+	uint8_t maxCharacterSlotCount;
 	std::map<int64_t, std::shared_ptr<CoreCharacter>> characterList;
 };

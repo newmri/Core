@@ -31,14 +31,18 @@ class LoginPacketHandler
         }
 
         UICharacterSelectPopup popUp = Managers.UI.ShowPopupUI<UICharacterSelectPopup>();
-        popUp.SetSlot(loginRes.EmptySlotCount, (byte)(loginRes.MaxSlotCount - loginRes.EmptySlotCount));
 
-        for(int i = 0; i < loginRes.CharacterInfoLength; ++i)
+        popUp.Clear();
+
+        for (int i = 0; i < loginRes.CharacterInfoLength; ++i)
         {
-            Debug.Log(loginRes.CharacterInfo(i).Value.Name);
-            Debug.Log(loginRes.CharacterInfo(i).Value.Level);
-            Debug.Log(loginRes.CharacterInfo(i).Value.Job);
+            popUp.SetActiveSlot(loginRes.CharacterInfo(i).Value);
         }
+
+        byte lockSlotCount = (byte)(loginRes.MaxSlotCount - loginRes.EmptySlotCount);
+        lockSlotCount -= (byte)loginRes.CharacterInfoLength;
+
+        popUp.SetSlot(loginRes.EmptySlotCount, lockSlotCount);
     }
 
     public static void SC_PING_REQ(PacketSession session, Root packet)
@@ -58,15 +62,11 @@ class LoginPacketHandler
             return;
         }
 
-        Debug.Log(loginRes.CharacterInfo.Value.Uid);
-        Debug.Log(loginRes.CharacterInfo.Value.Name);
-        Debug.Log(loginRes.CharacterInfo.Value.Level);
-        Debug.Log(loginRes.CharacterInfo.Value.Job);
+        Managers.UI.ClosePopupUI();
 
-        for (int i = 0; i < loginRes.CharacterInfo.Value.GearLength; ++i)
-        {
-            Debug.Log(loginRes.CharacterInfo.Value.Gear(i));
-        }
+        UICharacterSelectPopup popUp = Managers.UI.FindPopupUI<UICharacterSelectPopup>();
+        popUp.SetActiveSlot(loginRes.CharacterInfo.Value);
+        popUp.RemoveLastEmptySlot();
     }
 }
 

@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CoreAccount::CoreAccount(const int64_t& uid, const CoreToken& token) : uid(uid), token(token), isLogined(true)
+CoreAccount::CoreAccount(const int64_t& uid, const CoreToken& token) : uid(uid), token(token), isLogined(true), maxCharacterSlotCount(0)
 {
 }
 
@@ -30,10 +30,22 @@ void CoreAccount::SetLogout(void)
 	Release();
 }
 
-size_t CoreAccount::GetCharacterCount(void)
+uint8_t CoreAccount::GetMaxSlotCount(void)
 {
 	READ_LOCK(this->characterMutex);
-	return this->characterList.size();
+	return this->maxCharacterSlotCount;
+}
+
+void CoreAccount::SetMaxSlotCount(const uint8_t maxCharacterSlotCount)
+{
+	WRITE_LOCK(this->characterMutex);
+	this->maxCharacterSlotCount = maxCharacterSlotCount;
+}
+
+bool CoreAccount::CanCreateCharacter(void)
+{
+	READ_LOCK(this->characterMutex);
+	return (this->maxCharacterSlotCount > this->characterList.size());
 }
 
 std::shared_ptr<CoreCharacter> CoreAccount::GetCharacter(const int64_t& uid)
@@ -72,12 +84,8 @@ void CoreAccount::Release(void)
 {
 	WRITE_LOCK(this->characterMutex);
 
-	auto iter_begin = this->characterList.begin();
-	auto iter_end = this->characterList.end();
-	for (; iter_begin != iter_end; ++iter_begin)
-	{
-		iter_begin = this->characterList.erase(iter_begin);
-	}
+	if (IS_SAME(0, this->characterList.size()))
+		return;
 
 	characterList.clear();
 }

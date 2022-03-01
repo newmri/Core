@@ -68,6 +68,11 @@ bool CoreDB::IsSuccess(void)
 	return (IS_SAME(SQL_SUCCESS, this->retCode) || IS_SAME(SQL_SUCCESS_WITH_INFO, this->retCode));
 }
 
+bool CoreDB::IsNoData(void)
+{
+	return (IS_SAME(SQL_NO_DATA, this->retCode));
+}
+
 void CoreDB::Prepare(const SQLWCHAR* spName)
 {
 	this->currIndex = 0;

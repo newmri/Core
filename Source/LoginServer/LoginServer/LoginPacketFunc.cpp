@@ -16,7 +16,7 @@ flatbuffers::Offset<Login::CHARACTER_INFO> LoginPacketFunc::MakeCharacterInfo(co
 				this->builder.CreateString(STRING_MANAGER.Narrow(loadInfo.name)),
 				loadInfo.info.level,
 				static_cast<Define::Job>(loadInfo.info.job),
-				this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_MAX));
+				this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_MAX + 1));
 
 	return info;
 }
@@ -35,7 +35,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	{
 		if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), token))
 		{
-			CORE_ACCOUNT_MANAGER.Add(raw->uid(), token);
+			account = CORE_ACCOUNT_MANAGER.Add(raw->uid(), token);
 			result = Login::ErrorCode_SUCCESS;
 		}
 	}
@@ -72,23 +72,30 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 
 		std::vector<CharacterLoadInfo> infoList;
 		LOGIN_SERVER.GetGameDB()->LoadCharacter(raw->uid(), infoList);
+		uint8_t maxCharacterSlotCount = LOGIN_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
+		account->SetMaxSlotCount(maxCharacterSlotCount);
 
 		size_t size = infoList.size();
+		uint8_t emptyCharacterSlotCount = maxCharacterSlotCount - static_cast<uint8_t>(size);
+
 		if (size)
 		{
 			std::vector<flatbuffers::Offset<Login::CHARACTER_INFO>> sendList;
 	
 			for (int i = 0; i < size; ++i)
 			{
+				account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), infoList[i].uid, infoList[i].info));
+
 				sendList.push_back(MakeCharacterInfo(infoList[i]));
 			}
 
-			message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, 3, this->builder.CreateVector(sendList));
+			message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot,
+											    emptyCharacterSlotCount, this->builder.CreateVector(sendList));
 		}
 
 		else
 		{
-			message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, 3);
+			message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, emptyCharacterSlotCount);
 		}
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
@@ -140,7 +147,7 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if (!IsBetween(raw->job(), Define::Job_MIN, Define::Job_MAX))
 		return;
 
-	if (account->GetCharacterCount() >= Define::CharacterLimit_MaxCharacterSlot)
+	if (!account->CanCreateCharacter())
 		return;
 
 	CharacterLoadInfo loadInfo;

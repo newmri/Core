@@ -39,6 +39,39 @@ public class GearEquipper : MonoBehaviour
         ApplySkinChanges();
     }
 
+    public void SetGear(byte[] gears)
+    {
+        if (Job == Define.Job.WARRIOR)
+        {
+            Melee = gears[(int)Define.GearType.LEFT_HAND];
+            Shield = gears[(int)Define.GearType.RIGHT_HAND];
+        }
+        else if (Job == Define.Job.ARCHER)
+        {
+            Bow = gears[(int)Define.GearType.LEFT_HAND];
+            Quiver = gears[(int)Define.GearType.RIGHT_HAND];
+        }
+        else if (Job == Define.Job.SORCERER)
+        {
+            Staff = gears[(int)Define.GearType.LEFT_HAND];
+        }
+        else if (Job == Define.Job.DUELIST)
+        {
+            Melee = gears[(int)Define.GearType.LEFT_HAND];
+            DuelistOffhand = gears[(int)Define.GearType.RIGHT_HAND];
+        }
+
+        Armor = gears[(int)Define.GearType.ARMOR];
+        Helmet = gears[(int)Define.GearType.HELMET];
+        Shoulder = gears[(int)Define.GearType.SHOULDER];
+        Arm = gears[(int)Define.GearType.ARM];
+        Feet = gears[(int)Define.GearType.FEET];
+        Hair = gears[(int)Define.GearType.HAIR];
+        Face = gears[(int)Define.GearType.FACE];
+
+        ApplySkinChanges();
+    }
+
     //Applies the chosen gear on the character
     public void ApplySkinChanges()
     {
@@ -71,7 +104,7 @@ public class GearEquipper : MonoBehaviour
             }
             else
             {
-                NewCustomSkin.AddSkin(skeletonData.FindSkin("SHIELD " + (Shield-1).ToString()));
+                NewCustomSkin.AddSkin(skeletonData.FindSkin("SHIELD " + (Shield - 1).ToString()));
             }
         }
         else if (Job == Define.Job.ARCHER)

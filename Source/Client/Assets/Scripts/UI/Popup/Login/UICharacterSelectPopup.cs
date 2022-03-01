@@ -6,9 +6,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using Login;
 
 public class UICharacterSelectPopup : UIPopup
 {
+    public List<UICharacterActiveSlot> _activeList { get; } = new List<UICharacterActiveSlot>();
     public List<UICharacterEmptySlot> _emptyList { get; } = new List<UICharacterEmptySlot>();
     public List<UICharacterLockSlot> _lockList { get; } = new List<UICharacterLockSlot>();
 
@@ -28,15 +30,28 @@ public class UICharacterSelectPopup : UIPopup
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
     }
 
-    public void SetSlot(byte emptySlotCount, byte lockSlotCount)
+    public void Clear()
     {
         _gird = GetHorizontalLayoutGroup();
+    }
 
+    public void SetSlot(byte emptySlotCount, byte lockSlotCount)
+    {
         for (byte i = 0; i < emptySlotCount; ++i)
             AddEmptySlot();
 
         for (byte i = 0; i < lockSlotCount; ++i)
             AddLockSlot();
+    }
+
+    public void SetActiveSlot(CHARACTER_INFO info)
+    {
+        GameObject go = CoreManagers.Resource.Instantiate("UI/Popup/UICharacterActiveSlot", _gird.transform);
+        
+        UICharacterActiveSlot slot = go.GetOrAddComponent<UICharacterActiveSlot>();
+        slot.SetInfo(info);
+
+        _activeList.Add(slot);
     }
 
     public void AddEmptySlot()
@@ -49,6 +64,22 @@ public class UICharacterSelectPopup : UIPopup
     {
         GameObject go = CoreManagers.Resource.Instantiate("UI/Popup/UICharacterLockSlot", _gird.transform);
         _lockList.Add(go.GetOrAddComponent<UICharacterLockSlot>());
+    }
+
+    public void RemoveLastEmptySlot()
+    {
+        if (0 == _emptyList.Count)
+            return;
+
+        UICharacterEmptySlot slot = _emptyList[_emptyList.Count - 1];
+        _emptyList.Remove(slot);
+        CoreManagers.Resource.Destroy(slot.gameObject);
+    }
+
+    public void OnActiveSlotSelected()
+    {
+        foreach (UICharacterActiveSlot slot in _activeList)
+            slot.OnDeselected();
     }
 
     [System.Obsolete]

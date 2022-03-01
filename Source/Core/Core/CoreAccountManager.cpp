@@ -23,10 +23,13 @@ CoreAccount* CoreAccountManager::Find(const int64_t& uid)
 	return nullptr;
 }
 
-void CoreAccountManager::Add(const int64_t& uid, const CoreToken& token)
+CoreAccount* CoreAccountManager::Add(const int64_t& uid, const CoreToken& token)
 {
+	CoreAccount* account = new CoreAccount(uid, token);
+
 	WRITE_LOCK(this->mutex);
-	this->accountList[uid] = new CoreAccount(uid, token);
+	this->accountList[uid] = account;
+	return account;
 }
 
 void CoreAccountManager::SetLogout(const int64_t& uid)

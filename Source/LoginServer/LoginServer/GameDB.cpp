@@ -43,6 +43,42 @@ void GameDB::LoadCharacter(const int64_t accountUID, std::vector<CharacterLoadIn
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }
 
+uint8_t GameDB::LoadMaxCharacterSlotCount(const int64_t accountUID)
+{
+	Prepare(L"LoadMaxCharacterSlotCount");
+	BindArgument(accountUID);
+	Execute();
+
+	uint8_t maxCharacterSlotCount = Define::CharacterLimit_EmptyCharacterSlot;
+	BindCol(&maxCharacterSlotCount, sizeof(maxCharacterSlotCount));
+
+	if(IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+		if (IsNoData())
+			UpdateMaxCharacterSlotCount(accountUID, maxCharacterSlotCount);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+
+	return maxCharacterSlotCount;
+}
+
+void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t maxCharacterSlotCount)
+{
+	Prepare(L"UpdateMaxCharacterSlotCount");
+	BindArgument(accountUID);
+	BindArgument(maxCharacterSlotCount);
+	Execute();
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}
+
 bool GameDB::CreateCharacter(const int64_t accountUID, CharacterLoadInfo& loadInfo)
 {
 	Prepare(L"CreateCharacter");

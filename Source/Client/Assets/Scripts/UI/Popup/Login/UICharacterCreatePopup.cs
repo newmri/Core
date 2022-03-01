@@ -21,7 +21,8 @@ public class UICharacterCreatePopup : UIPopup
     {
         JobInfo,
         CharacterName,
-        Character
+        Character,
+        CharacterGFX
     }
 
     enum Buttons
@@ -40,6 +41,9 @@ public class UICharacterCreatePopup : UIPopup
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
         Get<GameObject>((int)GameObjects.CharacterName).GetComponent<TMP_InputField>().characterLimit = (int)CharacterLimit.MaxNameLen;
         GetObject((int)GameObjects.Character).SetActive(false);
+
+        MeshRenderer mesh = GetObject((int)GameObjects.CharacterGFX).GetComponent<MeshRenderer>();
+        mesh.sortingOrder = GetComponent<Canvas>().sortingOrder + 1;
     }
 
     public void SetJobButtons()

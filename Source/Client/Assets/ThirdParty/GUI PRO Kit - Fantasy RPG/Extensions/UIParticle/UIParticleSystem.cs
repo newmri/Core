@@ -159,6 +159,10 @@ namespace UnityEngine.UI.Extensions.FantasyRPG
             Vector2 temp = Vector2.zero;
             Vector2 corner1 = Vector2.zero;
             Vector2 corner2 = Vector2.zero;
+
+            if (particles == null)
+                return;
+
             // iterate through current particles
             int count = pSystem.GetParticles(particles);
 
