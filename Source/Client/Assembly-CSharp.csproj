@@ -146,6 +146,31 @@
     <Compile Include="Assets\Scripts\UI\Popup\Message\UIMessagePopup.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterActiveSlot.cs" />
+    <Compile Include="Assets\ThirdParty\TopDown 2D RPG BE3\ReadMe\Scripts\ReadmeBE3.cs" />
+    <Compile Include="Assets\Scripts\Map\Grid.cs" />
+    <Compile Include="Assets\Scripts\Map\Testing.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\Button_Sprite.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\MonoBehaviours\CameraFollow.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\FunctionPeriodic.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UI_Sprite.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\World_Bar.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Assets.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\MonoBehaviours\ComponentActions.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UI_Bar.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\MonoBehaviours\PositionRendererSorter.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UI_BarMultiple.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\World_Mesh.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UtilsClass.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\CMDebug.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\Button_UI.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\FunctionUpdater.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\FunctionTimer.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\World_Sprite.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\MonoBehaviours\CameraFollowSetup.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UI_TextComplex.cs" />
+    <Compile Include="Assets\Scripts\Map\Tilemap.cs" />
+    <Compile Include="Assets\Scripts\Map\HeatMapVisual.cs" />
+    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\MeshUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -158,6 +183,7 @@
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\hidden particle.shader" />
+    <None Include="Assets\ThirdParty\CodeMonkey\README.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -863,6 +889,14 @@
     <ProjectReference Include="spine-unity-editor.csproj">
       <Project>{4042B1AA-6C60-BDAD-1EE0-4ECB41011DF5}</Project>
       <Name>spine-unity-editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
+      <Project>{7E41C686-2669-576A-EB6E-1BB71BDA2138}</Project>
+      <Name>Unity.2D.Tilemap.Extras</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
+      <Project>{AF28EE6A-1DF1-86DF-CE1F-37FA8B3DA831}</Project>
+      <Name>Unity.2D.Tilemap.Extras.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

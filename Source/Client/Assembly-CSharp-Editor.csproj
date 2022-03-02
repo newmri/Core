@@ -60,6 +60,7 @@
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Editor\GearEquipperEditor.cs" />
     <Compile Include="Assets\Editor\VersionHelper.cs" />
     <Compile Include="Assets\Editor\InitProjectEditor.cs" />
+    <Compile Include="Assets\ThirdParty\TopDown 2D RPG BE3\ReadMe\Scripts\Editor\ReadmeEditorBE3.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
