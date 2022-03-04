@@ -5,10 +5,7 @@ using CodeMonkey.Utils;
 
 public class HeatMapVisual : MonoBehaviour
 {
-    public int HEAT_MAP_MAX_VALUE = 100;
-    public int HEAT_MAP_MIN_VALUE = 0;
-
-    Grid<int> _grid;
+    Grid<HeatMapGridObject> _grid;
     Mesh _mesh;
     bool _meshUpdate;
 
@@ -18,14 +15,14 @@ public class HeatMapVisual : MonoBehaviour
         GetComponent<MeshFilter>().mesh = _mesh;
     }
 
-    public void SetGrid(Grid<int> grid)
+    public void SetGrid(Grid<HeatMapGridObject> grid)
     {
         _grid = grid;
         UpdateHeatMapVisual();
-        _grid.OnGridValueChanged += OnGridValueChanged;
+        _grid.OnGridObjectChanged += OnGridObjectChanged;
     }
 
-    private void OnGridValueChanged(object sender, Grid<int>.OnGridValueChangedEventArgs e)
+    private void OnGridObjectChanged(object sender, Grid<HeatMapGridObject>.OnGridObjectChangedEventArgs e)
     {
         _meshUpdate = true;
     }
@@ -50,8 +47,8 @@ public class HeatMapVisual : MonoBehaviour
                 int index = x * _grid.GetHeight() + y;
                 Vector3 quadSize = new Vector3(1, 1) * _grid.GetCellSize();
 
-                int gridValid = _grid.GetValue(new Vector2Int(x, y));
-                float gridValueNormalized = (float)gridValid / HEAT_MAP_MAX_VALUE;
+                HeatMapGridObject gridObject = _grid.GetGridObject(new Vector2Int(x, y));
+                float gridValueNormalized = gridObject.GetValueNormalized();
                 Vector2 gridValueUV = new Vector2(gridValueNormalized, 0f);
                 MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, _grid.GetWorldPos(x, y) + quadSize * 0.5f, 0f, quadSize, gridValueUV, gridValueUV);
             }
@@ -60,5 +57,37 @@ public class HeatMapVisual : MonoBehaviour
         _mesh.vertices = vertices;
         _mesh.uv = uv;
         _mesh.triangles = triangles;
+    }
+}
+
+public class HeatMapGridObject
+{
+    int MIN = 0;
+    int MAX = 100;
+
+    Grid<HeatMapGridObject> _grid;
+    Vector2Int _cellPos;
+    public int value;
+
+    public HeatMapGridObject(Grid<HeatMapGridObject> grid, Vector2Int cellPos)
+    {
+        _grid = grid;
+        _cellPos = cellPos;
+    }
+
+    public void AddValue(int addValue)
+    {
+        value = Mathf.Clamp(value + addValue, MIN, MAX);
+        _grid.TriggerGrtidObjectChanged(_cellPos);
+    }
+
+    public float GetValueNormalized()
+    {
+        return (float)value / MAX;
+    }
+
+    public override string ToString()
+    {
+        return value.ToString();
     }
 }
