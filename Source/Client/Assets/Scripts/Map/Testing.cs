@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using CodeMonkey;
 
 public class Testing : MonoBehaviour
 {
     [SerializeField]
-    HeatMapVisual heatMapVisual;
+    TilemapVisual _tilemapVisual;
 
-    Grid<HeatMapGridObject> _grid;
+    Tilemap _tilemap;
+    Tilemap.TilemapObject.TilemapSprite _tilemapSprite;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Tilemap tilemap = new Tilemap(new Vector2Int(20, 10), 10f);
-        _grid = new Grid<HeatMapGridObject>(new Vector2Int(20, 10), 8f, Vector3.zero,
-            (Grid<HeatMapGridObject> g, Vector2Int cellPos) => new HeatMapGridObject(g, cellPos));
-
-        heatMapVisual.SetGrid(_grid);
+        _tilemap = new Tilemap(new Vector2Int(20, 10), 1f);
+        _tilemap.SetTilemapVisual(_tilemapVisual);
     }
 
     // Update is called once per frame
@@ -24,12 +24,24 @@ public class Testing : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 pos = UtilsClass.GetMouseWorldPosition();
-            HeatMapGridObject obj = _grid.GetGridObject(pos);
-            if (obj != null)
-            {
-                obj.AddValue(5);
-            }
+            Vector3 mouseWorldPos = UtilsClass.GetMouseWorldPosition();
+            _tilemap.SetTilemapSprite(mouseWorldPos, _tilemapSprite);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            _tilemapSprite = Tilemap.TilemapObject.TilemapSprite.None;
+            CMDebug.TextPopupMouse(_tilemapSprite.ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            _tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Ground;
+            CMDebug.TextPopupMouse(_tilemapSprite.ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            _tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Path;
+            CMDebug.TextPopupMouse(_tilemapSprite.ToString());
         }
     }
 }

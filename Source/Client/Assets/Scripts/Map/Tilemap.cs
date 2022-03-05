@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class Tilemap
 {
-    Grid<int> _grid;
+    Grid<TilemapObject> _grid;
 
     public Tilemap(Vector2Int size, float cellSize, Vector3 originPos = default(Vector3))
     {
-       _grid = new Grid<int>(size, cellSize, originPos, (Grid<int> g, Vector2Int cellPos) => 0);
+        _grid = new Grid<TilemapObject>(size, cellSize, originPos, (Grid<TilemapObject> g, Vector2Int cellPos) => new TilemapObject(g, cellPos));
+    }
+
+    public void SetTilemapSprite(Vector3 worldPos, TilemapObject.TilemapSprite tilemapSprite)
+    {
+        TilemapObject tilemapObject = _grid.GetGridObject(worldPos);
+        if (null != tilemapObject)
+        {
+            tilemapObject.SetTilemapSprite(tilemapSprite);
+        }
+    }
+
+    public void SetTilemapVisual(TilemapVisual tilemapVisual)
+    {
+        tilemapVisual.SetGrid(_grid);
     }
 
     public class TilemapObject
@@ -16,14 +30,15 @@ public class Tilemap
         public enum TilemapSprite
         {
             None,
-            Ground
+            Ground,
+            Path
         }
 
         TilemapSprite _tilemapSprite;
         Grid<TilemapObject> _grid;
         Vector2Int _cellPos;
 
-        TilemapObject(Grid<TilemapObject> grid, Vector2Int cellPos)
+        public TilemapObject(Grid<TilemapObject> grid, Vector2Int cellPos)
         {
             _grid = grid;
             _cellPos = cellPos;
@@ -32,7 +47,17 @@ public class Tilemap
         public void SetTilemapSprite(TilemapSprite tilemapSprite)
         {
             _tilemapSprite = tilemapSprite;
-           // _grid.TriggerGridObjectChanged(_cellPos);
+            _grid.TriggerGrtidObjectChanged(_cellPos);
+        }
+
+        public TilemapSprite GetTilemapSprite()
+        {
+            return _tilemapSprite;
+        }
+
+        public override string ToString()
+        {
+            return _tilemapSprite.ToString();
         }
     }
 }

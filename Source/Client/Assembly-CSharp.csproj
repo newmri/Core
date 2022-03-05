@@ -149,28 +149,9 @@
     <Compile Include="Assets\ThirdParty\TopDown 2D RPG BE3\ReadMe\Scripts\ReadmeBE3.cs" />
     <Compile Include="Assets\Scripts\Map\Grid.cs" />
     <Compile Include="Assets\Scripts\Map\Testing.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\Button_Sprite.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\MonoBehaviours\CameraFollow.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\FunctionPeriodic.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UI_Sprite.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\World_Bar.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Assets.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\MonoBehaviours\ComponentActions.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UI_Bar.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\MonoBehaviours\PositionRendererSorter.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UI_BarMultiple.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\World_Mesh.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UtilsClass.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\CMDebug.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\Button_UI.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\FunctionUpdater.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\FunctionTimer.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\World_Sprite.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\MonoBehaviours\CameraFollowSetup.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\UI_TextComplex.cs" />
     <Compile Include="Assets\Scripts\Map\Tilemap.cs" />
     <Compile Include="Assets\Scripts\Map\HeatMapVisual.cs" />
-    <Compile Include="Assets\ThirdParty\CodeMonkey\Utils\MeshUtils.cs" />
+    <Compile Include="Assets\Scripts\Map\TilemapVisual.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -183,7 +164,6 @@
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\hidden particle.shader" />
-    <None Include="Assets\ThirdParty\CodeMonkey\README.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
