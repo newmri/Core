@@ -1,0 +1,514 @@
+00:02:08	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+00:02:48	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+00:03:27	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+00:04:52	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+00:06:54	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+00:11:00	[LOG_INFO]	[DBConfig.csv is loading...]
+00:11:00	[LOG_INFO]	string,string
+00:11:00	[LOG_INFO]	World,112.145.214.226
+00:11:00	[LOG_INFO]	Account,112.145.214.226
+00:11:00	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:11:00	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:11:00	[LOG_INFO]	string,int,int
+00:11:00	[LOG_INFO]	Login,1,1000
+00:11:00	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:11:01	[LOG_CONNECT]	WorldDB is Connected
+00:11:01	[LOG_DEBUG]	[Server Type]: Login
+00:11:01	[LOG_DEBUG]	[GroupID]: 0
+00:11:01	[LOG_DEBUG]	[WorldID]: 1
+00:11:01	[LOG_DEBUG]	[ServerID]: 1000
+00:11:01	[LOG_DEBUG]	Server is Running...
+00:11:01	[LOG_DEBUG]	[Thread Num]: 17
+00:11:01	[LOG_DEBUG]	[Port]: 7000
+00:11:10	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+00:11:28	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+00:11:38	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+00:11:57	[LOG_INFO]	[DBConfig.csv is loading...]
+00:11:57	[LOG_INFO]	string,string
+00:11:57	[LOG_INFO]	World,112.145.214.226
+00:11:57	[LOG_INFO]	Account,112.145.214.226
+00:11:57	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:11:57	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:11:57	[LOG_INFO]	string,int,int
+00:11:57	[LOG_INFO]	Login,1,1000
+00:11:57	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:11:57	[LOG_CONNECT]	WorldDB is Connected
+00:11:57	[LOG_DEBUG]	[Server Type]: Login
+00:11:57	[LOG_DEBUG]	[GroupID]: 0
+00:11:57	[LOG_DEBUG]	[WorldID]: 1
+00:11:57	[LOG_DEBUG]	[ServerID]: 1000
+00:11:57	[LOG_DEBUG]	Server is Running...
+00:11:57	[LOG_DEBUG]	[Thread Num]: 17
+00:11:57	[LOG_DEBUG]	[Port]: 7000
+00:12:21	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+00:13:02	[LOG_INFO]	[DBConfig.csv is loading...]
+00:13:02	[LOG_INFO]	string,string
+00:13:02	[LOG_INFO]	World,112.145.214.226
+00:13:02	[LOG_INFO]	Account,112.145.214.226
+00:13:02	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:13:02	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:13:02	[LOG_INFO]	string,int,int
+00:13:02	[LOG_INFO]	Login,1,1000
+00:13:02	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:13:02	[LOG_CONNECT]	WorldDB is Connected
+00:13:02	[LOG_DEBUG]	[Server Type]: Login
+00:13:02	[LOG_DEBUG]	[GroupID]: 0
+00:13:02	[LOG_DEBUG]	[WorldID]: 1
+00:13:02	[LOG_DEBUG]	[ServerID]: 1000
+00:13:02	[LOG_DEBUG]	Server is Running...
+00:13:02	[LOG_DEBUG]	[Thread Num]: 17
+00:13:02	[LOG_DEBUG]	[Port]: 7000
+00:13:06	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+00:17:00	[LOG_INFO]	[DBConfig.csv is loading...]
+00:17:00	[LOG_INFO]	string,string
+00:17:00	[LOG_INFO]	World,112.145.214.226
+00:17:00	[LOG_INFO]	Account,112.145.214.226
+00:17:00	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:17:00	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:17:00	[LOG_INFO]	string,int,int
+00:17:00	[LOG_INFO]	Login,1,1000
+00:17:00	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:17:01	[LOG_CONNECT]	WorldDB is Connected
+00:17:01	[LOG_DEBUG]	[Server Type]: Login
+00:17:01	[LOG_DEBUG]	[GroupID]: 0
+00:17:01	[LOG_DEBUG]	[WorldID]: 1
+00:17:01	[LOG_DEBUG]	[ServerID]: 1000
+00:17:01	[LOG_DEBUG]	Server is Running...
+00:17:01	[LOG_DEBUG]	[Thread Num]: 17
+00:17:01	[LOG_DEBUG]	[Port]: 7000
+00:17:14	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+00:19:41	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+00:20:33	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+00:24:46	[LOG_INFO]	[DBConfig.csv is loading...]
+00:24:46	[LOG_INFO]	string,string
+00:24:46	[LOG_INFO]	World,112.145.214.226
+00:24:46	[LOG_INFO]	Account,112.145.214.226
+00:24:46	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:24:46	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:24:46	[LOG_INFO]	string,int,int
+00:24:46	[LOG_INFO]	Login,1,1000
+00:24:46	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:24:46	[LOG_CONNECT]	WorldDB is Connected
+00:24:46	[LOG_DEBUG]	[Server Type]: Login
+00:24:46	[LOG_DEBUG]	[GroupID]: 0
+00:24:46	[LOG_DEBUG]	[WorldID]: 1
+00:24:46	[LOG_DEBUG]	[ServerID]: 1000
+00:24:46	[LOG_DEBUG]	Server is Running...
+00:24:46	[LOG_DEBUG]	[Thread Num]: 17
+00:24:46	[LOG_DEBUG]	[Port]: 7000
+00:26:43	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+00:31:53	[LOG_INFO]	[DBConfig.csv is loading...]
+00:31:53	[LOG_INFO]	string,string
+00:31:53	[LOG_INFO]	World,112.145.214.226
+00:31:53	[LOG_INFO]	Account,112.145.214.226
+00:31:53	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:31:53	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:31:53	[LOG_INFO]	string,int,int
+00:31:53	[LOG_INFO]	Login,1,1000
+00:31:53	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:31:54	[LOG_CONNECT]	WorldDB is Connected
+00:31:54	[LOG_DEBUG]	[Server Type]: Login
+00:31:54	[LOG_DEBUG]	[GroupID]: 0
+00:31:54	[LOG_DEBUG]	[WorldID]: 1
+00:31:54	[LOG_DEBUG]	[ServerID]: 1000
+00:31:54	[LOG_DEBUG]	Server is Running...
+00:31:54	[LOG_DEBUG]	[Thread Num]: 17
+00:31:54	[LOG_DEBUG]	[Port]: 7000
+00:32:13	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+00:32:46	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+00:33:08	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+00:33:33	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+00:33:35	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+00:33:37	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+00:33:37	[LOG_DISCONNECT]	oid(2)	[ip]: 127.0.0.1
+00:33:38	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
+00:33:48	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+00:34:02	[LOG_INFO]	[DBConfig.csv is loading...]
+00:34:02	[LOG_INFO]	string,string
+00:34:02	[LOG_INFO]	World,112.145.214.226
+00:34:02	[LOG_INFO]	Account,112.145.214.226
+00:34:02	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:34:02	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:34:02	[LOG_INFO]	string,int,int
+00:34:02	[LOG_INFO]	Login,1,1000
+00:34:02	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:34:02	[LOG_CONNECT]	WorldDB is Connected
+00:34:02	[LOG_DEBUG]	[Server Type]: Login
+00:34:02	[LOG_DEBUG]	[GroupID]: 0
+00:34:02	[LOG_DEBUG]	[WorldID]: 1
+00:34:02	[LOG_DEBUG]	[ServerID]: 1000
+00:34:02	[LOG_DEBUG]	Server is Running...
+00:34:02	[LOG_DEBUG]	[Thread Num]: 17
+00:34:02	[LOG_DEBUG]	[Port]: 7000
+00:34:27	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+00:34:57	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+00:35:19	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+00:35:47	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+00:36:10	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+00:36:46	[LOG_DISCONNECT]	oid(2)	[ip]: 127.0.0.1
+00:37:11	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+00:37:42	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
+00:38:07	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+00:38:59	[LOG_DISCONNECT]	oid(4)	[ip]: 127.0.0.1
+00:39:19	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+00:41:37	[LOG_DISCONNECT]	oid(5)	[ip]: 127.0.0.1
+00:44:40	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+00:45:39	[LOG_DISCONNECT]	oid(6)	[ip]: 127.0.0.1
+00:45:47	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+00:46:00	[LOG_CONNECT]	oid(8)	[ip]: 127.0.0.1
+00:46:09	[LOG_DISCONNECT]	oid(7)	[ip]: 127.0.0.1
+00:46:55	[LOG_DISCONNECT]	oid(8)	[ip]: 127.0.0.1
+00:47:07	[LOG_CONNECT]	oid(9)	[ip]: 127.0.0.1
+00:47:58	[LOG_DISCONNECT]	oid(9)	[ip]: 127.0.0.1
+00:48:20	[LOG_CONNECT]	oid(10)	[ip]: 127.0.0.1
+00:48:58	[LOG_DISCONNECT]	oid(10)	[ip]: 127.0.0.1
+00:49:22	[LOG_CONNECT]	oid(11)	[ip]: 127.0.0.1
+00:49:46	[LOG_DISCONNECT]	oid(11)	[ip]: 127.0.0.1
+00:50:03	[LOG_CONNECT]	oid(12)	[ip]: 127.0.0.1
+00:51:16	[LOG_DISCONNECT]	oid(12)	[ip]: 127.0.0.1
+00:51:34	[LOG_CONNECT]	oid(13)	[ip]: 127.0.0.1
+00:52:02	[LOG_DISCONNECT]	oid(13)	[ip]: 127.0.0.1
+00:52:11	[LOG_CONNECT]	oid(14)	[ip]: 127.0.0.1
+00:54:11	[LOG_INFO]	[DBConfig.csv is loading...]
+00:54:11	[LOG_INFO]	string,string
+00:54:11	[LOG_INFO]	World,112.145.214.226
+00:54:11	[LOG_INFO]	Account,112.145.214.226
+00:54:11	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:54:11	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:54:11	[LOG_INFO]	string,int,int
+00:54:11	[LOG_INFO]	Login,1,1000
+00:54:11	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:54:11	[LOG_CONNECT]	WorldDB is Connected
+00:54:11	[LOG_DEBUG]	[Server Type]: Login
+00:54:11	[LOG_DEBUG]	[GroupID]: 0
+00:54:11	[LOG_DEBUG]	[WorldID]: 1
+00:54:11	[LOG_DEBUG]	[ServerID]: 1000
+00:54:11	[LOG_DEBUG]	Server is Running...
+00:54:11	[LOG_DEBUG]	[Thread Num]: 17
+00:54:11	[LOG_DEBUG]	[Port]: 7000
+00:54:25	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+00:54:47	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+00:54:58	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+00:55:38	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+00:56:14	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+00:56:34	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+00:57:59	[LOG_DISCONNECT]	oid(2)	[ip]: 127.0.0.1
+00:58:24	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
+00:58:33	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+00:59:33	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+00:59:46	[LOG_DISCONNECT]	oid(4)	[ip]: 127.0.0.1
+00:59:46	[LOG_DISCONNECT]	oid(5)	[ip]: 127.0.0.1
+01:00:15	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+01:00:31	[LOG_DISCONNECT]	oid(6)	[ip]: 127.0.0.1
+01:00:47	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+01:03:14	[LOG_DISCONNECT]	oid(7)	[ip]: 127.0.0.1
+01:03:59	[LOG_CONNECT]	oid(8)	[ip]: 127.0.0.1
+01:04:08	[LOG_CONNECT]	oid(9)	[ip]: 127.0.0.1
+01:04:12	[LOG_CONNECT]	oid(10)	[ip]: 127.0.0.1
+01:04:17	[LOG_DISCONNECT]	oid(9)	[ip]: 127.0.0.1
+01:04:17	[LOG_DISCONNECT]	oid(8)	[ip]: 127.0.0.1
+01:04:18	[LOG_DISCONNECT]	oid(10)	[ip]: 127.0.0.1
+01:04:28	[LOG_CONNECT]	oid(11)	[ip]: 127.0.0.1
+01:05:22	[LOG_INFO]	[DBConfig.csv is loading...]
+01:05:22	[LOG_INFO]	string,string
+01:05:22	[LOG_INFO]	World,112.145.214.226
+01:05:22	[LOG_INFO]	Account,112.145.214.226
+01:05:22	[LOG_INFO]	[DBConfig.csv is loaded...]
+01:05:22	[LOG_INFO]	[ServerConfig.csv is loading...]
+01:05:22	[LOG_INFO]	string,int,int
+01:05:22	[LOG_INFO]	Login,1,1000
+01:05:22	[LOG_INFO]	[ServerConfig.csv is loaded...]
+01:05:22	[LOG_CONNECT]	WorldDB is Connected
+01:05:22	[LOG_DEBUG]	[Server Type]: Login
+01:05:22	[LOG_DEBUG]	[GroupID]: 0
+01:05:22	[LOG_DEBUG]	[WorldID]: 1
+01:05:22	[LOG_DEBUG]	[ServerID]: 1000
+01:05:22	[LOG_DEBUG]	Server is Running...
+01:05:22	[LOG_DEBUG]	[Thread Num]: 17
+01:05:22	[LOG_DEBUG]	[Port]: 7000
+01:05:40	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+01:05:47	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+01:05:55	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+01:06:27	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+01:06:27	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+01:06:29	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+01:09:17	[LOG_DISCONNECT]	oid(2)	[ip]: 127.0.0.1
+01:09:17	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
+01:09:37	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+01:11:09	[LOG_DISCONNECT]	oid(4)	[ip]: 127.0.0.1
+01:11:20	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+01:14:23	[LOG_DISCONNECT]	oid(5)	[ip]: 127.0.0.1
+01:14:39	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+01:14:59	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+01:15:34	[LOG_DISCONNECT]	oid(6)	[ip]: 127.0.0.1
+01:15:34	[LOG_CONNECT]	oid(8)	[ip]: 127.0.0.1
+01:16:45	[LOG_DISCONNECT]	oid(7)	[ip]: 127.0.0.1
+01:16:45	[LOG_DISCONNECT]	oid(8)	[ip]: 127.0.0.1
+01:17:21	[LOG_CONNECT]	oid(9)	[ip]: 127.0.0.1
+01:24:42	[LOG_DISCONNECT]	oid(9)	[ip]: 127.0.0.1
+01:25:06	[LOG_CONNECT]	oid(10)	[ip]: 127.0.0.1
+01:25:28	[LOG_CONNECT]	oid(11)	[ip]: 127.0.0.1
+01:31:21	[LOG_INFO]	[DBConfig.csv is loading...]
+01:31:21	[LOG_INFO]	string,string
+01:31:21	[LOG_INFO]	World,112.145.214.226
+01:31:21	[LOG_INFO]	Account,112.145.214.226
+01:31:21	[LOG_INFO]	[DBConfig.csv is loaded...]
+01:31:21	[LOG_INFO]	[ServerConfig.csv is loading...]
+01:31:21	[LOG_INFO]	string,int,int
+01:31:21	[LOG_INFO]	Login,1,1000
+01:31:21	[LOG_INFO]	[ServerConfig.csv is loaded...]
+01:31:21	[LOG_CONNECT]	WorldDB is Connected
+01:31:21	[LOG_DEBUG]	[Server Type]: Login
+01:31:21	[LOG_DEBUG]	[GroupID]: 0
+01:31:21	[LOG_DEBUG]	[WorldID]: 1
+01:31:21	[LOG_DEBUG]	[ServerID]: 1000
+01:31:21	[LOG_DEBUG]	Server is Running...
+01:31:21	[LOG_DEBUG]	[Thread Num]: 17
+01:31:21	[LOG_DEBUG]	[Port]: 7000
+01:31:37	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+01:32:43	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+01:35:55	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+01:35:55	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+01:35:55	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+01:35:59	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+01:35:59	[LOG_DISCONNECT]	oid(2)	[ip]: 127.0.0.1
+01:36:12	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+01:36:51	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
+01:40:31	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+01:41:38	[LOG_DISCONNECT]	oid(4)	[ip]: 127.0.0.1
+01:41:38	[LOG_DISCONNECT]	oid(5)	[ip]: 127.0.0.1
+01:42:00	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+01:42:54	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+01:44:45	[LOG_DISCONNECT]	oid(6)	[ip]: 127.0.0.1
+01:44:45	[LOG_DISCONNECT]	oid(7)	[ip]: 127.0.0.1
+01:45:10	[LOG_CONNECT]	oid(8)	[ip]: 127.0.0.1
+01:45:13	[LOG_CONNECT]	oid(9)	[ip]: 127.0.0.1
+01:45:19	[LOG_CONNECT]	oid(10)	[ip]: 127.0.0.1
+01:46:34	[LOG_DISCONNECT]	oid(8)	[ip]: 127.0.0.1
+01:46:35	[LOG_DISCONNECT]	oid(9)	[ip]: 127.0.0.1
+01:46:40	[LOG_DISCONNECT]	oid(10)	[ip]: 127.0.0.1
+01:47:01	[LOG_CONNECT]	oid(11)	[ip]: 127.0.0.1
+01:47:25	[LOG_CONNECT]	oid(12)	[ip]: 127.0.0.1
+01:47:38	[LOG_DISCONNECT]	oid(11)	[ip]: 127.0.0.1
+01:48:42	[LOG_DISCONNECT]	oid(12)	[ip]: 127.0.0.1
+01:49:00	[LOG_CONNECT]	oid(13)	[ip]: 127.0.0.1
+01:49:50	[LOG_DISCONNECT]	oid(13)	[ip]: 127.0.0.1
+01:50:21	[LOG_CONNECT]	oid(14)	[ip]: 127.0.0.1
+01:50:48	[LOG_DISCONNECT]	oid(14)	[ip]: 127.0.0.1
+01:57:01	[LOG_INFO]	[DBConfig.csv is loading...]
+01:57:01	[LOG_INFO]	string,string
+01:57:01	[LOG_INFO]	World,112.145.214.226
+01:57:01	[LOG_INFO]	Account,112.145.214.226
+01:57:01	[LOG_INFO]	[DBConfig.csv is loaded...]
+01:57:01	[LOG_INFO]	[ServerConfig.csv is loading...]
+01:57:01	[LOG_INFO]	string,int,int
+01:57:01	[LOG_INFO]	Login,1,1000
+01:57:01	[LOG_INFO]	[ServerConfig.csv is loaded...]
+01:57:01	[LOG_CONNECT]	WorldDB is Connected
+01:57:01	[LOG_DEBUG]	[Server Type]: Login
+01:57:01	[LOG_DEBUG]	[GroupID]: 0
+01:57:01	[LOG_DEBUG]	[WorldID]: 1
+01:57:01	[LOG_DEBUG]	[ServerID]: 1000
+01:57:01	[LOG_DEBUG]	Server is Running...
+01:57:01	[LOG_DEBUG]	[Thread Num]: 17
+01:57:01	[LOG_DEBUG]	[Port]: 7000
+01:57:26	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+01:58:15	[LOG_INFO]	[DBConfig.csv is loading...]
+01:58:15	[LOG_INFO]	string,string
+01:58:15	[LOG_INFO]	World,112.145.214.226
+01:58:15	[LOG_INFO]	Account,112.145.214.226
+01:58:15	[LOG_INFO]	[DBConfig.csv is loaded...]
+01:58:15	[LOG_INFO]	[ServerConfig.csv is loading...]
+01:58:15	[LOG_INFO]	string,int,int
+01:58:15	[LOG_INFO]	Login,1,1000
+01:58:15	[LOG_INFO]	[ServerConfig.csv is loaded...]
+01:58:15	[LOG_CONNECT]	WorldDB is Connected
+01:58:15	[LOG_DEBUG]	[Server Type]: Login
+01:58:15	[LOG_DEBUG]	[GroupID]: 0
+01:58:15	[LOG_DEBUG]	[WorldID]: 1
+01:58:15	[LOG_DEBUG]	[ServerID]: 1000
+01:58:15	[LOG_DEBUG]	Server is Running...
+01:58:15	[LOG_DEBUG]	[Thread Num]: 17
+01:58:15	[LOG_DEBUG]	[Port]: 7000
+01:58:38	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+02:13:24	[LOG_INFO]	[DBConfig.csv is loading...]
+02:13:24	[LOG_INFO]	string,string
+02:13:24	[LOG_INFO]	World,112.145.214.226
+02:13:24	[LOG_INFO]	Account,112.145.214.226
+02:13:24	[LOG_INFO]	[DBConfig.csv is loaded...]
+02:13:24	[LOG_INFO]	[ServerConfig.csv is loading...]
+02:13:24	[LOG_INFO]	string,int,int
+02:13:24	[LOG_INFO]	Login,1,1000
+02:13:24	[LOG_INFO]	[ServerConfig.csv is loaded...]
+02:13:24	[LOG_CONNECT]	WorldDB is Connected
+02:13:24	[LOG_DEBUG]	[Server Type]: Login
+02:13:24	[LOG_DEBUG]	[GroupID]: 0
+02:13:24	[LOG_DEBUG]	[WorldID]: 1
+02:13:24	[LOG_DEBUG]	[ServerID]: 1000
+02:13:24	[LOG_DEBUG]	Server is Running...
+02:13:24	[LOG_DEBUG]	[Thread Num]: 17
+02:13:24	[LOG_DEBUG]	[Port]: 7000
+02:23:12	[LOG_INFO]	[DBConfig.csv is loading...]
+02:23:12	[LOG_INFO]	string,string
+02:23:12	[LOG_INFO]	World,112.145.214.226
+02:23:12	[LOG_INFO]	Account,112.145.214.226
+02:23:12	[LOG_INFO]	[DBConfig.csv is loaded...]
+02:23:12	[LOG_INFO]	[ServerConfig.csv is loading...]
+02:23:12	[LOG_INFO]	string,int,int
+02:23:12	[LOG_INFO]	Login,1,1000
+02:23:12	[LOG_INFO]	[ServerConfig.csv is loaded...]
+02:23:12	[LOG_CONNECT]	WorldDB is Connected
+02:23:12	[LOG_DEBUG]	[Server Type]: Login
+02:23:12	[LOG_DEBUG]	[GroupID]: 0
+02:23:12	[LOG_DEBUG]	[WorldID]: 1
+02:23:12	[LOG_DEBUG]	[ServerID]: 1000
+02:23:12	[LOG_DEBUG]	Server is Running...
+02:23:12	[LOG_DEBUG]	[Thread Num]: 17
+02:23:12	[LOG_DEBUG]	[Port]: 7000
+02:23:34	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+02:29:50	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+02:30:09	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+02:33:13	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+02:33:25	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+02:37:01	[LOG_INFO]	[DBConfig.csv is loading...]
+02:37:01	[LOG_INFO]	string,string
+02:37:01	[LOG_INFO]	World,112.145.214.226
+02:37:01	[LOG_INFO]	Account,112.145.214.226
+02:37:01	[LOG_INFO]	[DBConfig.csv is loaded...]
+02:37:01	[LOG_INFO]	[ServerConfig.csv is loading...]
+02:37:01	[LOG_INFO]	string,int,int
+02:37:01	[LOG_INFO]	Login,1,1000
+02:37:01	[LOG_INFO]	[ServerConfig.csv is loaded...]
+02:37:05	[LOG_CONNECT]	WorldDB is Connected
+02:37:05	[LOG_DEBUG]	[Server Type]: Login
+02:37:05	[LOG_DEBUG]	[GroupID]: 0
+02:37:05	[LOG_DEBUG]	[WorldID]: 1
+02:37:05	[LOG_DEBUG]	[ServerID]: 1000
+02:37:05	[LOG_DEBUG]	Server is Running...
+02:37:05	[LOG_DEBUG]	[Thread Num]: 17
+02:37:05	[LOG_DEBUG]	[Port]: 7000
+02:38:43	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+02:44:33	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+02:44:52	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+02:46:01	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+02:46:20	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+02:46:22	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+02:46:22	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+02:46:23	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+02:46:23	[LOG_DISCONNECT]	oid(4)	[ip]: 127.0.0.1
+02:46:23	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
+02:46:23	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+02:46:24	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+02:46:24	[LOG_CONNECT]	oid(8)	[ip]: 127.0.0.1
+02:46:24	[LOG_CONNECT]	oid(9)	[ip]: 127.0.0.1
+02:46:25	[LOG_DISCONNECT]	oid(8)	[ip]: 127.0.0.1
+02:46:25	[LOG_DISCONNECT]	oid(6)	[ip]: 127.0.0.1
+02:46:25	[LOG_DISCONNECT]	oid(7)	[ip]: 127.0.0.1
+02:46:25	[LOG_CONNECT]	oid(10)	[ip]: 127.0.0.1
+02:46:25	[LOG_CONNECT]	oid(11)	[ip]: 127.0.0.1
+02:46:28	[LOG_CONNECT]	oid(12)	[ip]: 127.0.0.1
+02:46:28	[LOG_CONNECT]	oid(13)	[ip]: 127.0.0.1
+02:46:28	[LOG_DISCONNECT]	oid(12)	[ip]: 127.0.0.1
+02:46:28	[LOG_DISCONNECT]	oid(10)	[ip]: 127.0.0.1
+02:46:28	[LOG_DISCONNECT]	oid(11)	[ip]: 127.0.0.1
+02:46:29	[LOG_CONNECT]	oid(14)	[ip]: 127.0.0.1
+02:46:29	[LOG_CONNECT]	oid(15)	[ip]: 127.0.0.1
+02:46:30	[LOG_CONNECT]	oid(16)	[ip]: 127.0.0.1
+02:46:30	[LOG_CONNECT]	oid(17)	[ip]: 127.0.0.1
+02:46:30	[LOG_CONNECT]	oid(18)	[ip]: 127.0.0.1
+02:46:30	[LOG_DISCONNECT]	oid(15)	[ip]: 127.0.0.1
+02:46:30	[LOG_DISCONNECT]	oid(16)	[ip]: 127.0.0.1
+02:46:30	[LOG_DISCONNECT]	oid(14)	[ip]: 127.0.0.1
+02:46:30	[LOG_CONNECT]	oid(19)	[ip]: 127.0.0.1
+02:46:31	[LOG_CONNECT]	oid(20)	[ip]: 127.0.0.1
+02:46:32	[LOG_DISCONNECT]	oid(19)	[ip]: 127.0.0.1
+02:47:11	[LOG_DISCONNECT]	oid(9)	[ip]: 127.0.0.1
+02:47:11	[LOG_DISCONNECT]	oid(17)	[ip]: 127.0.0.1
+02:47:11	[LOG_DISCONNECT]	oid(13)	[ip]: 127.0.0.1
+02:47:11	[LOG_DISCONNECT]	oid(18)	[ip]: 127.0.0.1
+02:47:11	[LOG_DISCONNECT]	oid(5)	[ip]: 127.0.0.1
+02:47:11	[LOG_DISCONNECT]	oid(2)	[ip]: 127.0.0.1
+02:47:32	[LOG_DISCONNECT]	oid(20)	[ip]: 127.0.0.1
+02:49:08	[LOG_CONNECT]	oid(21)	[ip]: 127.0.0.1
+19:51:34	[LOG_INFO]	[DBConfig.csv is loading...]
+19:51:34	[LOG_INFO]	string,string
+19:51:34	[LOG_INFO]	World,112.145.214.226
+19:51:34	[LOG_INFO]	Account,112.145.214.226
+19:51:34	[LOG_INFO]	[DBConfig.csv is loaded...]
+19:51:34	[LOG_INFO]	[ServerConfig.csv is loading...]
+19:51:34	[LOG_INFO]	string,int,int
+19:51:34	[LOG_INFO]	Login,1,1000
+19:51:34	[LOG_INFO]	[ServerConfig.csv is loaded...]
+19:51:34	[LOG_CONNECT]	WorldDB is Connected
+19:51:34	[LOG_DEBUG]	[Server Type]: Login
+19:51:34	[LOG_DEBUG]	[GroupID]: 0
+19:51:34	[LOG_DEBUG]	[WorldID]: 1
+19:51:34	[LOG_DEBUG]	[ServerID]: 1000
+19:51:34	[LOG_DEBUG]	Server is Running...
+19:51:34	[LOG_DEBUG]	[Thread Num]: 17
+19:51:34	[LOG_DEBUG]	[Port]: 7000
+19:51:45	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+19:51:59	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+19:52:16	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+19:52:36	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+19:52:36	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+19:52:49	[LOG_DISCONNECT]	oid(2)	[ip]: 127.0.0.1
+19:53:11	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+19:54:03	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
+19:54:35	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+19:56:53	[LOG_INFO]	[DBConfig.csv is loading...]
+19:56:53	[LOG_INFO]	string,string
+19:56:53	[LOG_INFO]	World,112.145.214.226
+19:56:53	[LOG_INFO]	Account,112.145.214.226
+19:56:53	[LOG_INFO]	[DBConfig.csv is loaded...]
+19:56:53	[LOG_INFO]	[ServerConfig.csv is loading...]
+19:56:53	[LOG_INFO]	string,int,int
+19:56:53	[LOG_INFO]	Login,1,1000
+19:56:53	[LOG_INFO]	[ServerConfig.csv is loaded...]
+19:56:53	[LOG_CONNECT]	WorldDB is Connected
+19:56:53	[LOG_DEBUG]	[Server Type]: Login
+19:56:53	[LOG_DEBUG]	[GroupID]: 0
+19:56:53	[LOG_DEBUG]	[WorldID]: 1
+19:56:53	[LOG_DEBUG]	[ServerID]: 1000
+19:56:53	[LOG_DEBUG]	Server is Running...
+19:56:53	[LOG_DEBUG]	[Thread Num]: 17
+19:56:53	[LOG_DEBUG]	[Port]: 7000
+19:57:10	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+19:57:27	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+19:57:48	[LOG_DISCONNECT]	oid(0)	[ip]: 127.0.0.1
+19:58:39	[LOG_DISCONNECT]	oid(1)	[ip]: 127.0.0.1
+19:58:50	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+20:00:39	[LOG_DISCONNECT]	oid(2)	[ip]: 127.0.0.1
+20:01:14	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+20:02:43	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
+20:03:00	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+20:05:23	[LOG_DISCONNECT]	oid(4)	[ip]: 127.0.0.1
+20:05:41	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+20:06:13	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+20:06:55	[LOG_DISCONNECT]	oid(5)	[ip]: 127.0.0.1
+20:08:06	[LOG_DISCONNECT]	oid(6)	[ip]: 127.0.0.1
+20:08:24	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+20:13:19	[LOG_DISCONNECT]	oid(7)	[ip]: 127.0.0.1
+20:13:42	[LOG_CONNECT]	oid(8)	[ip]: 127.0.0.1
+20:17:48	[LOG_CONNECT]	oid(9)	[ip]: 127.0.0.1
+20:18:24	[LOG_CONNECT]	oid(10)	[ip]: 127.0.0.1
+20:18:30	[LOG_CONNECT]	oid(11)	[ip]: 127.0.0.1
+20:18:31	[LOG_CONNECT]	oid(12)	[ip]: 127.0.0.1
+20:18:34	[LOG_DISCONNECT]	oid(11)	[ip]: 127.0.0.1
+20:18:34	[LOG_DISCONNECT]	oid(9)	[ip]: 127.0.0.1
+20:18:34	[LOG_DISCONNECT]	oid(10)	[ip]: 127.0.0.1
+20:18:34	[LOG_DISCONNECT]	oid(12)	[ip]: 127.0.0.1
+20:18:46	[LOG_CONNECT]	oid(13)	[ip]: 127.0.0.1
+20:57:26	[LOG_DISCONNECT]	oid(13)	[ip]: 127.0.0.1
+21:14:39	[LOG_CONNECT]	oid(14)	[ip]: 127.0.0.1
+21:45:31	[LOG_DISCONNECT]	oid(14)	[ip]: 127.0.0.1
+21:52:47	[LOG_CONNECT]	oid(15)	[ip]: 127.0.0.1
+21:53:04	[LOG_DISCONNECT]	oid(15)	[ip]: 127.0.0.1
+21:53:29	[LOG_CONNECT]	oid(16)	[ip]: 127.0.0.1
+21:53:52	[LOG_CONNECT]	oid(17)	[ip]: 127.0.0.1
+21:56:28	[LOG_DISCONNECT]	oid(16)	[ip]: 127.0.0.1
+21:56:28	[LOG_DISCONNECT]	oid(17)	[ip]: 127.0.0.1
+21:57:44	[LOG_DISCONNECT]	oid(8)	[ip]: 127.0.0.1
+21:59:09	[LOG_CONNECT]	oid(18)	[ip]: 127.0.0.1
+22:00:11	[LOG_DISCONNECT]	oid(18)	[ip]: 127.0.0.1
+22:00:38	[LOG_CONNECT]	oid(19)	[ip]: 127.0.0.1

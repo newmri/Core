@@ -1,0 +1,221 @@
+00:04:57	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+00:05:28	[LOG_DISCONNECT]	oid(5)	[ip]: 127.0.0.1
+00:26:22	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+00:27:52	[LOG_DISCONNECT]	oid(6)	[ip]: 127.0.0.1
+00:28:36	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+00:29:42	[LOG_DISCONNECT]	oid(7)	[ip]: 127.0.0.1
+00:29:50	[LOG_CONNECT]	oid(8)	[ip]: 127.0.0.1
+00:30:52	[LOG_DISCONNECT]	oid(8)	[ip]: 127.0.0.1
+00:31:00	[LOG_CONNECT]	oid(9)	[ip]: 127.0.0.1
+00:32:20	[LOG_DISCONNECT]	oid(9)	[ip]: 127.0.0.1
+00:32:28	[LOG_CONNECT]	oid(10)	[ip]: 127.0.0.1
+00:32:58	[LOG_DISCONNECT]	oid(10)	[ip]: 127.0.0.1
+00:33:08	[LOG_CONNECT]	oid(11)	[ip]: 127.0.0.1
+00:33:45	[LOG_DISCONNECT]	oid(11)	[ip]: 127.0.0.1
+00:33:53	[LOG_CONNECT]	oid(12)	[ip]: 127.0.0.1
+00:34:40	[LOG_DISCONNECT]	oid(12)	[ip]: 127.0.0.1
+00:34:49	[LOG_CONNECT]	oid(13)	[ip]: 127.0.0.1
+00:35:07	[LOG_DISCONNECT]	oid(13)	[ip]: 127.0.0.1
+00:35:17	[LOG_CONNECT]	oid(14)	[ip]: 127.0.0.1
+00:35:35	[LOG_DISCONNECT]	oid(14)	[ip]: 127.0.0.1
+00:35:44	[LOG_CONNECT]	oid(15)	[ip]: 127.0.0.1
+00:36:44	[LOG_DISCONNECT]	oid(15)	[ip]: 127.0.0.1
+00:36:52	[LOG_CONNECT]	oid(16)	[ip]: 127.0.0.1
+00:40:11	[LOG_DISCONNECT]	oid(16)	[ip]: 127.0.0.1
+00:40:20	[LOG_CONNECT]	oid(17)	[ip]: 127.0.0.1
+00:41:50	[LOG_DISCONNECT]	oid(17)	[ip]: 127.0.0.1
+00:44:01	[LOG_CONNECT]	oid(18)	[ip]: 127.0.0.1
+00:45:12	[LOG_DISCONNECT]	oid(18)	[ip]: 127.0.0.1
+00:58:00	[LOG_CONNECT]	oid(19)	[ip]: 127.0.0.1
+00:58:45	[LOG_DISCONNECT]	oid(19)	[ip]: 127.0.0.1
+00:58:55	[LOG_CONNECT]	oid(20)	[ip]: 127.0.0.1
+01:00:23	[LOG_DISCONNECT]	oid(20)	[ip]: 127.0.0.1
+01:00:33	[LOG_CONNECT]	oid(21)	[ip]: 127.0.0.1
+01:22:16	[LOG_DISCONNECT]	oid(21)	[ip]: 127.0.0.1
+01:26:17	[LOG_CONNECT]	oid(22)	[ip]: 127.0.0.1
+01:27:23	[LOG_DISCONNECT]	oid(22)	[ip]: 127.0.0.1
+01:27:40	[LOG_CONNECT]	oid(23)	[ip]: 127.0.0.1
+01:29:25	[LOG_DISCONNECT]	oid(23)	[ip]: 127.0.0.1
+01:29:42	[LOG_CONNECT]	oid(24)	[ip]: 127.0.0.1
+01:30:01	[LOG_DISCONNECT]	oid(24)	[ip]: 127.0.0.1
+01:30:18	[LOG_CONNECT]	oid(25)	[ip]: 127.0.0.1
+01:33:55	[LOG_DISCONNECT]	oid(25)	[ip]: 127.0.0.1
+01:34:05	[LOG_CONNECT]	oid(26)	[ip]: 127.0.0.1
+01:35:35	[LOG_DISCONNECT]	oid(26)	[ip]: 127.0.0.1
+02:37:47	[LOG_CONNECT]	oid(27)	[ip]: 127.0.0.1
+02:40:17	[LOG_DISCONNECT]	oid(27)	[ip]: 127.0.0.1
+02:55:23	[LOG_CONNECT]	oid(28)	[ip]: 127.0.0.1
+02:56:25	[LOG_DISCONNECT]	oid(28)	[ip]: 127.0.0.1
+02:56:34	[LOG_CONNECT]	oid(29)	[ip]: 127.0.0.1
+02:57:46	[LOG_DISCONNECT]	oid(29)	[ip]: 127.0.0.1
+02:57:54	[LOG_CONNECT]	oid(30)	[ip]: 127.0.0.1
+02:59:22	[LOG_DISCONNECT]	oid(30)	[ip]: 127.0.0.1
+02:59:43	[LOG_CONNECT]	oid(31)	[ip]: 127.0.0.1
+03:00:09	[LOG_DISCONNECT]	oid(31)	[ip]: 127.0.0.1
+03:00:31	[LOG_CONNECT]	oid(32)	[ip]: 127.0.0.1
+03:01:42	[LOG_DISCONNECT]	oid(32)	[ip]: 127.0.0.1
+03:01:51	[LOG_CONNECT]	oid(33)	[ip]: 127.0.0.1
+03:07:52	[LOG_DISCONNECT]	oid(33)	[ip]: 127.0.0.1
+03:08:00	[LOG_CONNECT]	oid(34)	[ip]: 127.0.0.1
+03:09:30	[LOG_DISCONNECT]	oid(34)	[ip]: 127.0.0.1
+03:14:52	[LOG_CONNECT]	oid(35)	[ip]: 127.0.0.1
+03:16:22	[LOG_DISCONNECT]	oid(35)	[ip]: 127.0.0.1
+03:24:22	[LOG_CONNECT]	oid(36)	[ip]: 127.0.0.1
+03:26:23	[LOG_DISCONNECT]	oid(36)	[ip]: 127.0.0.1
+03:36:34	[LOG_CONNECT]	oid(37)	[ip]: 127.0.0.1
+03:37:06	[LOG_DISCONNECT]	oid(37)	[ip]: 127.0.0.1
+03:37:21	[LOG_CONNECT]	oid(38)	[ip]: 127.0.0.1
+03:38:10	[LOG_DISCONNECT]	oid(38)	[ip]: 127.0.0.1
+03:38:25	[LOG_CONNECT]	oid(39)	[ip]: 127.0.0.1
+03:43:02	[LOG_DISCONNECT]	oid(39)	[ip]: 127.0.0.1
+03:43:23	[LOG_CONNECT]	oid(40)	[ip]: 127.0.0.1
+03:44:46	[LOG_DISCONNECT]	oid(40)	[ip]: 127.0.0.1
+03:44:54	[LOG_CONNECT]	oid(41)	[ip]: 127.0.0.1
+03:50:04	[LOG_DISCONNECT]	oid(41)	[ip]: 127.0.0.1
+03:50:12	[LOG_CONNECT]	oid(42)	[ip]: 127.0.0.1
+03:52:09	[LOG_DISCONNECT]	oid(42)	[ip]: 127.0.0.1
+03:58:32	[LOG_CONNECT]	oid(43)	[ip]: 127.0.0.1
+03:59:15	[LOG_DISCONNECT]	oid(43)	[ip]: 127.0.0.1
+04:00:43	[LOG_CONNECT]	oid(44)	[ip]: 127.0.0.1
+04:01:02	[LOG_DISCONNECT]	oid(44)	[ip]: 127.0.0.1
+04:01:43	[LOG_CONNECT]	oid(45)	[ip]: 127.0.0.1
+04:02:22	[LOG_DISCONNECT]	oid(45)	[ip]: 127.0.0.1
+04:02:46	[LOG_CONNECT]	oid(46)	[ip]: 127.0.0.1
+04:05:36	[LOG_DISCONNECT]	oid(46)	[ip]: 127.0.0.1
+04:06:42	[LOG_CONNECT]	oid(47)	[ip]: 127.0.0.1
+04:06:56	[LOG_DISCONNECT]	oid(47)	[ip]: 127.0.0.1
+04:08:08	[LOG_CONNECT]	oid(48)	[ip]: 127.0.0.1
+04:14:58	[LOG_DISCONNECT]	oid(48)	[ip]: 127.0.0.1
+04:16:50	[LOG_CONNECT]	oid(49)	[ip]: 127.0.0.1
+04:17:08	[LOG_DISCONNECT]	oid(49)	[ip]: 127.0.0.1
+04:22:49	[LOG_CONNECT]	oid(50)	[ip]: 127.0.0.1
+04:25:49	[LOG_DISCONNECT]	oid(50)	[ip]: 127.0.0.1
+04:29:33	[LOG_CONNECT]	oid(51)	[ip]: 127.0.0.1
+04:33:33	[LOG_DISCONNECT]	oid(51)	[ip]: 127.0.0.1
+04:33:58	[LOG_CONNECT]	oid(52)	[ip]: 127.0.0.1
+16:35:12	[LOG_DISCONNECT]	oid(52)	[ip]: 127.0.0.1
+16:35:26	[LOG_CONNECT]	oid(53)	[ip]: 127.0.0.1
+16:36:56	[LOG_DISCONNECT]	oid(53)	[ip]: 127.0.0.1
+16:38:27	[LOG_CONNECT]	oid(54)	[ip]: 127.0.0.1
+16:39:00	[LOG_DISCONNECT]	oid(54)	[ip]: 127.0.0.1
+16:39:17	[LOG_CONNECT]	oid(55)	[ip]: 127.0.0.1
+16:47:51	[LOG_DISCONNECT]	oid(55)	[ip]: 127.0.0.1
+16:48:08	[LOG_CONNECT]	oid(56)	[ip]: 127.0.0.1
+23:24:04	[LOG_INFO]	[DBConfig.csv is loading...]
+23:24:04	[LOG_INFO]	﻿string,string
+23:24:04	[LOG_INFO]	World,112.145.214.226
+23:24:04	[LOG_INFO]	Account,112.145.214.226
+23:24:04	[LOG_INFO]	Game,112.145.214.226
+23:24:04	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:24:23	[LOG_INFO]	[DBConfig.csv is loading...]
+23:24:23	[LOG_INFO]	﻿string,string
+23:24:23	[LOG_INFO]	World,112.145.214.226
+23:24:23	[LOG_INFO]	Account,112.145.214.226
+23:24:23	[LOG_INFO]	Game,112.145.214.226
+23:24:23	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:24:42	[LOG_INFO]	[DBConfig.csv is loading...]
+23:24:42	[LOG_INFO]	﻿string,string
+23:24:42	[LOG_INFO]	World,112.145.214.226
+23:24:42	[LOG_INFO]	Account,112.145.214.226
+23:24:42	[LOG_INFO]	Game,112.145.214.226
+23:24:42	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:26:09	[LOG_INFO]	[DBConfig.csv is loading...]
+23:26:17	[LOG_INFO]	﻿string,string
+23:26:20	[LOG_INFO]	World,112.145.214.226
+23:26:20	[LOG_INFO]	Account,112.145.214.226
+23:26:20	[LOG_INFO]	Game,112.145.214.226
+23:26:31	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:27:18	[LOG_INFO]	[ServerConfig.csv is loading...]
+23:27:21	[LOG_INFO]	string,int32_t,int32_t
+23:27:21	[LOG_INFO]	Login,1,1000
+23:27:23	[LOG_INFO]	[ServerConfig.csv is loaded...]
+23:27:23	[LOG_CONNECT]	WorldDB is Connected
+23:27:23	[LOG_DEBUG]	[Server Type]: Login
+23:27:23	[LOG_DEBUG]	[GroupID]: 0
+23:27:23	[LOG_DEBUG]	[WorldID]: 1
+23:27:23	[LOG_DEBUG]	[ServerID]: 1000
+23:27:23	[LOG_DEBUG]	Server is Running...
+23:27:23	[LOG_DEBUG]	[Thread Num]: 17
+23:27:23	[LOG_DEBUG]	[Port]: 7000
+23:27:40	[LOG_INFO]	[ServerConfig.csv is loading...]
+23:27:40	[LOG_INFO]	string,int32_t,int32_t
+23:27:40	[LOG_INFO]	Login,1,1000
+23:27:40	[LOG_INFO]	[ServerConfig.csv is loaded...]
+23:29:04	[LOG_INFO]	[DBConfig.csv is loading...]
+23:29:04	[LOG_INFO]	﻿string,string
+23:29:04	[LOG_INFO]	World,112.145.214.226
+23:29:04	[LOG_INFO]	Account,112.145.214.226
+23:29:04	[LOG_INFO]	Game,112.145.214.226
+23:29:05	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:30:07	[LOG_INFO]	[DBConfig.csv is loading...]
+23:30:07	[LOG_INFO]	﻿string,string
+23:30:07	[LOG_INFO]	World,112.145.214.226
+23:30:07	[LOG_INFO]	Account,112.145.214.226
+23:30:07	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:30:54	[LOG_INFO]	[DBConfig.csv is loading...]
+23:30:54	[LOG_INFO]	﻿string,string
+23:30:54	[LOG_INFO]	World,112.145.214.226
+23:30:54	[LOG_INFO]	Account,112.145.214.226
+23:30:54	[LOG_INFO]	Game,112.145.214.226
+23:30:54	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:34:45	[LOG_INFO]	[DBConfig.csv is loading...]
+23:34:45	[LOG_INFO]	﻿string,string
+23:34:45	[LOG_INFO]	World,112.145.214.226
+23:34:45	[LOG_INFO]	Account,112.145.214.226
+23:34:45	[LOG_INFO]	Game,112.145.214.226
+23:34:45	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:35:43	[LOG_INFO]	[DBConfig.csv is loading...]
+23:35:43	[LOG_INFO]	﻿string,string
+23:35:43	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:39:40	[LOG_INFO]	[DBConfig.csv is loading...]
+23:39:40	[LOG_INFO]	﻿string,string
+23:39:40	[LOG_INFO]	World,112.145.214.226
+23:39:40	[LOG_INFO]	Account,112.145.214.226
+23:39:40	[LOG_INFO]	Game,112.145.214.226
+23:39:40	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:40:10	[LOG_INFO]	[DBConfig.csv is loading...]
+23:40:10	[LOG_INFO]	﻿string,string
+23:40:10	[LOG_INFO]	World,112.145.214.226
+23:40:10	[LOG_INFO]	Account,112.145.214.226
+23:40:10	[LOG_INFO]	Game,112.145.214.226
+23:40:10	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:42:11	[LOG_INFO]	[DBConfig.csv is loading...]
+23:42:11	[LOG_INFO]	﻿string,string
+23:42:11	[LOG_INFO]	World,112.145.214.226
+23:42:11	[LOG_INFO]	Account,112.145.214.226
+23:42:11	[LOG_INFO]	Game,112.145.214.226
+23:42:37	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:42:47	[LOG_INFO]	[DBConfig.csv is loading...]
+23:42:47	[LOG_INFO]	﻿string,string
+23:42:47	[LOG_INFO]	World,112.145.214.226
+23:42:47	[LOG_INFO]	Account,112.145.214.226
+23:42:47	[LOG_INFO]	Game,112.145.214.226
+23:43:28	[LOG_INFO]	[DBConfig.csv is loading...]
+23:43:28	[LOG_INFO]	﻿string,string
+23:43:28	[LOG_INFO]	World,112.145.214.226
+23:43:28	[LOG_INFO]	Account,112.145.214.226
+23:43:28	[LOG_INFO]	Game,112.145.214.226
+23:43:55	[LOG_INFO]	[DBConfig.csv is loading...]
+23:43:55	[LOG_INFO]	﻿string,string
+23:43:55	[LOG_INFO]	World,112.145.214.226
+23:43:55	[LOG_INFO]	Account,112.145.214.226
+23:43:55	[LOG_INFO]	Game,112.145.214.226
+23:45:33	[LOG_INFO]	[DBConfig.csv is loading...]
+23:47:51	[LOG_INFO]	[DBConfig.csv is loading...]
+23:47:55	[LOG_INFO]	string,string
+23:47:55	[LOG_INFO]	World,112.145.214.226
+23:47:55	[LOG_INFO]	Account,112.145.214.226
+23:47:55	[LOG_INFO]	Game,112.145.214.226
+23:47:55	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:47:55	[LOG_INFO]	[ServerConfig.csv is loading...]
+23:47:55	[LOG_INFO]	string,int32_t,int32_t
+23:47:55	[LOG_INFO]	Login,1,1000
+23:47:55	[LOG_INFO]	[ServerConfig.csv is loaded...]
+23:47:55	[LOG_CONNECT]	WorldDB is Connected
+23:47:55	[LOG_DEBUG]	[Server Type]: Login
+23:47:55	[LOG_DEBUG]	[GroupID]: 0
+23:47:55	[LOG_DEBUG]	[WorldID]: 1
+23:47:55	[LOG_DEBUG]	[ServerID]: 1000
+23:47:55	[LOG_DEBUG]	Server is Running...
+23:47:55	[LOG_DEBUG]	[Thread Num]: 17
+23:47:55	[LOG_DEBUG]	[Port]: 7000

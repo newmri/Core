@@ -1,0 +1,6 @@
+01:12:20	Server is Running Thread Num: 17 Port Num: 7777
+01:20:31	[LOG_INFO]	Server is Running [Thread Num]: 17 [Port]: 7777
+01:20:36		[uid]: 0 [ip]: 127.0.0.1
+01:34:59	[LOG_DEBUG]	Server is Running [Thread Num]: 17 [Port]: 7777
+01:35:07	[LOG_CONNECT]	[uid]: 0 [ip]: 127.0.0.1
+23:20:38	[LOG_DEBUG]	Server is Running [Thread Num]: 17 [Port]: 7777

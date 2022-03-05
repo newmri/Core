@@ -1,0 +1,96 @@
+00:20:01	[LOG_INFO]	[config.csv is loading...]
+00:20:01	[LOG_INFO]	string,int,int,int
+00:20:01	[LOG_INFO]	Login,0,1,1000
+00:20:01	[LOG_INFO]	[config.csv is loaded...]
+00:20:01	[LOG_DEBUG]	Server is Running [Thread Num]: 17 [Port]: 7777
+00:23:39	[LOG_INFO]	[config.csv is loading...]
+00:23:39	[LOG_INFO]	string,int,int,int
+00:23:39	[LOG_INFO]	Login,0,1,1000
+00:23:39	[LOG_INFO]	[config.csv is loaded...]
+00:23:39	[LOG_DEBUG]	Server is Running...
+00:23:39	[LOG_DEBUG]	[Thread Num]: 17
+00:23:39	[LOG_DEBUG]	[Port]: 7777
+00:23:39	[LOG_DEBUG]	[Server Type]: 
+00:23:39	[LOG_DEBUG]	[GroupID]: 
+00:23:39	[LOG_DEBUG]	[WorldID]: 
+00:23:39	[LOG_DEBUG]	[ServerID]: 
+00:26:04	[LOG_INFO]	[config.csv is loading...]
+00:26:04	[LOG_INFO]	string,int,int,int
+00:26:04	[LOG_INFO]	Login,0,1,1000
+00:26:04	[LOG_INFO]	[config.csv is loaded...]
+00:26:04	[LOG_DEBUG]	Server is Running...
+00:26:04	[LOG_DEBUG]	[Thread Num]: 17
+00:26:04	[LOG_DEBUG]	[Port]: 7777
+00:26:04	[LOG_DEBUG]	[Server Type]: 
+00:26:04	[LOG_DEBUG]	[GroupID]: 
+00:26:04	[LOG_DEBUG]	[WorldID]: 
+00:26:04	[LOG_DEBUG]	[ServerID]: 
+00:29:59	[LOG_INFO]	[config.csv is loading...]
+00:29:59	[LOG_INFO]	string,int,int,int
+00:29:59	[LOG_INFO]	Login,0,1,1000
+00:29:59	[LOG_INFO]	[config.csv is loaded...]
+00:29:59	[LOG_DEBUG]	Server is Running...
+00:29:59	[LOG_DEBUG]	[Thread Num]: 17
+00:29:59	[LOG_DEBUG]	[Port]: 7777
+00:29:59	[LOG_DEBUG]	[Server Type]: 
+00:29:59	[LOG_DEBUG]	[GroupID]: 0
+00:29:59	[LOG_DEBUG]	[WorldID]: 0
+00:29:59	[LOG_DEBUG]	[ServerID]: 0
+00:31:37	[LOG_INFO]	[config.csv is loading...]
+00:31:37	[LOG_INFO]	string,int,int,int
+00:31:37	[LOG_INFO]	Login,0,1,1000
+00:31:37	[LOG_INFO]	[config.csv is loaded...]
+00:31:37	[LOG_DEBUG]	Server is Running...
+00:31:37	[LOG_DEBUG]	[Thread Num]: 17
+00:31:37	[LOG_DEBUG]	[Port]: 7777
+00:31:37	[LOG_DEBUG]	[Server Type]: 
+00:31:37	[LOG_DEBUG]	[GroupID]: 0
+00:31:37	[LOG_DEBUG]	[WorldID]: 0
+00:31:37	[LOG_DEBUG]	[ServerID]: 1000
+00:33:12	[LOG_INFO]	[config.csv is loading...]
+00:33:12	[LOG_INFO]	string,int,int,int
+00:33:12	[LOG_INFO]	Login,0,1,1000
+00:33:12	[LOG_INFO]	[config.csv is loaded...]
+00:33:12	[LOG_DEBUG]	Server is Running...
+00:33:12	[LOG_DEBUG]	[Thread Num]: 17
+00:33:12	[LOG_DEBUG]	[Port]: 7777
+00:33:12	[LOG_DEBUG]	[Server Type]: 
+00:33:12	[LOG_DEBUG]	[GroupID]: 0
+00:33:12	[LOG_DEBUG]	[WorldID]: 0
+00:33:12	[LOG_DEBUG]	[ServerID]: 1000
+00:34:29	[LOG_INFO]	[config.csv is loading...]
+00:34:29	[LOG_INFO]	string,int,int,int
+00:34:29	[LOG_INFO]	Login,0,1,1000
+00:34:29	[LOG_INFO]	[config.csv is loaded...]
+00:34:29	[LOG_DEBUG]	Server is Running...
+00:34:29	[LOG_DEBUG]	[Thread Num]: 17
+00:34:29	[LOG_DEBUG]	[Port]: 7777
+00:34:29	[LOG_DEBUG]	[Server Type]: 
+00:34:29	[LOG_DEBUG]	[GroupID]: 0
+00:34:29	[LOG_DEBUG]	[WorldID]: 0
+00:42:32	[LOG_INFO]	[config.csv is loading...]
+00:42:32	[LOG_INFO]	string,int,int,int
+00:42:32	[LOG_INFO]	Login,0,1,1000
+00:42:32	[LOG_INFO]	[config.csv is loaded...]
+00:46:50	[LOG_INFO]	[config.csv is loading...]
+00:46:50	[LOG_INFO]	string,int,int,int
+00:46:50	[LOG_INFO]	Login,0,1,1000
+00:46:50	[LOG_INFO]	[config.csv is loaded...]
+00:46:50	[LOG_DEBUG]	Server is Running...
+00:46:50	[LOG_DEBUG]	[Thread Num]: 17
+00:46:50	[LOG_DEBUG]	[Port]: 7777
+00:46:50	[LOG_DEBUG]	[Server Type]: 
+00:46:50	[LOG_DEBUG]	[GroupID]: 0
+00:46:50	[LOG_DEBUG]	[WorldID]: 0
+00:46:50	[LOG_DEBUG]	[ServerID]: 0
+01:09:06	[LOG_INFO]	[config.csv is loading...]
+01:09:06	[LOG_INFO]	string,int,int,int
+01:09:06	[LOG_INFO]	Login,0,1,1000
+01:09:06	[LOG_INFO]	[config.csv is loaded...]
+01:09:06	[LOG_DEBUG]	Server is Running...
+01:09:06	[LOG_DEBUG]	[Thread Num]: 17
+01:09:06	[LOG_DEBUG]	[Port]: 7777
+01:09:06	[LOG_DEBUG]	[Server Type]: Login
+01:09:06	[LOG_DEBUG]	[GroupID]: 0
+01:09:06	[LOG_DEBUG]	[WorldID]: 1
+01:09:06	[LOG_DEBUG]	[ServerID]: 1000

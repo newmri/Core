@@ -1,0 +1,4 @@
+01:34:08	[LOG_DEBUG]	Server is Running [Thread Num]: 17 [Port]: 7777
+01:34:09	[LOG_CONNECT]	[uid]: 0 [ip]: 127.0.0.1
+01:34:15	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+01:34:15	[LOG_DISCONNECT]	[uid]: 0 [ip]: 127.0.0.1

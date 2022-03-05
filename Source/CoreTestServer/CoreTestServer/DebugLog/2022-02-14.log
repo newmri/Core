@@ -1,0 +1,47 @@
+00:59:06	[LOG_INFO]	[ServerConfig.csv is loading...]
+00:59:06	[LOG_INFO]	string,int,int,int
+00:59:06	[LOG_INFO]	Login,0,1,1000
+00:59:06	[LOG_INFO]	[ServerConfig.csv is loaded...]
+00:59:06	[LOG_INFO]	[DBConfig.csv is loading...]
+00:59:06	[LOG_INFO]	string,string
+00:59:06	[LOG_INFO]	Account,112.145.214.226
+00:59:06	[LOG_INFO]	[DBConfig.csv is loaded...]
+00:59:06	[LOG_DEBUG]	Server is Running...
+00:59:06	[LOG_DEBUG]	[Thread Num]: 17
+00:59:06	[LOG_DEBUG]	[Port]: 7777
+00:59:06	[LOG_DEBUG]	[Server Type]: Login
+00:59:06	[LOG_DEBUG]	[GroupID]: 0
+00:59:06	[LOG_DEBUG]	[WorldID]: 1
+00:59:06	[LOG_DEBUG]	[ServerID]: 1000
+00:59:58	Server Stoped
+01:00:10	[LOG_INFO]	[ServerConfig.csv is loading...]
+01:00:10	[LOG_INFO]	string,int,int,int
+01:00:10	[LOG_INFO]	Login,0,1,1000
+01:00:10	[LOG_INFO]	[ServerConfig.csv is loaded...]
+01:00:10	[LOG_INFO]	[DBConfig.csv is loading...]
+01:00:10	[LOG_INFO]	string,string
+01:00:10	[LOG_INFO]	Account,112.145.214.226
+01:00:10	[LOG_INFO]	[DBConfig.csv is loaded...]
+01:00:10	[LOG_DEBUG]	Server is Running...
+01:00:10	[LOG_DEBUG]	[Thread Num]: 17
+01:00:10	[LOG_DEBUG]	[Port]: 7777
+01:00:10	[LOG_DEBUG]	[Server Type]: Login
+01:00:10	[LOG_DEBUG]	[GroupID]: 0
+01:00:10	[LOG_DEBUG]	[WorldID]: 1
+01:00:10	[LOG_DEBUG]	[ServerID]: 1000
+01:00:12	Server Stoped
+01:02:16	[LOG_INFO]	[ServerConfig.csv is loading...]
+01:02:16	[LOG_INFO]	string,int,int,int
+01:02:16	[LOG_INFO]	Login,0,1,1000
+01:02:16	[LOG_INFO]	[ServerConfig.csv is loaded...]
+01:02:16	[LOG_INFO]	[DBConfig.csv is loading...]
+01:02:16	[LOG_INFO]	string,string
+01:02:16	[LOG_INFO]	Account,112.145.214.226
+01:02:16	[LOG_INFO]	[DBConfig.csv is loaded...]
+01:02:16	[LOG_DEBUG]	Server is Running...
+01:02:16	[LOG_DEBUG]	[Thread Num]: 17
+01:02:16	[LOG_DEBUG]	[Port]: 7777
+01:02:16	[LOG_DEBUG]	[Server Type]: Login
+01:02:16	[LOG_DEBUG]	[GroupID]: 0
+01:02:16	[LOG_DEBUG]	[WorldID]: 1
+01:02:16	[LOG_DEBUG]	[ServerID]: 1000

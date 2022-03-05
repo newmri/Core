@@ -1,0 +1,8 @@
+﻿  AccountDB.cpp
+  LoginPacketFunc.cpp
+  LoginPacketHandler.cpp
+  LoginServer.cpp
+  LoginServerManager.cpp
+  Main.cpp
+  코드를 생성하고 있습니다...
+  CoreTestServer.vcxproj -> C:\Users\newmr\Desktop\Study\Core\Source\CoreTest\x64\Debug\CoreTestServer.exe
