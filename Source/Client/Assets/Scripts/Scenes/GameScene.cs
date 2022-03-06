@@ -12,6 +12,7 @@ public class GameScene : BaseScene
     {
         base.Init(scene);
         Managers.Map.LoadMap(1);
+        Managers.UI.ShowSceneUI<UIGameScene>();
     }
 
     public override void Clear()

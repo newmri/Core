@@ -154,6 +154,7 @@
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controllers\CreatureController.cs" />
     <Compile Include="Assets\Scripts\Controllers\MyPlayerController.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UIGameScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
