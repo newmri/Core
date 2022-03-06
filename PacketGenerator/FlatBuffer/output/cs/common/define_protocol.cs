@@ -53,5 +53,21 @@ public enum GearType : byte
   FACE = 8,
 };
 
+public enum Dir : byte
+{
+  UP = 0,
+  DOWN = 1,
+  LEFT = 2,
+  RIGHT = 3,
+};
+
+public enum CreatureState : byte
+{
+  IDLE = 0,
+  MOVE = 1,
+  SKILL = 2,
+  DEAD = 3,
+};
+
 
 }

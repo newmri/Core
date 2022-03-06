@@ -43,3 +43,19 @@ enum GearType : ubyte
 	HAIR,
 	FACE
 }
+
+enum Dir : ubyte
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+}
+
+enum CreatureState : ubyte
+{
+	IDLE,
+	MOVE,
+	SKILL,
+	DEAD
+}

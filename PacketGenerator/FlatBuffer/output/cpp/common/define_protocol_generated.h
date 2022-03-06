@@ -214,6 +214,78 @@ inline const char *EnumNameGearType(GearType e) {
   return EnumNamesGearType()[index];
 }
 
+enum Dir : uint8_t {
+  Dir_UP = 0,
+  Dir_DOWN = 1,
+  Dir_LEFT = 2,
+  Dir_RIGHT = 3,
+  Dir_MIN = Dir_UP,
+  Dir_MAX = Dir_RIGHT
+};
+
+inline const Dir (&EnumValuesDir())[4] {
+  static const Dir values[] = {
+    Dir_UP,
+    Dir_DOWN,
+    Dir_LEFT,
+    Dir_RIGHT
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesDir() {
+  static const char * const names[5] = {
+    "UP",
+    "DOWN",
+    "LEFT",
+    "RIGHT",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameDir(Dir e) {
+  if (flatbuffers::IsOutRange(e, Dir_UP, Dir_RIGHT)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesDir()[index];
+}
+
+enum CreatureState : uint8_t {
+  CreatureState_IDLE = 0,
+  CreatureState_MOVE = 1,
+  CreatureState_SKILL = 2,
+  CreatureState_DEAD = 3,
+  CreatureState_MIN = CreatureState_IDLE,
+  CreatureState_MAX = CreatureState_DEAD
+};
+
+inline const CreatureState (&EnumValuesCreatureState())[4] {
+  static const CreatureState values[] = {
+    CreatureState_IDLE,
+    CreatureState_MOVE,
+    CreatureState_SKILL,
+    CreatureState_DEAD
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesCreatureState() {
+  static const char * const names[5] = {
+    "IDLE",
+    "MOVE",
+    "SKILL",
+    "DEAD",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameCreatureState(CreatureState e) {
+  if (flatbuffers::IsOutRange(e, CreatureState_IDLE, CreatureState_DEAD)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesCreatureState()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_

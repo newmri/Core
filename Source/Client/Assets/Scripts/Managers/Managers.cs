@@ -17,11 +17,13 @@ public class Managers : MonoBehaviour
     WebManager _web = new WebManager();
     LoginNetworkManager _loginNetwork = new LoginNetworkManager();
     LoginDataManager _loginData = new LoginDataManager();
+    MapManager _map = new MapManager();
 
     public static UIManager UI { get { return Instance._ui; } }
     public static WebManager Web { get { return Instance._web; } }
     public static LoginNetworkManager LoginNetwork { get { return Instance._loginNetwork; } }
     public static LoginDataManager LoginData { get { return Instance._loginData; } }
+    public static MapManager Map { get { return Instance._map; } }
 
     #endregion
 

@@ -15,6 +15,8 @@ public class CharacterAnimator : MonoBehaviour
     [HideInInspector]
     public Define.Job MyJob;
 
+    Define.Dir _dir = Define.Dir.RIGHT;
+
     Dictionary<PlayerAnimations, string> WarriorAnimations = new Dictionary<PlayerAnimations, string>();
     Dictionary<PlayerAnimations, string> ArcherAnimations = new Dictionary<PlayerAnimations, string>();
     Dictionary<PlayerAnimations, string> SorcererAnimations = new Dictionary<PlayerAnimations, string>();
@@ -160,8 +162,21 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     //Takes a string AnimationString which is the name of the animation and assigns it to AnimationToPlay
-    public void ChangeAnimation(string AnimationString)
+    public void ChangeAnimation(string AnimationString, Define.Dir dir = Define.Dir.RIGHT)
     {
+        if (_dir != dir)
+        {
+            if (Define.Dir.RIGHT == dir)
+            {
+                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            }
+        }
+
+        _dir = dir;
         AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), AnimationString);
         AnimationManager();
     }
