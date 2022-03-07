@@ -11,6 +11,6 @@ public class UIGameScene : UIScene
 {
     public override void Init()
     {
-        base.Init();
+        Managers.UI.SetCanvas(gameObject);
     }
 }
