@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using UnityEngine;
 using Define;
-
-public class PositionInfo
-{
-	public Vector2Int Pos;
-	public CreatureState State;
-	public Dir MoveDir;
-}
+using Info;
 
 public class StatInfo
 {
@@ -51,8 +45,8 @@ public class BaseController : MonoBehaviour
 
 	protected bool _updated = false;
 
-	PositionInfo _positionInfo = new PositionInfo();
-	public PositionInfo PosInfo
+	PositionInfoT _positionInfo = new PositionInfoT();
+	public PositionInfoT PosInfo
 	{
 		get { return _positionInfo; }
 		set
@@ -60,7 +54,7 @@ public class BaseController : MonoBehaviour
 			if (_positionInfo.Equals(value))
 				return;
 
-			CellPos = new Vector3Int(value.Pos.x, value.Pos.y, 0);
+			CellPos = new Vector3Int(value.Pos.X, value.Pos.Y, 0);
 			State = value.State;
 			Dir = value.MoveDir;
 		}
@@ -76,16 +70,16 @@ public class BaseController : MonoBehaviour
 	{
 		get
 		{
-			return new Vector3Int(PosInfo.Pos.x, PosInfo.Pos.y, 0);
+			return new Vector3Int(PosInfo.Pos.X, PosInfo.Pos.Y, 0);
 		}
 
 		set
 		{
-			if (PosInfo.Pos.x == value.x && PosInfo.Pos.y == value.y)
+			if (PosInfo.Pos.X == value.x && PosInfo.Pos.Y == value.y)
 				return;
 
-			PosInfo.Pos.x = value.x;
-			PosInfo.Pos.y = value.y;
+			PosInfo.Pos.X = value.x;
+			PosInfo.Pos.Y = value.y;
 			_updated = true;
 		}
 	}

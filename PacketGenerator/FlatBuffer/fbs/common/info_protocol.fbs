@@ -1,0 +1,16 @@
+include "define_protocol.fbs";
+
+namespace Info;
+
+struct Vec2Int (native_type:"NativeInfo::Vec2Int", native_type_pack_name:"Vec2Int")
+{
+  x:int32;
+  y:int32;
+}
+
+table PositionInfo (native_type:"PositionInfoT")
+{
+  pos:Vec2Int (native_inline);
+  state:Define.CreatureState;
+  move_dir:Define.Dir;
+}

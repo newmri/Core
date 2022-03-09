@@ -12,30 +12,39 @@ namespace Login {
 
 struct CS_LOGIN_REQ;
 struct CS_LOGIN_REQBuilder;
+struct CS_LOGIN_REQT;
 
 struct CHARACTER_INFO;
 struct CHARACTER_INFOBuilder;
+struct CHARACTER_INFOT;
 
 struct SC_LOGIN_RES;
 struct SC_LOGIN_RESBuilder;
+struct SC_LOGIN_REST;
 
 struct SC_PING_REQ;
 struct SC_PING_REQBuilder;
+struct SC_PING_REQT;
 
 struct CS_PING_RES;
 struct CS_PING_RESBuilder;
+struct CS_PING_REST;
 
 struct CS_LOGOUT_NOTI;
 struct CS_LOGOUT_NOTIBuilder;
+struct CS_LOGOUT_NOTIT;
 
 struct CS_CREATE_CHARACTER_REQ;
 struct CS_CREATE_CHARACTER_REQBuilder;
+struct CS_CREATE_CHARACTER_REQT;
 
 struct SC_CREATE_CHARACTER_RES;
 struct SC_CREATE_CHARACTER_RESBuilder;
+struct SC_CREATE_CHARACTER_REST;
 
 struct Root;
 struct RootBuilder;
+struct RootT;
 
 enum ErrorCode : int8_t {
   ErrorCode_SUCCESS = 0,
@@ -150,10 +159,107 @@ template<> struct PacketTraits<Login::SC_CREATE_CHARACTER_RES> {
   static const Packet enum_value = Packet_SC_CREATE_CHARACTER_RES;
 };
 
+struct PacketUnion {
+  Packet type;
+  void *value;
+
+  PacketUnion() : type(Packet_NONE), value(nullptr) {}
+  PacketUnion(PacketUnion&& u) FLATBUFFERS_NOEXCEPT :
+    type(Packet_NONE), value(nullptr)
+    { std::swap(type, u.type); std::swap(value, u.value); }
+  PacketUnion(const PacketUnion &);
+  PacketUnion &operator=(const PacketUnion &u)
+    { PacketUnion t(u); std::swap(type, t.type); std::swap(value, t.value); return *this; }
+  PacketUnion &operator=(PacketUnion &&u) FLATBUFFERS_NOEXCEPT
+    { std::swap(type, u.type); std::swap(value, u.value); return *this; }
+  ~PacketUnion() { Reset(); }
+
+  void Reset();
+
+#ifndef FLATBUFFERS_CPP98_STL
+  template <typename T>
+  void Set(T&& val) {
+    using RT = typename std::remove_reference<T>::type;
+    Reset();
+    type = PacketTraits<typename RT::TableType>::enum_value;
+    if (type != Packet_NONE) {
+      value = new RT(std::forward<T>(val));
+    }
+  }
+#endif  // FLATBUFFERS_CPP98_STL
+
+  static void *UnPack(const void *obj, Packet type, const flatbuffers::resolver_function_t *resolver);
+  flatbuffers::Offset<void> Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher = nullptr) const;
+
+  Login::CS_LOGIN_REQT *AsCS_LOGIN_REQ() {
+    return type == Packet_CS_LOGIN_REQ ?
+      reinterpret_cast<Login::CS_LOGIN_REQT *>(value) : nullptr;
+  }
+  const Login::CS_LOGIN_REQT *AsCS_LOGIN_REQ() const {
+    return type == Packet_CS_LOGIN_REQ ?
+      reinterpret_cast<const Login::CS_LOGIN_REQT *>(value) : nullptr;
+  }
+  Login::SC_LOGIN_REST *AsSC_LOGIN_RES() {
+    return type == Packet_SC_LOGIN_RES ?
+      reinterpret_cast<Login::SC_LOGIN_REST *>(value) : nullptr;
+  }
+  const Login::SC_LOGIN_REST *AsSC_LOGIN_RES() const {
+    return type == Packet_SC_LOGIN_RES ?
+      reinterpret_cast<const Login::SC_LOGIN_REST *>(value) : nullptr;
+  }
+  Login::SC_PING_REQT *AsSC_PING_REQ() {
+    return type == Packet_SC_PING_REQ ?
+      reinterpret_cast<Login::SC_PING_REQT *>(value) : nullptr;
+  }
+  const Login::SC_PING_REQT *AsSC_PING_REQ() const {
+    return type == Packet_SC_PING_REQ ?
+      reinterpret_cast<const Login::SC_PING_REQT *>(value) : nullptr;
+  }
+  Login::CS_PING_REST *AsCS_PING_RES() {
+    return type == Packet_CS_PING_RES ?
+      reinterpret_cast<Login::CS_PING_REST *>(value) : nullptr;
+  }
+  const Login::CS_PING_REST *AsCS_PING_RES() const {
+    return type == Packet_CS_PING_RES ?
+      reinterpret_cast<const Login::CS_PING_REST *>(value) : nullptr;
+  }
+  Login::CS_LOGOUT_NOTIT *AsCS_LOGOUT_NOTI() {
+    return type == Packet_CS_LOGOUT_NOTI ?
+      reinterpret_cast<Login::CS_LOGOUT_NOTIT *>(value) : nullptr;
+  }
+  const Login::CS_LOGOUT_NOTIT *AsCS_LOGOUT_NOTI() const {
+    return type == Packet_CS_LOGOUT_NOTI ?
+      reinterpret_cast<const Login::CS_LOGOUT_NOTIT *>(value) : nullptr;
+  }
+  Login::CS_CREATE_CHARACTER_REQT *AsCS_CREATE_CHARACTER_REQ() {
+    return type == Packet_CS_CREATE_CHARACTER_REQ ?
+      reinterpret_cast<Login::CS_CREATE_CHARACTER_REQT *>(value) : nullptr;
+  }
+  const Login::CS_CREATE_CHARACTER_REQT *AsCS_CREATE_CHARACTER_REQ() const {
+    return type == Packet_CS_CREATE_CHARACTER_REQ ?
+      reinterpret_cast<const Login::CS_CREATE_CHARACTER_REQT *>(value) : nullptr;
+  }
+  Login::SC_CREATE_CHARACTER_REST *AsSC_CREATE_CHARACTER_RES() {
+    return type == Packet_SC_CREATE_CHARACTER_RES ?
+      reinterpret_cast<Login::SC_CREATE_CHARACTER_REST *>(value) : nullptr;
+  }
+  const Login::SC_CREATE_CHARACTER_REST *AsSC_CREATE_CHARACTER_RES() const {
+    return type == Packet_SC_CREATE_CHARACTER_RES ?
+      reinterpret_cast<const Login::SC_CREATE_CHARACTER_REST *>(value) : nullptr;
+  }
+};
+
 bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packet type);
 bool VerifyPacketVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types);
 
+struct CS_LOGIN_REQT : public flatbuffers::NativeTable {
+  typedef CS_LOGIN_REQ TableType;
+  int64_t uid = 0;
+  int32_t token = 0;
+};
+
 struct CS_LOGIN_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_LOGIN_REQT NativeTableType;
   typedef CS_LOGIN_REQBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_UID = 4,
@@ -171,6 +277,9 @@ struct CS_LOGIN_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_TOKEN) &&
            verifier.EndTable();
   }
+  CS_LOGIN_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_LOGIN_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_LOGIN_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGIN_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct CS_LOGIN_REQBuilder {
@@ -204,7 +313,19 @@ inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(
   return builder_.Finish();
 }
 
+flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGIN_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct CHARACTER_INFOT : public flatbuffers::NativeTable {
+  typedef CHARACTER_INFO TableType;
+  int64_t uid = 0;
+  std::string name{};
+  uint8_t level = 0;
+  Define::Job job = Define::Job_WARRIOR;
+  std::vector<uint8_t> gear{};
+};
+
 struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CHARACTER_INFOT NativeTableType;
   typedef CHARACTER_INFOBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_UID = 4,
@@ -239,6 +360,9 @@ struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyVector(gear()) &&
            verifier.EndTable();
   }
+  CHARACTER_INFOT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CHARACTER_INFOT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CHARACTER_INFO> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CHARACTER_INFOT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct CHARACTER_INFOBuilder {
@@ -305,7 +429,18 @@ inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFODirect(
       gear__);
 }
 
+flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(flatbuffers::FlatBufferBuilder &_fbb, const CHARACTER_INFOT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_LOGIN_REST : public flatbuffers::NativeTable {
+  typedef SC_LOGIN_RES TableType;
+  Login::ErrorCode result = Login::ErrorCode_SUCCESS;
+  uint8_t max_slot_count = 0;
+  uint8_t empty_slot_count = 0;
+  std::vector<std::unique_ptr<Login::CHARACTER_INFOT>> character_info{};
+};
+
 struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_LOGIN_REST NativeTableType;
   typedef SC_LOGIN_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_RESULT = 4,
@@ -335,6 +470,9 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyVectorOfTables(character_info()) &&
            verifier.EndTable();
   }
+  SC_LOGIN_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_LOGIN_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_LOGIN_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct SC_LOGIN_RESBuilder {
@@ -393,12 +531,22 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RESDirect(
       character_info__);
 }
 
+flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_PING_REQT : public flatbuffers::NativeTable {
+  typedef SC_PING_REQ TableType;
+};
+
 struct SC_PING_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_PING_REQT NativeTableType;
   typedef SC_PING_REQBuilder Builder;
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            verifier.EndTable();
   }
+  SC_PING_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_PING_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_PING_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_PING_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct SC_PING_REQBuilder {
@@ -422,12 +570,22 @@ inline flatbuffers::Offset<SC_PING_REQ> CreateSC_PING_REQ(
   return builder_.Finish();
 }
 
+flatbuffers::Offset<SC_PING_REQ> CreateSC_PING_REQ(flatbuffers::FlatBufferBuilder &_fbb, const SC_PING_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct CS_PING_REST : public flatbuffers::NativeTable {
+  typedef CS_PING_RES TableType;
+};
+
 struct CS_PING_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_PING_REST NativeTableType;
   typedef CS_PING_RESBuilder Builder;
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            verifier.EndTable();
   }
+  CS_PING_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_PING_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_PING_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_PING_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct CS_PING_RESBuilder {
@@ -451,12 +609,22 @@ inline flatbuffers::Offset<CS_PING_RES> CreateCS_PING_RES(
   return builder_.Finish();
 }
 
+flatbuffers::Offset<CS_PING_RES> CreateCS_PING_RES(flatbuffers::FlatBufferBuilder &_fbb, const CS_PING_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct CS_LOGOUT_NOTIT : public flatbuffers::NativeTable {
+  typedef CS_LOGOUT_NOTI TableType;
+};
+
 struct CS_LOGOUT_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_LOGOUT_NOTIT NativeTableType;
   typedef CS_LOGOUT_NOTIBuilder Builder;
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            verifier.EndTable();
   }
+  CS_LOGOUT_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_LOGOUT_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_LOGOUT_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGOUT_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct CS_LOGOUT_NOTIBuilder {
@@ -480,7 +648,16 @@ inline flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(
   return builder_.Finish();
 }
 
+flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGOUT_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct CS_CREATE_CHARACTER_REQT : public flatbuffers::NativeTable {
+  typedef CS_CREATE_CHARACTER_REQ TableType;
+  std::string name{};
+  Define::Job job = Define::Job_WARRIOR;
+};
+
 struct CS_CREATE_CHARACTER_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_CREATE_CHARACTER_REQT NativeTableType;
   typedef CS_CREATE_CHARACTER_REQBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NAME = 4,
@@ -499,6 +676,9 @@ struct CS_CREATE_CHARACTER_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
            VerifyField<uint8_t>(verifier, VT_JOB) &&
            verifier.EndTable();
   }
+  CS_CREATE_CHARACTER_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_CREATE_CHARACTER_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_CREATE_CHARACTER_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct CS_CREATE_CHARACTER_REQBuilder {
@@ -543,7 +723,16 @@ inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_RE
       job);
 }
 
+flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_CREATE_CHARACTER_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_CREATE_CHARACTER_REST : public flatbuffers::NativeTable {
+  typedef SC_CREATE_CHARACTER_RES TableType;
+  bool is_success = false;
+  std::unique_ptr<Login::CHARACTER_INFOT> character_info{};
+};
+
 struct SC_CREATE_CHARACTER_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_CREATE_CHARACTER_REST NativeTableType;
   typedef SC_CREATE_CHARACTER_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_IS_SUCCESS = 4,
@@ -562,6 +751,9 @@ struct SC_CREATE_CHARACTER_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
            verifier.VerifyTable(character_info()) &&
            verifier.EndTable();
   }
+  SC_CREATE_CHARACTER_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_CREATE_CHARACTER_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_CREATE_CHARACTER_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_CREATE_CHARACTER_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct SC_CREATE_CHARACTER_RESBuilder {
@@ -595,7 +787,15 @@ inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RE
   return builder_.Finish();
 }
 
+flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_CREATE_CHARACTER_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct RootT : public flatbuffers::NativeTable {
+  typedef Root TableType;
+  Login::PacketUnion packet{};
+};
+
 struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef RootT NativeTableType;
   typedef RootBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_PACKET_TYPE = 4,
@@ -636,6 +836,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyPacket(verifier, packet(), packet_type()) &&
            verifier.EndTable();
   }
+  RootT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(RootT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<Root> Pack(flatbuffers::FlatBufferBuilder &_fbb, const RootT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 template<> inline const Login::CS_LOGIN_REQ *Root::packet_as<Login::CS_LOGIN_REQ>() const {
@@ -697,6 +900,266 @@ inline flatbuffers::Offset<Root> CreateRoot(
   return builder_.Finish();
 }
 
+flatbuffers::Offset<Root> CreateRoot(flatbuffers::FlatBufferBuilder &_fbb, const RootT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+inline CS_LOGIN_REQT *CS_LOGIN_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_LOGIN_REQT>(new CS_LOGIN_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_LOGIN_REQ::UnPackTo(CS_LOGIN_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = uid(); _o->uid = _e; }
+  { auto _e = token(); _o->token = _e; }
+}
+
+inline flatbuffers::Offset<CS_LOGIN_REQ> CS_LOGIN_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGIN_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_LOGIN_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGIN_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_LOGIN_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _uid = _o->uid;
+  auto _token = _o->token;
+  return Login::CreateCS_LOGIN_REQ(
+      _fbb,
+      _uid,
+      _token);
+}
+
+inline CHARACTER_INFOT *CHARACTER_INFO::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CHARACTER_INFOT>(new CHARACTER_INFOT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CHARACTER_INFO::UnPackTo(CHARACTER_INFOT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = uid(); _o->uid = _e; }
+  { auto _e = name(); if (_e) _o->name = _e->str(); }
+  { auto _e = level(); _o->level = _e; }
+  { auto _e = job(); _o->job = _e; }
+  { auto _e = gear(); if (_e) { _o->gear.resize(_e->size()); std::copy(_e->begin(), _e->end(), _o->gear.begin()); } }
+}
+
+inline flatbuffers::Offset<CHARACTER_INFO> CHARACTER_INFO::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CHARACTER_INFOT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCHARACTER_INFO(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(flatbuffers::FlatBufferBuilder &_fbb, const CHARACTER_INFOT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CHARACTER_INFOT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _uid = _o->uid;
+  auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
+  auto _level = _o->level;
+  auto _job = _o->job;
+  auto _gear = _o->gear.size() ? _fbb.CreateVector(_o->gear) : 0;
+  return Login::CreateCHARACTER_INFO(
+      _fbb,
+      _uid,
+      _name,
+      _level,
+      _job,
+      _gear);
+}
+
+inline SC_LOGIN_REST *SC_LOGIN_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_LOGIN_REST>(new SC_LOGIN_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_LOGIN_RES::UnPackTo(SC_LOGIN_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = result(); _o->result = _e; }
+  { auto _e = max_slot_count(); _o->max_slot_count = _e; }
+  { auto _e = empty_slot_count(); _o->empty_slot_count = _e; }
+  { auto _e = character_info(); if (_e) { _o->character_info.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->character_info[_i] = std::unique_ptr<Login::CHARACTER_INFOT>(_e->Get(_i)->UnPack(_resolver)); } } }
+}
+
+inline flatbuffers::Offset<SC_LOGIN_RES> SC_LOGIN_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_LOGIN_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_LOGIN_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _result = _o->result;
+  auto _max_slot_count = _o->max_slot_count;
+  auto _empty_slot_count = _o->empty_slot_count;
+  auto _character_info = _o->character_info.size() ? _fbb.CreateVector<flatbuffers::Offset<Login::CHARACTER_INFO>> (_o->character_info.size(), [](size_t i, _VectorArgs *__va) { return CreateCHARACTER_INFO(*__va->__fbb, __va->__o->character_info[i].get(), __va->__rehasher); }, &_va ) : 0;
+  return Login::CreateSC_LOGIN_RES(
+      _fbb,
+      _result,
+      _max_slot_count,
+      _empty_slot_count,
+      _character_info);
+}
+
+inline SC_PING_REQT *SC_PING_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_PING_REQT>(new SC_PING_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_PING_REQ::UnPackTo(SC_PING_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+}
+
+inline flatbuffers::Offset<SC_PING_REQ> SC_PING_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_PING_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_PING_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_PING_REQ> CreateSC_PING_REQ(flatbuffers::FlatBufferBuilder &_fbb, const SC_PING_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_PING_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  return Login::CreateSC_PING_REQ(
+      _fbb);
+}
+
+inline CS_PING_REST *CS_PING_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_PING_REST>(new CS_PING_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_PING_RES::UnPackTo(CS_PING_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+}
+
+inline flatbuffers::Offset<CS_PING_RES> CS_PING_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_PING_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_PING_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_PING_RES> CreateCS_PING_RES(flatbuffers::FlatBufferBuilder &_fbb, const CS_PING_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_PING_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  return Login::CreateCS_PING_RES(
+      _fbb);
+}
+
+inline CS_LOGOUT_NOTIT *CS_LOGOUT_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_LOGOUT_NOTIT>(new CS_LOGOUT_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_LOGOUT_NOTI::UnPackTo(CS_LOGOUT_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+}
+
+inline flatbuffers::Offset<CS_LOGOUT_NOTI> CS_LOGOUT_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGOUT_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_LOGOUT_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGOUT_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_LOGOUT_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  return Login::CreateCS_LOGOUT_NOTI(
+      _fbb);
+}
+
+inline CS_CREATE_CHARACTER_REQT *CS_CREATE_CHARACTER_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_CREATE_CHARACTER_REQT>(new CS_CREATE_CHARACTER_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_CREATE_CHARACTER_REQ::UnPackTo(CS_CREATE_CHARACTER_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = name(); if (_e) _o->name = _e->str(); }
+  { auto _e = job(); _o->job = _e; }
+}
+
+inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CS_CREATE_CHARACTER_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_CREATE_CHARACTER_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_CREATE_CHARACTER_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_CREATE_CHARACTER_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_CREATE_CHARACTER_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
+  auto _job = _o->job;
+  return Login::CreateCS_CREATE_CHARACTER_REQ(
+      _fbb,
+      _name,
+      _job);
+}
+
+inline SC_CREATE_CHARACTER_REST *SC_CREATE_CHARACTER_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_CREATE_CHARACTER_REST>(new SC_CREATE_CHARACTER_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_CREATE_CHARACTER_RES::UnPackTo(SC_CREATE_CHARACTER_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = is_success(); _o->is_success = _e; }
+  { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<Login::CHARACTER_INFOT>(_e->UnPack(_resolver)); }
+}
+
+inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> SC_CREATE_CHARACTER_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_CREATE_CHARACTER_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_CREATE_CHARACTER_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_CREATE_CHARACTER_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_CREATE_CHARACTER_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _is_success = _o->is_success;
+  auto _character_info = _o->character_info ? CreateCHARACTER_INFO(_fbb, _o->character_info.get(), _rehasher) : 0;
+  return Login::CreateSC_CREATE_CHARACTER_RES(
+      _fbb,
+      _is_success,
+      _character_info);
+}
+
+inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<RootT>(new RootT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void Root::UnPackTo(RootT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = packet_type(); _o->packet.type = _e; }
+  { auto _e = packet(); if (_e) _o->packet.value = Login::PacketUnion::UnPack(_e, packet_type(), _resolver); }
+}
+
+inline flatbuffers::Offset<Root> Root::Pack(flatbuffers::FlatBufferBuilder &_fbb, const RootT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateRoot(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<Root> CreateRoot(flatbuffers::FlatBufferBuilder &_fbb, const RootT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const RootT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _packet_type = _o->packet.type;
+  auto _packet = _o->packet.Pack(_fbb);
+  return Login::CreateRoot(
+      _fbb,
+      _packet_type,
+      _packet);
+}
+
 inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packet type) {
   switch (type) {
     case Packet_NONE: {
@@ -746,6 +1209,152 @@ inline bool VerifyPacketVector(flatbuffers::Verifier &verifier, const flatbuffer
   return true;
 }
 
+inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers::resolver_function_t *resolver) {
+  switch (type) {
+    case Packet_CS_LOGIN_REQ: {
+      auto ptr = reinterpret_cast<const Login::CS_LOGIN_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_LOGIN_RES: {
+      auto ptr = reinterpret_cast<const Login::SC_LOGIN_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_PING_REQ: {
+      auto ptr = reinterpret_cast<const Login::SC_PING_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_CS_PING_RES: {
+      auto ptr = reinterpret_cast<const Login::CS_PING_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_CS_LOGOUT_NOTI: {
+      auto ptr = reinterpret_cast<const Login::CS_LOGOUT_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_CS_CREATE_CHARACTER_REQ: {
+      auto ptr = reinterpret_cast<const Login::CS_CREATE_CHARACTER_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_CREATE_CHARACTER_RES: {
+      auto ptr = reinterpret_cast<const Login::SC_CREATE_CHARACTER_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    default: return nullptr;
+  }
+}
+
+inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher) const {
+  switch (type) {
+    case Packet_CS_LOGIN_REQ: {
+      auto ptr = reinterpret_cast<const Login::CS_LOGIN_REQT *>(value);
+      return CreateCS_LOGIN_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_LOGIN_RES: {
+      auto ptr = reinterpret_cast<const Login::SC_LOGIN_REST *>(value);
+      return CreateSC_LOGIN_RES(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_PING_REQ: {
+      auto ptr = reinterpret_cast<const Login::SC_PING_REQT *>(value);
+      return CreateSC_PING_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_CS_PING_RES: {
+      auto ptr = reinterpret_cast<const Login::CS_PING_REST *>(value);
+      return CreateCS_PING_RES(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_CS_LOGOUT_NOTI: {
+      auto ptr = reinterpret_cast<const Login::CS_LOGOUT_NOTIT *>(value);
+      return CreateCS_LOGOUT_NOTI(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_CS_CREATE_CHARACTER_REQ: {
+      auto ptr = reinterpret_cast<const Login::CS_CREATE_CHARACTER_REQT *>(value);
+      return CreateCS_CREATE_CHARACTER_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_CREATE_CHARACTER_RES: {
+      auto ptr = reinterpret_cast<const Login::SC_CREATE_CHARACTER_REST *>(value);
+      return CreateSC_CREATE_CHARACTER_RES(_fbb, ptr, _rehasher).Union();
+    }
+    default: return 0;
+  }
+}
+
+inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(nullptr) {
+  switch (type) {
+    case Packet_CS_LOGIN_REQ: {
+      value = new Login::CS_LOGIN_REQT(*reinterpret_cast<Login::CS_LOGIN_REQT *>(u.value));
+      break;
+    }
+    case Packet_SC_LOGIN_RES: {
+      FLATBUFFERS_ASSERT(false);  // Login::SC_LOGIN_REST not copyable.
+      break;
+    }
+    case Packet_SC_PING_REQ: {
+      value = new Login::SC_PING_REQT(*reinterpret_cast<Login::SC_PING_REQT *>(u.value));
+      break;
+    }
+    case Packet_CS_PING_RES: {
+      value = new Login::CS_PING_REST(*reinterpret_cast<Login::CS_PING_REST *>(u.value));
+      break;
+    }
+    case Packet_CS_LOGOUT_NOTI: {
+      value = new Login::CS_LOGOUT_NOTIT(*reinterpret_cast<Login::CS_LOGOUT_NOTIT *>(u.value));
+      break;
+    }
+    case Packet_CS_CREATE_CHARACTER_REQ: {
+      value = new Login::CS_CREATE_CHARACTER_REQT(*reinterpret_cast<Login::CS_CREATE_CHARACTER_REQT *>(u.value));
+      break;
+    }
+    case Packet_SC_CREATE_CHARACTER_RES: {
+      FLATBUFFERS_ASSERT(false);  // Login::SC_CREATE_CHARACTER_REST not copyable.
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+inline void PacketUnion::Reset() {
+  switch (type) {
+    case Packet_CS_LOGIN_REQ: {
+      auto ptr = reinterpret_cast<Login::CS_LOGIN_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_LOGIN_RES: {
+      auto ptr = reinterpret_cast<Login::SC_LOGIN_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_PING_REQ: {
+      auto ptr = reinterpret_cast<Login::SC_PING_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_PING_RES: {
+      auto ptr = reinterpret_cast<Login::CS_PING_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_LOGOUT_NOTI: {
+      auto ptr = reinterpret_cast<Login::CS_LOGOUT_NOTIT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_CREATE_CHARACTER_REQ: {
+      auto ptr = reinterpret_cast<Login::CS_CREATE_CHARACTER_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_CREATE_CHARACTER_RES: {
+      auto ptr = reinterpret_cast<Login::SC_CREATE_CHARACTER_REST *>(value);
+      delete ptr;
+      break;
+    }
+    default: break;
+  }
+  value = nullptr;
+  type = Packet_NONE;
+}
+
 inline const Login::Root *GetRoot(const void *buf) {
   return flatbuffers::GetRoot<Login::Root>(buf);
 }
@@ -774,6 +1383,18 @@ inline void FinishSizePrefixedRootBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
     flatbuffers::Offset<Login::Root> root) {
   fbb.FinishSizePrefixed(root);
+}
+
+inline std::unique_ptr<Login::RootT> UnPackRoot(
+    const void *buf,
+    const flatbuffers::resolver_function_t *res = nullptr) {
+  return std::unique_ptr<Login::RootT>(GetRoot(buf)->UnPack(res));
+}
+
+inline std::unique_ptr<Login::RootT> UnPackSizePrefixedRoot(
+    const void *buf,
+    const flatbuffers::resolver_function_t *res = nullptr) {
+  return std::unique_ptr<Login::RootT>(GetSizePrefixedRoot(buf)->UnPack(res));
 }
 
 }  // namespace Login

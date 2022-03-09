@@ -28,6 +28,38 @@ public enum Packet : byte
   SC_CREATE_CHARACTER_RES = 7,
 };
 
+public class PacketUnion {
+  public Packet Type { get; set; }
+  public object Value { get; set; }
+
+  public PacketUnion() {
+    this.Type = Packet.NONE;
+    this.Value = null;
+  }
+
+  public T As<T>() where T : class { return this.Value as T; }
+  public Login.CS_LOGIN_REQT AsCS_LOGIN_REQ() { return this.As<Login.CS_LOGIN_REQT>(); }
+  public Login.SC_LOGIN_REST AsSC_LOGIN_RES() { return this.As<Login.SC_LOGIN_REST>(); }
+  public Login.SC_PING_REQT AsSC_PING_REQ() { return this.As<Login.SC_PING_REQT>(); }
+  public Login.CS_PING_REST AsCS_PING_RES() { return this.As<Login.CS_PING_REST>(); }
+  public Login.CS_LOGOUT_NOTIT AsCS_LOGOUT_NOTI() { return this.As<Login.CS_LOGOUT_NOTIT>(); }
+  public Login.CS_CREATE_CHARACTER_REQT AsCS_CREATE_CHARACTER_REQ() { return this.As<Login.CS_CREATE_CHARACTER_REQT>(); }
+  public Login.SC_CREATE_CHARACTER_REST AsSC_CREATE_CHARACTER_RES() { return this.As<Login.SC_CREATE_CHARACTER_REST>(); }
+
+  public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
+    switch (_o.Type) {
+      default: return 0;
+      case Packet.CS_LOGIN_REQ: return Login.CS_LOGIN_REQ.Pack(builder, _o.AsCS_LOGIN_REQ()).Value;
+      case Packet.SC_LOGIN_RES: return Login.SC_LOGIN_RES.Pack(builder, _o.AsSC_LOGIN_RES()).Value;
+      case Packet.SC_PING_REQ: return Login.SC_PING_REQ.Pack(builder, _o.AsSC_PING_REQ()).Value;
+      case Packet.CS_PING_RES: return Login.CS_PING_RES.Pack(builder, _o.AsCS_PING_RES()).Value;
+      case Packet.CS_LOGOUT_NOTI: return Login.CS_LOGOUT_NOTI.Pack(builder, _o.AsCS_LOGOUT_NOTI()).Value;
+      case Packet.CS_CREATE_CHARACTER_REQ: return Login.CS_CREATE_CHARACTER_REQ.Pack(builder, _o.AsCS_CREATE_CHARACTER_REQ()).Value;
+      case Packet.SC_CREATE_CHARACTER_RES: return Login.SC_CREATE_CHARACTER_RES.Pack(builder, _o.AsSC_CREATE_CHARACTER_RES()).Value;
+    }
+  }
+}
+
 public struct CS_LOGIN_REQ : IFlatbufferObject
 {
   private Table __p;
@@ -57,7 +89,34 @@ public struct CS_LOGIN_REQ : IFlatbufferObject
     int o = builder.EndTable();
     return new Offset<Login.CS_LOGIN_REQ>(o);
   }
+  public CS_LOGIN_REQT UnPack() {
+    var _o = new CS_LOGIN_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_LOGIN_REQT _o) {
+    _o.Uid = this.Uid;
+    _o.Token = this.Token;
+  }
+  public static Offset<Login.CS_LOGIN_REQ> Pack(FlatBufferBuilder builder, CS_LOGIN_REQT _o) {
+    if (_o == null) return default(Offset<Login.CS_LOGIN_REQ>);
+    return CreateCS_LOGIN_REQ(
+      builder,
+      _o.Uid,
+      _o.Token);
+  }
 };
+
+public class CS_LOGIN_REQT
+{
+  public long Uid { get; set; }
+  public int Token { get; set; }
+
+  public CS_LOGIN_REQT() {
+    this.Uid = 0;
+    this.Token = 0;
+  }
+}
 
 public struct CHARACTER_INFO : IFlatbufferObject
 {
@@ -116,7 +175,53 @@ public struct CHARACTER_INFO : IFlatbufferObject
     int o = builder.EndTable();
     return new Offset<Login.CHARACTER_INFO>(o);
   }
+  public CHARACTER_INFOT UnPack() {
+    var _o = new CHARACTER_INFOT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CHARACTER_INFOT _o) {
+    _o.Uid = this.Uid;
+    _o.Name = this.Name;
+    _o.Level = this.Level;
+    _o.Job = this.Job;
+    _o.Gear = new List<byte>();
+    for (var _j = 0; _j < this.GearLength; ++_j) {_o.Gear.Add(this.Gear(_j));}
+  }
+  public static Offset<Login.CHARACTER_INFO> Pack(FlatBufferBuilder builder, CHARACTER_INFOT _o) {
+    if (_o == null) return default(Offset<Login.CHARACTER_INFO>);
+    var _name = _o.Name == null ? default(StringOffset) : builder.CreateString(_o.Name);
+    var _gear = default(VectorOffset);
+    if (_o.Gear != null) {
+      var __gear = _o.Gear.ToArray();
+      _gear = CreateGearVector(builder, __gear);
+    }
+    return CreateCHARACTER_INFO(
+      builder,
+      _o.Uid,
+      _name,
+      _o.Level,
+      _o.Job,
+      _gear);
+  }
 };
+
+public class CHARACTER_INFOT
+{
+  public long Uid { get; set; }
+  public string Name { get; set; }
+  public byte Level { get; set; }
+  public Define.Job Job { get; set; }
+  public List<byte> Gear { get; set; }
+
+  public CHARACTER_INFOT() {
+    this.Uid = 0;
+    this.Name = null;
+    this.Level = 0;
+    this.Job = Define.Job.WARRIOR;
+    this.Gear = null;
+  }
+}
 
 public struct SC_LOGIN_RES : IFlatbufferObject
 {
@@ -159,7 +264,49 @@ public struct SC_LOGIN_RES : IFlatbufferObject
     int o = builder.EndTable();
     return new Offset<Login.SC_LOGIN_RES>(o);
   }
+  public SC_LOGIN_REST UnPack() {
+    var _o = new SC_LOGIN_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_LOGIN_REST _o) {
+    _o.Result = this.Result;
+    _o.MaxSlotCount = this.MaxSlotCount;
+    _o.EmptySlotCount = this.EmptySlotCount;
+    _o.CharacterInfo = new List<Login.CHARACTER_INFOT>();
+    for (var _j = 0; _j < this.CharacterInfoLength; ++_j) {_o.CharacterInfo.Add(this.CharacterInfo(_j).HasValue ? this.CharacterInfo(_j).Value.UnPack() : null);}
+  }
+  public static Offset<Login.SC_LOGIN_RES> Pack(FlatBufferBuilder builder, SC_LOGIN_REST _o) {
+    if (_o == null) return default(Offset<Login.SC_LOGIN_RES>);
+    var _character_info = default(VectorOffset);
+    if (_o.CharacterInfo != null) {
+      var __character_info = new Offset<Login.CHARACTER_INFO>[_o.CharacterInfo.Count];
+      for (var _j = 0; _j < __character_info.Length; ++_j) { __character_info[_j] = Login.CHARACTER_INFO.Pack(builder, _o.CharacterInfo[_j]); }
+      _character_info = CreateCharacterInfoVector(builder, __character_info);
+    }
+    return CreateSC_LOGIN_RES(
+      builder,
+      _o.Result,
+      _o.MaxSlotCount,
+      _o.EmptySlotCount,
+      _character_info);
+  }
 };
+
+public class SC_LOGIN_REST
+{
+  public Login.ErrorCode Result { get; set; }
+  public byte MaxSlotCount { get; set; }
+  public byte EmptySlotCount { get; set; }
+  public List<Login.CHARACTER_INFOT> CharacterInfo { get; set; }
+
+  public SC_LOGIN_REST() {
+    this.Result = Login.ErrorCode.SUCCESS;
+    this.MaxSlotCount = 0;
+    this.EmptySlotCount = 0;
+    this.CharacterInfo = null;
+  }
+}
 
 public struct SC_PING_REQ : IFlatbufferObject
 {
@@ -177,7 +324,26 @@ public struct SC_PING_REQ : IFlatbufferObject
     int o = builder.EndTable();
     return new Offset<Login.SC_PING_REQ>(o);
   }
+  public SC_PING_REQT UnPack() {
+    var _o = new SC_PING_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_PING_REQT _o) {
+  }
+  public static Offset<Login.SC_PING_REQ> Pack(FlatBufferBuilder builder, SC_PING_REQT _o) {
+    if (_o == null) return default(Offset<Login.SC_PING_REQ>);
+    StartSC_PING_REQ(builder);
+    return EndSC_PING_REQ(builder);
+  }
 };
+
+public class SC_PING_REQT
+{
+
+  public SC_PING_REQT() {
+  }
+}
 
 public struct CS_PING_RES : IFlatbufferObject
 {
@@ -195,7 +361,26 @@ public struct CS_PING_RES : IFlatbufferObject
     int o = builder.EndTable();
     return new Offset<Login.CS_PING_RES>(o);
   }
+  public CS_PING_REST UnPack() {
+    var _o = new CS_PING_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_PING_REST _o) {
+  }
+  public static Offset<Login.CS_PING_RES> Pack(FlatBufferBuilder builder, CS_PING_REST _o) {
+    if (_o == null) return default(Offset<Login.CS_PING_RES>);
+    StartCS_PING_RES(builder);
+    return EndCS_PING_RES(builder);
+  }
 };
+
+public class CS_PING_REST
+{
+
+  public CS_PING_REST() {
+  }
+}
 
 public struct CS_LOGOUT_NOTI : IFlatbufferObject
 {
@@ -213,7 +398,26 @@ public struct CS_LOGOUT_NOTI : IFlatbufferObject
     int o = builder.EndTable();
     return new Offset<Login.CS_LOGOUT_NOTI>(o);
   }
+  public CS_LOGOUT_NOTIT UnPack() {
+    var _o = new CS_LOGOUT_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_LOGOUT_NOTIT _o) {
+  }
+  public static Offset<Login.CS_LOGOUT_NOTI> Pack(FlatBufferBuilder builder, CS_LOGOUT_NOTIT _o) {
+    if (_o == null) return default(Offset<Login.CS_LOGOUT_NOTI>);
+    StartCS_LOGOUT_NOTI(builder);
+    return EndCS_LOGOUT_NOTI(builder);
+  }
 };
+
+public class CS_LOGOUT_NOTIT
+{
+
+  public CS_LOGOUT_NOTIT() {
+  }
+}
 
 public struct CS_CREATE_CHARACTER_REQ : IFlatbufferObject
 {
@@ -250,7 +454,35 @@ public struct CS_CREATE_CHARACTER_REQ : IFlatbufferObject
     int o = builder.EndTable();
     return new Offset<Login.CS_CREATE_CHARACTER_REQ>(o);
   }
+  public CS_CREATE_CHARACTER_REQT UnPack() {
+    var _o = new CS_CREATE_CHARACTER_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_CREATE_CHARACTER_REQT _o) {
+    _o.Name = this.Name;
+    _o.Job = this.Job;
+  }
+  public static Offset<Login.CS_CREATE_CHARACTER_REQ> Pack(FlatBufferBuilder builder, CS_CREATE_CHARACTER_REQT _o) {
+    if (_o == null) return default(Offset<Login.CS_CREATE_CHARACTER_REQ>);
+    var _name = _o.Name == null ? default(StringOffset) : builder.CreateString(_o.Name);
+    return CreateCS_CREATE_CHARACTER_REQ(
+      builder,
+      _name,
+      _o.Job);
+  }
 };
+
+public class CS_CREATE_CHARACTER_REQT
+{
+  public string Name { get; set; }
+  public Define.Job Job { get; set; }
+
+  public CS_CREATE_CHARACTER_REQT() {
+    this.Name = null;
+    this.Job = Define.Job.WARRIOR;
+  }
+}
 
 public struct SC_CREATE_CHARACTER_RES : IFlatbufferObject
 {
@@ -281,7 +513,35 @@ public struct SC_CREATE_CHARACTER_RES : IFlatbufferObject
     int o = builder.EndTable();
     return new Offset<Login.SC_CREATE_CHARACTER_RES>(o);
   }
+  public SC_CREATE_CHARACTER_REST UnPack() {
+    var _o = new SC_CREATE_CHARACTER_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_CREATE_CHARACTER_REST _o) {
+    _o.IsSuccess = this.IsSuccess;
+    _o.CharacterInfo = this.CharacterInfo.HasValue ? this.CharacterInfo.Value.UnPack() : null;
+  }
+  public static Offset<Login.SC_CREATE_CHARACTER_RES> Pack(FlatBufferBuilder builder, SC_CREATE_CHARACTER_REST _o) {
+    if (_o == null) return default(Offset<Login.SC_CREATE_CHARACTER_RES>);
+    var _character_info = _o.CharacterInfo == null ? default(Offset<Login.CHARACTER_INFO>) : Login.CHARACTER_INFO.Pack(builder, _o.CharacterInfo);
+    return CreateSC_CREATE_CHARACTER_RES(
+      builder,
+      _o.IsSuccess,
+      _character_info);
+  }
 };
+
+public class SC_CREATE_CHARACTER_REST
+{
+  public bool IsSuccess { get; set; }
+  public Login.CHARACTER_INFOT CharacterInfo { get; set; }
+
+  public SC_CREATE_CHARACTER_REST() {
+    this.IsSuccess = false;
+    this.CharacterInfo = null;
+  }
+}
 
 public struct Root : IFlatbufferObject
 {
@@ -321,7 +581,66 @@ public struct Root : IFlatbufferObject
   }
   public static void FinishRootBuffer(FlatBufferBuilder builder, Offset<Login.Root> offset) { builder.Finish(offset.Value); }
   public static void FinishSizePrefixedRootBuffer(FlatBufferBuilder builder, Offset<Login.Root> offset) { builder.FinishSizePrefixed(offset.Value); }
+  public RootT UnPack() {
+    var _o = new RootT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(RootT _o) {
+    _o.Packet = new Login.PacketUnion();
+    _o.Packet.Type = this.PacketType;
+    switch (this.PacketType) {
+      default: break;
+      case Login.Packet.CS_LOGIN_REQ:
+        _o.Packet.Value = this.Packet<Login.CS_LOGIN_REQ>().HasValue ? this.Packet<Login.CS_LOGIN_REQ>().Value.UnPack() : null;
+        break;
+      case Login.Packet.SC_LOGIN_RES:
+        _o.Packet.Value = this.Packet<Login.SC_LOGIN_RES>().HasValue ? this.Packet<Login.SC_LOGIN_RES>().Value.UnPack() : null;
+        break;
+      case Login.Packet.SC_PING_REQ:
+        _o.Packet.Value = this.Packet<Login.SC_PING_REQ>().HasValue ? this.Packet<Login.SC_PING_REQ>().Value.UnPack() : null;
+        break;
+      case Login.Packet.CS_PING_RES:
+        _o.Packet.Value = this.Packet<Login.CS_PING_RES>().HasValue ? this.Packet<Login.CS_PING_RES>().Value.UnPack() : null;
+        break;
+      case Login.Packet.CS_LOGOUT_NOTI:
+        _o.Packet.Value = this.Packet<Login.CS_LOGOUT_NOTI>().HasValue ? this.Packet<Login.CS_LOGOUT_NOTI>().Value.UnPack() : null;
+        break;
+      case Login.Packet.CS_CREATE_CHARACTER_REQ:
+        _o.Packet.Value = this.Packet<Login.CS_CREATE_CHARACTER_REQ>().HasValue ? this.Packet<Login.CS_CREATE_CHARACTER_REQ>().Value.UnPack() : null;
+        break;
+      case Login.Packet.SC_CREATE_CHARACTER_RES:
+        _o.Packet.Value = this.Packet<Login.SC_CREATE_CHARACTER_RES>().HasValue ? this.Packet<Login.SC_CREATE_CHARACTER_RES>().Value.UnPack() : null;
+        break;
+    }
+  }
+  public static Offset<Login.Root> Pack(FlatBufferBuilder builder, RootT _o) {
+    if (_o == null) return default(Offset<Login.Root>);
+    var _packet_type = _o.Packet == null ? Login.Packet.NONE : _o.Packet.Type;
+    var _packet = _o.Packet == null ? 0 : Login.PacketUnion.Pack(builder, _o.Packet);
+    return CreateRoot(
+      builder,
+      _packet_type,
+      _packet);
+  }
 };
+
+public class RootT
+{
+  public Login.PacketUnion Packet { get; set; }
+
+  public RootT() {
+    this.Packet = null;
+  }
+  public static RootT DeserializeFromBinary(byte[] fbBuffer) {
+    return Root.GetRootAsRoot(new ByteBuffer(fbBuffer)).UnPack();
+  }
+  public byte[] SerializeToBinary() {
+    var fbb = new FlatBufferBuilder(0x10000);
+    Root.FinishRootBuffer(fbb, Root.Pack(fbb, this));
+    return fbb.DataBuffer.ToSizedArray();
+  }
+}
 
 
 }

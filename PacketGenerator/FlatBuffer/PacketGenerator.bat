@@ -3,12 +3,12 @@ rem make flatbuffer files
 setlocal enabledelayedexpansion
 
 rem common
-call generator.bat "flatc.exe --cpp -o output/cpp/common/ fbs/common/" fbs/common/
-call generator.bat "flatc.exe --csharp --gen-onefile -o output/cs/common/ fbs/common/" fbs/common/
+call generator.bat "flatc.exe --gen-object-api --cpp -o output/cpp/common/ fbs/common/" fbs/common/
+call generator.bat "flatc.exe --gen-object-api --csharp --gen-onefile -o output/cs/common/ fbs/common/" fbs/common/
 
 rem login
-call generator.bat "flatc.exe --cpp -o output/cpp/login/ fbs/login/" fbs/login/
-call generator.bat "flatc.exe --csharp --gen-onefile -o output/cs/login/ fbs/login/" fbs/login/
+call generator.bat "flatc.exe --gen-object-api --cpp -o output/cpp/login/ fbs/login/" fbs/login/
+call generator.bat "flatc.exe --gen-object-api --csharp --gen-onefile -o output/cs/login/ fbs/login/" fbs/login/
 
 rem copy flatbuffer files
 
