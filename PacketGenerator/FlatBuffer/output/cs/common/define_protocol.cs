@@ -64,9 +64,11 @@ public enum Dir : byte
 public enum CreatureState : byte
 {
   IDLE = 0,
-  MOVE = 1,
-  SKILL = 2,
-  DEAD = 3,
+  WALK = 1,
+  RUN = 2,
+  JUMP = 3,
+  SKILL = 4,
+  DEAD = 5,
 };
 
 

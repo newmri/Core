@@ -21,23 +21,7 @@ public class PlayerController : CreatureController
 		if (_animator == null)
 			return;
 
-		if (State == CreatureState.IDLE)
-		{
-			_animator.ChangeAnimation("Idle", Dir);
-
-		}
-		else if (State == CreatureState.MOVE)
-		{
-			_animator.ChangeAnimation("Walk", Dir);
-		}
-		else if (State == CreatureState.SKILL)
-		{
-			
-		}
-		else
-		{
-
-		}
+		_animator.ChangeAnimation(State, Dir);
 	}
 
 	protected override void UpdateController()

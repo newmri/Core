@@ -252,17 +252,21 @@ inline const char *EnumNameDir(Dir e) {
 
 enum CreatureState : uint8_t {
   CreatureState_IDLE = 0,
-  CreatureState_MOVE = 1,
-  CreatureState_SKILL = 2,
-  CreatureState_DEAD = 3,
+  CreatureState_WALK = 1,
+  CreatureState_RUN = 2,
+  CreatureState_JUMP = 3,
+  CreatureState_SKILL = 4,
+  CreatureState_DEAD = 5,
   CreatureState_MIN = CreatureState_IDLE,
   CreatureState_MAX = CreatureState_DEAD
 };
 
-inline const CreatureState (&EnumValuesCreatureState())[4] {
+inline const CreatureState (&EnumValuesCreatureState())[6] {
   static const CreatureState values[] = {
     CreatureState_IDLE,
-    CreatureState_MOVE,
+    CreatureState_WALK,
+    CreatureState_RUN,
+    CreatureState_JUMP,
     CreatureState_SKILL,
     CreatureState_DEAD
   };
@@ -270,9 +274,11 @@ inline const CreatureState (&EnumValuesCreatureState())[4] {
 }
 
 inline const char * const *EnumNamesCreatureState() {
-  static const char * const names[5] = {
+  static const char * const names[7] = {
     "IDLE",
-    "MOVE",
+    "WALK",
+    "RUN",
+    "JUMP",
     "SKILL",
     "DEAD",
     nullptr

@@ -55,7 +55,9 @@ enum Dir : ubyte
 enum CreatureState : ubyte
 {
 	IDLE,
-	MOVE,
+	WALK,
+	RUN,
+	JUMP,
 	SKILL,
 	DEAD
 }

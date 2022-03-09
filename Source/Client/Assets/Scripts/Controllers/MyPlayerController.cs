@@ -8,6 +8,7 @@ using UnityCoreLibrary;
 public class MyPlayerController : PlayerController
 {
 	bool _moveKeyPressed = false;
+
 	public int WeaponDamage { get; private set; }
 	public int ArmorDefence { get; private set; }
 
@@ -34,10 +35,10 @@ public class MyPlayerController : PlayerController
 		switch (State)
 		{
 			case CreatureState.IDLE:
+			case CreatureState.WALK:
+			case CreatureState.RUN:
 				GetDirInput();
-				break;
-			case CreatureState.MOVE:
-				GetDirInput();
+				GetRunInput();
 				break;
 		}
 
@@ -49,7 +50,7 @@ public class MyPlayerController : PlayerController
 		// 이동 상태로 갈지 확인
 		if (_moveKeyPressed)
 		{
-			State = CreatureState.MOVE;
+			SetMoveState();
 			return;
 		}
 
@@ -63,6 +64,12 @@ public class MyPlayerController : PlayerController
 
 			//_coSkillCooltime = StartCoroutine("CoInputCooltime", 0.2f);
 		}
+	}
+
+	protected override void UpdateMoving()
+	{
+		SetMoveState();
+		base.UpdateMoving();
 	}
 
 	Coroutine _coSkillCooltime;
@@ -131,6 +138,18 @@ public class MyPlayerController : PlayerController
 		}
 	}
 
+	void GetRunInput()
+	{
+		if (Input.GetKey(KeyCode.LeftShift))
+		{
+			_isRunning = true;
+		}
+		else
+		{
+			_isRunning = false;
+		}
+	}
+
 	protected override void MoveToNextPos()
 	{
 		if (_moveKeyPressed == false)
@@ -171,7 +190,11 @@ public class MyPlayerController : PlayerController
 			PositionInfoT pos = new PositionInfoT();
 			pos.Pos.X = CellPos.x;
 			pos.Pos.Y = CellPos.y;
-			pos.State = CreatureState.MOVE;
+			if (_isRunning)
+				pos.State = CreatureState.RUN;
+			else
+				pos.State = CreatureState.WALK;
+
 			pos.MoveDir = Dir;
 			PosInfo = pos;
 		}

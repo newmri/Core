@@ -14,6 +14,7 @@ public class StatInfo
 public class BaseController : MonoBehaviour
 {
 	public int Id { get; set; }
+	protected bool _isRunning = false;
 
 	StatInfo _stat = new StatInfo();
 	public virtual StatInfo Stat
@@ -93,6 +94,12 @@ public class BaseController : MonoBehaviour
 				return;
 
 			PosInfo.State = value;
+			if (PosInfo.State == CreatureState.IDLE)
+			{
+				int k = 0;
+				k = 1;
+			}
+
 			UpdateAnimation();
 			_updated = true;
 		}
@@ -177,7 +184,8 @@ public class BaseController : MonoBehaviour
 			case CreatureState.IDLE:
 				UpdateIdle();
 				break;
-			case CreatureState.MOVE:
+			case CreatureState.WALK:
+			case CreatureState.RUN:
 				UpdateMoving();
 				break;
 			case CreatureState.SKILL:
@@ -209,8 +217,16 @@ public class BaseController : MonoBehaviour
 		else
 		{
 			transform.position += moveDir.normalized * Speed * Time.deltaTime;
-			State = CreatureState.MOVE;
+			SetMoveState();
 		}
+	}
+	
+	protected void SetMoveState()
+	{
+		if (_isRunning)
+			State = CreatureState.RUN;
+		else
+			State = CreatureState.WALK;
 	}
 
 	protected virtual void MoveToNextPos()

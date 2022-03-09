@@ -89,9 +89,9 @@ public class CharacterAnimator : MonoBehaviour
 
         WarriorAnimations.Add(PlayerAnimations.Attack1, "Attack1");
         WarriorAnimations.Add(PlayerAnimations.Attack2, "Attack2");
-        WarriorAnimations.Add(PlayerAnimations.Idle, "Idle");
-        WarriorAnimations.Add(PlayerAnimations.Walk, "Walk");
-        WarriorAnimations.Add(PlayerAnimations.Run, "Run");
+        WarriorAnimations.Add(PlayerAnimations.IDLE, "Idle");
+        WarriorAnimations.Add(PlayerAnimations.WALK, "Walk");
+        WarriorAnimations.Add(PlayerAnimations.RUN, "Run");
         WarriorAnimations.Add(PlayerAnimations.FullJump, "Jump");
         WarriorAnimations.Add(PlayerAnimations.Jump1, "Jump1");
         WarriorAnimations.Add(PlayerAnimations.Jump2, "Jump2");
@@ -103,9 +103,9 @@ public class CharacterAnimator : MonoBehaviour
 
         ArcherAnimations.Add(PlayerAnimations.Attack1, "Shoot1");
         ArcherAnimations.Add(PlayerAnimations.Attack2, "Shoot2");
-        ArcherAnimations.Add(PlayerAnimations.Idle, "Idle ARCHER");
-        ArcherAnimations.Add(PlayerAnimations.Walk, "Walk");
-        ArcherAnimations.Add(PlayerAnimations.Run, "Run ARCHER");
+        ArcherAnimations.Add(PlayerAnimations.IDLE, "Idle ARCHER");
+        ArcherAnimations.Add(PlayerAnimations.WALK, "Walk");
+        ArcherAnimations.Add(PlayerAnimations.RUN, "Run ARCHER");
         ArcherAnimations.Add(PlayerAnimations.FullJump, "Jump");
         ArcherAnimations.Add(PlayerAnimations.Jump1, "Jump1 ARCHER");
         ArcherAnimations.Add(PlayerAnimations.Jump2, "Jump2");
@@ -117,9 +117,9 @@ public class CharacterAnimator : MonoBehaviour
 
         SorcererAnimations.Add(PlayerAnimations.Attack1, "Cast1");
         SorcererAnimations.Add(PlayerAnimations.Attack2, "Cast2");
-        SorcererAnimations.Add(PlayerAnimations.Idle, "Idle");
-        SorcererAnimations.Add(PlayerAnimations.Walk, "Walk");
-        SorcererAnimations.Add(PlayerAnimations.Run, "Fly");
+        SorcererAnimations.Add(PlayerAnimations.IDLE, "Idle");
+        SorcererAnimations.Add(PlayerAnimations.WALK, "Walk");
+        SorcererAnimations.Add(PlayerAnimations.RUN, "Fly");
         SorcererAnimations.Add(PlayerAnimations.FullJump, "Jump");
         SorcererAnimations.Add(PlayerAnimations.Jump1, "Jump1");
         SorcererAnimations.Add(PlayerAnimations.Jump2, "Jump2");
@@ -131,9 +131,9 @@ public class CharacterAnimator : MonoBehaviour
 
         DuelistAnimations.Add(PlayerAnimations.Attack1, "Attack 1 DUELIST");
         DuelistAnimations.Add(PlayerAnimations.Attack2, "Attack 2 DUELIST");
-        DuelistAnimations.Add(PlayerAnimations.Idle, "Idle");
-        DuelistAnimations.Add(PlayerAnimations.Walk, "Walk");
-        DuelistAnimations.Add(PlayerAnimations.Run, "Run DUELIST");
+        DuelistAnimations.Add(PlayerAnimations.IDLE, "Idle");
+        DuelistAnimations.Add(PlayerAnimations.WALK, "Walk");
+        DuelistAnimations.Add(PlayerAnimations.RUN, "Run DUELIST");
         DuelistAnimations.Add(PlayerAnimations.FullJump, "Jump");
         DuelistAnimations.Add(PlayerAnimations.Jump1, "Jump1");
         DuelistAnimations.Add(PlayerAnimations.Jump2, "Jump2");
@@ -162,7 +162,7 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     //Takes a string AnimationString which is the name of the animation and assigns it to AnimationToPlay
-    public void ChangeAnimation(string AnimationString, Define.Dir dir = Define.Dir.RIGHT)
+    public void ChangeAnimation(Define.CreatureState state, Define.Dir dir = Define.Dir.RIGHT)
     {
         if (_dir != dir)
         {
@@ -177,7 +177,7 @@ public class CharacterAnimator : MonoBehaviour
         }
 
         _dir = dir;
-        AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), AnimationString);
+        AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), state.ToString());
         AnimationManager();
     }
 
@@ -191,5 +191,5 @@ public class CharacterAnimator : MonoBehaviour
 }
 public enum PlayerAnimations
 {
-    Idle, Walk, Attack1, Death, FullJump,Jump1, Jump2, Jump3, Hurt, Run, Attack2, Special, Buff
+    IDLE, WALK, Attack1, Death, FullJump,Jump1, Jump2, Jump3, Hurt, RUN, Attack2, Special, Buff
 }
