@@ -21,6 +21,7 @@ union Packet
 table CS_LOGIN_REQ
 {
     uid:int64;
+    character_uid:int64;
     token:int32;
 }
 
@@ -36,9 +37,7 @@ table CHARACTER_INFO
 table SC_LOGIN_RES
 {
     result:ErrorCode;
-    max_slot_count:ubyte;
-    empty_slot_count:ubyte;
-    character_info:[CHARACTER_INFO];
+    character_info:CHARACTER_INFO;
 }
 
 table SC_PING_REQ

@@ -10,6 +10,8 @@ using System.Threading;
 
 public class GameNetworkManager : BaseNetworkManager
 {
+    public long CharacterUID { get; set; }
+
     public override void Init()
     {
         base.Init();
@@ -21,11 +23,15 @@ public class GameNetworkManager : BaseNetworkManager
         base.Conntect(info);
     }
 
-    public override void Disconnect()
+    public override void Disconnect(bool newSession = true)
     {
         Send(Packet.CS_LOGOUT_NOTI);
         Thread.Sleep(100);
         _session.Disconnect();
+
+        if (newSession)
+            _session = new LoginServerSession();
+
         Init();
         Thread.Sleep(100);
     }
@@ -50,18 +56,21 @@ public class GameNetworkManager : BaseNetworkManager
     public override void SendLogin()
     {
         FlatBufferBuilder builder = new FlatBufferBuilder(1);
-        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, Token);
+        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, CharacterUID, Token);
         Send(builder, Packet.CS_LOGIN_REQ, message.Value);
     }
 
     public void Update()
     {
-        List<GamePacketMessage> list = GamePacketQueue.Instance.PopAll();
-        foreach (GamePacketMessage packet in list)
+        if (_session.IsConnected)
         {
-            Action<PacketSession, Root> handler = GamePacketManager.Instance.GetPacketHandler(packet.ID);
-            if (handler != null)
-                handler.Invoke(_session, packet.Message);
+            List<GamePacketMessage> list = GamePacketQueue.Instance.PopAll();
+            foreach (GamePacketMessage packet in list)
+            {
+                Action<PacketSession, Root> handler = GamePacketManager.Instance.GetPacketHandler(packet.ID);
+                if (handler != null)
+                    handler.Invoke(_session, packet.Message);
+            }
         }
     }
 }

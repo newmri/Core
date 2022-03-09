@@ -37,14 +37,14 @@ public class BaseNetworkManager
             1);
     }
 
-    public virtual void Disconnect()
+    public virtual void Disconnect(bool newSession = true)
     {
 
     }
 
     public void Send(FlatBufferBuilder packet)
     {
-        _session.Send(packet);
+       _session.Send(packet);
     }
 
     public virtual void SendLogin()

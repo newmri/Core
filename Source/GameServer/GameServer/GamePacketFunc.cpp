@@ -12,11 +12,11 @@ void GamePacketFunc::Write(std::shared_ptr<CoreClientSession> session, GamePacke
 flatbuffers::Offset<GamePacket::CHARACTER_INFO> GamePacketFunc::MakeCharacterInfo(const CharacterLoadInfo& loadInfo)
 {
 	auto info = GamePacket::CreateCHARACTER_INFO(this->builder,
-				loadInfo.uid,
-				this->builder.CreateString(STRING_MANAGER.Narrow(loadInfo.name)),
-				loadInfo.info.level,
-				static_cast<Define::Job>(loadInfo.info.job),
-				this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_MAX + 1));
+		loadInfo.uid,
+		this->builder.CreateString(STRING_MANAGER.Narrow(loadInfo.name)),
+		loadInfo.info.level,
+		static_cast<Define::Job>(loadInfo.info.job),
+		this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_MAX + 1));
 
 	return info;
 }
@@ -69,34 +69,19 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 	if (IS_SAME(GamePacket::ErrorCode_SUCCESS, result))
 	{
 		session->SetAccountUID(raw->uid());
+		
+		CharacterLoadInfo loadInfo;
+		if (!GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), raw->character_uid(), loadInfo))
+			return;
 
-		std::vector<CharacterLoadInfo> infoList;
-		GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), infoList);
 		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
 
-		size_t size = infoList.size();
-		uint8_t emptyCharacterSlotCount = maxCharacterSlotCount - static_cast<uint8_t>(size);
+		account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), loadInfo.uid, loadInfo.info));
 
-		if (size)
-		{
-			std::vector<flatbuffers::Offset<GamePacket::CHARACTER_INFO>> sendList;
-	
-			for (int i = 0; i < size; ++i)
-			{
-				account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), infoList[i].uid, infoList[i].info));
+		auto info = MakeCharacterInfo(loadInfo);
 
-				sendList.push_back(MakeCharacterInfo(infoList[i]));
-			}
-
-			message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot,
-											    emptyCharacterSlotCount, this->builder.CreateVector(sendList));
-		}
-
-		else
-		{
-			message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, emptyCharacterSlotCount);
-		}
+		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, info);
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(

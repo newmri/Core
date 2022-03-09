@@ -96,6 +96,13 @@ public class UICharacterSelectPopup : UIPopup
     [Obsolete]
     public void OnClickStartButton(PointerEventData evt)
     {
+        if (!SetGameInfo())
+        {
+            UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+            messagePopup.SetText("서버 접속 실패", "캐릭터를 먼저 선택 해주세요");
+            return;
+        }
+
         LoginServerInfoPacketReq packet = new LoginServerInfoPacketReq()
         {
             WorldID = Managers.LoginNetwork.WorldID,
@@ -104,9 +111,24 @@ public class UICharacterSelectPopup : UIPopup
 
         Managers.Web.SendPostRequest<LoginServerInfoPacketRes>("serverselect", packet, (res) =>
         {
-            Managers.LoginNetwork.Disconnect();
+            Managers.LoginNetwork.Disconnect(false);
             Managers.GameNetwork.Conntect(res);
         });
+    }
 
+    bool SetGameInfo()
+    {
+        foreach (UICharacterActiveSlot slot in _activeList)
+        {
+            if (slot.IsSelected())
+            {
+                Managers.GameNetwork.UID = Managers.LoginNetwork.UID;
+                Managers.GameNetwork.Token = Managers.LoginNetwork.Token;
+                Managers.GameNetwork.CharacterUID = slot.GetUID();
+                return true;
+            }
+        }
+
+        return false;
     }
 }

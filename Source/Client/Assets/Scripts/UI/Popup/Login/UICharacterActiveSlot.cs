@@ -99,4 +99,13 @@ public class UICharacterActiveSlot : UIPopup
         _info = info;
     }
 
+    public bool IsSelected()
+    {
+        return _IsSelected;
+    }
+
+    public long GetUID()
+    {
+        return _info.Uid;
+    }
 }

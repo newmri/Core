@@ -24,13 +24,17 @@ public class LoginNetworkManager : BaseNetworkManager
         base.Conntect(info);
     }
 
-    public override void Disconnect()
+    public override void Disconnect(bool newSession = true)
     {
         Send(Packet.CS_LOGOUT_NOTI);
         Thread.Sleep(100);
         _session.Disconnect();
-        _session = new LoginServerSession();
+
+        if (newSession)
+            _session = new LoginServerSession();
+
         Thread.Sleep(100);
+
     }
 
     public void Send(FlatBufferBuilder packet, Packet packetType, int packetOffset)
@@ -59,12 +63,15 @@ public class LoginNetworkManager : BaseNetworkManager
 
     public void Update()
     {
-        List<LoginPacketMessage> list = LoginPacketQueue.Instance.PopAll();
-        foreach (LoginPacketMessage packet in list)
+        if (_session.IsConnected)
         {
-            Action<PacketSession, Root> handler = LoginPacketManager.Instance.GetPacketHandler(packet.ID);
-            if (handler != null)
-                handler.Invoke(_session, packet.Message);
+            List<LoginPacketMessage> list = LoginPacketQueue.Instance.PopAll();
+            foreach (LoginPacketMessage packet in list)
+            {
+                Action<PacketSession, Root> handler = LoginPacketManager.Instance.GetPacketHandler(packet.ID);
+                if (handler != null)
+                    handler.Invoke(_session, packet.Message);
+            }
         }
     }
 

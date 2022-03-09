@@ -30,6 +30,8 @@ class GamePacketHandler
             return;
         }
 
+        Managers.Character.AddMyCharacter(loginRes.CharacterInfo.Value.UnPack());
+
         CoreManagers.Scene.LoadScene(CoreDefine.Scene.Game);
     }
 

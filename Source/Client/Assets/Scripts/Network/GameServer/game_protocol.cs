@@ -65,20 +65,24 @@ public struct CS_LOGIN_REQ : IFlatbufferObject
   public CS_LOGIN_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public long Uid { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public int Token { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public long CharacterUid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public int Token { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GamePacket.CS_LOGIN_REQ> CreateCS_LOGIN_REQ(FlatBufferBuilder builder,
       long uid = 0,
+      long character_uid = 0,
       int token = 0) {
-    builder.StartTable(2);
+    builder.StartTable(3);
+    CS_LOGIN_REQ.AddCharacterUid(builder, character_uid);
     CS_LOGIN_REQ.AddUid(builder, uid);
     CS_LOGIN_REQ.AddToken(builder, token);
     return CS_LOGIN_REQ.EndCS_LOGIN_REQ(builder);
   }
 
-  public static void StartCS_LOGIN_REQ(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void StartCS_LOGIN_REQ(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(0, uid, 0); }
-  public static void AddToken(FlatBufferBuilder builder, int token) { builder.AddInt(1, token, 0); }
+  public static void AddCharacterUid(FlatBufferBuilder builder, long characterUid) { builder.AddLong(1, characterUid, 0); }
+  public static void AddToken(FlatBufferBuilder builder, int token) { builder.AddInt(2, token, 0); }
   public static Offset<GamePacket.CS_LOGIN_REQ> EndCS_LOGIN_REQ(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.CS_LOGIN_REQ>(o);
@@ -90,6 +94,7 @@ public struct CS_LOGIN_REQ : IFlatbufferObject
   }
   public void UnPackTo(CS_LOGIN_REQT _o) {
     _o.Uid = this.Uid;
+    _o.CharacterUid = this.CharacterUid;
     _o.Token = this.Token;
   }
   public static Offset<GamePacket.CS_LOGIN_REQ> Pack(FlatBufferBuilder builder, CS_LOGIN_REQT _o) {
@@ -97,6 +102,7 @@ public struct CS_LOGIN_REQ : IFlatbufferObject
     return CreateCS_LOGIN_REQ(
       builder,
       _o.Uid,
+      _o.CharacterUid,
       _o.Token);
   }
 };
@@ -104,10 +110,12 @@ public struct CS_LOGIN_REQ : IFlatbufferObject
 public class CS_LOGIN_REQT
 {
   public long Uid { get; set; }
+  public long CharacterUid { get; set; }
   public int Token { get; set; }
 
   public CS_LOGIN_REQT() {
     this.Uid = 0;
+    this.CharacterUid = 0;
     this.Token = 0;
   }
 }
@@ -228,32 +236,20 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   public SC_LOGIN_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public GamePacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (GamePacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : GamePacket.ErrorCode.SUCCESS; } }
-  public byte MaxSlotCount { get { int o = __p.__offset(6); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte EmptySlotCount { get { int o = __p.__offset(8); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public GamePacket.CHARACTER_INFO? CharacterInfo(int j) { int o = __p.__offset(10); return o != 0 ? (GamePacket.CHARACTER_INFO?)(new GamePacket.CHARACTER_INFO()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
-  public int CharacterInfoLength { get { int o = __p.__offset(10); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public GamePacket.CHARACTER_INFO? CharacterInfo { get { int o = __p.__offset(6); return o != 0 ? (GamePacket.CHARACTER_INFO?)(new GamePacket.CHARACTER_INFO()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
 
   public static Offset<GamePacket.SC_LOGIN_RES> CreateSC_LOGIN_RES(FlatBufferBuilder builder,
       GamePacket.ErrorCode result = GamePacket.ErrorCode.SUCCESS,
-      byte max_slot_count = 0,
-      byte empty_slot_count = 0,
-      VectorOffset character_infoOffset = default(VectorOffset)) {
-    builder.StartTable(4);
+      Offset<GamePacket.CHARACTER_INFO> character_infoOffset = default(Offset<GamePacket.CHARACTER_INFO>)) {
+    builder.StartTable(2);
     SC_LOGIN_RES.AddCharacterInfo(builder, character_infoOffset);
-    SC_LOGIN_RES.AddEmptySlotCount(builder, empty_slot_count);
-    SC_LOGIN_RES.AddMaxSlotCount(builder, max_slot_count);
     SC_LOGIN_RES.AddResult(builder, result);
     return SC_LOGIN_RES.EndSC_LOGIN_RES(builder);
   }
 
-  public static void StartSC_LOGIN_RES(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void StartSC_LOGIN_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
   public static void AddResult(FlatBufferBuilder builder, GamePacket.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
-  public static void AddMaxSlotCount(FlatBufferBuilder builder, byte maxSlotCount) { builder.AddByte(1, maxSlotCount, 0); }
-  public static void AddEmptySlotCount(FlatBufferBuilder builder, byte emptySlotCount) { builder.AddByte(2, emptySlotCount, 0); }
-  public static void AddCharacterInfo(FlatBufferBuilder builder, VectorOffset characterInfoOffset) { builder.AddOffset(3, characterInfoOffset.Value, 0); }
-  public static VectorOffset CreateCharacterInfoVector(FlatBufferBuilder builder, Offset<GamePacket.CHARACTER_INFO>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
-  public static VectorOffset CreateCharacterInfoVectorBlock(FlatBufferBuilder builder, Offset<GamePacket.CHARACTER_INFO>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static void StartCharacterInfoVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<GamePacket.CHARACTER_INFO> characterInfoOffset) { builder.AddOffset(1, characterInfoOffset.Value, 0); }
   public static Offset<GamePacket.SC_LOGIN_RES> EndSC_LOGIN_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_LOGIN_RES>(o);
@@ -265,24 +261,14 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   }
   public void UnPackTo(SC_LOGIN_REST _o) {
     _o.Result = this.Result;
-    _o.MaxSlotCount = this.MaxSlotCount;
-    _o.EmptySlotCount = this.EmptySlotCount;
-    _o.CharacterInfo = new List<GamePacket.CHARACTER_INFOT>();
-    for (var _j = 0; _j < this.CharacterInfoLength; ++_j) {_o.CharacterInfo.Add(this.CharacterInfo(_j).HasValue ? this.CharacterInfo(_j).Value.UnPack() : null);}
+    _o.CharacterInfo = this.CharacterInfo.HasValue ? this.CharacterInfo.Value.UnPack() : null;
   }
   public static Offset<GamePacket.SC_LOGIN_RES> Pack(FlatBufferBuilder builder, SC_LOGIN_REST _o) {
     if (_o == null) return default(Offset<GamePacket.SC_LOGIN_RES>);
-    var _character_info = default(VectorOffset);
-    if (_o.CharacterInfo != null) {
-      var __character_info = new Offset<GamePacket.CHARACTER_INFO>[_o.CharacterInfo.Count];
-      for (var _j = 0; _j < __character_info.Length; ++_j) { __character_info[_j] = GamePacket.CHARACTER_INFO.Pack(builder, _o.CharacterInfo[_j]); }
-      _character_info = CreateCharacterInfoVector(builder, __character_info);
-    }
+    var _character_info = _o.CharacterInfo == null ? default(Offset<GamePacket.CHARACTER_INFO>) : GamePacket.CHARACTER_INFO.Pack(builder, _o.CharacterInfo);
     return CreateSC_LOGIN_RES(
       builder,
       _o.Result,
-      _o.MaxSlotCount,
-      _o.EmptySlotCount,
       _character_info);
   }
 };
@@ -290,14 +276,10 @@ public struct SC_LOGIN_RES : IFlatbufferObject
 public class SC_LOGIN_REST
 {
   public GamePacket.ErrorCode Result { get; set; }
-  public byte MaxSlotCount { get; set; }
-  public byte EmptySlotCount { get; set; }
-  public List<GamePacket.CHARACTER_INFOT> CharacterInfo { get; set; }
+  public GamePacket.CHARACTER_INFOT CharacterInfo { get; set; }
 
   public SC_LOGIN_REST() {
     this.Result = GamePacket.ErrorCode.SUCCESS;
-    this.MaxSlotCount = 0;
-    this.EmptySlotCount = 0;
     this.CharacterInfo = null;
   }
 }

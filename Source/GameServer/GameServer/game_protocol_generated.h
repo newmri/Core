@@ -217,6 +217,7 @@ bool VerifyPacketVector(flatbuffers::Verifier &verifier, const flatbuffers::Vect
 struct CS_LOGIN_REQT : public flatbuffers::NativeTable {
   typedef CS_LOGIN_REQ TableType;
   int64_t uid = 0;
+  int64_t character_uid = 0;
   int32_t token = 0;
 };
 
@@ -225,10 +226,14 @@ struct CS_LOGIN_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef CS_LOGIN_REQBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_UID = 4,
-    VT_TOKEN = 6
+    VT_CHARACTER_UID = 6,
+    VT_TOKEN = 8
   };
   int64_t uid() const {
     return GetField<int64_t>(VT_UID, 0);
+  }
+  int64_t character_uid() const {
+    return GetField<int64_t>(VT_CHARACTER_UID, 0);
   }
   int32_t token() const {
     return GetField<int32_t>(VT_TOKEN, 0);
@@ -236,6 +241,7 @@ struct CS_LOGIN_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int64_t>(verifier, VT_UID) &&
+           VerifyField<int64_t>(verifier, VT_CHARACTER_UID) &&
            VerifyField<int32_t>(verifier, VT_TOKEN) &&
            verifier.EndTable();
   }
@@ -250,6 +256,9 @@ struct CS_LOGIN_REQBuilder {
   flatbuffers::uoffset_t start_;
   void add_uid(int64_t uid) {
     fbb_.AddElement<int64_t>(CS_LOGIN_REQ::VT_UID, uid, 0);
+  }
+  void add_character_uid(int64_t character_uid) {
+    fbb_.AddElement<int64_t>(CS_LOGIN_REQ::VT_CHARACTER_UID, character_uid, 0);
   }
   void add_token(int32_t token) {
     fbb_.AddElement<int32_t>(CS_LOGIN_REQ::VT_TOKEN, token, 0);
@@ -268,8 +277,10 @@ struct CS_LOGIN_REQBuilder {
 inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(
     flatbuffers::FlatBufferBuilder &_fbb,
     int64_t uid = 0,
+    int64_t character_uid = 0,
     int32_t token = 0) {
   CS_LOGIN_REQBuilder builder_(_fbb);
+  builder_.add_character_uid(character_uid);
   builder_.add_uid(uid);
   builder_.add_token(token);
   return builder_.Finish();
@@ -396,9 +407,7 @@ flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(flatbuffers::FlatBuffer
 struct SC_LOGIN_REST : public flatbuffers::NativeTable {
   typedef SC_LOGIN_RES TableType;
   GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS;
-  uint8_t max_slot_count = 0;
-  uint8_t empty_slot_count = 0;
-  std::vector<std::unique_ptr<GamePacket::CHARACTER_INFOT>> character_info{};
+  std::unique_ptr<GamePacket::CHARACTER_INFOT> character_info{};
 };
 
 struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -406,30 +415,19 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SC_LOGIN_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_RESULT = 4,
-    VT_MAX_SLOT_COUNT = 6,
-    VT_EMPTY_SLOT_COUNT = 8,
-    VT_CHARACTER_INFO = 10
+    VT_CHARACTER_INFO = 6
   };
   GamePacket::ErrorCode result() const {
     return static_cast<GamePacket::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
   }
-  uint8_t max_slot_count() const {
-    return GetField<uint8_t>(VT_MAX_SLOT_COUNT, 0);
-  }
-  uint8_t empty_slot_count() const {
-    return GetField<uint8_t>(VT_EMPTY_SLOT_COUNT, 0);
-  }
-  const flatbuffers::Vector<flatbuffers::Offset<GamePacket::CHARACTER_INFO>> *character_info() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<GamePacket::CHARACTER_INFO>> *>(VT_CHARACTER_INFO);
+  const GamePacket::CHARACTER_INFO *character_info() const {
+    return GetPointer<const GamePacket::CHARACTER_INFO *>(VT_CHARACTER_INFO);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_RESULT) &&
-           VerifyField<uint8_t>(verifier, VT_MAX_SLOT_COUNT) &&
-           VerifyField<uint8_t>(verifier, VT_EMPTY_SLOT_COUNT) &&
            VerifyOffset(verifier, VT_CHARACTER_INFO) &&
-           verifier.VerifyVector(character_info()) &&
-           verifier.VerifyVectorOfTables(character_info()) &&
+           verifier.VerifyTable(character_info()) &&
            verifier.EndTable();
   }
   SC_LOGIN_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
@@ -444,13 +442,7 @@ struct SC_LOGIN_RESBuilder {
   void add_result(GamePacket::ErrorCode result) {
     fbb_.AddElement<int8_t>(SC_LOGIN_RES::VT_RESULT, static_cast<int8_t>(result), 0);
   }
-  void add_max_slot_count(uint8_t max_slot_count) {
-    fbb_.AddElement<uint8_t>(SC_LOGIN_RES::VT_MAX_SLOT_COUNT, max_slot_count, 0);
-  }
-  void add_empty_slot_count(uint8_t empty_slot_count) {
-    fbb_.AddElement<uint8_t>(SC_LOGIN_RES::VT_EMPTY_SLOT_COUNT, empty_slot_count, 0);
-  }
-  void add_character_info(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<GamePacket::CHARACTER_INFO>>> character_info) {
+  void add_character_info(flatbuffers::Offset<GamePacket::CHARACTER_INFO> character_info) {
     fbb_.AddOffset(SC_LOGIN_RES::VT_CHARACTER_INFO, character_info);
   }
   explicit SC_LOGIN_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -467,30 +459,11 @@ struct SC_LOGIN_RESBuilder {
 inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
     GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
-    uint8_t max_slot_count = 0,
-    uint8_t empty_slot_count = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<GamePacket::CHARACTER_INFO>>> character_info = 0) {
+    flatbuffers::Offset<GamePacket::CHARACTER_INFO> character_info = 0) {
   SC_LOGIN_RESBuilder builder_(_fbb);
   builder_.add_character_info(character_info);
-  builder_.add_empty_slot_count(empty_slot_count);
-  builder_.add_max_slot_count(max_slot_count);
   builder_.add_result(result);
   return builder_.Finish();
-}
-
-inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RESDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
-    uint8_t max_slot_count = 0,
-    uint8_t empty_slot_count = 0,
-    const std::vector<flatbuffers::Offset<GamePacket::CHARACTER_INFO>> *character_info = nullptr) {
-  auto character_info__ = character_info ? _fbb.CreateVector<flatbuffers::Offset<GamePacket::CHARACTER_INFO>>(*character_info) : 0;
-  return GamePacket::CreateSC_LOGIN_RES(
-      _fbb,
-      result,
-      max_slot_count,
-      empty_slot_count,
-      character_info__);
 }
 
 flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
@@ -721,6 +694,7 @@ inline void CS_LOGIN_REQ::UnPackTo(CS_LOGIN_REQT *_o, const flatbuffers::resolve
   (void)_o;
   (void)_resolver;
   { auto _e = uid(); _o->uid = _e; }
+  { auto _e = character_uid(); _o->character_uid = _e; }
   { auto _e = token(); _o->token = _e; }
 }
 
@@ -733,10 +707,12 @@ inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBuf
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_LOGIN_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _uid = _o->uid;
+  auto _character_uid = _o->character_uid;
   auto _token = _o->token;
   return GamePacket::CreateCS_LOGIN_REQ(
       _fbb,
       _uid,
+      _character_uid,
       _token);
 }
 
@@ -788,9 +764,7 @@ inline void SC_LOGIN_RES::UnPackTo(SC_LOGIN_REST *_o, const flatbuffers::resolve
   (void)_o;
   (void)_resolver;
   { auto _e = result(); _o->result = _e; }
-  { auto _e = max_slot_count(); _o->max_slot_count = _e; }
-  { auto _e = empty_slot_count(); _o->empty_slot_count = _e; }
-  { auto _e = character_info(); if (_e) { _o->character_info.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->character_info[_i] = std::unique_ptr<GamePacket::CHARACTER_INFOT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<GamePacket::CHARACTER_INFOT>(_e->UnPack(_resolver)); }
 }
 
 inline flatbuffers::Offset<SC_LOGIN_RES> SC_LOGIN_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -802,14 +776,10 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBuf
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_LOGIN_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _result = _o->result;
-  auto _max_slot_count = _o->max_slot_count;
-  auto _empty_slot_count = _o->empty_slot_count;
-  auto _character_info = _o->character_info.size() ? _fbb.CreateVector<flatbuffers::Offset<GamePacket::CHARACTER_INFO>> (_o->character_info.size(), [](size_t i, _VectorArgs *__va) { return CreateCHARACTER_INFO(*__va->__fbb, __va->__o->character_info[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _character_info = _o->character_info ? CreateCHARACTER_INFO(_fbb, _o->character_info.get(), _rehasher) : 0;
   return GamePacket::CreateSC_LOGIN_RES(
       _fbb,
       _result,
-      _max_slot_count,
-      _empty_slot_count,
       _character_info);
 }
 

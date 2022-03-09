@@ -95,6 +95,11 @@ public class UIManager
         return sceneUI;
     }
 
+    public T GetSceneUI<T>() where T : UIScene
+    {
+        return _sceneUI as T;
+    }
+
     public void HideCurrentSceneUI()
     {
         if (_sceneUI)

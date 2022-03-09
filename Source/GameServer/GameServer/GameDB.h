@@ -10,8 +10,7 @@ public:
 	virtual void Release(void) override;
 
 public:
-	void LoadCharacter(const int64_t accountUID, std::vector<CharacterLoadInfo>& infoList);
+	bool LoadCharacter(const int64_t accountUID, const int64_t characterUID, CharacterLoadInfo& info);
 	uint8_t LoadMaxCharacterSlotCount(const int64_t accountUID);
 	void UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t maxCharacterSlotCount);
-	bool CreateCharacter(const int64_t accountUID, CharacterLoadInfo& loadInfo);
 };
