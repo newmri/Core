@@ -5,7 +5,7 @@ using System.Net;
 using UnityEngine;
 using UnityCoreLibrary;
 using FlatBuffers;
-using Login;
+using LoginPacket;
 using System.Threading;
 
 public class LoginNetworkManager

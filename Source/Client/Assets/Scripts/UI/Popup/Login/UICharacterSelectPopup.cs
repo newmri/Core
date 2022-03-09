@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-using Login;
+using LoginPacket;
 
 public class UICharacterSelectPopup : UIPopup
 {

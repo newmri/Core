@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using LoginPacket;
 
-class LoginPacketManager
+class LoginPacketPacketManager
 {
 	#region Singleton
-	static LoginPacketManager _instance = new LoginPacketManager();
-	public static LoginPacketManager Instance { get { return _instance; } }
+	static LoginPacketPacketManager _instance = new LoginPacketPacketManager();
+	public static LoginPacketPacketManager Instance { get { return _instance; } }
 	#endregion
 
-	LoginPacketManager()
+	LoginPacketPacketManager()
 	{
 		Register();
 	}
@@ -23,9 +23,9 @@ class LoginPacketManager
 
 	public void Register()
 	{
-       _handler.Add(Packet.SC_LOGIN_RES, LoginPacketHandler.SC_LOGIN_RES);
-       _handler.Add(Packet.SC_PING_REQ, LoginPacketHandler.SC_PING_REQ);
-       _handler.Add(Packet.SC_CREATE_CHARACTER_RES, LoginPacketHandler.SC_CREATE_CHARACTER_RES);
+       _handler.Add(Packet.SC_LOGIN_RES, LoginPacketPacketHandler.SC_LOGIN_RES);
+       _handler.Add(Packet.SC_PING_REQ, LoginPacketPacketHandler.SC_PING_REQ);
+       _handler.Add(Packet.SC_CREATE_CHARACTER_RES, LoginPacketPacketHandler.SC_CREATE_CHARACTER_RES);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

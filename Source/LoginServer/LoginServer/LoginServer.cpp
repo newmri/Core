@@ -24,9 +24,9 @@ void LoginServer::ProcessPacket(std::shared_ptr<CoreClientSession> session, cons
 {
 	auto verifier = flatbuffers::Verifier(data, size);
 
-	if (Login::VerifyRootBuffer(verifier))
+	if (LoginPacket::VerifyRootBuffer(verifier))
 	{
-		auto root = Login::GetRoot(data);
+		auto root = LoginPacket::GetRoot(data);
 
 		this->handler->Handle(session, root->packet_type(), root->packet());
 	}

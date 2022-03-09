@@ -3,8 +3,8 @@
 class LoginPacketFunc
 {
 private:
-	static void Write(std::shared_ptr<CoreClientSession> session, Login::Packet packetType, flatbuffers::Offset<void> packet);
-	flatbuffers::Offset<Login::CHARACTER_INFO> MakeCharacterInfo(const CharacterLoadInfo& loadInfo);
+	static void Write(std::shared_ptr<CoreClientSession> session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet);
+	flatbuffers::Offset<LoginPacket::CHARACTER_INFO> MakeCharacterInfo(const CharacterLoadInfo& loadInfo);
 
 public:
 	void CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data);

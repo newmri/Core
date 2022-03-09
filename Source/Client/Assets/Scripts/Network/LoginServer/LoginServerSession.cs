@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 using FlatBuffers;
-using Login;
+using LoginPacket;
 
 public class LoginServerSession : ServerSession
 {

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using Login;
+using LoginPacket;
 using Spine.Unity;
 
 public class UICharacterActiveSlot : UIPopup

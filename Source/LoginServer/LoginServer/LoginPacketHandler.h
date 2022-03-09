@@ -6,12 +6,12 @@ public:
 	LoginPacketHandler();
 
 public:
-	void Handle(std::shared_ptr<CoreClientSession> session, const Login::Packet packetID, const void* data);
+	void Handle(std::shared_ptr<CoreClientSession> session, const LoginPacket::Packet packetID, const void* data);
 
 private:
 	void Register(void);
 
 private:
-	std::map<Login::Packet, std::function<void(LoginPacketFunc&, std::shared_ptr<CoreClientSession>, const void*)>> func;
+	std::map<LoginPacket::Packet, std::function<void(LoginPacketFunc&, std::shared_ptr<CoreClientSession>, const void*)>> func;
 	LoginPacketFunc packetFunc;
 };

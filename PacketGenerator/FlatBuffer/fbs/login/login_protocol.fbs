@@ -1,6 +1,6 @@
 include "../common/define_protocol.fbs";
 
-namespace Login;
+namespace LoginPacket;
 
 enum ErrorCode : byte
 {

@@ -2,16 +2,16 @@
 
 thread_local flatbuffers::FlatBufferBuilder LoginPacketFunc::builder;
 
-void LoginPacketFunc::Write(std::shared_ptr<CoreClientSession> session, Login::Packet packetType, flatbuffers::Offset<void> packet)
+void LoginPacketFunc::Write(std::shared_ptr<CoreClientSession> session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
-	auto data = Login::CreateRoot(builder, packetType, packet);
+	auto data = LoginPacket::CreateRoot(builder, packetType, packet);
 	builder.Finish(data);
 	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }
 
-flatbuffers::Offset<Login::CHARACTER_INFO> LoginPacketFunc::MakeCharacterInfo(const CharacterLoadInfo& loadInfo)
+flatbuffers::Offset<LoginPacket::CHARACTER_INFO> LoginPacketFunc::MakeCharacterInfo(const CharacterLoadInfo& loadInfo)
 {
-	auto info = Login::CreateCHARACTER_INFO(this->builder,
+	auto info = LoginPacket::CreateCHARACTER_INFO(this->builder,
 				loadInfo.uid,
 				this->builder.CreateString(STRING_MANAGER.Narrow(loadInfo.name)),
 				loadInfo.info.level,
@@ -23,9 +23,9 @@ flatbuffers::Offset<Login::CHARACTER_INFO> LoginPacketFunc::MakeCharacterInfo(co
 
 void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
-	auto raw = static_cast<const Login::CS_LOGIN_REQ*>(data);
+	auto raw = static_cast<const LoginPacket::CS_LOGIN_REQ*>(data);
 
-	Login::ErrorCode result = Login::ErrorCode_UNKNOWN;
+	LoginPacket::ErrorCode result = LoginPacket::ErrorCode_UNKNOWN;
 
 	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(raw->uid());
 	CoreToken token(raw->token());
@@ -36,13 +36,13 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		if (LOGIN_SERVER.GetAccountDB()->Login(raw->uid(), token))
 		{
 			account = CORE_ACCOUNT_MANAGER.Add(raw->uid(), token);
-			result = Login::ErrorCode_SUCCESS;
+			result = LoginPacket::ErrorCode_SUCCESS;
 		}
 	}
 	else
 	{
 		if (account->IsLogined())
-			result = Login::ErrorCode_ALREADY_LOGINED;
+			result = LoginPacket::ErrorCode_ALREADY_LOGINED;
 
 		// 토큰 사용 기간이 지났음
 		else if (account->IsTokenExpired())
@@ -51,22 +51,22 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 			{
 				account->SetLogin();
 				account->UpdateToken(token);
-				result = Login::ErrorCode_SUCCESS;
+				result = LoginPacket::ErrorCode_SUCCESS;
 			}
 		}
 		else
 		{
 			account->SetLogin();
-			result = Login::ErrorCode_SUCCESS;
+			result = LoginPacket::ErrorCode_SUCCESS;
 		}
 	}
 
 	this->builder.Clear();
 
-	flatbuffers::Offset<Login::SC_LOGIN_RES> message;
+	flatbuffers::Offset<LoginPacket::SC_LOGIN_RES> message;
 
 	// 성공
-	if (IS_SAME(Login::ErrorCode_SUCCESS, result))
+	if (IS_SAME(LoginPacket::ErrorCode_SUCCESS, result))
 	{
 		session->SetAccountUID(raw->uid());
 
@@ -80,7 +80,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 
 		if (size)
 		{
-			std::vector<flatbuffers::Offset<Login::CHARACTER_INFO>> sendList;
+			std::vector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>> sendList;
 	
 			for (int i = 0; i < size; ++i)
 			{
@@ -89,13 +89,13 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 				sendList.push_back(MakeCharacterInfo(infoList[i]));
 			}
 
-			message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot,
+			message = LoginPacket::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot,
 											    emptyCharacterSlotCount, this->builder.CreateVector(sendList));
 		}
 
 		else
 		{
-			message = Login::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, emptyCharacterSlotCount);
+			message = LoginPacket::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, emptyCharacterSlotCount);
 		}
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
@@ -105,16 +105,16 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	}
 	// 실패
 	else
-		message = Login::CreateSC_LOGIN_RES(this->builder, result);
+		message = LoginPacket::CreateSC_LOGIN_RES(this->builder, result);
 	
-	Write(session, Login::Packet_SC_LOGIN_RES, message.Union());
+	Write(session, LoginPacket::Packet_SC_LOGIN_RES, message.Union());
 }
 
 void LoginPacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 {
 	builder.Clear();
-	auto message = Login::CreateSC_PING_REQ(builder);
-	Write(session, Login::Packet_SC_PING_REQ, message.Union());
+	auto message = LoginPacket::CreateSC_PING_REQ(builder);
+	Write(session, LoginPacket::Packet_SC_PING_REQ, message.Union());
 
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
@@ -134,7 +134,7 @@ void LoginPacketFunc::CS_LOGOUT_NOTI(std::shared_ptr<CoreClientSession> session,
 
 void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
-	auto raw = static_cast<const Login::CS_CREATE_CHARACTER_REQ*>(data);
+	auto raw = static_cast<const LoginPacket::CS_CREATE_CHARACTER_REQ*>(data);
 
 	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
 	if (IS_NULL(account))
@@ -158,7 +158,7 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	this->builder.Clear();
 
-	flatbuffers::Offset<Login::SC_CREATE_CHARACTER_RES> message;
+	flatbuffers::Offset<LoginPacket::SC_CREATE_CHARACTER_RES> message;
 
 	if (isSuccess)
 	{
@@ -166,12 +166,12 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 		auto info = MakeCharacterInfo(loadInfo);
 
-		message = Login::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess, info);
+		message = LoginPacket::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess, info);
 	}
 	else
 	{
-		message = Login::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess);
+		message = LoginPacket::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess);
 	}
 
-	Write(session, Login::Packet_SC_CREATE_CHARACTER_RES, message.Union());
+	Write(session, LoginPacket::Packet_SC_CREATE_CHARACTER_RES, message.Union());
 }

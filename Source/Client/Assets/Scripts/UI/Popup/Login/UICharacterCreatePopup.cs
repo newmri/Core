@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using FlatBuffers;
-using Login;
+using LoginPacket;
 using Define;
 
 public class UICharacterCreatePopup : UIPopup
