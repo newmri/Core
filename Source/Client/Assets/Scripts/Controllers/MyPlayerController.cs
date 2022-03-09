@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Define;
+using Info;
 using UnityCoreLibrary;
 
 public class MyPlayerController : PlayerController
@@ -13,10 +14,11 @@ public class MyPlayerController : PlayerController
 	protected override void Init()
 	{
 		base.Init();
-		PositionInfo pos = new PositionInfo();
+		PositionInfoT pos = new PositionInfoT();
 		pos.MoveDir = Dir.RIGHT;
 		pos.State = CreatureState.IDLE;
-		pos.Pos = new Vector2Int((int)transform.position.x, (int)-8);
+		pos.Pos.X = (int)transform.position.x;
+		pos.Pos.Y = (int)-8;
 		PosInfo = pos;
 
 		Vector3 newPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.0f, 0.5f);
@@ -166,9 +168,9 @@ public class MyPlayerController : PlayerController
 			//movePacket.PosInfo = PosInfo;
 			//Managers.Network.Send(movePacket);
 			_updated = false;
-			PositionInfo pos = new PositionInfo();
-			pos.Pos.x = CellPos.x;
-			pos.Pos.y = CellPos.y;
+			PositionInfoT pos = new PositionInfoT();
+			pos.Pos.X = CellPos.x;
+			pos.Pos.Y = CellPos.y;
 			pos.State = CreatureState.MOVE;
 			pos.MoveDir = Dir;
 			PosInfo = pos;
