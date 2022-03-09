@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Define;
 using TMPro;
 
 public class UIWorldListPopup : UIPopup
@@ -50,10 +51,12 @@ public class UIWorldListPopup : UIPopup
             return;
 
         int WorldID = GetSelectedWorldID();
+        Managers.LoginNetwork.WorldID = WorldID;
 
         LoginServerInfoPacketReq packet = new LoginServerInfoPacketReq()
         {
-            WorldID = WorldID
+            WorldID = WorldID,
+            ServerType = ServerType.Login
         };
 
         Managers.Web.SendPostRequest<LoginServerInfoPacketRes>("serverselect", packet, (res) =>

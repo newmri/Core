@@ -33,9 +33,18 @@ public class LoginAccountPacketRes
 	public List<WorldListInfo> WorldList { get; set; }
 }
 
+public enum ServerType : byte
+{
+	WorldList = 0,
+	Login = 1,
+	Game = 2,
+	ServerTypeEnd = 3,
+};
+
 public class LoginServerInfoPacketReq
 {
 	public int WorldID { get; set; }
+	public ServerType ServerType { get; set; }
 }
 
 public class LoginServerInfoPacketRes

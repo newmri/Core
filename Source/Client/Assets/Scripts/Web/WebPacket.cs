@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Define;
 
 public class SignupAccountPacketReq
 {
@@ -37,6 +38,7 @@ public class LoginAccountPacketRes
 public class LoginServerInfoPacketReq
 {
 	public int WorldID;
+	public ServerType ServerType;
 }
 
 public class LoginServerInfoPacketRes : ServerInfo

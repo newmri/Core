@@ -52,6 +52,9 @@ public class Managers : MonoBehaviour
 
             DontDestroyOnLoad(managersObject);
             s_instance = managersObject.GetComponent<Managers>();
+
+            LoginNetwork.Init();
+            GameNetwork.Init();
         }		
 	}
 

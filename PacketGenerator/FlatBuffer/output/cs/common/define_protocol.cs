@@ -9,6 +9,14 @@ using global::System;
 using global::System.Collections.Generic;
 using global::FlatBuffers;
 
+public enum ServerType : byte
+{
+  WorldList = 0,
+  Login = 1,
+  Game = 2,
+  ServerTypeEnd = 3,
+};
+
 public enum Job : byte
 {
   WARRIOR = 0,

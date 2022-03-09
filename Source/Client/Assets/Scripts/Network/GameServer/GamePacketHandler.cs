@@ -29,6 +29,8 @@ class GamePacketHandler
             session.Disconnect();
             return;
         }
+
+        CoreManagers.Scene.LoadScene(CoreDefine.Scene.Game);
     }
 
     public static void SC_PING_REQ(PacketSession session, Root packet)

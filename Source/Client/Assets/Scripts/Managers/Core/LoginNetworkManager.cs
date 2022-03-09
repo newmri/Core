@@ -8,14 +8,30 @@ using FlatBuffers;
 using LoginPacket;
 using System.Threading;
 
-public class LoginNetworkManager
+public class LoginNetworkManager : BaseNetworkManager
 {
-    public long UID { get; set; }
-    public int Token { get; set; }
     public string ID { get; set; }
     public string Password { get; set; }
 
-    LoginServerSession _session = new LoginServerSession();
+    public override void Init()
+    {
+        base.Init();
+        _session = new LoginServerSession();
+    }
+
+    public override void Conntect(ServerInfo info)
+    {
+        base.Conntect(info);
+    }
+
+    public override void Disconnect()
+    {
+        Send(Packet.CS_LOGOUT_NOTI);
+        Thread.Sleep(100);
+        _session.Disconnect();
+        _session = new LoginServerSession();
+        Thread.Sleep(100);
+    }
 
     public void Send(FlatBufferBuilder packet, Packet packetType, int packetOffset)
     {
@@ -34,30 +50,11 @@ public class LoginNetworkManager
         Send(builder);
     }
 
-    public void Send(FlatBufferBuilder packet)
+    public override void SendLogin()
     {
-        _session.Send(packet);
-    }
-
-    public void Conntect(ServerInfo info)
-    {
-        if (_session.IsConnected)
-        {
-            Managers.LoginNetwork.Send(Packet.CS_LOGOUT_NOTI);
-            Thread.Sleep(100);
-            _session.Disconnect();
-            _session = new LoginServerSession();
-            Thread.Sleep(100);
-        }
-
-        IPAddress ipAddr = IPAddress.Parse(info.ServerIP);
-        IPEndPoint endPoint = new IPEndPoint(ipAddr, info.ServerPort);
-
-        Connector connector = new Connector();
-
-        connector.Connect(endPoint,
-            () => { return _session; },
-            1);
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, Token);
+        Send(builder, Packet.CS_LOGIN_REQ, message.Value);
     }
 
     public void Update()
@@ -94,12 +91,5 @@ public class LoginNetworkManager
                 messagePopup.SetText("로그인 실패", "아이디 또는 비밀번호가 틀렸습니다\n 다시 입력해주세요");
             }
         });
-    }
-
-    public void SendLogin()
-    {
-        FlatBufferBuilder builder = new FlatBufferBuilder(1);
-        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, Token);
-        Send(builder, Packet.CS_LOGIN_REQ, message.Value);
     }
 }

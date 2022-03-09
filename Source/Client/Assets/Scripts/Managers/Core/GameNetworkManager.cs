@@ -8,12 +8,27 @@ using FlatBuffers;
 using GamePacket;
 using System.Threading;
 
-public class GameNetworkManager
+public class GameNetworkManager : BaseNetworkManager
 {
-    public long UID { get; set; }
-    public int Token { get; set; }
+    public override void Init()
+    {
+        base.Init();
+        _session = new GameServerSession();
+    }
 
-    GameServerSession _session = new GameServerSession();
+    public override void Conntect(ServerInfo info)
+    {
+        base.Conntect(info);
+    }
+
+    public override void Disconnect()
+    {
+        Send(Packet.CS_LOGOUT_NOTI);
+        Thread.Sleep(100);
+        _session.Disconnect();
+        Init();
+        Thread.Sleep(100);
+    }
 
     public void Send(FlatBufferBuilder packet, Packet packetType, int packetOffset)
     {
@@ -32,30 +47,11 @@ public class GameNetworkManager
         Send(builder);
     }
 
-    public void Send(FlatBufferBuilder packet)
+    public override void SendLogin()
     {
-        _session.Send(packet);
-    }
-
-    public void Conntect(ServerInfo info)
-    {
-        if (_session.IsConnected)
-        {
-            Managers.GameNetwork.Send(Packet.CS_LOGOUT_NOTI);
-            Thread.Sleep(100);
-            _session.Disconnect();
-            _session = new GameServerSession();
-            Thread.Sleep(100);
-        }
-
-        IPAddress ipAddr = IPAddress.Parse(info.ServerIP);
-        IPEndPoint endPoint = new IPEndPoint(ipAddr, info.ServerPort);
-
-        Connector connector = new Connector();
-
-        connector.Connect(endPoint,
-            () => { return _session; },
-            1);
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, Token);
+        Send(builder, Packet.CS_LOGIN_REQ, message.Value);
     }
 
     public void Update()
@@ -67,12 +63,5 @@ public class GameNetworkManager
             if (handler != null)
                 handler.Invoke(_session, packet.Message);
         }
-    }
-
-    public void SendLogin()
-    {
-        FlatBufferBuilder builder = new FlatBufferBuilder(1);
-        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, Token);
-        Send(builder, Packet.CS_LOGIN_REQ, message.Value);
     }
 }

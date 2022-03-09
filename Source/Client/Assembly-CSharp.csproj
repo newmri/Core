@@ -163,6 +163,7 @@
     <Compile Include="Assets\Scripts\Network\GameServer\GamePacketHandler.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\GamePacketQueue.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\GameNetworkManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Core\BaseNetworkManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using LoginPacket;
+using System;
+using Define;
 
 public class UICharacterSelectPopup : UIPopup
 {
@@ -18,7 +20,8 @@ public class UICharacterSelectPopup : UIPopup
 
     enum Buttons
     {
-        BackButton
+        BackButton,
+        StartButton
     }
 
     public override void Init()
@@ -28,6 +31,7 @@ public class UICharacterSelectPopup : UIPopup
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
+        GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnClickStartButton);
     }
 
     public void Clear()
@@ -82,11 +86,27 @@ public class UICharacterSelectPopup : UIPopup
             slot.OnDeselected();
     }
 
-    [System.Obsolete]
     public void OnClickBackButton(PointerEventData evt)
     {
         Managers.UI.HideCurrentSceneUI();
         Managers.UI.CloseAllPopupUI();
         Managers.LoginNetwork.WorldListServerLogin();
+    }
+
+    [Obsolete]
+    public void OnClickStartButton(PointerEventData evt)
+    {
+        LoginServerInfoPacketReq packet = new LoginServerInfoPacketReq()
+        {
+            WorldID = Managers.LoginNetwork.WorldID,
+            ServerType = ServerType.Game
+        };
+
+        Managers.Web.SendPostRequest<LoginServerInfoPacketRes>("serverselect", packet, (res) =>
+        {
+            Managers.LoginNetwork.Disconnect();
+            Managers.GameNetwork.Conntect(res);
+        });
+
     }
 }

@@ -1,5 +1,13 @@
 namespace Define;
 
+enum ServerType : ubyte
+{
+  WorldList,
+  Login,
+  Game,
+  ServerTypeEnd
+}
+
 enum Job : ubyte
 {
   WARRIOR = 0,

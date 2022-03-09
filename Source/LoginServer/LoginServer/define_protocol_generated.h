@@ -8,6 +8,42 @@
 
 namespace Define {
 
+enum ServerType : uint8_t {
+  ServerType_WorldList = 0,
+  ServerType_Login = 1,
+  ServerType_Game = 2,
+  ServerType_ServerTypeEnd = 3,
+  ServerType_MIN = ServerType_WorldList,
+  ServerType_MAX = ServerType_ServerTypeEnd
+};
+
+inline const ServerType (&EnumValuesServerType())[4] {
+  static const ServerType values[] = {
+    ServerType_WorldList,
+    ServerType_Login,
+    ServerType_Game,
+    ServerType_ServerTypeEnd
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesServerType() {
+  static const char * const names[5] = {
+    "WorldList",
+    "Login",
+    "Game",
+    "ServerTypeEnd",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameServerType(ServerType e) {
+  if (flatbuffers::IsOutRange(e, ServerType_WorldList, ServerType_ServerTypeEnd)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesServerType()[index];
+}
+
 enum Job : uint8_t {
   Job_WARRIOR = 0,
   Job_ARCHER = 1,

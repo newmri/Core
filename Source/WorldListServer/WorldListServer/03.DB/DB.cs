@@ -161,6 +161,9 @@ namespace WorldListServer
         {
             LoginServerInfoPacketRes serverInfo = new LoginServerInfoPacketRes();
 
+            if (req.ServerType <= ServerType.WorldList || req.ServerType >= ServerType.ServerTypeEnd)
+                return serverInfo;
+
             using (SqlConnection connection = new SqlConnection(info))
             {
                 connection.Open();
@@ -170,7 +173,7 @@ namespace WorldListServer
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@IN_WorldID", req.WorldID);
-                    cmd.Parameters.AddWithValue("@IN_ServerName", "Login");
+                    cmd.Parameters.AddWithValue("@IN_ServerName", req.ServerType.ToString());
 
                     using (SqlDataReader rdr = cmd.ExecuteReader())
                     {

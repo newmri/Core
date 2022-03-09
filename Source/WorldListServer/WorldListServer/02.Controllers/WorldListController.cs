@@ -43,7 +43,7 @@ namespace WorldListServer.Controllers
 
         [HttpPost]
         [Route("serverselect")]
-        public LoginServerInfoPacketRes SignupAccount([FromBody] LoginServerInfoPacketReq req)
+        public LoginServerInfoPacketRes ServerSelect([FromBody] LoginServerInfoPacketReq req)
         {
             LoginServerInfoPacketRes res;
 
