@@ -9,7 +9,7 @@ namespace PacketGenerator
 	class PacketFormatForCS
 	{
         public static string FileName =
-@"{0}PacketManager.cs";
+@"{0}Manager.cs";
         
         public static string managerFormat =
 @"using UnityCoreLibrary;
@@ -19,14 +19,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using {0};
 
-class {0}PacketManager
+class {0}Manager
 {{
 	#region Singleton
-	static {0}PacketManager _instance = new {0}PacketManager();
-	public static {0}PacketManager Instance {{ get {{ return _instance; }} }}
+	static {0}Manager _instance = new {0}Manager();
+	public static {0}Manager Instance {{ get {{ return _instance; }} }}
 	#endregion
 
-	{0}PacketManager()
+	{0}Manager()
 	{{
 		Register();
 	}}
@@ -71,6 +71,6 @@ class {0}PacketManager
 }}";
 
 		public static string managerRegisterFormat =
-@"_handler.Add(Packet.{0}, {1}PacketHandler.{0});";
+@"_handler.Add(Packet.{0}, {1}Handler.{0});";
 	}
 }

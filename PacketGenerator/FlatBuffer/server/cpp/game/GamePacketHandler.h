@@ -6,12 +6,12 @@ public:
 	GamePacketHandler();
 
 public:
-	void Handle(std::shared_ptr<CoreClientSession> session, const Game::Packet packetID, const void* data);
+	void Handle(std::shared_ptr<CoreClientSession> session, const GamePacket::Packet packetID, const void* data);
 
 private:
 	void Register(void);
 
 private:
-	std::map<Game::Packet, std::function<void(GamePacketFunc&, std::shared_ptr<CoreClientSession>, const void*)>> func;
+	std::map<GamePacket::Packet, std::function<void(GamePacketFunc&, std::shared_ptr<CoreClientSession>, const void*)>> func;
 	GamePacketFunc packetFunc;
 };

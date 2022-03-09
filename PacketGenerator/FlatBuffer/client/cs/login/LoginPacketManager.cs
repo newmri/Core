@@ -3,7 +3,7 @@ using FlatBuffers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Login;
+using LoginPacket;
 
 class LoginPacketManager
 {

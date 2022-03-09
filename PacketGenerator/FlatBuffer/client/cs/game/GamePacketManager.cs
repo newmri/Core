@@ -3,7 +3,7 @@ using FlatBuffers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Game;
+using GamePacket;
 
 class GamePacketManager
 {
