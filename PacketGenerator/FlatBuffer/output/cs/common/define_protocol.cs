@@ -79,5 +79,12 @@ public enum CreatureState : byte
   DEAD = 5,
 };
 
+public enum Money : byte
+{
+  GEM = 0,
+  GOLD = 1,
+  MONEY_END = 2,
+};
+
 
 }

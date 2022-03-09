@@ -408,6 +408,7 @@ struct SC_LOGIN_REST : public flatbuffers::NativeTable {
   typedef SC_LOGIN_RES TableType;
   GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS;
   std::unique_ptr<GamePacket::CHARACTER_INFOT> character_info{};
+  std::vector<int32_t> money{};
 };
 
 struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -415,7 +416,8 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SC_LOGIN_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_RESULT = 4,
-    VT_CHARACTER_INFO = 6
+    VT_CHARACTER_INFO = 6,
+    VT_MONEY = 8
   };
   GamePacket::ErrorCode result() const {
     return static_cast<GamePacket::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
@@ -423,11 +425,16 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const GamePacket::CHARACTER_INFO *character_info() const {
     return GetPointer<const GamePacket::CHARACTER_INFO *>(VT_CHARACTER_INFO);
   }
+  const flatbuffers::Vector<int32_t> *money() const {
+    return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_MONEY);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_RESULT) &&
            VerifyOffset(verifier, VT_CHARACTER_INFO) &&
            verifier.VerifyTable(character_info()) &&
+           VerifyOffset(verifier, VT_MONEY) &&
+           verifier.VerifyVector(money()) &&
            verifier.EndTable();
   }
   SC_LOGIN_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
@@ -445,6 +452,9 @@ struct SC_LOGIN_RESBuilder {
   void add_character_info(flatbuffers::Offset<GamePacket::CHARACTER_INFO> character_info) {
     fbb_.AddOffset(SC_LOGIN_RES::VT_CHARACTER_INFO, character_info);
   }
+  void add_money(flatbuffers::Offset<flatbuffers::Vector<int32_t>> money) {
+    fbb_.AddOffset(SC_LOGIN_RES::VT_MONEY, money);
+  }
   explicit SC_LOGIN_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -459,11 +469,26 @@ struct SC_LOGIN_RESBuilder {
 inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
     GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
-    flatbuffers::Offset<GamePacket::CHARACTER_INFO> character_info = 0) {
+    flatbuffers::Offset<GamePacket::CHARACTER_INFO> character_info = 0,
+    flatbuffers::Offset<flatbuffers::Vector<int32_t>> money = 0) {
   SC_LOGIN_RESBuilder builder_(_fbb);
+  builder_.add_money(money);
   builder_.add_character_info(character_info);
   builder_.add_result(result);
   return builder_.Finish();
+}
+
+inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RESDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
+    flatbuffers::Offset<GamePacket::CHARACTER_INFO> character_info = 0,
+    const std::vector<int32_t> *money = nullptr) {
+  auto money__ = money ? _fbb.CreateVector<int32_t>(*money) : 0;
+  return GamePacket::CreateSC_LOGIN_RES(
+      _fbb,
+      result,
+      character_info,
+      money__);
 }
 
 flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
@@ -765,6 +790,7 @@ inline void SC_LOGIN_RES::UnPackTo(SC_LOGIN_REST *_o, const flatbuffers::resolve
   (void)_resolver;
   { auto _e = result(); _o->result = _e; }
   { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<GamePacket::CHARACTER_INFOT>(_e->UnPack(_resolver)); }
+  { auto _e = money(); if (_e) { _o->money.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->money[_i] = _e->Get(_i); } } }
 }
 
 inline flatbuffers::Offset<SC_LOGIN_RES> SC_LOGIN_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -777,10 +803,12 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBuf
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_LOGIN_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _result = _o->result;
   auto _character_info = _o->character_info ? CreateCHARACTER_INFO(_fbb, _o->character_info.get(), _rehasher) : 0;
+  auto _money = _o->money.size() ? _fbb.CreateVector(_o->money) : 0;
   return GamePacket::CreateSC_LOGIN_RES(
       _fbb,
       _result,
-      _character_info);
+      _character_info,
+      _money);
 }
 
 inline SC_PING_REQT *SC_PING_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {

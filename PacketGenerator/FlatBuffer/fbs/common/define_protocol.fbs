@@ -69,3 +69,10 @@ enum CreatureState : ubyte
 	SKILL,
 	DEAD
 }
+
+enum Money : ubyte
+{
+	GEM,
+	GOLD,
+	MONEY_END
+}

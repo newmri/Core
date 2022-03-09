@@ -79,9 +79,14 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 
 		account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), loadInfo.uid, loadInfo.info));
 
+		int32_t money[Define::Money_MONEY_END];
+		GAME_SERVER.GetAccountDB()->LoadMoney(raw->uid(), money);
+		for (int32_t i = 0; i < Define::Money_MONEY_END; ++i)
+			account->PushMoney(money[i]);
+
 		auto info = MakeCharacterInfo(loadInfo);
 
-		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, info);
+		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, info, this->builder.CreateVector(money, Define::Money_MONEY_END));
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(

@@ -80,6 +80,25 @@ void CoreAccount::AddCharacter(std::shared_ptr<CoreCharacter> character)
 	this->characterList[character->GetUID()] = character;
 }
 
+void CoreAccount::PushMoney(const int32_t money)
+{
+	this->moneyList.push_back(money);
+}
+
+void CoreAccount::AddMoney(const uint8_t index, const int32_t money)
+{
+	this->moneyList[index] += money;
+}
+
+bool CoreAccount::UseMoney(const uint8_t index, const int32_t money)
+{
+	if (this->moneyList[index] < money)
+		return false;
+
+	AddMoney(index, -money);
+	return true;
+}
+
 void CoreAccount::Release(void)
 {
 	WRITE_LOCK(this->characterMutex);

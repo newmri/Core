@@ -8,6 +8,42 @@
 
 namespace Define {
 
+enum ServerType : uint8_t {
+  ServerType_WorldList = 0,
+  ServerType_Login = 1,
+  ServerType_Game = 2,
+  ServerType_ServerTypeEnd = 3,
+  ServerType_MIN = ServerType_WorldList,
+  ServerType_MAX = ServerType_ServerTypeEnd
+};
+
+inline const ServerType (&EnumValuesServerType())[4] {
+  static const ServerType values[] = {
+    ServerType_WorldList,
+    ServerType_Login,
+    ServerType_Game,
+    ServerType_ServerTypeEnd
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesServerType() {
+  static const char * const names[5] = {
+    "WorldList",
+    "Login",
+    "Game",
+    "ServerTypeEnd",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameServerType(ServerType e) {
+  if (flatbuffers::IsOutRange(e, ServerType_WorldList, ServerType_ServerTypeEnd)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesServerType()[index];
+}
+
 enum Job : uint8_t {
   Job_WARRIOR = 0,
   Job_ARCHER = 1,
@@ -290,6 +326,39 @@ inline const char *EnumNameCreatureState(CreatureState e) {
   if (flatbuffers::IsOutRange(e, CreatureState_IDLE, CreatureState_DEAD)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesCreatureState()[index];
+}
+
+enum Money : uint8_t {
+  Money_GEM = 0,
+  Money_GOLD = 1,
+  Money_MONEY_END = 2,
+  Money_MIN = Money_GEM,
+  Money_MAX = Money_MONEY_END
+};
+
+inline const Money (&EnumValuesMoney())[3] {
+  static const Money values[] = {
+    Money_GEM,
+    Money_GOLD,
+    Money_MONEY_END
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesMoney() {
+  static const char * const names[4] = {
+    "GEM",
+    "GOLD",
+    "MONEY_END",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameMoney(Money e) {
+  if (flatbuffers::IsOutRange(e, Money_GEM, Money_MONEY_END)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesMoney()[index];
 }
 
 }  // namespace Define

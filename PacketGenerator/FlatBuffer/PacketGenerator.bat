@@ -44,6 +44,7 @@ rem game
 set serverpath="../../Source/GameServer/GameServer/*"
 set clientpath="../../Source/Client/Assets/Scripts/Network/GameServer/*"
 
+call copy.bat %serverpath% cpp\common
 call copy.bat %serverpath% cpp\game
 call copy.bat %clientpath% cs\game
 

@@ -56,3 +56,20 @@ void AccountDB::Logout(const int64_t uid)
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }
+
+void AccountDB::LoadMoney(const int64_t uid, int32_t money[Define::Money_MONEY_END])
+{
+	Prepare(L"LoadMoney");
+	BindArgument(uid);
+	Execute();
+
+	for (int32_t i = 0; i < Define::Money_MONEY_END; ++i)
+		BindCol(&money[i], sizeof(money[i]));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}

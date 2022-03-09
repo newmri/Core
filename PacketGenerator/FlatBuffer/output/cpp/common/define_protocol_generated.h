@@ -328,6 +328,39 @@ inline const char *EnumNameCreatureState(CreatureState e) {
   return EnumNamesCreatureState()[index];
 }
 
+enum Money : uint8_t {
+  Money_GEM = 0,
+  Money_GOLD = 1,
+  Money_MONEY_END = 2,
+  Money_MIN = Money_GEM,
+  Money_MAX = Money_MONEY_END
+};
+
+inline const Money (&EnumValuesMoney())[3] {
+  static const Money values[] = {
+    Money_GEM,
+    Money_GOLD,
+    Money_MONEY_END
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesMoney() {
+  static const char * const names[4] = {
+    "GEM",
+    "GOLD",
+    "MONEY_END",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameMoney(Money e) {
+  if (flatbuffers::IsOutRange(e, Money_GEM, Money_MONEY_END)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesMoney()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_

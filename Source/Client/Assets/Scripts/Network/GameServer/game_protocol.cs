@@ -237,19 +237,33 @@ public struct SC_LOGIN_RES : IFlatbufferObject
 
   public GamePacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (GamePacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : GamePacket.ErrorCode.SUCCESS; } }
   public GamePacket.CHARACTER_INFO? CharacterInfo { get { int o = __p.__offset(6); return o != 0 ? (GamePacket.CHARACTER_INFO?)(new GamePacket.CHARACTER_INFO()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public int Money(int j) { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int MoneyLength { get { int o = __p.__offset(8); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetMoneyBytes() { return __p.__vector_as_span<int>(8, 4); }
+#else
+  public ArraySegment<byte>? GetMoneyBytes() { return __p.__vector_as_arraysegment(8); }
+#endif
+  public int[] GetMoneyArray() { return __p.__vector_as_array<int>(8); }
 
   public static Offset<GamePacket.SC_LOGIN_RES> CreateSC_LOGIN_RES(FlatBufferBuilder builder,
       GamePacket.ErrorCode result = GamePacket.ErrorCode.SUCCESS,
-      Offset<GamePacket.CHARACTER_INFO> character_infoOffset = default(Offset<GamePacket.CHARACTER_INFO>)) {
-    builder.StartTable(2);
+      Offset<GamePacket.CHARACTER_INFO> character_infoOffset = default(Offset<GamePacket.CHARACTER_INFO>),
+      VectorOffset moneyOffset = default(VectorOffset)) {
+    builder.StartTable(3);
+    SC_LOGIN_RES.AddMoney(builder, moneyOffset);
     SC_LOGIN_RES.AddCharacterInfo(builder, character_infoOffset);
     SC_LOGIN_RES.AddResult(builder, result);
     return SC_LOGIN_RES.EndSC_LOGIN_RES(builder);
   }
 
-  public static void StartSC_LOGIN_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void StartSC_LOGIN_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddResult(FlatBufferBuilder builder, GamePacket.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
   public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<GamePacket.CHARACTER_INFO> characterInfoOffset) { builder.AddOffset(1, characterInfoOffset.Value, 0); }
+  public static void AddMoney(FlatBufferBuilder builder, VectorOffset moneyOffset) { builder.AddOffset(2, moneyOffset.Value, 0); }
+  public static VectorOffset CreateMoneyVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateMoneyVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartMoneyVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<GamePacket.SC_LOGIN_RES> EndSC_LOGIN_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_LOGIN_RES>(o);
@@ -262,14 +276,22 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   public void UnPackTo(SC_LOGIN_REST _o) {
     _o.Result = this.Result;
     _o.CharacterInfo = this.CharacterInfo.HasValue ? this.CharacterInfo.Value.UnPack() : null;
+    _o.Money = new List<int>();
+    for (var _j = 0; _j < this.MoneyLength; ++_j) {_o.Money.Add(this.Money(_j));}
   }
   public static Offset<GamePacket.SC_LOGIN_RES> Pack(FlatBufferBuilder builder, SC_LOGIN_REST _o) {
     if (_o == null) return default(Offset<GamePacket.SC_LOGIN_RES>);
     var _character_info = _o.CharacterInfo == null ? default(Offset<GamePacket.CHARACTER_INFO>) : GamePacket.CHARACTER_INFO.Pack(builder, _o.CharacterInfo);
+    var _money = default(VectorOffset);
+    if (_o.Money != null) {
+      var __money = _o.Money.ToArray();
+      _money = CreateMoneyVector(builder, __money);
+    }
     return CreateSC_LOGIN_RES(
       builder,
       _o.Result,
-      _character_info);
+      _character_info,
+      _money);
   }
 };
 
@@ -277,10 +299,12 @@ public class SC_LOGIN_REST
 {
   public GamePacket.ErrorCode Result { get; set; }
   public GamePacket.CHARACTER_INFOT CharacterInfo { get; set; }
+  public List<int> Money { get; set; }
 
   public SC_LOGIN_REST() {
     this.Result = GamePacket.ErrorCode.SUCCESS;
     this.CharacterInfo = null;
+    this.Money = null;
   }
 }
 

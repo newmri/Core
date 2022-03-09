@@ -38,6 +38,7 @@ table SC_LOGIN_RES
 {
     result:ErrorCode;
     character_info:CHARACTER_INFO;
+    money:[int32];
 }
 
 table SC_PING_REQ

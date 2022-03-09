@@ -37,6 +37,11 @@ public:
 
 	void AddCharacter(std::shared_ptr<CoreCharacter> character);
 
+public:
+	void PushMoney(const int32_t money);
+	void AddMoney(const uint8_t index, const int32_t money);
+	bool UseMoney(const uint8_t index, const int32_t money);
+
 private:
 	void Release(void);
 
@@ -49,4 +54,5 @@ private:
 	CACHE_ALIGN std::shared_mutex characterMutex;
 	uint8_t maxCharacterSlotCount;
 	std::map<int64_t, std::shared_ptr<CoreCharacter>> characterList;
+	CoreVector<int32_t> moneyList;
 };
