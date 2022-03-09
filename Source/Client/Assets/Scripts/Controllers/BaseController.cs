@@ -94,11 +94,6 @@ public class BaseController : MonoBehaviour
 				return;
 
 			PosInfo.State = value;
-			if (PosInfo.State == CreatureState.IDLE)
-			{
-				int k = 0;
-				k = 1;
-			}
 
 			UpdateAnimation();
 			_updated = true;
