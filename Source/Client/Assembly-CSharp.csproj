@@ -157,6 +157,12 @@
     <Compile Include="Assets\Scripts\UI\Scene\UIGameScene.cs" />
     <Compile Include="Assets\Scripts\Map\Parallaxing.cs" />
     <Compile Include="Assets\Scripts\Network\info_protocol.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\game_protocol.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\GamePacketManager.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\GameServerSession.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\GamePacketHandler.cs" />
+    <Compile Include="Assets\Scripts\Network\GameServer\GamePacketQueue.cs" />
+    <Compile Include="Assets\Scripts\Managers\Core\GameNetworkManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

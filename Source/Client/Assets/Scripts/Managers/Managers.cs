@@ -16,12 +16,14 @@ public class Managers : MonoBehaviour
     UIManager _ui = new UIManager();
     WebManager _web = new WebManager();
     LoginNetworkManager _loginNetwork = new LoginNetworkManager();
+    GameNetworkManager _gameNetwork = new GameNetworkManager();
     LoginDataManager _loginData = new LoginDataManager();
     MapManager _map = new MapManager();
 
     public static UIManager UI { get { return Instance._ui; } }
     public static WebManager Web { get { return Instance._web; } }
     public static LoginNetworkManager LoginNetwork { get { return Instance._loginNetwork; } }
+    public static GameNetworkManager GameNetwork { get { return Instance._gameNetwork; } }
     public static LoginDataManager LoginData { get { return Instance._loginData; } }
     public static MapManager Map { get { return Instance._map; } }
 

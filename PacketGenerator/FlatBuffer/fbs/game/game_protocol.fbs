@@ -1,0 +1,61 @@
+include "../common/define_protocol.fbs";
+
+namespace GamePacket;
+
+enum ErrorCode : byte
+{
+  SUCCESS = 0,
+  UNKNOWN,
+  ALREADY_LOGINED
+}
+
+union Packet
+{
+    CS_LOGIN_REQ,
+    SC_LOGIN_RES,
+    SC_PING_REQ,
+    CS_PING_RES,
+    CS_LOGOUT_NOTI
+}
+
+table CS_LOGIN_REQ
+{
+    uid:int64;
+    token:int32;
+}
+
+table CHARACTER_INFO
+{
+    uid:int64;
+    name:string;
+    level:ubyte;
+    job:Define.Job;
+    gear:[ubyte];
+}
+
+table SC_LOGIN_RES
+{
+    result:ErrorCode;
+    max_slot_count:ubyte;
+    empty_slot_count:ubyte;
+    character_info:[CHARACTER_INFO];
+}
+
+table SC_PING_REQ
+{
+}
+
+table CS_PING_RES
+{
+}
+
+table CS_LOGOUT_NOTI
+{
+}
+
+table Root
+{
+    packet:Packet;
+}
+
+root_type Root;

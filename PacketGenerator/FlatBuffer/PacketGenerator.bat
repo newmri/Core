@@ -10,6 +10,10 @@ rem login
 call generator.bat "flatc.exe --gen-object-api --cpp -o output/cpp/login/ fbs/login/" fbs/login/
 call generator.bat "flatc.exe --gen-object-api --csharp --gen-onefile -o output/cs/login/ fbs/login/" fbs/login/
 
+rem game
+call generator.bat "flatc.exe --gen-object-api --cpp -o output/cpp/game/ fbs/game/" fbs/game/
+call generator.bat "flatc.exe --gen-object-api --csharp --gen-onefile -o output/cs/game/ fbs/game/" fbs/game/
+
 rem copy flatbuffer files
 
 rem common
@@ -26,7 +30,7 @@ set clientpath="../../Source/Client/Assets/Scripts/Network/LoginServer/*"
 call copy.bat %serverpath% cpp\login
 call copy.bat %clientpath% cs\login
 
-rem copy PacketHandler
+rem copy LoginPacketHandler
 
 START ../Binary/PacketGenerator.exe ../FlatBuffer/output/cpp/login/login_protocol_generated.h server cpp login
 START ../Binary/PacketGenerator.exe ../FlatBuffer/output/cs/login/login_protocol.cs client cs login
@@ -36,6 +40,22 @@ XCOPY /Y server\cpp\login\LoginPacketHandler.cpp %serverpath%
 
 XCOPY /Y client\cs\login\LoginPacketManager.cs %clientpath%
 
+rem game
+set serverpath="../../Source/GameServer/GameServer/*"
+set clientpath="../../Source/Client/Assets/Scripts/Network/GameServer/*"
+
+call copy.bat %serverpath% cpp\game
+call copy.bat %clientpath% cs\game
+
+rem copy GamePacketHandler
+
+START ../Binary/PacketGenerator.exe ../FlatBuffer/output/cpp/game/game_protocol_generated.h server cpp game
+START ../Binary/PacketGenerator.exe ../FlatBuffer/output/cs/game/game_protocol.cs client cs game
+
+XCOPY /Y server\cpp\game\GamePacketHandler.h %serverpath%
+XCOPY /Y server\cpp\game\GamePacketHandler.cpp %serverpath%
+
+XCOPY /Y client\cs\game\GamePacketManager.cs %clientpath%
 endlocal
 
 pause
