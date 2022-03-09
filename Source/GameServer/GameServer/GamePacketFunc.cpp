@@ -70,6 +70,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 	{
 		session->SetAccountUID(raw->uid());
 		
+#pragma region 캐릭터 로드
 		CharacterLoadInfo loadInfo;
 		if (!GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), raw->character_uid(), loadInfo))
 			return;
@@ -78,11 +79,14 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		account->SetMaxSlotCount(maxCharacterSlotCount);
 
 		account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), loadInfo.uid, loadInfo.info));
+#pragma endregion 캐릭터 로드
 
+#pragma region 재화 로드
 		int32_t money[Define::Money_MONEY_END];
 		GAME_SERVER.GetAccountDB()->LoadMoney(raw->uid(), money);
 		for (int32_t i = 0; i < Define::Money_MONEY_END; ++i)
 			account->PushMoney(money[i]);
+#pragma endregion 재화 로드
 
 		auto info = MakeCharacterInfo(loadInfo);
 
