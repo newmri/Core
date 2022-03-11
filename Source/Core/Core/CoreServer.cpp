@@ -67,8 +67,6 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 	{
 		boost::asio::ip::tcp::socket& socket = session->GetSocket();
 		int64_t oid = session->GetOID();
-		std::string ip = socket.remote_endpoint().address().to_string();
-		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "[ip]: " + ip);
 
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 		socket.close();

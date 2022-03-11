@@ -598,3 +598,4 @@
 03:44:18	[LOG_DISCONNECT]	oid(3)	[ip]: 127.0.0.1
 03:44:19	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
 03:44:19	[LOG_CONNECT]	AccountDB is Connected
+03:45:49	[LOG_DISCONNECT]	oid(4)	[ip]: 127.0.0.1
