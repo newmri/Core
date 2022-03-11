@@ -170,9 +170,9 @@ enum StatType : uint8_t {
   StatType_STR = 0,
   StatType_DEX = 1,
   StatType_INT = 2,
-  StatType_STAT_END = 3,
+  StatType_END = 3,
   StatType_MIN = StatType_STR,
-  StatType_MAX = StatType_STAT_END
+  StatType_MAX = StatType_END
 };
 
 inline const StatType (&EnumValuesStatType())[4] {
@@ -180,7 +180,7 @@ inline const StatType (&EnumValuesStatType())[4] {
     StatType_STR,
     StatType_DEX,
     StatType_INT,
-    StatType_STAT_END
+    StatType_END
   };
   return values;
 }
@@ -190,61 +190,63 @@ inline const char * const *EnumNamesStatType() {
     "STR",
     "DEX",
     "INT",
-    "STAT_END",
+    "END",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameStatType(StatType e) {
-  if (flatbuffers::IsOutRange(e, StatType_STR, StatType_STAT_END)) return "";
+  if (flatbuffers::IsOutRange(e, StatType_STR, StatType_END)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesStatType()[index];
 }
 
-enum Ability : uint8_t {
-  Ability_HP = 0,
-  Ability_MP = 1,
-  Ability_DAMAGE = 2,
-  Ability_MAGIC_DAMAGE = 3,
-  Ability_DEFENCE = 4,
-  Ability_MAGIC_DEFENCE = 5,
-  Ability_ATTACK_SPEED = 6,
-  Ability_MAGIC_CASTING_SPEED = 7,
-  Ability_MOVE_SPEED = 8,
-  Ability_CRITICAL_RATE = 9,
-  Ability_MAGIC_CRITICAL_RATE = 10,
-  Ability_LIGHT_REGISTTANCE = 11,
-  Ability_DARK_REGISTTANCE = 12,
-  Ability_FIRE_REGISTTANCE = 13,
-  Ability_ICE_REGISTTANCE = 14,
-  Ability_MIN = Ability_HP,
-  Ability_MAX = Ability_ICE_REGISTTANCE
+enum AbilityType : uint8_t {
+  AbilityType_HP = 0,
+  AbilityType_MP = 1,
+  AbilityType_DAMAGE = 2,
+  AbilityType_MAGIC_DAMAGE = 3,
+  AbilityType_DEFENCE = 4,
+  AbilityType_MAGIC_DEFENCE = 5,
+  AbilityType_ATTACK_SPEED = 6,
+  AbilityType_MAGIC_CASTING_SPEED = 7,
+  AbilityType_MOVE_SPEED = 8,
+  AbilityType_CRITICAL_RATE = 9,
+  AbilityType_MAGIC_CRITICAL_RATE = 10,
+  AbilityType_LIGHT_REGISTTANCE = 11,
+  AbilityType_DARK_REGISTTANCE = 12,
+  AbilityType_FIRE_REGISTTANCE = 13,
+  AbilityType_ICE_REGISTTANCE = 14,
+  AbilityType_END = 15,
+  AbilityType_MIN = AbilityType_HP,
+  AbilityType_MAX = AbilityType_END
 };
 
-inline const Ability (&EnumValuesAbility())[15] {
-  static const Ability values[] = {
-    Ability_HP,
-    Ability_MP,
-    Ability_DAMAGE,
-    Ability_MAGIC_DAMAGE,
-    Ability_DEFENCE,
-    Ability_MAGIC_DEFENCE,
-    Ability_ATTACK_SPEED,
-    Ability_MAGIC_CASTING_SPEED,
-    Ability_MOVE_SPEED,
-    Ability_CRITICAL_RATE,
-    Ability_MAGIC_CRITICAL_RATE,
-    Ability_LIGHT_REGISTTANCE,
-    Ability_DARK_REGISTTANCE,
-    Ability_FIRE_REGISTTANCE,
-    Ability_ICE_REGISTTANCE
+inline const AbilityType (&EnumValuesAbilityType())[16] {
+  static const AbilityType values[] = {
+    AbilityType_HP,
+    AbilityType_MP,
+    AbilityType_DAMAGE,
+    AbilityType_MAGIC_DAMAGE,
+    AbilityType_DEFENCE,
+    AbilityType_MAGIC_DEFENCE,
+    AbilityType_ATTACK_SPEED,
+    AbilityType_MAGIC_CASTING_SPEED,
+    AbilityType_MOVE_SPEED,
+    AbilityType_CRITICAL_RATE,
+    AbilityType_MAGIC_CRITICAL_RATE,
+    AbilityType_LIGHT_REGISTTANCE,
+    AbilityType_DARK_REGISTTANCE,
+    AbilityType_FIRE_REGISTTANCE,
+    AbilityType_ICE_REGISTTANCE,
+    AbilityType_END
   };
   return values;
 }
 
-inline const char * const *EnumNamesAbility() {
-  static const char * const names[16] = {
+inline const char * const *EnumNamesAbilityType() {
+  static const char * const names[17] = {
     "HP",
     "MP",
     "DAMAGE",
@@ -260,15 +262,16 @@ inline const char * const *EnumNamesAbility() {
     "DARK_REGISTTANCE",
     "FIRE_REGISTTANCE",
     "ICE_REGISTTANCE",
+    "END",
     nullptr
   };
   return names;
 }
 
-inline const char *EnumNameAbility(Ability e) {
-  if (flatbuffers::IsOutRange(e, Ability_HP, Ability_ICE_REGISTTANCE)) return "";
+inline const char *EnumNameAbilityType(AbilityType e) {
+  if (flatbuffers::IsOutRange(e, AbilityType_HP, AbilityType_END)) return "";
   const size_t index = static_cast<size_t>(e);
-  return EnumNamesAbility()[index];
+  return EnumNamesAbilityType()[index];
 }
 
 enum AbilityByStatType : uint8_t {
@@ -278,9 +281,9 @@ enum AbilityByStatType : uint8_t {
   AbilityByStatType_MAGIC_DAMAGE = 3,
   AbilityByStatType_DEFENCE = 4,
   AbilityByStatType_MAGIC_DEFENCE = 5,
-  AbilityByStatType_ABILITY_BY_STAT_END = 6,
+  AbilityByStatType_END = 6,
   AbilityByStatType_MIN = AbilityByStatType_HP,
-  AbilityByStatType_MAX = AbilityByStatType_ABILITY_BY_STAT_END
+  AbilityByStatType_MAX = AbilityByStatType_END
 };
 
 inline const AbilityByStatType (&EnumValuesAbilityByStatType())[7] {
@@ -291,7 +294,7 @@ inline const AbilityByStatType (&EnumValuesAbilityByStatType())[7] {
     AbilityByStatType_MAGIC_DAMAGE,
     AbilityByStatType_DEFENCE,
     AbilityByStatType_MAGIC_DEFENCE,
-    AbilityByStatType_ABILITY_BY_STAT_END
+    AbilityByStatType_END
   };
   return values;
 }
@@ -304,14 +307,14 @@ inline const char * const *EnumNamesAbilityByStatType() {
     "MAGIC_DAMAGE",
     "DEFENCE",
     "MAGIC_DEFENCE",
-    "ABILITY_BY_STAT_END",
+    "END",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameAbilityByStatType(AbilityByStatType e) {
-  if (flatbuffers::IsOutRange(e, AbilityByStatType_HP, AbilityByStatType_ABILITY_BY_STAT_END)) return "";
+  if (flatbuffers::IsOutRange(e, AbilityByStatType_HP, AbilityByStatType_END)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAbilityByStatType()[index];
 }
@@ -326,9 +329,9 @@ enum GearType : uint8_t {
   GearType_FEET = 6,
   GearType_HAIR = 7,
   GearType_FACE = 8,
-  GearType_GEAR_END = 9,
+  GearType_END = 9,
   GearType_MIN = GearType_LEFT_HAND,
-  GearType_MAX = GearType_GEAR_END
+  GearType_MAX = GearType_END
 };
 
 inline const GearType (&EnumValuesGearType())[10] {
@@ -342,7 +345,7 @@ inline const GearType (&EnumValuesGearType())[10] {
     GearType_FEET,
     GearType_HAIR,
     GearType_FACE,
-    GearType_GEAR_END
+    GearType_END
   };
   return values;
 }
@@ -358,14 +361,14 @@ inline const char * const *EnumNamesGearType() {
     "FEET",
     "HAIR",
     "FACE",
-    "GEAR_END",
+    "END",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameGearType(GearType e) {
-  if (flatbuffers::IsOutRange(e, GearType_LEFT_HAND, GearType_GEAR_END)) return "";
+  if (flatbuffers::IsOutRange(e, GearType_LEFT_HAND, GearType_END)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesGearType()[index];
 }

@@ -36,7 +36,7 @@ public class UIGameScene : UIScene
 
     void InitCharacterInfo()
     {
-        CHARACTER_INFOT info = Managers.Character.GetMyCharacterInfo();
+        CharacterInfoT info = Managers.Character.GetMyCharacterInfo();
 
         this.GetTextMesh((int)TextMeshProUGUIs.CharacterNameText).text = info.Name;
         this.GetTextMesh((int)TextMeshProUGUIs.CharacterLevelText).text = "Lv." + info.Level.ToString();

@@ -1,9 +1,9 @@
 ﻿  AccountDB.cpp
+  DataManager.cpp
   GameDB.cpp
   LoginCharacter.cpp
   LoginPacketFunc.cpp
   LoginPacketHandler.cpp
-  LoginServer.cpp
   LoginServerManager.cpp
   Main.cpp
   native_info_impl.cpp

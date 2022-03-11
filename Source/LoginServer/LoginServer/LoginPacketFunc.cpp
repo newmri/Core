@@ -9,18 +9,6 @@ void LoginPacketFunc::Write(std::shared_ptr<CoreClientSession> session, LoginPac
 	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }
 
-flatbuffers::Offset<LoginPacket::CHARACTER_INFO> LoginPacketFunc::MakeCharacterInfo(const CharacterLoadInfo& loadInfo)
-{
-	auto info = LoginPacket::CreateCHARACTER_INFO(this->builder,
-				loadInfo.uid,
-				this->builder.CreateString(STRING_MANAGER.Narrow(loadInfo.name)),
-				loadInfo.info.level,
-				static_cast<Define::Job>(loadInfo.info.job),
-				this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_GEAR_END));
-
-	return info;
-}
-
 void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	auto raw = static_cast<const LoginPacket::CS_LOGIN_REQ*>(data);
@@ -70,7 +58,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	{
 		session->SetAccountUID(raw->uid());
 
-		std::vector<CharacterLoadInfo> infoList;
+		std::vector<LoginPacket::CharacterInfoT> infoList;
 		LOGIN_SERVER.GetGameDB()->LoadCharacter(raw->uid(), infoList);
 		uint8_t maxCharacterSlotCount = LOGIN_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
@@ -80,17 +68,16 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 
 		if (size)
 		{
-			std::vector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>> sendList;
+			std::vector<flatbuffers::Offset<LoginPacket::CharacterInfo>> sendList;
 	
 			for (int i = 0; i < size; ++i)
 			{
-				account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), infoList[i].uid, infoList[i].info));
-
-				sendList.push_back(MakeCharacterInfo(infoList[i]));
+				account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), infoList[i].uid, infoList[i]));
+				sendList.push_back(LoginPacket::CharacterInfo::Pack(this->builder, &infoList[i]));
 			}
 
 			message = LoginPacket::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot,
-											    emptyCharacterSlotCount, this->builder.CreateVector(sendList));
+													  emptyCharacterSlotCount, this->builder.CreateVector(sendList));
 		}
 
 		else
@@ -140,8 +127,9 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if (IS_NULL(account))
 		return;
 
-	std::wstring name = STRING_MANAGER.Widen(raw->name()->string_view());
-	if(!STRING_MANAGER.IsValidLanguage(name, Define::CharacterLimit_MinNameLen, Define::CharacterLimit_MaxNameLen))
+	std::string name = raw->name()->str();
+	std::wstring wName = STRING_MANAGER.Widen(name);
+	if(!STRING_MANAGER.IsValidLanguage(wName, Define::CharacterLimit_MinNameLen, Define::CharacterLimit_MaxNameLen))
 		return;
 
 	if (!IsBetween(raw->job(), Define::Job_MIN, Define::Job_MAX))
@@ -150,11 +138,12 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if (!account->CanCreateCharacter())
 		return;
 
-	CharacterLoadInfo loadInfo;
-	wcscpy_s(loadInfo.name, Define::CharacterLimit_MaxNameLen, name.c_str());
+	LoginPacket::CharacterInfoT info;
+	info.name = name;
+	info.level = 1;
+	info.job = raw->job();
 
-	loadInfo.info = DATA_MANAGER.MakeCharacterInfo(1, raw->job());
-	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), loadInfo);
+	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), wName, info);
 
 	this->builder.Clear();
 
@@ -162,11 +151,11 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	if (isSuccess)
 	{
-		account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), loadInfo.uid, loadInfo.info));
+		account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), info.uid, info));
+		
+		auto packedInfo = LoginPacket::CharacterInfo::Pack(this->builder, &info);
 
-		auto info = MakeCharacterInfo(loadInfo);
-
-		message = LoginPacket::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess, info);
+		message = LoginPacket::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess, packedInfo);
 	}
 	else
 	{

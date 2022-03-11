@@ -6,10 +6,10 @@ using UnityCoreLibrary;
 
 public class CharacterManager
 {
-    CHARACTER_INFOT _myCharacter;
-    Dictionary<long, CHARACTER_INFOT> _characterList = new Dictionary<long, CHARACTER_INFOT>();
+    CharacterInfoT _myCharacter;
+    Dictionary<long, CharacterInfoT> _characterList = new Dictionary<long, CharacterInfoT>();
 
-    public void AddMyCharacter(CHARACTER_INFOT info)
+    public void AddMyCharacter(CharacterInfoT info)
     {
         _myCharacter = info;
     }
@@ -19,15 +19,15 @@ public class CharacterManager
         GameObject gameObject = CoreManagers.Obj.Add("Character", "MyCharacter");
         GearEquipper gear = gameObject.GetComponent<GearEquipper>();
         gear.Job = _myCharacter.Job;
-        gear.SetGear(_myCharacter.Gear.ToArray());
+        gear.SetGear(_myCharacter.Gear);
     }
 
-    public CHARACTER_INFOT GetMyCharacterInfo()
+    public CharacterInfoT GetMyCharacterInfo()
     {
         return _myCharacter;
     }
 
-    public void Add(CHARACTER_INFOT info)
+    public void Add(CharacterInfoT info)
     {
         _characterList.Add(info.Uid, info);
     }

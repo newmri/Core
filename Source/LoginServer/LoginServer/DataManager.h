@@ -10,9 +10,10 @@ public:
 	void Load(void);
 
 public:
-	CharacterInfo MakeCharacterInfo(const uint8_t& level, const Define::Job& job);
+	NativeInfo::Stat GetCharacterCreateStat(const Define::Job& job);
+	void GetCharacterCreateGear(const Define::Job& job, std::array<uint8_t, Define::GearType_END>& out);
 
-public:
-	CoreVector<CharacterCreateStat> characterCreateStat;
-	CoreVector<CharacterCreateGear> characterCreateGear;
+private:
+	CoreVector<NativeInfo::Stat> characterCreateStat;
+	CoreVector<NativeInfo::CharacterGear> characterCreateGear;
 };

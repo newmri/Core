@@ -1,6 +1,4 @@
-#include "native_info_impl.h"
-
-#include "info_protocol_generated.h"
+#include "Include.h"
 
 namespace flatbuffers
 {
@@ -9,9 +7,28 @@ namespace flatbuffers
 		return Info::Vec2Int(obj.x, obj.y);
 	}
 
-	const NativeInfo::Vec2Int UnPackVec2Int(const Info::Vec2Int& obj)
+	NativeInfo::Vec2Int UnPackVec2Int(const Info::Vec2Int& obj)
 	{
 		return NativeInfo::Vec2Int(obj.x(), obj.y());
 	}
 
-}  
+	Info::Stat PackStat(const NativeInfo::Stat& obj)
+	{
+		return Info::Stat(obj.value);
+	}
+
+	NativeInfo::Stat UnPackStat(const Info::Stat& obj)
+	{
+		return NativeInfo::Stat(obj.value());
+	}
+
+	Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj)
+	{
+		return Info::CharacterGear(obj.index);
+	}
+
+	NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj)
+	{
+		return NativeInfo::CharacterGear(obj.index());
+	}
+}

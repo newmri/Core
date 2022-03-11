@@ -14,3 +14,23 @@ table PositionInfo (native_type:"PositionInfoT")
   state:Define.CreatureState;
   move_dir:Define.Dir;
 }
+
+struct Stat (native_type:"NativeInfo::Stat", native_type_pack_name:"Stat")
+{
+    value:[int32:3];
+}
+
+table StatWrapper (native_type:"StatT")
+{
+    value:Stat (native_inline);
+}
+
+struct Ability (native_type:"NativeInfo::Ability", native_type_pack_name:"Ability")
+{
+    value:[int32:15];
+}
+
+struct CharacterGear (native_type:"NativeInfo::CharacterGear", native_type_pack_name:"CharacterGear")
+{
+    index:[ubyte:9];
+}

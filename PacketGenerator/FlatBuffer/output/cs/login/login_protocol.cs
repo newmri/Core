@@ -118,15 +118,15 @@ public class CS_LOGIN_REQT
   }
 }
 
-public struct CHARACTER_INFO : IFlatbufferObject
+public struct CharacterInfo : IFlatbufferObject
 {
   private Table __p;
   public ByteBuffer ByteBuffer { get { return __p.bb; } }
   public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
-  public static CHARACTER_INFO GetRootAsCHARACTER_INFO(ByteBuffer _bb) { return GetRootAsCHARACTER_INFO(_bb, new CHARACTER_INFO()); }
-  public static CHARACTER_INFO GetRootAsCHARACTER_INFO(ByteBuffer _bb, CHARACTER_INFO obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public static CharacterInfo GetRootAsCharacterInfo(ByteBuffer _bb) { return GetRootAsCharacterInfo(_bb, new CharacterInfo()); }
+  public static CharacterInfo GetRootAsCharacterInfo(ByteBuffer _bb, CharacterInfo obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
-  public CHARACTER_INFO __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+  public CharacterInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public long Uid { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
   public string Name { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
@@ -138,88 +138,72 @@ public struct CHARACTER_INFO : IFlatbufferObject
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(6); }
   public byte Level { get { int o = __p.__offset(8); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
   public Define.Job Job { get { int o = __p.__offset(10); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.WARRIOR; } }
-  public byte Gear(int j) { int o = __p.__offset(12); return o != 0 ? __p.bb.Get(__p.__vector(o) + j * 1) : (byte)0; }
-  public int GearLength { get { int o = __p.__offset(12); return o != 0 ? __p.__vector_len(o) : 0; } }
-#if ENABLE_SPAN_T
-  public Span<byte> GetGearBytes() { return __p.__vector_as_span<byte>(12, 1); }
-#else
-  public ArraySegment<byte>? GetGearBytes() { return __p.__vector_as_arraysegment(12); }
-#endif
-  public byte[] GetGearArray() { return __p.__vector_as_array<byte>(12); }
+  public Info.CharacterGear? Gear { get { int o = __p.__offset(12); return o != 0 ? (Info.CharacterGear?)(new Info.CharacterGear()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
-  public static Offset<LoginPacket.CHARACTER_INFO> CreateCHARACTER_INFO(FlatBufferBuilder builder,
+  public static Offset<LoginPacket.CharacterInfo> CreateCharacterInfo(FlatBufferBuilder builder,
       long uid = 0,
       StringOffset nameOffset = default(StringOffset),
       byte level = 0,
       Define.Job job = Define.Job.WARRIOR,
-      VectorOffset gearOffset = default(VectorOffset)) {
+      Info.CharacterGearT gear = null) {
     builder.StartTable(5);
-    CHARACTER_INFO.AddUid(builder, uid);
-    CHARACTER_INFO.AddGear(builder, gearOffset);
-    CHARACTER_INFO.AddName(builder, nameOffset);
-    CHARACTER_INFO.AddJob(builder, job);
-    CHARACTER_INFO.AddLevel(builder, level);
-    return CHARACTER_INFO.EndCHARACTER_INFO(builder);
+    CharacterInfo.AddUid(builder, uid);
+    CharacterInfo.AddGear(builder, Info.CharacterGear.Pack(builder, gear));
+    CharacterInfo.AddName(builder, nameOffset);
+    CharacterInfo.AddJob(builder, job);
+    CharacterInfo.AddLevel(builder, level);
+    return CharacterInfo.EndCharacterInfo(builder);
   }
 
-  public static void StartCHARACTER_INFO(FlatBufferBuilder builder) { builder.StartTable(5); }
+  public static void StartCharacterInfo(FlatBufferBuilder builder) { builder.StartTable(5); }
   public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(0, uid, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddLevel(FlatBufferBuilder builder, byte level) { builder.AddByte(2, level, 0); }
   public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddByte(3, (byte)job, 0); }
-  public static void AddGear(FlatBufferBuilder builder, VectorOffset gearOffset) { builder.AddOffset(4, gearOffset.Value, 0); }
-  public static VectorOffset CreateGearVector(FlatBufferBuilder builder, byte[] data) { builder.StartVector(1, data.Length, 1); for (int i = data.Length - 1; i >= 0; i--) builder.AddByte(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateGearVectorBlock(FlatBufferBuilder builder, byte[] data) { builder.StartVector(1, data.Length, 1); builder.Add(data); return builder.EndVector(); }
-  public static void StartGearVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(1, numElems, 1); }
-  public static Offset<LoginPacket.CHARACTER_INFO> EndCHARACTER_INFO(FlatBufferBuilder builder) {
+  public static void AddGear(FlatBufferBuilder builder, Offset<Info.CharacterGear> gearOffset) { builder.AddStruct(4, gearOffset.Value, 0); }
+  public static Offset<LoginPacket.CharacterInfo> EndCharacterInfo(FlatBufferBuilder builder) {
     int o = builder.EndTable();
-    return new Offset<LoginPacket.CHARACTER_INFO>(o);
+    return new Offset<LoginPacket.CharacterInfo>(o);
   }
-  public CHARACTER_INFOT UnPack() {
-    var _o = new CHARACTER_INFOT();
+  public CharacterInfoT UnPack() {
+    var _o = new CharacterInfoT();
     this.UnPackTo(_o);
     return _o;
   }
-  public void UnPackTo(CHARACTER_INFOT _o) {
+  public void UnPackTo(CharacterInfoT _o) {
     _o.Uid = this.Uid;
     _o.Name = this.Name;
     _o.Level = this.Level;
     _o.Job = this.Job;
-    _o.Gear = new List<byte>();
-    for (var _j = 0; _j < this.GearLength; ++_j) {_o.Gear.Add(this.Gear(_j));}
+    _o.Gear = this.Gear.HasValue ? this.Gear.Value.UnPack() : null;
   }
-  public static Offset<LoginPacket.CHARACTER_INFO> Pack(FlatBufferBuilder builder, CHARACTER_INFOT _o) {
-    if (_o == null) return default(Offset<LoginPacket.CHARACTER_INFO>);
+  public static Offset<LoginPacket.CharacterInfo> Pack(FlatBufferBuilder builder, CharacterInfoT _o) {
+    if (_o == null) return default(Offset<LoginPacket.CharacterInfo>);
     var _name = _o.Name == null ? default(StringOffset) : builder.CreateString(_o.Name);
-    var _gear = default(VectorOffset);
-    if (_o.Gear != null) {
-      var __gear = _o.Gear.ToArray();
-      _gear = CreateGearVector(builder, __gear);
-    }
-    return CreateCHARACTER_INFO(
+    return CreateCharacterInfo(
       builder,
       _o.Uid,
       _name,
       _o.Level,
       _o.Job,
-      _gear);
+      _o.Gear);
   }
 };
 
-public class CHARACTER_INFOT
+public class CharacterInfoT
 {
   public long Uid { get; set; }
   public string Name { get; set; }
   public byte Level { get; set; }
   public Define.Job Job { get; set; }
-  public List<byte> Gear { get; set; }
+  public Info.CharacterGearT Gear { get; set; }
 
-  public CHARACTER_INFOT() {
+  public CharacterInfoT() {
     this.Uid = 0;
     this.Name = null;
     this.Level = 0;
     this.Job = Define.Job.WARRIOR;
-    this.Gear = null;
+    this.Gear = new Info.CharacterGearT();
   }
 }
 
@@ -236,7 +220,7 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   public LoginPacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (LoginPacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : LoginPacket.ErrorCode.SUCCESS; } }
   public byte MaxSlotCount { get { int o = __p.__offset(6); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
   public byte EmptySlotCount { get { int o = __p.__offset(8); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public LoginPacket.CHARACTER_INFO? CharacterInfo(int j) { int o = __p.__offset(10); return o != 0 ? (LoginPacket.CHARACTER_INFO?)(new LoginPacket.CHARACTER_INFO()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
+  public LoginPacket.CharacterInfo? CharacterInfo(int j) { int o = __p.__offset(10); return o != 0 ? (LoginPacket.CharacterInfo?)(new LoginPacket.CharacterInfo()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
   public int CharacterInfoLength { get { int o = __p.__offset(10); return o != 0 ? __p.__vector_len(o) : 0; } }
 
   public static Offset<LoginPacket.SC_LOGIN_RES> CreateSC_LOGIN_RES(FlatBufferBuilder builder,
@@ -257,8 +241,8 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   public static void AddMaxSlotCount(FlatBufferBuilder builder, byte maxSlotCount) { builder.AddByte(1, maxSlotCount, 0); }
   public static void AddEmptySlotCount(FlatBufferBuilder builder, byte emptySlotCount) { builder.AddByte(2, emptySlotCount, 0); }
   public static void AddCharacterInfo(FlatBufferBuilder builder, VectorOffset characterInfoOffset) { builder.AddOffset(3, characterInfoOffset.Value, 0); }
-  public static VectorOffset CreateCharacterInfoVector(FlatBufferBuilder builder, Offset<LoginPacket.CHARACTER_INFO>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
-  public static VectorOffset CreateCharacterInfoVectorBlock(FlatBufferBuilder builder, Offset<LoginPacket.CHARACTER_INFO>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateCharacterInfoVector(FlatBufferBuilder builder, Offset<LoginPacket.CharacterInfo>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateCharacterInfoVectorBlock(FlatBufferBuilder builder, Offset<LoginPacket.CharacterInfo>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static void StartCharacterInfoVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<LoginPacket.SC_LOGIN_RES> EndSC_LOGIN_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
@@ -273,15 +257,15 @@ public struct SC_LOGIN_RES : IFlatbufferObject
     _o.Result = this.Result;
     _o.MaxSlotCount = this.MaxSlotCount;
     _o.EmptySlotCount = this.EmptySlotCount;
-    _o.CharacterInfo = new List<LoginPacket.CHARACTER_INFOT>();
+    _o.CharacterInfo = new List<LoginPacket.CharacterInfoT>();
     for (var _j = 0; _j < this.CharacterInfoLength; ++_j) {_o.CharacterInfo.Add(this.CharacterInfo(_j).HasValue ? this.CharacterInfo(_j).Value.UnPack() : null);}
   }
   public static Offset<LoginPacket.SC_LOGIN_RES> Pack(FlatBufferBuilder builder, SC_LOGIN_REST _o) {
     if (_o == null) return default(Offset<LoginPacket.SC_LOGIN_RES>);
     var _character_info = default(VectorOffset);
     if (_o.CharacterInfo != null) {
-      var __character_info = new Offset<LoginPacket.CHARACTER_INFO>[_o.CharacterInfo.Count];
-      for (var _j = 0; _j < __character_info.Length; ++_j) { __character_info[_j] = LoginPacket.CHARACTER_INFO.Pack(builder, _o.CharacterInfo[_j]); }
+      var __character_info = new Offset<LoginPacket.CharacterInfo>[_o.CharacterInfo.Count];
+      for (var _j = 0; _j < __character_info.Length; ++_j) { __character_info[_j] = LoginPacket.CharacterInfo.Pack(builder, _o.CharacterInfo[_j]); }
       _character_info = CreateCharacterInfoVector(builder, __character_info);
     }
     return CreateSC_LOGIN_RES(
@@ -298,7 +282,7 @@ public class SC_LOGIN_REST
   public LoginPacket.ErrorCode Result { get; set; }
   public byte MaxSlotCount { get; set; }
   public byte EmptySlotCount { get; set; }
-  public List<LoginPacket.CHARACTER_INFOT> CharacterInfo { get; set; }
+  public List<LoginPacket.CharacterInfoT> CharacterInfo { get; set; }
 
   public SC_LOGIN_REST() {
     this.Result = LoginPacket.ErrorCode.SUCCESS;
@@ -495,11 +479,11 @@ public struct SC_CREATE_CHARACTER_RES : IFlatbufferObject
   public SC_CREATE_CHARACTER_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public bool IsSuccess { get { int o = __p.__offset(4); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public LoginPacket.CHARACTER_INFO? CharacterInfo { get { int o = __p.__offset(6); return o != 0 ? (LoginPacket.CHARACTER_INFO?)(new LoginPacket.CHARACTER_INFO()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public LoginPacket.CharacterInfo? CharacterInfo { get { int o = __p.__offset(6); return o != 0 ? (LoginPacket.CharacterInfo?)(new LoginPacket.CharacterInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
 
   public static Offset<LoginPacket.SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder,
       bool is_success = false,
-      Offset<LoginPacket.CHARACTER_INFO> character_infoOffset = default(Offset<LoginPacket.CHARACTER_INFO>)) {
+      Offset<LoginPacket.CharacterInfo> character_infoOffset = default(Offset<LoginPacket.CharacterInfo>)) {
     builder.StartTable(2);
     SC_CREATE_CHARACTER_RES.AddCharacterInfo(builder, character_infoOffset);
     SC_CREATE_CHARACTER_RES.AddIsSuccess(builder, is_success);
@@ -508,7 +492,7 @@ public struct SC_CREATE_CHARACTER_RES : IFlatbufferObject
 
   public static void StartSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
   public static void AddIsSuccess(FlatBufferBuilder builder, bool isSuccess) { builder.AddBool(0, isSuccess, false); }
-  public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<LoginPacket.CHARACTER_INFO> characterInfoOffset) { builder.AddOffset(1, characterInfoOffset.Value, 0); }
+  public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<LoginPacket.CharacterInfo> characterInfoOffset) { builder.AddOffset(1, characterInfoOffset.Value, 0); }
   public static Offset<LoginPacket.SC_CREATE_CHARACTER_RES> EndSC_CREATE_CHARACTER_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<LoginPacket.SC_CREATE_CHARACTER_RES>(o);
@@ -524,7 +508,7 @@ public struct SC_CREATE_CHARACTER_RES : IFlatbufferObject
   }
   public static Offset<LoginPacket.SC_CREATE_CHARACTER_RES> Pack(FlatBufferBuilder builder, SC_CREATE_CHARACTER_REST _o) {
     if (_o == null) return default(Offset<LoginPacket.SC_CREATE_CHARACTER_RES>);
-    var _character_info = _o.CharacterInfo == null ? default(Offset<LoginPacket.CHARACTER_INFO>) : LoginPacket.CHARACTER_INFO.Pack(builder, _o.CharacterInfo);
+    var _character_info = _o.CharacterInfo == null ? default(Offset<LoginPacket.CharacterInfo>) : LoginPacket.CharacterInfo.Pack(builder, _o.CharacterInfo);
     return CreateSC_CREATE_CHARACTER_RES(
       builder,
       _o.IsSuccess,
@@ -535,7 +519,7 @@ public struct SC_CREATE_CHARACTER_RES : IFlatbufferObject
 public class SC_CREATE_CHARACTER_REST
 {
   public bool IsSuccess { get; set; }
-  public LoginPacket.CHARACTER_INFOT CharacterInfo { get; set; }
+  public LoginPacket.CharacterInfoT CharacterInfo { get; set; }
 
   public SC_CREATE_CHARACTER_REST() {
     this.IsSuccess = false;

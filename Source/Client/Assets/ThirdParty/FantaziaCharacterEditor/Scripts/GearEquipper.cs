@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine;
 using Spine.Unity;
-
+using Info;
 
 public class GearEquipper : MonoBehaviour
 {
@@ -39,35 +39,35 @@ public class GearEquipper : MonoBehaviour
         ApplySkinChanges();
     }
 
-    public void SetGear(byte[] gears)
+    public void SetGear(CharacterGearT gears)
     {
         if (Job == Define.Job.WARRIOR)
         {
-            Melee = gears[(int)Define.GearType.LEFT_HAND];
-            Shield = gears[(int)Define.GearType.RIGHT_HAND];
+            Melee = gears.Index[(int)Define.GearType.LEFT_HAND];
+            Shield = gears.Index[(int)Define.GearType.RIGHT_HAND];
         }
         else if (Job == Define.Job.ARCHER)
         {
-            Bow = gears[(int)Define.GearType.LEFT_HAND];
-            Quiver = gears[(int)Define.GearType.RIGHT_HAND];
+            Bow = gears.Index[(int)Define.GearType.LEFT_HAND];
+            Quiver = gears.Index[(int)Define.GearType.RIGHT_HAND];
         }
         else if (Job == Define.Job.SORCERER)
         {
-            Staff = gears[(int)Define.GearType.LEFT_HAND];
+            Staff = gears.Index[(int)Define.GearType.LEFT_HAND];
         }
         else if (Job == Define.Job.DUELIST)
         {
-            Melee = gears[(int)Define.GearType.LEFT_HAND];
-            DuelistOffhand = gears[(int)Define.GearType.RIGHT_HAND];
+            Melee = gears.Index[(int)Define.GearType.LEFT_HAND];
+            DuelistOffhand = gears.Index[(int)Define.GearType.RIGHT_HAND];
         }
 
-        Armor = gears[(int)Define.GearType.ARMOR];
-        Helmet = gears[(int)Define.GearType.HELMET];
-        Shoulder = gears[(int)Define.GearType.SHOULDER];
-        Arm = gears[(int)Define.GearType.ARM];
-        Feet = gears[(int)Define.GearType.FEET];
-        Hair = gears[(int)Define.GearType.HAIR];
-        Face = gears[(int)Define.GearType.FACE];
+        Armor = gears.Index[(int)Define.GearType.ARMOR];
+        Helmet = gears.Index[(int)Define.GearType.HELMET];
+        Shoulder = gears.Index[(int)Define.GearType.SHOULDER];
+        Arm = gears.Index[(int)Define.GearType.ARM];
+        Feet = gears.Index[(int)Define.GearType.FEET];
+        Hair = gears.Index[(int)Define.GearType.HAIR];
+        Face = gears.Index[(int)Define.GearType.FACE];
 
         ApplySkinChanges();
     }

@@ -16,6 +16,16 @@ struct PositionInfo;
 struct PositionInfoBuilder;
 struct PositionInfoT;
 
+struct Stat;
+
+struct StatWrapper;
+struct StatWrapperBuilder;
+struct StatWrapperT;
+
+struct Ability;
+
+struct CharacterGear;
+
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Vec2Int FLATBUFFERS_FINAL_CLASS {
  private:
   int32_t x_;
@@ -38,6 +48,57 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Vec2Int FLATBUFFERS_FINAL_CLASS {
   }
 };
 FLATBUFFERS_STRUCT_END(Vec2Int, 8);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Stat FLATBUFFERS_FINAL_CLASS {
+ private:
+  int32_t value_[3];
+
+ public:
+  Stat()
+      : value_() {
+  }
+  Stat(flatbuffers::span<const int32_t, 3> _value) {
+    flatbuffers::CastToArray(value_).CopyFromSpan(_value);
+  }
+  const flatbuffers::Array<int32_t, 3> *value() const {
+    return &flatbuffers::CastToArray(value_);
+  }
+};
+FLATBUFFERS_STRUCT_END(Stat, 12);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Ability FLATBUFFERS_FINAL_CLASS {
+ private:
+  int32_t value_[15];
+
+ public:
+  Ability()
+      : value_() {
+  }
+  Ability(flatbuffers::span<const int32_t, 15> _value) {
+    flatbuffers::CastToArray(value_).CopyFromSpan(_value);
+  }
+  const flatbuffers::Array<int32_t, 15> *value() const {
+    return &flatbuffers::CastToArray(value_);
+  }
+};
+FLATBUFFERS_STRUCT_END(Ability, 60);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(1) CharacterGear FLATBUFFERS_FINAL_CLASS {
+ private:
+  uint8_t index_[9];
+
+ public:
+  CharacterGear()
+      : index_() {
+  }
+  CharacterGear(flatbuffers::span<const uint8_t, 9> _index) {
+    flatbuffers::CastToArray(index_).CopyFromSpan(_index);
+  }
+  const flatbuffers::Array<uint8_t, 9> *index() const {
+    return &flatbuffers::CastToArray(index_);
+  }
+};
+FLATBUFFERS_STRUCT_END(CharacterGear, 9);
 
 struct PositionInfoT : public flatbuffers::NativeTable {
   typedef PositionInfo TableType;
@@ -113,6 +174,58 @@ inline flatbuffers::Offset<PositionInfo> CreatePositionInfo(
 
 flatbuffers::Offset<PositionInfo> CreatePositionInfo(flatbuffers::FlatBufferBuilder &_fbb, const PositionInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct StatWrapperT : public flatbuffers::NativeTable {
+  typedef StatWrapper TableType;
+  NativeInfo::Stat value{};
+};
+
+struct StatWrapper FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef StatWrapperT NativeTableType;
+  typedef StatWrapperBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_VALUE = 4
+  };
+  const Info::Stat *value() const {
+    return GetStruct<const Info::Stat *>(VT_VALUE);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<Info::Stat>(verifier, VT_VALUE) &&
+           verifier.EndTable();
+  }
+  StatWrapperT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(StatWrapperT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<StatWrapper> Pack(flatbuffers::FlatBufferBuilder &_fbb, const StatWrapperT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct StatWrapperBuilder {
+  typedef StatWrapper Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_value(const Info::Stat *value) {
+    fbb_.AddStruct(StatWrapper::VT_VALUE, value);
+  }
+  explicit StatWrapperBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<StatWrapper> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<StatWrapper>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<StatWrapper> CreateStatWrapper(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const Info::Stat *value = 0) {
+  StatWrapperBuilder builder_(_fbb);
+  builder_.add_value(value);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<StatWrapper> CreateStatWrapper(flatbuffers::FlatBufferBuilder &_fbb, const StatWrapperT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 inline PositionInfoT *PositionInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<PositionInfoT>(new PositionInfoT());
   UnPackTo(_o.get(), _resolver);
@@ -143,6 +256,32 @@ inline flatbuffers::Offset<PositionInfo> CreatePositionInfo(flatbuffers::FlatBuf
       &_pos,
       _state,
       _move_dir);
+}
+
+inline StatWrapperT *StatWrapper::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<StatWrapperT>(new StatWrapperT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void StatWrapper::UnPackTo(StatWrapperT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = value(); if (_e) _o->value = flatbuffers::UnPackStat(*_e); }
+}
+
+inline flatbuffers::Offset<StatWrapper> StatWrapper::Pack(flatbuffers::FlatBufferBuilder &_fbb, const StatWrapperT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateStatWrapper(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<StatWrapper> CreateStatWrapper(flatbuffers::FlatBufferBuilder &_fbb, const StatWrapperT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StatWrapperT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _value = flatbuffers::PackStat(_o->value);
+  return Info::CreateStatWrapper(
+      _fbb,
+      &_value);
 }
 
 }  // namespace Info

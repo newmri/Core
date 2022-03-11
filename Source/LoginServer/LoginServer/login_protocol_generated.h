@@ -6,6 +6,7 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+#include "Info_protocol_generated.h"
 #include "define_protocol_generated.h"
 
 namespace LoginPacket {
@@ -14,9 +15,9 @@ struct CS_LOGIN_REQ;
 struct CS_LOGIN_REQBuilder;
 struct CS_LOGIN_REQT;
 
-struct CHARACTER_INFO;
-struct CHARACTER_INFOBuilder;
-struct CHARACTER_INFOT;
+struct CharacterInfo;
+struct CharacterInfoBuilder;
+struct CharacterInfoT;
 
 struct SC_LOGIN_RES;
 struct SC_LOGIN_RESBuilder;
@@ -315,18 +316,18 @@ inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(
 
 flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGIN_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct CHARACTER_INFOT : public flatbuffers::NativeTable {
-  typedef CHARACTER_INFO TableType;
+struct CharacterInfoT : public flatbuffers::NativeTable {
+  typedef CharacterInfo TableType;
   int64_t uid = 0;
   std::string name{};
   uint8_t level = 0;
   Define::Job job = Define::Job_WARRIOR;
-  std::vector<uint8_t> gear{};
+  NativeInfo::CharacterGear gear{};
 };
 
-struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef CHARACTER_INFOT NativeTableType;
-  typedef CHARACTER_INFOBuilder Builder;
+struct CharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CharacterInfoT NativeTableType;
+  typedef CharacterInfoBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_UID = 4,
     VT_NAME = 6,
@@ -346,8 +347,8 @@ struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   Define::Job job() const {
     return static_cast<Define::Job>(GetField<uint8_t>(VT_JOB, 0));
   }
-  const flatbuffers::Vector<uint8_t> *gear() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_GEAR);
+  const Info::CharacterGear *gear() const {
+    return GetStruct<const Info::CharacterGear *>(VT_GEAR);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -356,53 +357,52 @@ struct CHARACTER_INFO FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(name()) &&
            VerifyField<uint8_t>(verifier, VT_LEVEL) &&
            VerifyField<uint8_t>(verifier, VT_JOB) &&
-           VerifyOffset(verifier, VT_GEAR) &&
-           verifier.VerifyVector(gear()) &&
+           VerifyField<Info::CharacterGear>(verifier, VT_GEAR) &&
            verifier.EndTable();
   }
-  CHARACTER_INFOT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(CHARACTER_INFOT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<CHARACTER_INFO> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CHARACTER_INFOT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  CharacterInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CharacterInfoT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CharacterInfo> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
-struct CHARACTER_INFOBuilder {
-  typedef CHARACTER_INFO Table;
+struct CharacterInfoBuilder {
+  typedef CharacterInfo Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_uid(int64_t uid) {
-    fbb_.AddElement<int64_t>(CHARACTER_INFO::VT_UID, uid, 0);
+    fbb_.AddElement<int64_t>(CharacterInfo::VT_UID, uid, 0);
   }
   void add_name(flatbuffers::Offset<flatbuffers::String> name) {
-    fbb_.AddOffset(CHARACTER_INFO::VT_NAME, name);
+    fbb_.AddOffset(CharacterInfo::VT_NAME, name);
   }
   void add_level(uint8_t level) {
-    fbb_.AddElement<uint8_t>(CHARACTER_INFO::VT_LEVEL, level, 0);
+    fbb_.AddElement<uint8_t>(CharacterInfo::VT_LEVEL, level, 0);
   }
   void add_job(Define::Job job) {
-    fbb_.AddElement<uint8_t>(CHARACTER_INFO::VT_JOB, static_cast<uint8_t>(job), 0);
+    fbb_.AddElement<uint8_t>(CharacterInfo::VT_JOB, static_cast<uint8_t>(job), 0);
   }
-  void add_gear(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gear) {
-    fbb_.AddOffset(CHARACTER_INFO::VT_GEAR, gear);
+  void add_gear(const Info::CharacterGear *gear) {
+    fbb_.AddStruct(CharacterInfo::VT_GEAR, gear);
   }
-  explicit CHARACTER_INFOBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit CharacterInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<CHARACTER_INFO> Finish() {
+  flatbuffers::Offset<CharacterInfo> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<CHARACTER_INFO>(end);
+    auto o = flatbuffers::Offset<CharacterInfo>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(
+inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(
     flatbuffers::FlatBufferBuilder &_fbb,
     int64_t uid = 0,
     flatbuffers::Offset<flatbuffers::String> name = 0,
     uint8_t level = 0,
     Define::Job job = Define::Job_WARRIOR,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gear = 0) {
-  CHARACTER_INFOBuilder builder_(_fbb);
+    const Info::CharacterGear *gear = 0) {
+  CharacterInfoBuilder builder_(_fbb);
   builder_.add_uid(uid);
   builder_.add_gear(gear);
   builder_.add_name(name);
@@ -411,32 +411,31 @@ inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFODirect(
+inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfoDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     int64_t uid = 0,
     const char *name = nullptr,
     uint8_t level = 0,
     Define::Job job = Define::Job_WARRIOR,
-    const std::vector<uint8_t> *gear = nullptr) {
+    const Info::CharacterGear *gear = 0) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
-  auto gear__ = gear ? _fbb.CreateVector<uint8_t>(*gear) : 0;
-  return LoginPacket::CreateCHARACTER_INFO(
+  return LoginPacket::CreateCharacterInfo(
       _fbb,
       uid,
       name__,
       level,
       job,
-      gear__);
+      gear);
 }
 
-flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(flatbuffers::FlatBufferBuilder &_fbb, const CHARACTER_INFOT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 struct SC_LOGIN_REST : public flatbuffers::NativeTable {
   typedef SC_LOGIN_RES TableType;
   LoginPacket::ErrorCode result = LoginPacket::ErrorCode_SUCCESS;
   uint8_t max_slot_count = 0;
   uint8_t empty_slot_count = 0;
-  std::vector<std::unique_ptr<LoginPacket::CHARACTER_INFOT>> character_info{};
+  std::vector<std::unique_ptr<LoginPacket::CharacterInfoT>> character_info{};
 };
 
 struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -457,8 +456,8 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint8_t empty_slot_count() const {
     return GetField<uint8_t>(VT_EMPTY_SLOT_COUNT, 0);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>> *character_info() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>> *>(VT_CHARACTER_INFO);
+  const flatbuffers::Vector<flatbuffers::Offset<LoginPacket::CharacterInfo>> *character_info() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<LoginPacket::CharacterInfo>> *>(VT_CHARACTER_INFO);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -488,7 +487,7 @@ struct SC_LOGIN_RESBuilder {
   void add_empty_slot_count(uint8_t empty_slot_count) {
     fbb_.AddElement<uint8_t>(SC_LOGIN_RES::VT_EMPTY_SLOT_COUNT, empty_slot_count, 0);
   }
-  void add_character_info(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>>> character_info) {
+  void add_character_info(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<LoginPacket::CharacterInfo>>> character_info) {
     fbb_.AddOffset(SC_LOGIN_RES::VT_CHARACTER_INFO, character_info);
   }
   explicit SC_LOGIN_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -507,7 +506,7 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
     LoginPacket::ErrorCode result = LoginPacket::ErrorCode_SUCCESS,
     uint8_t max_slot_count = 0,
     uint8_t empty_slot_count = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>>> character_info = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<LoginPacket::CharacterInfo>>> character_info = 0) {
   SC_LOGIN_RESBuilder builder_(_fbb);
   builder_.add_character_info(character_info);
   builder_.add_empty_slot_count(empty_slot_count);
@@ -521,8 +520,8 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RESDirect(
     LoginPacket::ErrorCode result = LoginPacket::ErrorCode_SUCCESS,
     uint8_t max_slot_count = 0,
     uint8_t empty_slot_count = 0,
-    const std::vector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>> *character_info = nullptr) {
-  auto character_info__ = character_info ? _fbb.CreateVector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>>(*character_info) : 0;
+    const std::vector<flatbuffers::Offset<LoginPacket::CharacterInfo>> *character_info = nullptr) {
+  auto character_info__ = character_info ? _fbb.CreateVector<flatbuffers::Offset<LoginPacket::CharacterInfo>>(*character_info) : 0;
   return LoginPacket::CreateSC_LOGIN_RES(
       _fbb,
       result,
@@ -728,7 +727,7 @@ flatbuffers::Offset<CS_CREATE_CHARACTER_REQ> CreateCS_CREATE_CHARACTER_REQ(flatb
 struct SC_CREATE_CHARACTER_REST : public flatbuffers::NativeTable {
   typedef SC_CREATE_CHARACTER_RES TableType;
   bool is_success = false;
-  std::unique_ptr<LoginPacket::CHARACTER_INFOT> character_info{};
+  std::unique_ptr<LoginPacket::CharacterInfoT> character_info{};
 };
 
 struct SC_CREATE_CHARACTER_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -741,8 +740,8 @@ struct SC_CREATE_CHARACTER_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
   bool is_success() const {
     return GetField<uint8_t>(VT_IS_SUCCESS, 0) != 0;
   }
-  const LoginPacket::CHARACTER_INFO *character_info() const {
-    return GetPointer<const LoginPacket::CHARACTER_INFO *>(VT_CHARACTER_INFO);
+  const LoginPacket::CharacterInfo *character_info() const {
+    return GetPointer<const LoginPacket::CharacterInfo *>(VT_CHARACTER_INFO);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -763,7 +762,7 @@ struct SC_CREATE_CHARACTER_RESBuilder {
   void add_is_success(bool is_success) {
     fbb_.AddElement<uint8_t>(SC_CREATE_CHARACTER_RES::VT_IS_SUCCESS, static_cast<uint8_t>(is_success), 0);
   }
-  void add_character_info(flatbuffers::Offset<LoginPacket::CHARACTER_INFO> character_info) {
+  void add_character_info(flatbuffers::Offset<LoginPacket::CharacterInfo> character_info) {
     fbb_.AddOffset(SC_CREATE_CHARACTER_RES::VT_CHARACTER_INFO, character_info);
   }
   explicit SC_CREATE_CHARACTER_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -780,7 +779,7 @@ struct SC_CREATE_CHARACTER_RESBuilder {
 inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
     bool is_success = false,
-    flatbuffers::Offset<LoginPacket::CHARACTER_INFO> character_info = 0) {
+    flatbuffers::Offset<LoginPacket::CharacterInfo> character_info = 0) {
   SC_CREATE_CHARACTER_RESBuilder builder_(_fbb);
   builder_.add_character_info(character_info);
   builder_.add_is_success(is_success);
@@ -931,42 +930,42 @@ inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBuf
       _token);
 }
 
-inline CHARACTER_INFOT *CHARACTER_INFO::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
-  auto _o = std::unique_ptr<CHARACTER_INFOT>(new CHARACTER_INFOT());
+inline CharacterInfoT *CharacterInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CharacterInfoT>(new CharacterInfoT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void CHARACTER_INFO::UnPackTo(CHARACTER_INFOT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void CharacterInfo::UnPackTo(CharacterInfoT *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = uid(); _o->uid = _e; }
   { auto _e = name(); if (_e) _o->name = _e->str(); }
   { auto _e = level(); _o->level = _e; }
   { auto _e = job(); _o->job = _e; }
-  { auto _e = gear(); if (_e) { _o->gear.resize(_e->size()); std::copy(_e->begin(), _e->end(), _o->gear.begin()); } }
+  { auto _e = gear(); if (_e) _o->gear = flatbuffers::UnPackCharacterGear(*_e); }
 }
 
-inline flatbuffers::Offset<CHARACTER_INFO> CHARACTER_INFO::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CHARACTER_INFOT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
-  return CreateCHARACTER_INFO(_fbb, _o, _rehasher);
+inline flatbuffers::Offset<CharacterInfo> CharacterInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCharacterInfo(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<CHARACTER_INFO> CreateCHARACTER_INFO(flatbuffers::FlatBufferBuilder &_fbb, const CHARACTER_INFOT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CHARACTER_INFOT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CharacterInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _uid = _o->uid;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
   auto _level = _o->level;
   auto _job = _o->job;
-  auto _gear = _o->gear.size() ? _fbb.CreateVector(_o->gear) : 0;
-  return LoginPacket::CreateCHARACTER_INFO(
+  auto _gear = flatbuffers::PackCharacterGear(_o->gear);
+  return LoginPacket::CreateCharacterInfo(
       _fbb,
       _uid,
       _name,
       _level,
       _job,
-      _gear);
+      &_gear);
 }
 
 inline SC_LOGIN_REST *SC_LOGIN_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
@@ -981,7 +980,7 @@ inline void SC_LOGIN_RES::UnPackTo(SC_LOGIN_REST *_o, const flatbuffers::resolve
   { auto _e = result(); _o->result = _e; }
   { auto _e = max_slot_count(); _o->max_slot_count = _e; }
   { auto _e = empty_slot_count(); _o->empty_slot_count = _e; }
-  { auto _e = character_info(); if (_e) { _o->character_info.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->character_info[_i] = std::unique_ptr<LoginPacket::CHARACTER_INFOT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = character_info(); if (_e) { _o->character_info.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->character_info[_i] = std::unique_ptr<LoginPacket::CharacterInfoT>(_e->Get(_i)->UnPack(_resolver)); } } }
 }
 
 inline flatbuffers::Offset<SC_LOGIN_RES> SC_LOGIN_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -995,7 +994,7 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBuf
   auto _result = _o->result;
   auto _max_slot_count = _o->max_slot_count;
   auto _empty_slot_count = _o->empty_slot_count;
-  auto _character_info = _o->character_info.size() ? _fbb.CreateVector<flatbuffers::Offset<LoginPacket::CHARACTER_INFO>> (_o->character_info.size(), [](size_t i, _VectorArgs *__va) { return CreateCHARACTER_INFO(*__va->__fbb, __va->__o->character_info[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _character_info = _o->character_info.size() ? _fbb.CreateVector<flatbuffers::Offset<LoginPacket::CharacterInfo>> (_o->character_info.size(), [](size_t i, _VectorArgs *__va) { return CreateCharacterInfo(*__va->__fbb, __va->__o->character_info[i].get(), __va->__rehasher); }, &_va ) : 0;
   return LoginPacket::CreateSC_LOGIN_RES(
       _fbb,
       _result,
@@ -1112,7 +1111,7 @@ inline void SC_CREATE_CHARACTER_RES::UnPackTo(SC_CREATE_CHARACTER_REST *_o, cons
   (void)_o;
   (void)_resolver;
   { auto _e = is_success(); _o->is_success = _e; }
-  { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<LoginPacket::CHARACTER_INFOT>(_e->UnPack(_resolver)); }
+  { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<LoginPacket::CharacterInfoT>(_e->UnPack(_resolver)); }
 }
 
 inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> SC_CREATE_CHARACTER_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_CREATE_CHARACTER_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -1124,7 +1123,7 @@ inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RE
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_CREATE_CHARACTER_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _is_success = _o->is_success;
-  auto _character_info = _o->character_info ? CreateCHARACTER_INFO(_fbb, _o->character_info.get(), _rehasher) : 0;
+  auto _character_info = _o->character_info ? CreateCharacterInfo(_fbb, _o->character_info.get(), _rehasher) : 0;
   return LoginPacket::CreateSC_CREATE_CHARACTER_RES(
       _fbb,
       _is_success,

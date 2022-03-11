@@ -46,10 +46,10 @@ public enum StatType : byte
   STR = 0,
   DEX = 1,
   INT = 2,
-  STAT_END = 3,
+  END = 3,
 };
 
-public enum Ability : byte
+public enum AbilityType : byte
 {
   HP = 0,
   MP = 1,
@@ -66,6 +66,7 @@ public enum Ability : byte
   DARK_REGISTTANCE = 12,
   FIRE_REGISTTANCE = 13,
   ICE_REGISTTANCE = 14,
+  END = 15,
 };
 
 public enum AbilityByStatType : byte
@@ -76,7 +77,7 @@ public enum AbilityByStatType : byte
   MAGIC_DAMAGE = 3,
   DEFENCE = 4,
   MAGIC_DEFENCE = 5,
-  ABILITY_BY_STAT_END = 6,
+  END = 6,
 };
 
 public enum GearType : byte
@@ -90,7 +91,7 @@ public enum GearType : byte
   FEET = 6,
   HAIR = 7,
   FACE = 8,
-  GEAR_END = 9,
+  END = 9,
 };
 
 public enum Dir : byte

@@ -9,7 +9,7 @@ void GamePacketFunc::Write(std::shared_ptr<CoreClientSession> session, GamePacke
 	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }
 
-flatbuffers::Offset<GamePacket::CHARACTER_INFO> GamePacketFunc::MakeCharacterInfo(const CharacterLoadInfo& loadInfo)
+flatbuffers::Offset<GamePacket::CharacterInfo> GamePacketFunc::MakeCharacterInfo(const CharacterLoadInfo& loadInfo)
 {
 	auto info = GamePacket::CreateCHARACTER_INFO(this->builder,
 		loadInfo.uid,
@@ -78,7 +78,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
 
-		account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), loadInfo.uid, loadInfo.info));
+		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), loadInfo.uid, loadInfo.info));
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드

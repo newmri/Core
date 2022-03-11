@@ -1,4 +1,5 @@
 include "../common/define_protocol.fbs";
+include "../common/Info_protocol.fbs";
 
 namespace LoginPacket;
 
@@ -26,13 +27,13 @@ table CS_LOGIN_REQ
     token:int32;
 }
 
-table CHARACTER_INFO
+table CharacterInfo
 {
     uid:int64;
     name:string;
     level:ubyte;
     job:Define.Job;
-    gear:[ubyte];
+    gear:Info.CharacterGear (native_inline);
 }
 
 table SC_LOGIN_RES
@@ -40,7 +41,7 @@ table SC_LOGIN_RES
     result:ErrorCode;
     max_slot_count:ubyte;
     empty_slot_count:ubyte;
-    character_info:[CHARACTER_INFO];
+    character_info:[CharacterInfo];
 }
 
 table SC_PING_REQ
@@ -64,7 +65,7 @@ table CS_CREATE_CHARACTER_REQ
 table SC_CREATE_CHARACTER_RES
 {
     is_success:bool;
-    character_info:CHARACTER_INFO;
+    character_info:CharacterInfo;
 }
 
 table Root

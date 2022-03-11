@@ -37,10 +37,10 @@ enum StatType : ubyte
 	STR = 0,
 	DEX,
 	INT,
-	STAT_END
+	END
 }
 
-enum Ability : ubyte
+enum AbilityType : ubyte
 {
 	HP,
 	MP,
@@ -57,6 +57,7 @@ enum Ability : ubyte
 	DARK_REGISTTANCE,
 	FIRE_REGISTTANCE,
 	ICE_REGISTTANCE,
+	END
 }
 
 enum AbilityByStatType : ubyte
@@ -67,7 +68,7 @@ enum AbilityByStatType : ubyte
 	MAGIC_DAMAGE,
 	DEFENCE,
 	MAGIC_DEFENCE,
-	ABILITY_BY_STAT_END
+	END
 }
 
 enum GearType : ubyte
@@ -81,7 +82,7 @@ enum GearType : ubyte
 	FEET,
 	HAIR,
 	FACE,
-	GEAR_END
+	END
 }
 
 enum Dir : ubyte

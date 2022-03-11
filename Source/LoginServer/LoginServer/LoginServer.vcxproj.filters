@@ -37,9 +37,6 @@
     <Filter Include="02.DataManager">
       <UniqueIdentifier>{db085e40-1991-4de2-be7d-7d00be0559d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.DataManager\00.CharacterData">
-      <UniqueIdentifier>{8e8b2334-dfe1-43f3-b591-e29e4588e434}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -106,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="DataManager.h">
       <Filter>02.DataManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterData.h">
-      <Filter>02.DataManager\00.CharacterData</Filter>
     </ClInclude>
     <ClInclude Include="LoginCharacter.h">
       <Filter>04.LoginCharacter</Filter>

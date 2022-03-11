@@ -13,7 +13,7 @@ using Spine.Unity;
 public class UICharacterActiveSlot : UIPopup
 {
     [SerializeField]
-    CHARACTER_INFO _info;
+    LoginPacket.CharacterInfo _info;
 
     bool _IsSelected = false;
 
@@ -67,7 +67,7 @@ public class UICharacterActiveSlot : UIPopup
 
         GearEquipper gear = GetObject((int)GameObjects.Character).GetComponent<GearEquipper>();
         gear.Job = _info.Job;
-        gear.SetGear(_info.GetGearArray());
+        gear.SetGear(_info.Gear.Value.UnPack());
 
         MeshRenderer mesh = GetObject((int)GameObjects.CharacterGFX).GetComponent<MeshRenderer>();
         mesh.sortingOrder = GetComponent<Canvas>().sortingOrder + 1;
@@ -93,7 +93,7 @@ public class UICharacterActiveSlot : UIPopup
         GetObject((int)GameObjects.CharacterBgActive).SetActive(false);
     }
 
-    public void SetInfo(CHARACTER_INFO info)
+    public void SetInfo(LoginPacket.CharacterInfo info)
     {
         transform.SetAsFirstSibling();
         _info = info;

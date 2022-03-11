@@ -1,4 +1,5 @@
 include "../common/define_protocol.fbs";
+include "../common/info_protocol.fbs";
 
 namespace GamePacket;
 
@@ -25,19 +26,21 @@ table CS_LOGIN_REQ
     token:int32;
 }
 
-table CHARACTER_INFO
+table CharacterInfo (native_type:"CharacterInfoT")
 {
     uid:int64;
     name:string;
     level:ubyte;
     job:Define.Job;
-    gear:[ubyte];
+    gear:Info.CharacterGear (native_inline);
+    stat:Info.Stat (native_inline);
+    ability:[int32];
 }
 
 table SC_LOGIN_RES
 {
     result:ErrorCode;
-    character_info:CHARACTER_INFO;
+    character_info:CharacterInfo;
     money:[int32];
 }
 

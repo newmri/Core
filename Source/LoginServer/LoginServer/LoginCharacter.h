@@ -3,9 +3,9 @@
 class LoginCharacter : public CoreCharacter
 {
 public:
-	LoginCharacter(const int64_t& accountUID, const int64_t& uid, const CharacterInfo& info);
+	LoginCharacter(const int64_t& accountUID, const int64_t& uid, const LoginPacket::CharacterInfoT& info);
 	virtual ~LoginCharacter();
 
 private:
-	CharacterInfo info;
+	LoginPacket::CharacterInfoT info;
 };

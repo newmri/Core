@@ -48,7 +48,7 @@ public class UICharacterSelectPopup : UIPopup
             AddLockSlot();
     }
 
-    public void SetActiveSlot(CHARACTER_INFO info)
+    public void SetActiveSlot(LoginPacket.CharacterInfo info)
     {
         GameObject go = CoreManagers.Resource.Instantiate("UI/Popup/UICharacterActiveSlot", _gird.transform);
         

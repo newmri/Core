@@ -22,8 +22,8 @@
     <ClCompile Include="GamePacketFunc.cpp">
       <Filter>03.Packet\03.GamePacketFunc</Filter>
     </ClCompile>
-    <ClCompile Include="LoginCharacter.cpp">
-      <Filter>04.LoginCharacter</Filter>
+    <ClCompile Include="Character.cpp">
+      <Filter>04.Character</Filter>
     </ClCompile>
     <ClCompile Include="AccountDB.cpp">
       <Filter>05.DB\00.AccountDB</Filter>
@@ -63,8 +63,8 @@
     <ClInclude Include="GamePacketFunc.h">
       <Filter>03.Packet\03.GamePacketFunc</Filter>
     </ClInclude>
-    <ClInclude Include="LoginCharacter.h">
-      <Filter>04.LoginCharacter</Filter>
+    <ClInclude Include="Character.h">
+      <Filter>04.Character</Filter>
     </ClInclude>
     <ClInclude Include="AccountDB.h">
       <Filter>05.DB\00.AccountDB</Filter>
@@ -107,9 +107,6 @@
     <Filter Include="03.Packet\03.GamePacketFunc">
       <UniqueIdentifier>{b182d951-831d-42c7-ab51-edcf79a5a422}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.LoginCharacter">
-      <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05.DB">
       <UniqueIdentifier>{0b0ad8c2-5a2b-4fbf-9c11-5d95ad7307ad}</UniqueIdentifier>
     </Filter>
@@ -118,6 +115,9 @@
     </Filter>
     <Filter Include="05.DB\01.GameDB">
       <UniqueIdentifier>{493a0cd3-f53f-4d8c-aad0-7aa2a71452e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Character">
+      <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

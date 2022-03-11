@@ -120,5 +120,177 @@ public class PositionInfoT
   }
 }
 
+public struct Stat : IFlatbufferObject
+{
+  private Struct __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
+  public Stat __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public int Value(int j) { return __p.bb.GetInt(__p.bb_pos + 0 + j * 4); }
+
+  public static Offset<Info.Stat> CreateStat(FlatBufferBuilder builder, int[] Value) {
+    builder.Prep(4, 12);
+    for (int _idx0 = 3; _idx0 > 0; _idx0--) {
+      builder.PutInt(Value[_idx0-1]);
+    }
+    return new Offset<Info.Stat>(builder.Offset);
+  }
+  public StatT UnPack() {
+    var _o = new StatT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(StatT _o) {
+    _o.Value = new int[3];
+    for (var _j = 0; _j < 3; ++_j) { _o.Value[_j] = this.Value(_j); }
+  }
+  public static Offset<Info.Stat> Pack(FlatBufferBuilder builder, StatT _o) {
+    if (_o == null) return default(Offset<Info.Stat>);
+    var _value = _o.Value;
+    return CreateStat(
+      builder,
+      _value);
+  }
+};
+
+public class StatT
+{
+  public int[] Value { get; set; }
+
+  public StatT() {
+    this.Value = new int[3];
+  }
+}
+
+public struct StatWrapper : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static StatWrapper GetRootAsStatWrapper(ByteBuffer _bb) { return GetRootAsStatWrapper(_bb, new StatWrapper()); }
+  public static StatWrapper GetRootAsStatWrapper(ByteBuffer _bb, StatWrapper obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public StatWrapper __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Info.Stat? Value { get { int o = __p.__offset(4); return o != 0 ? (Info.Stat?)(new Info.Stat()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+
+  public static void StartStatWrapper(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddValue(FlatBufferBuilder builder, Offset<Info.Stat> valueOffset) { builder.AddStruct(0, valueOffset.Value, 0); }
+  public static Offset<Info.StatWrapper> EndStatWrapper(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Info.StatWrapper>(o);
+  }
+  public StatWrapperT UnPack() {
+    var _o = new StatWrapperT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(StatWrapperT _o) {
+    _o.Value = this.Value.HasValue ? this.Value.Value.UnPack() : null;
+  }
+  public static Offset<Info.StatWrapper> Pack(FlatBufferBuilder builder, StatWrapperT _o) {
+    if (_o == null) return default(Offset<Info.StatWrapper>);
+    StartStatWrapper(builder);
+    AddValue(builder, Info.Stat.Pack(builder, _o.Value));
+    return EndStatWrapper(builder);
+  }
+};
+
+public class StatWrapperT
+{
+  public Info.StatT Value { get; set; }
+
+  public StatWrapperT() {
+    this.Value = new Info.StatT();
+  }
+}
+
+public struct Ability : IFlatbufferObject
+{
+  private Struct __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
+  public Ability __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public int Value(int j) { return __p.bb.GetInt(__p.bb_pos + 0 + j * 4); }
+
+  public static Offset<Info.Ability> CreateAbility(FlatBufferBuilder builder, int[] Value) {
+    builder.Prep(4, 60);
+    for (int _idx0 = 15; _idx0 > 0; _idx0--) {
+      builder.PutInt(Value[_idx0-1]);
+    }
+    return new Offset<Info.Ability>(builder.Offset);
+  }
+  public AbilityT UnPack() {
+    var _o = new AbilityT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(AbilityT _o) {
+    _o.Value = new int[15];
+    for (var _j = 0; _j < 15; ++_j) { _o.Value[_j] = this.Value(_j); }
+  }
+  public static Offset<Info.Ability> Pack(FlatBufferBuilder builder, AbilityT _o) {
+    if (_o == null) return default(Offset<Info.Ability>);
+    var _value = _o.Value;
+    return CreateAbility(
+      builder,
+      _value);
+  }
+};
+
+public class AbilityT
+{
+  public int[] Value { get; set; }
+
+  public AbilityT() {
+    this.Value = new int[15];
+  }
+}
+
+public struct CharacterGear : IFlatbufferObject
+{
+  private Struct __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
+  public CharacterGear __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public byte Index(int j) { return __p.bb.Get(__p.bb_pos + 0 + j * 1); }
+
+  public static Offset<Info.CharacterGear> CreateCharacterGear(FlatBufferBuilder builder, byte[] Index) {
+    builder.Prep(1, 9);
+    for (int _idx0 = 9; _idx0 > 0; _idx0--) {
+      builder.PutByte(Index[_idx0-1]);
+    }
+    return new Offset<Info.CharacterGear>(builder.Offset);
+  }
+  public CharacterGearT UnPack() {
+    var _o = new CharacterGearT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CharacterGearT _o) {
+    _o.Index = new byte[9];
+    for (var _j = 0; _j < 9; ++_j) { _o.Index[_j] = this.Index(_j); }
+  }
+  public static Offset<Info.CharacterGear> Pack(FlatBufferBuilder builder, CharacterGearT _o) {
+    if (_o == null) return default(Offset<Info.CharacterGear>);
+    var _index = _o.Index;
+    return CreateCharacterGear(
+      builder,
+      _index);
+  }
+};
+
+public class CharacterGearT
+{
+  public byte[] Index { get; set; }
+
+  public CharacterGearT() {
+    this.Index = new byte[9];
+  }
+}
+
 
 }

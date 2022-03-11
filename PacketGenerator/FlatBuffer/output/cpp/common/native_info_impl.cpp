@@ -14,4 +14,23 @@ namespace flatbuffers
 		return NativeInfo::Vec2Int(obj.x(), obj.y());
 	}
 
-}  
+	Info::Stat PackStat(const NativeInfo::Stat& obj)
+	{
+		return Info::Stat(obj);
+	}
+
+	const NativeInfo::Stat UnPackStat(const Info::Stat& obj)
+	{
+		return NativeInfo::Vec2Int(obj.value()->Data());
+	}
+
+	Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj)
+	{
+		return Info::CharacterGear(obj.index);
+	}
+
+	const NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj)
+	{
+		return NativeInfo::CharacterGear(obj.index()->Data());
+	}
+}

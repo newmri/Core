@@ -6,11 +6,13 @@ c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x6
 c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\loginpackethandler.obj
 c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\loginpacketfunc.obj
 c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\gamedb.obj
-c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\accountdb.obj
 c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\datamanager.obj
+c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\accountdb.obj
+c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\logincharacter.obj
+c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\native_info_impl.obj
+c:\users\newmr\desktop\study\core\source\loginserver\x64\debug\loginserver.exe
 c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\loginserver.ilk
 c:\users\newmr\desktop\study\core\source\loginserver\x64\debug\loginserver.pdb
-c:\users\newmr\desktop\study\core\source\loginserver\x64\debug\loginserver.exe
 c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\loginserver.tlog\cl.command.1.tlog
 c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\loginserver.tlog\cl.read.1.tlog
 c:\users\newmr\desktop\study\core\source\loginserver\intermediate\loginserver\x64\debug\loginserver.tlog\cl.write.1.tlog

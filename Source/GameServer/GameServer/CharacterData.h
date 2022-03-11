@@ -1,8 +1,8 @@
 #pragma once
 
-struct CharacterCreateStat
+struct Stat
 {
-	CharacterCreateStat()
+	Stat()
 	{
 		memset(this, 0, sizeof(this));
 	}
@@ -10,9 +10,19 @@ struct CharacterCreateStat
 	int16_t value[Define::StatType_STAT_END];
 };
 
-struct CharacterCreateGear
+struct Ability
 {
-	CharacterCreateGear()
+	Ability()
+	{
+		memset(this, 0, sizeof(this));
+	}
+
+	int32_t value[Define::Ability_ABILITY_END];
+};
+
+struct CharacterGear
+{
+	CharacterGear()
 	{
 		memset(this, 0, sizeof(this));
 	}
@@ -27,7 +37,7 @@ struct CharacterInfo
 		memset(this, 0, sizeof(this));
 	}
 
-	CharacterInfo(const uint8_t& level, const Define::Job& job, const CharacterCreateStat& stat, const CharacterCreateGear& gear) :
+	CharacterInfo(const uint8_t& level, const Define::Job& job, const Stat& stat, const CharacterGear& gear) :
 		level(level),
 		job(job),
 		stat(stat),
@@ -38,8 +48,9 @@ struct CharacterInfo
 
 	uint8_t level;
 	uint8_t job;
-	CharacterCreateStat stat;
-	CharacterCreateGear gear;
+	Stat stat;
+	Ability ability;
+	CharacterGear gear;
 };
 
 struct CharacterLoadInfo

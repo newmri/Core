@@ -15,20 +15,23 @@ void GameDB::Release(void)
 {
 }
 
-void GameDB::LoadCharacter(const int64_t accountUID, std::vector<CharacterLoadInfo>& infoList)
+void GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::CharacterInfoT>& infoList)
 {
 	Prepare(L"LoadLoginCharacter");
 	BindArgument(accountUID);
 	Execute();
 
-	CharacterLoadInfo info;
+	LoginPacket::CharacterInfoT info;
 	BindCol(&info.uid, sizeof(info.uid));
-	BindCol((wchar_t**)&info.name, Define::CharacterLimit_MaxNameLen);
-	BindCol(&info.info.level, sizeof(info.info.level));
-	BindCol(&info.info.job, sizeof(info.info.job));
 
-	for (int i = 0; i < Define::GearType_GEAR_END; ++i)
-		BindCol(&info.info.gear.value[i], sizeof(info.info.gear.value[i]));
+	wchar_t name[Define::CharacterLimit_MaxNameLen];
+	BindCol((wchar_t**)&name, Define::CharacterLimit_MaxNameLen);
+
+	BindCol(&info.level, sizeof(info.level));
+	BindCol((uint8_t*)&info.job, sizeof(info.job));
+
+	for (int i = 0; i < Define::GearType_END; ++i)
+		BindCol(&info.gear.index[i], sizeof(info.gear.index[i]));
 
 	while (IsSuccess())
 	{
@@ -36,6 +39,7 @@ void GameDB::LoadCharacter(const int64_t accountUID, std::vector<CharacterLoadIn
 
 		if (IsSuccess())
 		{
+			info.name = STRING_MANAGER.Narrow(name);
 			infoList.push_back(info);
 		}
 	};
@@ -79,21 +83,23 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }
 
-bool GameDB::CreateCharacter(const int64_t accountUID, CharacterLoadInfo& loadInfo)
+bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, LoginPacket::CharacterInfoT& info)
 {
 	Prepare(L"CreateCharacter");
 	BindArgument(accountUID);
-	BindArgument(loadInfo.name);
-	BindArgument(loadInfo.info.level);
-	BindArgument(loadInfo.info.job);
+	BindArgument(name.data());
+	BindArgument(info.level);
+	BindArgument(info.job);
 	BindArgument(100);
 	BindArgument(100);
 
-	for (int i = 0; i < Define::StatType_STAT_END; ++i)
-		BindArgument(loadInfo.info.stat.value[i]);
+	NativeInfo::Stat stat = DATA_MANAGER.GetCharacterCreateStat(info.job);
+	for (int i = 0; i < Define::StatType_END; ++i)
+		BindArgument(stat.value[i]);
 
-	for (int i = 0; i < Define::GearType_GEAR_END; ++i)
-		BindArgument(loadInfo.info.gear.value[i]);
+	DATA_MANAGER.GetCharacterCreateGear(info.job, info.gear.index);
+	for (int i = 0; i < Define::GearType_END; ++i)
+		BindArgument(info.gear.index[i]);
 
 	Execute();
 
@@ -109,7 +115,7 @@ bool GameDB::CreateCharacter(const int64_t accountUID, CharacterLoadInfo& loadIn
 
 		if (IsSuccess())
 		{
-			loadInfo.uid = characterUID;
+			info.uid = characterUID;
 		}
 	};
 

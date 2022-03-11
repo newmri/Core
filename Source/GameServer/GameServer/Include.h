@@ -6,7 +6,7 @@
 #include "DataManager.h"
 #include "GamePacketFunc.h"
 #include "GamePacketHandler.h"
-#include "LoginCharacter.h"
+#include "Character.h"
 #include "AccountDB.h"
 #include "GameDB.h"
 #include "GameServer.h"
