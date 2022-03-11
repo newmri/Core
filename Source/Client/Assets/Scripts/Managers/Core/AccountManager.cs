@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GamePacket;
 
 public class AccountManager
 {
@@ -9,4 +10,5 @@ public class AccountManager
     public string Password { get; set; }
     public long UID { get; set; }
     public int Token { get; set; }
+    public int[] Money {get; set;}
 }

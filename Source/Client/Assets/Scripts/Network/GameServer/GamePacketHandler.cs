@@ -31,6 +31,7 @@ class GamePacketHandler
         }
 
         Managers.Character.AddMyCharacter(loginRes.CharacterInfo.Value.UnPack());
+        Managers.Account.Money = loginRes.GetMoneyArray();
 
         CoreManagers.Scene.LoadScene(CoreDefine.Scene.Game);
     }

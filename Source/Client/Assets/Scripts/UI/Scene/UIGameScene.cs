@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using Define;
 using GamePacket;
 
 public class UIGameScene : UIScene
@@ -14,6 +15,8 @@ public class UIGameScene : UIScene
     {
         CharacterLevelText,
         CharacterNameText,
+        GemText,
+        GoldText
     }
 
     enum Images
@@ -28,6 +31,7 @@ public class UIGameScene : UIScene
         Bind<Image>(typeof(Images));
 
         InitCharacterInfo();
+        InitMoney();
     }
 
     void InitCharacterInfo()
@@ -39,5 +43,11 @@ public class UIGameScene : UIScene
 
         Sprite jobIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{info.Job.ToString()}Icon");
         GetImage((int)Images.JobIconImage).sprite = jobIcon;
+    }
+
+    void InitMoney()
+    {
+        this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = Managers.Account.Money[(int)Money.GEM].ToString();
+        this.GetTextMesh((int)TextMeshProUGUIs.GoldText).text = Managers.Account.Money[(int)Money.GOLD].ToString();
     }
 }
