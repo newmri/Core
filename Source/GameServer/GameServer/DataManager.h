@@ -15,4 +15,5 @@ public:
 public:
 	CoreVector<CharacterCreateStat> characterCreateStat;
 	CoreVector<CharacterCreateGear> characterCreateGear;
+	CoreVector<CharacterCalculateStat> charactercalculateStat;
 };

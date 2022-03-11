@@ -36,7 +36,8 @@ enum StatType : ubyte
 {
 	STR = 0,
 	DEX,
-	INT
+	INT,
+	STAT_END
 }
 
 enum GearType : ubyte
@@ -49,7 +50,8 @@ enum GearType : ubyte
 	ARM,
 	FEET,
 	HAIR,
-	FACE
+	FACE,
+	GEAR_END
 }
 
 enum Dir : ubyte

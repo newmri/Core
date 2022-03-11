@@ -27,7 +27,7 @@ void GameDB::LoadCharacter(const int64_t accountUID, std::vector<CharacterLoadIn
 	BindCol(&info.info.level, sizeof(info.info.level));
 	BindCol(&info.info.job, sizeof(info.info.job));
 
-	for (int i = 0; i <= Define::GearType_MAX; ++i)
+	for (int i = 0; i < Define::GearType_GEAR_END; ++i)
 		BindCol(&info.info.gear.value[i], sizeof(info.info.gear.value[i]));
 
 	while (IsSuccess())
@@ -89,10 +89,10 @@ bool GameDB::CreateCharacter(const int64_t accountUID, CharacterLoadInfo& loadIn
 	BindArgument(100);
 	BindArgument(100);
 
-	for (int i = 0; i <= Define::StatType_MAX; ++i)
+	for (int i = 0; i < Define::StatType_STAT_END; ++i)
 		BindArgument(loadInfo.info.stat.value[i]);
 
-	for (int i = 0; i <= Define::GearType_MAX; ++i)
+	for (int i = 0; i < Define::GearType_GEAR_END; ++i)
 		BindArgument(loadInfo.info.gear.value[i]);
 
 	Execute();

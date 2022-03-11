@@ -170,31 +170,34 @@ enum StatType : uint8_t {
   StatType_STR = 0,
   StatType_DEX = 1,
   StatType_INT = 2,
+  StatType_STAT_END = 3,
   StatType_MIN = StatType_STR,
-  StatType_MAX = StatType_INT
+  StatType_MAX = StatType_STAT_END
 };
 
-inline const StatType (&EnumValuesStatType())[3] {
+inline const StatType (&EnumValuesStatType())[4] {
   static const StatType values[] = {
     StatType_STR,
     StatType_DEX,
-    StatType_INT
+    StatType_INT,
+    StatType_STAT_END
   };
   return values;
 }
 
 inline const char * const *EnumNamesStatType() {
-  static const char * const names[4] = {
+  static const char * const names[5] = {
     "STR",
     "DEX",
     "INT",
+    "STAT_END",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameStatType(StatType e) {
-  if (flatbuffers::IsOutRange(e, StatType_STR, StatType_INT)) return "";
+  if (flatbuffers::IsOutRange(e, StatType_STR, StatType_STAT_END)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesStatType()[index];
 }
@@ -209,11 +212,12 @@ enum GearType : uint8_t {
   GearType_FEET = 6,
   GearType_HAIR = 7,
   GearType_FACE = 8,
+  GearType_GEAR_END = 9,
   GearType_MIN = GearType_LEFT_HAND,
-  GearType_MAX = GearType_FACE
+  GearType_MAX = GearType_GEAR_END
 };
 
-inline const GearType (&EnumValuesGearType())[9] {
+inline const GearType (&EnumValuesGearType())[10] {
   static const GearType values[] = {
     GearType_LEFT_HAND,
     GearType_RIGHT_HAND,
@@ -223,13 +227,14 @@ inline const GearType (&EnumValuesGearType())[9] {
     GearType_ARM,
     GearType_FEET,
     GearType_HAIR,
-    GearType_FACE
+    GearType_FACE,
+    GearType_GEAR_END
   };
   return values;
 }
 
 inline const char * const *EnumNamesGearType() {
-  static const char * const names[10] = {
+  static const char * const names[11] = {
     "LEFT_HAND",
     "RIGHT_HAND",
     "ARMOR",
@@ -239,13 +244,14 @@ inline const char * const *EnumNamesGearType() {
     "FEET",
     "HAIR",
     "FACE",
+    "GEAR_END",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameGearType(GearType e) {
-  if (flatbuffers::IsOutRange(e, GearType_LEFT_HAND, GearType_FACE)) return "";
+  if (flatbuffers::IsOutRange(e, GearType_LEFT_HAND, GearType_GEAR_END)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesGearType()[index];
 }

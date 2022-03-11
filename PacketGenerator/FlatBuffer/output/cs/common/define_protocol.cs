@@ -46,6 +46,7 @@ public enum StatType : byte
   STR = 0,
   DEX = 1,
   INT = 2,
+  STAT_END = 3,
 };
 
 public enum GearType : byte
@@ -59,6 +60,7 @@ public enum GearType : byte
   FEET = 6,
   HAIR = 7,
   FACE = 8,
+  GEAR_END = 9,
 };
 
 public enum Dir : byte

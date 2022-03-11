@@ -16,7 +16,7 @@ flatbuffers::Offset<LoginPacket::CHARACTER_INFO> LoginPacketFunc::MakeCharacterI
 				this->builder.CreateString(STRING_MANAGER.Narrow(loadInfo.name)),
 				loadInfo.info.level,
 				static_cast<Define::Job>(loadInfo.info.job),
-				this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_MAX + 1));
+				this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_GEAR_END));
 
 	return info;
 }

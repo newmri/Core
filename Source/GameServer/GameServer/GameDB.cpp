@@ -26,7 +26,7 @@ bool GameDB::LoadCharacter(const int64_t accountUID, const int64_t characterUID,
 	BindCol(&info.info.level, sizeof(info.info.level));
 	BindCol(&info.info.job, sizeof(info.info.job));
 
-	for (int i = 0; i <= Define::GearType_MAX; ++i)
+	for (int i = 0; i < Define::GearType_GEAR_END; ++i)
 		BindCol(&info.info.gear.value[i], sizeof(info.info.gear.value[i]));
 
 	while (IsSuccess())
