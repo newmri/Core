@@ -49,6 +49,25 @@ public enum StatType : byte
   STAT_END = 3,
 };
 
+public enum Ability : byte
+{
+  HP = 0,
+  MP = 1,
+  DAMAGE = 2,
+  MAGIC_DAMAGE = 3,
+  DEFENCE = 4,
+  MAGIC_DEFENCE = 5,
+  ATTACK_SPEED = 6,
+  MAGIC_CASTING_SPEED = 7,
+  MOVE_SPEED = 8,
+  CRITICAL_RATE = 9,
+  MAGIC_CRITICAL_RATE = 10,
+  LIGHT_REGISTTANCE = 11,
+  DARK_REGISTTANCE = 12,
+  FIRE_REGISTTANCE = 13,
+  ICE_REGISTTANCE = 14,
+};
+
 public enum AbilityByStatType : byte
 {
   HP = 0,

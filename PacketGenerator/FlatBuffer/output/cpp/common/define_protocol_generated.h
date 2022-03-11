@@ -202,6 +202,75 @@ inline const char *EnumNameStatType(StatType e) {
   return EnumNamesStatType()[index];
 }
 
+enum Ability : uint8_t {
+  Ability_HP = 0,
+  Ability_MP = 1,
+  Ability_DAMAGE = 2,
+  Ability_MAGIC_DAMAGE = 3,
+  Ability_DEFENCE = 4,
+  Ability_MAGIC_DEFENCE = 5,
+  Ability_ATTACK_SPEED = 6,
+  Ability_MAGIC_CASTING_SPEED = 7,
+  Ability_MOVE_SPEED = 8,
+  Ability_CRITICAL_RATE = 9,
+  Ability_MAGIC_CRITICAL_RATE = 10,
+  Ability_LIGHT_REGISTTANCE = 11,
+  Ability_DARK_REGISTTANCE = 12,
+  Ability_FIRE_REGISTTANCE = 13,
+  Ability_ICE_REGISTTANCE = 14,
+  Ability_MIN = Ability_HP,
+  Ability_MAX = Ability_ICE_REGISTTANCE
+};
+
+inline const Ability (&EnumValuesAbility())[15] {
+  static const Ability values[] = {
+    Ability_HP,
+    Ability_MP,
+    Ability_DAMAGE,
+    Ability_MAGIC_DAMAGE,
+    Ability_DEFENCE,
+    Ability_MAGIC_DEFENCE,
+    Ability_ATTACK_SPEED,
+    Ability_MAGIC_CASTING_SPEED,
+    Ability_MOVE_SPEED,
+    Ability_CRITICAL_RATE,
+    Ability_MAGIC_CRITICAL_RATE,
+    Ability_LIGHT_REGISTTANCE,
+    Ability_DARK_REGISTTANCE,
+    Ability_FIRE_REGISTTANCE,
+    Ability_ICE_REGISTTANCE
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesAbility() {
+  static const char * const names[16] = {
+    "HP",
+    "MP",
+    "DAMAGE",
+    "MAGIC_DAMAGE",
+    "DEFENCE",
+    "MAGIC_DEFENCE",
+    "ATTACK_SPEED",
+    "MAGIC_CASTING_SPEED",
+    "MOVE_SPEED",
+    "CRITICAL_RATE",
+    "MAGIC_CRITICAL_RATE",
+    "LIGHT_REGISTTANCE",
+    "DARK_REGISTTANCE",
+    "FIRE_REGISTTANCE",
+    "ICE_REGISTTANCE",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameAbility(Ability e) {
+  if (flatbuffers::IsOutRange(e, Ability_HP, Ability_ICE_REGISTTANCE)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesAbility()[index];
+}
+
 enum AbilityByStatType : uint8_t {
   AbilityByStatType_HP = 0,
   AbilityByStatType_MP = 1,
