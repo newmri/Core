@@ -49,10 +49,12 @@ struct CharacterLoadInfo
 	CharacterInfo info;
 };
 
-struct CharacterCalculateStat
+struct CharacterAbilityByStat
 {
-	CharacterCalculateStat()
+	CharacterAbilityByStat()
 	{
 		memset(this, 0, sizeof(this));
 	}
+
+	uint8_t multiplyValue[Define::AbilityByStatType_ABILITY_BY_STAT_END];
 };

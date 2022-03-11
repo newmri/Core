@@ -49,6 +49,17 @@ public enum StatType : byte
   STAT_END = 3,
 };
 
+public enum AbilityByStatType : byte
+{
+  HP = 0,
+  MP = 1,
+  DAMAGE = 2,
+  MAGIC_DAMAGE = 3,
+  DEFENCE = 4,
+  MAGIC_DEFENCE = 5,
+  ABILITY_BY_STAT_END = 6,
+};
+
 public enum GearType : byte
 {
   LEFT_HAND = 0,

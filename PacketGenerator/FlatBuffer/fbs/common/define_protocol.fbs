@@ -40,6 +40,17 @@ enum StatType : ubyte
 	STAT_END
 }
 
+enum AbilityByStatType : ubyte
+{
+	HP,
+	MP,
+	DAMAGE,
+	MAGIC_DAMAGE,
+	DEFENCE,
+	MAGIC_DEFENCE,
+	ABILITY_BY_STAT_END
+}
+
 enum GearType : ubyte
 {
 	LEFT_HAND = 0,

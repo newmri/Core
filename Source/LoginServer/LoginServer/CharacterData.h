@@ -7,7 +7,7 @@ struct CharacterCreateStat
 		memset(this, 0, sizeof(this));
 	}
 
-	int16_t value[Define::StatType_MAX + 1];
+	int16_t value[Define::StatType_STAT_END];
 };
 
 struct CharacterCreateGear
@@ -17,7 +17,7 @@ struct CharacterCreateGear
 		memset(this, 0, sizeof(this));
 	}
 
-	uint8_t value[Define::GearType_MAX + 1];
+	uint8_t value[Define::GearType_GEAR_END];
 };
 
 struct CharacterInfo

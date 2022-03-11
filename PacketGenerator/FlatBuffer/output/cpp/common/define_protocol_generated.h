@@ -202,6 +202,51 @@ inline const char *EnumNameStatType(StatType e) {
   return EnumNamesStatType()[index];
 }
 
+enum AbilityByStatType : uint8_t {
+  AbilityByStatType_HP = 0,
+  AbilityByStatType_MP = 1,
+  AbilityByStatType_DAMAGE = 2,
+  AbilityByStatType_MAGIC_DAMAGE = 3,
+  AbilityByStatType_DEFENCE = 4,
+  AbilityByStatType_MAGIC_DEFENCE = 5,
+  AbilityByStatType_ABILITY_BY_STAT_END = 6,
+  AbilityByStatType_MIN = AbilityByStatType_HP,
+  AbilityByStatType_MAX = AbilityByStatType_ABILITY_BY_STAT_END
+};
+
+inline const AbilityByStatType (&EnumValuesAbilityByStatType())[7] {
+  static const AbilityByStatType values[] = {
+    AbilityByStatType_HP,
+    AbilityByStatType_MP,
+    AbilityByStatType_DAMAGE,
+    AbilityByStatType_MAGIC_DAMAGE,
+    AbilityByStatType_DEFENCE,
+    AbilityByStatType_MAGIC_DEFENCE,
+    AbilityByStatType_ABILITY_BY_STAT_END
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesAbilityByStatType() {
+  static const char * const names[8] = {
+    "HP",
+    "MP",
+    "DAMAGE",
+    "MAGIC_DAMAGE",
+    "DEFENCE",
+    "MAGIC_DEFENCE",
+    "ABILITY_BY_STAT_END",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameAbilityByStatType(AbilityByStatType e) {
+  if (flatbuffers::IsOutRange(e, AbilityByStatType_HP, AbilityByStatType_ABILITY_BY_STAT_END)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesAbilityByStatType()[index];
+}
+
 enum GearType : uint8_t {
   GearType_LEFT_HAND = 0,
   GearType_RIGHT_HAND = 1,
