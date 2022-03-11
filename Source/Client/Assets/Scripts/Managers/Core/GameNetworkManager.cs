@@ -56,7 +56,8 @@ public class GameNetworkManager : BaseNetworkManager
     public override void SendLogin()
     {
         FlatBufferBuilder builder = new FlatBufferBuilder(1);
-        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, CharacterUID, Token);
+        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, Managers.Account.UID, CharacterUID,
+            Managers.Account.Token);
         Send(builder, Packet.CS_LOGIN_REQ, message.Value);
     }
 

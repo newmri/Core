@@ -10,9 +10,6 @@ using System.Threading;
 
 public class LoginNetworkManager : BaseNetworkManager
 {
-    public string ID { get; set; }
-    public string Password { get; set; }
-
     public override void Init()
     {
         base.Init();
@@ -57,7 +54,7 @@ public class LoginNetworkManager : BaseNetworkManager
     public override void SendLogin()
     {
         FlatBufferBuilder builder = new FlatBufferBuilder(1);
-        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, UID, Token);
+        var message = CS_LOGIN_REQ.CreateCS_LOGIN_REQ(builder, Managers.Account.UID, Managers.Account.Token);
         Send(builder, Packet.CS_LOGIN_REQ, message.Value);
     }
 
@@ -80,16 +77,16 @@ public class LoginNetworkManager : BaseNetworkManager
     {
         LoginAccountPacketReq packet = new LoginAccountPacketReq()
         {
-            ID = ID,
-            Password = Password
+            ID = Managers.Account.ID,
+            Password = Managers.Account.Password
         };
 
         Managers.Web.SendPostRequest<LoginAccountPacketRes>("login", packet, (res) =>
         {
             if (res.IsSuccess)
             {
-                Managers.LoginNetwork.UID = res.UID;
-                Managers.LoginNetwork.Token = res.Token;
+                Managers.Account.UID = res.UID;
+                Managers.Account.Token = res.Token;
                 Managers.UI.ShowPopupUI<UIWorldListPopup>().SetWorldList(res.WorldList);
             }
             else

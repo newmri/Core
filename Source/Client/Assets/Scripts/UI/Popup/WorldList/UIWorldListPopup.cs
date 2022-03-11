@@ -51,7 +51,7 @@ public class UIWorldListPopup : UIPopup
             return;
 
         int WorldID = GetSelectedWorldID();
-        Managers.LoginNetwork.WorldID = WorldID;
+        Managers.Account.WorldID = WorldID;
 
         LoginServerInfoPacketReq packet = new LoginServerInfoPacketReq()
         {

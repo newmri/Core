@@ -105,7 +105,7 @@ public class UICharacterSelectPopup : UIPopup
 
         LoginServerInfoPacketReq packet = new LoginServerInfoPacketReq()
         {
-            WorldID = Managers.LoginNetwork.WorldID,
+            WorldID = Managers.Account.WorldID,
             ServerType = ServerType.Game
         };
 
@@ -122,8 +122,6 @@ public class UICharacterSelectPopup : UIPopup
         {
             if (slot.IsSelected())
             {
-                Managers.GameNetwork.UID = Managers.LoginNetwork.UID;
-                Managers.GameNetwork.Token = Managers.LoginNetwork.Token;
                 Managers.GameNetwork.CharacterUID = slot.GetUID();
                 return true;
             }

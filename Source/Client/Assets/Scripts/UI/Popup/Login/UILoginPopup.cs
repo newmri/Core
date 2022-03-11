@@ -58,8 +58,8 @@ public class UILoginPopup : UIPopup
         if (!LimiDefine.IsValidAccountLen(id, password))
             return;
 
-        Managers.LoginNetwork.ID = id;
-        Managers.LoginNetwork.Password = password;
+        Managers.Account.ID = id;
+        Managers.Account.Password = password;
         Managers.LoginNetwork.WorldListServerLogin();
         ClearText();
     }

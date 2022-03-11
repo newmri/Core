@@ -19,6 +19,7 @@ public class Managers : MonoBehaviour
     GameNetworkManager _gameNetwork = new GameNetworkManager();
     LoginDataManager _loginData = new LoginDataManager();
     MapManager _map = new MapManager();
+    AccountManager _account = new AccountManager();
     CharacterManager _character = new CharacterManager();
 
     public static UIManager UI { get { return Instance._ui; } }
@@ -27,6 +28,7 @@ public class Managers : MonoBehaviour
     public static GameNetworkManager GameNetwork { get { return Instance._gameNetwork; } }
     public static LoginDataManager LoginData { get { return Instance._loginData; } }
     public static MapManager Map { get { return Instance._map; } }
+    public static AccountManager Account { get { return Instance._account; } }
     public static CharacterManager Character { get { return Instance._character; } }
 
     #endregion

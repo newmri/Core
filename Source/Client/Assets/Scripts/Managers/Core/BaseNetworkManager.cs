@@ -9,10 +9,6 @@ using System.Threading;
 
 public class BaseNetworkManager
 {
-    public int WorldID { get; set; }
-    public long UID { get; set; }
-    public int Token { get; set; }
-
     protected ServerSession _session;
 
     public virtual void Init()
