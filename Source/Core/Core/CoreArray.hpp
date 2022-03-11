@@ -35,6 +35,13 @@ void CoreArray<T, N>::Init(void)
 }
 
 template<typename T, const size_t N>
+CoreArray<T, N>& CoreArray<T, N>::operator=(const T* rhs)
+{
+	Copy(rhs);
+	return *this;
+}
+
+template<typename T, const size_t N>
 CoreArray<T, N>& CoreArray<T, N>::operator=(CoreArray<T, N>& rhs)
 {
 	READ_LOCK(rhs.mutex);
@@ -58,6 +65,13 @@ template<typename T, const size_t N>
 size_t CoreArray<T, N>::size(void) const
 {
 	return N;
+}
+
+template<typename T, const size_t N>
+void CoreArray<T, N>::Copy(const T* rhs)
+{
+	WRITE_LOCK(this->mutex);
+	memcpy_s(this->data, sizeof(T) * N, rhs, sizeof(T) * N);
 }
 
 template<typename T, const size_t N>

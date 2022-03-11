@@ -13,6 +13,7 @@ protected:
 	virtual void Init(void) override;
 
 public:
+	CoreArray<T, N>& operator=(const T* rhs);
 	CoreArray<T, N>& operator=(CoreArray<T, N>& rhs);
 	const T& operator[](const size_t index) const;
 	T& operator[](const size_t index);
@@ -21,6 +22,7 @@ public:
 	size_t size(void) const;
 
 private:
+	void Copy(const T* rhs);
 	void Copy(const CoreArray<T, N>& rhs);
 
 public:
