@@ -134,7 +134,7 @@ namespace ExcelToCSV
             for (int i = 0; i < originalColumnCount; ++i)
             {
                 string name = Convert.ToString(usedRange.Rows[1].Cells[1, i + 1].Value2);
-                if (name == deleteName)
+                if (name == deleteName || name == "Reference")
                     deleteColumnList.Add(i + 1);
             }
 
