@@ -37,6 +37,9 @@
     <Filter Include="02.DataManager">
       <UniqueIdentifier>{db085e40-1991-4de2-be7d-7d00be0559d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.DataManager\00.CharacterData">
+      <UniqueIdentifier>{d489d1da-ae0d-4377-89ba-4cfbe6ed689d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="native_info_impl.h">
       <Filter>03.Packet\00.FlatBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterData.h">
+      <Filter>02.DataManager\00.CharacterData</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

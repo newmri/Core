@@ -60,7 +60,11 @@ uint8_t GameDB::LoadMaxCharacterSlotCount(const int64_t accountUID)
 	{
 		this->retCode = SQLFetch(this->hstmt);
 		if (IsNoData())
+		{
+			SQLFreeStmt(this->hstmt, SQL_CLOSE);
 			UpdateMaxCharacterSlotCount(accountUID, maxCharacterSlotCount);
+			return maxCharacterSlotCount;
+		}
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
@@ -90,8 +94,11 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 	BindArgument(name.data());
 	BindArgument(info.level);
 	BindArgument(info.job);
-	BindArgument(100);
-	BindArgument(100);
+
+	int32_t HP = 0, MP = 0;
+	DATA_MANAGER.GetCharacterCreateHPMP(info.job, HP, MP);
+	BindArgument(HP);
+	BindArgument(MP);
 
 	NativeInfo::Stat stat = DATA_MANAGER.GetCharacterCreateStat(info.job);
 	for (int i = 0; i < Define::StatType_END; ++i)
