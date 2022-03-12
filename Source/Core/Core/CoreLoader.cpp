@@ -159,14 +159,18 @@ std::string CoreLoader::Parse(std::string& in)
 
 	findPos = in.find(this->delimiter);
 
-	for (std::string::size_type pos = 0; pos < findPos; ++pos)
+	if (std::string::npos != findPos)
 	{
-		str.push_back(in[pos]);
+		for (std::string::size_type pos = 0; pos < findPos; ++pos)
+		{
+			str.push_back(in[pos]);
+		}
+
+		in.erase(0, findPos + 1);
+		return str;
 	}
 
-	in.erase(0, findPos + 1);
-
-	return str;
+	return in;
 }
 
 void CoreLoader::Parse(std::string& in, uint8_t& out)

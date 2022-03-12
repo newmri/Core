@@ -134,6 +134,7 @@
     <ClCompile Include="CoreSession.cpp" />
     <ClCompile Include="CoreStringManager.cpp" />
     <ClCompile Include="CoreTestManager.cpp" />
+    <ClCompile Include="CoreCSVMapLoader.cpp" />
     <ClCompile Include="CoreThreadManager.cpp" />
     <ClCompile Include="CoreTimeDelegateManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="CoreSort.hpp" />
     <ClInclude Include="CoreStringManager.h" />
     <ClInclude Include="CoreTestManager.h" />
+    <ClInclude Include="CoreCSVMapLoader.h" />
     <ClInclude Include="CoreTimeDelegate.h" />
     <ClInclude Include="CoreTimeDelegateManager.h" />
     <ClInclude Include="CoreTimeManager.h" />

@@ -1,6 +1,7 @@
 #pragma once
 
 #define CSV_LOAD GET_INSTANCE(CoreLoadManager<CoreCSVLoader>)
+#define MAP_LOAD GET_INSTANCE(CoreLoadManager<CoreCSVMapLoader>)
 
 template<typename T>
 class CoreLoadManager

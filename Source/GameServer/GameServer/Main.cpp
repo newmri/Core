@@ -35,14 +35,33 @@ void Run(void)
 	GAME_SERVER.Stop();
 }
 
+struct MapData
+{
+	MapData() CORE_DEFAULT;
+	~MapData()
+	{
+		SAFE_DELETE_2_ARRAY(path, count.y);
+		SAFE_DELETE_2_ARRAY(objects, count.y);
+	}
+
+	NativeInfo::Vec2Int min;
+	NativeInfo::Vec2Int max;
+	NativeInfo::Vec2Int count;
+	int32_t** path = nullptr;
+	int64_t** objects = nullptr;
+};
+
 int main(void)
 {
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	CORE_THREAD_MANAGER.Push(Run);
-	CORE_THREAD_MANAGER.Run();
+	//CORE_THREAD_MANAGER.Push(Run);
+	//CORE_THREAD_MANAGER.Run();
+
+	MapData data;
+	CSV_MAP_LOAD_AND_TO_STRUCTURE("Data/Map_001.csv", data);
 
 	return 0;
 }

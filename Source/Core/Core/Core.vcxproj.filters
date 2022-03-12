@@ -136,6 +136,9 @@
     <Filter Include="15.CoreAccountManager\00.CoreAccount\00.CoreCharacter">
       <UniqueIdentifier>{1e42db1d-5768-42ee-a611-551383616ad5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader">
+      <UniqueIdentifier>{3b266dd1-3037-430f-9483-d8d6394d2799}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -203,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="CoreCharacter.cpp">
       <Filter>15.CoreAccountManager\00.CoreAccount\00.CoreCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreCSVMapLoader.cpp">
+      <Filter>08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="CoreCharacter.h">
       <Filter>15.CoreAccountManager\00.CoreAccount\00.CoreCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreCSVMapLoader.h">
+      <Filter>08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

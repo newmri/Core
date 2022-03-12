@@ -1,7 +1,7 @@
 ﻿  AccountDB.cpp
+  Character.cpp
   DataManager.cpp
   GameDB.cpp
-  Character.cpp
   GamePacketFunc.cpp
   GamePacketHandler.cpp
   GameServer.cpp

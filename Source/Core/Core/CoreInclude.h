@@ -54,6 +54,7 @@
 #include "CoreRandomManager.h"
 #include "CoreLoader.h"
 #include "CoreCSVLoader.h"
+#include "CoreCSVMapLoader.h"
 #include "CoreLoadManager.h"
 #include "CoreDataTypeManager.h"
 #include "CoreStringManager.h"

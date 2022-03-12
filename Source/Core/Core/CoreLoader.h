@@ -22,7 +22,7 @@ protected:
 	void Parse(std::string& in, char* out);
 	void Parse(std::string& in, const size_t dataTypeIndex, char* out);
 
-private:
+protected:
 	std::string Parse(std::string& in);
 	void Parse(std::string& in, uint8_t& out);
 	void Parse(std::string& in, int16_t& out);

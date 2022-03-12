@@ -19,12 +19,14 @@ public class MapEditor
 	private static void GenerateMap()
 	{
 		GenerateByPath("Assets/Resources/Map/Data");
-		GenerateByPath("../GameServer/x64/Debug/Data");
+		GenerateByPath("../GameServer/x64/Debug/Data", true);
 	}
 
-	private static void GenerateByPath(string pathPrefix)
+	private static void GenerateByPath(string pathPrefix, bool isCSV = false)
 	{
 		GameObject[] gameObjects = Resources.LoadAll<GameObject>("Prefabs/Map");
+
+		string extension = isCSV ? ".csv" : ".txt";
 
 		foreach (GameObject go in gameObjects)
 		{
@@ -34,7 +36,7 @@ public class MapEditor
 			Tilemap tileMapBase = Util.FindChild<Tilemap>(go, "Tilemap_Base", true);
 			Tilemap tileMapPath = Util.FindChild<Tilemap>(go, "Tilemap_Path", true);
 
-			using (var writer = File.CreateText($"{pathPrefix}/{go.name}.txt"))
+			using (var writer = File.CreateText($"{pathPrefix}/{go.name}{extension}"))
 			{
 				WriteMinMax(writer, tileMapBase);
 
@@ -42,7 +44,7 @@ public class MapEditor
 				{
 					for (int x = tileMapBase.cellBounds.xMin + _minCorrections.x; x <= tileMapBase.cellBounds.xMax + _maxCorrections.x; ++x)
 					{
-						WritePath(writer, tileMapPath.GetTile(new Vector3Int(x, y, 0)));
+						WritePath(writer, tileMapPath.GetTile(new Vector3Int(x, y, 0)), isCSV, (x == tileMapBase.cellBounds.xMax + _maxCorrections.x));
 					}
 
 					writer.WriteLine();
@@ -59,7 +61,7 @@ public class MapEditor
 		writer.WriteLine(tileMapBase.cellBounds.yMax + _maxCorrections.y);
 	}
 
-	private static void WritePath(StreamWriter writer, TileBase tileBase)
+	private static void WritePath(StreamWriter writer, TileBase tileBase, bool isCSV, bool isLast)
 	{
 		if (null == tileBase)
 		{
@@ -79,6 +81,9 @@ public class MapEditor
 				writer.Write((int)path);
 			}
 		}
+
+		if (isCSV && !isLast)
+			writer.Write(",");
 	}
 
 	private static Vector2Int _minCorrections = new Vector2Int(0, 0);
