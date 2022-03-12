@@ -34,3 +34,13 @@ struct CharacterGear (native_type:"NativeInfo::CharacterGear", native_type_pack_
 {
     index:[ubyte:9];
 }
+
+struct Money (native_type:"NativeInfo::Money", native_type_pack_name:"Money")
+{
+    value:[int32:2];
+}
+
+table MoneyWrapper (native_type:"MoneyT")
+{
+    value:Money (native_inline);
+}

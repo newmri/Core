@@ -36,7 +36,7 @@ public class UIGameScene : UIScene
 
     void InitCharacterInfo()
     {
-        CharacterInfoT info = Managers.Character.GetMyCharacterInfo();
+        MyCharacterInfoT info = Managers.Character.GetMyCharacterInfo();
 
         this.GetTextMesh((int)TextMeshProUGUIs.CharacterNameText).text = info.Name;
         this.GetTextMesh((int)TextMeshProUGUIs.CharacterLevelText).text = "Lv." + info.Level.ToString();
@@ -47,7 +47,7 @@ public class UIGameScene : UIScene
 
     void InitMoney()
     {
-        this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = Managers.Account.Money[(int)Money.GEM].ToString();
-        this.GetTextMesh((int)TextMeshProUGUIs.GoldText).text = Managers.Account.Money[(int)Money.GOLD].ToString();
+        this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = Managers.Account.Money.Value[(int)MoneyType.GEM].ToString();
+        this.GetTextMesh((int)TextMeshProUGUIs.GoldText).text = Managers.Account.Money.Value[(int)MoneyType.GOLD].ToString();
     }
 }

@@ -26,6 +26,12 @@ struct Ability;
 
 struct CharacterGear;
 
+struct Money;
+
+struct MoneyWrapper;
+struct MoneyWrapperBuilder;
+struct MoneyWrapperT;
+
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Vec2Int FLATBUFFERS_FINAL_CLASS {
  private:
   int32_t x_;
@@ -99,6 +105,23 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(1) CharacterGear FLATBUFFERS_FINAL_CLASS {
   }
 };
 FLATBUFFERS_STRUCT_END(CharacterGear, 9);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Money FLATBUFFERS_FINAL_CLASS {
+ private:
+  int32_t value_[2];
+
+ public:
+  Money()
+      : value_() {
+  }
+  Money(flatbuffers::span<const int32_t, 2> _value) {
+    flatbuffers::CastToArray(value_).CopyFromSpan(_value);
+  }
+  const flatbuffers::Array<int32_t, 2> *value() const {
+    return &flatbuffers::CastToArray(value_);
+  }
+};
+FLATBUFFERS_STRUCT_END(Money, 8);
 
 struct PositionInfoT : public flatbuffers::NativeTable {
   typedef PositionInfo TableType;
@@ -226,6 +249,58 @@ inline flatbuffers::Offset<StatWrapper> CreateStatWrapper(
 
 flatbuffers::Offset<StatWrapper> CreateStatWrapper(flatbuffers::FlatBufferBuilder &_fbb, const StatWrapperT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct MoneyWrapperT : public flatbuffers::NativeTable {
+  typedef MoneyWrapper TableType;
+  NativeInfo::Money value{};
+};
+
+struct MoneyWrapper FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef MoneyWrapperT NativeTableType;
+  typedef MoneyWrapperBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_VALUE = 4
+  };
+  const Info::Money *value() const {
+    return GetStruct<const Info::Money *>(VT_VALUE);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<Info::Money>(verifier, VT_VALUE) &&
+           verifier.EndTable();
+  }
+  MoneyWrapperT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(MoneyWrapperT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<MoneyWrapper> Pack(flatbuffers::FlatBufferBuilder &_fbb, const MoneyWrapperT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct MoneyWrapperBuilder {
+  typedef MoneyWrapper Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_value(const Info::Money *value) {
+    fbb_.AddStruct(MoneyWrapper::VT_VALUE, value);
+  }
+  explicit MoneyWrapperBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<MoneyWrapper> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<MoneyWrapper>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<MoneyWrapper> CreateMoneyWrapper(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const Info::Money *value = 0) {
+  MoneyWrapperBuilder builder_(_fbb);
+  builder_.add_value(value);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<MoneyWrapper> CreateMoneyWrapper(flatbuffers::FlatBufferBuilder &_fbb, const MoneyWrapperT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 inline PositionInfoT *PositionInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<PositionInfoT>(new PositionInfoT());
   UnPackTo(_o.get(), _resolver);
@@ -280,6 +355,32 @@ inline flatbuffers::Offset<StatWrapper> CreateStatWrapper(flatbuffers::FlatBuffe
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StatWrapperT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _value = flatbuffers::PackStat(_o->value);
   return Info::CreateStatWrapper(
+      _fbb,
+      &_value);
+}
+
+inline MoneyWrapperT *MoneyWrapper::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<MoneyWrapperT>(new MoneyWrapperT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void MoneyWrapper::UnPackTo(MoneyWrapperT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = value(); if (_e) _o->value = flatbuffers::UnPackMoney(*_e); }
+}
+
+inline flatbuffers::Offset<MoneyWrapper> MoneyWrapper::Pack(flatbuffers::FlatBufferBuilder &_fbb, const MoneyWrapperT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateMoneyWrapper(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<MoneyWrapper> CreateMoneyWrapper(flatbuffers::FlatBufferBuilder &_fbb, const MoneyWrapperT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MoneyWrapperT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _value = flatbuffers::PackMoney(_o->value);
+  return Info::CreateMoneyWrapper(
       _fbb,
       &_value);
 }

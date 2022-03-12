@@ -24,8 +24,8 @@ void GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::Ch
 	LoginPacket::CharacterInfoT info;
 	BindCol(&info.uid, sizeof(info.uid));
 
-	wchar_t name[Define::CharacterLimit_MaxNameLen];
-	BindCol((wchar_t**)&name, Define::CharacterLimit_MaxNameLen);
+	wchar_t name[Define::CharacterLimit_MaxNameLen + 1] = L"";
+	BindCol((wchar_t**)&name, sizeof(name));
 
 	BindCol(&info.level, sizeof(info.level));
 	BindCol((uint8_t*)&info.job, sizeof(info.job));

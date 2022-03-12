@@ -292,5 +292,91 @@ public class CharacterGearT
   }
 }
 
+public struct Money : IFlatbufferObject
+{
+  private Struct __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
+  public Money __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public int Value(int j) { return __p.bb.GetInt(__p.bb_pos + 0 + j * 4); }
+
+  public static Offset<Info.Money> CreateMoney(FlatBufferBuilder builder, int[] Value) {
+    builder.Prep(4, 8);
+    for (int _idx0 = 2; _idx0 > 0; _idx0--) {
+      builder.PutInt(Value[_idx0-1]);
+    }
+    return new Offset<Info.Money>(builder.Offset);
+  }
+  public MoneyT UnPack() {
+    var _o = new MoneyT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(MoneyT _o) {
+    _o.Value = new int[2];
+    for (var _j = 0; _j < 2; ++_j) { _o.Value[_j] = this.Value(_j); }
+  }
+  public static Offset<Info.Money> Pack(FlatBufferBuilder builder, MoneyT _o) {
+    if (_o == null) return default(Offset<Info.Money>);
+    var _value = _o.Value;
+    return CreateMoney(
+      builder,
+      _value);
+  }
+};
+
+public class MoneyT
+{
+  public int[] Value { get; set; }
+
+  public MoneyT() {
+    this.Value = new int[2];
+  }
+}
+
+public struct MoneyWrapper : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static MoneyWrapper GetRootAsMoneyWrapper(ByteBuffer _bb) { return GetRootAsMoneyWrapper(_bb, new MoneyWrapper()); }
+  public static MoneyWrapper GetRootAsMoneyWrapper(ByteBuffer _bb, MoneyWrapper obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public MoneyWrapper __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Info.Money? Value { get { int o = __p.__offset(4); return o != 0 ? (Info.Money?)(new Info.Money()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+
+  public static void StartMoneyWrapper(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddValue(FlatBufferBuilder builder, Offset<Info.Money> valueOffset) { builder.AddStruct(0, valueOffset.Value, 0); }
+  public static Offset<Info.MoneyWrapper> EndMoneyWrapper(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Info.MoneyWrapper>(o);
+  }
+  public MoneyWrapperT UnPack() {
+    var _o = new MoneyWrapperT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(MoneyWrapperT _o) {
+    _o.Value = this.Value.HasValue ? this.Value.Value.UnPack() : null;
+  }
+  public static Offset<Info.MoneyWrapper> Pack(FlatBufferBuilder builder, MoneyWrapperT _o) {
+    if (_o == null) return default(Offset<Info.MoneyWrapper>);
+    StartMoneyWrapper(builder);
+    AddValue(builder, Info.Money.Pack(builder, _o.Value));
+    return EndMoneyWrapper(builder);
+  }
+};
+
+public class MoneyWrapperT
+{
+  public Info.MoneyT Value { get; set; }
+
+  public MoneyWrapperT() {
+    this.Value = new Info.MoneyT();
+  }
+}
+
 
 }

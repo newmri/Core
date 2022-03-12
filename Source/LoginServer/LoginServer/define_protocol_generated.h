@@ -451,37 +451,37 @@ inline const char *EnumNameCreatureState(CreatureState e) {
   return EnumNamesCreatureState()[index];
 }
 
-enum Money : uint8_t {
-  Money_GEM = 0,
-  Money_GOLD = 1,
-  Money_MONEY_END = 2,
-  Money_MIN = Money_GEM,
-  Money_MAX = Money_MONEY_END
+enum MoneyType : uint8_t {
+  MoneyType_GEM = 0,
+  MoneyType_GOLD = 1,
+  MoneyType_END = 2,
+  MoneyType_MIN = MoneyType_GEM,
+  MoneyType_MAX = MoneyType_END
 };
 
-inline const Money (&EnumValuesMoney())[3] {
-  static const Money values[] = {
-    Money_GEM,
-    Money_GOLD,
-    Money_MONEY_END
+inline const MoneyType (&EnumValuesMoneyType())[3] {
+  static const MoneyType values[] = {
+    MoneyType_GEM,
+    MoneyType_GOLD,
+    MoneyType_END
   };
   return values;
 }
 
-inline const char * const *EnumNamesMoney() {
+inline const char * const *EnumNamesMoneyType() {
   static const char * const names[4] = {
     "GEM",
     "GOLD",
-    "MONEY_END",
+    "END",
     nullptr
   };
   return names;
 }
 
-inline const char *EnumNameMoney(Money e) {
-  if (flatbuffers::IsOutRange(e, Money_GEM, Money_MONEY_END)) return "";
+inline const char *EnumNameMoneyType(MoneyType e) {
+  if (flatbuffers::IsOutRange(e, MoneyType_GEM, MoneyType_END)) return "";
   const size_t index = static_cast<size_t>(e);
-  return EnumNamesMoney()[index];
+  return EnumNamesMoneyType()[index];
 }
 
 }  // namespace Define

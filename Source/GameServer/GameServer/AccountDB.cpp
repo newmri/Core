@@ -57,14 +57,14 @@ void AccountDB::Logout(const int64_t uid)
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }
 
-void AccountDB::LoadMoney(const int64_t uid, int32_t money[Define::Money_MONEY_END])
+void AccountDB::LoadMoney(const int64_t uid, NativeInfo::Money& money)
 {
 	Prepare(L"LoadMoney");
 	BindArgument(uid);
 	Execute();
 
-	for (int32_t i = 0; i < Define::Money_MONEY_END; ++i)
-		BindCol(&money[i], sizeof(money[i]));
+	for (int32_t i = 0; i < Define::MoneyType_END; ++i)
+		BindCol(&money.value[i], sizeof(money.value[i]));
 
 	while (IsSuccess())
 	{

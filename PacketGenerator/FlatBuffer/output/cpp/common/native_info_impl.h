@@ -33,6 +33,20 @@ namespace NativeInfo
         std::array<int32_t, Define::StatType_END> value;
     };
 
+    struct Ability
+    {
+        Ability()
+        {
+        }
+
+        Ability(const flatbuffers::Array<int32_t, Define::AbilityType_END>* abilites)
+        {
+            std::copy(abilites->begin(), abilites->end(), this->value.begin());
+        }
+
+        std::array<int32_t, Define::AbilityType_END> value;
+    };
+
     struct CharacterGear
     {
         CharacterGear()
@@ -46,13 +60,29 @@ namespace NativeInfo
 
         std::array<uint8_t, Define::GearType_END> index;
     };
+
+    struct Money
+    {
+        Money()
+        {
+        }
+
+        Money(const flatbuffers::Array<int32_t, Define::MoneyType_END>* values)
+        {
+            std::copy(values->begin(), values->end(), this->value.begin());
+        }
+
+        std::array<int32_t, Define::MoneyType_END> value;
+    };
 }  
 
 namespace Info
 {
     struct Vec2Int;
     struct Stat;
+    struct Ability;
     struct CharacterGear;
+    struct Money;
 } 
 
 namespace flatbuffers
@@ -63,6 +93,12 @@ namespace flatbuffers
     Info::Stat PackStat(const NativeInfo::Stat& obj);
     NativeInfo::Stat UnPackStat(const Info::Stat& obj);
 
+    Info::Ability PackAbility(const NativeInfo::Ability& obj);
+    NativeInfo::Ability UnPackAbility(const Info::Ability& obj);
+
     Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj);
     NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj);
+
+    Info::Money PackMoney(const NativeInfo::Money& obj);
+    NativeInfo::Money UnPackMoney(const Info::Money& obj);
 }

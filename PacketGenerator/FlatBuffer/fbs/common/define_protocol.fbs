@@ -103,9 +103,9 @@ enum CreatureState : ubyte
 	DEAD
 }
 
-enum Money : ubyte
+enum MoneyType : ubyte
 {
 	GEM,
 	GOLD,
-	MONEY_END
+	END
 }

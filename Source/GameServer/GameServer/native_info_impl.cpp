@@ -1,6 +1,4 @@
-#include "native_info_impl.h"
-
-#include "info_protocol_generated.h"
+#include "Include.h"
 
 namespace flatbuffers
 {
@@ -9,19 +7,29 @@ namespace flatbuffers
 		return Info::Vec2Int(obj.x, obj.y);
 	}
 
-	const NativeInfo::Vec2Int UnPackVec2Int(const Info::Vec2Int& obj)
+	NativeInfo::Vec2Int UnPackVec2Int(const Info::Vec2Int& obj)
 	{
 		return NativeInfo::Vec2Int(obj.x(), obj.y());
 	}
 
 	Info::Stat PackStat(const NativeInfo::Stat& obj)
 	{
-		return Info::Stat(obj);
+		return Info::Stat(obj.value);
 	}
 
-	const NativeInfo::Stat UnPackStat(const Info::Stat& obj)
+	NativeInfo::Stat UnPackStat(const Info::Stat& obj)
 	{
-		return NativeInfo::Vec2Int(obj.value()->Data());
+		return NativeInfo::Stat(obj.value());
+	}
+
+	Info::Ability PackAbility(const NativeInfo::Ability& obj)
+	{
+		return Info::Ability(obj.value);
+	}
+
+	NativeInfo::Ability UnPackAbility(const Info::Ability& obj)
+	{
+		return NativeInfo::Ability(obj.value());
 	}
 
 	Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj)
@@ -29,8 +37,18 @@ namespace flatbuffers
 		return Info::CharacterGear(obj.index);
 	}
 
-	const NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj)
+	NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj)
 	{
-		return NativeInfo::CharacterGear(obj.index()->Data());
+		return NativeInfo::CharacterGear(obj.index());
+	}
+
+	Info::Money PackMoney(const NativeInfo::Money& obj)
+	{
+		return Info::Money(obj.value);
+	}
+
+	NativeInfo::Money UnPackMoney(const Info::Money& obj)
+	{
+		return NativeInfo::Money(obj.value());
 	}
 }

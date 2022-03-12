@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Core/Core/CoreInclude.h"
+#include "native_info_impl.h"
 #include "game_protocol_generated.h"
 #include "CharacterData.h"
 #include "DataManager.h"

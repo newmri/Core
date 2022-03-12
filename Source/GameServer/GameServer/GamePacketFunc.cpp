@@ -9,18 +9,6 @@ void GamePacketFunc::Write(std::shared_ptr<CoreClientSession> session, GamePacke
 	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }
 
-flatbuffers::Offset<GamePacket::CharacterInfo> GamePacketFunc::MakeCharacterInfo(const CharacterLoadInfo& loadInfo)
-{
-	auto info = GamePacket::CreateCHARACTER_INFO(this->builder,
-		loadInfo.uid,
-		this->builder.CreateString(STRING_MANAGER.Narrow(loadInfo.name)),
-		loadInfo.info.level,
-		static_cast<Define::Job>(loadInfo.info.job),
-		this->builder.CreateVector(loadInfo.info.gear.value, Define::GearType_GEAR_END));
-
-	return info;
-}
-
 void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	auto raw = static_cast<const GamePacket::CS_LOGIN_REQ*>(data);
@@ -71,26 +59,28 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		session->SetAccountUID(raw->uid());
 		
 #pragma region 캐릭터 로드
-		CharacterLoadInfo loadInfo;
-		if (!GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), raw->character_uid(), loadInfo))
+		GamePacket::MyCharacterInfoT info;
+		info.uid = raw->character_uid();
+		if (!GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), info))
 			return;
 
-		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
+		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(info.uid);
 		account->SetMaxSlotCount(maxCharacterSlotCount);
 
-		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), loadInfo.uid, loadInfo.info));
+		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), info));
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드
-		int32_t money[Define::Money_MONEY_END];
-		GAME_SERVER.GetAccountDB()->LoadMoney(raw->uid(), money);
-		for (int32_t i = 0; i < Define::Money_MONEY_END; ++i)
-			account->PushMoney(money[i]);
+		Info::MoneyWrapperT money;
+		GAME_SERVER.GetAccountDB()->LoadMoney(raw->uid(), money.value);
+		for (int32_t i = 0; i < Define::MoneyType_END; ++i)
+			account->PushMoney(money.value.value[i]);
 #pragma endregion 재화 로드
 
-		auto info = MakeCharacterInfo(loadInfo);
+		auto packedInfo = GamePacket::MyCharacterInfo::Pack(this->builder, &info);
+		auto packedMoney = Info::MoneyWrapper::Pack(this->builder, &money);
 
-		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, info, this->builder.CreateVector(money, Define::Money_MONEY_END));
+		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, packedInfo, packedMoney);
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(

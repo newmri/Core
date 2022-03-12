@@ -22,6 +22,16 @@ namespace flatbuffers
 		return NativeInfo::Stat(obj.value());
 	}
 
+	Info::Ability PackAbility(const NativeInfo::Ability& obj)
+	{
+		return Info::Ability(obj.value);
+	}
+
+	NativeInfo::Ability UnPackAbility(const Info::Ability& obj)
+	{
+		return NativeInfo::Ability(obj.value());
+	}
+
 	Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj)
 	{
 		return Info::CharacterGear(obj.index);
@@ -30,5 +40,15 @@ namespace flatbuffers
 	NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj)
 	{
 		return NativeInfo::CharacterGear(obj.index());
+	}
+
+	Info::Money PackMoney(const NativeInfo::Money& obj)
+	{
+		return Info::Money(obj.value);
+	}
+
+	NativeInfo::Money UnPackMoney(const Info::Money& obj)
+	{
+		return NativeInfo::Money(obj.value());
 	}
 }

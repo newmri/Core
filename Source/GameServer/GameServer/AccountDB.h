@@ -14,5 +14,5 @@ public:
 	void Logout(const int64_t uid);
 
 public:
-	void LoadMoney(const int64_t uid, int32_t money[Define::Money_MONEY_END]);
+	void LoadMoney(const int64_t uid, NativeInfo::Money& money);
 };

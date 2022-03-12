@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "define_protocol_generated.h"
 #include "info_protocol_generated.h"
+#include "define_protocol_generated.h"
 
 namespace GamePacket {
 
@@ -15,9 +15,9 @@ struct CS_LOGIN_REQ;
 struct CS_LOGIN_REQBuilder;
 struct CS_LOGIN_REQT;
 
-struct CharacterInfo;
-struct CharacterInfoBuilder;
-struct CharacterInfoT;
+struct MyCharacterInfo;
+struct MyCharacterInfoBuilder;
+struct MyCharacterInfoT;
 
 struct SC_LOGIN_RES;
 struct SC_LOGIN_RESBuilder;
@@ -289,28 +289,36 @@ inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(
 
 flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGIN_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct CharacterInfoT : public flatbuffers::NativeTable {
-  typedef CharacterInfo TableType;
+struct MyCharacterInfoT : public flatbuffers::NativeTable {
+  typedef MyCharacterInfo TableType;
   int64_t uid = 0;
   std::string name{};
   uint8_t level = 0;
   Define::Job job = Define::Job_WARRIOR;
-  NativeInfo::CharacterGear gear{};
+  int64_t exp = 0;
   NativeInfo::Stat stat{};
-  std::vector<int32_t> ability{};
+  int32_t bonus_stat = 0;
+  int32_t hp = 0;
+  int32_t mp = 0;
+  NativeInfo::Ability ability{};
+  NativeInfo::CharacterGear gear{};
 };
 
-struct CharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef CharacterInfoT NativeTableType;
-  typedef CharacterInfoBuilder Builder;
+struct MyCharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef MyCharacterInfoT NativeTableType;
+  typedef MyCharacterInfoBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_UID = 4,
     VT_NAME = 6,
     VT_LEVEL = 8,
     VT_JOB = 10,
-    VT_GEAR = 12,
+    VT_EXP = 12,
     VT_STAT = 14,
-    VT_ABILITY = 16
+    VT_BONUS_STAT = 16,
+    VT_HP = 18,
+    VT_MP = 20,
+    VT_ABILITY = 22,
+    VT_GEAR = 24
   };
   int64_t uid() const {
     return GetField<int64_t>(VT_UID, 0);
@@ -324,14 +332,26 @@ struct CharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   Define::Job job() const {
     return static_cast<Define::Job>(GetField<uint8_t>(VT_JOB, 0));
   }
-  const Info::CharacterGear *gear() const {
-    return GetStruct<const Info::CharacterGear *>(VT_GEAR);
+  int64_t exp() const {
+    return GetField<int64_t>(VT_EXP, 0);
   }
   const Info::Stat *stat() const {
     return GetStruct<const Info::Stat *>(VT_STAT);
   }
-  const flatbuffers::Vector<int32_t> *ability() const {
-    return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_ABILITY);
+  int32_t bonus_stat() const {
+    return GetField<int32_t>(VT_BONUS_STAT, 0);
+  }
+  int32_t hp() const {
+    return GetField<int32_t>(VT_HP, 0);
+  }
+  int32_t mp() const {
+    return GetField<int32_t>(VT_MP, 0);
+  }
+  const Info::Ability *ability() const {
+    return GetStruct<const Info::Ability *>(VT_ABILITY);
+  }
+  const Info::CharacterGear *gear() const {
+    return GetStruct<const Info::CharacterGear *>(VT_GEAR);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -340,102 +360,132 @@ struct CharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(name()) &&
            VerifyField<uint8_t>(verifier, VT_LEVEL) &&
            VerifyField<uint8_t>(verifier, VT_JOB) &&
-           VerifyField<Info::CharacterGear>(verifier, VT_GEAR) &&
+           VerifyField<int64_t>(verifier, VT_EXP) &&
            VerifyField<Info::Stat>(verifier, VT_STAT) &&
-           VerifyOffset(verifier, VT_ABILITY) &&
-           verifier.VerifyVector(ability()) &&
+           VerifyField<int32_t>(verifier, VT_BONUS_STAT) &&
+           VerifyField<int32_t>(verifier, VT_HP) &&
+           VerifyField<int32_t>(verifier, VT_MP) &&
+           VerifyField<Info::Ability>(verifier, VT_ABILITY) &&
+           VerifyField<Info::CharacterGear>(verifier, VT_GEAR) &&
            verifier.EndTable();
   }
-  CharacterInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(CharacterInfoT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<CharacterInfo> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  MyCharacterInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(MyCharacterInfoT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<MyCharacterInfo> Pack(flatbuffers::FlatBufferBuilder &_fbb, const MyCharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
-struct CharacterInfoBuilder {
-  typedef CharacterInfo Table;
+struct MyCharacterInfoBuilder {
+  typedef MyCharacterInfo Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_uid(int64_t uid) {
-    fbb_.AddElement<int64_t>(CharacterInfo::VT_UID, uid, 0);
+    fbb_.AddElement<int64_t>(MyCharacterInfo::VT_UID, uid, 0);
   }
   void add_name(flatbuffers::Offset<flatbuffers::String> name) {
-    fbb_.AddOffset(CharacterInfo::VT_NAME, name);
+    fbb_.AddOffset(MyCharacterInfo::VT_NAME, name);
   }
   void add_level(uint8_t level) {
-    fbb_.AddElement<uint8_t>(CharacterInfo::VT_LEVEL, level, 0);
+    fbb_.AddElement<uint8_t>(MyCharacterInfo::VT_LEVEL, level, 0);
   }
   void add_job(Define::Job job) {
-    fbb_.AddElement<uint8_t>(CharacterInfo::VT_JOB, static_cast<uint8_t>(job), 0);
+    fbb_.AddElement<uint8_t>(MyCharacterInfo::VT_JOB, static_cast<uint8_t>(job), 0);
   }
-  void add_gear(const Info::CharacterGear *gear) {
-    fbb_.AddStruct(CharacterInfo::VT_GEAR, gear);
+  void add_exp(int64_t exp) {
+    fbb_.AddElement<int64_t>(MyCharacterInfo::VT_EXP, exp, 0);
   }
   void add_stat(const Info::Stat *stat) {
-    fbb_.AddStruct(CharacterInfo::VT_STAT, stat);
+    fbb_.AddStruct(MyCharacterInfo::VT_STAT, stat);
   }
-  void add_ability(flatbuffers::Offset<flatbuffers::Vector<int32_t>> ability) {
-    fbb_.AddOffset(CharacterInfo::VT_ABILITY, ability);
+  void add_bonus_stat(int32_t bonus_stat) {
+    fbb_.AddElement<int32_t>(MyCharacterInfo::VT_BONUS_STAT, bonus_stat, 0);
   }
-  explicit CharacterInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  void add_hp(int32_t hp) {
+    fbb_.AddElement<int32_t>(MyCharacterInfo::VT_HP, hp, 0);
+  }
+  void add_mp(int32_t mp) {
+    fbb_.AddElement<int32_t>(MyCharacterInfo::VT_MP, mp, 0);
+  }
+  void add_ability(const Info::Ability *ability) {
+    fbb_.AddStruct(MyCharacterInfo::VT_ABILITY, ability);
+  }
+  void add_gear(const Info::CharacterGear *gear) {
+    fbb_.AddStruct(MyCharacterInfo::VT_GEAR, gear);
+  }
+  explicit MyCharacterInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<CharacterInfo> Finish() {
+  flatbuffers::Offset<MyCharacterInfo> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<CharacterInfo>(end);
+    auto o = flatbuffers::Offset<MyCharacterInfo>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(
+inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(
     flatbuffers::FlatBufferBuilder &_fbb,
     int64_t uid = 0,
     flatbuffers::Offset<flatbuffers::String> name = 0,
     uint8_t level = 0,
     Define::Job job = Define::Job_WARRIOR,
-    const Info::CharacterGear *gear = 0,
+    int64_t exp = 0,
     const Info::Stat *stat = 0,
-    flatbuffers::Offset<flatbuffers::Vector<int32_t>> ability = 0) {
-  CharacterInfoBuilder builder_(_fbb);
+    int32_t bonus_stat = 0,
+    int32_t hp = 0,
+    int32_t mp = 0,
+    const Info::Ability *ability = 0,
+    const Info::CharacterGear *gear = 0) {
+  MyCharacterInfoBuilder builder_(_fbb);
+  builder_.add_exp(exp);
   builder_.add_uid(uid);
-  builder_.add_ability(ability);
-  builder_.add_stat(stat);
   builder_.add_gear(gear);
+  builder_.add_ability(ability);
+  builder_.add_mp(mp);
+  builder_.add_hp(hp);
+  builder_.add_bonus_stat(bonus_stat);
+  builder_.add_stat(stat);
   builder_.add_name(name);
   builder_.add_job(job);
   builder_.add_level(level);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfoDirect(
+inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfoDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     int64_t uid = 0,
     const char *name = nullptr,
     uint8_t level = 0,
     Define::Job job = Define::Job_WARRIOR,
-    const Info::CharacterGear *gear = 0,
+    int64_t exp = 0,
     const Info::Stat *stat = 0,
-    const std::vector<int32_t> *ability = nullptr) {
+    int32_t bonus_stat = 0,
+    int32_t hp = 0,
+    int32_t mp = 0,
+    const Info::Ability *ability = 0,
+    const Info::CharacterGear *gear = 0) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
-  auto ability__ = ability ? _fbb.CreateVector<int32_t>(*ability) : 0;
-  return GamePacket::CreateCharacterInfo(
+  return GamePacket::CreateMyCharacterInfo(
       _fbb,
       uid,
       name__,
       level,
       job,
-      gear,
+      exp,
       stat,
-      ability__);
+      bonus_stat,
+      hp,
+      mp,
+      ability,
+      gear);
 }
 
-flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const MyCharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 struct SC_LOGIN_REST : public flatbuffers::NativeTable {
   typedef SC_LOGIN_RES TableType;
   GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS;
-  std::unique_ptr<GamePacket::CharacterInfoT> character_info{};
-  std::vector<int32_t> money{};
+  std::unique_ptr<GamePacket::MyCharacterInfoT> character_info{};
+  std::unique_ptr<Info::MoneyWrapperT> money{};
 };
 
 struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -449,11 +499,11 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   GamePacket::ErrorCode result() const {
     return static_cast<GamePacket::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
   }
-  const GamePacket::CharacterInfo *character_info() const {
-    return GetPointer<const GamePacket::CharacterInfo *>(VT_CHARACTER_INFO);
+  const GamePacket::MyCharacterInfo *character_info() const {
+    return GetPointer<const GamePacket::MyCharacterInfo *>(VT_CHARACTER_INFO);
   }
-  const flatbuffers::Vector<int32_t> *money() const {
-    return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_MONEY);
+  const Info::MoneyWrapper *money() const {
+    return GetPointer<const Info::MoneyWrapper *>(VT_MONEY);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -461,7 +511,7 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyOffset(verifier, VT_CHARACTER_INFO) &&
            verifier.VerifyTable(character_info()) &&
            VerifyOffset(verifier, VT_MONEY) &&
-           verifier.VerifyVector(money()) &&
+           verifier.VerifyTable(money()) &&
            verifier.EndTable();
   }
   SC_LOGIN_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
@@ -476,10 +526,10 @@ struct SC_LOGIN_RESBuilder {
   void add_result(GamePacket::ErrorCode result) {
     fbb_.AddElement<int8_t>(SC_LOGIN_RES::VT_RESULT, static_cast<int8_t>(result), 0);
   }
-  void add_character_info(flatbuffers::Offset<GamePacket::CharacterInfo> character_info) {
+  void add_character_info(flatbuffers::Offset<GamePacket::MyCharacterInfo> character_info) {
     fbb_.AddOffset(SC_LOGIN_RES::VT_CHARACTER_INFO, character_info);
   }
-  void add_money(flatbuffers::Offset<flatbuffers::Vector<int32_t>> money) {
+  void add_money(flatbuffers::Offset<Info::MoneyWrapper> money) {
     fbb_.AddOffset(SC_LOGIN_RES::VT_MONEY, money);
   }
   explicit SC_LOGIN_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -496,26 +546,13 @@ struct SC_LOGIN_RESBuilder {
 inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
     GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
-    flatbuffers::Offset<GamePacket::CharacterInfo> character_info = 0,
-    flatbuffers::Offset<flatbuffers::Vector<int32_t>> money = 0) {
+    flatbuffers::Offset<GamePacket::MyCharacterInfo> character_info = 0,
+    flatbuffers::Offset<Info::MoneyWrapper> money = 0) {
   SC_LOGIN_RESBuilder builder_(_fbb);
   builder_.add_money(money);
   builder_.add_character_info(character_info);
   builder_.add_result(result);
   return builder_.Finish();
-}
-
-inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RESDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
-    flatbuffers::Offset<GamePacket::CharacterInfo> character_info = 0,
-    const std::vector<int32_t> *money = nullptr) {
-  auto money__ = money ? _fbb.CreateVector<int32_t>(*money) : 0;
-  return GamePacket::CreateSC_LOGIN_RES(
-      _fbb,
-      result,
-      character_info,
-      money__);
 }
 
 flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
@@ -768,48 +805,60 @@ inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBuf
       _token);
 }
 
-inline CharacterInfoT *CharacterInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
-  auto _o = std::unique_ptr<CharacterInfoT>(new CharacterInfoT());
+inline MyCharacterInfoT *MyCharacterInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<MyCharacterInfoT>(new MyCharacterInfoT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void CharacterInfo::UnPackTo(CharacterInfoT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void MyCharacterInfo::UnPackTo(MyCharacterInfoT *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = uid(); _o->uid = _e; }
   { auto _e = name(); if (_e) _o->name = _e->str(); }
   { auto _e = level(); _o->level = _e; }
   { auto _e = job(); _o->job = _e; }
-  { auto _e = gear(); if (_e) _o->gear = flatbuffers::UnPackCharacterGear(*_e); }
+  { auto _e = exp(); _o->exp = _e; }
   { auto _e = stat(); if (_e) _o->stat = flatbuffers::UnPackStat(*_e); }
-  { auto _e = ability(); if (_e) { _o->ability.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->ability[_i] = _e->Get(_i); } } }
+  { auto _e = bonus_stat(); _o->bonus_stat = _e; }
+  { auto _e = hp(); _o->hp = _e; }
+  { auto _e = mp(); _o->mp = _e; }
+  { auto _e = ability(); if (_e) _o->ability = flatbuffers::UnPackAbility(*_e); }
+  { auto _e = gear(); if (_e) _o->gear = flatbuffers::UnPackCharacterGear(*_e); }
 }
 
-inline flatbuffers::Offset<CharacterInfo> CharacterInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
-  return CreateCharacterInfo(_fbb, _o, _rehasher);
+inline flatbuffers::Offset<MyCharacterInfo> MyCharacterInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const MyCharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateMyCharacterInfo(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const MyCharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CharacterInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MyCharacterInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _uid = _o->uid;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
   auto _level = _o->level;
   auto _job = _o->job;
-  auto _gear = flatbuffers::PackCharacterGear(_o->gear);
+  auto _exp = _o->exp;
   auto _stat = flatbuffers::PackStat(_o->stat);
-  auto _ability = _o->ability.size() ? _fbb.CreateVector(_o->ability) : 0;
-  return GamePacket::CreateCharacterInfo(
+  auto _bonus_stat = _o->bonus_stat;
+  auto _hp = _o->hp;
+  auto _mp = _o->mp;
+  auto _ability = flatbuffers::PackAbility(_o->ability);
+  auto _gear = flatbuffers::PackCharacterGear(_o->gear);
+  return GamePacket::CreateMyCharacterInfo(
       _fbb,
       _uid,
       _name,
       _level,
       _job,
-      &_gear,
+      _exp,
       &_stat,
-      _ability);
+      _bonus_stat,
+      _hp,
+      _mp,
+      &_ability,
+      &_gear);
 }
 
 inline SC_LOGIN_REST *SC_LOGIN_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
@@ -822,8 +871,8 @@ inline void SC_LOGIN_RES::UnPackTo(SC_LOGIN_REST *_o, const flatbuffers::resolve
   (void)_o;
   (void)_resolver;
   { auto _e = result(); _o->result = _e; }
-  { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<GamePacket::CharacterInfoT>(_e->UnPack(_resolver)); }
-  { auto _e = money(); if (_e) { _o->money.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->money[_i] = _e->Get(_i); } } }
+  { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<GamePacket::MyCharacterInfoT>(_e->UnPack(_resolver)); }
+  { auto _e = money(); if (_e) _o->money = std::unique_ptr<Info::MoneyWrapperT>(_e->UnPack(_resolver)); }
 }
 
 inline flatbuffers::Offset<SC_LOGIN_RES> SC_LOGIN_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -835,8 +884,8 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBuf
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_LOGIN_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _result = _o->result;
-  auto _character_info = _o->character_info ? CreateCharacterInfo(_fbb, _o->character_info.get(), _rehasher) : 0;
-  auto _money = _o->money.size() ? _fbb.CreateVector(_o->money) : 0;
+  auto _character_info = _o->character_info ? CreateMyCharacterInfo(_fbb, _o->character_info.get(), _rehasher) : 0;
+  auto _money = _o->money ? CreateMoneyWrapper(_fbb, _o->money.get(), _rehasher) : 0;
   return GamePacket::CreateSC_LOGIN_RES(
       _fbb,
       _result,

@@ -3,9 +3,9 @@
 class Character : public CoreCharacter
 {
 public:
-	Character(const int64_t& accountUID, const int64_t& uid, const CharacterInfo& info);
+	Character(const int64_t& accountUID, const GamePacket::MyCharacterInfoT& info);
 	virtual ~Character();
 
 private:
-	CharacterInfo info;
+	GamePacket::MyCharacterInfoT info;
 };

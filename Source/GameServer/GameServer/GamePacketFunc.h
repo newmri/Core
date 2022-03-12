@@ -4,7 +4,6 @@ class GamePacketFunc
 {
 private:
 	static void Write(std::shared_ptr<CoreClientSession> session, GamePacket::Packet packetType, flatbuffers::Offset<void> packet);
-	flatbuffers::Offset<GamePacket::CHARACTER_INFO> MakeCharacterInfo(const CharacterLoadInfo& loadInfo);
 
 public:
 	void CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data);

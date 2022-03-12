@@ -15,19 +15,52 @@ void GameDB::Release(void)
 {
 }
 
-bool GameDB::LoadCharacter(const int64_t accountUID, const int64_t characterUID, CharacterLoadInfo& info)
+bool GameDB::LoadCharacter(const int64_t accountUID, GamePacket::MyCharacterInfoT& info)
 {
 	Prepare(L"LoadGameCharacter");
 	BindArgument(accountUID);
-	BindArgument(characterUID);
+	BindArgument(info.uid);
 	Execute();
 
-	BindCol((wchar_t**)&info.name, Define::CharacterLimit_MaxNameLen);
-	BindCol(&info.info.level, sizeof(info.info.level));
-	BindCol(&info.info.job, sizeof(info.info.job));
+	wchar_t name[Define::CharacterLimit_MaxNameLen + 1] = L"";
+	BindCol((wchar_t**)&name, sizeof(name));
+	BindCol(&info.level, sizeof(info.level));
+	BindCol((uint8_t*)&info.job, sizeof(info.job));
+	BindCol(&info.exp, sizeof(info.exp));
 
-	for (int i = 0; i < Define::GearType_GEAR_END; ++i)
-		BindCol(&info.info.gear.value[i], sizeof(info.info.gear.value[i]));
+	for (int i = 0; i < Define::GearType_END; ++i)
+		BindCol(&info.gear.index[i], sizeof(info.gear.index[i]));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+		if (IsSuccess())
+		{
+			SQLFreeStmt(this->hstmt, SQL_CLOSE);
+
+			info.name = STRING_MANAGER.Narrow(name);
+			return LoadCharacterStat(accountUID, info);
+		}
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return false;
+}
+
+bool GameDB::LoadCharacterStat(const int64_t accountUID, GamePacket::MyCharacterInfoT& info)
+{
+	Prepare(L"LoadCharacterStat");
+	BindArgument(accountUID);
+	BindArgument(info.uid);
+	Execute();
+
+	BindCol(&info.hp, sizeof(info.hp));
+	BindCol(&info.mp, sizeof(info.mp));
+
+	for (int i = 0; i < Define::StatType_END; ++i)
+		BindCol(&info.stat.value[i], sizeof(info.stat.value[i]));
+
+	BindCol(&info.bonus_stat, sizeof(info.bonus_stat));
 
 	while (IsSuccess())
 	{
