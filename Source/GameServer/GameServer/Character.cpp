@@ -10,3 +10,9 @@ Character::~Character()
 {
 
 }
+
+void Character::CalculateAbility(void)
+{
+	WRITE_LOCK(this->abilityMutex);
+	DATA_MANAGER.CalculateAbilityByStat(this->info);
+}

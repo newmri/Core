@@ -10,5 +10,8 @@ public:
 	void Load(void);
 
 public:
+	void CalculateAbilityByStat(GamePacket::MyCharacterInfoT& info);
+
+public:
 	CoreVector<CharacterAbilityByStat> characterAbilityByStat;
 };
