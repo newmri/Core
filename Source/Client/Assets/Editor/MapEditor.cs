@@ -19,6 +19,7 @@ public class MapEditor
 	private static void GenerateMap()
 	{
 		GenerateByPath("Assets/Resources/Map/Data");
+		GenerateByPath("../GameServer/x64/Debug/Data");
 	}
 
 	private static void GenerateByPath(string pathPrefix)
