@@ -63,6 +63,11 @@ namespace UnityCoreLibrary
             return Get<Image>(index);
         }
 
+        protected Slider GetSlider(int index)
+        {
+            return Get<Slider>(index);
+        }
+
         public static void BindEvent(GameObject go, Action<PointerEventData> action, CoreDefine.UIEvent type = CoreDefine.UIEvent.Click)
         {
             UIEventHandler uiEvent = Util.GetOrAddComponent<UIEventHandler>(go);

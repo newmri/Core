@@ -11,6 +11,12 @@ using GamePacket;
 
 public class UIGameScene : UIScene
 {
+    enum Sliders
+    {
+        HPSlider,
+        MPSlider
+    }
+
     enum TextMeshProUGUIs
     {
         CharacterLevelText,
@@ -27,14 +33,31 @@ public class UIGameScene : UIScene
     public override void Init()
     {
         Managers.UI.SetCanvas(gameObject);
+
+        Bind<Slider>(typeof(Sliders));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
 
-        InitCharacterInfo();
-        InitMoney();
+        UpdateHPBar();
+        UpdateHPBar();
+
+        UpdateCharacterInfo();
+        UpdateMoney();
     }
 
-    void InitCharacterInfo()
+    public void UpdateHPBar()
+    {
+        var info = Managers.Character.GetMyCharacterInfo();
+        GetSlider((int)Sliders.HPSlider).value = info.Hp / info.Ability.Value[(int)AbilityByStatType.HP];
+    }
+
+    public void UpdateMPBar()
+    {
+        var info = Managers.Character.GetMyCharacterInfo();
+        GetSlider((int)Sliders.MPSlider).value = info.Mp / info.Ability.Value[(int)AbilityByStatType.MP];
+    }
+
+    public void UpdateCharacterInfo()
     {
         MyCharacterInfoT info = Managers.Character.GetMyCharacterInfo();
 
@@ -45,7 +68,7 @@ public class UIGameScene : UIScene
         GetImage((int)Images.JobIconImage).sprite = jobIcon;
     }
 
-    void InitMoney()
+    public void UpdateMoney()
     {
         this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = Managers.Account.Money.Value[(int)MoneyType.GEM].ToString();
         this.GetTextMesh((int)TextMeshProUGUIs.GoldText).text = Managers.Account.Money.Value[(int)MoneyType.GOLD].ToString();

@@ -8,15 +8,15 @@ namespace NativeInfo
     {
         Vec2Int()
         {
-            memset(this, 0, sizeof(this));
+            
         };
 
         Vec2Int(int x, int y) : x(x), y(y)
         {
         }
 
-        int x;
-        int y;
+        int x = 0;
+        int y = 0;
     };
 
     struct Stat
@@ -30,7 +30,7 @@ namespace NativeInfo
             std::copy(stats->begin(), stats->end(), this->value.begin());
         }
 
-        std::array<int32_t, Define::StatType_END> value;
+        std::array<int32_t, Define::StatType_END> value = {};
     };
 
     struct Ability
@@ -44,7 +44,7 @@ namespace NativeInfo
             std::copy(abilites->begin(), abilites->end(), this->value.begin());
         }
 
-        std::array<int32_t, Define::AbilityType_END> value;
+        std::array<int32_t, Define::AbilityType_END> value = {};
     };
 
     struct CharacterGear
@@ -58,7 +58,7 @@ namespace NativeInfo
             std::copy(index->begin(), index->end(), this->index.begin());
         }
 
-        std::array<uint8_t, Define::GearType_END> index;
+        std::array<uint8_t, Define::GearType_END> index = {};
     };
 
     struct Money
@@ -72,7 +72,7 @@ namespace NativeInfo
             std::copy(values->begin(), values->end(), this->value.begin());
         }
 
-        std::array<int32_t, Define::MoneyType_END> value;
+        std::array<int32_t, Define::MoneyType_END> value = {};
     };
 }  
 

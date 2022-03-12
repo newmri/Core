@@ -67,9 +67,8 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(info.uid);
 		account->SetMaxSlotCount(maxCharacterSlotCount);
 
-		auto character = std::make_shared<Character>(session->GetAccountUID(), info);
-		character->CalculateAbility();
-		account->AddCharacter(character);
+		DATA_MANAGER.CalculateAbilityByStat(info);
+		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), info));
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드

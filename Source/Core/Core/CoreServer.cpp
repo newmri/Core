@@ -70,7 +70,9 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "");
 
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-		socket.close();
+
+		if(socket.is_open())
+			socket.close();
 		
 		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountUID());
 
