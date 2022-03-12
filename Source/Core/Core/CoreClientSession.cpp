@@ -36,7 +36,7 @@ void CoreClientSession::Write(void)
 		{
 			if (error)
 			{
-				this->server->Close(shared_from_this());
+				this->server->Close(shared_from_this(), false);
 			}
 			else
 			{
@@ -57,7 +57,7 @@ void CoreClientSession::ReadHeader(void)
 		{
 			if (error)
 			{
-				this->server->Close(shared_from_this());
+				this->server->Close(shared_from_this(), false);
 			}
 			else
 			{
@@ -77,7 +77,7 @@ void CoreClientSession::ReadBody(void)
 		{
 			if (error)
 			{
-				this->server->Close(shared_from_this());
+				this->server->Close(shared_from_this(), false);
 			}
 			else
 			{

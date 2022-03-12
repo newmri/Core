@@ -61,7 +61,7 @@ void CoreServer::Accept(void)
 		});
 }
 
-void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
+void CoreServer::Close(std::shared_ptr<CoreClientSession> session, bool needSocketClose)
 {
 	if (session->IsConnected())
 	{
@@ -71,7 +71,7 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 
-		if(socket.is_open())
+		if(needSocketClose)
 			socket.close();
 		
 		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountUID());
