@@ -9,8 +9,9 @@ using UnityCoreLibrary;
 public enum Path
 {
 	None = 0,
-	Collision = 1,
-	Path = 2,
+	Start = 1,
+	Collision = 2,
+	Path = 3,
 }
 
 public struct PQNode : IComparable<PQNode>
@@ -41,6 +42,9 @@ public class MapManager
 
 	Path[,] _path;
 	int[,] _objects;
+	
+	Vector2Int _startIndex;
+	public Vector2Int StartCellPos { get; private set; }
 
 	Tilemap _map;
 	Tilemap _mapPath;
@@ -49,9 +53,9 @@ public class MapManager
 	[SerializeField]
 	private Dictionary<TileBase, TileData> _tileDataList = new Dictionary<TileBase, TileData>();
 
-	public bool CanMove(Vector3Int cellPos, bool checkObjects = true)
+    public bool CanMove(Vector3Int worldPos, bool checkObjects = true)
 	{
-		Vector2Int pos = new Vector2Int(cellPos.x, cellPos.y);
+		Vector2Int pos = new Vector2Int(worldPos.x, worldPos.y);
 		return CanMove(pos, checkObjects);
 	}
 
@@ -63,7 +67,7 @@ public class MapManager
 		}
 
 		Vector2Int index = CellPosToIndex(cellPos);
-		return (_path[index.y, index.x] == Path.Path) && (!checkObjects || _objects[index.y, index.x] == 0);
+		return (_path[index.y, index.x] == Path.Path || _path[index.y, index.x] == Path.Start) && (!checkObjects || _objects[index.y, index.x] == 0);
 	}
 
 	public int Find(Vector3Int cellPos)
@@ -135,9 +139,15 @@ public class MapManager
 		return CellPosToIndex(cellPos);
 
 	}
+
 	Vector2Int CellPosToIndex(Vector2Int cellPos)
 	{
 		return new Vector2Int(cellPos.x - Min.x, Max.y - cellPos.y);
+	}
+
+	Vector2Int IndexToCellPos(Vector2Int indexPos)
+	{
+		return new Vector2Int(indexPos.x + Min.x, Max.y - indexPos.y);
 	}
 
 	private void LoadPath(GameObject map, string path)
@@ -157,6 +167,12 @@ public class MapManager
 			{
 				string value = line[currCount.x].ToString();
 				_path[currCount.y, currCount.x] = (Path)Int32.Parse(value);
+
+				if (_path[currCount.y, currCount.x] == Path.Start)
+				{
+					_startIndex = new Vector2Int(currCount.x, currCount.y);
+					StartCellPos = IndexToCellPos(_startIndex);
+				}
 			}
 		}
 	}

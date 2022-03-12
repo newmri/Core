@@ -39,6 +39,7 @@ table MyCharacterInfo (native_type:"MyCharacterInfoT")
     mp:int32;
     ability:Info.Ability (native_inline);
     gear:Info.CharacterGear (native_inline);
+    pos_info:Info.PositionInfo (native_inline);
 }
 
 table SC_LOGIN_RES

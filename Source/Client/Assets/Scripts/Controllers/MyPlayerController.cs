@@ -18,8 +18,10 @@ public class MyPlayerController : PlayerController
 		PositionInfoT pos = new PositionInfoT();
 		pos.MoveDir = Dir.RIGHT;
 		pos.State = CreatureState.IDLE;
-		pos.Pos.X = (int)transform.position.x;
-		pos.Pos.Y = (int)-8;
+
+		Vector2Int startPos = Managers.Map.StartCellPos;
+		pos.Pos.X = startPos.x;
+		pos.Pos.Y = startPos.y;
 		PosInfo = pos;
 
 		Vector3 newPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.0f, 0.5f);

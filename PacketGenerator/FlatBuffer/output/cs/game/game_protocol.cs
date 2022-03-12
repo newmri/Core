@@ -147,6 +147,7 @@ public struct MyCharacterInfo : IFlatbufferObject
   public int Mp { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public Info.Ability? Ability { get { int o = __p.__offset(22); return o != 0 ? (Info.Ability?)(new Info.Ability()).__assign(o + __p.bb_pos, __p.bb) : null; } }
   public Info.CharacterGear? Gear { get { int o = __p.__offset(24); return o != 0 ? (Info.CharacterGear?)(new Info.CharacterGear()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(26); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
   public static Offset<GamePacket.MyCharacterInfo> CreateMyCharacterInfo(FlatBufferBuilder builder,
       long uid = 0,
@@ -159,10 +160,12 @@ public struct MyCharacterInfo : IFlatbufferObject
       int hp = 0,
       int mp = 0,
       Info.AbilityT ability = null,
-      Info.CharacterGearT gear = null) {
-    builder.StartTable(11);
+      Info.CharacterGearT gear = null,
+      Info.PositionInfoT pos_info = null) {
+    builder.StartTable(12);
     MyCharacterInfo.AddExp(builder, exp);
     MyCharacterInfo.AddUid(builder, uid);
+    MyCharacterInfo.AddPosInfo(builder, Info.PositionInfo.Pack(builder, pos_info));
     MyCharacterInfo.AddGear(builder, Info.CharacterGear.Pack(builder, gear));
     MyCharacterInfo.AddAbility(builder, Info.Ability.Pack(builder, ability));
     MyCharacterInfo.AddMp(builder, mp);
@@ -175,7 +178,7 @@ public struct MyCharacterInfo : IFlatbufferObject
     return MyCharacterInfo.EndMyCharacterInfo(builder);
   }
 
-  public static void StartMyCharacterInfo(FlatBufferBuilder builder) { builder.StartTable(11); }
+  public static void StartMyCharacterInfo(FlatBufferBuilder builder) { builder.StartTable(12); }
   public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(0, uid, 0); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
   public static void AddLevel(FlatBufferBuilder builder, byte level) { builder.AddByte(2, level, 0); }
@@ -187,6 +190,7 @@ public struct MyCharacterInfo : IFlatbufferObject
   public static void AddMp(FlatBufferBuilder builder, int mp) { builder.AddInt(8, mp, 0); }
   public static void AddAbility(FlatBufferBuilder builder, Offset<Info.Ability> abilityOffset) { builder.AddStruct(9, abilityOffset.Value, 0); }
   public static void AddGear(FlatBufferBuilder builder, Offset<Info.CharacterGear> gearOffset) { builder.AddStruct(10, gearOffset.Value, 0); }
+  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(11, posInfoOffset.Value, 0); }
   public static Offset<GamePacket.MyCharacterInfo> EndMyCharacterInfo(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.MyCharacterInfo>(o);
@@ -208,6 +212,7 @@ public struct MyCharacterInfo : IFlatbufferObject
     _o.Mp = this.Mp;
     _o.Ability = this.Ability.HasValue ? this.Ability.Value.UnPack() : null;
     _o.Gear = this.Gear.HasValue ? this.Gear.Value.UnPack() : null;
+    _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
   }
   public static Offset<GamePacket.MyCharacterInfo> Pack(FlatBufferBuilder builder, MyCharacterInfoT _o) {
     if (_o == null) return default(Offset<GamePacket.MyCharacterInfo>);
@@ -224,7 +229,8 @@ public struct MyCharacterInfo : IFlatbufferObject
       _o.Hp,
       _o.Mp,
       _o.Ability,
-      _o.Gear);
+      _o.Gear,
+      _o.PosInfo);
   }
 };
 
@@ -241,6 +247,7 @@ public class MyCharacterInfoT
   public int Mp { get; set; }
   public Info.AbilityT Ability { get; set; }
   public Info.CharacterGearT Gear { get; set; }
+  public Info.PositionInfoT PosInfo { get; set; }
 
   public MyCharacterInfoT() {
     this.Uid = 0;
@@ -254,6 +261,7 @@ public class MyCharacterInfoT
     this.Mp = 0;
     this.Ability = new Info.AbilityT();
     this.Gear = new Info.CharacterGearT();
+    this.PosInfo = new Info.PositionInfoT();
   }
 }
 

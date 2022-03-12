@@ -56,36 +56,24 @@ public class Vec2IntT
 
 public struct PositionInfo : IFlatbufferObject
 {
-  private Table __p;
+  private Struct __p;
   public ByteBuffer ByteBuffer { get { return __p.bb; } }
-  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
-  public static PositionInfo GetRootAsPositionInfo(ByteBuffer _bb) { return GetRootAsPositionInfo(_bb, new PositionInfo()); }
-  public static PositionInfo GetRootAsPositionInfo(ByteBuffer _bb, PositionInfo obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
-  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
   public PositionInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Info.Vec2Int? Pos { get { int o = __p.__offset(4); return o != 0 ? (Info.Vec2Int?)(new Info.Vec2Int()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-  public Define.CreatureState State { get { int o = __p.__offset(6); return o != 0 ? (Define.CreatureState)__p.bb.Get(o + __p.bb_pos) : Define.CreatureState.IDLE; } }
-  public Define.Dir MoveDir { get { int o = __p.__offset(8); return o != 0 ? (Define.Dir)__p.bb.Get(o + __p.bb_pos) : Define.Dir.UP; } }
+  public Info.Vec2Int Pos { get { return (new Info.Vec2Int()).__assign(__p.bb_pos + 0, __p.bb); } }
+  public Define.CreatureState State { get { return (Define.CreatureState)__p.bb.Get(__p.bb_pos + 8); } }
+  public Define.Dir MoveDir { get { return (Define.Dir)__p.bb.Get(__p.bb_pos + 9); } }
 
-  public static Offset<Info.PositionInfo> CreatePositionInfo(FlatBufferBuilder builder,
-      Info.Vec2IntT pos = null,
-      Define.CreatureState state = Define.CreatureState.IDLE,
-      Define.Dir move_dir = Define.Dir.UP) {
-    builder.StartTable(3);
-    PositionInfo.AddPos(builder, Info.Vec2Int.Pack(builder, pos));
-    PositionInfo.AddMoveDir(builder, move_dir);
-    PositionInfo.AddState(builder, state);
-    return PositionInfo.EndPositionInfo(builder);
-  }
-
-  public static void StartPositionInfo(FlatBufferBuilder builder) { builder.StartTable(3); }
-  public static void AddPos(FlatBufferBuilder builder, Offset<Info.Vec2Int> posOffset) { builder.AddStruct(0, posOffset.Value, 0); }
-  public static void AddState(FlatBufferBuilder builder, Define.CreatureState state) { builder.AddByte(1, (byte)state, 0); }
-  public static void AddMoveDir(FlatBufferBuilder builder, Define.Dir moveDir) { builder.AddByte(2, (byte)moveDir, 0); }
-  public static Offset<Info.PositionInfo> EndPositionInfo(FlatBufferBuilder builder) {
-    int o = builder.EndTable();
-    return new Offset<Info.PositionInfo>(o);
+  public static Offset<Info.PositionInfo> CreatePositionInfo(FlatBufferBuilder builder, int pos_X, int pos_Y, Define.CreatureState State, Define.Dir MoveDir) {
+    builder.Prep(4, 12);
+    builder.Pad(2);
+    builder.PutByte((byte)MoveDir);
+    builder.PutByte((byte)State);
+    builder.Prep(4, 8);
+    builder.PutInt(pos_Y);
+    builder.PutInt(pos_X);
+    return new Offset<Info.PositionInfo>(builder.Offset);
   }
   public PositionInfoT UnPack() {
     var _o = new PositionInfoT();
@@ -93,15 +81,18 @@ public struct PositionInfo : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(PositionInfoT _o) {
-    _o.Pos = this.Pos.HasValue ? this.Pos.Value.UnPack() : null;
+    _o.Pos = this.Pos.UnPack();
     _o.State = this.State;
     _o.MoveDir = this.MoveDir;
   }
   public static Offset<Info.PositionInfo> Pack(FlatBufferBuilder builder, PositionInfoT _o) {
     if (_o == null) return default(Offset<Info.PositionInfo>);
+    var _pos_x = _o.Pos.X;
+    var _pos_y = _o.Pos.Y;
     return CreatePositionInfo(
       builder,
-      _o.Pos,
+      _pos_x,
+      _pos_y,
       _o.State,
       _o.MoveDir);
   }

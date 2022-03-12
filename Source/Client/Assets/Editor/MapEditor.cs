@@ -27,10 +27,13 @@ public class MapEditor
 
 		foreach (GameObject go in gameObjects)
 		{
+			if (go.tag != "Map")
+				continue;
+
 			Tilemap tileMapBase = Util.FindChild<Tilemap>(go, "Tilemap_Base", true);
 			Tilemap tileMapPath = Util.FindChild<Tilemap>(go, "Tilemap_Path", true);
 
-			using (var writer = File.CreateText($"{pathPrefix }/{go.name}.txt"))
+			using (var writer = File.CreateText($"{pathPrefix}/{go.name}.txt"))
 			{
 				WriteMinMax(writer, tileMapBase);
 

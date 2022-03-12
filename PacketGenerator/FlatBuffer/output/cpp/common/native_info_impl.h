@@ -7,8 +7,7 @@ namespace NativeInfo
     struct Vec2Int
     {
         Vec2Int()
-        {
-            
+        {        
         };
 
         Vec2Int(int x, int y) : x(x), y(y)
@@ -17,6 +16,23 @@ namespace NativeInfo
 
         int x = 0;
         int y = 0;
+    };
+
+    struct PositionInfo
+    {
+        PositionInfo()
+        {
+        };
+
+        PositionInfo(NativeInfo::Vec2Int pos, Define::CreatureState state, Define::Dir moveDir) :
+            pos(pos), state(state), moveDir(moveDir)
+        {
+
+        }
+
+        NativeInfo::Vec2Int pos;
+        Define::CreatureState state = Define::CreatureState::CreatureState_IDLE;
+        Define::Dir moveDir = Define::Dir_RIGHT;
     };
 
     struct Stat
@@ -79,6 +95,7 @@ namespace NativeInfo
 namespace Info
 {
     struct Vec2Int;
+    struct PositionInfo;
     struct Stat;
     struct Ability;
     struct CharacterGear;
@@ -89,6 +106,9 @@ namespace flatbuffers
 {
     Info::Vec2Int PackVec2Int(const NativeInfo::Vec2Int& obj);
     NativeInfo::Vec2Int UnPackVec2Int(const Info::Vec2Int& obj);
+
+    Info::PositionInfo PackPositionInfo(const NativeInfo::PositionInfo& obj);
+    NativeInfo::PositionInfo UnPackPositionInfo(const Info::PositionInfo& obj);
 
     Info::Stat PackStat(const NativeInfo::Stat& obj);
     NativeInfo::Stat UnPackStat(const Info::Stat& obj);

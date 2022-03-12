@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "info_protocol_generated.h"
 #include "define_protocol_generated.h"
+#include "info_protocol_generated.h"
 
 namespace GamePacket {
 
@@ -302,6 +302,7 @@ struct MyCharacterInfoT : public flatbuffers::NativeTable {
   int32_t mp = 0;
   NativeInfo::Ability ability{};
   NativeInfo::CharacterGear gear{};
+  NativeInfo::PositionInfo pos_info{};
 };
 
 struct MyCharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -318,7 +319,8 @@ struct MyCharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_HP = 18,
     VT_MP = 20,
     VT_ABILITY = 22,
-    VT_GEAR = 24
+    VT_GEAR = 24,
+    VT_POS_INFO = 26
   };
   int64_t uid() const {
     return GetField<int64_t>(VT_UID, 0);
@@ -353,6 +355,9 @@ struct MyCharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const Info::CharacterGear *gear() const {
     return GetStruct<const Info::CharacterGear *>(VT_GEAR);
   }
+  const Info::PositionInfo *pos_info() const {
+    return GetStruct<const Info::PositionInfo *>(VT_POS_INFO);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int64_t>(verifier, VT_UID) &&
@@ -367,6 +372,7 @@ struct MyCharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_MP) &&
            VerifyField<Info::Ability>(verifier, VT_ABILITY) &&
            VerifyField<Info::CharacterGear>(verifier, VT_GEAR) &&
+           VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
            verifier.EndTable();
   }
   MyCharacterInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
@@ -411,6 +417,9 @@ struct MyCharacterInfoBuilder {
   void add_gear(const Info::CharacterGear *gear) {
     fbb_.AddStruct(MyCharacterInfo::VT_GEAR, gear);
   }
+  void add_pos_info(const Info::PositionInfo *pos_info) {
+    fbb_.AddStruct(MyCharacterInfo::VT_POS_INFO, pos_info);
+  }
   explicit MyCharacterInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -434,10 +443,12 @@ inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(
     int32_t hp = 0,
     int32_t mp = 0,
     const Info::Ability *ability = 0,
-    const Info::CharacterGear *gear = 0) {
+    const Info::CharacterGear *gear = 0,
+    const Info::PositionInfo *pos_info = 0) {
   MyCharacterInfoBuilder builder_(_fbb);
   builder_.add_exp(exp);
   builder_.add_uid(uid);
+  builder_.add_pos_info(pos_info);
   builder_.add_gear(gear);
   builder_.add_ability(ability);
   builder_.add_mp(mp);
@@ -462,7 +473,8 @@ inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfoDirect(
     int32_t hp = 0,
     int32_t mp = 0,
     const Info::Ability *ability = 0,
-    const Info::CharacterGear *gear = 0) {
+    const Info::CharacterGear *gear = 0,
+    const Info::PositionInfo *pos_info = 0) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
   return GamePacket::CreateMyCharacterInfo(
       _fbb,
@@ -476,7 +488,8 @@ inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfoDirect(
       hp,
       mp,
       ability,
-      gear);
+      gear,
+      pos_info);
 }
 
 flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const MyCharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
@@ -825,6 +838,7 @@ inline void MyCharacterInfo::UnPackTo(MyCharacterInfoT *_o, const flatbuffers::r
   { auto _e = mp(); _o->mp = _e; }
   { auto _e = ability(); if (_e) _o->ability = flatbuffers::UnPackAbility(*_e); }
   { auto _e = gear(); if (_e) _o->gear = flatbuffers::UnPackCharacterGear(*_e); }
+  { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
 }
 
 inline flatbuffers::Offset<MyCharacterInfo> MyCharacterInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const MyCharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -846,6 +860,7 @@ inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(flatbuffers::F
   auto _mp = _o->mp;
   auto _ability = flatbuffers::PackAbility(_o->ability);
   auto _gear = flatbuffers::PackCharacterGear(_o->gear);
+  auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
   return GamePacket::CreateMyCharacterInfo(
       _fbb,
       _uid,
@@ -858,7 +873,8 @@ inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(flatbuffers::F
       _hp,
       _mp,
       &_ability,
-      &_gear);
+      &_gear,
+      &_pos_info);
 }
 
 inline SC_LOGIN_REST *SC_LOGIN_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {

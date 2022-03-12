@@ -8,7 +8,7 @@ struct Vec2Int (native_type:"NativeInfo::Vec2Int", native_type_pack_name:"Vec2In
   y:int32;
 }
 
-table PositionInfo (native_type:"PositionInfoT")
+struct PositionInfo (native_type:"NativeInfo::PositionInfo", native_type_pack_name:"PositionInfo")
 {
   pos:Vec2Int (native_inline);
   state:Define.CreatureState;
