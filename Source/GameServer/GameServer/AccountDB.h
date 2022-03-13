@@ -10,8 +10,8 @@ public:
 	virtual void Release(void) override;
 
 public:
-	bool Login(const int64_t uid, CoreToken& token);
-	void Logout(const int64_t uid);
+	bool Login(const int64_t accountUID, CoreToken& token);
+	void Logout(const int64_t accountUID);
 
 public:
 	void LoadMoney(const int64_t uid, NativeInfo::Money& money);

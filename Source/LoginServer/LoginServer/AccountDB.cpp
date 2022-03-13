@@ -15,10 +15,10 @@ void AccountDB::Release(void)
 {
 }
 
-bool AccountDB::Login(const int64_t uid, CoreToken& token)
+bool AccountDB::Login(const int64_t accountUID, CoreToken& token)
 {
 	Prepare(L"Login");
-	BindArgument(uid);
+	BindArgument(accountUID);
 	BindArgument(token.key);
 	Execute();
 
@@ -43,10 +43,10 @@ bool AccountDB::Login(const int64_t uid, CoreToken& token)
 	return isSuccess;
 }
 
-void AccountDB::Logout(const int64_t uid)
+void AccountDB::Logout(const int64_t accountUID)
 {
 	Prepare(L"Logout");
-	BindArgument(uid);
+	BindArgument(accountUID);
 	Execute();
 
 	while (IsSuccess())
