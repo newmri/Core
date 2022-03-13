@@ -107,7 +107,7 @@
     <Compile Include="Assets\Scripts\Network\define_protocol.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterInfo.cs" />
-    <Compile Include="Assets\Scripts\Managers\Core\CharacterManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Core\CreatureManager.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\GamePacketManager.cs" />

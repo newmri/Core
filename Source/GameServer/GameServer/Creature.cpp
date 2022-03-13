@@ -12,7 +12,7 @@ Creature::~Creature()
 
 void Creature::Init(void)
 {
-	CalculateAbility();
+	
 }
 
 void Creature::Update(void)

@@ -19,6 +19,7 @@ void CreatureManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<Cor
 
 	creatureInfo.uid = uid;
 	creatureInfo.obj_type = Define::ObjectType_PLAYER;
+	DATA_MANAGER.CalculateAbilityByStat(creatureInfo);
 	auto character = std::make_shared<Character>(creatureInfo, characterInfo);
 
 	WRITE_LOCK(this->mutex);

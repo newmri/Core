@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityCoreLibrary;
 using UnityEngine;
 
@@ -12,8 +13,8 @@ public class GameScene : BaseScene
     {
         base.Init(scene);
         Managers.Map.LoadMap(1);
-        Managers.Character.SpawnMyCharacter();
-        UIGameScene ui = Managers.UI.ShowSceneUI<UIGameScene>();
+        Managers.Account.UIGameScene = Managers.UI.ShowSceneUI<UIGameScene>();
+        Managers.Creature.AddMyPlayer();
     }
 
     public override void Clear()

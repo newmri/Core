@@ -57,11 +57,11 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	//CORE_THREAD_MANAGER.Push(Run);
-	//CORE_THREAD_MANAGER.Run();
+	CORE_THREAD_MANAGER.Push(Run);
+	CORE_THREAD_MANAGER.Run();
 
-	MapData data;
-	CSV_MAP_LOAD_AND_TO_STRUCTURE("Data/Map_001.csv", data);
+	//MapData data;
+	//CSV_MAP_LOAD_AND_TO_STRUCTURE("Data/Map_001.csv", data);
 
 	return 0;
 }

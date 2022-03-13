@@ -5,54 +5,51 @@ using UnityEngine;
 using Define;
 using Info;
 
-public class StatInfo
-{
-	public int HP;
-	public float Speed;
-}
-
 public class BaseController : MonoBehaviour
 {
-	public int Id { get; set; }
 	protected bool _isRunning = false;
 
-	StatInfo _stat = new StatInfo();
-	public virtual StatInfo Stat
+	[SerializeField]
+	CreatureInfoT _creatureInfo = new CreatureInfoT();
+
+	public virtual CreatureInfoT CreatureInfo
 	{
-		get { return _stat; }
+		get { return _creatureInfo; }
 		set
 		{
-			if (_stat.Equals(value))
+			if (_creatureInfo.Equals(value))
 				return;
 
-			//_stat.MergeFrom(value);
+			_creatureInfo = value;
 		}
 	}
 
-	public float Speed
+	public int MoveSpeed
 	{
-		get { return Stat.Speed; }
-		set { Stat.Speed = value; }
+		get { return CreatureInfo.Ability.Value[(int)Define.AbilityType.MOVE_SPEED]; }
+		set { CreatureInfo.Ability.Value[(int)Define.AbilityType.MOVE_SPEED] = value; }
 	}
 
 	public virtual int HP
 	{
-		get { return Stat.HP; }
-		set
-		{
-			Stat.HP = value;
-		}
+		get { return CreatureInfo.Hp; }
+		set { CreatureInfo.Hp = value; }
+	}
+
+	public virtual int MP
+	{
+		get { return CreatureInfo.Mp; }
+		set { CreatureInfo.Mp = value; }
 	}
 
 	protected bool _updated = false;
 
-	PositionInfoT _positionInfo = new PositionInfoT();
 	public PositionInfoT PosInfo
 	{
-		get { return _positionInfo; }
+		get { return _creatureInfo.PosInfo; }
 		set
 		{
-			if (_positionInfo.Equals(value))
+			if (_creatureInfo.PosInfo.Equals(value))
 				return;
 
 			CellPos = new Vector3Int(value.Pos.X, value.Pos.Y, 0);
@@ -115,41 +112,6 @@ public class BaseController : MonoBehaviour
 		}
 	}
 
-	public Dir GetDirFromVec(Vector3Int dir)
-	{
-		if (dir.x > 0)
-			return Dir.RIGHT;
-		else if (dir.x < 0)
-			return Dir.LEFT;
-		else if (dir.y > 0)
-			return Dir.UP;
-		else
-			return Dir.DOWN;
-	}
-
-	public Vector3Int GetFrontCellPos()
-	{
-		Vector3Int cellPos = CellPos;
-
-		switch (Dir)
-		{
-			case Dir.UP:
-				cellPos += Vector3Int.up;
-				break;
-			case Dir.DOWN:
-				cellPos += Vector3Int.down;
-				break;
-			case Dir.LEFT:
-				cellPos += Vector3Int.left;
-				break;
-			case Dir.RIGHT:
-				cellPos += Vector3Int.right;
-				break;
-		}
-
-		return cellPos;
-	}
-
 	protected virtual void UpdateAnimation()
 	{
 		
@@ -167,8 +129,6 @@ public class BaseController : MonoBehaviour
 
 	protected virtual void Init()
 	{
-		_stat.Speed = 10.0f;
-
 		UpdateAnimation();
 	}
 
@@ -204,14 +164,14 @@ public class BaseController : MonoBehaviour
 
 		// 도착 여부 체크
 		float dist = moveDir.magnitude;
-		if (dist < Speed * Time.deltaTime)
+		if (dist < MoveSpeed * Time.deltaTime)
 		{
 			transform.position = destPos;
 			MoveToNextPos();
 		}
 		else
 		{
-			transform.position += moveDir.normalized * Speed * Time.deltaTime;
+			transform.position += moveDir.normalized * MoveSpeed * Time.deltaTime;
 			SetMoveState();
 		}
 	}

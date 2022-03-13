@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using TMPro;
 using Define;
 using GamePacket;
+using Info;
 
 public class UIGameScene : UIScene
 {
@@ -37,40 +38,30 @@ public class UIGameScene : UIScene
         Bind<Slider>(typeof(Sliders));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
-
-        UpdateHPBar();
-        UpdateHPBar();
-
-        UpdateCharacterInfo();
-        UpdateMoney();
     }
 
-    public void UpdateHPBar()
+    public void UpdateHPBar(int HP, int MaxHP)
     {
-        var info = Managers.Character.GetMyCharacterInfo();
-        GetSlider((int)Sliders.HPSlider).value = info.Hp / info.Ability.Value[(int)AbilityByStatType.HP];
+        GetSlider((int)Sliders.HPSlider).value = HP / MaxHP;
     }
 
-    public void UpdateMPBar()
+    public void UpdateMPBar(int MP, int MaxMP)
     {
-        var info = Managers.Character.GetMyCharacterInfo();
-        GetSlider((int)Sliders.MPSlider).value = info.Mp / info.Ability.Value[(int)AbilityByStatType.MP];
+        GetSlider((int)Sliders.MPSlider).value = MP / MaxMP;
     }
 
-    public void UpdateCharacterInfo()
+    public void UpdateCharacterInfo(string name, byte level, Define.Job job)
     {
-        MyCharacterInfoT info = Managers.Character.GetMyCharacterInfo();
+        this.GetTextMesh((int)TextMeshProUGUIs.CharacterNameText).text = name;
+        this.GetTextMesh((int)TextMeshProUGUIs.CharacterLevelText).text = "Lv." + level.ToString();
 
-        this.GetTextMesh((int)TextMeshProUGUIs.CharacterNameText).text = info.Name;
-        this.GetTextMesh((int)TextMeshProUGUIs.CharacterLevelText).text = "Lv." + info.Level.ToString();
-
-        Sprite jobIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{info.Job.ToString()}Icon");
+        Sprite jobIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{job.ToString()}Icon");
         GetImage((int)Images.JobIconImage).sprite = jobIcon;
     }
 
-    public void UpdateMoney()
+    public void UpdateMoney(MoneyT money)
     {
-        this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = Managers.Account.Money.Value[(int)MoneyType.GEM].ToString();
-        this.GetTextMesh((int)TextMeshProUGUIs.GoldText).text = Managers.Account.Money.Value[(int)MoneyType.GOLD].ToString();
+        this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = money.Value[(int)MoneyType.GEM].ToString();
+        this.GetTextMesh((int)TextMeshProUGUIs.GoldText).text = money.Value[(int)MoneyType.GOLD].ToString();
     }
 }

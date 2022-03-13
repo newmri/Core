@@ -33,6 +33,9 @@ public:
 	virtual void ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size) CORE_PURE;
 	virtual void SendPing(std::shared_ptr<CoreClientSession> session) CORE_PURE;
 
+private:
+	bool IsValidSession(const int64_t oid);
+
 protected:
 	std::atomic<int64_t> oid = 0;
 

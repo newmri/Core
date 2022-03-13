@@ -30,7 +30,8 @@ class GamePacketHandler
             return;
         }
 
-        Managers.Character.AddMyCharacter(loginRes.CharacterInfo.Value.UnPack());
+        Managers.Creature.MyCreatureInfo = loginRes.CreatureInfo.Value.UnPack();
+        Managers.Creature.MyCharacterInfo = loginRes.CharacterInfo.Value.UnPack();
         Managers.Account.Money = loginRes.Money.Value.UnPack().Value;
 
         CoreManagers.Scene.LoadScene(CoreDefine.Scene.Game);

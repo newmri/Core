@@ -4,17 +4,75 @@ using UnityEngine;
 using Define;
 using Info;
 using UnityCoreLibrary;
+using GamePacket;
 
 public class MyPlayerController : PlayerController
 {
+	public override CreatureInfoT CreatureInfo
+	{
+		get { return base.CreatureInfo; }
+		set
+		{
+			base.CreatureInfo = value;
+			_uiGameScene.UpdateHPBar(HP, base.CreatureInfo.Ability.Value[(int)Define.AbilityType.HP]);
+			_uiGameScene.UpdateHPBar(MP, base.CreatureInfo.Ability.Value[(int)Define.AbilityType.MP]);
+		}
+	}
+
+	public override int HP
+	{
+		get { return base.HP; }
+		set
+		{
+			base.HP = value;
+			_uiGameScene.UpdateHPBar(base.HP, CreatureInfo.Ability.Value[(int)Define.AbilityType.HP]);
+		}
+	}
+
+	public override int MP
+	{
+		get { return base.MP; }
+		set
+		{
+			base.MP = value;
+			_uiGameScene.UpdateHPBar(base.MP, CreatureInfo.Ability.Value[(int)Define.AbilityType.MP]);
+		}
+	}
+
+	[SerializeField]
+	MyCharacterInfoT _myCharacterInfo = new MyCharacterInfoT();
+	GearEquipper _gear;
+
+	public MyCharacterInfoT MyCharacterInfo
+	{
+		get
+		{
+			return _myCharacterInfo;
+		}
+		set
+		{
+			if (_myCharacterInfo.Equals(value))
+				return;
+
+			_myCharacterInfo = value;
+
+			_uiGameScene.UpdateCharacterInfo(MyCharacterInfo.Name, CreatureInfo.Level, MyCharacterInfo.Job);
+
+			_gear.Job = MyCharacterInfo.Job;
+			_gear.SetGear(MyCharacterInfo.Gear);
+		}
+	}
+
 	bool _moveKeyPressed = false;
 
-	public int WeaponDamage { get; private set; }
-	public int ArmorDefence { get; private set; }
+	UIGameScene _uiGameScene;
 
 	protected override void Init()
 	{
 		base.Init();
+		_gear = GetComponent<GearEquipper>();
+		_uiGameScene = Managers.UI.GetSceneUI<UIGameScene>();
+
 		PositionInfoT pos = new PositionInfoT();
 		pos.MoveDir = Dir.RIGHT;
 		pos.State = CreatureState.IDLE;

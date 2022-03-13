@@ -61,12 +61,26 @@ void CoreServer::Accept(void)
 		});
 }
 
+bool CoreServer::IsValidSession(const int64_t oid)
+{
+	READ_LOCK(this->mutex);
+
+	auto iter = this->sessionList.find(oid);
+	if (IS_NOT_SAME(iter, this->sessionList.end()))
+		return true;
+
+	return false;
+}
+
 void CoreServer::Close(std::shared_ptr<CoreClientSession> session, bool needSocketClose)
 {
 	if (session->IsConnected())
 	{
 		boost::asio::ip::tcp::socket& socket = session->GetSocket();
 		int64_t oid = session->GetOID();
+		if (!IsValidSession(oid))
+			return;
+
 		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "");
 
 		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
@@ -77,6 +91,6 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session, bool needSock
 		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountUID());
 
 		WRITE_LOCK(this->mutex);
-		this->sessionList.erase(this->sessionList.find(oid));
+		this->sessionList.erase(oid);
 	}
 }
