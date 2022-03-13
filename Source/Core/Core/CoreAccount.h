@@ -14,7 +14,7 @@ struct CoreToken
 
 class CoreAccount : public CoreUIDObj, public CoreMemoryPoolObj<CoreAccount, CORE_BIG_SIZE>
 {
-	OVERRIDE_OBJ(CoreAccount)
+	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CoreAccount)
 
 public:
 	CoreAccount(const int64_t& uid, const CoreToken& token);

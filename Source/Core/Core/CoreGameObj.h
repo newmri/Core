@@ -2,7 +2,7 @@
 
 class CoreGameObj : public CoreUIDObj
 {
-	OVERRIDE_OBJ(CoreGameObj)
+	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CoreGameObj)
 
 public:
 	CoreGameObj(const int64_t uid, const uint8_t ObjType);

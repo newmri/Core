@@ -1,10 +1,5 @@
 #include "CoreInclude.h"
 
-CoreCharacter::CoreCharacter()
-{
-	Init();
-}
-
 CoreCharacter::~CoreCharacter()
 {
 

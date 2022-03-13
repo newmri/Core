@@ -1,10 +1,5 @@
 #include "CoreInclude.h"
 
-CoreGameObj::CoreGameObj()
-{
-	Init();
-}
-
 CoreGameObj::~CoreGameObj()
 {
 

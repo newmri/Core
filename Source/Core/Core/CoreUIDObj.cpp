@@ -1,10 +1,5 @@
 #include "CoreInclude.h"
 
-CoreUIDObj::CoreUIDObj()
-{
-	Init();
-}
-
 CoreUIDObj::~CoreUIDObj()
 {
 

@@ -2,7 +2,7 @@
 
 class CoreUIDObj : public CoreObj
 {
-	OVERRIDE_OBJ(CoreUIDObj)
+	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CoreUIDObj)
 
 public:
 	CoreUIDObj(const int64_t uid);

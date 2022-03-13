@@ -1,10 +1,5 @@
 #include "CoreInclude.h"
 
-CoreAccount::CoreAccount()
-{
-	Init();
-}
-
 CoreAccount::~CoreAccount()
 {
 
