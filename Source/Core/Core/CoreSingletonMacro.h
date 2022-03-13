@@ -26,6 +26,12 @@
 	private:																\
 		virtual void Init(void) override;									
 
+#define OVERRIDE_GAME_OBJ(CLASS)											\
+	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CLASS)							\
+																			\
+	public:																	\
+		virtual void Update(void) override;
+
 #define NO_COPY(CLASS)														\
 	private:																\
 		CLASS()	CORE_DEFAULT;												\

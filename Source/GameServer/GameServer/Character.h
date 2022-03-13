@@ -2,9 +2,10 @@
 
 class Character : public CoreCharacter
 {
+	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(Character)
+
 public:
 	Character(const int64_t& accountUID, const GamePacket::MyCharacterInfoT& info);
-	virtual ~Character();
 
 public:
 	void CalculateAbility(void);

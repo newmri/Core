@@ -22,14 +22,20 @@
     <ClCompile Include="GamePacketFunc.cpp">
       <Filter>03.Packet\03.GamePacketFunc</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>04.Character</Filter>
-    </ClCompile>
     <ClCompile Include="AccountDB.cpp">
       <Filter>05.DB\00.AccountDB</Filter>
     </ClCompile>
     <ClCompile Include="GameDB.cpp">
       <Filter>05.DB\01.GameDB</Filter>
+    </ClCompile>
+    <ClCompile Include="Creature.cpp">
+      <Filter>04.Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>04.Creature\00.Player\00.Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>04.Creature\00.Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +69,6 @@
     <ClInclude Include="GamePacketFunc.h">
       <Filter>03.Packet\03.GamePacketFunc</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>04.Character</Filter>
-    </ClInclude>
     <ClInclude Include="AccountDB.h">
       <Filter>05.DB\00.AccountDB</Filter>
     </ClInclude>
@@ -74,6 +77,15 @@
     </ClInclude>
     <ClInclude Include="game_protocol_generated.h">
       <Filter>03.Packet\00.FlatBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>04.Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>04.Creature\00.Player\00.Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>04.Creature\00.Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,8 +128,14 @@
     <Filter Include="05.DB\01.GameDB">
       <UniqueIdentifier>{493a0cd3-f53f-4d8c-aad0-7aa2a71452e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Character">
+    <Filter Include="04.Creature">
       <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Creature\00.Player">
+      <UniqueIdentifier>{e91e2d21-3145-42b4-9564-86ad96126814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Creature\00.Player\00.Character">
+      <UniqueIdentifier>{a71c963f-bd66-4148-b456-7ec291832738}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

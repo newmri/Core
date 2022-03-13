@@ -1,6 +1,7 @@
 ﻿  AccountDB.cpp
+  Character.cpp
+  DataManager.cpp
   GameDB.cpp
-  LoginCharacter.cpp
   LoginPacketFunc.cpp
   LoginPacketHandler.cpp
   LoginServer.cpp

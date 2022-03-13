@@ -3,10 +3,15 @@
 Character::Character(const int64_t& accountUID, const GamePacket::MyCharacterInfoT& info) :
 	CoreCharacter(accountUID, info.uid), info(info)
 {
-
+	Init();
 }
 
 Character::~Character()
+{
+
+}
+
+void Character::Init(void)
 {
 
 }
