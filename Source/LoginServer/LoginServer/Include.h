@@ -7,7 +7,7 @@
 #include "DataManager.h"
 #include "LoginPacketFunc.h"
 #include "LoginPacketHandler.h"
-#include "LoginCharacter.h"
+#include "Character.h"
 #include "AccountDB.h"
 #include "GameDB.h"
 #include "LoginServer.h"

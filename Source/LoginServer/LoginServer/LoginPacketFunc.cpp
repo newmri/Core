@@ -72,7 +72,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	
 			for (int i = 0; i < size; ++i)
 			{
-				account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), infoList[i].uid, infoList[i]));
+				account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), infoList[i].uid, infoList[i]));
 				sendList.push_back(LoginPacket::CharacterInfo::Pack(this->builder, &infoList[i]));
 			}
 
@@ -151,7 +151,7 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	if (isSuccess)
 	{
-		account->AddCharacter(std::make_shared<LoginCharacter>(session->GetAccountUID(), info.uid, info));
+		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), info.uid, info));
 		
 		auto packedInfo = LoginPacket::CharacterInfo::Pack(this->builder, &info);
 

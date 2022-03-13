@@ -16,9 +16,6 @@
     <Filter Include="05.DB\01.GameDB">
       <UniqueIdentifier>{ded080ab-e8cc-40df-b845-7c498cdb9a8b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.LoginCharacter">
-      <UniqueIdentifier>{f810c2c0-bb91-4f89-91af-5174d6ce564b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.Packet">
       <UniqueIdentifier>{adb8ddea-4059-4358-ade1-e9454d51bb9a}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="02.DataManager\00.CharacterData">
       <UniqueIdentifier>{d489d1da-ae0d-4377-89ba-4cfbe6ed689d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Character">
+      <UniqueIdentifier>{f810c2c0-bb91-4f89-91af-5174d6ce564b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,8 +66,8 @@
     <ClCompile Include="DataManager.cpp">
       <Filter>02.DataManager</Filter>
     </ClCompile>
-    <ClCompile Include="LoginCharacter.cpp">
-      <Filter>04.LoginCharacter</Filter>
+    <ClCompile Include="Character.cpp">
+      <Filter>04.Character</Filter>
     </ClCompile>
     <ClCompile Include="native_info_impl.cpp">
       <Filter>03.Packet\00.FlatBuffer</Filter>
@@ -107,8 +107,8 @@
     <ClInclude Include="DataManager.h">
       <Filter>02.DataManager</Filter>
     </ClInclude>
-    <ClInclude Include="LoginCharacter.h">
-      <Filter>04.LoginCharacter</Filter>
+    <ClInclude Include="Character.h">
+      <Filter>04.Character</Filter>
     </ClInclude>
     <ClInclude Include="info_protocol_generated.h">
       <Filter>03.Packet\00.FlatBuffer</Filter>
