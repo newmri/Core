@@ -11,7 +11,7 @@ public:
 
 public:
 	bool Login(const int64_t accountUID, CoreToken& token);
-	void Logout(const int64_t accountUID);
+	void Logout(const CoreAccount* account);
 
 public:
 	void LoadMoney(const int64_t uid, NativeInfo::Money& money);

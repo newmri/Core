@@ -8,7 +8,7 @@ public:
 	CoreUIDObj(const int64_t uid);
 
 public:
-	int64_t GetUID(void);
+	int64_t GetUID(void) const;
 
 protected:
 	int64_t uid = 0;

@@ -119,5 +119,12 @@ public enum MoneyType : byte
   END = 2,
 };
 
+public enum ObjectType : byte
+{
+  PLAYER = 0,
+  MONSTER = 1,
+  NPC = 2,
+};
+
 
 }

@@ -43,10 +43,10 @@ bool AccountDB::Login(const int64_t accountUID, CoreToken& token)
 	return isSuccess;
 }
 
-void AccountDB::Logout(const int64_t accountUID)
+void AccountDB::Logout(const CoreAccount* account)
 {
 	Prepare(L"Logout");
-	BindArgument(accountUID);
+	BindArgument(account->GetUID());
 	Execute();
 
 	while (IsSuccess())

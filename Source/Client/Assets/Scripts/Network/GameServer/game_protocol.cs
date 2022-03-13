@@ -130,67 +130,35 @@ public struct MyCharacterInfo : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public MyCharacterInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public long Uid { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public string Name { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string Name { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(6, 1); }
+  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(4, 1); }
 #else
-  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(6); }
+  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
-  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(6); }
-  public byte Level { get { int o = __p.__offset(8); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public Define.Job Job { get { int o = __p.__offset(10); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.WARRIOR; } }
-  public long Exp { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public Info.Stat? Stat { get { int o = __p.__offset(14); return o != 0 ? (Info.Stat?)(new Info.Stat()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-  public int BonusStat { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Hp { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public int Mp { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public Info.Ability? Ability { get { int o = __p.__offset(22); return o != 0 ? (Info.Ability?)(new Info.Ability()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-  public Info.CharacterGear? Gear { get { int o = __p.__offset(24); return o != 0 ? (Info.CharacterGear?)(new Info.CharacterGear()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(26); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(4); }
+  public Define.Job Job { get { int o = __p.__offset(6); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.WARRIOR; } }
+  public int BonusStat { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public Info.CharacterGear? Gear { get { int o = __p.__offset(10); return o != 0 ? (Info.CharacterGear?)(new Info.CharacterGear()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
   public static Offset<GamePacket.MyCharacterInfo> CreateMyCharacterInfo(FlatBufferBuilder builder,
-      long uid = 0,
       StringOffset nameOffset = default(StringOffset),
-      byte level = 0,
       Define.Job job = Define.Job.WARRIOR,
-      long exp = 0,
-      Info.StatT stat = null,
       int bonus_stat = 0,
-      int hp = 0,
-      int mp = 0,
-      Info.AbilityT ability = null,
-      Info.CharacterGearT gear = null,
-      Info.PositionInfoT pos_info = null) {
-    builder.StartTable(12);
-    MyCharacterInfo.AddExp(builder, exp);
-    MyCharacterInfo.AddUid(builder, uid);
-    MyCharacterInfo.AddPosInfo(builder, Info.PositionInfo.Pack(builder, pos_info));
+      Info.CharacterGearT gear = null) {
+    builder.StartTable(4);
     MyCharacterInfo.AddGear(builder, Info.CharacterGear.Pack(builder, gear));
-    MyCharacterInfo.AddAbility(builder, Info.Ability.Pack(builder, ability));
-    MyCharacterInfo.AddMp(builder, mp);
-    MyCharacterInfo.AddHp(builder, hp);
     MyCharacterInfo.AddBonusStat(builder, bonus_stat);
-    MyCharacterInfo.AddStat(builder, Info.Stat.Pack(builder, stat));
     MyCharacterInfo.AddName(builder, nameOffset);
     MyCharacterInfo.AddJob(builder, job);
-    MyCharacterInfo.AddLevel(builder, level);
     return MyCharacterInfo.EndMyCharacterInfo(builder);
   }
 
-  public static void StartMyCharacterInfo(FlatBufferBuilder builder) { builder.StartTable(12); }
-  public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(0, uid, 0); }
-  public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(1, nameOffset.Value, 0); }
-  public static void AddLevel(FlatBufferBuilder builder, byte level) { builder.AddByte(2, level, 0); }
-  public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddByte(3, (byte)job, 0); }
-  public static void AddExp(FlatBufferBuilder builder, long exp) { builder.AddLong(4, exp, 0); }
-  public static void AddStat(FlatBufferBuilder builder, Offset<Info.Stat> statOffset) { builder.AddStruct(5, statOffset.Value, 0); }
-  public static void AddBonusStat(FlatBufferBuilder builder, int bonusStat) { builder.AddInt(6, bonusStat, 0); }
-  public static void AddHp(FlatBufferBuilder builder, int hp) { builder.AddInt(7, hp, 0); }
-  public static void AddMp(FlatBufferBuilder builder, int mp) { builder.AddInt(8, mp, 0); }
-  public static void AddAbility(FlatBufferBuilder builder, Offset<Info.Ability> abilityOffset) { builder.AddStruct(9, abilityOffset.Value, 0); }
-  public static void AddGear(FlatBufferBuilder builder, Offset<Info.CharacterGear> gearOffset) { builder.AddStruct(10, gearOffset.Value, 0); }
-  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(11, posInfoOffset.Value, 0); }
+  public static void StartMyCharacterInfo(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(0, nameOffset.Value, 0); }
+  public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddByte(1, (byte)job, 0); }
+  public static void AddBonusStat(FlatBufferBuilder builder, int bonusStat) { builder.AddInt(2, bonusStat, 0); }
+  public static void AddGear(FlatBufferBuilder builder, Offset<Info.CharacterGear> gearOffset) { builder.AddStruct(3, gearOffset.Value, 0); }
   public static Offset<GamePacket.MyCharacterInfo> EndMyCharacterInfo(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.MyCharacterInfo>(o);
@@ -201,67 +169,35 @@ public struct MyCharacterInfo : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(MyCharacterInfoT _o) {
-    _o.Uid = this.Uid;
     _o.Name = this.Name;
-    _o.Level = this.Level;
     _o.Job = this.Job;
-    _o.Exp = this.Exp;
-    _o.Stat = this.Stat.HasValue ? this.Stat.Value.UnPack() : null;
     _o.BonusStat = this.BonusStat;
-    _o.Hp = this.Hp;
-    _o.Mp = this.Mp;
-    _o.Ability = this.Ability.HasValue ? this.Ability.Value.UnPack() : null;
     _o.Gear = this.Gear.HasValue ? this.Gear.Value.UnPack() : null;
-    _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
   }
   public static Offset<GamePacket.MyCharacterInfo> Pack(FlatBufferBuilder builder, MyCharacterInfoT _o) {
     if (_o == null) return default(Offset<GamePacket.MyCharacterInfo>);
     var _name = _o.Name == null ? default(StringOffset) : builder.CreateString(_o.Name);
     return CreateMyCharacterInfo(
       builder,
-      _o.Uid,
       _name,
-      _o.Level,
       _o.Job,
-      _o.Exp,
-      _o.Stat,
       _o.BonusStat,
-      _o.Hp,
-      _o.Mp,
-      _o.Ability,
-      _o.Gear,
-      _o.PosInfo);
+      _o.Gear);
   }
 };
 
 public class MyCharacterInfoT
 {
-  public long Uid { get; set; }
   public string Name { get; set; }
-  public byte Level { get; set; }
   public Define.Job Job { get; set; }
-  public long Exp { get; set; }
-  public Info.StatT Stat { get; set; }
   public int BonusStat { get; set; }
-  public int Hp { get; set; }
-  public int Mp { get; set; }
-  public Info.AbilityT Ability { get; set; }
   public Info.CharacterGearT Gear { get; set; }
-  public Info.PositionInfoT PosInfo { get; set; }
 
   public MyCharacterInfoT() {
-    this.Uid = 0;
     this.Name = null;
-    this.Level = 0;
     this.Job = Define.Job.WARRIOR;
-    this.Exp = 0;
-    this.Stat = new Info.StatT();
     this.BonusStat = 0;
-    this.Hp = 0;
-    this.Mp = 0;
-    this.Ability = new Info.AbilityT();
     this.Gear = new Info.CharacterGearT();
-    this.PosInfo = new Info.PositionInfoT();
   }
 }
 
@@ -276,24 +212,28 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   public SC_LOGIN_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public GamePacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (GamePacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : GamePacket.ErrorCode.SUCCESS; } }
-  public GamePacket.MyCharacterInfo? CharacterInfo { get { int o = __p.__offset(6); return o != 0 ? (GamePacket.MyCharacterInfo?)(new GamePacket.MyCharacterInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
-  public Info.MoneyWrapper? Money { get { int o = __p.__offset(8); return o != 0 ? (Info.MoneyWrapper?)(new Info.MoneyWrapper()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public Info.CreatureInfo? CreatureInfo { get { int o = __p.__offset(6); return o != 0 ? (Info.CreatureInfo?)(new Info.CreatureInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public GamePacket.MyCharacterInfo? CharacterInfo { get { int o = __p.__offset(8); return o != 0 ? (GamePacket.MyCharacterInfo?)(new GamePacket.MyCharacterInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public Info.MoneyWrapper? Money { get { int o = __p.__offset(10); return o != 0 ? (Info.MoneyWrapper?)(new Info.MoneyWrapper()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
 
   public static Offset<GamePacket.SC_LOGIN_RES> CreateSC_LOGIN_RES(FlatBufferBuilder builder,
       GamePacket.ErrorCode result = GamePacket.ErrorCode.SUCCESS,
+      Offset<Info.CreatureInfo> creature_infoOffset = default(Offset<Info.CreatureInfo>),
       Offset<GamePacket.MyCharacterInfo> character_infoOffset = default(Offset<GamePacket.MyCharacterInfo>),
       Offset<Info.MoneyWrapper> moneyOffset = default(Offset<Info.MoneyWrapper>)) {
-    builder.StartTable(3);
+    builder.StartTable(4);
     SC_LOGIN_RES.AddMoney(builder, moneyOffset);
     SC_LOGIN_RES.AddCharacterInfo(builder, character_infoOffset);
+    SC_LOGIN_RES.AddCreatureInfo(builder, creature_infoOffset);
     SC_LOGIN_RES.AddResult(builder, result);
     return SC_LOGIN_RES.EndSC_LOGIN_RES(builder);
   }
 
-  public static void StartSC_LOGIN_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void StartSC_LOGIN_RES(FlatBufferBuilder builder) { builder.StartTable(4); }
   public static void AddResult(FlatBufferBuilder builder, GamePacket.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
-  public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<GamePacket.MyCharacterInfo> characterInfoOffset) { builder.AddOffset(1, characterInfoOffset.Value, 0); }
-  public static void AddMoney(FlatBufferBuilder builder, Offset<Info.MoneyWrapper> moneyOffset) { builder.AddOffset(2, moneyOffset.Value, 0); }
+  public static void AddCreatureInfo(FlatBufferBuilder builder, Offset<Info.CreatureInfo> creatureInfoOffset) { builder.AddOffset(1, creatureInfoOffset.Value, 0); }
+  public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<GamePacket.MyCharacterInfo> characterInfoOffset) { builder.AddOffset(2, characterInfoOffset.Value, 0); }
+  public static void AddMoney(FlatBufferBuilder builder, Offset<Info.MoneyWrapper> moneyOffset) { builder.AddOffset(3, moneyOffset.Value, 0); }
   public static Offset<GamePacket.SC_LOGIN_RES> EndSC_LOGIN_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_LOGIN_RES>(o);
@@ -305,16 +245,19 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   }
   public void UnPackTo(SC_LOGIN_REST _o) {
     _o.Result = this.Result;
+    _o.CreatureInfo = this.CreatureInfo.HasValue ? this.CreatureInfo.Value.UnPack() : null;
     _o.CharacterInfo = this.CharacterInfo.HasValue ? this.CharacterInfo.Value.UnPack() : null;
     _o.Money = this.Money.HasValue ? this.Money.Value.UnPack() : null;
   }
   public static Offset<GamePacket.SC_LOGIN_RES> Pack(FlatBufferBuilder builder, SC_LOGIN_REST _o) {
     if (_o == null) return default(Offset<GamePacket.SC_LOGIN_RES>);
+    var _creature_info = _o.CreatureInfo == null ? default(Offset<Info.CreatureInfo>) : Info.CreatureInfo.Pack(builder, _o.CreatureInfo);
     var _character_info = _o.CharacterInfo == null ? default(Offset<GamePacket.MyCharacterInfo>) : GamePacket.MyCharacterInfo.Pack(builder, _o.CharacterInfo);
     var _money = _o.Money == null ? default(Offset<Info.MoneyWrapper>) : Info.MoneyWrapper.Pack(builder, _o.Money);
     return CreateSC_LOGIN_RES(
       builder,
       _o.Result,
+      _creature_info,
       _character_info,
       _money);
   }
@@ -323,11 +266,13 @@ public struct SC_LOGIN_RES : IFlatbufferObject
 public class SC_LOGIN_REST
 {
   public GamePacket.ErrorCode Result { get; set; }
+  public Info.CreatureInfoT CreatureInfo { get; set; }
   public GamePacket.MyCharacterInfoT CharacterInfo { get; set; }
   public Info.MoneyWrapperT Money { get; set; }
 
   public SC_LOGIN_REST() {
     this.Result = GamePacket.ErrorCode.SUCCESS;
+    this.CreatureInfo = null;
     this.CharacterInfo = null;
     this.Money = null;
   }

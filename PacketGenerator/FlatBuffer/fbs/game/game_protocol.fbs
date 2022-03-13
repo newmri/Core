@@ -28,23 +28,16 @@ table CS_LOGIN_REQ
 
 table MyCharacterInfo (native_type:"MyCharacterInfoT")
 {
-    uid:int64;
     name:string;
-    level:ubyte;
     job:Define.Job;
-    exp:int64;
-    stat:Info.Stat (native_inline);
     bonus_stat:int32;
-    hp:int32;
-    mp:int32;
-    ability:Info.Ability (native_inline);
     gear:Info.CharacterGear (native_inline);
-    pos_info:Info.PositionInfo (native_inline);
 }
 
 table SC_LOGIN_RES
 {
     result:ErrorCode;
+    creature_info:Info.CreatureInfo;
     character_info:MyCharacterInfo;
     money:Info.MoneyWrapper;
 }

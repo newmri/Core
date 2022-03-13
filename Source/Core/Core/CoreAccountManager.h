@@ -12,12 +12,12 @@ public:
 	void SetLogout(const int64_t& uid);
 
 public:
-	void SetLogoutFunc(std::function<void(const int64_t)> func);
+	void SetLogoutFunc(std::function<void(const CoreAccount*)> func);
 
 private:
 	CACHE_ALIGN std::shared_mutex mutex;
 	std::map<int64_t, CoreAccount*> accountList;
 
 private:
-	std::function<void(const int64_t)> logoutFunc;
+	std::function<void(const CoreAccount*)> logoutFunc;
 };

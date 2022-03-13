@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccountDB.cpp" />
+    <ClCompile Include="CreatureManager.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="GameDB.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -114,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="AccountDB.h" />
     <ClInclude Include="CharacterData.h" />
+    <ClInclude Include="CreatureManager.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="define_protocol_generated.h" />
     <ClInclude Include="GameDB.h" />

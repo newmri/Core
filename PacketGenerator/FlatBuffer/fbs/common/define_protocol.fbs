@@ -109,3 +109,10 @@ enum MoneyType : ubyte
 	GOLD,
 	END
 }
+
+enum ObjectType : ubyte
+{
+	PLAYER,
+	MONSTER,
+	NPC
+}

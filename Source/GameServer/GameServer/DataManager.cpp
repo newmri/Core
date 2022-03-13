@@ -16,7 +16,7 @@ void DataManager::Load(void)
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterAbilityByStat.csv", CharacterAbilityByStat, this->characterAbilityByStat);
 }
 
-void DataManager::CalculateAbilityByStat(GamePacket::MyCharacterInfoT& info)
+void DataManager::CalculateAbilityByStat(Info::CreatureInfoT& info)
 {
 	for (int32_t i = 0; i < Define::AbilityByStatType_END; ++i)
 	{

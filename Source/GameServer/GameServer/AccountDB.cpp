@@ -43,10 +43,10 @@ bool AccountDB::Login(const int64_t accountUID, CoreToken& token)
 	return isSuccess;
 }
 
-void AccountDB::Logout(const int64_t accountUID)
+void AccountDB::Logout(const CoreAccount* account)
 {
 	Prepare(L"Logout");
-	BindArgument(accountUID);
+	BindArgument(account->GetUID());
 	Execute();
 
 	while (IsSuccess())
@@ -55,6 +55,8 @@ void AccountDB::Logout(const int64_t accountUID)
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+
+	CREATURE_MANAGER.RemovePlayer(account->GetPlayerUID());
 }
 
 void AccountDB::LoadMoney(const int64_t accountUID, NativeInfo::Money& money)

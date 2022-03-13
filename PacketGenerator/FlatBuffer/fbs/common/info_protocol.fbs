@@ -44,3 +44,16 @@ table MoneyWrapper (native_type:"MoneyT")
 {
     value:Money (native_inline);
 }
+
+table CreatureInfo (native_type:"CreatureInfoT")
+{
+    obj_type:Define.ObjectType;
+    uid:int64;
+    level:ubyte;
+    exp:int64;
+    stat:Stat (native_inline);
+    hp:int32;
+    mp:int32;
+    ability:Ability (native_inline);
+    pos_info:PositionInfo (native_inline);
+}

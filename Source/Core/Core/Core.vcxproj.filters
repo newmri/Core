@@ -216,11 +216,11 @@
     <ClCompile Include="CoreCSVMapLoader.cpp">
       <Filter>08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader</Filter>
     </ClCompile>
-    <ClCompile Include="CoreGameObj.cpp">
-      <Filter>02.CoreObj\01.CoreGameObj</Filter>
-    </ClCompile>
     <ClCompile Include="CoreUIDObj.cpp">
       <Filter>02.CoreObj\00.CoreUIDObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreGameObj.cpp">
+      <Filter>02.CoreObj\01.CoreGameObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

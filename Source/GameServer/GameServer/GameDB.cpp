@@ -15,21 +15,21 @@ void GameDB::Release(void)
 {
 }
 
-bool GameDB::LoadCharacter(const int64_t accountUID, GamePacket::MyCharacterInfoT& info)
+bool GameDB::LoadCharacter(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
 {
 	Prepare(L"LoadGameCharacter");
 	BindArgument(accountUID);
-	BindArgument(info.uid);
+	BindArgument(uid);
 	Execute();
 
 	wchar_t name[Define::CharacterLimit_MaxNameLen + 1] = L"";
 	BindCol((wchar_t**)&name, sizeof(name));
-	BindCol(&info.level, sizeof(info.level));
-	BindCol((uint8_t*)&info.job, sizeof(info.job));
-	BindCol(&info.exp, sizeof(info.exp));
+	BindCol(&creatureInfo.level, sizeof(creatureInfo.level));
+	BindCol((uint8_t*)&characterInfo.job, sizeof(characterInfo.job));
+	BindCol(&creatureInfo.exp, sizeof(creatureInfo.exp));
 
 	for (int i = 0; i < Define::GearType_END; ++i)
-		BindCol(&info.gear.index[i], sizeof(info.gear.index[i]));
+		BindCol(&characterInfo.gear.index[i], sizeof(characterInfo.gear.index[i]));
 
 	while (IsSuccess())
 	{
@@ -38,8 +38,8 @@ bool GameDB::LoadCharacter(const int64_t accountUID, GamePacket::MyCharacterInfo
 		{
 			SQLFreeStmt(this->hstmt, SQL_CLOSE);
 
-			info.name = STRING_MANAGER.Narrow(name);
-			return LoadCharacterStat(accountUID, info);
+			characterInfo.name = STRING_MANAGER.Narrow(name);
+			return LoadCharacterStat(accountUID, uid, creatureInfo, characterInfo);
 		}
 	};
 
@@ -47,20 +47,20 @@ bool GameDB::LoadCharacter(const int64_t accountUID, GamePacket::MyCharacterInfo
 	return false;
 }
 
-bool GameDB::LoadCharacterStat(const int64_t accountUID, GamePacket::MyCharacterInfoT& info)
+bool GameDB::LoadCharacterStat(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
 {
 	Prepare(L"LoadCharacterStat");
 	BindArgument(accountUID);
-	BindArgument(info.uid);
+	BindArgument(uid);
 	Execute();
 
-	BindCol(&info.hp, sizeof(info.hp));
-	BindCol(&info.mp, sizeof(info.mp));
+	BindCol(&creatureInfo.hp, sizeof(creatureInfo.hp));
+	BindCol(&creatureInfo.mp, sizeof(creatureInfo.mp));
 
 	for (int i = 0; i < Define::StatType_END; ++i)
-		BindCol(&info.stat.value[i], sizeof(info.stat.value[i]));
+		BindCol(&creatureInfo.stat.value[i], sizeof(creatureInfo.stat.value[i]));
 
-	BindCol(&info.bonus_stat, sizeof(info.bonus_stat));
+	BindCol(&characterInfo.bonus_stat, sizeof(characterInfo.bonus_stat));
 
 	while (IsSuccess())
 	{

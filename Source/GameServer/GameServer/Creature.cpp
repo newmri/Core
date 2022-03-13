@@ -1,6 +1,6 @@
 #include "Include.h"
 
-Creature::Creature(const int64_t uid, const uint8_t ObjType) : CoreGameObj(uid, objType)
+Creature::Creature(const Info::CreatureInfoT& creatureInfo) : creatureInfo(creatureInfo)
 {
 	Init();
 }
@@ -12,10 +12,16 @@ Creature::~Creature()
 
 void Creature::Init(void)
 {
-
+	CalculateAbility();
 }
 
 void Creature::Update(void)
 {
 
+}
+
+void Creature::CalculateAbility(void)
+{
+	WRITE_LOCK(this->abilityMutex);
+	DATA_MANAGER.CalculateAbilityByStat(this->creatureInfo);
 }

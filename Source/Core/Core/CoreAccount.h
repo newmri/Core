@@ -40,6 +40,10 @@ public:
 	void AddCharacter(std::shared_ptr<CoreCharacter> character);
 
 public:
+	void SetPlayerUID(const int64_t& uid);
+	int64_t GetPlayerUID(void) const;
+
+public:
 	void PushMoney(const int32_t money);
 	void AddMoney(const uint8_t index, const int32_t money);
 	bool UseMoney(const uint8_t index, const int32_t money);
@@ -56,4 +60,7 @@ private:
 	uint8_t maxCharacterSlotCount;
 	std::map<int64_t, std::shared_ptr<CoreCharacter>> characterList;
 	CoreVector<int32_t> moneyList;
+
+private:
+	int64_t playerUID = 0;
 };

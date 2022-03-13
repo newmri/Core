@@ -1,18 +1,9 @@
 #pragma once
 
-class CoreGameObj : public CoreUIDObj
+class CoreGameObj : public CoreObj
 {
-	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CoreGameObj)
-
-public:
-	CoreGameObj(const int64_t uid, const uint8_t ObjType);
-
-public:
-	uint8_t GetObjType(void);
+	OVERRIDE_OBJ(CoreGameObj)
 
 public:
 	virtual void Update() CORE_PURE;
-
-protected:
-	uint8_t objType = 0;
 };

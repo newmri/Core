@@ -91,6 +91,16 @@ void CoreAccount::AddCharacter(std::shared_ptr<CoreCharacter> character)
 	this->characterList[character->GetUID()] = character;
 }
 
+void CoreAccount::SetPlayerUID(const int64_t& uid)
+{
+	this->playerUID = uid;
+}
+
+int64_t CoreAccount::GetPlayerUID(void) const
+{
+	return this->playerUID;
+}
+
 void CoreAccount::PushMoney(const int32_t money)
 {
 	this->moneyList.push_back(money);

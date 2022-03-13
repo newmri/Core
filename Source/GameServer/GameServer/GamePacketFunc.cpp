@@ -59,16 +59,14 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		session->SetAccountUID(raw->uid());
 		
 #pragma region 캐릭터 로드
-		GamePacket::MyCharacterInfoT info;
-		info.uid = raw->character_uid();
-		if (!GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), info))
+		Info::CreatureInfoT creatureInfo;
+		GamePacket::MyCharacterInfoT characterInfo;
+		if (!GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), raw->character_uid(), creatureInfo, characterInfo))
 			return;
 
-		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(info.uid);
+		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
-
-		DATA_MANAGER.CalculateAbilityByStat(info);
-		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), info));
+		CREATURE_MANAGER.AddPlayer(raw->character_uid(), session, creatureInfo, characterInfo);
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드
@@ -78,10 +76,11 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 			account->PushMoney(money.value.value[i]);
 #pragma endregion 재화 로드
 
-		auto packedInfo = GamePacket::MyCharacterInfo::Pack(this->builder, &info);
+		auto packedCreatureInfo = Info::CreatureInfo::Pack(this->builder, &creatureInfo);
+		auto packedCharacterInfo = GamePacket::MyCharacterInfo::Pack(this->builder, &characterInfo);
 		auto packedMoney = Info::MoneyWrapper::Pack(this->builder, &money);
 
-		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, packedInfo, packedMoney);
+		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, packedCreatureInfo, packedCharacterInfo, packedMoney);
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(

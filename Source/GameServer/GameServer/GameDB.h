@@ -10,8 +10,8 @@ public:
 	virtual void Release(void) override;
 
 public:
-	bool LoadCharacter(const int64_t accountUID, GamePacket::MyCharacterInfoT& info);
-	bool LoadCharacterStat(const int64_t accountUID, GamePacket::MyCharacterInfoT& info);
+	bool LoadCharacter(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);
+	bool LoadCharacterStat(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);
 	uint8_t LoadMaxCharacterSlotCount(const int64_t accountUID);
 	void UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t maxCharacterSlotCount);
 };

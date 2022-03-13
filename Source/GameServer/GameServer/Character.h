@@ -1,18 +1,13 @@
 #pragma once
 
-class Character : public CoreCharacter
+// CharacterÀÇ uid´Â DB uid
+class Character : public Creature, public CoreMemoryPoolObj<Character, CORE_BIG_SIZE>, public std::enable_shared_from_this<Character>
 {
-	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(Character)
+	OVERRIDE_GAME_OBJ(Character)
 
 public:
-	Character(const int64_t& accountUID, const GamePacket::MyCharacterInfoT& info);
-
-public:
-	void CalculateAbility(void);
+	Character(const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
 
 private:
-	GamePacket::MyCharacterInfoT info;
-
-private:
-	CACHE_ALIGN std::shared_mutex abilityMutex;
+	GamePacket::MyCharacterInfoT characterInfo;
 };

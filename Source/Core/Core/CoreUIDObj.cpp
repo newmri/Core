@@ -15,7 +15,7 @@ CoreUIDObj::CoreUIDObj(const int64_t uid) : uid(uid)
 	Init();
 }
 
-int64_t CoreUIDObj::GetUID(void)
+int64_t CoreUIDObj::GetUID(void) const
 {
 	return this->uid;
 }

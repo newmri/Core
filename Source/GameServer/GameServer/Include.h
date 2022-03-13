@@ -10,6 +10,7 @@
 #include "Creature.h"
 #include "Character.h"
 #include "Player.h"
+#include "CreatureManager.h"
 #include "AccountDB.h"
 #include "GameDB.h"
 #include "GameServer.h"

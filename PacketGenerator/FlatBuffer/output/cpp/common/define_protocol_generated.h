@@ -484,6 +484,39 @@ inline const char *EnumNameMoneyType(MoneyType e) {
   return EnumNamesMoneyType()[index];
 }
 
+enum ObjectType : uint8_t {
+  ObjectType_PLAYER = 0,
+  ObjectType_MONSTER = 1,
+  ObjectType_NPC = 2,
+  ObjectType_MIN = ObjectType_PLAYER,
+  ObjectType_MAX = ObjectType_NPC
+};
+
+inline const ObjectType (&EnumValuesObjectType())[3] {
+  static const ObjectType values[] = {
+    ObjectType_PLAYER,
+    ObjectType_MONSTER,
+    ObjectType_NPC
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesObjectType() {
+  static const char * const names[4] = {
+    "PLAYER",
+    "MONSTER",
+    "NPC",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameObjectType(ObjectType e) {
+  if (flatbuffers::IsOutRange(e, ObjectType_PLAYER, ObjectType_NPC)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesObjectType()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_

@@ -1,7 +1,7 @@
 #include "Include.h"
 
-Character::Character(const int64_t& accountUID, const GamePacket::MyCharacterInfoT& info) :
-	CoreCharacter(accountUID, info.uid), info(info)
+Character::Character(const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo) :
+	Creature(creatureInfo), characterInfo(characterInfo)
 {
 	Init();
 }
@@ -16,8 +16,7 @@ void Character::Init(void)
 
 }
 
-void Character::CalculateAbility(void)
+void Character::Update(void)
 {
-	WRITE_LOCK(this->abilityMutex);
-	DATA_MANAGER.CalculateAbilityByStat(this->info);
+
 }

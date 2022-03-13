@@ -11,5 +11,5 @@ public:
 
 public:
 	bool Login(const int64_t accountUID, CoreToken& token);
-	void Logout(const int64_t accountUID);
+	void Logout(const CoreAccount* account);
 };

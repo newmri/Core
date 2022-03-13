@@ -37,6 +37,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>04.Creature\00.Player</Filter>
     </ClCompile>
+    <ClCompile Include="CreatureManager.cpp">
+      <Filter>04.Creature</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include.h">
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>04.Creature\00.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CreatureManager.h">
+      <Filter>04.Creature</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
