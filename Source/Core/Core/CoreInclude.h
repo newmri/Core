@@ -38,6 +38,8 @@
 #include "CoreMacro.h"
 #include "CoreDataType.h"
 #include "CoreObj.h"
+#include "CoreUIDObj.h"
+#include "CoreGameObj.h"
 #include "CoreLogInclude.h"
 #include "CoreMemoryPool.h"
 #include "CoreMemoryPoolObj.h"

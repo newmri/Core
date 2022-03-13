@@ -12,8 +12,10 @@ struct CoreToken
 	TIME_VALUE expireTime = 0;
 };
 
-class CoreAccount : public CoreMemoryPoolObj<CoreAccount, CORE_BIG_SIZE>
+class CoreAccount : public CoreUIDObj, public CoreMemoryPoolObj<CoreAccount, CORE_BIG_SIZE>
 {
+	OVERRIDE_OBJ(CoreAccount)
+
 public:
 	CoreAccount(const int64_t& uid, const CoreToken& token);
 
@@ -46,7 +48,6 @@ private:
 	void Release(void);
 
 private:
-	int64_t uid;
 	CoreToken token;
 	bool isLogined;
 

@@ -1,7 +1,23 @@
 #include "CoreInclude.h"
 
-CoreAccount::CoreAccount(const int64_t& uid, const CoreToken& token) : uid(uid), token(token), isLogined(true), maxCharacterSlotCount(0)
+CoreAccount::CoreAccount()
 {
+	Init();
+}
+
+CoreAccount::~CoreAccount()
+{
+
+}
+
+void CoreAccount::Init(void)
+{
+
+}
+
+CoreAccount::CoreAccount(const int64_t& uid, const CoreToken& token) : CoreUIDObj(uid), token(token), isLogined(true), maxCharacterSlotCount(0)
+{
+	Init();
 }
 
 bool CoreAccount::IsTokenExpired(void)

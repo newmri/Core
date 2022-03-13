@@ -1,8 +1,8 @@
 #include "CoreInclude.h"
 
-CoreCharacter::CoreCharacter(const int64_t& accountUID, const int64_t& uid) : accountUID(accountUID), uid(uid)
+CoreCharacter::CoreCharacter()
 {
-
+	Init();
 }
 
 CoreCharacter::~CoreCharacter()
@@ -10,12 +10,17 @@ CoreCharacter::~CoreCharacter()
 
 }
 
+void CoreCharacter::Init(void)
+{
+
+}
+
+CoreCharacter::CoreCharacter(const int64_t& accountUID, const int64_t& uid) : accountUID(accountUID), CoreUIDObj(uid)
+{
+	Init();
+}
+
 int64_t CoreCharacter::GetAccountUID(void)
 {
 	return this->accountUID;
-}
-
-int64_t CoreCharacter::GetUID(void)
-{
-	return this->uid;
 }

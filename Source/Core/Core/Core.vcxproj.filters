@@ -139,6 +139,12 @@
     <Filter Include="08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader">
       <UniqueIdentifier>{3b266dd1-3037-430f-9483-d8d6394d2799}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.CoreObj\01.CoreGameObj">
+      <UniqueIdentifier>{2b7305a6-e2e6-499a-9ae2-12481957682c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.CoreObj\00.CoreUIDObj">
+      <UniqueIdentifier>{f9650e8a-1a5e-41b4-a42f-7deb03629a24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -209,6 +215,12 @@
     </ClCompile>
     <ClCompile Include="CoreCSVMapLoader.cpp">
       <Filter>08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreGameObj.cpp">
+      <Filter>02.CoreObj\01.CoreGameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreUIDObj.cpp">
+      <Filter>02.CoreObj\00.CoreUIDObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +394,12 @@
     </ClInclude>
     <ClInclude Include="CoreCSVMapLoader.h">
       <Filter>08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreGameObj.h">
+      <Filter>02.CoreObj\01.CoreGameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreUIDObj.h">
+      <Filter>02.CoreObj\00.CoreUIDObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
