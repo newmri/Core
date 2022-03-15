@@ -10,12 +10,12 @@ namespace NativeInfo
         {        
         };
 
-        Vec2Int(int x, int y) : x(x), y(y)
+        Vec2Int(int32_t x, int32_t y) : x(x), y(y)
         {
         }
 
-        int x = 0;
-        int y = 0;
+        int32_t x = 0;
+        int32_t y = 0;
     };
 
     struct PositionInfo
