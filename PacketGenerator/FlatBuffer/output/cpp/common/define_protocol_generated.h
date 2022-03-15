@@ -209,21 +209,18 @@ enum AbilityType : uint8_t {
   AbilityType_MAGIC_DAMAGE = 3,
   AbilityType_DEFENCE = 4,
   AbilityType_MAGIC_DEFENCE = 5,
-  AbilityType_ATTACK_SPEED = 6,
-  AbilityType_MAGIC_CASTING_SPEED = 7,
-  AbilityType_MOVE_SPEED = 8,
-  AbilityType_CRITICAL_RATE = 9,
-  AbilityType_MAGIC_CRITICAL_RATE = 10,
-  AbilityType_LIGHT_REGISTTANCE = 11,
-  AbilityType_DARK_REGISTTANCE = 12,
-  AbilityType_FIRE_REGISTTANCE = 13,
-  AbilityType_ICE_REGISTTANCE = 14,
-  AbilityType_END = 15,
+  AbilityType_CRITICAL_RATE = 6,
+  AbilityType_MAGIC_CRITICAL_RATE = 7,
+  AbilityType_LIGHT_REGISTTANCE = 8,
+  AbilityType_DARK_REGISTTANCE = 9,
+  AbilityType_FIRE_REGISTTANCE = 10,
+  AbilityType_ICE_REGISTTANCE = 11,
+  AbilityType_END = 12,
   AbilityType_MIN = AbilityType_HP,
   AbilityType_MAX = AbilityType_END
 };
 
-inline const AbilityType (&EnumValuesAbilityType())[16] {
+inline const AbilityType (&EnumValuesAbilityType())[13] {
   static const AbilityType values[] = {
     AbilityType_HP,
     AbilityType_MP,
@@ -231,9 +228,6 @@ inline const AbilityType (&EnumValuesAbilityType())[16] {
     AbilityType_MAGIC_DAMAGE,
     AbilityType_DEFENCE,
     AbilityType_MAGIC_DEFENCE,
-    AbilityType_ATTACK_SPEED,
-    AbilityType_MAGIC_CASTING_SPEED,
-    AbilityType_MOVE_SPEED,
     AbilityType_CRITICAL_RATE,
     AbilityType_MAGIC_CRITICAL_RATE,
     AbilityType_LIGHT_REGISTTANCE,
@@ -246,16 +240,13 @@ inline const AbilityType (&EnumValuesAbilityType())[16] {
 }
 
 inline const char * const *EnumNamesAbilityType() {
-  static const char * const names[17] = {
+  static const char * const names[14] = {
     "HP",
     "MP",
     "DAMAGE",
     "MAGIC_DAMAGE",
     "DEFENCE",
     "MAGIC_DEFENCE",
-    "ATTACK_SPEED",
-    "MAGIC_CASTING_SPEED",
-    "MOVE_SPEED",
     "CRITICAL_RATE",
     "MAGIC_CRITICAL_RATE",
     "LIGHT_REGISTTANCE",
@@ -272,6 +263,42 @@ inline const char *EnumNameAbilityType(AbilityType e) {
   if (flatbuffers::IsOutRange(e, AbilityType_HP, AbilityType_END)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAbilityType()[index];
+}
+
+enum SpeedType : uint8_t {
+  SpeedType_ATTACK_SPEED = 0,
+  SpeedType_MAGIC_CASTING_SPEED = 1,
+  SpeedType_MOVE_SPEED = 2,
+  SpeedType_END = 3,
+  SpeedType_MIN = SpeedType_ATTACK_SPEED,
+  SpeedType_MAX = SpeedType_END
+};
+
+inline const SpeedType (&EnumValuesSpeedType())[4] {
+  static const SpeedType values[] = {
+    SpeedType_ATTACK_SPEED,
+    SpeedType_MAGIC_CASTING_SPEED,
+    SpeedType_MOVE_SPEED,
+    SpeedType_END
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesSpeedType() {
+  static const char * const names[5] = {
+    "ATTACK_SPEED",
+    "MAGIC_CASTING_SPEED",
+    "MOVE_SPEED",
+    "END",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameSpeedType(SpeedType e) {
+  if (flatbuffers::IsOutRange(e, SpeedType_ATTACK_SPEED, SpeedType_END)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesSpeedType()[index];
 }
 
 enum AbilityByStatType : uint8_t {

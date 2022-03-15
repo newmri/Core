@@ -27,7 +27,12 @@ table StatWrapper (native_type:"StatT")
 
 struct Ability (native_type:"NativeInfo::Ability", native_type_pack_name:"Ability")
 {
-    value:[int32:15];
+    value:[int32:12];
+}
+
+struct Speed (native_type:"NativeInfo::Speed", native_type_pack_name:"Speed")
+{
+    value:[float:3];
 }
 
 struct CharacterGear (native_type:"NativeInfo::CharacterGear", native_type_pack_name:"CharacterGear")
@@ -55,5 +60,6 @@ table CreatureInfo (native_type:"CreatureInfoT")
     hp:int32;
     mp:int32;
     ability:Ability (native_inline);
+    speed:Speed (native_inline);
     pos_info:PositionInfo (native_inline);
 }

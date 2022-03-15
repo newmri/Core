@@ -207,8 +207,8 @@ public struct Ability : IFlatbufferObject
   public int Value(int j) { return __p.bb.GetInt(__p.bb_pos + 0 + j * 4); }
 
   public static Offset<Info.Ability> CreateAbility(FlatBufferBuilder builder, int[] Value) {
-    builder.Prep(4, 60);
-    for (int _idx0 = 15; _idx0 > 0; _idx0--) {
+    builder.Prep(4, 48);
+    for (int _idx0 = 12; _idx0 > 0; _idx0--) {
       builder.PutInt(Value[_idx0-1]);
     }
     return new Offset<Info.Ability>(builder.Offset);
@@ -219,8 +219,8 @@ public struct Ability : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(AbilityT _o) {
-    _o.Value = new int[15];
-    for (var _j = 0; _j < 15; ++_j) { _o.Value[_j] = this.Value(_j); }
+    _o.Value = new int[12];
+    for (var _j = 0; _j < 12; ++_j) { _o.Value[_j] = this.Value(_j); }
   }
   public static Offset<Info.Ability> Pack(FlatBufferBuilder builder, AbilityT _o) {
     if (_o == null) return default(Offset<Info.Ability>);
@@ -236,7 +236,50 @@ public class AbilityT
   public int[] Value { get; set; }
 
   public AbilityT() {
-    this.Value = new int[15];
+    this.Value = new int[12];
+  }
+}
+
+public struct Speed : IFlatbufferObject
+{
+  private Struct __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
+  public Speed __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public float Value(int j) { return __p.bb.GetFloat(__p.bb_pos + 0 + j * 4); }
+
+  public static Offset<Info.Speed> CreateSpeed(FlatBufferBuilder builder, float[] Value) {
+    builder.Prep(4, 12);
+    for (int _idx0 = 3; _idx0 > 0; _idx0--) {
+      builder.PutFloat(Value[_idx0-1]);
+    }
+    return new Offset<Info.Speed>(builder.Offset);
+  }
+  public SpeedT UnPack() {
+    var _o = new SpeedT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SpeedT _o) {
+    _o.Value = new float[3];
+    for (var _j = 0; _j < 3; ++_j) { _o.Value[_j] = this.Value(_j); }
+  }
+  public static Offset<Info.Speed> Pack(FlatBufferBuilder builder, SpeedT _o) {
+    if (_o == null) return default(Offset<Info.Speed>);
+    var _value = _o.Value;
+    return CreateSpeed(
+      builder,
+      _value);
+  }
+};
+
+public class SpeedT
+{
+  public float[] Value { get; set; }
+
+  public SpeedT() {
+    this.Value = new float[3];
   }
 }
 
@@ -387,7 +430,8 @@ public struct CreatureInfo : IFlatbufferObject
   public int Hp { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public int Mp { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public Info.Ability? Ability { get { int o = __p.__offset(18); return o != 0 ? (Info.Ability?)(new Info.Ability()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(20); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public Info.Speed? Speed { get { int o = __p.__offset(20); return o != 0 ? (Info.Speed?)(new Info.Speed()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(22); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
   public static Offset<Info.CreatureInfo> CreateCreatureInfo(FlatBufferBuilder builder,
       Define.ObjectType obj_type = Define.ObjectType.PLAYER,
@@ -398,11 +442,13 @@ public struct CreatureInfo : IFlatbufferObject
       int hp = 0,
       int mp = 0,
       Info.AbilityT ability = null,
+      Info.SpeedT speed = null,
       Info.PositionInfoT pos_info = null) {
-    builder.StartTable(9);
+    builder.StartTable(10);
     CreatureInfo.AddExp(builder, exp);
     CreatureInfo.AddUid(builder, uid);
     CreatureInfo.AddPosInfo(builder, Info.PositionInfo.Pack(builder, pos_info));
+    CreatureInfo.AddSpeed(builder, Info.Speed.Pack(builder, speed));
     CreatureInfo.AddAbility(builder, Info.Ability.Pack(builder, ability));
     CreatureInfo.AddMp(builder, mp);
     CreatureInfo.AddHp(builder, hp);
@@ -412,7 +458,7 @@ public struct CreatureInfo : IFlatbufferObject
     return CreatureInfo.EndCreatureInfo(builder);
   }
 
-  public static void StartCreatureInfo(FlatBufferBuilder builder) { builder.StartTable(9); }
+  public static void StartCreatureInfo(FlatBufferBuilder builder) { builder.StartTable(10); }
   public static void AddObjType(FlatBufferBuilder builder, Define.ObjectType objType) { builder.AddByte(0, (byte)objType, 0); }
   public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(1, uid, 0); }
   public static void AddLevel(FlatBufferBuilder builder, byte level) { builder.AddByte(2, level, 0); }
@@ -421,7 +467,8 @@ public struct CreatureInfo : IFlatbufferObject
   public static void AddHp(FlatBufferBuilder builder, int hp) { builder.AddInt(5, hp, 0); }
   public static void AddMp(FlatBufferBuilder builder, int mp) { builder.AddInt(6, mp, 0); }
   public static void AddAbility(FlatBufferBuilder builder, Offset<Info.Ability> abilityOffset) { builder.AddStruct(7, abilityOffset.Value, 0); }
-  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(8, posInfoOffset.Value, 0); }
+  public static void AddSpeed(FlatBufferBuilder builder, Offset<Info.Speed> speedOffset) { builder.AddStruct(8, speedOffset.Value, 0); }
+  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(9, posInfoOffset.Value, 0); }
   public static Offset<Info.CreatureInfo> EndCreatureInfo(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Info.CreatureInfo>(o);
@@ -440,6 +487,7 @@ public struct CreatureInfo : IFlatbufferObject
     _o.Hp = this.Hp;
     _o.Mp = this.Mp;
     _o.Ability = this.Ability.HasValue ? this.Ability.Value.UnPack() : null;
+    _o.Speed = this.Speed.HasValue ? this.Speed.Value.UnPack() : null;
     _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
   }
   public static Offset<Info.CreatureInfo> Pack(FlatBufferBuilder builder, CreatureInfoT _o) {
@@ -454,6 +502,7 @@ public struct CreatureInfo : IFlatbufferObject
       _o.Hp,
       _o.Mp,
       _o.Ability,
+      _o.Speed,
       _o.PosInfo);
   }
 };
@@ -468,6 +517,7 @@ public class CreatureInfoT
   public int Hp { get; set; }
   public int Mp { get; set; }
   public Info.AbilityT Ability { get; set; }
+  public Info.SpeedT Speed { get; set; }
   public Info.PositionInfoT PosInfo { get; set; }
 
   public CreatureInfoT() {
@@ -479,6 +529,7 @@ public class CreatureInfoT
     this.Hp = 0;
     this.Mp = 0;
     this.Ability = new Info.AbilityT();
+    this.Speed = new Info.SpeedT();
     this.PosInfo = new Info.PositionInfoT();
   }
 }

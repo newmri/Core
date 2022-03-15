@@ -21,7 +21,7 @@ void GameServerManager::Init(void)
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[WorldID]: " + TO_STR(this->serverConfig->WorldID));
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
 
-	DATA_MANAGER.Load();
+	CHARACTER_DATA_MANAGER.Load();
 }
 
 void GameServerManager::Release(void)

@@ -4,7 +4,7 @@
 #include "native_info_impl.h"
 #include "game_protocol_generated.h"
 #include "CharacterData.h"
-#include "DataManager.h"
+#include "CharacterDataManager.h"
 #include "GamePacketFunc.h"
 #include "GamePacketHandler.h"
 #include "Creature.h"

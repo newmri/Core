@@ -20,14 +20,15 @@ public class BaseController : MonoBehaviour
 			if (_creatureInfo.Equals(value))
 				return;
 
+			PosInfo = value.PosInfo;
 			_creatureInfo = value;
 		}
 	}
 
-	public int MoveSpeed
+	public float MoveSpeed
 	{
-		get { return CreatureInfo.Ability.Value[(int)Define.AbilityType.MOVE_SPEED]; }
-		set { CreatureInfo.Ability.Value[(int)Define.AbilityType.MOVE_SPEED] = value; }
+		get { return CreatureInfo.Speed.Value[(int)Define.SpeedType.MOVE_SPEED]; }
+		set { CreatureInfo.Speed.Value[(int)Define.SpeedType.MOVE_SPEED] = value; }
 	}
 
 	public virtual int HP

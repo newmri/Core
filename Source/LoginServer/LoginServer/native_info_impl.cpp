@@ -42,6 +42,16 @@ namespace flatbuffers
 		return NativeInfo::Ability(obj.value());
 	}
 
+	Info::Speed PackSpeed(const NativeInfo::Speed& obj)
+	{
+		return Info::Speed(obj.value);
+	}
+
+	NativeInfo::Speed UnPackSpeed(const Info::Speed& obj)
+	{
+		return NativeInfo::Speed(obj.value());
+	}
+
 	Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj)
 	{
 		return Info::CharacterGear(obj.index);

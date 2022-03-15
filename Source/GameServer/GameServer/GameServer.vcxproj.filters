@@ -4,9 +4,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>01.Main</Filter>
     </ClCompile>
-    <ClCompile Include="DataManager.cpp">
-      <Filter>02.DataManager</Filter>
-    </ClCompile>
     <ClCompile Include="native_info_impl.cpp">
       <Filter>03.Packet\00.FlatBuffer</Filter>
     </ClCompile>
@@ -40,16 +37,13 @@
     <ClCompile Include="CreatureManager.cpp">
       <Filter>04.Creature</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterDataManager.cpp">
+      <Filter>02.DataManager\00.Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include.h">
       <Filter>00.Include</Filter>
-    </ClInclude>
-    <ClInclude Include="DataManager.h">
-      <Filter>02.DataManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterData.h">
-      <Filter>02.DataManager\00.CharacterData</Filter>
     </ClInclude>
     <ClInclude Include="define_protocol_generated.h">
       <Filter>03.Packet\00.FlatBuffer</Filter>
@@ -93,6 +87,12 @@
     <ClInclude Include="CreatureManager.h">
       <Filter>04.Creature</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterDataManager.h">
+      <Filter>02.DataManager\00.Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterData.h">
+      <Filter>02.DataManager\00.Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -106,9 +106,6 @@
     </Filter>
     <Filter Include="02.DataManager">
       <UniqueIdentifier>{f5ffbe11-0212-483e-b0fa-2d10a8bae922}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.DataManager\00.CharacterData">
-      <UniqueIdentifier>{b203ee02-c19e-4c7c-a945-7230b24d283a}</UniqueIdentifier>
     </Filter>
     <Filter Include="03.Packet">
       <UniqueIdentifier>{6ab54531-4381-4aa9-a6e0-23de85cae782}</UniqueIdentifier>
@@ -142,6 +139,9 @@
     </Filter>
     <Filter Include="04.Creature\00.Player\00.Character">
       <UniqueIdentifier>{a71c963f-bd66-4148-b456-7ec291832738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.DataManager\00.Character">
+      <UniqueIdentifier>{6975bc75-5b95-450f-b756-e9076bc37dc8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

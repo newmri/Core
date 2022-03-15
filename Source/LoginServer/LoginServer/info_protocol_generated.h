@@ -22,6 +22,8 @@ struct StatWrapperT;
 
 struct Ability;
 
+struct Speed;
+
 struct CharacterGear;
 
 struct Money;
@@ -110,20 +112,37 @@ FLATBUFFERS_STRUCT_END(Stat, 12);
 
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Ability FLATBUFFERS_FINAL_CLASS {
  private:
-  int32_t value_[15];
+  int32_t value_[12];
 
  public:
   Ability()
       : value_() {
   }
-  Ability(flatbuffers::span<const int32_t, 15> _value) {
+  Ability(flatbuffers::span<const int32_t, 12> _value) {
     flatbuffers::CastToArray(value_).CopyFromSpan(_value);
   }
-  const flatbuffers::Array<int32_t, 15> *value() const {
+  const flatbuffers::Array<int32_t, 12> *value() const {
     return &flatbuffers::CastToArray(value_);
   }
 };
-FLATBUFFERS_STRUCT_END(Ability, 60);
+FLATBUFFERS_STRUCT_END(Ability, 48);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Speed FLATBUFFERS_FINAL_CLASS {
+ private:
+  float value_[3];
+
+ public:
+  Speed()
+      : value_() {
+  }
+  Speed(flatbuffers::span<const float, 3> _value) {
+    flatbuffers::CastToArray(value_).CopyFromSpan(_value);
+  }
+  const flatbuffers::Array<float, 3> *value() const {
+    return &flatbuffers::CastToArray(value_);
+  }
+};
+FLATBUFFERS_STRUCT_END(Speed, 12);
 
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(1) CharacterGear FLATBUFFERS_FINAL_CLASS {
  private:
@@ -273,6 +292,7 @@ struct CreatureInfoT : public flatbuffers::NativeTable {
   int32_t hp = 0;
   int32_t mp = 0;
   NativeInfo::Ability ability{};
+  NativeInfo::Speed speed{};
   NativeInfo::PositionInfo pos_info{};
 };
 
@@ -288,7 +308,8 @@ struct CreatureInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_HP = 14,
     VT_MP = 16,
     VT_ABILITY = 18,
-    VT_POS_INFO = 20
+    VT_SPEED = 20,
+    VT_POS_INFO = 22
   };
   Define::ObjectType obj_type() const {
     return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJ_TYPE, 0));
@@ -314,6 +335,9 @@ struct CreatureInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const Info::Ability *ability() const {
     return GetStruct<const Info::Ability *>(VT_ABILITY);
   }
+  const Info::Speed *speed() const {
+    return GetStruct<const Info::Speed *>(VT_SPEED);
+  }
   const Info::PositionInfo *pos_info() const {
     return GetStruct<const Info::PositionInfo *>(VT_POS_INFO);
   }
@@ -327,6 +351,7 @@ struct CreatureInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_HP) &&
            VerifyField<int32_t>(verifier, VT_MP) &&
            VerifyField<Info::Ability>(verifier, VT_ABILITY) &&
+           VerifyField<Info::Speed>(verifier, VT_SPEED) &&
            VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
            verifier.EndTable();
   }
@@ -363,6 +388,9 @@ struct CreatureInfoBuilder {
   void add_ability(const Info::Ability *ability) {
     fbb_.AddStruct(CreatureInfo::VT_ABILITY, ability);
   }
+  void add_speed(const Info::Speed *speed) {
+    fbb_.AddStruct(CreatureInfo::VT_SPEED, speed);
+  }
   void add_pos_info(const Info::PositionInfo *pos_info) {
     fbb_.AddStruct(CreatureInfo::VT_POS_INFO, pos_info);
   }
@@ -387,11 +415,13 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(
     int32_t hp = 0,
     int32_t mp = 0,
     const Info::Ability *ability = 0,
+    const Info::Speed *speed = 0,
     const Info::PositionInfo *pos_info = 0) {
   CreatureInfoBuilder builder_(_fbb);
   builder_.add_exp(exp);
   builder_.add_uid(uid);
   builder_.add_pos_info(pos_info);
+  builder_.add_speed(speed);
   builder_.add_ability(ability);
   builder_.add_mp(mp);
   builder_.add_hp(hp);
@@ -472,6 +502,7 @@ inline void CreatureInfo::UnPackTo(CreatureInfoT *_o, const flatbuffers::resolve
   { auto _e = hp(); _o->hp = _e; }
   { auto _e = mp(); _o->mp = _e; }
   { auto _e = ability(); if (_e) _o->ability = flatbuffers::UnPackAbility(*_e); }
+  { auto _e = speed(); if (_e) _o->speed = flatbuffers::UnPackSpeed(*_e); }
   { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
 }
 
@@ -491,6 +522,7 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(flatbuffers::FlatBuf
   auto _hp = _o->hp;
   auto _mp = _o->mp;
   auto _ability = flatbuffers::PackAbility(_o->ability);
+  auto _speed = flatbuffers::PackSpeed(_o->speed);
   auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
   return Info::CreateCreatureInfo(
       _fbb,
@@ -502,6 +534,7 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(flatbuffers::FlatBuf
       _hp,
       _mp,
       &_ability,
+      &_speed,
       &_pos_info);
 }
 

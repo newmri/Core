@@ -23,5 +23,5 @@ void Creature::Update(void)
 void Creature::CalculateAbility(void)
 {
 	WRITE_LOCK(this->abilityMutex);
-	DATA_MANAGER.CalculateAbilityByStat(this->creatureInfo);
+	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(this->creatureInfo);
 }

@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "define_protocol_generated.h"
 #include "info_protocol_generated.h"
+#include "define_protocol_generated.h"
 
 namespace GamePacket {
 

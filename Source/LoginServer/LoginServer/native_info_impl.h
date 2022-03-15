@@ -63,6 +63,20 @@ namespace NativeInfo
         std::array<int32_t, Define::AbilityType_END> value = {};
     };
 
+    struct Speed
+    {
+        Speed()
+        {
+        }
+
+        Speed(const flatbuffers::Array<float_t, Define::SpeedType_END>* speeds)
+        {
+            std::copy(speeds->begin(), speeds->end(), this->value.begin());
+        }
+
+        std::array<float_t, Define::SpeedType_END> value = {};
+    };
+
     struct CharacterGear
     {
         CharacterGear()
@@ -98,6 +112,7 @@ namespace Info
     struct PositionInfo;
     struct Stat;
     struct Ability;
+    struct Speed;
     struct CharacterGear;
     struct Money;
 } 
@@ -115,6 +130,9 @@ namespace flatbuffers
 
     Info::Ability PackAbility(const NativeInfo::Ability& obj);
     NativeInfo::Ability UnPackAbility(const Info::Ability& obj);
+
+    Info::Speed PackSpeed(const NativeInfo::Speed& obj);
+    NativeInfo::Speed UnPackSpeed(const Info::Speed& obj);
 
     Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj);
     NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj);
