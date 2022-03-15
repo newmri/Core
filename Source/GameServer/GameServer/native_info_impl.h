@@ -10,7 +10,7 @@ namespace NativeInfo
         {        
         };
 
-        Vec2Int(int32_t x, int32_t y) : x(x), y(y)
+        Vec2Int(const int32_t x, const int32_t y) : x(x), y(y)
         {
         }
 
