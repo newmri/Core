@@ -83,11 +83,12 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session, bool needSock
 
 		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "");
 
-		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-
-		if(needSocketClose)
+		if (needSocketClose)
+		{
+			socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 			socket.close();
-		
+		}
+
 		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountUID());
 
 		WRITE_LOCK(this->mutex);
