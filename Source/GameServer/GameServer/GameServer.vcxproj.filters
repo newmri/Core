@@ -40,6 +40,9 @@
     <ClCompile Include="CharacterDataManager.cpp">
       <Filter>02.DataManager\00.Character</Filter>
     </ClCompile>
+    <ClCompile Include="MapDataManager.cpp">
+      <Filter>02.DataManager\01.Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include.h">
@@ -93,6 +96,12 @@
     <ClInclude Include="CharacterData.h">
       <Filter>02.DataManager\00.Character</Filter>
     </ClInclude>
+    <ClInclude Include="MapData.h">
+      <Filter>02.DataManager\01.Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapDataManager.h">
+      <Filter>02.DataManager\01.Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -142,6 +151,9 @@
     </Filter>
     <Filter Include="02.DataManager\00.Character">
       <UniqueIdentifier>{6975bc75-5b95-450f-b756-e9076bc37dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.DataManager\01.Map">
+      <UniqueIdentifier>{565df15c-019a-4203-a78a-29a139559395}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -128,40 +128,6 @@ static constexpr size_t CORE_BIG_SIZE = 1024;
 		}																	\
 	}
 
-#define CSV_MAP_LOAD_AND_TO_STRUCTURE(FILE_PATH, OUT)						\
-	{																		\
-		char* table = nullptr;												\
-		MAP_LOAD.Load(FILE_PATH, table);									\
-		int32_t minMaxSize = SIZE_OF_INT32 * 4;								\
-																			\
-		memcpy_s(&OUT, minMaxSize, table, minMaxSize);						\
-																			\
-		OUT.count.x = OUT.max.x - OUT.min.x + 1;							\
-		OUT.count.y = OUT.max.y - OUT.min.y + 1;							\
-																			\
-		OUT.path = new int32_t * [OUT.count.y];								\
-		OUT.objects = new int64_t * [OUT.count.y];							\
-		for (int32_t i = 0; i < OUT.count.y; ++i)							\
-		{																	\
-			OUT.path[i] = new int32_t[OUT.count.x]{};						\
-			OUT.objects[i] = new int64_t[OUT.count.x]{};					\
-		}																	\
-																			\
-		int32_t offset = minMaxSize;										\
-		for (int32_t y = 0; y < OUT.count.y; ++y)							\
-		{																	\
-			for (int32_t x = 0; x < OUT.count.x; ++x)						\
-			{																\
-				OUT.path[y][x] = table[offset];								\
-				offset += SIZE_OF_INT32;									\
-				std::cout << OUT.path[y][x];								\
-			}																\
-			std::cout << std::endl;											\
-		}																	\
-																			\
-		SAFE_DELETE_ARRAY(table);											\
-	}
-
 #ifdef _UNICODE
 #define WIDEN(x)        L ## x
 #define WIDEN2(x)       WIDEN(x)

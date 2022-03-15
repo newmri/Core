@@ -9,7 +9,6 @@
   CoreDB.cpp
   CoreDataTypeManager.cpp
   CoreFileLogger.cpp
-  CoreGameObj.cpp
   CoreLoader.cpp
   CoreLogger.cpp
   CorePacket.cpp
@@ -18,9 +17,9 @@
   CoreSession.cpp
   CoreStringManager.cpp
   CoreTestManager.cpp
+  CoreThreadManager.cpp
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
-  CoreThreadManager.cpp
   CoreTimeDelegateManager.cpp
   CoreTimeManager.cpp
   CoreUIDObj.cpp

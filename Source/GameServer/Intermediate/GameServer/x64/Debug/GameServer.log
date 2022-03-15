@@ -8,6 +8,7 @@
   GameServer.cpp
   GameServerManager.cpp
   Main.cpp
+  MapDataManager.cpp
   native_info_impl.cpp
   Creature.cpp
   Player.cpp
