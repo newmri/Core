@@ -5,14 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityCoreLibrary;
-
-public enum Path
-{
-	None = 0,
-	Start = 1,
-	Collision = 2,
-	Path = 3,
-}
+using Define;
 
 public struct PQNode : IComparable<PQNode>
 {
@@ -40,7 +33,7 @@ public class MapManager
 	public Vector2Int Max { get; set; }
 	public Vector2Int Size { get { return new Vector2Int(Max.x - Min.x + 1, Max.y - Min.y + 1); } }
 
-	Path[,] _path;
+	PathType[,] _path;
 	int[,] _objects;
 	
 	Vector2Int _startIndex;
@@ -67,7 +60,8 @@ public class MapManager
 		}
 
 		Vector2Int index = CellPosToIndex(cellPos);
-		return (_path[index.y, index.x] == Path.Path || _path[index.y, index.x] == Path.Start) && (!checkObjects || _objects[index.y, index.x] == 0);
+		return (_path[index.y, index.x] == PathType.PATH || _path[index.y, index.x] == PathType.START) 
+			&& (!checkObjects || _objects[index.y, index.x] == 0);
 	}
 
 	public int Find(Vector3Int cellPos)
@@ -157,7 +151,7 @@ public class MapManager
 		Vector2Int currCount = new Vector2Int();
 		Vector2Int maxCount = new Vector2Int(Max.x - Min.x + 1, Max.y - Min.y + 1);
 
-		_path = new Path[maxCount.y, maxCount.x];
+		_path = new PathType[maxCount.y, maxCount.x];
 		_objects = new int[maxCount.y, maxCount.x];
 
 		for (currCount.y = 0; currCount.y < maxCount.y; ++currCount.y)
@@ -166,9 +160,9 @@ public class MapManager
 			for (currCount.x = 0; currCount.x < maxCount.x; ++currCount.x)
 			{
 				string value = line[currCount.x].ToString();
-				_path[currCount.y, currCount.x] = (Path)Int32.Parse(value);
+				_path[currCount.y, currCount.x] = (PathType)Int32.Parse(value);
 
-				if (_path[currCount.y, currCount.x] == Path.Start)
+				if (_path[currCount.y, currCount.x] == PathType.START)
 				{
 					_startIndex = new Vector2Int(currCount.x, currCount.y);
 					StartCellPos = IndexToCellPos(_startIndex);

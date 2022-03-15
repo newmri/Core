@@ -121,3 +121,11 @@ enum ObjectType : ubyte
 	MONSTER,
 	NPC
 }
+
+enum PathType : ubyte
+{
+	NONE,
+	START,
+	COLLISION,
+	PATH
+}

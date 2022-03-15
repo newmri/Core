@@ -544,6 +544,42 @@ inline const char *EnumNameObjectType(ObjectType e) {
   return EnumNamesObjectType()[index];
 }
 
+enum PathType : uint8_t {
+  PathType_NONE = 0,
+  PathType_START = 1,
+  PathType_COLLISION = 2,
+  PathType_PATH = 3,
+  PathType_MIN = PathType_NONE,
+  PathType_MAX = PathType_PATH
+};
+
+inline const PathType (&EnumValuesPathType())[4] {
+  static const PathType values[] = {
+    PathType_NONE,
+    PathType_START,
+    PathType_COLLISION,
+    PathType_PATH
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesPathType() {
+  static const char * const names[5] = {
+    "NONE",
+    "START",
+    "COLLISION",
+    "PATH",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNamePathType(PathType e) {
+  if (flatbuffers::IsOutRange(e, PathType_NONE, PathType_PATH)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesPathType()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_

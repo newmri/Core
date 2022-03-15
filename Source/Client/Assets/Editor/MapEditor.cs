@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 using System.IO;
 using System;
 using UnityCoreLibrary;
+using Define;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -65,18 +66,20 @@ public class MapEditor
 	{
 		if (null == tileBase)
 		{
-			writer.Write((int)Path.None);
+			writer.Write((int)PathType.NONE);
 		}
 		else
 		{
-			var type = typeof(Path);
 			string name = tileBase.name;
+			name = name.ToUpper();
 
-			if (type.ToString() != name)
-				name = name.Replace("Path", "");
+			if (PathType.PATH.ToString() != name)
+			{
+				name = name.Replace("PATH", "");
+			}
 
-			Path path;
-			if (Enum.TryParse<Path>(name, out path))
+			PathType path;
+			if (Enum.TryParse(name, out path))
 			{
 				writer.Write((int)path);
 			}

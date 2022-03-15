@@ -131,5 +131,13 @@ public enum ObjectType : byte
   NPC = 2,
 };
 
+public enum PathType : byte
+{
+  NONE = 0,
+  START = 1,
+  COLLISION = 2,
+  PATH = 3,
+};
+
 
 }
