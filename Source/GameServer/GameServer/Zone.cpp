@@ -12,7 +12,7 @@ Zone::Zone(const int32_t id) : id(id)
 
 Zone::~Zone()
 {
-	
+
 }
 
 void Zone::Init(void)
@@ -53,12 +53,30 @@ void Zone::Init(void)
 	SAFE_DELETE_ARRAY(table);
 }
 
-bool Zone::CanMove(const NativeInfo::Vec2Int& cellPos, const bool checkObjects) const
+bool Zone::Enter(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
 {
 	if (!IsValidCellPos(cellPos))
 		return false;
 
 	NativeInfo::Vec2Int index = CellPosToIndex(cellPos);
+
+	WRITE_LOCK(this->mutex);
+
+	if (!CanMove(index, checkObjects))
+		return false;
+
+	_Enter(objType, uid, index);
+	return true;
+}
+
+void Zone::_Enter(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& index)
+{
+	this->data.objects[index.y][index.x] = uid;
+	// 같은 Sector에 있게된 유저들한테 브로드캐스트 필요
+}
+
+bool Zone::CanMove(const NativeInfo::Vec2Int& index, const bool checkObjects = false) const
+{
 	return (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) || IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))
 		&& (!checkObjects || IS_SAME(0, this->data.objects[index.y][index.x]));
 }
@@ -71,4 +89,41 @@ bool Zone::IsValidCellPos(const NativeInfo::Vec2Int& cellPos) const
 NativeInfo::Vec2Int Zone::CellPosToIndex(const NativeInfo::Vec2Int& cellPos) const
 {
 	return NativeInfo::Vec2Int(cellPos.x - this->data.min.x, this->data.max.y - cellPos.y);
+}
+
+bool Zone::Move(const Define::ObjectType objType, const int64_t uid,
+	const NativeInfo::Vec2Int& cellSourcePos, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
+{
+	if (!IsValidCellPos(cellSourcePos) || !IsValidCellPos(cellDestPos))
+		return false;
+
+	NativeInfo::Vec2Int sourceIndex = CellPosToIndex(cellSourcePos);
+	NativeInfo::Vec2Int destIndex = CellPosToIndex(cellDestPos);
+
+	WRITE_LOCK(this->mutex);
+
+	if (!CanMove(destIndex, checkObjects))
+		return false;
+
+	_Leave(objType, uid, sourceIndex);
+	_Enter(objType, uid, destIndex);
+}
+
+bool Zone::Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& cellPos)
+{
+	if (!IsValidCellPos(cellPos))
+		return false;
+
+	NativeInfo::Vec2Int index = CellPosToIndex(cellPos);
+
+	WRITE_LOCK(this->mutex);
+
+	_Leave(objType, uid, index);
+	return true;
+}
+
+bool Zone::_Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& index)
+{
+	this->data.objects[index.y][index.x] = 0;
+	// 같은 Sector에 있던 유저들한테 브로드캐스트 필요
 }
