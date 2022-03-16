@@ -36,8 +36,8 @@ void CoreCSVMapLoader::PreLoad(std::string_view filePath, char*& out)
 	getline(this->fileStream, str);
 	Parse(str, maxY);
 
-	CORE_LOG.Log(LogType::LOG_INFO, "MinX: " + TO_STR(minX) + "minY: " + TO_STR(minY) + 
-		"maxX: " + TO_STR(maxX) + "maxY: " + TO_STR(maxY));
+	CORE_LOG.Log(LogType::LOG_INFO, "MinX: " + TO_STR(minX) + " minY: " + TO_STR(minY) + 
+		" maxX: " + TO_STR(maxX) + " maxY: " + TO_STR(maxY));
 
 	this->columns = (size_t)maxX - minX + 1;
 	this->rows = (size_t)maxY - minY + 1;
