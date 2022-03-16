@@ -1,14 +1,15 @@
 #pragma once
 
-// Player의 uid는 oid라고 볼 수 있음
-class Player : public CoreUIDObj, public CoreMemoryPoolObj<Player, CORE_BIG_SIZE>, public std::enable_shared_from_this<Player>
+class Player : public Creature, public CoreMemoryPoolObj<Player, CORE_BIG_SIZE>
 {
-	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(Player)
+	OVERRIDE_GAME_OBJ(Player)
 
 public:
-	Player(const int64_t& uid, const std::shared_ptr<CoreClientSession> session, const std::shared_ptr<Character> character);
+	Player(const int64_t& uid, const std::shared_ptr<CoreClientSession> session,
+		const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
 
 private:
+	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;
-	std::shared_ptr<Character> character;
+	GamePacket::MyCharacterInfoT characterInfo;
 };

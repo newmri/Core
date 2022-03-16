@@ -285,7 +285,7 @@ flatbuffers::Offset<MoneyWrapper> CreateMoneyWrapper(flatbuffers::FlatBufferBuil
 struct CreatureInfoT : public flatbuffers::NativeTable {
   typedef CreatureInfo TableType;
   Define::ObjectType obj_type = Define::ObjectType_PLAYER;
-  int64_t uid = 0;
+  int64_t oid = 0;
   uint8_t level = 0;
   int64_t exp = 0;
   NativeInfo::Stat stat{};
@@ -301,7 +301,7 @@ struct CreatureInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef CreatureInfoBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_OBJ_TYPE = 4,
-    VT_UID = 6,
+    VT_OID = 6,
     VT_LEVEL = 8,
     VT_EXP = 10,
     VT_STAT = 12,
@@ -314,8 +314,8 @@ struct CreatureInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   Define::ObjectType obj_type() const {
     return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJ_TYPE, 0));
   }
-  int64_t uid() const {
-    return GetField<int64_t>(VT_UID, 0);
+  int64_t oid() const {
+    return GetField<int64_t>(VT_OID, 0);
   }
   uint8_t level() const {
     return GetField<uint8_t>(VT_LEVEL, 0);
@@ -344,7 +344,7 @@ struct CreatureInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_OBJ_TYPE) &&
-           VerifyField<int64_t>(verifier, VT_UID) &&
+           VerifyField<int64_t>(verifier, VT_OID) &&
            VerifyField<uint8_t>(verifier, VT_LEVEL) &&
            VerifyField<int64_t>(verifier, VT_EXP) &&
            VerifyField<Info::Stat>(verifier, VT_STAT) &&
@@ -367,8 +367,8 @@ struct CreatureInfoBuilder {
   void add_obj_type(Define::ObjectType obj_type) {
     fbb_.AddElement<uint8_t>(CreatureInfo::VT_OBJ_TYPE, static_cast<uint8_t>(obj_type), 0);
   }
-  void add_uid(int64_t uid) {
-    fbb_.AddElement<int64_t>(CreatureInfo::VT_UID, uid, 0);
+  void add_oid(int64_t oid) {
+    fbb_.AddElement<int64_t>(CreatureInfo::VT_OID, oid, 0);
   }
   void add_level(uint8_t level) {
     fbb_.AddElement<uint8_t>(CreatureInfo::VT_LEVEL, level, 0);
@@ -408,7 +408,7 @@ struct CreatureInfoBuilder {
 inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(
     flatbuffers::FlatBufferBuilder &_fbb,
     Define::ObjectType obj_type = Define::ObjectType_PLAYER,
-    int64_t uid = 0,
+    int64_t oid = 0,
     uint8_t level = 0,
     int64_t exp = 0,
     const Info::Stat *stat = 0,
@@ -419,7 +419,7 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(
     const Info::PositionInfo *pos_info = 0) {
   CreatureInfoBuilder builder_(_fbb);
   builder_.add_exp(exp);
-  builder_.add_uid(uid);
+  builder_.add_oid(oid);
   builder_.add_pos_info(pos_info);
   builder_.add_speed(speed);
   builder_.add_ability(ability);
@@ -495,7 +495,7 @@ inline void CreatureInfo::UnPackTo(CreatureInfoT *_o, const flatbuffers::resolve
   (void)_o;
   (void)_resolver;
   { auto _e = obj_type(); _o->obj_type = _e; }
-  { auto _e = uid(); _o->uid = _e; }
+  { auto _e = oid(); _o->oid = _e; }
   { auto _e = level(); _o->level = _e; }
   { auto _e = exp(); _o->exp = _e; }
   { auto _e = stat(); if (_e) _o->stat = flatbuffers::UnPackStat(*_e); }
@@ -515,7 +515,7 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(flatbuffers::FlatBuf
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CreatureInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _obj_type = _o->obj_type;
-  auto _uid = _o->uid;
+  auto _oid = _o->oid;
   auto _level = _o->level;
   auto _exp = _o->exp;
   auto _stat = flatbuffers::PackStat(_o->stat);
@@ -527,7 +527,7 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(flatbuffers::FlatBuf
   return Info::CreateCreatureInfo(
       _fbb,
       _obj_type,
-      _uid,
+      _oid,
       _level,
       _exp,
       &_stat,

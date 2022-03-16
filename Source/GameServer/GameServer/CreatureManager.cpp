@@ -14,37 +14,35 @@ void CreatureManager::Release(void)
 void CreatureManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
 	Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
 {
-	int64_t uid = this->uid.fetch_add(1);
-	session->SetPlayerUID(uid);
+	int64_t oid = this->oid.fetch_add(1);
+	session->SetPlayerOID(oid);
 
-	creatureInfo.uid = uid;
+	creatureInfo.oid = oid;
 	creatureInfo.obj_type = Define::ObjectType_PLAYER;
 	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(creatureInfo);
 	CHARACTER_DATA_MANAGER.CalculateSpeed(characterInfo.job, creatureInfo.speed);
 
-	auto character = std::make_shared<Character>(creatureInfo, characterInfo);
-
 	WRITE_LOCK(this->mutex);
-	this->playerList[uid] = std::make_shared<Player>(uid, session, character);
+	this->playerList[oid] = std::make_shared<Player>(characterUID, session, creatureInfo, characterInfo);
 }
 
-std::shared_ptr<Player> CreatureManager::FindPlayer(const int64_t& uid)
+std::shared_ptr<Player> CreatureManager::FindPlayer(const int64_t& oid)
 {
 	READ_LOCK(this->mutex);
 
-	auto iter = this->playerList.find(uid);
+	auto iter = this->playerList.find(oid);
 	if (IS_NOT_SAME(iter, this->playerList.end()))
 		return iter->second;
 
 	return nullptr;
 }
 
-void CreatureManager::RemovePlayer(const int64_t& uid)
+void CreatureManager::RemovePlayer(const int64_t& oid)
 {
-	auto player = FindPlayer(uid);
+	auto player = FindPlayer(oid);
 	if (IS_NULL(player))
 		return;
 
 	WRITE_LOCK(this->mutex);
-	this->playerList.erase(uid);
+	this->playerList.erase(oid);
 }

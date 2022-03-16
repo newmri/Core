@@ -4,12 +4,12 @@ Sector::Sector(const NativeInfo::Vec2Int& index) : index(index)
 {
 }
 
-void Sector::AddPlayer(std::shared_ptr<Player> player)
+void Sector::Add(std::shared_ptr<Creature> creature)
 {
-	this->playerList[player->GetUID()] = player;
+	this->creatureList[creature->GetOID()] = creature;
 }
 
-void Sector::RemovePlayer(const int64_t uid)
+void Sector::Remove(const int64_t oid)
 {
-	this->playerList.erase(uid);
+	this->creatureList.erase(oid);
 }

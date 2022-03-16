@@ -8,7 +8,6 @@
 #include "GamePacketFunc.h"
 #include "GamePacketHandler.h"
 #include "Creature.h"
-#include "Character.h"
 #include "Player.h"
 #include "CreatureManager.h"
 #include "MapData.h"

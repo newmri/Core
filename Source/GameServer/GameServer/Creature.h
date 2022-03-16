@@ -1,11 +1,15 @@
 #pragma once
 
-class Creature : public CoreGameObj
+class Creature : public CoreGameObj, public std::enable_shared_from_this<Creature>
 {
 	OVERRIDE_GAME_OBJ(Creature)
 
 public:
 	Creature(const Info::CreatureInfoT& creatureInfo);
+
+public:
+	Define::ObjectType GetObjectType(void) const;
+	int64_t GetOID(void) const;
 
 public:
 	void CalculateAbility(void);

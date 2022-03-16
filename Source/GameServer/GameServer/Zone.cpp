@@ -10,6 +10,11 @@ Zone::Zone(const int32_t id) : id(id)
 	Init();
 }
 
+Zone::Zone(const Zone&& rhs) : id(rhs.id), data(rhs.data)
+{
+
+}
+
 Zone::~Zone()
 {
 
@@ -107,6 +112,7 @@ bool Zone::Move(const Define::ObjectType objType, const int64_t uid,
 
 	_Leave(objType, uid, sourceIndex);
 	_Enter(objType, uid, destIndex);
+	return true;
 }
 
 bool Zone::Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& cellPos)
@@ -122,7 +128,7 @@ bool Zone::Leave(const Define::ObjectType objType, const int64_t uid, const Nati
 	return true;
 }
 
-bool Zone::_Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& index)
+void Zone::_Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& index)
 {
 	this->data.objects[index.y][index.x] = 0;
 	// 같은 Sector에 있던 유저들한테 브로드캐스트 필요

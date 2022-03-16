@@ -6,10 +6,10 @@ public:
 	Sector(const NativeInfo::Vec2Int& index);
 
 public:
-	void AddPlayer(std::shared_ptr<Player> player);
-	void RemovePlayer(const int64_t uid);
+	void Add(std::shared_ptr<Creature> creature);
+	void Remove(const int64_t oid);
 
 private:
 	NativeInfo::Vec2Int index;
-	std::map<int64_t, std::shared_ptr<Player>> playerList;
+	std::map<int64_t, std::shared_ptr<Creature>> creatureList;
 };

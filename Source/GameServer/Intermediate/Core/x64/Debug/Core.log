@@ -2,7 +2,6 @@
   CoreAccountManager.cpp
   CoreCSVMapLoader.cpp
   CoreCharacter.cpp
-  CoreClient.cpp
   CoreClientSession.cpp
   CoreConsoleLogger.cpp
   CoreDB.cpp
@@ -18,9 +17,9 @@
   CoreTestManager.cpp
   CoreThreadManager.cpp
   CoreTimeDelegateManager.cpp
+  CoreTimeManager.cpp
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
-  CoreTimeManager.cpp
   CoreUIDObj.cpp
   WorldDB.cpp
   코드를 생성하고 있습니다...

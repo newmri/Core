@@ -6,6 +6,7 @@ class Zone : CoreObj
 
 public:
 	Zone(const int32_t id);
+	Zone(const Zone&& rhs);
 
 public:
 	bool Enter(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& cellPos, const bool checkObjects = false);
@@ -26,7 +27,7 @@ public:
 	bool Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& cellPos);
 
 private:
-	bool _Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& index);
+	void _Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& index);
 
 private:
 	int32_t id;

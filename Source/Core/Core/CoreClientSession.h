@@ -25,8 +25,8 @@ public:
 	void UpdatePingPongTime(void);
 
 public:
-	void SetPlayerUID(const int64_t playerUID);
-	int64_t GetPlayerUID(void) const;
+	void SetPlayerOID(const int64_t playerOID);
+	int64_t GetPlayerOID(void) const;
 
 private:
 	CoreServer* server;
@@ -42,5 +42,5 @@ private:
 	TIME_VALUE prevPingPongTime = 0;
 
 private:
-	int64_t playerUID = 0;
+	int64_t playerOID = 0;
 };

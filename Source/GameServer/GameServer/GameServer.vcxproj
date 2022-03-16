@@ -94,7 +94,6 @@
     <ClCompile Include="CreatureManager.cpp" />
     <ClCompile Include="CharacterDataManager.cpp" />
     <ClCompile Include="GameDB.cpp" />
-    <ClCompile Include="Character.cpp" />
     <ClCompile Include="GamePacketFunc.cpp" />
     <ClCompile Include="GamePacketHandler.cpp" />
     <ClCompile Include="GameServer.cpp" />
@@ -124,7 +123,6 @@
     <ClInclude Include="GameDB.h" />
     <ClInclude Include="game_protocol_generated.h" />
     <ClInclude Include="info_protocol_generated.h" />
-    <ClInclude Include="Character.h" />
     <ClInclude Include="GamePacketFunc.h" />
     <ClInclude Include="GamePacketHandler.h" />
     <ClInclude Include="GameServer.h" />

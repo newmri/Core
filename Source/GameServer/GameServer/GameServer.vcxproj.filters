@@ -28,9 +28,6 @@
     <ClCompile Include="Creature.cpp">
       <Filter>04.Creature</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>04.Creature\00.Player\00.Character</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>04.Creature\00.Player</Filter>
     </ClCompile>
@@ -86,9 +83,6 @@
     </ClInclude>
     <ClInclude Include="Creature.h">
       <Filter>04.Creature</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>04.Creature\00.Player\00.Character</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>04.Creature\00.Player</Filter>
@@ -148,9 +142,6 @@
     </Filter>
     <Filter Include="04.Creature\00.Player">
       <UniqueIdentifier>{e91e2d21-3145-42b4-9564-86ad96126814}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.Creature\00.Player\00.Character">
-      <UniqueIdentifier>{a71c963f-bd66-4148-b456-7ec291832738}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.DataManager\00.Character">
       <UniqueIdentifier>{6975bc75-5b95-450f-b756-e9076bc37dc8}</UniqueIdentifier>
