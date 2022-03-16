@@ -100,10 +100,12 @@
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameServerManager.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MapDataManager.cpp" />
+    <ClCompile Include="Zone.cpp" />
+    <ClCompile Include="ZoneManager.cpp" />
     <ClCompile Include="native_info_impl.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Sector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core\Core.vcxproj">
@@ -128,11 +130,13 @@
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="GameServerManager.h" />
+    <ClInclude Include="Zone.h" />
     <ClInclude Include="MapData.h" />
-    <ClInclude Include="MapDataManager.h" />
+    <ClInclude Include="ZoneManager.h" />
     <ClInclude Include="native_info_impl.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Sector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

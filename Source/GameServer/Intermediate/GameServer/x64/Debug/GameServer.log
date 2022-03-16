@@ -1,16 +1,2 @@
-﻿  AccountDB.cpp
-  CreatureManager.cpp
-  CharacterDataManager.cpp
-  GameDB.cpp
-  Character.cpp
-  GamePacketFunc.cpp
-  GamePacketHandler.cpp
-  GameServer.cpp
-  GameServerManager.cpp
-  Main.cpp
-  MapDataManager.cpp
-  native_info_impl.cpp
-  Creature.cpp
-  Player.cpp
-  코드를 생성하고 있습니다...
+﻿  Zone.cpp
   GameServer.vcxproj -> C:\Users\newmr\Desktop\Study\Core\Source\GameServer\x64\Debug\GameServer.exe

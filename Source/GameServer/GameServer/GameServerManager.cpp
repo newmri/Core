@@ -22,7 +22,7 @@ void GameServerManager::Init(void)
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
 
 	CHARACTER_DATA_MANAGER.Load();
-	MAP_DATA_MANAGER.Load();
+	ZONE_MANAGER.AddZone(1);
 }
 
 void GameServerManager::Release(void)

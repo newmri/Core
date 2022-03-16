@@ -1,17 +1,17 @@
 #pragma once
 
-struct MapBaseData
+struct MapData
 {
-	MapBaseData() CORE_DEFAULT;
-	~MapBaseData()
+	MapData() CORE_DEFAULT;
+	~MapData()
 	{
-		SAFE_DELETE_2_ARRAY(path, count.y);
-		SAFE_DELETE_2_ARRAY(objects, count.y);
+		SAFE_DELETE_2_ARRAY(path, size.y);
+		SAFE_DELETE_2_ARRAY(objects, size.y);
 	}
 
 	NativeInfo::Vec2Int min;
 	NativeInfo::Vec2Int max;
-	NativeInfo::Vec2Int count;
-	int32_t** path = nullptr;
+	NativeInfo::Vec2Int size;
+	Define::PathType** path = nullptr;
 	int64_t** objects = nullptr;
 };

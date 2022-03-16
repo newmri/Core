@@ -20,10 +20,10 @@
       <Filter>03.Packet\03.GamePacketFunc</Filter>
     </ClCompile>
     <ClCompile Include="AccountDB.cpp">
-      <Filter>05.DB\00.AccountDB</Filter>
+      <Filter>06.DB\00.AccountDB</Filter>
     </ClCompile>
     <ClCompile Include="GameDB.cpp">
-      <Filter>05.DB\01.GameDB</Filter>
+      <Filter>06.DB\01.GameDB</Filter>
     </ClCompile>
     <ClCompile Include="Creature.cpp">
       <Filter>04.Creature</Filter>
@@ -40,8 +40,14 @@
     <ClCompile Include="CharacterDataManager.cpp">
       <Filter>02.DataManager\00.Character</Filter>
     </ClCompile>
-    <ClCompile Include="MapDataManager.cpp">
-      <Filter>02.DataManager\01.Map</Filter>
+    <ClCompile Include="ZoneManager.cpp">
+      <Filter>05.Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Sector.cpp">
+      <Filter>05.Map\01.Sector</Filter>
+    </ClCompile>
+    <ClCompile Include="Zone.cpp">
+      <Filter>05.Map\00.Zone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,10 +76,10 @@
       <Filter>03.Packet\03.GamePacketFunc</Filter>
     </ClInclude>
     <ClInclude Include="AccountDB.h">
-      <Filter>05.DB\00.AccountDB</Filter>
+      <Filter>06.DB\00.AccountDB</Filter>
     </ClInclude>
     <ClInclude Include="GameDB.h">
-      <Filter>05.DB\01.GameDB</Filter>
+      <Filter>06.DB\01.GameDB</Filter>
     </ClInclude>
     <ClInclude Include="game_protocol_generated.h">
       <Filter>03.Packet\00.FlatBuffer</Filter>
@@ -96,11 +102,17 @@
     <ClInclude Include="CharacterData.h">
       <Filter>02.DataManager\00.Character</Filter>
     </ClInclude>
-    <ClInclude Include="MapData.h">
-      <Filter>02.DataManager\01.Map</Filter>
+    <ClInclude Include="ZoneManager.h">
+      <Filter>05.Map</Filter>
     </ClInclude>
-    <ClInclude Include="MapDataManager.h">
-      <Filter>02.DataManager\01.Map</Filter>
+    <ClInclude Include="Sector.h">
+      <Filter>05.Map\01.Sector</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone.h">
+      <Filter>05.Map\00.Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="MapData.h">
+      <Filter>05.Map\00.Zone</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,15 +143,6 @@
     <Filter Include="03.Packet\03.GamePacketFunc">
       <UniqueIdentifier>{b182d951-831d-42c7-ab51-edcf79a5a422}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.DB">
-      <UniqueIdentifier>{0b0ad8c2-5a2b-4fbf-9c11-5d95ad7307ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.DB\00.AccountDB">
-      <UniqueIdentifier>{439794df-3720-469e-a0ee-51ad7f8acf32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.DB\01.GameDB">
-      <UniqueIdentifier>{493a0cd3-f53f-4d8c-aad0-7aa2a71452e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.Creature">
       <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
     </Filter>
@@ -152,8 +155,23 @@
     <Filter Include="02.DataManager\00.Character">
       <UniqueIdentifier>{6975bc75-5b95-450f-b756-e9076bc37dc8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.DataManager\01.Map">
+    <Filter Include="06.DB">
+      <UniqueIdentifier>{0b0ad8c2-5a2b-4fbf-9c11-5d95ad7307ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.DB\00.AccountDB">
+      <UniqueIdentifier>{439794df-3720-469e-a0ee-51ad7f8acf32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.DB\01.GameDB">
+      <UniqueIdentifier>{493a0cd3-f53f-4d8c-aad0-7aa2a71452e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Map">
       <UniqueIdentifier>{565df15c-019a-4203-a78a-29a139559395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Map\01.Sector">
+      <UniqueIdentifier>{8d769874-3449-4719-b9a2-1f36a8e20523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Map\00.Zone">
+      <UniqueIdentifier>{6be3a983-8cec-40bf-9908-f736d8a18617}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

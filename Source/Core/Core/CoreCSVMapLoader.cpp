@@ -45,7 +45,7 @@ void CoreCSVMapLoader::PreLoad(std::string_view filePath, char*& out)
 	std::string strForParse;
 	for (size_t i = 0; i < this->columns; ++i)
 	{
-		strForParse.append(INT32_NAME);
+		strForParse.append(UINT8_NAME);
 		strForParse.append(",");
 	}
 
