@@ -14,12 +14,12 @@ namespace flatbuffers
 
 	Info::PositionInfo PackPositionInfo(const NativeInfo::PositionInfo& obj)
 	{
-		return Info::PositionInfo(PackVec2Int(obj.pos), obj.state, obj.moveDir);
+		return Info::PositionInfo(obj.mapID, PackVec2Int(obj.pos), obj.state, obj.moveDir);
 	}
 
 	NativeInfo::PositionInfo UnPackPositionInfo(const Info::PositionInfo& obj)
 	{
-		return NativeInfo::PositionInfo(UnPackVec2Int(obj.pos()), obj.state(), obj.move_dir());
+		return NativeInfo::PositionInfo(obj.map_id(), UnPackVec2Int(obj.pos()), obj.state(), obj.move_dir());
 	}
 
 	Info::Stat PackStat(const NativeInfo::Stat& obj)

@@ -10,6 +10,7 @@ struct Vec2Int (native_type:"NativeInfo::Vec2Int", native_type_pack_name:"Vec2In
 
 struct PositionInfo (native_type:"NativeInfo::PositionInfo", native_type_pack_name:"PositionInfo")
 {
+  map_id:int32;
   pos:Vec2Int (native_inline);
   state:Define.CreatureState;
   move_dir:Define.Dir;

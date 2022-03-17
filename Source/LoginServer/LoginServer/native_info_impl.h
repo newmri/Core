@@ -24,12 +24,13 @@ namespace NativeInfo
         {
         };
 
-        PositionInfo(NativeInfo::Vec2Int pos, Define::CreatureState state, Define::Dir moveDir) :
-            pos(pos), state(state), moveDir(moveDir)
+        PositionInfo(const int32_t mapID, const NativeInfo::Vec2Int pos, const Define::CreatureState state, const Define::Dir moveDir) :
+            mapID(mapID), pos(pos), state(state), moveDir(moveDir)
         {
 
         }
 
+        int32_t mapID = 0;
         NativeInfo::Vec2Int pos;
         Define::CreatureState state = Define::CreatureState::CreatureState_IDLE;
         Define::Dir moveDir = Define::Dir_RIGHT;

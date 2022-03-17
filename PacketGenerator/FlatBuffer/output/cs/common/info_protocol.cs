@@ -61,18 +61,20 @@ public struct PositionInfo : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
   public PositionInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Info.Vec2Int Pos { get { return (new Info.Vec2Int()).__assign(__p.bb_pos + 0, __p.bb); } }
-  public Define.CreatureState State { get { return (Define.CreatureState)__p.bb.Get(__p.bb_pos + 8); } }
-  public Define.Dir MoveDir { get { return (Define.Dir)__p.bb.Get(__p.bb_pos + 9); } }
+  public int MapId { get { return __p.bb.GetInt(__p.bb_pos + 0); } }
+  public Info.Vec2Int Pos { get { return (new Info.Vec2Int()).__assign(__p.bb_pos + 4, __p.bb); } }
+  public Define.CreatureState State { get { return (Define.CreatureState)__p.bb.Get(__p.bb_pos + 12); } }
+  public Define.Dir MoveDir { get { return (Define.Dir)__p.bb.Get(__p.bb_pos + 13); } }
 
-  public static Offset<Info.PositionInfo> CreatePositionInfo(FlatBufferBuilder builder, int pos_X, int pos_Y, Define.CreatureState State, Define.Dir MoveDir) {
-    builder.Prep(4, 12);
+  public static Offset<Info.PositionInfo> CreatePositionInfo(FlatBufferBuilder builder, int MapId, int pos_X, int pos_Y, Define.CreatureState State, Define.Dir MoveDir) {
+    builder.Prep(4, 16);
     builder.Pad(2);
     builder.PutByte((byte)MoveDir);
     builder.PutByte((byte)State);
     builder.Prep(4, 8);
     builder.PutInt(pos_Y);
     builder.PutInt(pos_X);
+    builder.PutInt(MapId);
     return new Offset<Info.PositionInfo>(builder.Offset);
   }
   public PositionInfoT UnPack() {
@@ -81,6 +83,7 @@ public struct PositionInfo : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(PositionInfoT _o) {
+    _o.MapId = this.MapId;
     _o.Pos = this.Pos.UnPack();
     _o.State = this.State;
     _o.MoveDir = this.MoveDir;
@@ -91,6 +94,7 @@ public struct PositionInfo : IFlatbufferObject
     var _pos_y = _o.Pos.Y;
     return CreatePositionInfo(
       builder,
+      _o.MapId,
       _pos_x,
       _pos_y,
       _o.State,
@@ -100,11 +104,13 @@ public struct PositionInfo : IFlatbufferObject
 
 public class PositionInfoT
 {
+  public int MapId { get; set; }
   public Info.Vec2IntT Pos { get; set; }
   public Define.CreatureState State { get; set; }
   public Define.Dir MoveDir { get; set; }
 
   public PositionInfoT() {
+    this.MapId = 0;
     this.Pos = new Info.Vec2IntT();
     this.State = Define.CreatureState.IDLE;
     this.MoveDir = Define.Dir.UP;

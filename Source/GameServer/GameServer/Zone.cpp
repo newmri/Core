@@ -10,11 +10,6 @@ Zone::Zone(const int32_t id) : id(id)
 	Init();
 }
 
-Zone::Zone(const Zone&& rhs) : id(rhs.id), data(rhs.data)
-{
-
-}
-
 Zone::~Zone()
 {
 
@@ -46,16 +41,29 @@ void Zone::Init(void)
 	}
 
 	int32_t offset = minMaxSize;
-	for (int32_t y = 0; y < this->data.size.y; ++y)
+	NativeInfo::Vec2Int index;
+	for (; index.y < this->data.size.y; ++index.y)
 	{
-		for (int32_t x = 0; x < this->data.size.x; ++x)
+		for (index.x = 0; index.x < this->data.size.x; ++index.x)
 		{
-			this->data.path[y][x] = (Define::PathType)table[offset];
+			this->data.path[index.y][index.x] = (Define::PathType)table[offset];
+			if (IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))
+				this->data.startPos = IndexToCellPos(index);
+
 			offset += SIZE_OF_UINT8;
 		}
 	}
 
 	SAFE_DELETE_ARRAY(table);
+}
+
+bool Zone::EnterStartPos(const Define::ObjectType objType, const int64_t uid, NativeInfo::Vec2Int& cellPos, const bool checkObjects)
+{
+	if (!Enter(objType, uid, this->data.startPos, checkObjects))
+		return false;
+
+	cellPos = this->data.startPos;
+	return true;
 }
 
 bool Zone::Enter(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
@@ -94,6 +102,11 @@ bool Zone::IsValidCellPos(const NativeInfo::Vec2Int& cellPos) const
 NativeInfo::Vec2Int Zone::CellPosToIndex(const NativeInfo::Vec2Int& cellPos) const
 {
 	return NativeInfo::Vec2Int(cellPos.x - this->data.min.x, this->data.max.y - cellPos.y);
+}
+
+NativeInfo::Vec2Int Zone::IndexToCellPos(const NativeInfo::Vec2Int& index) const
+{
+	return NativeInfo::Vec2Int(index.x + this->data.min.x, this->data.max.y - index.y);
 }
 
 bool Zone::Move(const Define::ObjectType objType, const int64_t uid,

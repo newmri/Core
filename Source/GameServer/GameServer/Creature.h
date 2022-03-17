@@ -10,6 +10,8 @@ public:
 public:
 	Define::ObjectType GetObjectType(void) const;
 	int64_t GetOID(void) const;
+	int32_t GetMapID(void) const;
+	NativeInfo::Vec2Int GetPos(void) const;
 
 public:
 	void CalculateAbility(void);

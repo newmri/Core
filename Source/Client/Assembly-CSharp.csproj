@@ -188,6 +188,7 @@
     <None Include="Assets\ThirdParty\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Resources\Map\Data\Map_000.txt" />
     <None Include="Assets\ThirdParty\FantaziaCharacterEditor\readme.txt" />
     <None Include="Assets\ThirdParty\FantaziaCharacterEditor\SpineSkeletonData\Character.atlas.txt" />
     <None Include="Assets\ThirdParty\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />

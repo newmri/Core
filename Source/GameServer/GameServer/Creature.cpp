@@ -30,6 +30,16 @@ int64_t Creature::GetOID(void) const
 	return this->creatureInfo.oid;
 }
 
+int32_t Creature::GetMapID(void) const
+{
+	return this->creatureInfo.pos_info.mapID;
+}
+
+NativeInfo::Vec2Int Creature::GetPos(void) const
+{
+	return this->creatureInfo.pos_info.pos;
+}
+
 void Creature::CalculateAbility(void)
 {
 	WRITE_LOCK(this->abilityMutex);

@@ -61,6 +61,7 @@ FLATBUFFERS_STRUCT_END(Vec2Int, 8);
 
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) PositionInfo FLATBUFFERS_FINAL_CLASS {
  private:
+  int32_t map_id_;
   Info::Vec2Int pos_;
   uint8_t state_;
   uint8_t move_dir_;
@@ -68,18 +69,23 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) PositionInfo FLATBUFFERS_FINAL_CLASS {
 
  public:
   PositionInfo()
-      : pos_(),
+      : map_id_(0),
+        pos_(),
         state_(0),
         move_dir_(0),
         padding0__(0) {
     (void)padding0__;
   }
-  PositionInfo(const Info::Vec2Int &_pos, Define::CreatureState _state, Define::Dir _move_dir)
-      : pos_(_pos),
+  PositionInfo(int32_t _map_id, const Info::Vec2Int &_pos, Define::CreatureState _state, Define::Dir _move_dir)
+      : map_id_(flatbuffers::EndianScalar(_map_id)),
+        pos_(_pos),
         state_(flatbuffers::EndianScalar(static_cast<uint8_t>(_state))),
         move_dir_(flatbuffers::EndianScalar(static_cast<uint8_t>(_move_dir))),
         padding0__(0) {
     (void)padding0__;
+  }
+  int32_t map_id() const {
+    return flatbuffers::EndianScalar(map_id_);
   }
   const Info::Vec2Int &pos() const {
     return pos_;
@@ -91,7 +97,7 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) PositionInfo FLATBUFFERS_FINAL_CLASS {
     return static_cast<Define::Dir>(flatbuffers::EndianScalar(move_dir_));
   }
 };
-FLATBUFFERS_STRUCT_END(PositionInfo, 12);
+FLATBUFFERS_STRUCT_END(PositionInfo, 16);
 
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Stat FLATBUFFERS_FINAL_CLASS {
  private:

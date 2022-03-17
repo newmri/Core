@@ -21,6 +21,7 @@ void CreatureManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<Cor
 	creatureInfo.obj_type = Define::ObjectType_PLAYER;
 	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(creatureInfo);
 	CHARACTER_DATA_MANAGER.CalculateSpeed(characterInfo.job, creatureInfo.speed);
+	ZONE_MANAGER.EnterStartPos(creatureInfo.pos_info.mapID, creatureInfo.obj_type, creatureInfo.oid, creatureInfo.pos_info.pos);
 
 	WRITE_LOCK(this->mutex);
 	this->playerList[oid] = std::make_shared<Player>(characterUID, session, creatureInfo, characterInfo);
@@ -42,6 +43,8 @@ void CreatureManager::RemovePlayer(const int64_t& oid)
 	auto player = FindPlayer(oid);
 	if (IS_NULL(player))
 		return;
+
+	ZONE_MANAGER.Leave(player->GetMapID(), player->GetObjectType(), oid, player->GetPos());
 
 	WRITE_LOCK(this->mutex);
 	this->playerList.erase(oid);
