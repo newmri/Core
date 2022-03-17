@@ -3,7 +3,7 @@
 template<typename T>
 class CoreList : public CoreQueue<T>
 {
-	OVERRIDE_OBJ(CoreList<T>)
+	OVERRIDE_OBJECT(CoreList<T>)
 
 public:
 	CoreList(CoreList<T>& rhs);

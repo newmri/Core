@@ -1,9 +1,9 @@
 #pragma once
 
 template<typename T>
-class CoreContainer : public CoreObj
+class CoreContainer : public CoreObject
 {
-	OVERRIDE_OBJ(CoreContainer<T>)
+	OVERRIDE_OBJECT(CoreContainer<T>)
 
 public:
 	virtual void clear(void) CORE_PURE;

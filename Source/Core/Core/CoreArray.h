@@ -1,7 +1,7 @@
 #pragma once
 
 template<typename T, const size_t N>
-class CoreArray : public CoreObj
+class CoreArray : public CoreObject
 {
 public:
 	CoreArray();

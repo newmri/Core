@@ -2,7 +2,7 @@
 
 class CoreCSVLoader : public CoreLoader
 {
-	OVERRIDE_OBJ(CoreCSVLoader)
+	OVERRIDE_OBJECT(CoreCSVLoader)
 
 private:
 	virtual void PreLoad(std::string_view filePath, char*& out) override;

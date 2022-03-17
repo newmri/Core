@@ -2,7 +2,7 @@
 
 class CoreCSVMapLoader : public CoreCSVLoader
 {
-	OVERRIDE_OBJ(CoreCSVMapLoader)
+	OVERRIDE_OBJECT(CoreCSVMapLoader)
 
 private:
 	virtual void PreLoad(std::string_view filePath, char*& out) override;

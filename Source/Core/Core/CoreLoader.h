@@ -1,8 +1,8 @@
 #pragma once
 
-class CoreLoader : public CoreObj
+class CoreLoader : public CoreObject
 {
-	OVERRIDE_OBJ(CoreLoader)
+	OVERRIDE_OBJECT(CoreLoader)
 
 protected:
 	virtual void PreLoad(std::string_view filePath, char*& out);

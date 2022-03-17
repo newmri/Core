@@ -2,7 +2,7 @@
 	public:																	\
 		CLASS() CORE_DEFAULT;													
 
-#define ABSTRACT_OBJ(CLASS)													\
+#define ABSTRACT_OBJECT(CLASS)												\
 	DEFAULT_CONSTRUCTOR(CLASS)												\
 	public:																	\
 		virtual ~CLASS() CORE_DEFAULT;										\
@@ -10,7 +10,7 @@
 	private:																\
 		virtual void Init(void) CORE_PURE;																										
 
-#define OVERRIDE_OBJ(CLASS)													\
+#define OVERRIDE_OBJECT(CLASS)												\
 	public:																	\
 		CLASS();															\
 		virtual ~CLASS() override;											\
@@ -18,7 +18,7 @@
 	protected:																\
 		virtual void Init(void) override;									
 
-#define OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CLASS)						\
+#define OVERRIDE_OBJECT_DELETE_DEFAULT_CONSTRUCTOR(CLASS)					\
 	public:																	\
 		CLASS() CORE_DELETE;												\
 		virtual ~CLASS() override;											\
@@ -26,8 +26,8 @@
 	private:																\
 		virtual void Init(void) override;									
 
-#define OVERRIDE_GAME_OBJ(CLASS)											\
-	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CLASS)							\
+#define OVERRIDE_GAME_OBJECT(CLASS)											\
+	OVERRIDE_OBJECT_DELETE_DEFAULT_CONSTRUCTOR(CLASS)						\
 																			\
 	public:																	\
 		virtual void Update(void) override;

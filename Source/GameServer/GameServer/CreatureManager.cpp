@@ -18,10 +18,10 @@ void CreatureManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<Cor
 	session->SetPlayerOID(oid);
 
 	creatureInfo.oid = oid;
-	creatureInfo.obj_type = Define::ObjectType_PLAYER;
+	creatureInfo.object_type = Define::ObjectType_PLAYER;
 	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(creatureInfo);
 	CHARACTER_DATA_MANAGER.CalculateSpeed(characterInfo.job, creatureInfo.speed);
-	ZONE_MANAGER.EnterStartPos(creatureInfo.pos_info.mapID, creatureInfo.obj_type, creatureInfo.oid, creatureInfo.pos_info.pos);
+	ZONE_MANAGER.EnterStartPos(creatureInfo.pos_info.mapID, creatureInfo.object_type, creatureInfo.oid, creatureInfo.pos_info.pos);
 
 	WRITE_LOCK(this->mutex);
 	this->playerList[oid] = std::make_shared<Player>(characterUID, session, creatureInfo, characterInfo);

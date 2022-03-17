@@ -22,7 +22,7 @@ void Creature::Update(void)
 
 Define::ObjectType Creature::GetObjectType(void) const
 {
-	return this->creatureInfo.obj_type;
+	return this->creatureInfo.object_type;
 }
 
 int64_t Creature::GetOID(void) const

@@ -6,7 +6,7 @@
 template<typename T>
 class CoreQueue : public CoreContainer<T>
 {
-	OVERRIDE_OBJ(CoreQueue<T>)
+	OVERRIDE_OBJECT(CoreQueue<T>)
 
 public:
 	CoreQueue(CoreQueue<T>& rhs);

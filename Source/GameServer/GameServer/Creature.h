@@ -1,8 +1,8 @@
 #pragma once
 
-class Creature : public CoreGameObj, public std::enable_shared_from_this<Creature>
+class Creature : public CoreGameObject, public std::enable_shared_from_this<Creature>
 {
-	OVERRIDE_GAME_OBJ(Creature)
+	OVERRIDE_GAME_OBJECT(Creature)
 
 public:
 	Creature(const Info::CreatureInfoT& creatureInfo);

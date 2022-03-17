@@ -5,7 +5,7 @@
 template<typename T>
 class CoreVector : public CoreContainer<T>
 {
-	OVERRIDE_OBJ(CoreVector<T>)
+	OVERRIDE_OBJECT(CoreVector<T>)
 
 public:
 	template<typename... Types>

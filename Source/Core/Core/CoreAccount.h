@@ -12,9 +12,9 @@ struct CoreToken
 	TIME_VALUE expireTime = 0;
 };
 
-class CoreAccount : public CoreUIDObj, public CoreMemoryPoolObj<CoreAccount, CORE_BIG_SIZE>
+class CoreAccount : public CoreUIDObject, public CoreMemoryPoolObj<CoreAccount, CORE_BIG_SIZE>
 {
-	OVERRIDE_OBJ_DELETE_DEFAULT_CONSTRUCTOR(CoreAccount)
+	OVERRIDE_OBJECT_DELETE_DEFAULT_CONSTRUCTOR(CoreAccount)
 
 public:
 	CoreAccount(const int64_t& uid, const CoreToken& token);

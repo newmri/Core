@@ -428,7 +428,7 @@ public struct CreatureInfo : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public CreatureInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
   public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
   public byte Level { get { int o = __p.__offset(8); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
   public long Exp { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
@@ -440,7 +440,7 @@ public struct CreatureInfo : IFlatbufferObject
   public Info.PositionInfo? PosInfo { get { int o = __p.__offset(22); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
   public static Offset<Info.CreatureInfo> CreateCreatureInfo(FlatBufferBuilder builder,
-      Define.ObjectType obj_type = Define.ObjectType.PLAYER,
+      Define.ObjectType object_type = Define.ObjectType.PLAYER,
       long oid = 0,
       byte level = 0,
       long exp = 0,
@@ -460,12 +460,12 @@ public struct CreatureInfo : IFlatbufferObject
     CreatureInfo.AddHp(builder, hp);
     CreatureInfo.AddStat(builder, Info.Stat.Pack(builder, stat));
     CreatureInfo.AddLevel(builder, level);
-    CreatureInfo.AddObjType(builder, obj_type);
+    CreatureInfo.AddObjectType(builder, object_type);
     return CreatureInfo.EndCreatureInfo(builder);
   }
 
   public static void StartCreatureInfo(FlatBufferBuilder builder) { builder.StartTable(10); }
-  public static void AddObjType(FlatBufferBuilder builder, Define.ObjectType objType) { builder.AddByte(0, (byte)objType, 0); }
+  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
   public static void AddOid(FlatBufferBuilder builder, long oid) { builder.AddLong(1, oid, 0); }
   public static void AddLevel(FlatBufferBuilder builder, byte level) { builder.AddByte(2, level, 0); }
   public static void AddExp(FlatBufferBuilder builder, long exp) { builder.AddLong(3, exp, 0); }
@@ -485,7 +485,7 @@ public struct CreatureInfo : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(CreatureInfoT _o) {
-    _o.ObjType = this.ObjType;
+    _o.ObjectType = this.ObjectType;
     _o.Oid = this.Oid;
     _o.Level = this.Level;
     _o.Exp = this.Exp;
@@ -500,7 +500,7 @@ public struct CreatureInfo : IFlatbufferObject
     if (_o == null) return default(Offset<Info.CreatureInfo>);
     return CreateCreatureInfo(
       builder,
-      _o.ObjType,
+      _o.ObjectType,
       _o.Oid,
       _o.Level,
       _o.Exp,
@@ -515,7 +515,7 @@ public struct CreatureInfo : IFlatbufferObject
 
 public class CreatureInfoT
 {
-  public Define.ObjectType ObjType { get; set; }
+  public Define.ObjectType ObjectType { get; set; }
   public long Oid { get; set; }
   public byte Level { get; set; }
   public long Exp { get; set; }
@@ -527,7 +527,7 @@ public class CreatureInfoT
   public Info.PositionInfoT PosInfo { get; set; }
 
   public CreatureInfoT() {
-    this.ObjType = Define.ObjectType.PLAYER;
+    this.ObjectType = Define.ObjectType.PLAYER;
     this.Oid = 0;
     this.Level = 0;
     this.Exp = 0;

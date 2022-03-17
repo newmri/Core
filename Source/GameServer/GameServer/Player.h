@@ -2,7 +2,7 @@
 
 class Player : public Creature, public CoreMemoryPoolObj<Player, CORE_BIG_SIZE>
 {
-	OVERRIDE_GAME_OBJ(Player)
+	OVERRIDE_GAME_OBJECT(Player)
 
 public:
 	Player(const int64_t& uid, const std::shared_ptr<CoreClientSession> session,

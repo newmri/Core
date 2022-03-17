@@ -2,7 +2,7 @@
 
 class CoreConsoleLogger : public CoreLogger
 {
-	OVERRIDE_OBJ(CoreConsoleLogger)
+	OVERRIDE_OBJECT(CoreConsoleLogger)
 
 public:
 	virtual void Log(std::string_view logMessage) override;

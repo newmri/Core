@@ -125,7 +125,7 @@
     <ClCompile Include="CoreCSVLoader.cpp" />
     <ClCompile Include="CoreDB.cpp" />
     <ClCompile Include="CoreFileLogger.cpp" />
-    <ClCompile Include="CoreGameObj.cpp" />
+    <ClCompile Include="CoreGameObject.cpp" />
     <ClCompile Include="CoreLoader.cpp" />
     <ClCompile Include="CoreLogger.cpp" />
     <ClCompile Include="CoreServer.cpp" />
@@ -140,7 +140,7 @@
     <ClCompile Include="CoreTimeDelegateManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
     <ClCompile Include="CoreDataTypeManager.cpp" />
-    <ClCompile Include="CoreUIDObj.cpp" />
+    <ClCompile Include="CoreUIDObject.cpp" />
     <ClCompile Include="WorldDB.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +154,7 @@
     <ClInclude Include="CoreDataType.h" />
     <ClInclude Include="CoreDB.h" />
     <ClInclude Include="CoreFileLogger.h" />
-    <ClInclude Include="CoreGameObj.h" />
+    <ClInclude Include="CoreGameObject.h" />
     <ClInclude Include="CoreList.h" />
     <ClInclude Include="CoreList.hpp" />
     <ClInclude Include="CoreLoader.h" />
@@ -187,7 +187,7 @@
     <ClInclude Include="CoreSingletonMacro.h" />
     <ClInclude Include="CoreLogger.h" />
     <ClInclude Include="CoreLogManager.h" />
-    <ClInclude Include="CoreObj.h" />
+    <ClInclude Include="CoreObject.h" />
     <ClInclude Include="CoreSort.h" />
     <ClInclude Include="CoreSort.hpp" />
     <ClInclude Include="CoreStringManager.h" />
@@ -196,7 +196,7 @@
     <ClInclude Include="CoreTimeDelegate.h" />
     <ClInclude Include="CoreTimeDelegateManager.h" />
     <ClInclude Include="CoreTimeManager.h" />
-    <ClInclude Include="CoreUIDObj.h" />
+    <ClInclude Include="CoreUIDObject.h" />
     <ClInclude Include="CoreVector.h" />
     <ClInclude Include="CoreVector.hpp" />
     <ClInclude Include="CoreDataTypeManager.h" />

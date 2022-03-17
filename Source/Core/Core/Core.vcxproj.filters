@@ -16,9 +16,6 @@
     <Filter Include="00.CoreGlobal\00.CoreInclude">
       <UniqueIdentifier>{ec3ca700-be24-472b-a0e6-8e91a2b7d53a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.CoreObj">
-      <UniqueIdentifier>{47d62c0f-0939-4630-8b90-4a2ca7a1697b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="99.CoreTestManager">
       <UniqueIdentifier>{74bf5bce-abd6-4d07-acee-24db258a94ef}</UniqueIdentifier>
     </Filter>
@@ -139,11 +136,14 @@
     <Filter Include="08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader">
       <UniqueIdentifier>{3b266dd1-3037-430f-9483-d8d6394d2799}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.CoreObj\01.CoreGameObj">
-      <UniqueIdentifier>{2b7305a6-e2e6-499a-9ae2-12481957682c}</UniqueIdentifier>
+    <Filter Include="02.CoreObject">
+      <UniqueIdentifier>{47d62c0f-0939-4630-8b90-4a2ca7a1697b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.CoreObj\00.CoreUIDObj">
+    <Filter Include="02.CoreObject\00.CoreUIDObject">
       <UniqueIdentifier>{f9650e8a-1a5e-41b4-a42f-7deb03629a24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.CoreObject\01.CoreGameObject">
+      <UniqueIdentifier>{2b7305a6-e2e6-499a-9ae2-12481957682c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -216,11 +216,11 @@
     <ClCompile Include="CoreCSVMapLoader.cpp">
       <Filter>08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader</Filter>
     </ClCompile>
-    <ClCompile Include="CoreUIDObj.cpp">
-      <Filter>02.CoreObj\00.CoreUIDObj</Filter>
+    <ClCompile Include="CoreUIDObject.cpp">
+      <Filter>02.CoreObject\00.CoreUIDObject</Filter>
     </ClCompile>
-    <ClCompile Include="CoreGameObj.cpp">
-      <Filter>02.CoreObj\01.CoreGameObj</Filter>
+    <ClCompile Include="CoreGameObject.cpp">
+      <Filter>02.CoreObject\01.CoreGameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,8 +251,8 @@
     <ClInclude Include="CoreLogger.h">
       <Filter>03.CoreLogManager\00.CoreLogger</Filter>
     </ClInclude>
-    <ClInclude Include="CoreObj.h">
-      <Filter>02.CoreObj</Filter>
+    <ClInclude Include="CoreObject.h">
+      <Filter>02.CoreObject</Filter>
     </ClInclude>
     <ClInclude Include="CoreLogInclude.h">
       <Filter>03.CoreLogManager\00.CoreLogger</Filter>
@@ -395,11 +395,11 @@
     <ClInclude Include="CoreCSVMapLoader.h">
       <Filter>08.CoreLoadManager\00.CoreLoader\00.CoreCSVLoader\00.CoreCSVMapLoader</Filter>
     </ClInclude>
-    <ClInclude Include="CoreGameObj.h">
-      <Filter>02.CoreObj\01.CoreGameObj</Filter>
+    <ClInclude Include="CoreGameObject.h">
+      <Filter>02.CoreObject\01.CoreGameObject</Filter>
     </ClInclude>
-    <ClInclude Include="CoreUIDObj.h">
-      <Filter>02.CoreObj\00.CoreUIDObj</Filter>
+    <ClInclude Include="CoreUIDObject.h">
+      <Filter>02.CoreObject\00.CoreUIDObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

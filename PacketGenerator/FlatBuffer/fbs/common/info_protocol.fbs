@@ -53,7 +53,7 @@ table MoneyWrapper (native_type:"MoneyT")
 
 table CreatureInfo (native_type:"CreatureInfoT")
 {
-    obj_type:Define.ObjectType;
+    object_type:Define.ObjectType;
     oid:int64;
     level:ubyte;
     exp:int64;

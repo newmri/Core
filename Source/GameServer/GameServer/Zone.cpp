@@ -57,16 +57,16 @@ void Zone::Init(void)
 	SAFE_DELETE_ARRAY(table);
 }
 
-bool Zone::EnterStartPos(const Define::ObjectType objType, const int64_t uid, NativeInfo::Vec2Int& cellPos, const bool checkObjects)
+bool Zone::EnterStartPos(const Define::ObjectType objectType, const int64_t uid, NativeInfo::Vec2Int& cellPos, const bool checkObjects)
 {
-	if (!Enter(objType, uid, this->data.startPos, checkObjects))
+	if (!Enter(objectType, uid, this->data.startPos, checkObjects))
 		return false;
 
 	cellPos = this->data.startPos;
 	return true;
 }
 
-bool Zone::Enter(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
+bool Zone::Enter(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
 {
 	if (!IsValidCellPos(cellPos))
 		return false;
@@ -78,11 +78,11 @@ bool Zone::Enter(const Define::ObjectType objType, const int64_t uid, const Nati
 	if (!CanMove(index, checkObjects))
 		return false;
 
-	_Enter(objType, uid, index);
+	_Enter(objectType, uid, index);
 	return true;
 }
 
-void Zone::_Enter(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& index)
+void Zone::_Enter(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& index)
 {
 	this->data.objects[index.y][index.x] = uid;
 	// 같은 Sector에 있게된 유저들한테 브로드캐스트 필요
@@ -109,7 +109,7 @@ NativeInfo::Vec2Int Zone::IndexToCellPos(const NativeInfo::Vec2Int& index) const
 	return NativeInfo::Vec2Int(index.x + this->data.min.x, this->data.max.y - index.y);
 }
 
-bool Zone::Move(const Define::ObjectType objType, const int64_t uid,
+bool Zone::Move(const Define::ObjectType objectType, const int64_t uid,
 	const NativeInfo::Vec2Int& cellSourcePos, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
 {
 	if (!IsValidCellPos(cellSourcePos) || !IsValidCellPos(cellDestPos))
@@ -123,12 +123,12 @@ bool Zone::Move(const Define::ObjectType objType, const int64_t uid,
 	if (!CanMove(destIndex, checkObjects))
 		return false;
 
-	_Leave(objType, uid, sourceIndex);
-	_Enter(objType, uid, destIndex);
+	_Leave(objectType, uid, sourceIndex);
+	_Enter(objectType, uid, destIndex);
 	return true;
 }
 
-bool Zone::Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& cellPos)
+bool Zone::Leave(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& cellPos)
 {
 	if (!IsValidCellPos(cellPos))
 		return false;
@@ -137,11 +137,11 @@ bool Zone::Leave(const Define::ObjectType objType, const int64_t uid, const Nati
 
 	WRITE_LOCK(this->mutex);
 
-	_Leave(objType, uid, index);
+	_Leave(objectType, uid, index);
 	return true;
 }
 
-void Zone::_Leave(const Define::ObjectType objType, const int64_t uid, const NativeInfo::Vec2Int& index)
+void Zone::_Leave(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& index)
 {
 	this->data.objects[index.y][index.x] = 0;
 	// 같은 Sector에 있던 유저들한테 브로드캐스트 필요

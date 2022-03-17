@@ -10,7 +10,7 @@ void CoreAccount::Init(void)
 
 }
 
-CoreAccount::CoreAccount(const int64_t& uid, const CoreToken& token) : CoreUIDObj(uid), token(token), isLogined(true), maxCharacterSlotCount(0)
+CoreAccount::CoreAccount(const int64_t& uid, const CoreToken& token) : CoreUIDObject(uid), token(token), isLogined(true), maxCharacterSlotCount(0)
 {
 	Init();
 }

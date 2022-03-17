@@ -16,9 +16,9 @@ enum class DisconnectType : size_t
 	SPEED_HACK
 };
 
-class CoreLogger : public CoreObj
+class CoreLogger : public CoreObject
 {
-	OVERRIDE_OBJ(CoreLogger)
+	OVERRIDE_OBJECT(CoreLogger)
 
 private:
 	void MakeLog(const LogType logType);

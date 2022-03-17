@@ -13,9 +13,9 @@ enum DBType
 	Game
 };
 
-class CoreDB : CoreObj
+class CoreDB : CoreObject
 {
-	OVERRIDE_OBJ(CoreDB)
+	OVERRIDE_OBJECT(CoreDB)
 
 public:
 	CoreDB(std::wstring_view dbName);

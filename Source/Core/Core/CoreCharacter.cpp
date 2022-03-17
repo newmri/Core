@@ -10,7 +10,7 @@ void CoreCharacter::Init(void)
 
 }
 
-CoreCharacter::CoreCharacter(const int64_t& accountUID, const int64_t& uid) : accountUID(accountUID), CoreUIDObj(uid)
+CoreCharacter::CoreCharacter(const int64_t& accountUID, const int64_t& uid) : accountUID(accountUID), CoreUIDObject(uid)
 {
 	Init();
 }

@@ -2,7 +2,7 @@
 
 class CoreFileLogger : public CoreLogger
 {
-	OVERRIDE_OBJ(CoreFileLogger)
+	OVERRIDE_OBJECT(CoreFileLogger)
 
 private:
 	void MakeFullPath(void);
