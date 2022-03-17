@@ -30,6 +30,7 @@ public class CreatureManager
 
         MyPlayer.CreatureInfo = MyCreatureInfo;
         MyPlayer.MyCharacterInfo = MyCharacterInfo;
+        MyPlayer.SyncPos();
     }
 
 

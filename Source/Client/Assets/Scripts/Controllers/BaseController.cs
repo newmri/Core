@@ -117,7 +117,6 @@ public class BaseController : MonoBehaviour
 	{
 		
 	}
-
 	void Start()
 	{
 		Init();

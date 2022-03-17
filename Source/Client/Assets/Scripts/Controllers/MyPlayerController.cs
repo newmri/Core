@@ -73,18 +73,6 @@ public class MyPlayerController : PlayerController
 		_gear = GetComponent<GearEquipper>();
 		_uiGameScene = Managers.UI.GetSceneUI<UIGameScene>();
 
-		PositionInfoT pos = new PositionInfoT();
-		pos.MoveDir = Dir.RIGHT;
-		pos.State = CreatureState.IDLE;
-
-		Vector2Int startPos = Managers.Map.StartCellPos;
-		pos.Pos.X = startPos.x;
-		pos.Pos.Y = startPos.y;
-		PosInfo = pos;
-
-		Vector3 newPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.0f, 0.5f);
-		transform.position = newPos;
-
 		RefreshAdditionalStat();
 	}
 
