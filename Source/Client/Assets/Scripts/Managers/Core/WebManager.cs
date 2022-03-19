@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class WebManager : MonoBehaviour
 {
-    public string BaseUrl { get; set; } = "https://localhost:5001/worldlist";
+    public string BaseUrl { get; set; } = "http://localhost:5000/worldlist";
 
     [Obsolete]
     public void SendPostRequest<T>(string url, object obj, Action<T> res)
