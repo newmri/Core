@@ -25,19 +25,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Core2|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -213,6 +213,10 @@
     <Import Project="..\..\CoreTest\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets" Condition="Exists('..\..\CoreTest\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets')" />
     <Import Project="..\..\CoreTest\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets" Condition="Exists('..\..\CoreTest\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets')" />
     <Import Project="..\..\CoreTest\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets" Condition="Exists('..\..\CoreTest\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost.1.78.0\build\boost.targets" Condition="Exists('..\..\LoginServer\packages\boost.1.78.0\build\boost.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -222,5 +226,9 @@
     <Error Condition="!Exists('..\..\CoreTest\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\CoreTest\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets'))" />
     <Error Condition="!Exists('..\..\CoreTest\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\CoreTest\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets'))" />
     <Error Condition="!Exists('..\..\CoreTest\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\CoreTest\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets'))" />
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost.1.78.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost.1.78.0\build\boost.targets'))" />
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets'))" />
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets'))" />
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets'))" />
   </Target>
 </Project>
