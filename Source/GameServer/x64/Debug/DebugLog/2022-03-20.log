@@ -114,3 +114,4 @@
 20:57:36	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
 20:57:36	[LOG_CONNECT]	GameDB is Connected
 20:57:36	[LOG_CONNECT]	AccountDB is Connected
+20:59:06	[LOG_DISCONNECT]	oid(1)	

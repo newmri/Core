@@ -12,7 +12,7 @@ Zone::Zone(const int32_t id) : id(id)
 
 Zone::~Zone()
 {
-
+	SAFE_DELETE_2_ARRAY(this->sectors, this->sectorCount.y);
 }
 
 void Zone::Init(void)
@@ -55,6 +55,31 @@ void Zone::Init(void)
 	}
 
 	SAFE_DELETE_ARRAY(table);
+	InitSector();
+}
+
+void Zone::InitSector(void)
+{
+	// 1~40칸 = 1Sector
+	// 41~60칸 = 2Sector
+	this->sectorCount.x = (this->data.size.x + this->SectorCells - 1) / this->SectorCells;
+	this->sectorCount.y = (this->data.size.y + this->SectorCells - 1) / this->SectorCells;
+
+	std::cout << this->sectorCount.x << std::endl;
+	std::cout << this->sectorCount.y << std::endl;
+
+	this->sectors = new Sector*[this->sectorCount.y];
+	for (int32_t i = 0; i < this->sectorCount.y; ++i)
+		this->sectors[i] = new Sector[this->sectorCount.x];
+
+	NativeInfo::Vec2Int index;
+	for (; index.y < this->sectorCount.y; ++index.y)
+	{
+		for (index.x = 0; this->sectorCount.x < this->sectorCount.x; ++index.x)
+		{
+			this->sectors[index.y][index.x].SetIndex(index);
+		}
+	}
 }
 
 bool Zone::EnterStartPos(const Define::ObjectType objectType, const int64_t uid, NativeInfo::Vec2Int& cellPos, const bool checkObjects)
@@ -85,7 +110,9 @@ bool Zone::Enter(const Define::ObjectType objectType, const int64_t uid, const N
 void Zone::_Enter(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& index)
 {
 	this->data.objects[index.y][index.x] = uid;
+
 	// 같은 Sector에 있게된 유저들한테 브로드캐스트 필요
+	Sector* sector = GetSector(index);
 }
 
 bool Zone::CanMove(const NativeInfo::Vec2Int& index, const bool checkObjects = false) const
@@ -107,6 +134,11 @@ NativeInfo::Vec2Int Zone::CellPosToIndex(const NativeInfo::Vec2Int& cellPos) con
 NativeInfo::Vec2Int Zone::IndexToCellPos(const NativeInfo::Vec2Int& index) const
 {
 	return NativeInfo::Vec2Int(index.x + this->data.min.x, this->data.max.y - index.y);
+}
+
+Sector* Zone::GetSector(const NativeInfo::Vec2Int& index)
+{
+	return &this->sectors[index.y / this->SectorCells][index.x / this->SectorCells];
 }
 
 bool Zone::Move(const Define::ObjectType objectType, const int64_t uid,
