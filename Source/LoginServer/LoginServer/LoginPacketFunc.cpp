@@ -1,14 +1,5 @@
 #include "Include.h"
 
-thread_local flatbuffers::FlatBufferBuilder LoginPacketFunc::builder;
-
-void LoginPacketFunc::Write(std::shared_ptr<CoreClientSession> session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet)
-{
-	auto data = LoginPacket::CreateRoot(builder, packetType, packet);
-	builder.Finish(data);
-	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
-}
-
 void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	auto raw = static_cast<const LoginPacket::CS_LOGIN_REQ*>(data);
@@ -49,7 +40,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		}
 	}
 
-	this->builder.Clear();
+	PACKET_SEND_MANAGER.builder.Clear();
 
 	flatbuffers::Offset<LoginPacket::SC_LOGIN_RES> message;
 
@@ -73,16 +64,16 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 			for (int i = 0; i < size; ++i)
 			{
 				account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), infoList[i].uid, infoList[i]));
-				sendList.push_back(LoginPacket::CharacterInfo::Pack(this->builder, &infoList[i]));
+				sendList.push_back(LoginPacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &infoList[i]));
 			}
 
-			message = LoginPacket::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot,
-													  emptyCharacterSlotCount, this->builder.CreateVector(sendList));
+			message = LoginPacket::CreateSC_LOGIN_RES(PACKET_SEND_MANAGER.builder, result, Define::CharacterLimit_MaxCharacterSlot,
+													  emptyCharacterSlotCount, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
 		}
 
 		else
 		{
-			message = LoginPacket::CreateSC_LOGIN_RES(this->builder, result, Define::CharacterLimit_MaxCharacterSlot, emptyCharacterSlotCount);
+			message = LoginPacket::CreateSC_LOGIN_RES(PACKET_SEND_MANAGER.builder, result, Define::CharacterLimit_MaxCharacterSlot, emptyCharacterSlotCount);
 		}
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
@@ -92,16 +83,16 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	}
 	// ½ÇÆÐ
 	else
-		message = LoginPacket::CreateSC_LOGIN_RES(this->builder, result);
+		message = LoginPacket::CreateSC_LOGIN_RES(PACKET_SEND_MANAGER.builder, result);
 	
-	Write(session, LoginPacket::Packet_SC_LOGIN_RES, message.Union());
+	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_LOGIN_RES, message.Union());
 }
 
 void LoginPacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 {
-	builder.Clear();
-	auto message = LoginPacket::CreateSC_PING_REQ(builder);
-	Write(session, LoginPacket::Packet_SC_PING_REQ, message.Union());
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto message = LoginPacket::CreateSC_PING_REQ(PACKET_SEND_MANAGER.builder);
+	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_PING_REQ, message.Union());
 
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
@@ -145,7 +136,7 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), wName, info);
 
-	this->builder.Clear();
+	PACKET_SEND_MANAGER.builder.Clear();
 
 	flatbuffers::Offset<LoginPacket::SC_CREATE_CHARACTER_RES> message;
 
@@ -153,14 +144,14 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	{
 		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), info.uid, info));
 		
-		auto packedInfo = LoginPacket::CharacterInfo::Pack(this->builder, &info);
+		auto packedInfo = LoginPacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &info);
 
-		message = LoginPacket::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess, packedInfo);
+		message = LoginPacket::CreateSC_CREATE_CHARACTER_RES(PACKET_SEND_MANAGER.builder, isSuccess, packedInfo);
 	}
 	else
 	{
-		message = LoginPacket::CreateSC_CREATE_CHARACTER_RES(this->builder, isSuccess);
+		message = LoginPacket::CreateSC_CREATE_CHARACTER_RES(PACKET_SEND_MANAGER.builder, isSuccess);
 	}
 
-	Write(session, LoginPacket::Packet_SC_CREATE_CHARACTER_RES, message.Union());
+	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_CREATE_CHARACTER_RES, message.Union());
 }

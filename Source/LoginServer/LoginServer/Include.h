@@ -5,6 +5,7 @@
 #include "login_protocol_generated.h"
 #include "CharacterData.h"
 #include "DataManager.h"
+#include "PacketSendManager.h"
 #include "LoginPacketFunc.h"
 #include "LoginPacketHandler.h"
 #include "Character.h"
