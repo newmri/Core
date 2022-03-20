@@ -5,6 +5,7 @@
 #include "game_protocol_generated.h"
 #include "CharacterData.h"
 #include "CharacterDataManager.h"
+#include "PacketSendManager.h"
 #include "GamePacketFunc.h"
 #include "GamePacketHandler.h"
 #include "Creature.h"

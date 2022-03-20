@@ -42,6 +42,12 @@ class GamePacketHandler
         Debug.Log("PingCheck");
         Managers.GameNetwork.Send(Packet.CS_PING_RES);
     }
+
+    public static void SC_MOVE_RES(PacketSession session, Root packet)
+    {
+        SC_MOVE_RES moveRes = packet.PacketAsSC_MOVE_RES();
+        Debug.Log(moveRes.ObjectId + " Is Moving");
+    }
 }
 
 

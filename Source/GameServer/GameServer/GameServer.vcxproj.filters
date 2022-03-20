@@ -14,10 +14,10 @@
       <Filter>03.Packet\01.GameServer</Filter>
     </ClCompile>
     <ClCompile Include="GamePacketHandler.cpp">
-      <Filter>03.Packet\02.GamePacketHandler</Filter>
+      <Filter>03.Packet\03.GamePacketHandler</Filter>
     </ClCompile>
     <ClCompile Include="GamePacketFunc.cpp">
-      <Filter>03.Packet\03.GamePacketFunc</Filter>
+      <Filter>03.Packet\04.GamePacketFunc</Filter>
     </ClCompile>
     <ClCompile Include="AccountDB.cpp">
       <Filter>06.DB\00.AccountDB</Filter>
@@ -46,6 +46,9 @@
     <ClCompile Include="Zone.cpp">
       <Filter>05.Map\00.Zone</Filter>
     </ClCompile>
+    <ClCompile Include="PacketSendManager.cpp">
+      <Filter>03.Packet\02.PacketSendManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include.h">
@@ -67,10 +70,10 @@
       <Filter>03.Packet\01.GameServer</Filter>
     </ClInclude>
     <ClInclude Include="GamePacketHandler.h">
-      <Filter>03.Packet\02.GamePacketHandler</Filter>
+      <Filter>03.Packet\03.GamePacketHandler</Filter>
     </ClInclude>
     <ClInclude Include="GamePacketFunc.h">
-      <Filter>03.Packet\03.GamePacketFunc</Filter>
+      <Filter>03.Packet\04.GamePacketFunc</Filter>
     </ClInclude>
     <ClInclude Include="AccountDB.h">
       <Filter>06.DB\00.AccountDB</Filter>
@@ -108,6 +111,9 @@
     <ClInclude Include="MapData.h">
       <Filter>05.Map\00.Zone</Filter>
     </ClInclude>
+    <ClInclude Include="PacketSendManager.h">
+      <Filter>03.Packet\02.PacketSendManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -130,12 +136,6 @@
     </Filter>
     <Filter Include="03.Packet\01.GameServer">
       <UniqueIdentifier>{d04b4ac6-466f-4e67-ab7c-3397fa6ac4c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.Packet\02.GamePacketHandler">
-      <UniqueIdentifier>{f7bb20f2-0070-46a4-b4bc-6df0a545c833}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.Packet\03.GamePacketFunc">
-      <UniqueIdentifier>{b182d951-831d-42c7-ab51-edcf79a5a422}</UniqueIdentifier>
     </Filter>
     <Filter Include="04.Creature">
       <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
@@ -163,6 +163,15 @@
     </Filter>
     <Filter Include="05.Map\00.Zone">
       <UniqueIdentifier>{6be3a983-8cec-40bf-9908-f736d8a18617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Packet\03.GamePacketHandler">
+      <UniqueIdentifier>{f7bb20f2-0070-46a4-b4bc-6df0a545c833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Packet\04.GamePacketFunc">
+      <UniqueIdentifier>{b182d951-831d-42c7-ab51-edcf79a5a422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Packet\02.PacketSendManager">
+      <UniqueIdentifier>{4399bbc9-a228-445f-8deb-edfbd48a1d1f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

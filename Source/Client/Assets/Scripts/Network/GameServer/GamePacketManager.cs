@@ -25,6 +25,7 @@ class GamePacketManager
 	{
        _handler.Add(Packet.SC_LOGIN_RES, GamePacketHandler.SC_LOGIN_RES);
        _handler.Add(Packet.SC_PING_REQ, GamePacketHandler.SC_PING_REQ);
+       _handler.Add(Packet.SC_MOVE_RES, GamePacketHandler.SC_MOVE_RES);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

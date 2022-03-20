@@ -16,7 +16,9 @@ union Packet
     SC_LOGIN_RES,
     SC_PING_REQ,
     CS_PING_RES,
-    CS_LOGOUT_NOTI
+    CS_LOGOUT_NOTI,
+    CS_MOVE_REQ,
+    SC_MOVE_RES
 }
 
 table CS_LOGIN_REQ
@@ -52,6 +54,17 @@ table CS_PING_RES
 
 table CS_LOGOUT_NOTI
 {
+}
+
+table CS_MOVE_REQ
+{
+    pos_info:Info.PositionInfo (native_inline);
+}
+
+table SC_MOVE_RES
+{
+    object_id:int64;
+    pos_info:Info.PositionInfo (native_inline);
 }
 
 table Root

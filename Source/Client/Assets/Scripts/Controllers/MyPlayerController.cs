@@ -5,6 +5,7 @@ using Define;
 using Info;
 using UnityCoreLibrary;
 using GamePacket;
+using FlatBuffers;
 
 public class MyPlayerController : PlayerController
 {
@@ -222,29 +223,20 @@ public class MyPlayerController : PlayerController
 		if (Managers.Map.CanMove(destPos))
         {
 			CellPos = destPos;
+			CheckUpdatedFlag();
 		}
-
-        CheckUpdatedFlag();
 	}
 
 	protected override void CheckUpdatedFlag()
 	{
 		if (_updated)
 		{
-			//C_Move movePacket = new C_Move();
-			//movePacket.PosInfo = PosInfo;
-			//Managers.Network.Send(movePacket);
+			FlatBufferBuilder builder = new FlatBufferBuilder(1);
+			CS_MOVE_REQT moveReq = new CS_MOVE_REQT();
+			moveReq.PosInfo = PosInfo;
+			var message = CS_MOVE_REQ.Pack(builder, moveReq);
+			Managers.GameNetwork.Send(builder, Packet.CS_MOVE_REQ, message.Value);
 			_updated = false;
-			PositionInfoT pos = new PositionInfoT();
-			pos.Pos.X = CellPos.x;
-			pos.Pos.Y = CellPos.y;
-			if (_isRunning)
-				pos.State = CreatureState.RUN;
-			else
-				pos.State = CreatureState.WALK;
-
-			pos.MoveDir = Dir;
-			PosInfo = pos;
 		}
 	}
 

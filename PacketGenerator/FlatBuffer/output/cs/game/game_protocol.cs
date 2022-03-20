@@ -24,6 +24,8 @@ public enum Packet : byte
   SC_PING_REQ = 3,
   CS_PING_RES = 4,
   CS_LOGOUT_NOTI = 5,
+  CS_MOVE_REQ = 6,
+  SC_MOVE_RES = 7,
 };
 
 public class PacketUnion {
@@ -41,6 +43,8 @@ public class PacketUnion {
   public GamePacket.SC_PING_REQT AsSC_PING_REQ() { return this.As<GamePacket.SC_PING_REQT>(); }
   public GamePacket.CS_PING_REST AsCS_PING_RES() { return this.As<GamePacket.CS_PING_REST>(); }
   public GamePacket.CS_LOGOUT_NOTIT AsCS_LOGOUT_NOTI() { return this.As<GamePacket.CS_LOGOUT_NOTIT>(); }
+  public GamePacket.CS_MOVE_REQT AsCS_MOVE_REQ() { return this.As<GamePacket.CS_MOVE_REQT>(); }
+  public GamePacket.SC_MOVE_REST AsSC_MOVE_RES() { return this.As<GamePacket.SC_MOVE_REST>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -50,6 +54,8 @@ public class PacketUnion {
       case Packet.SC_PING_REQ: return GamePacket.SC_PING_REQ.Pack(builder, _o.AsSC_PING_REQ()).Value;
       case Packet.CS_PING_RES: return GamePacket.CS_PING_RES.Pack(builder, _o.AsCS_PING_RES()).Value;
       case Packet.CS_LOGOUT_NOTI: return GamePacket.CS_LOGOUT_NOTI.Pack(builder, _o.AsCS_LOGOUT_NOTI()).Value;
+      case Packet.CS_MOVE_REQ: return GamePacket.CS_MOVE_REQ.Pack(builder, _o.AsCS_MOVE_REQ()).Value;
+      case Packet.SC_MOVE_RES: return GamePacket.SC_MOVE_RES.Pack(builder, _o.AsSC_MOVE_RES()).Value;
     }
   }
 }
@@ -389,6 +395,107 @@ public class CS_LOGOUT_NOTIT
   }
 }
 
+public struct CS_MOVE_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_MOVE_REQ GetRootAsCS_MOVE_REQ(ByteBuffer _bb) { return GetRootAsCS_MOVE_REQ(_bb, new CS_MOVE_REQ()); }
+  public static CS_MOVE_REQ GetRootAsCS_MOVE_REQ(ByteBuffer _bb, CS_MOVE_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_MOVE_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+
+  public static void StartCS_MOVE_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(0, posInfoOffset.Value, 0); }
+  public static Offset<GamePacket.CS_MOVE_REQ> EndCS_MOVE_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CS_MOVE_REQ>(o);
+  }
+  public CS_MOVE_REQT UnPack() {
+    var _o = new CS_MOVE_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_MOVE_REQT _o) {
+    _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
+  }
+  public static Offset<GamePacket.CS_MOVE_REQ> Pack(FlatBufferBuilder builder, CS_MOVE_REQT _o) {
+    if (_o == null) return default(Offset<GamePacket.CS_MOVE_REQ>);
+    StartCS_MOVE_REQ(builder);
+    AddPosInfo(builder, Info.PositionInfo.Pack(builder, _o.PosInfo));
+    return EndCS_MOVE_REQ(builder);
+  }
+};
+
+public class CS_MOVE_REQT
+{
+  public Info.PositionInfoT PosInfo { get; set; }
+
+  public CS_MOVE_REQT() {
+    this.PosInfo = new Info.PositionInfoT();
+  }
+}
+
+public struct SC_MOVE_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_MOVE_RES GetRootAsSC_MOVE_RES(ByteBuffer _bb) { return GetRootAsSC_MOVE_RES(_bb, new SC_MOVE_RES()); }
+  public static SC_MOVE_RES GetRootAsSC_MOVE_RES(ByteBuffer _bb, SC_MOVE_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_MOVE_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public long ObjectId { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(6); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+
+  public static Offset<GamePacket.SC_MOVE_RES> CreateSC_MOVE_RES(FlatBufferBuilder builder,
+      long object_id = 0,
+      Info.PositionInfoT pos_info = null) {
+    builder.StartTable(2);
+    SC_MOVE_RES.AddObjectId(builder, object_id);
+    SC_MOVE_RES.AddPosInfo(builder, Info.PositionInfo.Pack(builder, pos_info));
+    return SC_MOVE_RES.EndSC_MOVE_RES(builder);
+  }
+
+  public static void StartSC_MOVE_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddObjectId(FlatBufferBuilder builder, long objectId) { builder.AddLong(0, objectId, 0); }
+  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(1, posInfoOffset.Value, 0); }
+  public static Offset<GamePacket.SC_MOVE_RES> EndSC_MOVE_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_MOVE_RES>(o);
+  }
+  public SC_MOVE_REST UnPack() {
+    var _o = new SC_MOVE_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_MOVE_REST _o) {
+    _o.ObjectId = this.ObjectId;
+    _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
+  }
+  public static Offset<GamePacket.SC_MOVE_RES> Pack(FlatBufferBuilder builder, SC_MOVE_REST _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_MOVE_RES>);
+    return CreateSC_MOVE_RES(
+      builder,
+      _o.ObjectId,
+      _o.PosInfo);
+  }
+};
+
+public class SC_MOVE_REST
+{
+  public long ObjectId { get; set; }
+  public Info.PositionInfoT PosInfo { get; set; }
+
+  public SC_MOVE_REST() {
+    this.ObjectId = 0;
+    this.PosInfo = new Info.PositionInfoT();
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -406,6 +513,8 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_PING_REQ PacketAsSC_PING_REQ() { return Packet<GamePacket.SC_PING_REQ>().Value; }
   public GamePacket.CS_PING_RES PacketAsCS_PING_RES() { return Packet<GamePacket.CS_PING_RES>().Value; }
   public GamePacket.CS_LOGOUT_NOTI PacketAsCS_LOGOUT_NOTI() { return Packet<GamePacket.CS_LOGOUT_NOTI>().Value; }
+  public GamePacket.CS_MOVE_REQ PacketAsCS_MOVE_REQ() { return Packet<GamePacket.CS_MOVE_REQ>().Value; }
+  public GamePacket.SC_MOVE_RES PacketAsSC_MOVE_RES() { return Packet<GamePacket.SC_MOVE_RES>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -449,6 +558,12 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.CS_LOGOUT_NOTI:
         _o.Packet.Value = this.Packet<GamePacket.CS_LOGOUT_NOTI>().HasValue ? this.Packet<GamePacket.CS_LOGOUT_NOTI>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.CS_MOVE_REQ:
+        _o.Packet.Value = this.Packet<GamePacket.CS_MOVE_REQ>().HasValue ? this.Packet<GamePacket.CS_MOVE_REQ>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_MOVE_RES:
+        _o.Packet.Value = this.Packet<GamePacket.SC_MOVE_RES>().HasValue ? this.Packet<GamePacket.SC_MOVE_RES>().Value.UnPack() : null;
         break;
     }
   }

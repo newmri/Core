@@ -1,14 +1,5 @@
 #include "Include.h"
 
-thread_local flatbuffers::FlatBufferBuilder GamePacketFunc::builder;
-
-void GamePacketFunc::Write(std::shared_ptr<CoreClientSession> session, GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
-{
-	auto data = GamePacket::CreateRoot(builder, packetType, packet);
-	builder.Finish(data);
-	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
-}
-
 void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	auto raw = static_cast<const GamePacket::CS_LOGIN_REQ*>(data);
@@ -49,7 +40,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		}
 	}
 
-	this->builder.Clear();
+	PACKET_SEND_MANAGER.builder.Clear();
 
 	flatbuffers::Offset<GamePacket::SC_LOGIN_RES> message;
 
@@ -77,11 +68,11 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 			account->PushMoney(money.value.value[i]);
 #pragma endregion 재화 로드
 
-		auto packedCreatureInfo = Info::CreatureInfo::Pack(this->builder, &creatureInfo);
-		auto packedCharacterInfo = GamePacket::MyCharacterInfo::Pack(this->builder, &characterInfo);
-		auto packedMoney = Info::MoneyWrapper::Pack(this->builder, &money);
+		auto packedCreatureInfo = Info::CreatureInfo::Pack(PACKET_SEND_MANAGER.builder, &creatureInfo);
+		auto packedCharacterInfo = GamePacket::MyCharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &characterInfo);
+		auto packedMoney = Info::MoneyWrapper::Pack(PACKET_SEND_MANAGER.builder, &money);
 
-		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result, packedCreatureInfo, packedCharacterInfo, packedMoney);
+		message = GamePacket::CreateSC_LOGIN_RES(PACKET_SEND_MANAGER.builder, result, packedCreatureInfo, packedCharacterInfo, packedMoney);
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(
@@ -90,16 +81,16 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 	}
 	// 실패
 	else
-		message = GamePacket::CreateSC_LOGIN_RES(this->builder, result);
+		message = GamePacket::CreateSC_LOGIN_RES(PACKET_SEND_MANAGER.builder, result);
 	
-	Write(session, GamePacket::Packet_SC_LOGIN_RES, message.Union());
+	PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_SC_LOGIN_RES, message.Union());
 }
 
 void GamePacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 {
-	builder.Clear();
-	auto message = GamePacket::CreateSC_PING_REQ(builder);
-	Write(session, GamePacket::Packet_SC_PING_REQ, message.Union());
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto message = GamePacket::CreateSC_PING_REQ(PACKET_SEND_MANAGER.builder);
+	PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_SC_PING_REQ, message.Union());
 
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
@@ -115,4 +106,14 @@ void GamePacketFunc::CS_PING_RES(std::shared_ptr<CoreClientSession> session, con
 void GamePacketFunc::CS_LOGOUT_NOTI(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	GAME_SERVER.Close(session);
+}
+
+void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto player = CREATURE_MANAGER.FindPlayer(session->GetOID());
+	if (IS_NULL(player))
+		return;
+
+	auto raw = static_cast<const GamePacket::CS_MOVE_REQ*>(data);
+	ZONE_MANAGER.Move(player->GetMapID(), player->GetObjectType(), player->GetOID(), player->GetPos(), raw->UnPack()->pos_info.pos);
 }
