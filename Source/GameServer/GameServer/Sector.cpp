@@ -30,7 +30,7 @@ void Sector::Add(std::shared_ptr<Creature> creature)
 	switch (objectType)
 	{
 	case Define::ObjectType_PLAYER:
-		this->playerList[creature->GetOID()] = dynamic_cast<Player*>(creature.get())->shared_from_this();
+		this->playerList[creature->GetOID()] = std::dynamic_pointer_cast<Player>(creature);
 		break;
 	default:
 		break;

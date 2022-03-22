@@ -11,11 +11,11 @@ private:
 	void InitSector(void);
 
 public:
-	bool EnterStartPos(const Define::ObjectType objectType, const int64_t uid, NativeInfo::Vec2Int& cellPos, const bool checkObjects);
-	bool Enter(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& cellPos, const bool checkObjects);
+	bool EnterStartPos(std::shared_ptr<Creature> creature, const bool checkObjects);
+	bool Enter(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& cellPos, const bool checkObjects);
 
 private:
-	void _Enter(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& index);
+	void _Enter(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index);
 
 protected:
 	bool CanMove(const NativeInfo::Vec2Int& index, const bool checkObjects) const;
@@ -25,14 +25,13 @@ protected:
 	Sector* GetSector(const NativeInfo::Vec2Int& index);
 
 public:
-	bool Move(const Define::ObjectType objectType, const int64_t uid,
-		const NativeInfo::Vec2Int& cellSourcePos, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects);
+	bool Move(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects);
 
 public:
-	bool Leave(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& cellPos);
+	bool Leave(std::shared_ptr<Creature> creature);
 
 private:
-	void _Leave(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& index);
+	void _Leave(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index);
 
 private:
 	int32_t id;

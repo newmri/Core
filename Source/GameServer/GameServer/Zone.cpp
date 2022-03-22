@@ -65,8 +65,8 @@ void Zone::InitSector(void)
 	this->sectorCount.x = (this->data.size.x + this->SectorCells - 1) / this->SectorCells;
 	this->sectorCount.y = (this->data.size.y + this->SectorCells - 1) / this->SectorCells;
 
-	std::cout << this->sectorCount.x << std::endl;
-	std::cout << this->sectorCount.y << std::endl;
+	//std::cout << this->sectorCount.x << std::endl;
+	//std::cout << this->sectorCount.y << std::endl;
 
 	this->sectors = new Sector*[this->sectorCount.y];
 	for (int32_t i = 0; i < this->sectorCount.y; ++i)
@@ -82,37 +82,39 @@ void Zone::InitSector(void)
 	}
 }
 
-bool Zone::EnterStartPos(const Define::ObjectType objectType, const int64_t uid, NativeInfo::Vec2Int& cellPos, const bool checkObjects)
+bool Zone::EnterStartPos(std::shared_ptr<Creature> creature, const bool checkObjects)
 {
-	if (!Enter(objectType, uid, this->data.startPos, checkObjects))
+	if (!Enter(creature, this->data.startPos, checkObjects))
 		return false;
 
-	cellPos = this->data.startPos;
+	creature->SetPos(this->data.startPos);
 	return true;
 }
 
-bool Zone::Enter(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
+bool Zone::Enter(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
 {
 	if (!IsValidCellPos(cellPos))
 		return false;
 
 	NativeInfo::Vec2Int index = CellPosToIndex(cellPos);
 
+	Sector* sector = GetSector(index);
+
 	WRITE_LOCK(this->mutex);
 
 	if (!CanMove(index, checkObjects))
 		return false;
 
-	_Enter(objectType, uid, index);
+	_Enter(creature, sector, index);
 	return true;
 }
 
-void Zone::_Enter(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& index)
+void Zone::_Enter(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	this->data.objects[index.y][index.x] = uid;
+	this->data.objects[index.y][index.x] = creature->GetOID();
 
 	// 같은 Sector에 있게된 유저들한테 브로드캐스트 필요
-	Sector* sector = GetSector(index);
+	sector->Add(creature);
 }
 
 bool Zone::CanMove(const NativeInfo::Vec2Int& index, const bool checkObjects = false) const
@@ -141,40 +143,51 @@ Sector* Zone::GetSector(const NativeInfo::Vec2Int& index)
 	return &this->sectors[index.y / this->SectorCells][index.x / this->SectorCells];
 }
 
-bool Zone::Move(const Define::ObjectType objectType, const int64_t uid,
-	const NativeInfo::Vec2Int& cellSourcePos, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
+bool Zone::Move(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
 {
+	NativeInfo::Vec2Int cellSourcePos = creature->GetPos();
 	if (!IsValidCellPos(cellSourcePos) || !IsValidCellPos(cellDestPos))
 		return false;
 
 	NativeInfo::Vec2Int sourceIndex = CellPosToIndex(cellSourcePos);
 	NativeInfo::Vec2Int destIndex = CellPosToIndex(cellDestPos);
 
+	Sector* sourceSector = GetSector(sourceIndex);
+	Sector* destSector = GetSector(destIndex);
+
 	WRITE_LOCK(this->mutex);
 
 	if (!CanMove(destIndex, checkObjects))
 		return false;
 
-	_Leave(objectType, uid, sourceIndex);
-	_Enter(objectType, uid, destIndex);
+	creature->SetPos(cellDestPos);
+
+	if (sourceSector != destSector)
+	{
+		_Leave(creature, sourceSector, sourceIndex);
+		_Enter(creature, destSector, destIndex);
+	}
+
 	return true;
 }
 
-bool Zone::Leave(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& cellPos)
+bool Zone::Leave(std::shared_ptr<Creature> creature)
 {
-	if (!IsValidCellPos(cellPos))
+	if (!IsValidCellPos(creature->GetPos()))
 		return false;
 
-	NativeInfo::Vec2Int index = CellPosToIndex(cellPos);
+	NativeInfo::Vec2Int index = CellPosToIndex(creature->GetPos());
 
+	Sector* sector = GetSector(index);
 	WRITE_LOCK(this->mutex);
 
-	_Leave(objectType, uid, index);
+	_Leave(creature, sector, index);
 	return true;
 }
 
-void Zone::_Leave(const Define::ObjectType objectType, const int64_t uid, const NativeInfo::Vec2Int& index)
+void Zone::_Leave(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index)
 {
 	this->data.objects[index.y][index.x] = 0;
 	// 같은 Sector에 있던 유저들한테 브로드캐스트 필요
+	sector->Remove(creature->GetObjectType(), creature->GetOID());
 }

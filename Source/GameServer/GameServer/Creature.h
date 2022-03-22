@@ -14,6 +14,9 @@ public:
 	NativeInfo::Vec2Int GetPos(void) const;
 
 public:
+	void SetPos(const NativeInfo::Vec2Int& pos);
+
+public:
 	void CalculateAbility(void);
 
 protected:

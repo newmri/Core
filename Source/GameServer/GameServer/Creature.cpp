@@ -40,6 +40,11 @@ NativeInfo::Vec2Int Creature::GetPos(void) const
 	return this->creatureInfo.pos_info.pos;
 }
 
+void Creature::SetPos(const NativeInfo::Vec2Int& pos)
+{
+	this->creatureInfo.pos_info.pos = pos;
+}
+
 void Creature::CalculateAbility(void)
 {
 	WRITE_LOCK(this->abilityMutex);

@@ -115,5 +115,5 @@ void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, con
 		return;
 
 	auto raw = static_cast<const GamePacket::CS_MOVE_REQ*>(data);
-	ZONE_MANAGER.Move(player->GetMapID(), player->GetObjectType(), player->GetOID(), player->GetPos(), raw->UnPack()->pos_info.pos);
+	ZONE_MANAGER.Move(player, raw->UnPack()->pos_info.pos);
 }
