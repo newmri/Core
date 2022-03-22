@@ -17,6 +17,7 @@ union Packet
     SC_PING_REQ,
     CS_PING_RES,
     CS_LOGOUT_NOTI,
+    SC_SPAWN_PLAYER_NOTI,
     CS_MOVE_REQ,
     SC_MOVE_RES
 }
@@ -28,12 +29,25 @@ table CS_LOGIN_REQ
     token:int32;
 }
 
+table CharacterInfo (native_type:"CharacterInfoT")
+{
+    name:string;
+    job:Define.Job;
+    gear:Info.CharacterGear (native_inline);
+}
+
 table MyCharacterInfo (native_type:"MyCharacterInfoT")
 {
     name:string;
     job:Define.Job;
-    bonus_stat:int32;
     gear:Info.CharacterGear (native_inline);
+    bonus_stat:int32;
+}
+
+union CharacterInfoBase
+{
+    CharacterInfo,
+    MyCharacterInfo
 }
 
 table SC_LOGIN_RES
@@ -54,6 +68,12 @@ table CS_PING_RES
 
 table CS_LOGOUT_NOTI
 {
+}
+
+table SC_SPAWN_PLAYER_NOTI
+{
+    creature_info:Info.CreatureInfo;
+    character_info:CharacterInfo;
 }
 
 table CS_MOVE_REQ

@@ -25,6 +25,8 @@ void Sector::Add(std::shared_ptr<Creature> creature)
 	if (IS_NULL(creature))
 		return;
 
+	SendSpawnPacket(creature);
+
 	Define::ObjectType objectType = creature->GetObjectType();
 
 	switch (objectType)
@@ -46,6 +48,24 @@ void Sector::Remove(const Define::ObjectType objectType, const int64_t oid)
 		break;
 	default:
 		break;
+	}
+}
+
+void Sector::SendSpawnPacket(std::shared_ptr<Creature> creature)
+{
+	GamePacket::Packet packetType;
+	flatbuffers::Offset<void> packet;
+	creature->MakeSpawnPacket(packetType, packet);
+	Send(packetType, packet);
+}
+
+void Sector::Send(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+{
+	auto iter_begin = this->playerList.begin();
+	auto iter_end = this->playerList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		(iter_begin->second)->Send(packetType, packet);
 	}
 }
 

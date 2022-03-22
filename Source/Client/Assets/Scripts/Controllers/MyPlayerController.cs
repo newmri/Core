@@ -40,27 +40,22 @@ public class MyPlayerController : PlayerController
 		}
 	}
 
-	[SerializeField]
-	MyCharacterInfoT _myCharacterInfo = new MyCharacterInfoT();
-	GearEquipper _gear;
-
 	public MyCharacterInfoT MyCharacterInfo
 	{
 		get
 		{
-			return _myCharacterInfo;
+			return _characterInfo.AsMyCharacterInfo();
 		}
 		set
 		{
-			if (_myCharacterInfo.Equals(value))
+			if (_characterInfo != null && _characterInfo.Value.Equals(value))
 				return;
 
-			_myCharacterInfo = value;
+			_characterInfo.Value = value;
 
+			_gear.Job = CharacterInfo.Job;
+			_gear.SetGear(CharacterInfo.Gear);
 			_uiGameScene.UpdateCharacterInfo(MyCharacterInfo.Name, CreatureInfo.Level, MyCharacterInfo.Job);
-
-			_gear.Job = MyCharacterInfo.Job;
-			_gear.SetGear(MyCharacterInfo.Gear);
 		}
 	}
 
@@ -71,7 +66,6 @@ public class MyPlayerController : PlayerController
 	protected override void Init()
 	{
 		base.Init();
-		_gear = GetComponent<GearEquipper>();
 		_uiGameScene = Managers.UI.GetSceneUI<UIGameScene>();
 
 		RefreshAdditionalStat();

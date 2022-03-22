@@ -11,12 +11,12 @@ public class CreatureManager
     public MyCharacterInfoT MyCharacterInfo { get; set; }
     public MyPlayerController MyPlayer { get; set; }
 
-    Dictionary<long, GameObject> _objects = new Dictionary<long, GameObject>();
+    Dictionary<long, PlayerController> _playerList = new Dictionary<long, PlayerController>();
 
     public void AddMyPlayer()
     {
         GameObject gameObject = CoreManagers.Obj.Add("Character", "MyCharacter");
-        MyPlayer = gameObject.GetComponent<MyPlayerController>();
+        MyPlayer = gameObject.GetOrAddComponent<MyPlayerController>();
         CoreManagers.Coroutine.Add(MyPlayerSetInfoDelay());
     }
 
@@ -33,14 +33,25 @@ public class CreatureManager
         MyPlayer.SyncPos();
     }
 
+    public void AddPlayer(CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
+    {
+        GameObject gameObject = CoreManagers.Obj.Add("Character", "Character");
+        PlayerController playerController = gameObject.GetOrAddComponent<PlayerController>();
+        CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, creatureInfo, characterInfo));
+    }
 
-    //public void Add(CharacterInfoT info)
-    //{
-    //    _characterList.Add(info.Uid, info);
-    //}
+    // Player Init이 끝났을 때 까지 대기
+    IEnumerator PlayerSetInfoDelay(PlayerController playerController, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
+    {
+        yield return new WaitForEndOfFrame();
 
-    //public void Remove(long uid)
-    //{
-    //    _characterList.Remove(uid);
-    //}
+        playerController.CreatureInfo = creatureInfo;
+        playerController.CharacterInfo = characterInfo;
+        playerController.SyncPos();
+    }
+
+    public void Remove(long oid)
+    {
+        _playerList.Remove(oid);
+    }
 }

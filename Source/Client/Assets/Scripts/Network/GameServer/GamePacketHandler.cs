@@ -43,6 +43,12 @@ class GamePacketHandler
         Managers.GameNetwork.Send(Packet.CS_PING_RES);
     }
 
+    public static void SC_SPAWN_PLAYER_NOTI(PacketSession session, Root packet)
+    {
+        SC_SPAWN_PLAYER_NOTI spawnNoti = packet.PacketAsSC_SPAWN_PLAYER_NOTI();
+        Managers.Creature.AddPlayer(spawnNoti.UnPack().CreatureInfo, spawnNoti.UnPack().CharacterInfo);
+    }
+
     public static void SC_MOVE_RES(PacketSession session, Root packet)
     {
         SC_MOVE_RES moveRes = packet.PacketAsSC_MOVE_RES();

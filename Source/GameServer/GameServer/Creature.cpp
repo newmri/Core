@@ -20,6 +20,12 @@ void Creature::Update(void)
 
 }
 
+Info::CreatureInfoT Creature::GetInfo(void)
+{
+	READ_LOCK(this->infoMutex);
+	return this->creatureInfo;
+}
+
 Define::ObjectType Creature::GetObjectType(void) const
 {
 	return this->creatureInfo.object_type;
@@ -43,6 +49,11 @@ NativeInfo::Vec2Int Creature::GetPos(void) const
 void Creature::SetPos(const NativeInfo::Vec2Int& pos)
 {
 	this->creatureInfo.pos_info.pos = pos;
+}
+
+void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+{
+	
 }
 
 void Creature::CalculateAbility(void)

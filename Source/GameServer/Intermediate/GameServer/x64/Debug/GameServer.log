@@ -1,2 +1,5 @@
-﻿  CreatureManager.cpp
+﻿  native_info_impl.cpp
+  Player.cpp
+  Sector.cpp
+  코드를 생성하고 있습니다...
   GameServer.vcxproj -> C:\Users\HavePoop\Desktop\Study\Core\Source\GameServer\x64\Debug\GameServer.exe

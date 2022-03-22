@@ -112,8 +112,6 @@ bool Zone::Enter(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& 
 void Zone::_Enter(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index)
 {
 	this->data.objects[index.y][index.x] = creature->GetOID();
-
-	// 같은 Sector에 있게된 유저들한테 브로드캐스트 필요
 	sector->Add(creature);
 }
 
@@ -188,6 +186,5 @@ bool Zone::Leave(std::shared_ptr<Creature> creature)
 void Zone::_Leave(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index)
 {
 	this->data.objects[index.y][index.x] = 0;
-	// 같은 Sector에 있던 유저들한테 브로드캐스트 필요
 	sector->Remove(creature->GetObjectType(), creature->GetOID());
 }

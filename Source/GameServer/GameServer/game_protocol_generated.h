@@ -15,6 +15,10 @@ struct CS_LOGIN_REQ;
 struct CS_LOGIN_REQBuilder;
 struct CS_LOGIN_REQT;
 
+struct CharacterInfo;
+struct CharacterInfoBuilder;
+struct CharacterInfoT;
+
 struct MyCharacterInfo;
 struct MyCharacterInfoBuilder;
 struct MyCharacterInfoT;
@@ -34,6 +38,10 @@ struct CS_PING_REST;
 struct CS_LOGOUT_NOTI;
 struct CS_LOGOUT_NOTIBuilder;
 struct CS_LOGOUT_NOTIT;
+
+struct SC_SPAWN_PLAYER_NOTI;
+struct SC_SPAWN_PLAYER_NOTIBuilder;
+struct SC_SPAWN_PLAYER_NOTIT;
 
 struct CS_MOVE_REQ;
 struct CS_MOVE_REQBuilder;
@@ -87,13 +95,14 @@ enum Packet : uint8_t {
   Packet_SC_PING_REQ = 3,
   Packet_CS_PING_RES = 4,
   Packet_CS_LOGOUT_NOTI = 5,
-  Packet_CS_MOVE_REQ = 6,
-  Packet_SC_MOVE_RES = 7,
+  Packet_SC_SPAWN_PLAYER_NOTI = 6,
+  Packet_CS_MOVE_REQ = 7,
+  Packet_SC_MOVE_RES = 8,
   Packet_MIN = Packet_NONE,
   Packet_MAX = Packet_SC_MOVE_RES
 };
 
-inline const Packet (&EnumValuesPacket())[8] {
+inline const Packet (&EnumValuesPacket())[9] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -101,6 +110,7 @@ inline const Packet (&EnumValuesPacket())[8] {
     Packet_SC_PING_REQ,
     Packet_CS_PING_RES,
     Packet_CS_LOGOUT_NOTI,
+    Packet_SC_SPAWN_PLAYER_NOTI,
     Packet_CS_MOVE_REQ,
     Packet_SC_MOVE_RES
   };
@@ -108,13 +118,14 @@ inline const Packet (&EnumValuesPacket())[8] {
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[9] = {
+  static const char * const names[10] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
     "SC_PING_REQ",
     "CS_PING_RES",
     "CS_LOGOUT_NOTI",
+    "SC_SPAWN_PLAYER_NOTI",
     "CS_MOVE_REQ",
     "SC_MOVE_RES",
     nullptr
@@ -150,6 +161,10 @@ template<> struct PacketTraits<GamePacket::CS_PING_RES> {
 
 template<> struct PacketTraits<GamePacket::CS_LOGOUT_NOTI> {
   static const Packet enum_value = Packet_CS_LOGOUT_NOTI;
+};
+
+template<> struct PacketTraits<GamePacket::SC_SPAWN_PLAYER_NOTI> {
+  static const Packet enum_value = Packet_SC_SPAWN_PLAYER_NOTI;
 };
 
 template<> struct PacketTraits<GamePacket::CS_MOVE_REQ> {
@@ -232,6 +247,14 @@ struct PacketUnion {
     return type == Packet_CS_LOGOUT_NOTI ?
       reinterpret_cast<const GamePacket::CS_LOGOUT_NOTIT *>(value) : nullptr;
   }
+  GamePacket::SC_SPAWN_PLAYER_NOTIT *AsSC_SPAWN_PLAYER_NOTI() {
+    return type == Packet_SC_SPAWN_PLAYER_NOTI ?
+      reinterpret_cast<GamePacket::SC_SPAWN_PLAYER_NOTIT *>(value) : nullptr;
+  }
+  const GamePacket::SC_SPAWN_PLAYER_NOTIT *AsSC_SPAWN_PLAYER_NOTI() const {
+    return type == Packet_SC_SPAWN_PLAYER_NOTI ?
+      reinterpret_cast<const GamePacket::SC_SPAWN_PLAYER_NOTIT *>(value) : nullptr;
+  }
   GamePacket::CS_MOVE_REQT *AsCS_MOVE_REQ() {
     return type == Packet_CS_MOVE_REQ ?
       reinterpret_cast<GamePacket::CS_MOVE_REQT *>(value) : nullptr;
@@ -252,6 +275,104 @@ struct PacketUnion {
 
 bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packet type);
 bool VerifyPacketVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types);
+
+enum CharacterInfoBase : uint8_t {
+  CharacterInfoBase_NONE = 0,
+  CharacterInfoBase_CharacterInfo = 1,
+  CharacterInfoBase_MyCharacterInfo = 2,
+  CharacterInfoBase_MIN = CharacterInfoBase_NONE,
+  CharacterInfoBase_MAX = CharacterInfoBase_MyCharacterInfo
+};
+
+inline const CharacterInfoBase (&EnumValuesCharacterInfoBase())[3] {
+  static const CharacterInfoBase values[] = {
+    CharacterInfoBase_NONE,
+    CharacterInfoBase_CharacterInfo,
+    CharacterInfoBase_MyCharacterInfo
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesCharacterInfoBase() {
+  static const char * const names[4] = {
+    "NONE",
+    "CharacterInfo",
+    "MyCharacterInfo",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameCharacterInfoBase(CharacterInfoBase e) {
+  if (flatbuffers::IsOutRange(e, CharacterInfoBase_NONE, CharacterInfoBase_MyCharacterInfo)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesCharacterInfoBase()[index];
+}
+
+template<typename T> struct CharacterInfoBaseTraits {
+  static const CharacterInfoBase enum_value = CharacterInfoBase_NONE;
+};
+
+template<> struct CharacterInfoBaseTraits<GamePacket::CharacterInfo> {
+  static const CharacterInfoBase enum_value = CharacterInfoBase_CharacterInfo;
+};
+
+template<> struct CharacterInfoBaseTraits<GamePacket::MyCharacterInfo> {
+  static const CharacterInfoBase enum_value = CharacterInfoBase_MyCharacterInfo;
+};
+
+struct CharacterInfoBaseUnion {
+  CharacterInfoBase type;
+  void *value;
+
+  CharacterInfoBaseUnion() : type(CharacterInfoBase_NONE), value(nullptr) {}
+  CharacterInfoBaseUnion(CharacterInfoBaseUnion&& u) FLATBUFFERS_NOEXCEPT :
+    type(CharacterInfoBase_NONE), value(nullptr)
+    { std::swap(type, u.type); std::swap(value, u.value); }
+  CharacterInfoBaseUnion(const CharacterInfoBaseUnion &);
+  CharacterInfoBaseUnion &operator=(const CharacterInfoBaseUnion &u)
+    { CharacterInfoBaseUnion t(u); std::swap(type, t.type); std::swap(value, t.value); return *this; }
+  CharacterInfoBaseUnion &operator=(CharacterInfoBaseUnion &&u) FLATBUFFERS_NOEXCEPT
+    { std::swap(type, u.type); std::swap(value, u.value); return *this; }
+  ~CharacterInfoBaseUnion() { Reset(); }
+
+  void Reset();
+
+#ifndef FLATBUFFERS_CPP98_STL
+  template <typename T>
+  void Set(T&& val) {
+    using RT = typename std::remove_reference<T>::type;
+    Reset();
+    type = CharacterInfoBaseTraits<typename RT::TableType>::enum_value;
+    if (type != CharacterInfoBase_NONE) {
+      value = new RT(std::forward<T>(val));
+    }
+  }
+#endif  // FLATBUFFERS_CPP98_STL
+
+  static void *UnPack(const void *obj, CharacterInfoBase type, const flatbuffers::resolver_function_t *resolver);
+  flatbuffers::Offset<void> Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher = nullptr) const;
+
+  GamePacket::CharacterInfoT *AsCharacterInfo() {
+    return type == CharacterInfoBase_CharacterInfo ?
+      reinterpret_cast<GamePacket::CharacterInfoT *>(value) : nullptr;
+  }
+  const GamePacket::CharacterInfoT *AsCharacterInfo() const {
+    return type == CharacterInfoBase_CharacterInfo ?
+      reinterpret_cast<const GamePacket::CharacterInfoT *>(value) : nullptr;
+  }
+  GamePacket::MyCharacterInfoT *AsMyCharacterInfo() {
+    return type == CharacterInfoBase_MyCharacterInfo ?
+      reinterpret_cast<GamePacket::MyCharacterInfoT *>(value) : nullptr;
+  }
+  const GamePacket::MyCharacterInfoT *AsMyCharacterInfo() const {
+    return type == CharacterInfoBase_MyCharacterInfo ?
+      reinterpret_cast<const GamePacket::MyCharacterInfoT *>(value) : nullptr;
+  }
+};
+
+bool VerifyCharacterInfoBase(flatbuffers::Verifier &verifier, const void *obj, CharacterInfoBase type);
+bool VerifyCharacterInfoBaseVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types);
 
 struct CS_LOGIN_REQT : public flatbuffers::NativeTable {
   typedef CS_LOGIN_REQ TableType;
@@ -327,31 +448,26 @@ inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(
 
 flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGIN_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct MyCharacterInfoT : public flatbuffers::NativeTable {
-  typedef MyCharacterInfo TableType;
+struct CharacterInfoT : public flatbuffers::NativeTable {
+  typedef CharacterInfo TableType;
   std::string name{};
   Define::Job job = Define::Job_WARRIOR;
-  int32_t bonus_stat = 0;
   NativeInfo::CharacterGear gear{};
 };
 
-struct MyCharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef MyCharacterInfoT NativeTableType;
-  typedef MyCharacterInfoBuilder Builder;
+struct CharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CharacterInfoT NativeTableType;
+  typedef CharacterInfoBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NAME = 4,
     VT_JOB = 6,
-    VT_BONUS_STAT = 8,
-    VT_GEAR = 10
+    VT_GEAR = 8
   };
   const flatbuffers::String *name() const {
     return GetPointer<const flatbuffers::String *>(VT_NAME);
   }
   Define::Job job() const {
     return static_cast<Define::Job>(GetField<uint8_t>(VT_JOB, 0));
-  }
-  int32_t bonus_stat() const {
-    return GetField<int32_t>(VT_BONUS_STAT, 0);
   }
   const Info::CharacterGear *gear() const {
     return GetStruct<const Info::CharacterGear *>(VT_GEAR);
@@ -361,8 +477,101 @@ struct MyCharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyOffset(verifier, VT_NAME) &&
            verifier.VerifyString(name()) &&
            VerifyField<uint8_t>(verifier, VT_JOB) &&
-           VerifyField<int32_t>(verifier, VT_BONUS_STAT) &&
            VerifyField<Info::CharacterGear>(verifier, VT_GEAR) &&
+           verifier.EndTable();
+  }
+  CharacterInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CharacterInfoT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CharacterInfo> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct CharacterInfoBuilder {
+  typedef CharacterInfo Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_name(flatbuffers::Offset<flatbuffers::String> name) {
+    fbb_.AddOffset(CharacterInfo::VT_NAME, name);
+  }
+  void add_job(Define::Job job) {
+    fbb_.AddElement<uint8_t>(CharacterInfo::VT_JOB, static_cast<uint8_t>(job), 0);
+  }
+  void add_gear(const Info::CharacterGear *gear) {
+    fbb_.AddStruct(CharacterInfo::VT_GEAR, gear);
+  }
+  explicit CharacterInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CharacterInfo> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CharacterInfo>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::String> name = 0,
+    Define::Job job = Define::Job_WARRIOR,
+    const Info::CharacterGear *gear = 0) {
+  CharacterInfoBuilder builder_(_fbb);
+  builder_.add_gear(gear);
+  builder_.add_name(name);
+  builder_.add_job(job);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfoDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const char *name = nullptr,
+    Define::Job job = Define::Job_WARRIOR,
+    const Info::CharacterGear *gear = 0) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
+  return GamePacket::CreateCharacterInfo(
+      _fbb,
+      name__,
+      job,
+      gear);
+}
+
+flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct MyCharacterInfoT : public flatbuffers::NativeTable {
+  typedef MyCharacterInfo TableType;
+  std::string name{};
+  Define::Job job = Define::Job_WARRIOR;
+  NativeInfo::CharacterGear gear{};
+  int32_t bonus_stat = 0;
+};
+
+struct MyCharacterInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef MyCharacterInfoT NativeTableType;
+  typedef MyCharacterInfoBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_NAME = 4,
+    VT_JOB = 6,
+    VT_GEAR = 8,
+    VT_BONUS_STAT = 10
+  };
+  const flatbuffers::String *name() const {
+    return GetPointer<const flatbuffers::String *>(VT_NAME);
+  }
+  Define::Job job() const {
+    return static_cast<Define::Job>(GetField<uint8_t>(VT_JOB, 0));
+  }
+  const Info::CharacterGear *gear() const {
+    return GetStruct<const Info::CharacterGear *>(VT_GEAR);
+  }
+  int32_t bonus_stat() const {
+    return GetField<int32_t>(VT_BONUS_STAT, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_NAME) &&
+           verifier.VerifyString(name()) &&
+           VerifyField<uint8_t>(verifier, VT_JOB) &&
+           VerifyField<Info::CharacterGear>(verifier, VT_GEAR) &&
+           VerifyField<int32_t>(verifier, VT_BONUS_STAT) &&
            verifier.EndTable();
   }
   MyCharacterInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
@@ -380,11 +589,11 @@ struct MyCharacterInfoBuilder {
   void add_job(Define::Job job) {
     fbb_.AddElement<uint8_t>(MyCharacterInfo::VT_JOB, static_cast<uint8_t>(job), 0);
   }
-  void add_bonus_stat(int32_t bonus_stat) {
-    fbb_.AddElement<int32_t>(MyCharacterInfo::VT_BONUS_STAT, bonus_stat, 0);
-  }
   void add_gear(const Info::CharacterGear *gear) {
     fbb_.AddStruct(MyCharacterInfo::VT_GEAR, gear);
+  }
+  void add_bonus_stat(int32_t bonus_stat) {
+    fbb_.AddElement<int32_t>(MyCharacterInfo::VT_BONUS_STAT, bonus_stat, 0);
   }
   explicit MyCharacterInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -401,11 +610,11 @@ inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::String> name = 0,
     Define::Job job = Define::Job_WARRIOR,
-    int32_t bonus_stat = 0,
-    const Info::CharacterGear *gear = 0) {
+    const Info::CharacterGear *gear = 0,
+    int32_t bonus_stat = 0) {
   MyCharacterInfoBuilder builder_(_fbb);
-  builder_.add_gear(gear);
   builder_.add_bonus_stat(bonus_stat);
+  builder_.add_gear(gear);
   builder_.add_name(name);
   builder_.add_job(job);
   return builder_.Finish();
@@ -415,15 +624,15 @@ inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfoDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const char *name = nullptr,
     Define::Job job = Define::Job_WARRIOR,
-    int32_t bonus_stat = 0,
-    const Info::CharacterGear *gear = 0) {
+    const Info::CharacterGear *gear = 0,
+    int32_t bonus_stat = 0) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
   return GamePacket::CreateMyCharacterInfo(
       _fbb,
       name__,
       job,
-      bonus_stat,
-      gear);
+      gear,
+      bonus_stat);
 }
 
 flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const MyCharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
@@ -633,6 +842,71 @@ inline flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(
 
 flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const CS_LOGOUT_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct SC_SPAWN_PLAYER_NOTIT : public flatbuffers::NativeTable {
+  typedef SC_SPAWN_PLAYER_NOTI TableType;
+  std::unique_ptr<Info::CreatureInfoT> creature_info{};
+  std::unique_ptr<GamePacket::CharacterInfoT> character_info{};
+};
+
+struct SC_SPAWN_PLAYER_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_SPAWN_PLAYER_NOTIT NativeTableType;
+  typedef SC_SPAWN_PLAYER_NOTIBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_CREATURE_INFO = 4,
+    VT_CHARACTER_INFO = 6
+  };
+  const Info::CreatureInfo *creature_info() const {
+    return GetPointer<const Info::CreatureInfo *>(VT_CREATURE_INFO);
+  }
+  const GamePacket::CharacterInfo *character_info() const {
+    return GetPointer<const GamePacket::CharacterInfo *>(VT_CHARACTER_INFO);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_CREATURE_INFO) &&
+           verifier.VerifyTable(creature_info()) &&
+           VerifyOffset(verifier, VT_CHARACTER_INFO) &&
+           verifier.VerifyTable(character_info()) &&
+           verifier.EndTable();
+  }
+  SC_SPAWN_PLAYER_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_SPAWN_PLAYER_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PLAYER_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_SPAWN_PLAYER_NOTIBuilder {
+  typedef SC_SPAWN_PLAYER_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_creature_info(flatbuffers::Offset<Info::CreatureInfo> creature_info) {
+    fbb_.AddOffset(SC_SPAWN_PLAYER_NOTI::VT_CREATURE_INFO, creature_info);
+  }
+  void add_character_info(flatbuffers::Offset<GamePacket::CharacterInfo> character_info) {
+    fbb_.AddOffset(SC_SPAWN_PLAYER_NOTI::VT_CHARACTER_INFO, character_info);
+  }
+  explicit SC_SPAWN_PLAYER_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<Info::CreatureInfo> creature_info = 0,
+    flatbuffers::Offset<GamePacket::CharacterInfo> character_info = 0) {
+  SC_SPAWN_PLAYER_NOTIBuilder builder_(_fbb);
+  builder_.add_character_info(character_info);
+  builder_.add_creature_info(creature_info);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PLAYER_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct CS_MOVE_REQT : public flatbuffers::NativeTable {
   typedef CS_MOVE_REQ TableType;
   NativeInfo::PositionInfo pos_info{};
@@ -782,6 +1056,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const GamePacket::CS_LOGOUT_NOTI *packet_as_CS_LOGOUT_NOTI() const {
     return packet_type() == GamePacket::Packet_CS_LOGOUT_NOTI ? static_cast<const GamePacket::CS_LOGOUT_NOTI *>(packet()) : nullptr;
   }
+  const GamePacket::SC_SPAWN_PLAYER_NOTI *packet_as_SC_SPAWN_PLAYER_NOTI() const {
+    return packet_type() == GamePacket::Packet_SC_SPAWN_PLAYER_NOTI ? static_cast<const GamePacket::SC_SPAWN_PLAYER_NOTI *>(packet()) : nullptr;
+  }
   const GamePacket::CS_MOVE_REQ *packet_as_CS_MOVE_REQ() const {
     return packet_type() == GamePacket::Packet_CS_MOVE_REQ ? static_cast<const GamePacket::CS_MOVE_REQ *>(packet()) : nullptr;
   }
@@ -818,6 +1095,10 @@ template<> inline const GamePacket::CS_PING_RES *Root::packet_as<GamePacket::CS_
 
 template<> inline const GamePacket::CS_LOGOUT_NOTI *Root::packet_as<GamePacket::CS_LOGOUT_NOTI>() const {
   return packet_as_CS_LOGOUT_NOTI();
+}
+
+template<> inline const GamePacket::SC_SPAWN_PLAYER_NOTI *Root::packet_as<GamePacket::SC_SPAWN_PLAYER_NOTI>() const {
+  return packet_as_SC_SPAWN_PLAYER_NOTI();
 }
 
 template<> inline const GamePacket::CS_MOVE_REQ *Root::packet_as<GamePacket::CS_MOVE_REQ>() const {
@@ -893,6 +1174,38 @@ inline flatbuffers::Offset<CS_LOGIN_REQ> CreateCS_LOGIN_REQ(flatbuffers::FlatBuf
       _token);
 }
 
+inline CharacterInfoT *CharacterInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CharacterInfoT>(new CharacterInfoT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CharacterInfo::UnPackTo(CharacterInfoT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = name(); if (_e) _o->name = _e->str(); }
+  { auto _e = job(); _o->job = _e; }
+  { auto _e = gear(); if (_e) _o->gear = flatbuffers::UnPackCharacterGear(*_e); }
+}
+
+inline flatbuffers::Offset<CharacterInfo> CharacterInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCharacterInfo(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CharacterInfo> CreateCharacterInfo(flatbuffers::FlatBufferBuilder &_fbb, const CharacterInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CharacterInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
+  auto _job = _o->job;
+  auto _gear = flatbuffers::PackCharacterGear(_o->gear);
+  return GamePacket::CreateCharacterInfo(
+      _fbb,
+      _name,
+      _job,
+      &_gear);
+}
+
 inline MyCharacterInfoT *MyCharacterInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<MyCharacterInfoT>(new MyCharacterInfoT());
   UnPackTo(_o.get(), _resolver);
@@ -904,8 +1217,8 @@ inline void MyCharacterInfo::UnPackTo(MyCharacterInfoT *_o, const flatbuffers::r
   (void)_resolver;
   { auto _e = name(); if (_e) _o->name = _e->str(); }
   { auto _e = job(); _o->job = _e; }
-  { auto _e = bonus_stat(); _o->bonus_stat = _e; }
   { auto _e = gear(); if (_e) _o->gear = flatbuffers::UnPackCharacterGear(*_e); }
+  { auto _e = bonus_stat(); _o->bonus_stat = _e; }
 }
 
 inline flatbuffers::Offset<MyCharacterInfo> MyCharacterInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const MyCharacterInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -918,14 +1231,14 @@ inline flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(flatbuffers::F
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MyCharacterInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
   auto _job = _o->job;
-  auto _bonus_stat = _o->bonus_stat;
   auto _gear = flatbuffers::PackCharacterGear(_o->gear);
+  auto _bonus_stat = _o->bonus_stat;
   return GamePacket::CreateMyCharacterInfo(
       _fbb,
       _name,
       _job,
-      _bonus_stat,
-      &_gear);
+      &_gear,
+      _bonus_stat);
 }
 
 inline SC_LOGIN_REST *SC_LOGIN_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
@@ -1030,6 +1343,35 @@ inline flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(flatbuffers::Fla
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_LOGOUT_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   return GamePacket::CreateCS_LOGOUT_NOTI(
       _fbb);
+}
+
+inline SC_SPAWN_PLAYER_NOTIT *SC_SPAWN_PLAYER_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_SPAWN_PLAYER_NOTIT>(new SC_SPAWN_PLAYER_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_SPAWN_PLAYER_NOTI::UnPackTo(SC_SPAWN_PLAYER_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = creature_info(); if (_e) _o->creature_info = std::unique_ptr<Info::CreatureInfoT>(_e->UnPack(_resolver)); }
+  { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<GamePacket::CharacterInfoT>(_e->UnPack(_resolver)); }
+}
+
+inline flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> SC_SPAWN_PLAYER_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PLAYER_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_SPAWN_PLAYER_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PLAYER_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_SPAWN_PLAYER_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _creature_info = _o->creature_info ? CreateCreatureInfo(_fbb, _o->creature_info.get(), _rehasher) : 0;
+  auto _character_info = _o->character_info ? CreateCharacterInfo(_fbb, _o->character_info.get(), _rehasher) : 0;
+  return GamePacket::CreateSC_SPAWN_PLAYER_NOTI(
+      _fbb,
+      _creature_info,
+      _character_info);
 }
 
 inline CS_MOVE_REQT *CS_MOVE_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
@@ -1141,6 +1483,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::CS_LOGOUT_NOTI *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_SPAWN_PLAYER_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PLAYER_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     case Packet_CS_MOVE_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_MOVE_REQ *>(obj);
       return verifier.VerifyTable(ptr);
@@ -1187,6 +1533,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::CS_LOGOUT_NOTI *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_SPAWN_PLAYER_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PLAYER_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
     case Packet_CS_MOVE_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_MOVE_REQ *>(obj);
       return ptr->UnPack(resolver);
@@ -1221,6 +1571,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::CS_LOGOUT_NOTIT *>(value);
       return CreateCS_LOGOUT_NOTI(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_SPAWN_PLAYER_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PLAYER_NOTIT *>(value);
+      return CreateSC_SPAWN_PLAYER_NOTI(_fbb, ptr, _rehasher).Union();
+    }
     case Packet_CS_MOVE_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_MOVE_REQT *>(value);
       return CreateCS_MOVE_REQ(_fbb, ptr, _rehasher).Union();
@@ -1253,6 +1607,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_CS_LOGOUT_NOTI: {
       value = new GamePacket::CS_LOGOUT_NOTIT(*reinterpret_cast<GamePacket::CS_LOGOUT_NOTIT *>(u.value));
+      break;
+    }
+    case Packet_SC_SPAWN_PLAYER_NOTI: {
+      FLATBUFFERS_ASSERT(false);  // GamePacket::SC_SPAWN_PLAYER_NOTIT not copyable.
       break;
     }
     case Packet_CS_MOVE_REQ: {
@@ -1295,6 +1653,11 @@ inline void PacketUnion::Reset() {
       delete ptr;
       break;
     }
+    case Packet_SC_SPAWN_PLAYER_NOTI: {
+      auto ptr = reinterpret_cast<GamePacket::SC_SPAWN_PLAYER_NOTIT *>(value);
+      delete ptr;
+      break;
+    }
     case Packet_CS_MOVE_REQ: {
       auto ptr = reinterpret_cast<GamePacket::CS_MOVE_REQT *>(value);
       delete ptr;
@@ -1309,6 +1672,96 @@ inline void PacketUnion::Reset() {
   }
   value = nullptr;
   type = Packet_NONE;
+}
+
+inline bool VerifyCharacterInfoBase(flatbuffers::Verifier &verifier, const void *obj, CharacterInfoBase type) {
+  switch (type) {
+    case CharacterInfoBase_NONE: {
+      return true;
+    }
+    case CharacterInfoBase_CharacterInfo: {
+      auto ptr = reinterpret_cast<const GamePacket::CharacterInfo *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case CharacterInfoBase_MyCharacterInfo: {
+      auto ptr = reinterpret_cast<const GamePacket::MyCharacterInfo *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    default: return true;
+  }
+}
+
+inline bool VerifyCharacterInfoBaseVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types) {
+  if (!values || !types) return !values && !types;
+  if (values->size() != types->size()) return false;
+  for (flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
+    if (!VerifyCharacterInfoBase(
+        verifier,  values->Get(i), types->GetEnum<CharacterInfoBase>(i))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+inline void *CharacterInfoBaseUnion::UnPack(const void *obj, CharacterInfoBase type, const flatbuffers::resolver_function_t *resolver) {
+  switch (type) {
+    case CharacterInfoBase_CharacterInfo: {
+      auto ptr = reinterpret_cast<const GamePacket::CharacterInfo *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case CharacterInfoBase_MyCharacterInfo: {
+      auto ptr = reinterpret_cast<const GamePacket::MyCharacterInfo *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    default: return nullptr;
+  }
+}
+
+inline flatbuffers::Offset<void> CharacterInfoBaseUnion::Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher) const {
+  switch (type) {
+    case CharacterInfoBase_CharacterInfo: {
+      auto ptr = reinterpret_cast<const GamePacket::CharacterInfoT *>(value);
+      return CreateCharacterInfo(_fbb, ptr, _rehasher).Union();
+    }
+    case CharacterInfoBase_MyCharacterInfo: {
+      auto ptr = reinterpret_cast<const GamePacket::MyCharacterInfoT *>(value);
+      return CreateMyCharacterInfo(_fbb, ptr, _rehasher).Union();
+    }
+    default: return 0;
+  }
+}
+
+inline CharacterInfoBaseUnion::CharacterInfoBaseUnion(const CharacterInfoBaseUnion &u) : type(u.type), value(nullptr) {
+  switch (type) {
+    case CharacterInfoBase_CharacterInfo: {
+      value = new GamePacket::CharacterInfoT(*reinterpret_cast<GamePacket::CharacterInfoT *>(u.value));
+      break;
+    }
+    case CharacterInfoBase_MyCharacterInfo: {
+      value = new GamePacket::MyCharacterInfoT(*reinterpret_cast<GamePacket::MyCharacterInfoT *>(u.value));
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+inline void CharacterInfoBaseUnion::Reset() {
+  switch (type) {
+    case CharacterInfoBase_CharacterInfo: {
+      auto ptr = reinterpret_cast<GamePacket::CharacterInfoT *>(value);
+      delete ptr;
+      break;
+    }
+    case CharacterInfoBase_MyCharacterInfo: {
+      auto ptr = reinterpret_cast<GamePacket::MyCharacterInfoT *>(value);
+      delete ptr;
+      break;
+    }
+    default: break;
+  }
+  value = nullptr;
+  type = CharacterInfoBase_NONE;
 }
 
 inline const GamePacket::Root *GetRoot(const void *buf) {

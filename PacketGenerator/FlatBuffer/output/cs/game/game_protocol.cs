@@ -24,8 +24,9 @@ public enum Packet : byte
   SC_PING_REQ = 3,
   CS_PING_RES = 4,
   CS_LOGOUT_NOTI = 5,
-  CS_MOVE_REQ = 6,
-  SC_MOVE_RES = 7,
+  SC_SPAWN_PLAYER_NOTI = 6,
+  CS_MOVE_REQ = 7,
+  SC_MOVE_RES = 8,
 };
 
 public class PacketUnion {
@@ -43,6 +44,7 @@ public class PacketUnion {
   public GamePacket.SC_PING_REQT AsSC_PING_REQ() { return this.As<GamePacket.SC_PING_REQT>(); }
   public GamePacket.CS_PING_REST AsCS_PING_RES() { return this.As<GamePacket.CS_PING_REST>(); }
   public GamePacket.CS_LOGOUT_NOTIT AsCS_LOGOUT_NOTI() { return this.As<GamePacket.CS_LOGOUT_NOTIT>(); }
+  public GamePacket.SC_SPAWN_PLAYER_NOTIT AsSC_SPAWN_PLAYER_NOTI() { return this.As<GamePacket.SC_SPAWN_PLAYER_NOTIT>(); }
   public GamePacket.CS_MOVE_REQT AsCS_MOVE_REQ() { return this.As<GamePacket.CS_MOVE_REQT>(); }
   public GamePacket.SC_MOVE_REST AsSC_MOVE_RES() { return this.As<GamePacket.SC_MOVE_REST>(); }
 
@@ -54,8 +56,38 @@ public class PacketUnion {
       case Packet.SC_PING_REQ: return GamePacket.SC_PING_REQ.Pack(builder, _o.AsSC_PING_REQ()).Value;
       case Packet.CS_PING_RES: return GamePacket.CS_PING_RES.Pack(builder, _o.AsCS_PING_RES()).Value;
       case Packet.CS_LOGOUT_NOTI: return GamePacket.CS_LOGOUT_NOTI.Pack(builder, _o.AsCS_LOGOUT_NOTI()).Value;
+      case Packet.SC_SPAWN_PLAYER_NOTI: return GamePacket.SC_SPAWN_PLAYER_NOTI.Pack(builder, _o.AsSC_SPAWN_PLAYER_NOTI()).Value;
       case Packet.CS_MOVE_REQ: return GamePacket.CS_MOVE_REQ.Pack(builder, _o.AsCS_MOVE_REQ()).Value;
       case Packet.SC_MOVE_RES: return GamePacket.SC_MOVE_RES.Pack(builder, _o.AsSC_MOVE_RES()).Value;
+    }
+  }
+}
+
+public enum CharacterInfoBase : byte
+{
+  NONE = 0,
+  CharacterInfo = 1,
+  MyCharacterInfo = 2,
+};
+
+public class CharacterInfoBaseUnion {
+  public CharacterInfoBase Type { get; set; }
+  public object Value { get; set; }
+
+  public CharacterInfoBaseUnion() {
+    this.Type = CharacterInfoBase.NONE;
+    this.Value = null;
+  }
+
+  public T As<T>() where T : class { return this.Value as T; }
+  public GamePacket.CharacterInfoT AsCharacterInfo() { return this.As<GamePacket.CharacterInfoT>(); }
+  public GamePacket.MyCharacterInfoT AsMyCharacterInfo() { return this.As<GamePacket.MyCharacterInfoT>(); }
+
+  public static int Pack(FlatBuffers.FlatBufferBuilder builder, CharacterInfoBaseUnion _o) {
+    switch (_o.Type) {
+      default: return 0;
+      case CharacterInfoBase.CharacterInfo: return GamePacket.CharacterInfo.Pack(builder, _o.AsCharacterInfo()).Value;
+      case CharacterInfoBase.MyCharacterInfo: return GamePacket.MyCharacterInfo.Pack(builder, _o.AsMyCharacterInfo()).Value;
     }
   }
 }
@@ -126,6 +158,79 @@ public class CS_LOGIN_REQT
   }
 }
 
+public struct CharacterInfo : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CharacterInfo GetRootAsCharacterInfo(ByteBuffer _bb) { return GetRootAsCharacterInfo(_bb, new CharacterInfo()); }
+  public static CharacterInfo GetRootAsCharacterInfo(ByteBuffer _bb, CharacterInfo obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CharacterInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public string Name { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetNameBytes() { return __p.__vector_as_span<byte>(4, 1); }
+#else
+  public ArraySegment<byte>? GetNameBytes() { return __p.__vector_as_arraysegment(4); }
+#endif
+  public byte[] GetNameArray() { return __p.__vector_as_array<byte>(4); }
+  public Define.Job Job { get { int o = __p.__offset(6); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.WARRIOR; } }
+  public Info.CharacterGear? Gear { get { int o = __p.__offset(8); return o != 0 ? (Info.CharacterGear?)(new Info.CharacterGear()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+
+  public static Offset<GamePacket.CharacterInfo> CreateCharacterInfo(FlatBufferBuilder builder,
+      StringOffset nameOffset = default(StringOffset),
+      Define.Job job = Define.Job.WARRIOR,
+      Info.CharacterGearT gear = null) {
+    builder.StartTable(3);
+    CharacterInfo.AddGear(builder, Info.CharacterGear.Pack(builder, gear));
+    CharacterInfo.AddName(builder, nameOffset);
+    CharacterInfo.AddJob(builder, job);
+    return CharacterInfo.EndCharacterInfo(builder);
+  }
+
+  public static void StartCharacterInfo(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(0, nameOffset.Value, 0); }
+  public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddByte(1, (byte)job, 0); }
+  public static void AddGear(FlatBufferBuilder builder, Offset<Info.CharacterGear> gearOffset) { builder.AddStruct(2, gearOffset.Value, 0); }
+  public static Offset<GamePacket.CharacterInfo> EndCharacterInfo(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CharacterInfo>(o);
+  }
+  public CharacterInfoT UnPack() {
+    var _o = new CharacterInfoT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CharacterInfoT _o) {
+    _o.Name = this.Name;
+    _o.Job = this.Job;
+    _o.Gear = this.Gear.HasValue ? this.Gear.Value.UnPack() : null;
+  }
+  public static Offset<GamePacket.CharacterInfo> Pack(FlatBufferBuilder builder, CharacterInfoT _o) {
+    if (_o == null) return default(Offset<GamePacket.CharacterInfo>);
+    var _name = _o.Name == null ? default(StringOffset) : builder.CreateString(_o.Name);
+    return CreateCharacterInfo(
+      builder,
+      _name,
+      _o.Job,
+      _o.Gear);
+  }
+};
+
+public class CharacterInfoT
+{
+  public string Name { get; set; }
+  public Define.Job Job { get; set; }
+  public Info.CharacterGearT Gear { get; set; }
+
+  public CharacterInfoT() {
+    this.Name = null;
+    this.Job = Define.Job.WARRIOR;
+    this.Gear = new Info.CharacterGearT();
+  }
+}
+
 public struct MyCharacterInfo : IFlatbufferObject
 {
   private Table __p;
@@ -144,17 +249,17 @@ public struct MyCharacterInfo : IFlatbufferObject
 #endif
   public byte[] GetNameArray() { return __p.__vector_as_array<byte>(4); }
   public Define.Job Job { get { int o = __p.__offset(6); return o != 0 ? (Define.Job)__p.bb.Get(o + __p.bb_pos) : Define.Job.WARRIOR; } }
-  public int BonusStat { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public Info.CharacterGear? Gear { get { int o = __p.__offset(10); return o != 0 ? (Info.CharacterGear?)(new Info.CharacterGear()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public Info.CharacterGear? Gear { get { int o = __p.__offset(8); return o != 0 ? (Info.CharacterGear?)(new Info.CharacterGear()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public int BonusStat { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GamePacket.MyCharacterInfo> CreateMyCharacterInfo(FlatBufferBuilder builder,
       StringOffset nameOffset = default(StringOffset),
       Define.Job job = Define.Job.WARRIOR,
-      int bonus_stat = 0,
-      Info.CharacterGearT gear = null) {
+      Info.CharacterGearT gear = null,
+      int bonus_stat = 0) {
     builder.StartTable(4);
-    MyCharacterInfo.AddGear(builder, Info.CharacterGear.Pack(builder, gear));
     MyCharacterInfo.AddBonusStat(builder, bonus_stat);
+    MyCharacterInfo.AddGear(builder, Info.CharacterGear.Pack(builder, gear));
     MyCharacterInfo.AddName(builder, nameOffset);
     MyCharacterInfo.AddJob(builder, job);
     return MyCharacterInfo.EndMyCharacterInfo(builder);
@@ -163,8 +268,8 @@ public struct MyCharacterInfo : IFlatbufferObject
   public static void StartMyCharacterInfo(FlatBufferBuilder builder) { builder.StartTable(4); }
   public static void AddName(FlatBufferBuilder builder, StringOffset nameOffset) { builder.AddOffset(0, nameOffset.Value, 0); }
   public static void AddJob(FlatBufferBuilder builder, Define.Job job) { builder.AddByte(1, (byte)job, 0); }
-  public static void AddBonusStat(FlatBufferBuilder builder, int bonusStat) { builder.AddInt(2, bonusStat, 0); }
-  public static void AddGear(FlatBufferBuilder builder, Offset<Info.CharacterGear> gearOffset) { builder.AddStruct(3, gearOffset.Value, 0); }
+  public static void AddGear(FlatBufferBuilder builder, Offset<Info.CharacterGear> gearOffset) { builder.AddStruct(2, gearOffset.Value, 0); }
+  public static void AddBonusStat(FlatBufferBuilder builder, int bonusStat) { builder.AddInt(3, bonusStat, 0); }
   public static Offset<GamePacket.MyCharacterInfo> EndMyCharacterInfo(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.MyCharacterInfo>(o);
@@ -177,8 +282,8 @@ public struct MyCharacterInfo : IFlatbufferObject
   public void UnPackTo(MyCharacterInfoT _o) {
     _o.Name = this.Name;
     _o.Job = this.Job;
-    _o.BonusStat = this.BonusStat;
     _o.Gear = this.Gear.HasValue ? this.Gear.Value.UnPack() : null;
+    _o.BonusStat = this.BonusStat;
   }
   public static Offset<GamePacket.MyCharacterInfo> Pack(FlatBufferBuilder builder, MyCharacterInfoT _o) {
     if (_o == null) return default(Offset<GamePacket.MyCharacterInfo>);
@@ -187,8 +292,8 @@ public struct MyCharacterInfo : IFlatbufferObject
       builder,
       _name,
       _o.Job,
-      _o.BonusStat,
-      _o.Gear);
+      _o.Gear,
+      _o.BonusStat);
   }
 };
 
@@ -196,14 +301,14 @@ public class MyCharacterInfoT
 {
   public string Name { get; set; }
   public Define.Job Job { get; set; }
-  public int BonusStat { get; set; }
   public Info.CharacterGearT Gear { get; set; }
+  public int BonusStat { get; set; }
 
   public MyCharacterInfoT() {
     this.Name = null;
     this.Job = Define.Job.WARRIOR;
-    this.BonusStat = 0;
     this.Gear = new Info.CharacterGearT();
+    this.BonusStat = 0;
   }
 }
 
@@ -395,6 +500,66 @@ public class CS_LOGOUT_NOTIT
   }
 }
 
+public struct SC_SPAWN_PLAYER_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_SPAWN_PLAYER_NOTI GetRootAsSC_SPAWN_PLAYER_NOTI(ByteBuffer _bb) { return GetRootAsSC_SPAWN_PLAYER_NOTI(_bb, new SC_SPAWN_PLAYER_NOTI()); }
+  public static SC_SPAWN_PLAYER_NOTI GetRootAsSC_SPAWN_PLAYER_NOTI(ByteBuffer _bb, SC_SPAWN_PLAYER_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_SPAWN_PLAYER_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Info.CreatureInfo? CreatureInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.CreatureInfo?)(new Info.CreatureInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public GamePacket.CharacterInfo? CharacterInfo { get { int o = __p.__offset(6); return o != 0 ? (GamePacket.CharacterInfo?)(new GamePacket.CharacterInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+
+  public static Offset<GamePacket.SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(FlatBufferBuilder builder,
+      Offset<Info.CreatureInfo> creature_infoOffset = default(Offset<Info.CreatureInfo>),
+      Offset<GamePacket.CharacterInfo> character_infoOffset = default(Offset<GamePacket.CharacterInfo>)) {
+    builder.StartTable(2);
+    SC_SPAWN_PLAYER_NOTI.AddCharacterInfo(builder, character_infoOffset);
+    SC_SPAWN_PLAYER_NOTI.AddCreatureInfo(builder, creature_infoOffset);
+    return SC_SPAWN_PLAYER_NOTI.EndSC_SPAWN_PLAYER_NOTI(builder);
+  }
+
+  public static void StartSC_SPAWN_PLAYER_NOTI(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddCreatureInfo(FlatBufferBuilder builder, Offset<Info.CreatureInfo> creatureInfoOffset) { builder.AddOffset(0, creatureInfoOffset.Value, 0); }
+  public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<GamePacket.CharacterInfo> characterInfoOffset) { builder.AddOffset(1, characterInfoOffset.Value, 0); }
+  public static Offset<GamePacket.SC_SPAWN_PLAYER_NOTI> EndSC_SPAWN_PLAYER_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_SPAWN_PLAYER_NOTI>(o);
+  }
+  public SC_SPAWN_PLAYER_NOTIT UnPack() {
+    var _o = new SC_SPAWN_PLAYER_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_SPAWN_PLAYER_NOTIT _o) {
+    _o.CreatureInfo = this.CreatureInfo.HasValue ? this.CreatureInfo.Value.UnPack() : null;
+    _o.CharacterInfo = this.CharacterInfo.HasValue ? this.CharacterInfo.Value.UnPack() : null;
+  }
+  public static Offset<GamePacket.SC_SPAWN_PLAYER_NOTI> Pack(FlatBufferBuilder builder, SC_SPAWN_PLAYER_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_SPAWN_PLAYER_NOTI>);
+    var _creature_info = _o.CreatureInfo == null ? default(Offset<Info.CreatureInfo>) : Info.CreatureInfo.Pack(builder, _o.CreatureInfo);
+    var _character_info = _o.CharacterInfo == null ? default(Offset<GamePacket.CharacterInfo>) : GamePacket.CharacterInfo.Pack(builder, _o.CharacterInfo);
+    return CreateSC_SPAWN_PLAYER_NOTI(
+      builder,
+      _creature_info,
+      _character_info);
+  }
+};
+
+public class SC_SPAWN_PLAYER_NOTIT
+{
+  public Info.CreatureInfoT CreatureInfo { get; set; }
+  public GamePacket.CharacterInfoT CharacterInfo { get; set; }
+
+  public SC_SPAWN_PLAYER_NOTIT() {
+    this.CreatureInfo = null;
+    this.CharacterInfo = null;
+  }
+}
+
 public struct CS_MOVE_REQ : IFlatbufferObject
 {
   private Table __p;
@@ -513,6 +678,7 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_PING_REQ PacketAsSC_PING_REQ() { return Packet<GamePacket.SC_PING_REQ>().Value; }
   public GamePacket.CS_PING_RES PacketAsCS_PING_RES() { return Packet<GamePacket.CS_PING_RES>().Value; }
   public GamePacket.CS_LOGOUT_NOTI PacketAsCS_LOGOUT_NOTI() { return Packet<GamePacket.CS_LOGOUT_NOTI>().Value; }
+  public GamePacket.SC_SPAWN_PLAYER_NOTI PacketAsSC_SPAWN_PLAYER_NOTI() { return Packet<GamePacket.SC_SPAWN_PLAYER_NOTI>().Value; }
   public GamePacket.CS_MOVE_REQ PacketAsCS_MOVE_REQ() { return Packet<GamePacket.CS_MOVE_REQ>().Value; }
   public GamePacket.SC_MOVE_RES PacketAsSC_MOVE_RES() { return Packet<GamePacket.SC_MOVE_RES>().Value; }
 
@@ -558,6 +724,9 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.CS_LOGOUT_NOTI:
         _o.Packet.Value = this.Packet<GamePacket.CS_LOGOUT_NOTI>().HasValue ? this.Packet<GamePacket.CS_LOGOUT_NOTI>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_SPAWN_PLAYER_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_SPAWN_PLAYER_NOTI>().HasValue ? this.Packet<GamePacket.SC_SPAWN_PLAYER_NOTI>().Value.UnPack() : null;
         break;
       case GamePacket.Packet.CS_MOVE_REQ:
         _o.Packet.Value = this.Packet<GamePacket.CS_MOVE_REQ>().HasValue ? this.Packet<GamePacket.CS_MOVE_REQ>().Value.UnPack() : null;

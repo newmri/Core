@@ -21,3 +21,28 @@ void Player::Update(void)
 {
 
 }
+
+GamePacket::CharacterInfoT Player::GetCharacterInfo(void)
+{
+	GamePacket::CharacterInfoT info;
+
+	READ_LOCK(this->infoMutex);
+	memcpy_s(&info, sizeof(info), &this->characterInfo, sizeof(this->characterInfo));
+	return info;
+}
+
+void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+{
+	auto creatureInfo = GetInfo();
+	auto characterInfo = GetCharacterInfo();
+	auto packedCreatureInfo = Info::CreatureInfo::Pack(PACKET_SEND_MANAGER.builder, &creatureInfo);
+	auto packedCharacterInfo = GamePacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &characterInfo);
+	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(PACKET_SEND_MANAGER.builder, packedCreatureInfo, packedCharacterInfo);
+	packetType = GamePacket::Packet_SC_SPAWN_PLAYER_NOTI;
+	packet = message.Union();
+}
+
+void Player::Send(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+{
+	PACKET_SEND_MANAGER.Send(session, packetType, packet);
+}
