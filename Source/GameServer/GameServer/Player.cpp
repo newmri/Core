@@ -27,7 +27,9 @@ GamePacket::CharacterInfoT Player::GetCharacterInfo(void)
 	GamePacket::CharacterInfoT info;
 
 	READ_LOCK(this->infoMutex);
-	memcpy_s(&info, sizeof(info), &this->characterInfo, sizeof(this->characterInfo));
+	info.name = this->characterInfo.name;
+	info.job = this->characterInfo.job;
+	memcpy_s(&info.gear, sizeof(info.gear), &this->characterInfo.gear, sizeof(this->characterInfo.gear));
 	return info;
 }
 
