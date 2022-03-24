@@ -1,7 +1,2 @@
-﻿  CoreDataTypeManager.cpp
-  CoreTimeDelegateManager.cpp
-  CoreTimeManager.cpp
-  CoreUIDObject.cpp
-  WorldDB.cpp
-  코드를 생성하고 있습니다...
+﻿  CoreStringManager.cpp
   Core.vcxproj -> C:\Users\HavePoop\Desktop\Study\Core\Source\LoginServer\x64\Debug\Core.lib

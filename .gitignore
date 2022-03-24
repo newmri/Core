@@ -5,6 +5,7 @@
 /Source/Client/[Ll]ibrary/
 /Source/Client/Temp
 
+/Source/Client/Builds/
 ### C++ ###
 # Prerequisites
 *.d

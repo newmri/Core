@@ -112,6 +112,16 @@ public class UIManager
             _sceneUI.gameObject.SetActive(true);
     }
 
+    public int GetSortingOrder()
+    {
+        return ++_sortOrder;
+    }
+
+    public void DecreaseSortingOrder()
+    {
+        --_sortOrder;
+    }
+
     public T MakeWorldSpaceUI<T>(string name = null, Transform parent = null) where T : UIBase
     {
         if (name == null)

@@ -84,10 +84,15 @@ void Zone::InitSector(void)
 
 bool Zone::EnterStartPos(std::shared_ptr<Creature> creature, const bool checkObjects)
 {
-	if (!Enter(creature, this->data.startPos, checkObjects))
-		return false;
-
+	auto backupPos = creature->GetPos();
 	creature->SetPos(this->data.startPos);
+
+	if (!Enter(creature, this->data.startPos, checkObjects))
+	{
+		creature->SetPos(backupPos);
+		return false;
+	}
+
 	return true;
 }
 

@@ -35,7 +35,7 @@ private:
 	TIME_VALUE speedHackCheckTime = SEC;
 	TIME_VALUE prevPacketTime = 0;
 	size_t packetCount = 0;
-	size_t maxPacketCount = 10;
+	size_t maxPacketCount = 20;
 
 private:
 	TIME_VALUE pingPongCheckTime = MIN;

@@ -48,13 +48,13 @@ public class MyPlayerController : PlayerController
 		}
 		set
 		{
-			if (_characterInfo != null && _characterInfo.Value.Equals(value))
+			if (_characterInfo.Value != null && _characterInfo.Value.Equals(value))
 				return;
 
 			_characterInfo.Value = value;
 
-			_gear.Job = CharacterInfo.Job;
-			_gear.SetGear(CharacterInfo.Gear);
+			_gear.Job = MyCharacterInfo.Job;
+			_gear.SetGear(MyCharacterInfo.Gear);
 			_uiGameScene.UpdateCharacterInfo(MyCharacterInfo.Name, CreatureInfo.Level, MyCharacterInfo.Job);
 		}
 	}

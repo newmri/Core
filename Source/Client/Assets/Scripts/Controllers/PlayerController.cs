@@ -12,7 +12,7 @@ public class PlayerController : CreatureController
 	protected CharacterAnimator _animator;
 
 	[SerializeField]
-	protected CharacterInfoBaseUnion _characterInfo;
+	protected CharacterInfoBaseUnion _characterInfo = new CharacterInfoBaseUnion();
 
 	protected GearEquipper _gear;
 
@@ -24,7 +24,7 @@ public class PlayerController : CreatureController
 		}
 		set
 		{
-			if (_characterInfo != null && _characterInfo.Value.Equals(value))
+			if (_characterInfo.Value != null && _characterInfo.Value.Equals(value))
 				return;
 
 			_characterInfo.Value = value;
@@ -40,6 +40,9 @@ public class PlayerController : CreatureController
 		_animator = GetComponent<CharacterAnimator>();
 		_animator.JobChanged(Job.WARRIOR);
 		_gear = GetComponent<GearEquipper>();
+
+		MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+		mesh.sortingOrder = Managers.UI.GetSortingOrder();
 	}
 
 	protected override void UpdateAnimation()

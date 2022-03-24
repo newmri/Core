@@ -15,7 +15,7 @@ public class CreatureManager
 
     public void AddMyPlayer()
     {
-        GameObject gameObject = CoreManagers.Obj.Add("Character", "MyCharacter");
+        GameObject gameObject = CoreManagers.Obj.Add("Player", "Player");
         MyPlayer = gameObject.GetOrAddComponent<MyPlayerController>();
         CoreManagers.Coroutine.Add(MyPlayerSetInfoDelay());
     }
@@ -35,7 +35,7 @@ public class CreatureManager
 
     public void AddPlayer(CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
     {
-        GameObject gameObject = CoreManagers.Obj.Add("Character", "Character");
+        GameObject gameObject = CoreManagers.Obj.Add("Player", "Player");
         PlayerController playerController = gameObject.GetOrAddComponent<PlayerController>();
         CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, creatureInfo, characterInfo));
     }
@@ -53,5 +53,6 @@ public class CreatureManager
     public void Remove(long oid)
     {
         _playerList.Remove(oid);
+        Managers.UI.DecreaseSortingOrder();
     }
 }
