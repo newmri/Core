@@ -15,10 +15,11 @@ namespace UnityCoreLibrary
 
     public class ObjectManager
     {
-        Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>();
+        Dictionary<long, GameObject> _clientObjects = new Dictionary<long, GameObject>();
+        Dictionary<long, GameObject> _serverObjects = new Dictionary<long, GameObject>();
 
-        int _counter = 1;
-
+        #region ClientObject
+        long _counter = 1;
         public GameObject Add(GameObject prefab, Vector2Int? pos = null, int poolCount = 1, Transform parent = null)
         {
             return Add(prefab, new Vector3(pos.GetValueOrDefault().x, pos.GetValueOrDefault().y), poolCount, parent);
@@ -27,7 +28,7 @@ namespace UnityCoreLibrary
         public GameObject Add(GameObject prefab, Vector3 pos, int poolCount = 1, Transform parent = null)
         {
             GameObject gameObject = CoreManagers.Resource.Instantiate(_counter, prefab, pos, poolCount, parent);
-            AddPostProcess(gameObject.tag, gameObject);
+            AddClientObjectPostProcess(gameObject.tag, gameObject);
             return gameObject;
         }
 
@@ -39,32 +40,83 @@ namespace UnityCoreLibrary
         public GameObject Add(string type, string name, Vector3 pos, int poolCount = 1, Transform parent = null)
         {
             GameObject gameObject = CoreManagers.Resource.Instantiate(_counter, type, name, pos, poolCount, parent);
-            AddPostProcess(type, gameObject);
+            AddClientObjectPostProcess(type, gameObject);
             return gameObject;
         }
 
-        private void AddPostProcess(string type, GameObject gameObject)
+        private void AddClientObjectPostProcess(string type, GameObject gameObject)
         {
-            _objects.Add(_counter++, gameObject);
+            _clientObjects.Add(_counter++, gameObject);
             gameObject.SetActive(true);
         }
 
-        public void Remove(int ID, ObjRemoveReason reason = ObjRemoveReason.Unknown)
+        public void RemoveClientObject(long ID, ObjRemoveReason reason = ObjRemoveReason.Unknown)
         {
-            GameObject gameObject = Find(ID);
+            GameObject gameObject = FindClientObject(ID);
             if (null == gameObject)
                 return;
 
-            _objects.Remove(ID);
+            _clientObjects.Remove(ID);
 
             CoreManagers.Resource.Destroy(gameObject);
         }
 
-        public GameObject Find(int ID)
+        public GameObject FindClientObject(long ID)
         {
             GameObject gameObject = null;
-            _objects.TryGetValue(ID, out gameObject);
+            _clientObjects.TryGetValue(ID, out gameObject);
             return gameObject;
         }
+        #endregion
+
+        #region ServerObject
+        public GameObject Add(long oid, GameObject prefab, Vector2Int? pos = null, int poolCount = 1, Transform parent = null)
+        {
+            return Add(oid, prefab, new Vector3(pos.GetValueOrDefault().x, pos.GetValueOrDefault().y), poolCount, parent);
+        }
+
+        public GameObject Add(long oid, GameObject prefab, Vector3 pos, int poolCount = 1, Transform parent = null)
+        {
+            GameObject gameObject = CoreManagers.Resource.Instantiate(oid, prefab, pos, poolCount, parent);
+            AddServerObjectPostProcess(oid, gameObject.tag, gameObject);
+            return gameObject;
+        }
+
+        public GameObject Add(long oid, string type, string name, Vector2Int? pos = null, int poolCount = 1, Transform parent = null)
+        {
+            return Add(oid, type, name, new Vector3(pos.GetValueOrDefault().x, pos.GetValueOrDefault().y), poolCount, parent);
+        }
+
+        public GameObject Add(long oid, string type, string name, Vector3 pos, int poolCount = 1, Transform parent = null)
+        {
+            GameObject gameObject = CoreManagers.Resource.Instantiate(oid, type, name, pos, poolCount, parent);
+            AddServerObjectPostProcess(oid, type, gameObject);
+            return gameObject;
+        }
+
+        private void AddServerObjectPostProcess(long oid, string type, GameObject gameObject)
+        {
+            _serverObjects.Add(oid, gameObject);
+            gameObject.SetActive(true);
+        }
+
+        public void RemoveServerObject(long ID, ObjRemoveReason reason = ObjRemoveReason.Unknown)
+        {
+            GameObject gameObject = FindServerObject(ID);
+            if (null == gameObject)
+                return;
+
+            _serverObjects.Remove(ID);
+
+            CoreManagers.Resource.Destroy(gameObject);
+        }
+
+        public GameObject FindServerObject(long ID)
+        {
+            GameObject gameObject = null;
+            _serverObjects.TryGetValue(ID, out gameObject);
+            return gameObject;
+        }
+        #endregion
     }
 }

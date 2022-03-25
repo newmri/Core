@@ -12,8 +12,11 @@ public:
 	void Remove(const Define::ObjectType objectType, const int64_t oid);
 
 private:
-	void SendSpawnPacket(std::shared_ptr<Creature> creature);
-	void Send(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
+	void SendSpawnPacketToOldPlayer(std::shared_ptr<Creature> creature);
+	void SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player);
+
+	void SendDespawnPacket(const Define::ObjectType objectType, const int64_t oid);
+	void SendAll(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 public:
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);

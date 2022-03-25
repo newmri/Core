@@ -50,7 +50,7 @@ namespace UnityCoreLibrary
             return go;
         }
 
-        public GameObject Instantiate(int ID, string type, string name, Vector3? pos = null, int poolCount = 1, Transform parent = null)
+        public GameObject Instantiate(long ID, string type, string name, Vector3? pos = null, int poolCount = 1, Transform parent = null)
         {
             string path = $"Prefabs/{type}/{name}";
             GameObject original = Load<GameObject>(path);
@@ -74,7 +74,7 @@ namespace UnityCoreLibrary
             return go;
         }
 
-        public GameObject Instantiate(int ID, GameObject prefab, Vector3? pos = null, int poolCount = 1, Transform parent = null)
+        public GameObject Instantiate(long ID, GameObject prefab, Vector3? pos = null, int poolCount = 1, Transform parent = null)
         {
             if (prefab.GetComponent<Poolable>() != null)
             {
@@ -90,7 +90,7 @@ namespace UnityCoreLibrary
             return go;
         }
 
-        private void SetPoolableInfo(Poolable poolable, int ID, string type, string name, Vector3 pos, Transform parent)
+        private void SetPoolableInfo(Poolable poolable, long ID, string type, string name, Vector3 pos, Transform parent)
         {
             poolable.ID = ID;
             poolable.tag = type;

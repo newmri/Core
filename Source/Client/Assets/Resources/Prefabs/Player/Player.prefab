@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 1139350256389534614}
   - component: {fileID: 6153768875183356172}
   - component: {fileID: 7412442631814691674}
+  - component: {fileID: 3254327614455909968}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -329,3 +330,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyJob: 0
   ArrowPrefab: {fileID: 42269432641808743, guid: bc06286fb4ae27745b357c9f6f22f6b0, type: 3}
+--- !u!114 &3254327614455909968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7412442631814691673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1002565146, guid: 4c93b59e85ad85f40bd4ec402ee49c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  State: 0

@@ -40,8 +40,8 @@ public:
 	void AddCharacter(std::shared_ptr<CoreCharacter> character);
 
 public:
-	void SetPlayerUID(const int64_t& uid);
-	int64_t GetPlayerUID(void) const;
+	void SetPlayerOID(const int64_t& oid);
+	int64_t GetPlayerOID(void) const;
 
 public:
 	void PushMoney(const int32_t money);
@@ -62,5 +62,5 @@ private:
 	CoreVector<int32_t> moneyList;
 
 private:
-	int64_t playerUID = 0;
+	int64_t playerOID = 0;
 };

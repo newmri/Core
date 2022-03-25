@@ -11,7 +11,7 @@ void CreatureManager::Release(void)
 	GetInstance().~CreatureManager();
 }
 
-void CreatureManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
+int64_t CreatureManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
 	Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
 {
 	int64_t oid = this->oid.fetch_add(1);
@@ -28,6 +28,7 @@ void CreatureManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<Cor
 
 	WRITE_LOCK(this->mutex);
 	this->playerList[oid] = player;
+	return oid;
 }
 
 std::shared_ptr<Player> CreatureManager::FindPlayer(const int64_t& oid)

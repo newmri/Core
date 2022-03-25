@@ -63,6 +63,12 @@ public class Managers : MonoBehaviour
         }		
 	}
 
+    void OnApplicationQuit()
+    {
+        LoginNetwork.Disconnect(false);
+        GameNetwork.Disconnect(false);
+    }
+
     public static void Clear()
     {
         UI.Clear();

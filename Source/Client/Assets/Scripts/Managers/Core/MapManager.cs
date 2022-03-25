@@ -228,7 +228,7 @@ public class MapManager
 
 	public void Move(int ID)
 	{
-		GameObject obj = CoreManagers.Obj.Find(ID);
+		GameObject obj = CoreManagers.Obj.FindServerObject(ID);
 		if (obj == null)
 			return;
 
@@ -238,7 +238,7 @@ public class MapManager
 
 	public void RemoveObject(int ID)
 	{
-		GameObject obj = CoreManagers.Obj.Find(ID);
+		GameObject obj = CoreManagers.Obj.FindServerObject(ID);
 		if (obj == null)
 			return;
 

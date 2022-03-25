@@ -1,13 +1,13 @@
 ﻿  AccountDB.cpp
+  Character.cpp
   DataManager.cpp
   GameDB.cpp
-  Character.cpp
   LoginPacketFunc.cpp
   LoginPacketHandler.cpp
   LoginServer.cpp
   LoginServerManager.cpp
   Main.cpp
-  native_info_impl.cpp
   PacketSendManager.cpp
+  native_info_impl.cpp
   코드를 생성하고 있습니다...
   LoginServer.vcxproj -> C:\Users\HavePoop\Desktop\Study\Core\Source\LoginServer\x64\Debug\LoginServer.exe

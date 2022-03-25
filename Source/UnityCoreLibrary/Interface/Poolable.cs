@@ -12,7 +12,7 @@ namespace UnityCoreLibrary
 
 	public class Poolable : MonoBehaviour
 	{
-		public int ID;
+		public long ID;
 		public ObjState State;
 	}
 }

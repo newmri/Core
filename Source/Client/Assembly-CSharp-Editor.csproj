@@ -60,8 +60,8 @@
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Editor\GearEquipperEditor.cs" />
     <Compile Include="Assets\Editor\MapEditor.cs" />
     <Compile Include="Assets\Editor\VersionHelper.cs" />
-    <Compile Include="Assets\Editor\InitProjectEditor.cs" />
     <Compile Include="Assets\Editor\MultiPlayersBuildAndRun.cs" />
+    <Compile Include="Assets\Editor\InitProjectEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

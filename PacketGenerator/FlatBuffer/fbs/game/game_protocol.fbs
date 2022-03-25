@@ -18,6 +18,7 @@ union Packet
     CS_PING_RES,
     CS_LOGOUT_NOTI,
     SC_SPAWN_PLAYER_NOTI,
+    SC_DESPAWN_OBJECT_NOTI,
     CS_MOVE_REQ,
     SC_MOVE_RES
 }
@@ -74,6 +75,12 @@ table SC_SPAWN_PLAYER_NOTI
 {
     creature_info:Info.CreatureInfo;
     character_info:CharacterInfo;
+}
+
+table SC_DESPAWN_OBJECT_NOTI
+{
+     object_type:Define.ObjectType;
+     uid:int64;
 }
 
 table CS_MOVE_REQ

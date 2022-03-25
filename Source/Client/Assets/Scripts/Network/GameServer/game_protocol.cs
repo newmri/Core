@@ -25,8 +25,9 @@ public enum Packet : byte
   CS_PING_RES = 4,
   CS_LOGOUT_NOTI = 5,
   SC_SPAWN_PLAYER_NOTI = 6,
-  CS_MOVE_REQ = 7,
-  SC_MOVE_RES = 8,
+  SC_DESPAWN_OBJECT_NOTI = 7,
+  CS_MOVE_REQ = 8,
+  SC_MOVE_RES = 9,
 };
 
 public class PacketUnion {
@@ -45,6 +46,7 @@ public class PacketUnion {
   public GamePacket.CS_PING_REST AsCS_PING_RES() { return this.As<GamePacket.CS_PING_REST>(); }
   public GamePacket.CS_LOGOUT_NOTIT AsCS_LOGOUT_NOTI() { return this.As<GamePacket.CS_LOGOUT_NOTIT>(); }
   public GamePacket.SC_SPAWN_PLAYER_NOTIT AsSC_SPAWN_PLAYER_NOTI() { return this.As<GamePacket.SC_SPAWN_PLAYER_NOTIT>(); }
+  public GamePacket.SC_DESPAWN_OBJECT_NOTIT AsSC_DESPAWN_OBJECT_NOTI() { return this.As<GamePacket.SC_DESPAWN_OBJECT_NOTIT>(); }
   public GamePacket.CS_MOVE_REQT AsCS_MOVE_REQ() { return this.As<GamePacket.CS_MOVE_REQT>(); }
   public GamePacket.SC_MOVE_REST AsSC_MOVE_RES() { return this.As<GamePacket.SC_MOVE_REST>(); }
 
@@ -57,6 +59,7 @@ public class PacketUnion {
       case Packet.CS_PING_RES: return GamePacket.CS_PING_RES.Pack(builder, _o.AsCS_PING_RES()).Value;
       case Packet.CS_LOGOUT_NOTI: return GamePacket.CS_LOGOUT_NOTI.Pack(builder, _o.AsCS_LOGOUT_NOTI()).Value;
       case Packet.SC_SPAWN_PLAYER_NOTI: return GamePacket.SC_SPAWN_PLAYER_NOTI.Pack(builder, _o.AsSC_SPAWN_PLAYER_NOTI()).Value;
+      case Packet.SC_DESPAWN_OBJECT_NOTI: return GamePacket.SC_DESPAWN_OBJECT_NOTI.Pack(builder, _o.AsSC_DESPAWN_OBJECT_NOTI()).Value;
       case Packet.CS_MOVE_REQ: return GamePacket.CS_MOVE_REQ.Pack(builder, _o.AsCS_MOVE_REQ()).Value;
       case Packet.SC_MOVE_RES: return GamePacket.SC_MOVE_RES.Pack(builder, _o.AsSC_MOVE_RES()).Value;
     }
@@ -560,6 +563,64 @@ public class SC_SPAWN_PLAYER_NOTIT
   }
 }
 
+public struct SC_DESPAWN_OBJECT_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_DESPAWN_OBJECT_NOTI GetRootAsSC_DESPAWN_OBJECT_NOTI(ByteBuffer _bb) { return GetRootAsSC_DESPAWN_OBJECT_NOTI(_bb, new SC_DESPAWN_OBJECT_NOTI()); }
+  public static SC_DESPAWN_OBJECT_NOTI GetRootAsSC_DESPAWN_OBJECT_NOTI(ByteBuffer _bb, SC_DESPAWN_OBJECT_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_DESPAWN_OBJECT_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public long Uid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+
+  public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder,
+      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      long uid = 0) {
+    builder.StartTable(2);
+    SC_DESPAWN_OBJECT_NOTI.AddUid(builder, uid);
+    SC_DESPAWN_OBJECT_NOTI.AddObjectType(builder, object_type);
+    return SC_DESPAWN_OBJECT_NOTI.EndSC_DESPAWN_OBJECT_NOTI(builder);
+  }
+
+  public static void StartSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
+  public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(1, uid, 0); }
+  public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> EndSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI>(o);
+  }
+  public SC_DESPAWN_OBJECT_NOTIT UnPack() {
+    var _o = new SC_DESPAWN_OBJECT_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_DESPAWN_OBJECT_NOTIT _o) {
+    _o.ObjectType = this.ObjectType;
+    _o.Uid = this.Uid;
+  }
+  public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> Pack(FlatBufferBuilder builder, SC_DESPAWN_OBJECT_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI>);
+    return CreateSC_DESPAWN_OBJECT_NOTI(
+      builder,
+      _o.ObjectType,
+      _o.Uid);
+  }
+};
+
+public class SC_DESPAWN_OBJECT_NOTIT
+{
+  public Define.ObjectType ObjectType { get; set; }
+  public long Uid { get; set; }
+
+  public SC_DESPAWN_OBJECT_NOTIT() {
+    this.ObjectType = Define.ObjectType.PLAYER;
+    this.Uid = 0;
+  }
+}
+
 public struct CS_MOVE_REQ : IFlatbufferObject
 {
   private Table __p;
@@ -679,6 +740,7 @@ public struct Root : IFlatbufferObject
   public GamePacket.CS_PING_RES PacketAsCS_PING_RES() { return Packet<GamePacket.CS_PING_RES>().Value; }
   public GamePacket.CS_LOGOUT_NOTI PacketAsCS_LOGOUT_NOTI() { return Packet<GamePacket.CS_LOGOUT_NOTI>().Value; }
   public GamePacket.SC_SPAWN_PLAYER_NOTI PacketAsSC_SPAWN_PLAYER_NOTI() { return Packet<GamePacket.SC_SPAWN_PLAYER_NOTI>().Value; }
+  public GamePacket.SC_DESPAWN_OBJECT_NOTI PacketAsSC_DESPAWN_OBJECT_NOTI() { return Packet<GamePacket.SC_DESPAWN_OBJECT_NOTI>().Value; }
   public GamePacket.CS_MOVE_REQ PacketAsCS_MOVE_REQ() { return Packet<GamePacket.CS_MOVE_REQ>().Value; }
   public GamePacket.SC_MOVE_RES PacketAsSC_MOVE_RES() { return Packet<GamePacket.SC_MOVE_RES>().Value; }
 
@@ -727,6 +789,9 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_SPAWN_PLAYER_NOTI:
         _o.Packet.Value = this.Packet<GamePacket.SC_SPAWN_PLAYER_NOTI>().HasValue ? this.Packet<GamePacket.SC_SPAWN_PLAYER_NOTI>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_DESPAWN_OBJECT_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_DESPAWN_OBJECT_NOTI>().HasValue ? this.Packet<GamePacket.SC_DESPAWN_OBJECT_NOTI>().Value.UnPack() : null;
         break;
       case GamePacket.Packet.CS_MOVE_REQ:
         _o.Packet.Value = this.Packet<GamePacket.CS_MOVE_REQ>().HasValue ? this.Packet<GamePacket.CS_MOVE_REQ>().Value.UnPack() : null;

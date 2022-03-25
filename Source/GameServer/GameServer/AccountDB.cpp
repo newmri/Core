@@ -56,7 +56,7 @@ void AccountDB::Logout(const CoreAccount* account)
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 
-	CREATURE_MANAGER.RemovePlayer(account->GetPlayerUID());
+	CREATURE_MANAGER.RemovePlayer(account->GetPlayerOID());
 }
 
 void AccountDB::LoadMoney(const int64_t accountUID, NativeInfo::Money& money)

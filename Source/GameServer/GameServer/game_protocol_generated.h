@@ -43,6 +43,10 @@ struct SC_SPAWN_PLAYER_NOTI;
 struct SC_SPAWN_PLAYER_NOTIBuilder;
 struct SC_SPAWN_PLAYER_NOTIT;
 
+struct SC_DESPAWN_OBJECT_NOTI;
+struct SC_DESPAWN_OBJECT_NOTIBuilder;
+struct SC_DESPAWN_OBJECT_NOTIT;
+
 struct CS_MOVE_REQ;
 struct CS_MOVE_REQBuilder;
 struct CS_MOVE_REQT;
@@ -96,13 +100,14 @@ enum Packet : uint8_t {
   Packet_CS_PING_RES = 4,
   Packet_CS_LOGOUT_NOTI = 5,
   Packet_SC_SPAWN_PLAYER_NOTI = 6,
-  Packet_CS_MOVE_REQ = 7,
-  Packet_SC_MOVE_RES = 8,
+  Packet_SC_DESPAWN_OBJECT_NOTI = 7,
+  Packet_CS_MOVE_REQ = 8,
+  Packet_SC_MOVE_RES = 9,
   Packet_MIN = Packet_NONE,
   Packet_MAX = Packet_SC_MOVE_RES
 };
 
-inline const Packet (&EnumValuesPacket())[9] {
+inline const Packet (&EnumValuesPacket())[10] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -111,6 +116,7 @@ inline const Packet (&EnumValuesPacket())[9] {
     Packet_CS_PING_RES,
     Packet_CS_LOGOUT_NOTI,
     Packet_SC_SPAWN_PLAYER_NOTI,
+    Packet_SC_DESPAWN_OBJECT_NOTI,
     Packet_CS_MOVE_REQ,
     Packet_SC_MOVE_RES
   };
@@ -118,7 +124,7 @@ inline const Packet (&EnumValuesPacket())[9] {
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[10] = {
+  static const char * const names[11] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -126,6 +132,7 @@ inline const char * const *EnumNamesPacket() {
     "CS_PING_RES",
     "CS_LOGOUT_NOTI",
     "SC_SPAWN_PLAYER_NOTI",
+    "SC_DESPAWN_OBJECT_NOTI",
     "CS_MOVE_REQ",
     "SC_MOVE_RES",
     nullptr
@@ -165,6 +172,10 @@ template<> struct PacketTraits<GamePacket::CS_LOGOUT_NOTI> {
 
 template<> struct PacketTraits<GamePacket::SC_SPAWN_PLAYER_NOTI> {
   static const Packet enum_value = Packet_SC_SPAWN_PLAYER_NOTI;
+};
+
+template<> struct PacketTraits<GamePacket::SC_DESPAWN_OBJECT_NOTI> {
+  static const Packet enum_value = Packet_SC_DESPAWN_OBJECT_NOTI;
 };
 
 template<> struct PacketTraits<GamePacket::CS_MOVE_REQ> {
@@ -254,6 +265,14 @@ struct PacketUnion {
   const GamePacket::SC_SPAWN_PLAYER_NOTIT *AsSC_SPAWN_PLAYER_NOTI() const {
     return type == Packet_SC_SPAWN_PLAYER_NOTI ?
       reinterpret_cast<const GamePacket::SC_SPAWN_PLAYER_NOTIT *>(value) : nullptr;
+  }
+  GamePacket::SC_DESPAWN_OBJECT_NOTIT *AsSC_DESPAWN_OBJECT_NOTI() {
+    return type == Packet_SC_DESPAWN_OBJECT_NOTI ?
+      reinterpret_cast<GamePacket::SC_DESPAWN_OBJECT_NOTIT *>(value) : nullptr;
+  }
+  const GamePacket::SC_DESPAWN_OBJECT_NOTIT *AsSC_DESPAWN_OBJECT_NOTI() const {
+    return type == Packet_SC_DESPAWN_OBJECT_NOTI ?
+      reinterpret_cast<const GamePacket::SC_DESPAWN_OBJECT_NOTIT *>(value) : nullptr;
   }
   GamePacket::CS_MOVE_REQT *AsCS_MOVE_REQ() {
     return type == Packet_CS_MOVE_REQ ?
@@ -907,6 +926,69 @@ inline flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(
 
 flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PLAYER_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct SC_DESPAWN_OBJECT_NOTIT : public flatbuffers::NativeTable {
+  typedef SC_DESPAWN_OBJECT_NOTI TableType;
+  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  int64_t uid = 0;
+};
+
+struct SC_DESPAWN_OBJECT_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_DESPAWN_OBJECT_NOTIT NativeTableType;
+  typedef SC_DESPAWN_OBJECT_NOTIBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_OBJECT_TYPE = 4,
+    VT_UID = 6
+  };
+  Define::ObjectType object_type() const {
+    return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
+  }
+  int64_t uid() const {
+    return GetField<int64_t>(VT_UID, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
+           VerifyField<int64_t>(verifier, VT_UID) &&
+           verifier.EndTable();
+  }
+  SC_DESPAWN_OBJECT_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_DESPAWN_OBJECT_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_DESPAWN_OBJECT_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_DESPAWN_OBJECT_NOTIBuilder {
+  typedef SC_DESPAWN_OBJECT_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_object_type(Define::ObjectType object_type) {
+    fbb_.AddElement<uint8_t>(SC_DESPAWN_OBJECT_NOTI::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
+  }
+  void add_uid(int64_t uid) {
+    fbb_.AddElement<int64_t>(SC_DESPAWN_OBJECT_NOTI::VT_UID, uid, 0);
+  }
+  explicit SC_DESPAWN_OBJECT_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    int64_t uid = 0) {
+  SC_DESPAWN_OBJECT_NOTIBuilder builder_(_fbb);
+  builder_.add_uid(uid);
+  builder_.add_object_type(object_type);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_DESPAWN_OBJECT_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct CS_MOVE_REQT : public flatbuffers::NativeTable {
   typedef CS_MOVE_REQ TableType;
   NativeInfo::PositionInfo pos_info{};
@@ -1059,6 +1141,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const GamePacket::SC_SPAWN_PLAYER_NOTI *packet_as_SC_SPAWN_PLAYER_NOTI() const {
     return packet_type() == GamePacket::Packet_SC_SPAWN_PLAYER_NOTI ? static_cast<const GamePacket::SC_SPAWN_PLAYER_NOTI *>(packet()) : nullptr;
   }
+  const GamePacket::SC_DESPAWN_OBJECT_NOTI *packet_as_SC_DESPAWN_OBJECT_NOTI() const {
+    return packet_type() == GamePacket::Packet_SC_DESPAWN_OBJECT_NOTI ? static_cast<const GamePacket::SC_DESPAWN_OBJECT_NOTI *>(packet()) : nullptr;
+  }
   const GamePacket::CS_MOVE_REQ *packet_as_CS_MOVE_REQ() const {
     return packet_type() == GamePacket::Packet_CS_MOVE_REQ ? static_cast<const GamePacket::CS_MOVE_REQ *>(packet()) : nullptr;
   }
@@ -1099,6 +1184,10 @@ template<> inline const GamePacket::CS_LOGOUT_NOTI *Root::packet_as<GamePacket::
 
 template<> inline const GamePacket::SC_SPAWN_PLAYER_NOTI *Root::packet_as<GamePacket::SC_SPAWN_PLAYER_NOTI>() const {
   return packet_as_SC_SPAWN_PLAYER_NOTI();
+}
+
+template<> inline const GamePacket::SC_DESPAWN_OBJECT_NOTI *Root::packet_as<GamePacket::SC_DESPAWN_OBJECT_NOTI>() const {
+  return packet_as_SC_DESPAWN_OBJECT_NOTI();
 }
 
 template<> inline const GamePacket::CS_MOVE_REQ *Root::packet_as<GamePacket::CS_MOVE_REQ>() const {
@@ -1374,6 +1463,35 @@ inline flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(flat
       _character_info);
 }
 
+inline SC_DESPAWN_OBJECT_NOTIT *SC_DESPAWN_OBJECT_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_DESPAWN_OBJECT_NOTIT>(new SC_DESPAWN_OBJECT_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_DESPAWN_OBJECT_NOTI::UnPackTo(SC_DESPAWN_OBJECT_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = object_type(); _o->object_type = _e; }
+  { auto _e = uid(); _o->uid = _e; }
+}
+
+inline flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> SC_DESPAWN_OBJECT_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_DESPAWN_OBJECT_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_DESPAWN_OBJECT_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_DESPAWN_OBJECT_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_DESPAWN_OBJECT_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _object_type = _o->object_type;
+  auto _uid = _o->uid;
+  return GamePacket::CreateSC_DESPAWN_OBJECT_NOTI(
+      _fbb,
+      _object_type,
+      _uid);
+}
+
 inline CS_MOVE_REQT *CS_MOVE_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<CS_MOVE_REQT>(new CS_MOVE_REQT());
   UnPackTo(_o.get(), _resolver);
@@ -1487,6 +1605,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PLAYER_NOTI *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_DESPAWN_OBJECT_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_DESPAWN_OBJECT_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     case Packet_CS_MOVE_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_MOVE_REQ *>(obj);
       return verifier.VerifyTable(ptr);
@@ -1537,6 +1659,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PLAYER_NOTI *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_DESPAWN_OBJECT_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_DESPAWN_OBJECT_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
     case Packet_CS_MOVE_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_MOVE_REQ *>(obj);
       return ptr->UnPack(resolver);
@@ -1575,6 +1701,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PLAYER_NOTIT *>(value);
       return CreateSC_SPAWN_PLAYER_NOTI(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_DESPAWN_OBJECT_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_DESPAWN_OBJECT_NOTIT *>(value);
+      return CreateSC_DESPAWN_OBJECT_NOTI(_fbb, ptr, _rehasher).Union();
+    }
     case Packet_CS_MOVE_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_MOVE_REQT *>(value);
       return CreateCS_MOVE_REQ(_fbb, ptr, _rehasher).Union();
@@ -1611,6 +1741,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_SPAWN_PLAYER_NOTI: {
       FLATBUFFERS_ASSERT(false);  // GamePacket::SC_SPAWN_PLAYER_NOTIT not copyable.
+      break;
+    }
+    case Packet_SC_DESPAWN_OBJECT_NOTI: {
+      value = new GamePacket::SC_DESPAWN_OBJECT_NOTIT(*reinterpret_cast<GamePacket::SC_DESPAWN_OBJECT_NOTIT *>(u.value));
       break;
     }
     case Packet_CS_MOVE_REQ: {
@@ -1655,6 +1789,11 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_SPAWN_PLAYER_NOTI: {
       auto ptr = reinterpret_cast<GamePacket::SC_SPAWN_PLAYER_NOTIT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_DESPAWN_OBJECT_NOTI: {
+      auto ptr = reinterpret_cast<GamePacket::SC_DESPAWN_OBJECT_NOTIT *>(value);
       delete ptr;
       break;
     }

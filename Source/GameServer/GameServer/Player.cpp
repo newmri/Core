@@ -37,6 +37,7 @@ void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset
 {
 	auto creatureInfo = GetInfo();
 	auto characterInfo = GetCharacterInfo();
+	PACKET_SEND_MANAGER.builder.Clear();
 	auto packedCreatureInfo = Info::CreatureInfo::Pack(PACKET_SEND_MANAGER.builder, &creatureInfo);
 	auto packedCharacterInfo = GamePacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &characterInfo);
 	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(PACKET_SEND_MANAGER.builder, packedCreatureInfo, packedCharacterInfo);

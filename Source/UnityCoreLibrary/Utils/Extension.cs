@@ -29,7 +29,7 @@ namespace UnityCoreLibrary
 			return (T)System.Enum.Parse(typeof(T), value, true);
 		}
 
-		public static int GetID(this GameObject go)
+		public static long GetID(this GameObject go)
 		{
 			Poolable poolable = go.GetComponent<Poolable>();
 			if (poolable)

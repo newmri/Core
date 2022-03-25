@@ -57,8 +57,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 
 		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
-
-		CREATURE_MANAGER.AddPlayer(raw->character_uid(), session, creatureInfo, characterInfo);
+		account->SetPlayerOID(CREATURE_MANAGER.AddPlayer(raw->character_uid(), session, creatureInfo, characterInfo));
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드

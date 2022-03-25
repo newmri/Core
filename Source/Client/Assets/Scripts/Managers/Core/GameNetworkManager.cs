@@ -25,15 +25,18 @@ public class GameNetworkManager : BaseNetworkManager
 
     public override void Disconnect(bool newSession = true)
     {
-        Send(Packet.CS_LOGOUT_NOTI);
-        Thread.Sleep(100);
-        _session.Disconnect();
+        if (_session.IsConnected)
+        {
+            Send(Packet.CS_LOGOUT_NOTI);
+            Thread.Sleep(100);
+            _session.Disconnect();
 
-        if (newSession)
-            _session = new LoginServerSession();
+            if (newSession)
+                _session = new LoginServerSession();
 
-        Init();
-        Thread.Sleep(100);
+            Init();
+            Thread.Sleep(100);
+        }
     }
 
     public void Send(FlatBufferBuilder packet, Packet packetType, int packetOffset)

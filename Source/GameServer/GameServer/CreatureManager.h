@@ -7,7 +7,7 @@ class CreatureManager
 	DECLARE_SINGLETON(CreatureManager)
 
 public:
-	void AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
+	int64_t AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
 		Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);
 
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);

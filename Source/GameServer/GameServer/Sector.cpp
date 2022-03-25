@@ -25,15 +25,19 @@ void Sector::Add(std::shared_ptr<Creature> creature)
 	if (IS_NULL(creature))
 		return;
 
-	SendSpawnPacket(creature);
+	SendSpawnPacketToOldPlayer(creature);
 
 	Define::ObjectType objectType = creature->GetObjectType();
 
 	switch (objectType)
 	{
 	case Define::ObjectType_PLAYER:
-		this->playerList[creature->GetOID()] = std::dynamic_pointer_cast<Player>(creature);
+	{
+		auto player = std::dynamic_pointer_cast<Player>(creature);
+		SendSpawnPacketToNewPlayer(player);
+		this->playerList[creature->GetOID()] = player;
 		break;
+	}
 	default:
 		break;
 	}
@@ -49,17 +53,42 @@ void Sector::Remove(const Define::ObjectType objectType, const int64_t oid)
 	default:
 		break;
 	}
+
+	SendDespawnPacket(objectType, oid);
 }
 
-void Sector::SendSpawnPacket(std::shared_ptr<Creature> creature)
+void Sector::SendSpawnPacketToOldPlayer(std::shared_ptr<Creature> creature)
 {
 	GamePacket::Packet packetType;
 	flatbuffers::Offset<void> packet;
 	creature->MakeSpawnPacket(packetType, packet);
-	Send(packetType, packet);
+	SendAll(packetType, packet);
 }
 
-void Sector::Send(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+void Sector::SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player)
+{
+	auto iter_begin = this->playerList.begin();
+	auto iter_end = this->playerList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		GamePacket::Packet packetType;
+		flatbuffers::Offset<void> packet;
+		(iter_begin->second)->MakeSpawnPacket(packetType, packet);
+		player->Send(packetType, packet);
+	}
+}
+
+void Sector::SendDespawnPacket(const Define::ObjectType objectType, const int64_t oid)
+{
+	GamePacket::Packet packetType = GamePacket::Packet_SC_DESPAWN_OBJECT_NOTI;
+	flatbuffers::Offset<void> packet;
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto message = GamePacket::CreateSC_DESPAWN_OBJECT_NOTI(PACKET_SEND_MANAGER.builder, objectType, oid);
+	packet = message.Union();
+	SendAll(packetType, packet);
+}
+
+void Sector::SendAll(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 	auto iter_begin = this->playerList.begin();
 	auto iter_end = this->playerList.end();
