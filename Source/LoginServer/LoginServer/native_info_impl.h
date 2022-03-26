@@ -34,19 +34,16 @@ namespace NativeInfo
             return Vec2Int(1, 0);
         }
 
-        float NormalizeX(float magnitude)
+        void Normalize(void)
         {
-            return static_cast<float>(x) / magnitude;
+            int32_t magnitude = GetMagnitude();
+            x /= magnitude;
+            y /= magnitude;
         }
 
-        float NormalizeY(float magnitude)
+        int32_t GetMagnitude(void)
         {
-            return static_cast<float>(y) / magnitude;
-        }
-
-        float_t GetMagnitude(void)
-        {
-            return sqrtf(static_cast<float>(GetSqrMagnitude()));
+            return static_cast<int>(sqrtf(static_cast<float>(GetSqrMagnitude())));
         }
 
         int32_t GetSqrMagnitude(void)
@@ -72,9 +69,9 @@ namespace NativeInfo
         Define::Dir GetDirection(const Vec2Int& destPos)
         {
             NativeInfo::Vec2Int dir = destPos - *this;
-            float dirX = dir.NormalizeX(dir.GetMagnitude());
+            dir.Normalize();
 
-            if (dirX > 0.0f)
+            if (dir.x > 0)
                 return Define::Dir_RIGHT;
             else
                 return Define::Dir_LEFT;
