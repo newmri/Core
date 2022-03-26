@@ -152,6 +152,9 @@ bool Zone::Move(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& c
 	if (!IsValidCellPos(cellSourcePos) || !IsValidCellPos(cellDestPos))
 		return false;
 
+	if (cellSourcePos == cellDestPos)
+		return false;
+
 	NativeInfo::Vec2Int sourceIndex = CellPosToIndex(cellSourcePos);
 	NativeInfo::Vec2Int destIndex = CellPosToIndex(cellDestPos);
 
@@ -163,12 +166,18 @@ bool Zone::Move(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& c
 	if (!CanMove(destIndex, checkObjects))
 		return false;
 
+	creature->SetDirection(cellDestPos);
 	creature->SetPos(cellDestPos);
 
 	if (sourceSector != destSector)
 	{
 		_Leave(creature, sourceSector, sourceIndex);
 		_Enter(creature, destSector, destIndex);
+	}
+
+	else
+	{
+		destSector->Move(creature);
 	}
 
 	return true;

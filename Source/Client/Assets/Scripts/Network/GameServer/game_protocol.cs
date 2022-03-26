@@ -674,21 +674,25 @@ public struct SC_MOVE_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_MOVE_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public long ObjectId { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(6); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public long ObjectId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(8); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
   public static Offset<GamePacket.SC_MOVE_RES> CreateSC_MOVE_RES(FlatBufferBuilder builder,
+      Define.ObjectType object_type = Define.ObjectType.PLAYER,
       long object_id = 0,
       Info.PositionInfoT pos_info = null) {
-    builder.StartTable(2);
+    builder.StartTable(3);
     SC_MOVE_RES.AddObjectId(builder, object_id);
     SC_MOVE_RES.AddPosInfo(builder, Info.PositionInfo.Pack(builder, pos_info));
+    SC_MOVE_RES.AddObjectType(builder, object_type);
     return SC_MOVE_RES.EndSC_MOVE_RES(builder);
   }
 
-  public static void StartSC_MOVE_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
-  public static void AddObjectId(FlatBufferBuilder builder, long objectId) { builder.AddLong(0, objectId, 0); }
-  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(1, posInfoOffset.Value, 0); }
+  public static void StartSC_MOVE_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
+  public static void AddObjectId(FlatBufferBuilder builder, long objectId) { builder.AddLong(1, objectId, 0); }
+  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(2, posInfoOffset.Value, 0); }
   public static Offset<GamePacket.SC_MOVE_RES> EndSC_MOVE_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_MOVE_RES>(o);
@@ -699,6 +703,7 @@ public struct SC_MOVE_RES : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(SC_MOVE_REST _o) {
+    _o.ObjectType = this.ObjectType;
     _o.ObjectId = this.ObjectId;
     _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
   }
@@ -706,6 +711,7 @@ public struct SC_MOVE_RES : IFlatbufferObject
     if (_o == null) return default(Offset<GamePacket.SC_MOVE_RES>);
     return CreateSC_MOVE_RES(
       builder,
+      _o.ObjectType,
       _o.ObjectId,
       _o.PosInfo);
   }
@@ -713,10 +719,12 @@ public struct SC_MOVE_RES : IFlatbufferObject
 
 public class SC_MOVE_REST
 {
+  public Define.ObjectType ObjectType { get; set; }
   public long ObjectId { get; set; }
   public Info.PositionInfoT PosInfo { get; set; }
 
   public SC_MOVE_REST() {
+    this.ObjectType = Define.ObjectType.PLAYER;
     this.ObjectId = 0;
     this.PosInfo = new Info.PositionInfoT();
   }

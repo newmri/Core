@@ -55,6 +55,25 @@ public class CreatureManager
         playerController.CreatureInfo = creatureInfo;
         playerController.CharacterInfo = characterInfo;
         playerController.SyncPos();
+        _playerList.Add(creatureInfo.Oid, playerController);
+    }
+
+    public void Move(ObjectType objectType, long oid, PositionInfoT pos)
+    {
+        BaseController baseController = new BaseController();
+        switch (objectType)
+        {
+            case ObjectType.PLAYER:
+                PlayerController controller;
+                if (_playerList.TryGetValue(oid, out controller))
+                    baseController = controller;
+                break;
+            default:
+                return;
+        }
+
+       baseController.PosInfo = pos;
+       baseController.SyncPos();
     }
 
     public void Remove(ObjectType objectType, long oid)

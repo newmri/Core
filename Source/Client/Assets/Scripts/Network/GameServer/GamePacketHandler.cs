@@ -52,13 +52,13 @@ class GamePacketHandler
     public static void SC_DESPAWN_OBJECT_NOTI(PacketSession session, Root packet)
     {
         SC_DESPAWN_OBJECT_NOTI despawnNoti = packet.PacketAsSC_DESPAWN_OBJECT_NOTI();
-        Managers.Creature.Remove(despawnNoti.UnPack().ObjectType, despawnNoti.UnPack().Uid);
+        Managers.Creature.Remove(despawnNoti.ObjectType, despawnNoti.Uid);
     }
 
     public static void SC_MOVE_RES(PacketSession session, Root packet)
     {
         SC_MOVE_RES moveRes = packet.PacketAsSC_MOVE_RES();
-        Debug.Log(moveRes.ObjectId + " Is Moving");
+        Managers.Creature.Move(moveRes.ObjectType, moveRes.ObjectId, moveRes.UnPack().PosInfo);
     }
 }
 

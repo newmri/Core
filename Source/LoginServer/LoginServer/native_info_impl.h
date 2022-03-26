@@ -14,6 +14,72 @@ namespace NativeInfo
         {
         }
 
+        static Vec2Int Up(void)
+        {
+            return Vec2Int(0, 1);
+        }
+
+        static Vec2Int Down(void)
+        {
+            return Vec2Int(0, -1);
+        }
+
+        static Vec2Int Left(void)
+        {
+            return Vec2Int(-1, 0);
+        }
+
+        static Vec2Int Right(void)
+        {
+            return Vec2Int(1, 0);
+        }
+
+        float NormalizeX(float magnitude)
+        {
+            return static_cast<float>(x) / magnitude;
+        }
+
+        float NormalizeY(float magnitude)
+        {
+            return static_cast<float>(y) / magnitude;
+        }
+
+        float_t GetMagnitude(void)
+        {
+            return sqrtf(static_cast<float>(GetSqrMagnitude()));
+        }
+
+        int32_t GetSqrMagnitude(void)
+        {
+            return (x * x + y * y);
+        }
+
+        bool operator==(const Vec2Int& rhs) const
+        {
+            return (x == rhs.x && y == rhs.y);
+        }
+
+        Vec2Int operator+(const Vec2Int& rhs) const
+        {
+            return Vec2Int(x + rhs.x, y + rhs.y);
+        }
+
+        Vec2Int operator-(const Vec2Int& rhs) const
+        {
+            return Vec2Int(x - rhs.x, y - rhs.y);
+        }
+
+        Define::Dir GetDirection(const Vec2Int& destPos)
+        {
+            NativeInfo::Vec2Int dir = destPos - *this;
+            float dirX = dir.NormalizeX(dir.GetMagnitude());
+
+            if (dirX > 0.0f)
+                return Define::Dir_RIGHT;
+            else
+                return Define::Dir_LEFT;
+        }
+
         int32_t x = 0;
         int32_t y = 0;
     };

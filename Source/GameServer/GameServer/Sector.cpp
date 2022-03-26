@@ -43,6 +43,17 @@ void Sector::Add(std::shared_ptr<Creature> creature)
 	}
 }
 
+void Sector::Move(std::shared_ptr<Creature> creature)
+{
+	if (IS_NULL(creature))
+		return;
+
+	GamePacket::Packet packetType;
+	flatbuffers::Offset<void> packet;
+	creature->MakeMovePacket(packetType, packet);
+	SendAllExceptMe(creature->GetOID(), packetType, packet);
+}
+
 void Sector::Remove(const Define::ObjectType objectType, const int64_t oid)
 {
 	switch (objectType)
@@ -95,6 +106,17 @@ void Sector::SendAll(GamePacket::Packet& packetType, flatbuffers::Offset<void>& 
 	for (; iter_begin != iter_end; ++iter_begin)
 	{
 		(iter_begin->second)->Send(packetType, packet);
+	}
+}
+
+void Sector::SendAllExceptMe(const int64_t oid, GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+{
+	auto iter_begin = this->playerList.begin();
+	auto iter_end = this->playerList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		if((iter_begin->second)->GetOID() != oid)
+			(iter_begin->second)->Send(packetType, packet);
 	}
 }
 

@@ -90,6 +90,7 @@ table CS_MOVE_REQ
 
 table SC_MOVE_RES
 {
+    object_type:Define.ObjectType;
     object_id:int64;
     pos_info:Info.PositionInfo (native_inline);
 }

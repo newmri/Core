@@ -1043,6 +1043,7 @@ flatbuffers::Offset<CS_MOVE_REQ> CreateCS_MOVE_REQ(flatbuffers::FlatBufferBuilde
 
 struct SC_MOVE_REST : public flatbuffers::NativeTable {
   typedef SC_MOVE_RES TableType;
+  Define::ObjectType object_type = Define::ObjectType_PLAYER;
   int64_t object_id = 0;
   NativeInfo::PositionInfo pos_info{};
 };
@@ -1051,9 +1052,13 @@ struct SC_MOVE_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SC_MOVE_REST NativeTableType;
   typedef SC_MOVE_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_OBJECT_ID = 4,
-    VT_POS_INFO = 6
+    VT_OBJECT_TYPE = 4,
+    VT_OBJECT_ID = 6,
+    VT_POS_INFO = 8
   };
+  Define::ObjectType object_type() const {
+    return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
+  }
   int64_t object_id() const {
     return GetField<int64_t>(VT_OBJECT_ID, 0);
   }
@@ -1062,6 +1067,7 @@ struct SC_MOVE_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
            VerifyField<int64_t>(verifier, VT_OBJECT_ID) &&
            VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
            verifier.EndTable();
@@ -1075,6 +1081,9 @@ struct SC_MOVE_RESBuilder {
   typedef SC_MOVE_RES Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
+  void add_object_type(Define::ObjectType object_type) {
+    fbb_.AddElement<uint8_t>(SC_MOVE_RES::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
+  }
   void add_object_id(int64_t object_id) {
     fbb_.AddElement<int64_t>(SC_MOVE_RES::VT_OBJECT_ID, object_id, 0);
   }
@@ -1094,11 +1103,13 @@ struct SC_MOVE_RESBuilder {
 
 inline flatbuffers::Offset<SC_MOVE_RES> CreateSC_MOVE_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
+    Define::ObjectType object_type = Define::ObjectType_PLAYER,
     int64_t object_id = 0,
     const Info::PositionInfo *pos_info = 0) {
   SC_MOVE_RESBuilder builder_(_fbb);
   builder_.add_object_id(object_id);
   builder_.add_pos_info(pos_info);
+  builder_.add_object_type(object_type);
   return builder_.Finish();
 }
 
@@ -1527,6 +1538,7 @@ inline SC_MOVE_REST *SC_MOVE_RES::UnPack(const flatbuffers::resolver_function_t 
 inline void SC_MOVE_RES::UnPackTo(SC_MOVE_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
+  { auto _e = object_type(); _o->object_type = _e; }
   { auto _e = object_id(); _o->object_id = _e; }
   { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
 }
@@ -1539,10 +1551,12 @@ inline flatbuffers::Offset<SC_MOVE_RES> CreateSC_MOVE_RES(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_MOVE_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _object_type = _o->object_type;
   auto _object_id = _o->object_id;
   auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
   return GamePacket::CreateSC_MOVE_RES(
       _fbb,
+      _object_type,
       _object_id,
       &_pos_info);
 }

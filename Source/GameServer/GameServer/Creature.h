@@ -15,10 +15,12 @@ public:
 	NativeInfo::Vec2Int GetPos(void) const;
 
 public:
+	void SetDirection(const NativeInfo::Vec2Int& destPos);
 	void SetPos(const NativeInfo::Vec2Int& pos);
 
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
+	void MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 public:
 	void CalculateAbility(void);

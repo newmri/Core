@@ -46,6 +46,11 @@ NativeInfo::Vec2Int Creature::GetPos(void) const
 	return this->creatureInfo.pos_info.pos;
 }
 
+void Creature::SetDirection(const NativeInfo::Vec2Int& destPos)
+{
+	this->creatureInfo.pos_info.moveDir = GetPos().GetDirection(destPos);
+}
+
 void Creature::SetPos(const NativeInfo::Vec2Int& pos)
 {
 	this->creatureInfo.pos_info.pos = pos;
@@ -54,6 +59,16 @@ void Creature::SetPos(const NativeInfo::Vec2Int& pos)
 void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 	
+}
+
+void Creature::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+{
+	auto creatureInfo = GetInfo();
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto packedPos = flatbuffers::PackPositionInfo(creatureInfo.pos_info);
+	auto message = GamePacket::CreateSC_MOVE_RES(PACKET_SEND_MANAGER.builder, GetObjectType(), GetOID(), &packedPos);
+	packetType = GamePacket::Packet_SC_MOVE_RES;
+	packet = message.Union();
 }
 
 void Creature::CalculateAbility(void)
