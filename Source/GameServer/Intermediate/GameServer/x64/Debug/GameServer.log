@@ -3,12 +3,10 @@
   Creature.cpp
   CreatureManager.cpp
   GameDB.cpp
-  GamePacketFunc.cpp
   GamePacketHandler.cpp
   GameServer.cpp
   GameServerManager.cpp
   Main.cpp
-  PacketSendManager.cpp
   Player.cpp
   Sector.cpp
   Zone.cpp

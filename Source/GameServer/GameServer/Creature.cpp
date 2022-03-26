@@ -48,6 +48,9 @@ NativeInfo::Vec2Int Creature::GetPos(void) const
 
 void Creature::SetDirection(const NativeInfo::Vec2Int& destPos)
 {
+	NativeInfo::Vec2Int dir = destPos - GetPos();
+	std::cout << "speed: " << dir.GetSqrMagnitude() << std::endl;
+
 	this->creatureInfo.pos_info.moveDir = GetPos().GetDirection(destPos);
 }
 
