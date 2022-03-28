@@ -60,6 +60,11 @@ class GamePacketHandler
         SC_MOVE_RES moveRes = packet.PacketAsSC_MOVE_RES();
         Managers.Creature.Move(moveRes.ObjectType, moveRes.ObjectId, moveRes.UnPack().PosInfo);
     }
+    public static void SC_SET_STATE_RES(PacketSession session, Root packet)
+    {
+        SC_SET_STATE_RES setStateRes = packet.PacketAsSC_SET_STATE_RES();
+        Managers.Creature.SetState(setStateRes.ObjectType, setStateRes.ObjectId, setStateRes.UnPack().State);
+    }
 }
 
 

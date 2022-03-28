@@ -11,12 +11,22 @@ public:
 	Info::CreatureInfoT GetInfo(void);
 	Define::ObjectType GetObjectType(void) const;
 	int64_t GetOID(void) const;
-	int32_t GetMapID(void) const;
-	NativeInfo::Vec2Int GetPos(void) const;
+	int32_t GetMapID(void);
+	NativeInfo::Vec2Int GetPos(void);
+
+protected:
+	NativeInfo::Vec2Int GetPosWithNoLock(void) const;
 
 public:
+	void SetMove(const Define::CreatureState state, const NativeInfo::Vec2Int& destPos);
+	void SetState(const Define::CreatureState state);
 	void SetDirection(const NativeInfo::Vec2Int& destPos);
 	void SetPos(const NativeInfo::Vec2Int& pos);
+
+protected:
+	void SetStateWithNoLock(const Define::CreatureState state);
+	void SetDirectionWithNoLock(const NativeInfo::Vec2Int& destPos);
+	void SetPosWithNoLock(const NativeInfo::Vec2Int& pos);
 
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);

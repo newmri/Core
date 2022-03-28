@@ -45,7 +45,7 @@ void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset
 	packet = message.Union();
 }
 
-void Player::Send(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+void Player::Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
 	PACKET_SEND_MANAGER.Send(session, packetType, packet);
 }

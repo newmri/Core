@@ -28,6 +28,8 @@ public enum Packet : byte
   SC_DESPAWN_OBJECT_NOTI = 7,
   CS_MOVE_REQ = 8,
   SC_MOVE_RES = 9,
+  CS_SET_STATE_REQ = 10,
+  SC_SET_STATE_RES = 11,
 };
 
 public class PacketUnion {
@@ -49,6 +51,8 @@ public class PacketUnion {
   public GamePacket.SC_DESPAWN_OBJECT_NOTIT AsSC_DESPAWN_OBJECT_NOTI() { return this.As<GamePacket.SC_DESPAWN_OBJECT_NOTIT>(); }
   public GamePacket.CS_MOVE_REQT AsCS_MOVE_REQ() { return this.As<GamePacket.CS_MOVE_REQT>(); }
   public GamePacket.SC_MOVE_REST AsSC_MOVE_RES() { return this.As<GamePacket.SC_MOVE_REST>(); }
+  public GamePacket.CS_SET_STATE_REQT AsCS_SET_STATE_REQ() { return this.As<GamePacket.CS_SET_STATE_REQT>(); }
+  public GamePacket.SC_SET_STATE_REST AsSC_SET_STATE_RES() { return this.As<GamePacket.SC_SET_STATE_REST>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -62,6 +66,8 @@ public class PacketUnion {
       case Packet.SC_DESPAWN_OBJECT_NOTI: return GamePacket.SC_DESPAWN_OBJECT_NOTI.Pack(builder, _o.AsSC_DESPAWN_OBJECT_NOTI()).Value;
       case Packet.CS_MOVE_REQ: return GamePacket.CS_MOVE_REQ.Pack(builder, _o.AsCS_MOVE_REQ()).Value;
       case Packet.SC_MOVE_RES: return GamePacket.SC_MOVE_RES.Pack(builder, _o.AsSC_MOVE_RES()).Value;
+      case Packet.CS_SET_STATE_REQ: return GamePacket.CS_SET_STATE_REQ.Pack(builder, _o.AsCS_SET_STATE_REQ()).Value;
+      case Packet.SC_SET_STATE_RES: return GamePacket.SC_SET_STATE_RES.Pack(builder, _o.AsSC_SET_STATE_RES()).Value;
     }
   }
 }
@@ -730,6 +736,122 @@ public class SC_MOVE_REST
   }
 }
 
+public struct CS_SET_STATE_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_SET_STATE_REQ GetRootAsCS_SET_STATE_REQ(ByteBuffer _bb) { return GetRootAsCS_SET_STATE_REQ(_bb, new CS_SET_STATE_REQ()); }
+  public static CS_SET_STATE_REQ GetRootAsCS_SET_STATE_REQ(ByteBuffer _bb, CS_SET_STATE_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_SET_STATE_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.CreatureState State { get { int o = __p.__offset(4); return o != 0 ? (Define.CreatureState)__p.bb.Get(o + __p.bb_pos) : Define.CreatureState.IDLE; } }
+
+  public static Offset<GamePacket.CS_SET_STATE_REQ> CreateCS_SET_STATE_REQ(FlatBufferBuilder builder,
+      Define.CreatureState state = Define.CreatureState.IDLE) {
+    builder.StartTable(1);
+    CS_SET_STATE_REQ.AddState(builder, state);
+    return CS_SET_STATE_REQ.EndCS_SET_STATE_REQ(builder);
+  }
+
+  public static void StartCS_SET_STATE_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddState(FlatBufferBuilder builder, Define.CreatureState state) { builder.AddByte(0, (byte)state, 0); }
+  public static Offset<GamePacket.CS_SET_STATE_REQ> EndCS_SET_STATE_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CS_SET_STATE_REQ>(o);
+  }
+  public CS_SET_STATE_REQT UnPack() {
+    var _o = new CS_SET_STATE_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_SET_STATE_REQT _o) {
+    _o.State = this.State;
+  }
+  public static Offset<GamePacket.CS_SET_STATE_REQ> Pack(FlatBufferBuilder builder, CS_SET_STATE_REQT _o) {
+    if (_o == null) return default(Offset<GamePacket.CS_SET_STATE_REQ>);
+    return CreateCS_SET_STATE_REQ(
+      builder,
+      _o.State);
+  }
+};
+
+public class CS_SET_STATE_REQT
+{
+  public Define.CreatureState State { get; set; }
+
+  public CS_SET_STATE_REQT() {
+    this.State = Define.CreatureState.IDLE;
+  }
+}
+
+public struct SC_SET_STATE_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_SET_STATE_RES GetRootAsSC_SET_STATE_RES(ByteBuffer _bb) { return GetRootAsSC_SET_STATE_RES(_bb, new SC_SET_STATE_RES()); }
+  public static SC_SET_STATE_RES GetRootAsSC_SET_STATE_RES(ByteBuffer _bb, SC_SET_STATE_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_SET_STATE_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public long ObjectId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public Define.CreatureState State { get { int o = __p.__offset(8); return o != 0 ? (Define.CreatureState)__p.bb.Get(o + __p.bb_pos) : Define.CreatureState.IDLE; } }
+
+  public static Offset<GamePacket.SC_SET_STATE_RES> CreateSC_SET_STATE_RES(FlatBufferBuilder builder,
+      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      long object_id = 0,
+      Define.CreatureState state = Define.CreatureState.IDLE) {
+    builder.StartTable(3);
+    SC_SET_STATE_RES.AddObjectId(builder, object_id);
+    SC_SET_STATE_RES.AddState(builder, state);
+    SC_SET_STATE_RES.AddObjectType(builder, object_type);
+    return SC_SET_STATE_RES.EndSC_SET_STATE_RES(builder);
+  }
+
+  public static void StartSC_SET_STATE_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
+  public static void AddObjectId(FlatBufferBuilder builder, long objectId) { builder.AddLong(1, objectId, 0); }
+  public static void AddState(FlatBufferBuilder builder, Define.CreatureState state) { builder.AddByte(2, (byte)state, 0); }
+  public static Offset<GamePacket.SC_SET_STATE_RES> EndSC_SET_STATE_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_SET_STATE_RES>(o);
+  }
+  public SC_SET_STATE_REST UnPack() {
+    var _o = new SC_SET_STATE_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_SET_STATE_REST _o) {
+    _o.ObjectType = this.ObjectType;
+    _o.ObjectId = this.ObjectId;
+    _o.State = this.State;
+  }
+  public static Offset<GamePacket.SC_SET_STATE_RES> Pack(FlatBufferBuilder builder, SC_SET_STATE_REST _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_SET_STATE_RES>);
+    return CreateSC_SET_STATE_RES(
+      builder,
+      _o.ObjectType,
+      _o.ObjectId,
+      _o.State);
+  }
+};
+
+public class SC_SET_STATE_REST
+{
+  public Define.ObjectType ObjectType { get; set; }
+  public long ObjectId { get; set; }
+  public Define.CreatureState State { get; set; }
+
+  public SC_SET_STATE_REST() {
+    this.ObjectType = Define.ObjectType.PLAYER;
+    this.ObjectId = 0;
+    this.State = Define.CreatureState.IDLE;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -751,6 +873,8 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_DESPAWN_OBJECT_NOTI PacketAsSC_DESPAWN_OBJECT_NOTI() { return Packet<GamePacket.SC_DESPAWN_OBJECT_NOTI>().Value; }
   public GamePacket.CS_MOVE_REQ PacketAsCS_MOVE_REQ() { return Packet<GamePacket.CS_MOVE_REQ>().Value; }
   public GamePacket.SC_MOVE_RES PacketAsSC_MOVE_RES() { return Packet<GamePacket.SC_MOVE_RES>().Value; }
+  public GamePacket.CS_SET_STATE_REQ PacketAsCS_SET_STATE_REQ() { return Packet<GamePacket.CS_SET_STATE_REQ>().Value; }
+  public GamePacket.SC_SET_STATE_RES PacketAsSC_SET_STATE_RES() { return Packet<GamePacket.SC_SET_STATE_RES>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -806,6 +930,12 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_MOVE_RES:
         _o.Packet.Value = this.Packet<GamePacket.SC_MOVE_RES>().HasValue ? this.Packet<GamePacket.SC_MOVE_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.CS_SET_STATE_REQ:
+        _o.Packet.Value = this.Packet<GamePacket.CS_SET_STATE_REQ>().HasValue ? this.Packet<GamePacket.CS_SET_STATE_REQ>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_SET_STATE_RES:
+        _o.Packet.Value = this.Packet<GamePacket.SC_SET_STATE_RES>().HasValue ? this.Packet<GamePacket.SC_SET_STATE_RES>().Value.UnPack() : null;
         break;
     }
   }

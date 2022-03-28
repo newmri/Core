@@ -15,7 +15,7 @@ public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
 
 public:
-	void Send(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
+	void Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet);
 
 private:
 	int64_t uid;

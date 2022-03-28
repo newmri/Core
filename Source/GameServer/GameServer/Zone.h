@@ -33,6 +33,9 @@ public:
 private:
 	void _Leave(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index);
 
+public:
+	void SendAllExceptMe(const int64_t& oid, GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos);
+
 private:
 	int32_t id;
 	MapData data;

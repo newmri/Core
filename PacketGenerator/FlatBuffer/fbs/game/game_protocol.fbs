@@ -20,7 +20,9 @@ union Packet
     SC_SPAWN_PLAYER_NOTI,
     SC_DESPAWN_OBJECT_NOTI,
     CS_MOVE_REQ,
-    SC_MOVE_RES
+    SC_MOVE_RES,
+    CS_SET_STATE_REQ,
+    SC_SET_STATE_RES,
 }
 
 table CS_LOGIN_REQ
@@ -93,6 +95,18 @@ table SC_MOVE_RES
     object_type:Define.ObjectType;
     object_id:int64;
     pos_info:Info.PositionInfo (native_inline);
+}
+
+table CS_SET_STATE_REQ
+{
+    state:Define.CreatureState;
+}
+
+table SC_SET_STATE_RES
+{
+    object_type:Define.ObjectType;
+    object_id:int64;
+    state:Define.CreatureState;
 }
 
 table Root

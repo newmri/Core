@@ -28,6 +28,7 @@ class GamePacketManager
        _handler.Add(Packet.SC_SPAWN_PLAYER_NOTI, GamePacketHandler.SC_SPAWN_PLAYER_NOTI);
        _handler.Add(Packet.SC_DESPAWN_OBJECT_NOTI, GamePacketHandler.SC_DESPAWN_OBJECT_NOTI);
        _handler.Add(Packet.SC_MOVE_RES, GamePacketHandler.SC_MOVE_RES);
+       _handler.Add(Packet.SC_SET_STATE_RES, GamePacketHandler.SC_SET_STATE_RES);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

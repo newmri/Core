@@ -60,6 +60,12 @@ public class CreatureManager
 
     public void Move(ObjectType objectType, long oid, PositionInfoT pos)
     {
+        BaseController baseController = GetBaseController(objectType, oid);
+        baseController.PosInfo = pos;
+    }
+
+    BaseController GetBaseController(ObjectType objectType, long oid)
+    {
         BaseController baseController = new BaseController();
         switch (objectType)
         {
@@ -69,11 +75,16 @@ public class CreatureManager
                     baseController = controller;
                 break;
             default:
-                return;
+                return null;
         }
 
-       baseController.PosInfo = pos;
-       baseController.SyncPos();
+        return baseController;
+    }
+
+    public void SetState(ObjectType objectType, long oid, CreatureState state)
+    {
+        BaseController baseController = GetBaseController(objectType, oid);
+        baseController.State = state;
     }
 
     public void Remove(ObjectType objectType, long oid)

@@ -198,7 +198,7 @@ public class MyPlayerController : PlayerController
 		if (_moveKeyPressed == false)
 		{
 			State = CreatureState.IDLE;
-			CheckUpdatedFlag();
+			SendSetState();
 			return;
 		}
 
@@ -219,6 +219,16 @@ public class MyPlayerController : PlayerController
 			CellPos = destPos;
 			CheckUpdatedFlag();
 		}
+	}
+
+	void SendSetState()
+    {
+		FlatBufferBuilder builder = new FlatBufferBuilder(1);
+		CS_SET_STATE_REQT setStateReq = new CS_SET_STATE_REQT();
+		setStateReq.State = State;
+		var message = CS_SET_STATE_REQ.Pack(builder, setStateReq);
+		Managers.GameNetwork.Send(builder, Packet.CS_SET_STATE_REQ, message.Value);
+		_updated = false;
 	}
 
 	protected override void CheckUpdatedFlag()

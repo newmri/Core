@@ -166,8 +166,7 @@ bool Zone::Move(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& c
 	if (!CanMove(destIndex, checkObjects))
 		return false;
 
-	creature->SetDirection(cellDestPos);
-	creature->SetPos(cellDestPos);
+	creature->SetMove(Define::CreatureState_WALK, cellDestPos);
 
 	if (sourceSector != destSector)
 	{
@@ -201,4 +200,12 @@ void Zone::_Leave(std::shared_ptr<Creature> creature, Sector* sector, const Nati
 {
 	this->data.objects[index.y][index.x] = 0;
 	sector->Remove(creature->GetObjectType(), creature->GetOID());
+}
+
+void Zone::SendAllExceptMe(const int64_t& oid, GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos)
+{
+	if (!IsValidCellPos(cellPos))
+		return;
+
+	GetSector(CellPosToIndex(cellPos))->SendAllExceptMe(oid, packetType, packet);
 }

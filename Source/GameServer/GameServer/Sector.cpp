@@ -54,7 +54,7 @@ void Sector::Move(std::shared_ptr<Creature> creature)
 	SendAllExceptMe(creature->GetOID(), packetType, packet);
 }
 
-void Sector::Remove(const Define::ObjectType objectType, const int64_t oid)
+void Sector::Remove(const Define::ObjectType objectType, const int64_t& oid)
 {
 	switch (objectType)
 	{
@@ -89,7 +89,7 @@ void Sector::SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player)
 	}
 }
 
-void Sector::SendDespawnPacket(const Define::ObjectType objectType, const int64_t oid)
+void Sector::SendDespawnPacket(const Define::ObjectType objectType, const int64_t& oid)
 {
 	GamePacket::Packet packetType = GamePacket::Packet_SC_DESPAWN_OBJECT_NOTI;
 	flatbuffers::Offset<void> packet;
@@ -99,7 +99,7 @@ void Sector::SendDespawnPacket(const Define::ObjectType objectType, const int64_
 	SendAll(packetType, packet);
 }
 
-void Sector::SendAll(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+void Sector::SendAll(GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
 	auto iter_begin = this->playerList.begin();
 	auto iter_end = this->playerList.end();
@@ -109,7 +109,7 @@ void Sector::SendAll(GamePacket::Packet& packetType, flatbuffers::Offset<void>& 
 	}
 }
 
-void Sector::SendAllExceptMe(const int64_t oid, GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+void Sector::SendAllExceptMe(const int64_t& oid, GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
 	auto iter_begin = this->playerList.begin();
 	auto iter_end = this->playerList.end();

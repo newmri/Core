@@ -109,10 +109,26 @@ void GamePacketFunc::CS_LOGOUT_NOTI(std::shared_ptr<CoreClientSession> session, 
 
 void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
-	auto player = CREATURE_MANAGER.FindPlayer(session->GetOID());
+	auto player = CREATURE_MANAGER.FindPlayer(session->GetPlayerOID());
 	if (IS_NULL(player))
 		return;
 
 	auto raw = static_cast<const GamePacket::CS_MOVE_REQ*>(data);
 	ZONE_MANAGER.Move(player, raw->UnPack()->pos_info.pos);
+}
+
+void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	int64_t oid = session->GetPlayerOID();
+	auto player = CREATURE_MANAGER.FindPlayer(oid);
+	if (IS_NULL(player))
+		return;
+
+	auto raw = static_cast<const GamePacket::CS_SET_STATE_REQ*>(data);
+	auto state = raw->UnPack()->state;
+	player->SetState(state);
+	
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto message = GamePacket::CreateSC_SET_STATE_RES(PACKET_SEND_MANAGER.builder, player->GetObjectType(), oid, state);
+	ZONE_MANAGER.SendAllExceptMe(player->GetMapID(), oid, GamePacket::Packet_SC_SET_STATE_RES, message.Union(), player->GetPos());
 }
