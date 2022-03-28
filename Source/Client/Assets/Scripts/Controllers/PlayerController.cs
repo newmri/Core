@@ -42,7 +42,7 @@ public class PlayerController : CreatureController
 		_gear = GetComponent<GearEquipper>();
 
 		MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-		mesh.sortingOrder = Managers.UI.GetSortingOrder();
+		mesh.sortingOrder = Managers.Creature.GetSortOrder(this);
 	}
 
 	protected override void UpdateAnimation()

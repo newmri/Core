@@ -54,6 +54,7 @@ namespace UnityCoreLibrary
         public static void Clear()
         {
             Pool.Clear();
+            Obj.Clear();
         }
     }
 

@@ -16,5 +16,6 @@ public class TitleScene : BaseScene
 
     public override void Clear()
     {
+        Managers.UI.Clear();
     }
 }

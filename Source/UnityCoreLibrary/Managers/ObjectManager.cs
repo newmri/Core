@@ -118,5 +118,11 @@ namespace UnityCoreLibrary
             return gameObject;
         }
         #endregion
+
+        public void Clear()
+        {
+            _clientObjects.Clear();
+            _serverObjects.Clear();
+        }
     }
 }

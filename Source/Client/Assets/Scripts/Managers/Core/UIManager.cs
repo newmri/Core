@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class UIManager
 {
     //Sort Order
-    int _sortOrder = 10;
+    static int _defaultSortOrder = 0;
+    int _sortOrder = _defaultSortOrder;
 
     Stack<UIPopup> _popupStack = new Stack<UIPopup>();
     UIScene _sceneUI = null;
@@ -33,6 +34,7 @@ public class UIManager
 
         if (sort)
         {
+            canvas.sortingLayerName = "UI";
             canvas.sortingOrder = _sortOrder;
             _sortOrder++;
         }
@@ -112,16 +114,6 @@ public class UIManager
             _sceneUI.gameObject.SetActive(true);
     }
 
-    public int GetSortingOrder()
-    {
-        return ++_sortOrder;
-    }
-
-    public void DecreaseSortingOrder()
-    {
-        --_sortOrder;
-    }
-
     public T MakeWorldSpaceUI<T>(string name = null, Transform parent = null) where T : UIBase
     {
         if (name == null)
@@ -194,5 +186,6 @@ public class UIManager
     {
         CloseAllPopupUI();
         _sceneUI = null;
+        _sortOrder = _defaultSortOrder;
     }
 }

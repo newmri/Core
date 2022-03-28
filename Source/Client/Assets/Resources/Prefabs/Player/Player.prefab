@@ -60,19 +60,14 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
-  - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
-  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
   - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
   - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
+  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
+  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,9 +85,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingLayerID: -1488216273
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &193930378
 MonoBehaviour:

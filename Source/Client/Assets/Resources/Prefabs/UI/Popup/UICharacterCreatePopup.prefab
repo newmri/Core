@@ -5657,7 +5657,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 193930379, guid: cfaed108e57a4da42893dd4e8e52ac05, type: 3}
       propertyPath: m_SortingOrder
-      value: 99
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 193930379, guid: cfaed108e57a4da42893dd4e8e52ac05, type: 3}
       propertyPath: m_Materials.Array.size

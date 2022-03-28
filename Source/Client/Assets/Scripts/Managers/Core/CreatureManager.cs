@@ -9,6 +9,8 @@ using Define;
 public class CreatureManager
 {
     bool _isMyPlayerLoaded = false;
+    static int _defaultSortOrder = 0;
+    int _sortOrder = _defaultSortOrder;
 
     public CreatureInfoT MyCreatureInfo { get; set; }
     public MyCharacterInfoT MyCharacterInfo { get; set; }
@@ -66,7 +68,7 @@ public class CreatureManager
 
     BaseController GetBaseController(ObjectType objectType, long oid)
     {
-        BaseController baseController = new BaseController();
+        BaseController baseController = null;
         switch (objectType)
         {
             case ObjectType.PLAYER:
@@ -99,6 +101,29 @@ public class CreatureManager
         }
 
         CoreManagers.Obj.RemoveServerObject(oid);
-        Managers.UI.DecreaseSortingOrder();
+        SetSortOrder(_sortOrder - 1);
+    }
+
+    public int GetSortOrder(BaseController baseController)
+    {
+        if (baseController == MyPlayer)
+            return 9999;
+
+        return _sortOrder++;
+    }
+
+    void SetSortOrder(int sortOrder)
+    {
+        _sortOrder = sortOrder;
+    }
+
+    public void Clear()
+    {
+        _isMyPlayerLoaded = false;
+        SetSortOrder(_defaultSortOrder);
+        MyCreatureInfo = null;
+        MyCharacterInfo = null;
+        MyPlayer = null;
+        _playerList.Clear();
     }
 }

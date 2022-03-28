@@ -11,6 +11,7 @@ namespace UnityCoreLibrary
         public void LoadScene(CoreDefine.Scene type)
         {
             CoreManagers.Clear();
+            Clear();
 
             SceneManager.LoadScene(GetSceneName(type));
         }
