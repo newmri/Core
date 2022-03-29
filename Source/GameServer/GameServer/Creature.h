@@ -13,13 +13,15 @@ public:
 	int64_t GetOID(void) const;
 	int32_t GetMapID(void);
 	NativeInfo::Vec2Int GetPos(void);
+	float GetSpeed(const Define::SpeedType speedType);
 
 protected:
 	NativeInfo::Vec2Int GetPosWithNoLock(void) const;
+	float GetSpeedWithNoLock(const Define::SpeedType speedType) const;
 
 public:
 	void SetMove(const Define::CreatureState state, const NativeInfo::Vec2Int& destPos);
-	void SetState(const Define::CreatureState state);
+	virtual void SetState(const Define::CreatureState state);
 	void SetDirection(const NativeInfo::Vec2Int& destPos);
 	void SetPos(const NativeInfo::Vec2Int& pos);
 

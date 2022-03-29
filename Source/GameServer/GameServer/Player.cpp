@@ -49,3 +49,50 @@ void Player::Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packe
 {
 	PACKET_SEND_MANAGER.Send(session, packetType, packet);
 }
+
+void Player::SetState(const Define::CreatureState state)
+{
+	Creature::SetState(state);
+
+	if (IS_NOT_SAME(Define::CreatureState_WALK, state))
+	{
+		this->lastMoveTime = 0;
+	}
+}
+
+bool Player::IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos)
+{
+	int32_t clientDist = 0;
+	float_t moveSpeed = 0.0f;
+	{
+		READ_LOCK(this->infoMutex);
+		NativeInfo::Vec2Int dir = destPos - GetPosWithNoLock();
+
+		// 한칸씩 이동 가능
+		clientDist = dir.GetMagnitude();
+		if (clientDist > 1)
+			return false;
+
+		moveSpeed = GetSpeedWithNoLock(Define::SpeedType_MOVE_SPEED);
+	}
+
+	// 첫 이동
+	if (IS_SAME(0, this->lastMoveTime))
+	{
+		lastMoveTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
+		return true;
+	}
+
+	TIME_VALUE nowTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
+	TIME_VALUE timeDiff = nowTime - this->lastMoveTime;
+	int32_t serverDist = CoreUtil::IntRound(moveSpeed * (timeDiff / 1000.0f));
+
+	if (clientDist > serverDist)
+	{
+		CORE_LOG.Log(LogType::LOG_HACK, GetOID(), "ClientDist: " + TO_STR(clientDist) + "ServerDist: " + TO_STR(serverDist));
+		return false;
+	}
+
+	this->lastMoveTime = nowTime;
+	return true;
+}

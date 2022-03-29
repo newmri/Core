@@ -24,6 +24,7 @@
   CoreTimeManager.cpp
   CoreDataTypeManager.cpp
   CoreUIDObject.cpp
+  CoreUtil.cpp
   WorldDB.cpp
   코드를 생성하고 있습니다...
   Core.vcxproj -> C:\Users\HavePoop\Desktop\Study\Core\Source\GameServer\x64\Debug\Core.lib

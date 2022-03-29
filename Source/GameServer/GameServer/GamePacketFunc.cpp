@@ -114,7 +114,11 @@ void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, con
 		return;
 
 	auto raw = static_cast<const GamePacket::CS_MOVE_REQ*>(data);
-	ZONE_MANAGER.Move(player, raw->UnPack()->pos_info.pos);
+	auto destPos = raw->UnPack()->pos_info.pos;
+	if (!player->IsValidMoveSpeed(destPos))
+		return;
+
+	ZONE_MANAGER.Move(player, destPos);
 }
 
 void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)

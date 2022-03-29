@@ -48,9 +48,20 @@ NativeInfo::Vec2Int Creature::GetPos(void)
 	return GetPosWithNoLock();
 }
 
+float Creature::GetSpeed(const Define::SpeedType speedType)
+{
+	READ_LOCK(this->infoMutex);
+	return GetSpeedWithNoLock(speedType);
+}
+
 NativeInfo::Vec2Int Creature::GetPosWithNoLock(void) const
 {
 	return this->creatureInfo.pos_info.pos;
+}
+
+float Creature::GetSpeedWithNoLock(const Define::SpeedType speedType) const
+{
+	return this->creatureInfo.speed.value[speedType];
 }
 
 void Creature::SetMove(const Define::CreatureState state, const NativeInfo::Vec2Int& destPos)
@@ -86,9 +97,6 @@ void Creature::SetStateWithNoLock(const Define::CreatureState state)
 
 void Creature::SetDirectionWithNoLock(const NativeInfo::Vec2Int& destPos)
 {
-	NativeInfo::Vec2Int dir = destPos - GetPosWithNoLock();
-	std::cout << "speed: " << dir.GetSqrMagnitude() << std::endl;
-
 	this->creatureInfo.pos_info.moveDir = GetPosWithNoLock().GetDirection(destPos);
 }
 

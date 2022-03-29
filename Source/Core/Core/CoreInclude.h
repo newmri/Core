@@ -75,4 +75,5 @@
 #include "CoreCharacter.h"
 #include "CoreAccount.h"
 #include "CoreAccountManager.h"
+#include "CoreUtil.h"
 #include "CoreTestManager.h"

@@ -145,6 +145,9 @@
     <Filter Include="02.CoreObject\01.CoreGameObject">
       <UniqueIdentifier>{2b7305a6-e2e6-499a-9ae2-12481957682c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="16.CoreUtil">
+      <UniqueIdentifier>{5b7c9057-8cfb-435a-8002-712b15115a2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -221,6 +224,9 @@
     </ClCompile>
     <ClCompile Include="CoreGameObject.cpp">
       <Filter>02.CoreObject\01.CoreGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreUtil.cpp">
+      <Filter>16.CoreUtil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -400,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="CoreUIDObject.h">
       <Filter>02.CoreObject\00.CoreUIDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreUtil.h">
+      <Filter>16.CoreUtil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

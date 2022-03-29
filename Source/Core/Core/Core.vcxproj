@@ -141,6 +141,7 @@
     <ClCompile Include="CoreTimeManager.cpp" />
     <ClCompile Include="CoreDataTypeManager.cpp" />
     <ClCompile Include="CoreUIDObject.cpp" />
+    <ClCompile Include="CoreUtil.cpp" />
     <ClCompile Include="WorldDB.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +198,7 @@
     <ClInclude Include="CoreTimeDelegateManager.h" />
     <ClInclude Include="CoreTimeManager.h" />
     <ClInclude Include="CoreUIDObject.h" />
+    <ClInclude Include="CoreUtil.h" />
     <ClInclude Include="CoreVector.h" />
     <ClInclude Include="CoreVector.hpp" />
     <ClInclude Include="CoreDataTypeManager.h" />

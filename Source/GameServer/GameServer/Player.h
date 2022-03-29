@@ -17,8 +17,17 @@ public:
 public:
 	void Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet);
 
+public:
+	virtual void SetState(const Define::CreatureState state) override;
+
+public:
+	bool IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos);
+
 private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;
 	GamePacket::MyCharacterInfoT characterInfo;
+
+private:
+	TIME_VALUE lastMoveTime = 0;
 };
