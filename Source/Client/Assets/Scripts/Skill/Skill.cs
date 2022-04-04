@@ -17,7 +17,7 @@ public class Skill
     public Skill(int skillID)
     {
         SkillID = skillID;
-        CoolTime = (float)Managers.CharacterData.GetSkill(skillID, "CoolTime");
+        CoolTime = (float)((int)Managers.CharacterData.GetSkill(skillID, "CoolTime") / 1000.0f);
     }
 
     public void Init()

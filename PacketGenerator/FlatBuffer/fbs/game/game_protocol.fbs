@@ -23,6 +23,8 @@ union Packet
     SC_MOVE_RES,
     CS_SET_STATE_REQ,
     SC_SET_STATE_RES,
+    CS_USE_SKILL_REQ,
+    SC_USE_SKILL_RES,
 }
 
 table CS_LOGIN_REQ
@@ -107,6 +109,18 @@ table SC_SET_STATE_RES
     object_type:Define.ObjectType;
     object_id:int64;
     state:Define.CreatureState;
+}
+
+table CS_USE_SKILL_REQ
+{
+    skill_id:int32;
+}
+
+table SC_USE_SKILL_RES
+{
+    object_type:Define.ObjectType;
+    object_id:int64;
+    skill_id:int32;
 }
 
 table Root

@@ -86,10 +86,33 @@ public class CreatureManager
         return baseController;
     }
 
+    CreatureController GetCreatureController(ObjectType objectType, long oid)
+    {
+        CreatureController creatureController = null;
+        switch (objectType)
+        {
+            case ObjectType.PLAYER:
+                PlayerController controller;
+                if (_playerList.TryGetValue(oid, out controller))
+                    creatureController = controller;
+                break;
+            default:
+                return null;
+        }
+
+        return creatureController;
+    }
+
     public void SetState(ObjectType objectType, long oid, CreatureState state)
     {
         BaseController baseController = GetBaseController(objectType, oid);
         baseController.State = state;
+    }
+
+    public void UseSkill(ObjectType objectType, long oid, int skillID)
+    {
+        CreatureController creatureController = GetCreatureController(objectType, oid);
+        creatureController.UseSkill(skillID);
     }
 
     public void Remove(ObjectType objectType, long oid)

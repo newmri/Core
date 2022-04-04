@@ -4,6 +4,7 @@ using UnityEngine;
 using Spine;
 using Spine.Unity;
 using System;
+using UnityCoreLibrary;
 
 public class CharacterAnimator : MonoBehaviour
 {
@@ -71,7 +72,9 @@ public class CharacterAnimator : MonoBehaviour
                 ArrowStartingPosition = transform.Find("ArrowsFirePoints").Find("FirePoint_Shoot3").position;
                 Angle = 50;
             }
-            GameObject newArrow = Instantiate(ArrowPrefab, ArrowStartingPosition, Quaternion.Euler(0, 0, 90 + Angle));
+
+            Vector2Int cellPos = new Vector2Int((int)ArrowStartingPosition.x, (int)ArrowStartingPosition.y);
+            GameObject newArrow = CoreManagers.Obj.Add(ArrowPrefab, cellPos, 100);
             newArrow.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(Angle*Mathf.PI/180), Mathf.Sin(Angle *  Mathf.PI/180)) *3200;
         }
 
@@ -115,7 +118,7 @@ public class CharacterAnimator : MonoBehaviour
         ArcherAnimations.Add(PlayerAnimations.Special, "Shoot3");
         ArcherAnimations.Add(PlayerAnimations.Death, "Death");
 
-        SorcererAnimations.Add(PlayerAnimations.ATTACK_1, "Cast1");
+        SorcererAnimations.Add(PlayerAnimations.ATTACK_1, "Cast2");
         SorcererAnimations.Add(PlayerAnimations.Attack2, "Cast2");
         SorcererAnimations.Add(PlayerAnimations.IDLE, "Idle");
         SorcererAnimations.Add(PlayerAnimations.WALK, "Walk");

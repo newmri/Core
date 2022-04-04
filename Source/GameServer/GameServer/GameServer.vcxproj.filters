@@ -20,34 +20,37 @@
       <Filter>03.Packet\04.GamePacketFunc</Filter>
     </ClCompile>
     <ClCompile Include="AccountDB.cpp">
-      <Filter>06.DB\00.AccountDB</Filter>
+      <Filter>07.DB\00.AccountDB</Filter>
     </ClCompile>
     <ClCompile Include="GameDB.cpp">
-      <Filter>06.DB\01.GameDB</Filter>
+      <Filter>07.DB\01.GameDB</Filter>
     </ClCompile>
     <ClCompile Include="Creature.cpp">
-      <Filter>04.Creature</Filter>
+      <Filter>05.Creature</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>04.Creature\00.Player</Filter>
+      <Filter>05.Creature\00.Player</Filter>
     </ClCompile>
     <ClCompile Include="CreatureManager.cpp">
-      <Filter>04.Creature</Filter>
+      <Filter>05.Creature</Filter>
     </ClCompile>
     <ClCompile Include="CharacterDataManager.cpp">
       <Filter>02.DataManager\00.Character</Filter>
     </ClCompile>
     <ClCompile Include="ZoneManager.cpp">
-      <Filter>05.Map</Filter>
+      <Filter>06.Map</Filter>
     </ClCompile>
     <ClCompile Include="Sector.cpp">
-      <Filter>05.Map\01.Sector</Filter>
+      <Filter>06.Map\01.Sector</Filter>
     </ClCompile>
     <ClCompile Include="Zone.cpp">
-      <Filter>05.Map\00.Zone</Filter>
+      <Filter>06.Map\00.Zone</Filter>
     </ClCompile>
     <ClCompile Include="PacketSendManager.cpp">
       <Filter>03.Packet\02.PacketSendManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>04.Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,22 +79,22 @@
       <Filter>03.Packet\04.GamePacketFunc</Filter>
     </ClInclude>
     <ClInclude Include="AccountDB.h">
-      <Filter>06.DB\00.AccountDB</Filter>
+      <Filter>07.DB\00.AccountDB</Filter>
     </ClInclude>
     <ClInclude Include="GameDB.h">
-      <Filter>06.DB\01.GameDB</Filter>
+      <Filter>07.DB\01.GameDB</Filter>
     </ClInclude>
     <ClInclude Include="game_protocol_generated.h">
       <Filter>03.Packet\00.FlatBuffer</Filter>
     </ClInclude>
     <ClInclude Include="Creature.h">
-      <Filter>04.Creature</Filter>
+      <Filter>05.Creature</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>04.Creature\00.Player</Filter>
+      <Filter>05.Creature\00.Player</Filter>
     </ClInclude>
     <ClInclude Include="CreatureManager.h">
-      <Filter>04.Creature</Filter>
+      <Filter>05.Creature</Filter>
     </ClInclude>
     <ClInclude Include="CharacterDataManager.h">
       <Filter>02.DataManager\00.Character</Filter>
@@ -100,19 +103,22 @@
       <Filter>02.DataManager\00.Character</Filter>
     </ClInclude>
     <ClInclude Include="ZoneManager.h">
-      <Filter>05.Map</Filter>
+      <Filter>06.Map</Filter>
     </ClInclude>
     <ClInclude Include="Sector.h">
-      <Filter>05.Map\01.Sector</Filter>
+      <Filter>06.Map\01.Sector</Filter>
     </ClInclude>
     <ClInclude Include="Zone.h">
-      <Filter>05.Map\00.Zone</Filter>
+      <Filter>06.Map\00.Zone</Filter>
     </ClInclude>
     <ClInclude Include="MapData.h">
-      <Filter>05.Map\00.Zone</Filter>
+      <Filter>06.Map\00.Zone</Filter>
     </ClInclude>
     <ClInclude Include="PacketSendManager.h">
       <Filter>03.Packet\02.PacketSendManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>04.Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -137,32 +143,8 @@
     <Filter Include="03.Packet\01.GameServer">
       <UniqueIdentifier>{d04b4ac6-466f-4e67-ab7c-3397fa6ac4c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Creature">
-      <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.Creature\00.Player">
-      <UniqueIdentifier>{e91e2d21-3145-42b4-9564-86ad96126814}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.DataManager\00.Character">
       <UniqueIdentifier>{6975bc75-5b95-450f-b756-e9076bc37dc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.DB">
-      <UniqueIdentifier>{0b0ad8c2-5a2b-4fbf-9c11-5d95ad7307ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.DB\00.AccountDB">
-      <UniqueIdentifier>{439794df-3720-469e-a0ee-51ad7f8acf32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.DB\01.GameDB">
-      <UniqueIdentifier>{493a0cd3-f53f-4d8c-aad0-7aa2a71452e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.Map">
-      <UniqueIdentifier>{565df15c-019a-4203-a78a-29a139559395}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.Map\01.Sector">
-      <UniqueIdentifier>{8d769874-3449-4719-b9a2-1f36a8e20523}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.Map\00.Zone">
-      <UniqueIdentifier>{6be3a983-8cec-40bf-9908-f736d8a18617}</UniqueIdentifier>
     </Filter>
     <Filter Include="03.Packet\03.GamePacketHandler">
       <UniqueIdentifier>{f7bb20f2-0070-46a4-b4bc-6df0a545c833}</UniqueIdentifier>
@@ -172,6 +154,33 @@
     </Filter>
     <Filter Include="03.Packet\02.PacketSendManager">
       <UniqueIdentifier>{4399bbc9-a228-445f-8deb-edfbd48a1d1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Creature">
+      <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Creature\00.Player">
+      <UniqueIdentifier>{e91e2d21-3145-42b4-9564-86ad96126814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.Map">
+      <UniqueIdentifier>{565df15c-019a-4203-a78a-29a139559395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.Map\01.Sector">
+      <UniqueIdentifier>{8d769874-3449-4719-b9a2-1f36a8e20523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.Map\00.Zone">
+      <UniqueIdentifier>{6be3a983-8cec-40bf-9908-f736d8a18617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07.DB">
+      <UniqueIdentifier>{0b0ad8c2-5a2b-4fbf-9c11-5d95ad7307ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07.DB\00.AccountDB">
+      <UniqueIdentifier>{439794df-3720-469e-a0ee-51ad7f8acf32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07.DB\01.GameDB">
+      <UniqueIdentifier>{493a0cd3-f53f-4d8c-aad0-7aa2a71452e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Skill">
+      <UniqueIdentifier>{a7e065ff-7bea-434e-b7ee-a2463566d155}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

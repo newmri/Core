@@ -136,3 +136,19 @@ void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session
 	auto message = GamePacket::CreateSC_SET_STATE_RES(PACKET_SEND_MANAGER.builder, player->GetObjectType(), oid, state);
 	ZONE_MANAGER.SendAllExceptMe(player->GetMapID(), oid, GamePacket::Packet_SC_SET_STATE_RES, message.Union(), player->GetPos());
 }
+
+void GamePacketFunc::CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	int64_t oid = session->GetPlayerOID();
+	auto player = CREATURE_MANAGER.FindPlayer(oid);
+	if (IS_NULL(player))
+		return;
+
+	auto raw = static_cast<const GamePacket::CS_USE_SKILL_REQ*>(data);
+	if (!player->UseSkill(raw->skill_id()))
+		return;
+
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto message = GamePacket::CreateSC_USE_SKILL_RES(PACKET_SEND_MANAGER.builder, player->GetObjectType(), oid);
+	ZONE_MANAGER.SendAllExceptMe(player->GetMapID(), oid, GamePacket::Packet_SC_USE_SKILL_RES, message.Union(), player->GetPos());
+}

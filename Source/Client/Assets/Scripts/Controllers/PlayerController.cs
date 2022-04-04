@@ -63,7 +63,8 @@ public class PlayerController : CreatureController
 		if (State == CreatureState.SKILL)
 			return;
 
-		CoreManagers.Coroutine.Add(CoSkill(skillID, (float)Managers.CharacterData.GetSkill(skillID, "CoolTime")));
+		CoreManagers.Coroutine.Add(CoSkill(skillID,
+			(float)((int)Managers.CharacterData.GetSkill(skillID, "CoolTime") / 1000.0f)));
 	}
 
 	IEnumerator CoSkill(int skillID, float coolTime)

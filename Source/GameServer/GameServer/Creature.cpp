@@ -125,3 +125,25 @@ void Creature::CalculateAbility(void)
 	WRITE_LOCK(this->abilityMutex);
 	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(this->creatureInfo);
 }
+
+void Creature::AddSkill(const int32_t skillID)
+{
+	WRITE_LOCK(this->skillMutex);
+
+	SkillData skillData;
+	if (!CHARACTER_DATA_MANAGER.GetSkillData(skillID, skillData))
+		return;
+
+	this->skillList[skillID] = Skill(this->shared_from_this(), skillData);
+}
+
+bool Creature::UseSkill(const int32_t skillID)
+{
+	READ_LOCK(this->skillMutex);
+
+	auto iter = this->skillList.find(skillID);
+	if(IS_SAME(iter, this->skillList.end()))
+		return false;
+
+	return iter->second.UseSkill();
+}

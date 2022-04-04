@@ -25,6 +25,7 @@ int64_t CreatureManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<
 	auto player = std::make_shared<Player>(characterUID, session, creatureInfo, characterInfo);
 	ZONE_MANAGER.EnterStartPos(creatureInfo.pos_info.mapID, player);
 	creatureInfo.pos_info.pos = player->GetPos();
+	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
 
 	WRITE_LOCK(this->mutex);
 	this->playerList[oid] = player;

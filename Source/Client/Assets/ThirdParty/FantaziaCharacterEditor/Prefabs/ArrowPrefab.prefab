@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 42269432641808736}
   - component: {fileID: 5273119151243988292}
   - component: {fileID: 7955718653865634155}
+  - component: {fileID: -7215993072230274711}
   m_Layer: 0
   m_Name: ArrowPrefab
   m_TagString: Untagged
@@ -47,6 +48,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -58,6 +61,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -67,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1488216273
+  m_SortingLayer: 2
   m_SortingOrder: 411
   m_Sprite: {fileID: 21300000, guid: 064caf3ffe90f8041a52b169cc91849a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -128,3 +132,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-7215993072230274711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42269432641808743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1002565146, guid: 4c93b59e85ad85f40bd4ec402ee49c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  State: 0

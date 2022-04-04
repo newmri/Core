@@ -37,9 +37,17 @@ public:
 public:
 	void CalculateAbility(void);
 
+public:
+	void AddSkill(const int32_t skillID);
+	bool UseSkill(const int32_t skillID);
+
 protected:
 	Info::CreatureInfoT creatureInfo;
 
 	CACHE_ALIGN std::shared_mutex infoMutex;
 	CACHE_ALIGN std::shared_mutex abilityMutex;
+
+protected:
+	CACHE_ALIGN std::shared_mutex skillMutex;
+	std::map<int32_t, Skill> skillList;
 };

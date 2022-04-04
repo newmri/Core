@@ -208,11 +208,16 @@ public class MyPlayerController : PlayerController
 	void SendSetState()
     {
 		FlatBufferBuilder builder = new FlatBufferBuilder(1);
-		CS_SET_STATE_REQT setStateReq = new CS_SET_STATE_REQT();
-		setStateReq.State = State;
-		var message = CS_SET_STATE_REQ.Pack(builder, setStateReq);
+		var message = CS_SET_STATE_REQ.CreateCS_SET_STATE_REQ(builder, State);
 		Managers.GameNetwork.Send(builder, Packet.CS_SET_STATE_REQ, message.Value);
 		_updated = false;
+	}
+
+	void SendUseSkill(int skillID)
+    {
+		FlatBufferBuilder builder = new FlatBufferBuilder(1);
+		var message = CS_USE_SKILL_REQ.CreateCS_USE_SKILL_REQ(builder, skillID);
+		Managers.GameNetwork.Send(builder, Packet.CS_USE_SKILL_REQ, message.Value);
 	}
 
 	protected override void CheckUpdatedFlag()
@@ -252,11 +257,11 @@ public class MyPlayerController : PlayerController
 
 	public override void UseSkill(int skillID)
 	{
-		base.UseSkill(skillID);
-
 		Skill skill = null;
 		if(_skillList.TryGetValue(skillID, out skill))
         {
+			base.UseSkill(skillID);
+			SendUseSkill(skillID);
 			skill.Used = true;
 		}
 	}

@@ -65,6 +65,12 @@ class GamePacketHandler
         SC_SET_STATE_RES setStateRes = packet.PacketAsSC_SET_STATE_RES();
         Managers.Creature.SetState(setStateRes.ObjectType, setStateRes.ObjectId, setStateRes.UnPack().State);
     }
+
+    public static void SC_USE_SKILL_RES(PacketSession session, Root packet)
+    {
+        SC_USE_SKILL_RES useSkillRes = packet.PacketAsSC_USE_SKILL_RES();
+        Managers.Creature.UseSkill(useSkillRes.ObjectType, useSkillRes.ObjectId, useSkillRes.SkillId);
+    }
 }
 
 

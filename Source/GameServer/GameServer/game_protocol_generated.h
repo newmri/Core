@@ -63,6 +63,14 @@ struct SC_SET_STATE_RES;
 struct SC_SET_STATE_RESBuilder;
 struct SC_SET_STATE_REST;
 
+struct CS_USE_SKILL_REQ;
+struct CS_USE_SKILL_REQBuilder;
+struct CS_USE_SKILL_REQT;
+
+struct SC_USE_SKILL_RES;
+struct SC_USE_SKILL_RESBuilder;
+struct SC_USE_SKILL_REST;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -113,11 +121,13 @@ enum Packet : uint8_t {
   Packet_SC_MOVE_RES = 9,
   Packet_CS_SET_STATE_REQ = 10,
   Packet_SC_SET_STATE_RES = 11,
+  Packet_CS_USE_SKILL_REQ = 12,
+  Packet_SC_USE_SKILL_RES = 13,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_SET_STATE_RES
+  Packet_MAX = Packet_SC_USE_SKILL_RES
 };
 
-inline const Packet (&EnumValuesPacket())[12] {
+inline const Packet (&EnumValuesPacket())[14] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -130,13 +140,15 @@ inline const Packet (&EnumValuesPacket())[12] {
     Packet_CS_MOVE_REQ,
     Packet_SC_MOVE_RES,
     Packet_CS_SET_STATE_REQ,
-    Packet_SC_SET_STATE_RES
+    Packet_SC_SET_STATE_RES,
+    Packet_CS_USE_SKILL_REQ,
+    Packet_SC_USE_SKILL_RES
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[13] = {
+  static const char * const names[15] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -149,13 +161,15 @@ inline const char * const *EnumNamesPacket() {
     "SC_MOVE_RES",
     "CS_SET_STATE_REQ",
     "SC_SET_STATE_RES",
+    "CS_USE_SKILL_REQ",
+    "SC_USE_SKILL_RES",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_SET_STATE_RES)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_USE_SKILL_RES)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -206,6 +220,14 @@ template<> struct PacketTraits<GamePacket::CS_SET_STATE_REQ> {
 
 template<> struct PacketTraits<GamePacket::SC_SET_STATE_RES> {
   static const Packet enum_value = Packet_SC_SET_STATE_RES;
+};
+
+template<> struct PacketTraits<GamePacket::CS_USE_SKILL_REQ> {
+  static const Packet enum_value = Packet_CS_USE_SKILL_REQ;
+};
+
+template<> struct PacketTraits<GamePacket::SC_USE_SKILL_RES> {
+  static const Packet enum_value = Packet_SC_USE_SKILL_RES;
 };
 
 struct PacketUnion {
@@ -327,6 +349,22 @@ struct PacketUnion {
   const GamePacket::SC_SET_STATE_REST *AsSC_SET_STATE_RES() const {
     return type == Packet_SC_SET_STATE_RES ?
       reinterpret_cast<const GamePacket::SC_SET_STATE_REST *>(value) : nullptr;
+  }
+  GamePacket::CS_USE_SKILL_REQT *AsCS_USE_SKILL_REQ() {
+    return type == Packet_CS_USE_SKILL_REQ ?
+      reinterpret_cast<GamePacket::CS_USE_SKILL_REQT *>(value) : nullptr;
+  }
+  const GamePacket::CS_USE_SKILL_REQT *AsCS_USE_SKILL_REQ() const {
+    return type == Packet_CS_USE_SKILL_REQ ?
+      reinterpret_cast<const GamePacket::CS_USE_SKILL_REQT *>(value) : nullptr;
+  }
+  GamePacket::SC_USE_SKILL_REST *AsSC_USE_SKILL_RES() {
+    return type == Packet_SC_USE_SKILL_RES ?
+      reinterpret_cast<GamePacket::SC_USE_SKILL_REST *>(value) : nullptr;
+  }
+  const GamePacket::SC_USE_SKILL_REST *AsSC_USE_SKILL_RES() const {
+    return type == Packet_SC_USE_SKILL_RES ?
+      reinterpret_cast<const GamePacket::SC_USE_SKILL_REST *>(value) : nullptr;
   }
 };
 
@@ -1279,6 +1317,132 @@ inline flatbuffers::Offset<SC_SET_STATE_RES> CreateSC_SET_STATE_RES(
 
 flatbuffers::Offset<SC_SET_STATE_RES> CreateSC_SET_STATE_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_SET_STATE_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct CS_USE_SKILL_REQT : public flatbuffers::NativeTable {
+  typedef CS_USE_SKILL_REQ TableType;
+  int32_t skill_id = 0;
+};
+
+struct CS_USE_SKILL_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_USE_SKILL_REQT NativeTableType;
+  typedef CS_USE_SKILL_REQBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_SKILL_ID = 4
+  };
+  int32_t skill_id() const {
+    return GetField<int32_t>(VT_SKILL_ID, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int32_t>(verifier, VT_SKILL_ID) &&
+           verifier.EndTable();
+  }
+  CS_USE_SKILL_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_USE_SKILL_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_USE_SKILL_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_USE_SKILL_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct CS_USE_SKILL_REQBuilder {
+  typedef CS_USE_SKILL_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_skill_id(int32_t skill_id) {
+    fbb_.AddElement<int32_t>(CS_USE_SKILL_REQ::VT_SKILL_ID, skill_id, 0);
+  }
+  explicit CS_USE_SKILL_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_USE_SKILL_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_USE_SKILL_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_USE_SKILL_REQ> CreateCS_USE_SKILL_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    int32_t skill_id = 0) {
+  CS_USE_SKILL_REQBuilder builder_(_fbb);
+  builder_.add_skill_id(skill_id);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<CS_USE_SKILL_REQ> CreateCS_USE_SKILL_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_USE_SKILL_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_USE_SKILL_REST : public flatbuffers::NativeTable {
+  typedef SC_USE_SKILL_RES TableType;
+  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  int64_t object_id = 0;
+  int32_t skill_id = 0;
+};
+
+struct SC_USE_SKILL_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_USE_SKILL_REST NativeTableType;
+  typedef SC_USE_SKILL_RESBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_OBJECT_TYPE = 4,
+    VT_OBJECT_ID = 6,
+    VT_SKILL_ID = 8
+  };
+  Define::ObjectType object_type() const {
+    return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
+  }
+  int64_t object_id() const {
+    return GetField<int64_t>(VT_OBJECT_ID, 0);
+  }
+  int32_t skill_id() const {
+    return GetField<int32_t>(VT_SKILL_ID, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
+           VerifyField<int64_t>(verifier, VT_OBJECT_ID) &&
+           VerifyField<int32_t>(verifier, VT_SKILL_ID) &&
+           verifier.EndTable();
+  }
+  SC_USE_SKILL_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_USE_SKILL_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_USE_SKILL_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_SKILL_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_USE_SKILL_RESBuilder {
+  typedef SC_USE_SKILL_RES Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_object_type(Define::ObjectType object_type) {
+    fbb_.AddElement<uint8_t>(SC_USE_SKILL_RES::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
+  }
+  void add_object_id(int64_t object_id) {
+    fbb_.AddElement<int64_t>(SC_USE_SKILL_RES::VT_OBJECT_ID, object_id, 0);
+  }
+  void add_skill_id(int32_t skill_id) {
+    fbb_.AddElement<int32_t>(SC_USE_SKILL_RES::VT_SKILL_ID, skill_id, 0);
+  }
+  explicit SC_USE_SKILL_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_USE_SKILL_RES> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_USE_SKILL_RES>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    int64_t object_id = 0,
+    int32_t skill_id = 0) {
+  SC_USE_SKILL_RESBuilder builder_(_fbb);
+  builder_.add_object_id(object_id);
+  builder_.add_skill_id(skill_id);
+  builder_.add_object_type(object_type);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_SKILL_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -1330,6 +1494,12 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_SET_STATE_RES *packet_as_SC_SET_STATE_RES() const {
     return packet_type() == GamePacket::Packet_SC_SET_STATE_RES ? static_cast<const GamePacket::SC_SET_STATE_RES *>(packet()) : nullptr;
+  }
+  const GamePacket::CS_USE_SKILL_REQ *packet_as_CS_USE_SKILL_REQ() const {
+    return packet_type() == GamePacket::Packet_CS_USE_SKILL_REQ ? static_cast<const GamePacket::CS_USE_SKILL_REQ *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_USE_SKILL_RES *packet_as_SC_USE_SKILL_RES() const {
+    return packet_type() == GamePacket::Packet_SC_USE_SKILL_RES ? static_cast<const GamePacket::SC_USE_SKILL_RES *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -1385,6 +1555,14 @@ template<> inline const GamePacket::CS_SET_STATE_REQ *Root::packet_as<GamePacket
 
 template<> inline const GamePacket::SC_SET_STATE_RES *Root::packet_as<GamePacket::SC_SET_STATE_RES>() const {
   return packet_as_SC_SET_STATE_RES();
+}
+
+template<> inline const GamePacket::CS_USE_SKILL_REQ *Root::packet_as<GamePacket::CS_USE_SKILL_REQ>() const {
+  return packet_as_CS_USE_SKILL_REQ();
+}
+
+template<> inline const GamePacket::SC_USE_SKILL_RES *Root::packet_as<GamePacket::SC_USE_SKILL_RES>() const {
+  return packet_as_SC_USE_SKILL_RES();
 }
 
 struct RootBuilder {
@@ -1797,6 +1975,64 @@ inline flatbuffers::Offset<SC_SET_STATE_RES> CreateSC_SET_STATE_RES(flatbuffers:
       _state);
 }
 
+inline CS_USE_SKILL_REQT *CS_USE_SKILL_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_USE_SKILL_REQT>(new CS_USE_SKILL_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_USE_SKILL_REQ::UnPackTo(CS_USE_SKILL_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = skill_id(); _o->skill_id = _e; }
+}
+
+inline flatbuffers::Offset<CS_USE_SKILL_REQ> CS_USE_SKILL_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_USE_SKILL_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_USE_SKILL_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_USE_SKILL_REQ> CreateCS_USE_SKILL_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_USE_SKILL_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_USE_SKILL_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _skill_id = _o->skill_id;
+  return GamePacket::CreateCS_USE_SKILL_REQ(
+      _fbb,
+      _skill_id);
+}
+
+inline SC_USE_SKILL_REST *SC_USE_SKILL_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_USE_SKILL_REST>(new SC_USE_SKILL_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_USE_SKILL_RES::UnPackTo(SC_USE_SKILL_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = object_type(); _o->object_type = _e; }
+  { auto _e = object_id(); _o->object_id = _e; }
+  { auto _e = skill_id(); _o->skill_id = _e; }
+}
+
+inline flatbuffers::Offset<SC_USE_SKILL_RES> SC_USE_SKILL_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_SKILL_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_USE_SKILL_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_SKILL_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_USE_SKILL_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _object_type = _o->object_type;
+  auto _object_id = _o->object_id;
+  auto _skill_id = _o->skill_id;
+  return GamePacket::CreateSC_USE_SKILL_RES(
+      _fbb,
+      _object_type,
+      _object_id,
+      _skill_id);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -1875,6 +2111,14 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_SET_STATE_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_CS_USE_SKILL_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_USE_SKILL_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_SC_USE_SKILL_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_USE_SKILL_RES *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -1937,6 +2181,14 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_SET_STATE_RES *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_CS_USE_SKILL_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_USE_SKILL_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_USE_SKILL_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_USE_SKILL_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -1987,6 +2239,14 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_SET_STATE_REST *>(value);
       return CreateSC_SET_STATE_RES(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_CS_USE_SKILL_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_USE_SKILL_REQT *>(value);
+      return CreateCS_USE_SKILL_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_USE_SKILL_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_USE_SKILL_REST *>(value);
+      return CreateSC_USE_SKILL_RES(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -2035,6 +2295,14 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_SET_STATE_RES: {
       value = new GamePacket::SC_SET_STATE_REST(*reinterpret_cast<GamePacket::SC_SET_STATE_REST *>(u.value));
+      break;
+    }
+    case Packet_CS_USE_SKILL_REQ: {
+      value = new GamePacket::CS_USE_SKILL_REQT(*reinterpret_cast<GamePacket::CS_USE_SKILL_REQT *>(u.value));
+      break;
+    }
+    case Packet_SC_USE_SKILL_RES: {
+      value = new GamePacket::SC_USE_SKILL_REST(*reinterpret_cast<GamePacket::SC_USE_SKILL_REST *>(u.value));
       break;
     }
     default:
@@ -2096,6 +2364,16 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_SET_STATE_RES: {
       auto ptr = reinterpret_cast<GamePacket::SC_SET_STATE_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_USE_SKILL_REQ: {
+      auto ptr = reinterpret_cast<GamePacket::CS_USE_SKILL_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_USE_SKILL_RES: {
+      auto ptr = reinterpret_cast<GamePacket::SC_USE_SKILL_REST *>(value);
       delete ptr;
       break;
     }

@@ -8,6 +8,7 @@
 #include "PacketSendManager.h"
 #include "GamePacketFunc.h"
 #include "GamePacketHandler.h"
+#include "Skill.h"
 #include "Creature.h"
 #include "Player.h"
 #include "CreatureManager.h"

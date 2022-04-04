@@ -60,14 +60,19 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
+  - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
+  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
+  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
   - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
   - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
+  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
-  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
+  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
-  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
+  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -324,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MyJob: 0
-  ArrowPrefab: {fileID: 42269432641808743, guid: bc06286fb4ae27745b357c9f6f22f6b0, type: 3}
+  ArrowPrefab: {fileID: 42269432641808743, guid: 2332d882871bcf54394395ed8c9b69e8, type: 3}
 --- !u!114 &3254327614455909968
 MonoBehaviour:
   m_ObjectHideFlags: 0

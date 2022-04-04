@@ -30,6 +30,8 @@ public enum Packet : byte
   SC_MOVE_RES = 9,
   CS_SET_STATE_REQ = 10,
   SC_SET_STATE_RES = 11,
+  CS_USE_SKILL_REQ = 12,
+  SC_USE_SKILL_RES = 13,
 };
 
 public class PacketUnion {
@@ -53,6 +55,8 @@ public class PacketUnion {
   public GamePacket.SC_MOVE_REST AsSC_MOVE_RES() { return this.As<GamePacket.SC_MOVE_REST>(); }
   public GamePacket.CS_SET_STATE_REQT AsCS_SET_STATE_REQ() { return this.As<GamePacket.CS_SET_STATE_REQT>(); }
   public GamePacket.SC_SET_STATE_REST AsSC_SET_STATE_RES() { return this.As<GamePacket.SC_SET_STATE_REST>(); }
+  public GamePacket.CS_USE_SKILL_REQT AsCS_USE_SKILL_REQ() { return this.As<GamePacket.CS_USE_SKILL_REQT>(); }
+  public GamePacket.SC_USE_SKILL_REST AsSC_USE_SKILL_RES() { return this.As<GamePacket.SC_USE_SKILL_REST>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -68,6 +72,8 @@ public class PacketUnion {
       case Packet.SC_MOVE_RES: return GamePacket.SC_MOVE_RES.Pack(builder, _o.AsSC_MOVE_RES()).Value;
       case Packet.CS_SET_STATE_REQ: return GamePacket.CS_SET_STATE_REQ.Pack(builder, _o.AsCS_SET_STATE_REQ()).Value;
       case Packet.SC_SET_STATE_RES: return GamePacket.SC_SET_STATE_RES.Pack(builder, _o.AsSC_SET_STATE_RES()).Value;
+      case Packet.CS_USE_SKILL_REQ: return GamePacket.CS_USE_SKILL_REQ.Pack(builder, _o.AsCS_USE_SKILL_REQ()).Value;
+      case Packet.SC_USE_SKILL_RES: return GamePacket.SC_USE_SKILL_RES.Pack(builder, _o.AsSC_USE_SKILL_RES()).Value;
     }
   }
 }
@@ -852,6 +858,122 @@ public class SC_SET_STATE_REST
   }
 }
 
+public struct CS_USE_SKILL_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_USE_SKILL_REQ GetRootAsCS_USE_SKILL_REQ(ByteBuffer _bb) { return GetRootAsCS_USE_SKILL_REQ(_bb, new CS_USE_SKILL_REQ()); }
+  public static CS_USE_SKILL_REQ GetRootAsCS_USE_SKILL_REQ(ByteBuffer _bb, CS_USE_SKILL_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_USE_SKILL_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public int SkillId { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+
+  public static Offset<GamePacket.CS_USE_SKILL_REQ> CreateCS_USE_SKILL_REQ(FlatBufferBuilder builder,
+      int skill_id = 0) {
+    builder.StartTable(1);
+    CS_USE_SKILL_REQ.AddSkillId(builder, skill_id);
+    return CS_USE_SKILL_REQ.EndCS_USE_SKILL_REQ(builder);
+  }
+
+  public static void StartCS_USE_SKILL_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddSkillId(FlatBufferBuilder builder, int skillId) { builder.AddInt(0, skillId, 0); }
+  public static Offset<GamePacket.CS_USE_SKILL_REQ> EndCS_USE_SKILL_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CS_USE_SKILL_REQ>(o);
+  }
+  public CS_USE_SKILL_REQT UnPack() {
+    var _o = new CS_USE_SKILL_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_USE_SKILL_REQT _o) {
+    _o.SkillId = this.SkillId;
+  }
+  public static Offset<GamePacket.CS_USE_SKILL_REQ> Pack(FlatBufferBuilder builder, CS_USE_SKILL_REQT _o) {
+    if (_o == null) return default(Offset<GamePacket.CS_USE_SKILL_REQ>);
+    return CreateCS_USE_SKILL_REQ(
+      builder,
+      _o.SkillId);
+  }
+};
+
+public class CS_USE_SKILL_REQT
+{
+  public int SkillId { get; set; }
+
+  public CS_USE_SKILL_REQT() {
+    this.SkillId = 0;
+  }
+}
+
+public struct SC_USE_SKILL_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_USE_SKILL_RES GetRootAsSC_USE_SKILL_RES(ByteBuffer _bb) { return GetRootAsSC_USE_SKILL_RES(_bb, new SC_USE_SKILL_RES()); }
+  public static SC_USE_SKILL_RES GetRootAsSC_USE_SKILL_RES(ByteBuffer _bb, SC_USE_SKILL_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_USE_SKILL_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public long ObjectId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public int SkillId { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+
+  public static Offset<GamePacket.SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(FlatBufferBuilder builder,
+      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      long object_id = 0,
+      int skill_id = 0) {
+    builder.StartTable(3);
+    SC_USE_SKILL_RES.AddObjectId(builder, object_id);
+    SC_USE_SKILL_RES.AddSkillId(builder, skill_id);
+    SC_USE_SKILL_RES.AddObjectType(builder, object_type);
+    return SC_USE_SKILL_RES.EndSC_USE_SKILL_RES(builder);
+  }
+
+  public static void StartSC_USE_SKILL_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
+  public static void AddObjectId(FlatBufferBuilder builder, long objectId) { builder.AddLong(1, objectId, 0); }
+  public static void AddSkillId(FlatBufferBuilder builder, int skillId) { builder.AddInt(2, skillId, 0); }
+  public static Offset<GamePacket.SC_USE_SKILL_RES> EndSC_USE_SKILL_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_USE_SKILL_RES>(o);
+  }
+  public SC_USE_SKILL_REST UnPack() {
+    var _o = new SC_USE_SKILL_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_USE_SKILL_REST _o) {
+    _o.ObjectType = this.ObjectType;
+    _o.ObjectId = this.ObjectId;
+    _o.SkillId = this.SkillId;
+  }
+  public static Offset<GamePacket.SC_USE_SKILL_RES> Pack(FlatBufferBuilder builder, SC_USE_SKILL_REST _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_USE_SKILL_RES>);
+    return CreateSC_USE_SKILL_RES(
+      builder,
+      _o.ObjectType,
+      _o.ObjectId,
+      _o.SkillId);
+  }
+};
+
+public class SC_USE_SKILL_REST
+{
+  public Define.ObjectType ObjectType { get; set; }
+  public long ObjectId { get; set; }
+  public int SkillId { get; set; }
+
+  public SC_USE_SKILL_REST() {
+    this.ObjectType = Define.ObjectType.PLAYER;
+    this.ObjectId = 0;
+    this.SkillId = 0;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -875,6 +997,8 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_MOVE_RES PacketAsSC_MOVE_RES() { return Packet<GamePacket.SC_MOVE_RES>().Value; }
   public GamePacket.CS_SET_STATE_REQ PacketAsCS_SET_STATE_REQ() { return Packet<GamePacket.CS_SET_STATE_REQ>().Value; }
   public GamePacket.SC_SET_STATE_RES PacketAsSC_SET_STATE_RES() { return Packet<GamePacket.SC_SET_STATE_RES>().Value; }
+  public GamePacket.CS_USE_SKILL_REQ PacketAsCS_USE_SKILL_REQ() { return Packet<GamePacket.CS_USE_SKILL_REQ>().Value; }
+  public GamePacket.SC_USE_SKILL_RES PacketAsSC_USE_SKILL_RES() { return Packet<GamePacket.SC_USE_SKILL_RES>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -936,6 +1060,12 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_SET_STATE_RES:
         _o.Packet.Value = this.Packet<GamePacket.SC_SET_STATE_RES>().HasValue ? this.Packet<GamePacket.SC_SET_STATE_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.CS_USE_SKILL_REQ:
+        _o.Packet.Value = this.Packet<GamePacket.CS_USE_SKILL_REQ>().HasValue ? this.Packet<GamePacket.CS_USE_SKILL_REQ>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_USE_SKILL_RES:
+        _o.Packet.Value = this.Packet<GamePacket.SC_USE_SKILL_RES>().HasValue ? this.Packet<GamePacket.SC_USE_SKILL_RES>().Value.UnPack() : null;
         break;
     }
   }
