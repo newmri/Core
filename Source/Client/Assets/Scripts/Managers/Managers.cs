@@ -21,6 +21,7 @@ public class Managers : MonoBehaviour
     MapManager _map = new MapManager();
     AccountManager _account = new AccountManager();
     CreatureManager _creature = new CreatureManager();
+    CharacterDataManager _characterData = new CharacterDataManager();
 
     public static UIManager UI { get { return Instance._ui; } }
     public static WebManager Web { get { return Instance._web; } }
@@ -30,6 +31,7 @@ public class Managers : MonoBehaviour
     public static MapManager Map { get { return Instance._map; } }
     public static AccountManager Account { get { return Instance._account; } }
     public static CreatureManager Creature { get { return Instance._creature; } }
+    public static CharacterDataManager CharacterData { get { return Instance._characterData; } }
 
     #endregion
 

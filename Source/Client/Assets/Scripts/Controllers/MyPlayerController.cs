@@ -86,6 +86,8 @@ public class MyPlayerController : PlayerController
 		}
 
 		base.UpdateController();
+
+		UpdateSkillCoolTime();
 	}
 
 	protected override void UpdateIdle()
@@ -96,30 +98,12 @@ public class MyPlayerController : PlayerController
 			SetMoveState();
 			return;
 		}
-
-		if (_coSkillCooltime == null && Input.GetKey(KeyCode.Space))
-		{
-			Debug.Log("Skill !");
-
-			//C_Skill skill = new C_Skill() { Info = new SkillInfo() };
-			//skill.Info.SkillId = 2;
-			//Managers.Network.Send(skill);
-
-			//_coSkillCooltime = StartCoroutine("CoInputCooltime", 0.2f);
-		}
 	}
 
 	protected override void UpdateMoving()
 	{
 		SetMoveState();
 		base.UpdateMoving();
-	}
-
-	Coroutine _coSkillCooltime;
-	IEnumerator CoInputCooltime(float time)
-	{
-		yield return new WaitForSeconds(time);
-		_coSkillCooltime = null;
 	}
 
 	void LateUpdate()
@@ -265,4 +249,36 @@ public class MyPlayerController : PlayerController
 		//	}
 		//}
 	}
+
+	public override void UseSkill(int skillID)
+	{
+		base.UseSkill(skillID);
+
+		Skill skill = null;
+		if(_skillList.TryGetValue(skillID, out skill))
+        {
+			skill.Used = true;
+		}
+	}
+
+	Dictionary<int, Skill> _skillList = new Dictionary<int, Skill>();
+	public void AddSkill(int skillID)
+    {
+		_skillList.Add(skillID, new Skill(skillID));
+	}
+
+	void UpdateSkillCoolTime()
+    {
+		foreach(Skill skill in _skillList.Values)
+        {
+			if (skill.Used)
+			{
+				skill.ElapsedCoolTime += Time.deltaTime;
+				if (skill.ElapsedCoolTime >= skill.CoolTime)
+					skill.Init();
+
+				_uiGameScene.UpdateSkillCoolTime(skill.SkillID, skill.ElapsedCoolTime / skill.CoolTime);
+			}
+		}
+    }
 }

@@ -87,7 +87,7 @@ public class CharacterAnimator : MonoBehaviour
     { 
         //Fills the dicitionaries with all the animations of each job
 
-        WarriorAnimations.Add(PlayerAnimations.Attack1, "Attack1");
+        WarriorAnimations.Add(PlayerAnimations.ATTACK_1, "Attack1");
         WarriorAnimations.Add(PlayerAnimations.Attack2, "Attack2");
         WarriorAnimations.Add(PlayerAnimations.IDLE, "Idle");
         WarriorAnimations.Add(PlayerAnimations.WALK, "Walk");
@@ -101,7 +101,7 @@ public class CharacterAnimator : MonoBehaviour
         WarriorAnimations.Add(PlayerAnimations.Special, "Defence");
         WarriorAnimations.Add(PlayerAnimations.Death, "Death");
 
-        ArcherAnimations.Add(PlayerAnimations.Attack1, "Shoot1");
+        ArcherAnimations.Add(PlayerAnimations.ATTACK_1, "Shoot1");
         ArcherAnimations.Add(PlayerAnimations.Attack2, "Shoot2");
         ArcherAnimations.Add(PlayerAnimations.IDLE, "Idle ARCHER");
         ArcherAnimations.Add(PlayerAnimations.WALK, "Walk");
@@ -115,7 +115,7 @@ public class CharacterAnimator : MonoBehaviour
         ArcherAnimations.Add(PlayerAnimations.Special, "Shoot3");
         ArcherAnimations.Add(PlayerAnimations.Death, "Death");
 
-        SorcererAnimations.Add(PlayerAnimations.Attack1, "Cast1");
+        SorcererAnimations.Add(PlayerAnimations.ATTACK_1, "Cast1");
         SorcererAnimations.Add(PlayerAnimations.Attack2, "Cast2");
         SorcererAnimations.Add(PlayerAnimations.IDLE, "Idle");
         SorcererAnimations.Add(PlayerAnimations.WALK, "Walk");
@@ -129,7 +129,7 @@ public class CharacterAnimator : MonoBehaviour
         SorcererAnimations.Add(PlayerAnimations.Special, "Cast3");
         SorcererAnimations.Add(PlayerAnimations.Death, "Death");
 
-        DuelistAnimations.Add(PlayerAnimations.Attack1, "Attack 1 DUELIST");
+        DuelistAnimations.Add(PlayerAnimations.ATTACK_1, "Attack 1 DUELIST");
         DuelistAnimations.Add(PlayerAnimations.Attack2, "Attack 2 DUELIST");
         DuelistAnimations.Add(PlayerAnimations.IDLE, "Idle");
         DuelistAnimations.Add(PlayerAnimations.WALK, "Walk");
@@ -162,7 +162,7 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     //Takes a string AnimationString which is the name of the animation and assigns it to AnimationToPlay
-    public void ChangeAnimation(Define.CreatureState state, Define.Dir dir = Define.Dir.RIGHT)
+    public void ChangeAnimation(Define.CreatureState state, Define.Dir dir = Define.Dir.RIGHT, SkillAnimationType skillType = SkillAnimationType.NONE)
     {
         if (_dir != dir)
         {
@@ -177,19 +177,35 @@ public class CharacterAnimator : MonoBehaviour
         }
 
         _dir = dir;
-        AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), state.ToString());
+
+        if(state == Define.CreatureState.SKILL)
+            AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), skillType.ToString());
+        else
+            AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), state.ToString());
+
         AnimationManager();
     }
 
     //Runs the required animation using SetAnimation spine function
     void AnimationManager()
     {
-        bool IsLoop = AnimationToPlay == PlayerAnimations.Death ? false : true;
+        bool IsLoop = true;
+
+        switch (AnimationToPlay)
+        {
+            case PlayerAnimations.ATTACK_1:
+            case PlayerAnimations.Death:
+                IsLoop = false;
+                break;
+            default:
+                break;
+        }
+
         characterSkeleton.AnimationState.SetAnimation(0, JobsAnimations[AccGE.Job][AnimationToPlay], IsLoop);
     }
 
 }
 public enum PlayerAnimations
 {
-    IDLE, WALK, Attack1, Death, FullJump,Jump1, Jump2, Jump3, Hurt, RUN, Attack2, Special, Buff
+    IDLE, WALK, ATTACK_1, Death, FullJump,Jump1, Jump2, Jump3, Hurt, RUN, Attack2, Special, Buff
 }

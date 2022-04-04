@@ -28,7 +28,13 @@ public class UIGameScene : UIScene
 
     enum Images
     {
-        JobIconImage
+        JobIconImage,
+        AttackCoolTimeImage
+    }
+
+    enum Buttons
+    {
+        AttackButton
     }
 
     public override void Init()
@@ -38,6 +44,9 @@ public class UIGameScene : UIScene
         Bind<Slider>(typeof(Sliders));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
+        Bind<Button>(typeof(Buttons));
+
+        GetButton((int)Buttons.AttackButton).gameObject.BindEvent(OnClickAttackButton);
     }
 
     public void UpdateHPBar(int HP, int MaxHP)
@@ -63,5 +72,31 @@ public class UIGameScene : UIScene
     {
         this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = money.Value[(int)MoneyType.GEM].ToString();
         this.GetTextMesh((int)TextMeshProUGUIs.GoldText).text = money.Value[(int)MoneyType.GOLD].ToString();
+    }
+
+    Dictionary<int, Images> _skillCoolTimeList = new Dictionary<int, Images>();
+
+    public void AddSkill(int skillID)
+    {
+        _skillCoolTimeList.Add(skillID, Images.AttackCoolTimeImage);
+    }
+
+    public void UpdateSkillCoolTime(int skillID, float ratio)
+    {
+        Images image;
+
+        ratio = 1.0f - ratio;
+
+        ratio = ratio == 1.0f ? 0.0f : ratio;
+
+        if (_skillCoolTimeList.TryGetValue(skillID, out image))
+        {
+            GetImage((int)image).fillAmount = ratio;
+        }
+    }
+
+    public void OnClickAttackButton(PointerEventData evt)
+    {
+        Managers.Creature.MyPlayer.UseSkill((int)Managers.Creature.MyPlayer.MyCharacterInfo.Job);
     }
 }

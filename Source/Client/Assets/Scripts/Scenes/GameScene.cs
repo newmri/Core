@@ -13,6 +13,8 @@ public class GameScene : BaseScene
     {
         base.Init(scene);
         Managers.Map.LoadMap(0);
+        Managers.CharacterData.Load();
+
         Managers.Account.UIGameScene = Managers.UI.ShowSceneUI<UIGameScene>();
         Managers.Creature.AddMyPlayer();
     }

@@ -36,6 +36,9 @@ public class CreatureManager
         MyPlayer.CreatureInfo = MyCreatureInfo;
         MyPlayer.MyCharacterInfo = MyCharacterInfo;
         MyPlayer.SyncPos();
+        MyPlayer.AddSkill((int)MyPlayer.MyCharacterInfo.Job);
+        Managers.UI.GetSceneUI<UIGameScene>().AddSkill((int)MyPlayer.MyCharacterInfo.Job);
+
         _isMyPlayerLoaded = true;
     }
 

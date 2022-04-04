@@ -50,7 +50,7 @@ public class PlayerController : CreatureController
 		if (_animator == null)
 			return;
 
-		_animator.ChangeAnimation(State, Dir);
+		_animator.ChangeAnimation(State, Dir, _skillAnimationType);
 	}
 
 	protected override void UpdateController()
@@ -58,15 +58,27 @@ public class PlayerController : CreatureController
 		base.UpdateController();
 	}
 
-	public override void UseSkill(int skillId)
+	public override void UseSkill(int skillID)
 	{
+		if (State == CreatureState.SKILL)
+			return;
 
+		CoreManagers.Coroutine.Add(CoSkill(skillID, (float)Managers.CharacterData.GetSkill(skillID, "CoolTime")));
+	}
+
+	IEnumerator CoSkill(int skillID, float coolTime)
+    {
+		_skillAnimationType = (SkillAnimationType)(int)Managers.CharacterData.GetSkill(skillID, "SkillAnimationType");
+		State = CreatureState.SKILL;
+		yield return new WaitForSeconds(coolTime);
+		State = CreatureState.IDLE;
 	}
 
 	protected virtual void CheckUpdatedFlag()
 	{
 
 	}
+
 	public override void OnDamaged()
 	{
 		Debug.Log("Player HIT !");

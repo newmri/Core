@@ -1,0 +1,126 @@
+13:37:55	[LOG_INFO]	[DBConfig.csv is loading...]
+13:37:55	[LOG_INFO]	string,string
+13:37:55	[LOG_INFO]	World,112.145.214.226
+13:37:55	[LOG_INFO]	Account,112.145.214.226
+13:37:55	[LOG_INFO]	Game,112.145.214.226
+13:37:55	[LOG_INFO]	[DBConfig.csv is loaded...]
+13:37:55	[LOG_INFO]	[ServerConfig.csv is loading...]
+13:37:55	[LOG_INFO]	string,int32_t,int32_t
+13:37:55	[LOG_INFO]	Login,1,1000
+13:37:55	[LOG_INFO]	[ServerConfig.csv is loaded...]
+13:37:55	[LOG_CONNECT]	WorldDB is Connected
+13:37:55	[LOG_DEBUG]	[Server Type]: Login
+13:37:55	[LOG_DEBUG]	[GroupID]: 0
+13:37:55	[LOG_DEBUG]	[WorldID]: 1
+13:37:55	[LOG_DEBUG]	[ServerID]: 1000
+13:37:55	[LOG_INFO]	[Data/CharacterCreateStat.csv is loading...]
+13:37:55	[LOG_INFO]	int32_t,int32_t,int32_t
+13:37:55	[LOG_INFO]	10 ,0 ,0 
+13:37:55	[LOG_INFO]	2 ,8 ,0 
+13:37:55	[LOG_INFO]	0 ,0 ,10 
+13:37:55	[LOG_INFO]	0 ,10 ,0 
+13:37:55	[LOG_INFO]	[Data/CharacterCreateStat.csv is loaded...]
+13:37:55	[LOG_INFO]	[Data/CharacterCreateGear.csv is loading...]
+13:37:55	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+13:37:55	[LOG_INFO]	1 ,2 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+13:37:55	[LOG_INFO]	0 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+13:37:55	[LOG_INFO]	0 ,0 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+13:37:55	[LOG_INFO]	1 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+13:37:55	[LOG_INFO]	[Data/CharacterCreateGear.csv is loaded...]
+13:37:55	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loading...]
+13:37:55	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+13:37:55	[LOG_INFO]	8 ,2 ,10 ,0 ,7 ,3 
+13:37:55	[LOG_INFO]	5 ,5 ,8 ,2 ,6 ,4 
+13:37:55	[LOG_INFO]	3 ,7 ,0 ,10 ,3 ,7 
+13:37:55	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loaded...]
+13:37:55	[LOG_DEBUG]	Server is Running...
+13:37:55	[LOG_DEBUG]	[Thread Num]: 41
+13:37:55	[LOG_DEBUG]	[Port]: 7000
+14:33:27	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+14:33:27	[LOG_CONNECT]	AccountDB is Connected
+14:33:27	[LOG_CONNECT]	GameDB is Connected
+14:33:30	[LOG_DISCONNECT]	oid(0)	
+14:36:25	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+14:36:27	[LOG_DISCONNECT]	oid(1)	
+14:38:28	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+14:38:31	[LOG_DISCONNECT]	oid(2)	
+15:12:34	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+15:12:36	[LOG_DISCONNECT]	oid(3)	
+15:14:08	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+15:14:10	[LOG_DISCONNECT]	oid(4)	
+15:14:52	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+15:14:53	[LOG_DISCONNECT]	oid(5)	
+15:16:31	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+15:16:32	[LOG_DISCONNECT]	oid(6)	
+15:19:05	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+15:19:07	[LOG_DISCONNECT]	oid(7)	
+15:21:11	[LOG_CONNECT]	oid(8)	[ip]: 127.0.0.1
+15:21:12	[LOG_DISCONNECT]	oid(8)	
+15:21:42	[LOG_CONNECT]	oid(9)	[ip]: 127.0.0.1
+15:21:43	[LOG_DISCONNECT]	oid(9)	
+15:22:02	[LOG_CONNECT]	oid(10)	[ip]: 127.0.0.1
+15:22:03	[LOG_DISCONNECT]	oid(10)	
+15:22:16	[LOG_CONNECT]	oid(11)	[ip]: 127.0.0.1
+15:22:17	[LOG_DISCONNECT]	oid(11)	
+15:25:28	[LOG_CONNECT]	oid(12)	[ip]: 127.0.0.1
+15:25:30	[LOG_DISCONNECT]	oid(12)	
+15:27:04	[LOG_CONNECT]	oid(13)	[ip]: 127.0.0.1
+15:27:06	[LOG_DISCONNECT]	oid(13)	
+15:28:45	[LOG_CONNECT]	oid(14)	[ip]: 127.0.0.1
+15:28:47	[LOG_DISCONNECT]	oid(14)	
+15:30:38	[LOG_CONNECT]	oid(15)	[ip]: 127.0.0.1
+15:30:39	[LOG_DISCONNECT]	oid(15)	
+15:32:02	[LOG_CONNECT]	oid(16)	[ip]: 127.0.0.1
+15:32:03	[LOG_DISCONNECT]	oid(16)	
+15:47:04	[LOG_CONNECT]	oid(17)	[ip]: 127.0.0.1
+15:47:06	[LOG_DISCONNECT]	oid(17)	
+15:47:57	[LOG_CONNECT]	oid(18)	[ip]: 127.0.0.1
+15:47:58	[LOG_DISCONNECT]	oid(18)	
+15:48:11	[LOG_CONNECT]	oid(19)	[ip]: 127.0.0.1
+15:48:13	[LOG_DISCONNECT]	oid(19)	
+15:49:30	[LOG_CONNECT]	oid(20)	[ip]: 127.0.0.1
+15:49:32	[LOG_DISCONNECT]	oid(20)	
+16:02:21	[LOG_CONNECT]	oid(21)	[ip]: 127.0.0.1
+16:02:23	[LOG_DISCONNECT]	oid(21)	
+16:42:25	[LOG_CONNECT]	oid(22)	[ip]: 127.0.0.1
+16:42:26	[LOG_DISCONNECT]	oid(22)	
+16:44:51	[LOG_CONNECT]	oid(23)	[ip]: 127.0.0.1
+16:44:53	[LOG_DISCONNECT]	oid(23)	
+16:55:19	[LOG_CONNECT]	oid(24)	[ip]: 127.0.0.1
+16:55:21	[LOG_DISCONNECT]	oid(24)	
+16:56:44	[LOG_CONNECT]	oid(25)	[ip]: 127.0.0.1
+16:56:46	[LOG_DISCONNECT]	oid(25)	
+16:57:10	[LOG_CONNECT]	oid(26)	[ip]: 127.0.0.1
+16:57:12	[LOG_DISCONNECT]	oid(26)	
+16:57:31	[LOG_CONNECT]	oid(27)	[ip]: 127.0.0.1
+16:57:33	[LOG_DISCONNECT]	oid(27)	
+16:57:47	[LOG_CONNECT]	oid(28)	[ip]: 127.0.0.1
+16:57:48	[LOG_DISCONNECT]	oid(28)	
+16:58:31	[LOG_CONNECT]	oid(29)	[ip]: 127.0.0.1
+16:58:32	[LOG_DISCONNECT]	oid(29)	
+16:58:53	[LOG_CONNECT]	oid(30)	[ip]: 127.0.0.1
+16:58:55	[LOG_DISCONNECT]	oid(30)	
+16:59:12	[LOG_CONNECT]	oid(31)	[ip]: 127.0.0.1
+16:59:13	[LOG_DISCONNECT]	oid(31)	
+16:59:53	[LOG_CONNECT]	oid(32)	[ip]: 127.0.0.1
+16:59:54	[LOG_DISCONNECT]	oid(32)	
+17:00:23	[LOG_CONNECT]	oid(33)	[ip]: 127.0.0.1
+17:00:24	[LOG_DISCONNECT]	oid(33)	
+17:01:41	[LOG_CONNECT]	oid(34)	[ip]: 127.0.0.1
+17:01:43	[LOG_DISCONNECT]	oid(34)	
+17:02:24	[LOG_CONNECT]	oid(35)	[ip]: 127.0.0.1
+17:02:25	[LOG_DISCONNECT]	oid(35)	
+17:03:02	[LOG_CONNECT]	oid(36)	[ip]: 127.0.0.1
+17:03:03	[LOG_DISCONNECT]	oid(36)	
+17:03:38	[LOG_CONNECT]	oid(37)	[ip]: 127.0.0.1
+17:03:39	[LOG_DISCONNECT]	oid(37)	
+17:05:03	[LOG_CONNECT]	oid(38)	[ip]: 127.0.0.1
+17:05:04	[LOG_DISCONNECT]	oid(38)	
+17:05:22	[LOG_CONNECT]	oid(39)	[ip]: 127.0.0.1
+17:05:24	[LOG_DISCONNECT]	oid(39)	
+17:05:49	[LOG_CONNECT]	oid(40)	[ip]: 127.0.0.1
+17:05:51	[LOG_DISCONNECT]	oid(40)	
+17:06:16	[LOG_CONNECT]	oid(41)	[ip]: 127.0.0.1
+17:06:17	[LOG_DISCONNECT]	oid(41)	
+17:07:23	[LOG_CONNECT]	oid(42)	[ip]: 127.0.0.1
+17:07:24	[LOG_DISCONNECT]	oid(42)	
