@@ -31,8 +31,8 @@ public class CreatureController : BaseController
 		//GameObject.Destroy(effect, 0.5f);
 	}
 
-	public virtual void UseSkill(int SkillID)
+	public virtual bool UseSkill(int SkillID)
 	{
-
+		return false;
 	}
 }

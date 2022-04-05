@@ -25,4 +25,10 @@ public class Skill
         Used = false;
         ElapsedCoolTime = 0.0f;
     }
+
+    public bool CanUseSkill(int HP, int MP)
+    {
+        return (HP >= (int)Managers.CharacterData.GetSkill(SkillID, "HP") &&
+                 MP >= (int)Managers.CharacterData.GetSkill(SkillID, "MP"));
+    }
 }

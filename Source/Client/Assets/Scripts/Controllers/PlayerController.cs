@@ -58,13 +58,15 @@ public class PlayerController : CreatureController
 		base.UpdateController();
 	}
 
-	public override void UseSkill(int skillID)
+	public override bool UseSkill(int skillID)
 	{
 		if (State == CreatureState.SKILL)
-			return;
+			return false;
 
 		CoreManagers.Coroutine.Add(CoSkill(skillID,
 			(float)((int)Managers.CharacterData.GetSkill(skillID, "CoolTime") / 1000.0f)));
+
+		return true;
 	}
 
 	IEnumerator CoSkill(int skillID, float coolTime)

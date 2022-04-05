@@ -255,15 +255,20 @@ public class MyPlayerController : PlayerController
 		//}
 	}
 
-	public override void UseSkill(int skillID)
+	public override bool UseSkill(int skillID)
 	{
 		Skill skill = null;
 		if(_skillList.TryGetValue(skillID, out skill))
         {
-			base.UseSkill(skillID);
+			if (!base.UseSkill(skillID))
+				return false;
+
 			SendUseSkill(skillID);
 			skill.Used = true;
+			return true;
 		}
+
+		return false;
 	}
 
 	Dictionary<int, Skill> _skillList = new Dictionary<int, Skill>();

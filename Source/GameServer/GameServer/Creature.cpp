@@ -64,6 +64,27 @@ float Creature::GetSpeedWithNoLock(const Define::SpeedType speedType) const
 	return this->creatureInfo.speed.value[speedType];
 }
 
+bool Creature::UseHPMP(const int32_t HP, const int32_t MP)
+{
+	WRITE_LOCK(this->infoMutex);
+
+	if (IS_SAME(0, HP) && IS_SAME(0, MP))
+		return true;
+
+	if (this->creatureInfo.hp < HP || this->creatureInfo.mp < MP)
+		return false;
+
+	this->creatureInfo.hp -= HP;
+	this->creatureInfo.mp -= MP;
+	return true;
+}
+
+std::tuple<int32_t, int32_t> Creature::GetHPMP(void)
+{
+	READ_LOCK(this->infoMutex);
+	return std::tuple<int32_t, int32_t>(this->creatureInfo.hp, this->creatureInfo.mp);
+}
+
 void Creature::SetMove(const Define::CreatureState state, const NativeInfo::Vec2Int& destPos)
 {
 	WRITE_LOCK(this->infoMutex);

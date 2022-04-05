@@ -23,6 +23,9 @@ Skill::Skill(const std::shared_ptr<Creature> owner, const SkillData& skillData)
 
 bool Skill::UseSkill(void)
 {
+	if (!owner->UseHPMP(this->skillData.HP, this->skillData.MP))
+		return false;
+
 	if (!IsValidCoolTime())
 		return false;
 

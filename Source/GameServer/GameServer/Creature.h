@@ -20,6 +20,10 @@ protected:
 	float GetSpeedWithNoLock(const Define::SpeedType speedType) const;
 
 public:
+	bool UseHPMP(const int32_t HP, const int32_t MP);
+	std::tuple<int32_t, int32_t> GetHPMP(void);
+
+public:
 	void SetMove(const Define::CreatureState state, const NativeInfo::Vec2Int& destPos);
 	virtual void SetState(const Define::CreatureState state);
 	void SetDirection(const NativeInfo::Vec2Int& destPos);
