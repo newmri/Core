@@ -13,6 +13,7 @@ public:
 	int64_t GetOID(void) const;
 	int32_t GetMapID(void);
 	NativeInfo::Vec2Int GetPos(void);
+	Define::Dir GetDir(void);
 	float GetSpeed(const Define::SpeedType speedType);
 
 protected:

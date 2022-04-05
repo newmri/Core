@@ -190,8 +190,8 @@ bool Zone::Leave(std::shared_ptr<Creature> creature)
 	NativeInfo::Vec2Int index = CellPosToIndex(creature->GetPos());
 
 	Sector* sector = GetSector(index);
-	WRITE_LOCK(this->mutex);
 
+	WRITE_LOCK(this->mutex);
 	_Leave(creature, sector, index);
 	return true;
 }
@@ -208,4 +208,17 @@ void Zone::SendAllExceptMe(const int64_t& oid, GamePacket::Packet packetType, fl
 		return;
 
 	GetSector(CellPosToIndex(cellPos))->SendAllExceptMe(oid, packetType, packet);
+}
+
+void Zone::GetObjects(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList)
+{
+	if (!IsValidCellPos(creature->GetPos()))
+		return;
+
+	NativeInfo::Vec2Int index = CellPosToIndex(creature->GetPos());
+
+	Sector* sector = GetSector(index);
+
+	WRITE_LOCK(this->mutex);
+	sector->GetObjects(creature, rangeDir, range, objectList);
 }

@@ -107,6 +107,16 @@ public enum Dir : byte
   RIGHT = 3,
 };
 
+public enum RangeDir : byte
+{
+  FRONT = 0,
+  BACK = 1,
+  TWO_WAY = 2,
+  UP = 3,
+  DOWN = 4,
+  ALL = 5,
+};
+
 public enum CreatureState : byte
 {
   IDLE = 0,

@@ -22,6 +22,9 @@ public:
 public:
 	void SendAllExceptMe(const int32_t id, const int64_t& oid, GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos);
 
+public:
+	void GetObjects(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList);
+
 private:
 	CoreVector<std::shared_ptr<Zone>> zoneList;
 };

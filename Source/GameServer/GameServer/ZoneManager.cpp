@@ -40,3 +40,8 @@ void ZoneManager::SendAllExceptMe(const int32_t id, const int64_t& oid, GamePack
 {
 	this->zoneList[id]->SendAllExceptMe(oid, packetType, packet, cellPos);
 }
+
+void ZoneManager::GetObjects(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList)
+{
+	this->zoneList[creature->GetMapID()]->GetObjects(creature, rangeDir, range, objectList);
+}

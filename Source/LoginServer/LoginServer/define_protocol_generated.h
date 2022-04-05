@@ -436,6 +436,48 @@ inline const char *EnumNameDir(Dir e) {
   return EnumNamesDir()[index];
 }
 
+enum RangeDir : uint8_t {
+  RangeDir_FRONT = 0,
+  RangeDir_BACK = 1,
+  RangeDir_TWO_WAY = 2,
+  RangeDir_UP = 3,
+  RangeDir_DOWN = 4,
+  RangeDir_ALL = 5,
+  RangeDir_MIN = RangeDir_FRONT,
+  RangeDir_MAX = RangeDir_ALL
+};
+
+inline const RangeDir (&EnumValuesRangeDir())[6] {
+  static const RangeDir values[] = {
+    RangeDir_FRONT,
+    RangeDir_BACK,
+    RangeDir_TWO_WAY,
+    RangeDir_UP,
+    RangeDir_DOWN,
+    RangeDir_ALL
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesRangeDir() {
+  static const char * const names[7] = {
+    "FRONT",
+    "BACK",
+    "TWO_WAY",
+    "UP",
+    "DOWN",
+    "ALL",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameRangeDir(RangeDir e) {
+  if (flatbuffers::IsOutRange(e, RangeDir_FRONT, RangeDir_ALL)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesRangeDir()[index];
+}
+
 enum CreatureState : uint8_t {
   CreatureState_IDLE = 0,
   CreatureState_WALK = 1,

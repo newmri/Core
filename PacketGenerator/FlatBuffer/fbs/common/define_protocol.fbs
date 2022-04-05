@@ -98,6 +98,16 @@ enum Dir : ubyte
 	RIGHT
 }
 
+enum RangeDir : ubyte
+{
+	FRONT,
+	BACK,
+	TWO_WAY,
+	UP,
+	DOWN,
+	ALL
+}
+
 enum CreatureState : ubyte
 {
 	IDLE,

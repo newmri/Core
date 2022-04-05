@@ -48,6 +48,12 @@ NativeInfo::Vec2Int Creature::GetPos(void)
 	return GetPosWithNoLock();
 }
 
+Define::Dir Creature::GetDir(void)
+{
+	READ_LOCK(this->infoMutex);
+	return this->creatureInfo.pos_info.moveDir;
+}
+
 float Creature::GetSpeed(const Define::SpeedType speedType)
 {
 	READ_LOCK(this->infoMutex);

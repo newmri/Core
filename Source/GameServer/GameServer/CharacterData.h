@@ -17,6 +17,7 @@ struct SkillData
 	int32_t skillID = 0;
 	Define::Job job = Define::Job_MIN;
 	int32_t damage = 0;
+	Define::RangeDir rangeDir = Define::RangeDir_FRONT;
 	uint8_t range = 0;
 	int32_t coolTime = 0;
 	int32_t HP = 0;

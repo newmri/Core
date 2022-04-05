@@ -77,6 +77,33 @@ namespace NativeInfo
                 return Define::Dir_LEFT;
         }
 
+        Vec2Int GetFrontPos(const Define::Dir& dir, const uint8_t& range, Vec2Int& increasePos) const
+        {
+            Vec2Int destPos = *this;
+
+			switch (dir)
+			{
+            case Define::Dir_UP:
+                increasePos = Up();
+                destPos.y += range;
+                break;
+            case Define::Dir_DOWN:
+                increasePos = Down();
+                destPos.y -= range;
+                break;
+			case Define::Dir_LEFT:
+                increasePos = Left();
+				destPos.x -= range;
+				break;
+			case Define::Dir_RIGHT:
+                increasePos = Right();
+				destPos.x += range;
+                break;
+			}
+
+            return destPos;
+        }
+
         int32_t x = 0;
         int32_t y = 0;
     };

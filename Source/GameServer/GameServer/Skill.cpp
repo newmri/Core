@@ -29,6 +29,9 @@ bool Skill::UseSkill(void)
 	if (!IsValidCoolTime())
 		return false;
 
+	CoreList<std::shared_ptr<Creature>> objectList;
+	ZONE_MANAGER.GetObjects(owner, this->skillData.rangeDir, this->skillData.range, objectList);
+
 	return true;
 }
 

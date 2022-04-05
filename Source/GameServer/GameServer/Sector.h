@@ -25,6 +25,13 @@ public:
 public:
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);
 
+public:
+	void GetObjects(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList);
+
+private:
+	void GetFrontObjects(NativeInfo::Vec2Int cellPos, const Define::Dir dir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList);
+	void GetObjects(const NativeInfo::Vec2Int& cellPos, CoreList<std::shared_ptr<Creature>>& objectList);
+
 private:
 	NativeInfo::Vec2Int index;
 	std::map<int64_t, std::shared_ptr<Player>> playerList;

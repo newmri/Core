@@ -128,3 +128,61 @@ std::shared_ptr<Player> Sector::FindPlayer(const int64_t& oid)
 
 	return nullptr;
 }
+
+void Sector::GetObjects(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList)
+{
+	auto cellPos = creature->GetPos();
+	auto dir = creature->GetDir();
+
+	switch (rangeDir)
+	{
+	case Define::RangeDir_FRONT:
+		GetFrontObjects(cellPos, dir, range, objectList);
+		break;
+	case Define::RangeDir_BACK:
+		GetFrontObjects(cellPos, dir == Define::Dir_LEFT ? Define::Dir_RIGHT : Define::Dir_LEFT, range, objectList);
+		break;
+	case Define::RangeDir_TWO_WAY:
+		GetFrontObjects(cellPos, dir, range, objectList);
+		GetFrontObjects(cellPos, dir == Define::Dir_LEFT ? Define::Dir_RIGHT : Define::Dir_LEFT, range, objectList);
+		break;
+	case Define::RangeDir_UP:
+		GetFrontObjects(cellPos, Define::Dir_UP, range, objectList);
+		break;
+	case Define::RangeDir_DOWN:
+		GetFrontObjects(cellPos, Define::Dir_DOWN, range, objectList);
+		break;
+	}
+}
+
+void Sector::GetFrontObjects(NativeInfo::Vec2Int cellPos, const Define::Dir dir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList)
+{
+	NativeInfo::Vec2Int increasePos;
+	NativeInfo::Vec2Int destPos = cellPos.GetFrontPos(dir, range, increasePos);
+
+	// Left or Right
+	if (increasePos.x)
+	{
+		cellPos.x += increasePos.x;
+		for (; cellPos.x <= destPos.x; cellPos.x += increasePos.x)
+			GetObjects(cellPos, objectList);
+	}
+	// Up or Down
+	else
+	{
+		cellPos.y += increasePos.y;
+		for (; cellPos.y <= destPos.y; cellPos.y += increasePos.y)
+			GetObjects(cellPos, objectList);
+	}
+}
+
+void Sector::GetObjects(const NativeInfo::Vec2Int& cellPos, CoreList<std::shared_ptr<Creature>>& objectList)
+{
+	auto iter_begin = this->playerList.begin();
+	auto iter_end = this->playerList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		if ((iter_begin->second)->GetPos() == cellPos)
+			objectList.push_back((iter_begin->second)->shared_from_this());
+	}
+}
