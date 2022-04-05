@@ -260,6 +260,9 @@ public class MyPlayerController : PlayerController
 		Skill skill = null;
 		if(_skillList.TryGetValue(skillID, out skill))
         {
+			if (!skill.CanUseSkill(CreatureInfo.Hp, CreatureInfo.Mp))
+				return false;
+
 			if (!base.UseSkill(skillID))
 				return false;
 
