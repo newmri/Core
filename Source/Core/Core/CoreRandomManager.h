@@ -2,9 +2,9 @@
 
 #include <random>
 
-#define CORE_RANDOM_MANAGER_INT (GET_INSTANCE(CoreRandomManager<int>))
+#define CORE_RANDOM_MANAGER_INT (GET_INSTANCE(CoreRandomManager<int32_t>))
 #define CORE_RANDOM_MANAGER_SIZE_T (GET_INSTANCE(CoreRandomManager<size_t>))
-#define CORE_RANDOM_MANAGER_FLOAT (GET_INSTANCE(CoreRandomManager<float>))
+#define CORE_RANDOM_MANAGER_FLOAT (GET_INSTANCE(CoreRandomManager<float_t>))
 
 template<typename T>
 class CoreRandomManager
@@ -15,7 +15,7 @@ class CoreRandomManager
 		                         typename std::conditional<std::is_integral<T>::value, std::uniform_int_distribution<T>, void>::type>::type;
 public:
 	bool GetRandomByPercent(const T percent, const T maxPercent);
-	bool GetRandomByPercent(const double percent = 0.5);
+	bool GetRandomByPercent(const double_t percent = 0.5);
 	T GetRandom(const T from, const T to);
 	size_t GetRandom(const CoreVector<T>& percentList);
 };
@@ -37,11 +37,11 @@ void CoreRandomManager<T>::Release(void)
 template<typename T>
 bool CoreRandomManager<T>::GetRandomByPercent(const T percent, const T maxPercent)
 {
-	return GetRandomByPercent(static_cast<double>(percent / maxPercent));
+	return GetRandomByPercent(static_cast<double_t>(percent / maxPercent));
 }
 
 template<typename T>
-bool CoreRandomManager<T>::GetRandomByPercent(const double percent)
+bool CoreRandomManager<T>::GetRandomByPercent(const double_t percent)
 {
 	static thread_local std::mt19937 generator(std::random_device{}());
 	std::bernoulli_distribution distribution(percent);

@@ -36,6 +36,11 @@ bool ZoneManager::Leave(std::shared_ptr<Creature> creature)
 	return this->zoneList[creature->GetMapID()]->Leave(creature);
 }
 
+void ZoneManager::SendAll(const int32_t id, GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos)
+{
+	this->zoneList[id]->SendAll(packetType, packet, cellPos);
+}
+
 void ZoneManager::SendAllExceptMe(const int32_t id, const int64_t& oid, GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos)
 {
 	this->zoneList[id]->SendAllExceptMe(oid, packetType, packet, cellPos);

@@ -9,6 +9,7 @@ public:
 
 public:
 	Info::CreatureInfoT GetInfo(void);
+	int32_t GetAbility(const Define::AbilityType abilityType);
 	Define::ObjectType GetObjectType(void) const;
 	int64_t GetOID(void) const;
 	int32_t GetMapID(void);
@@ -22,6 +23,7 @@ protected:
 
 public:
 	bool UseHPMP(const int32_t HP, const int32_t MP);
+	void AddHP(const int32_t HP);
 	std::tuple<int32_t, int32_t> GetHPMP(void);
 
 public:
@@ -44,7 +46,10 @@ public:
 
 public:
 	void AddSkill(const int32_t skillID);
-	bool UseSkill(const int32_t skillID);
+	void UseSkill(const int32_t skillID);
+
+public:
+	void OnGetDamage(int32_t damage, const Define::AbilityType defenceType, const bool isCritical);
 
 protected:
 	Info::CreatureInfoT creatureInfo;

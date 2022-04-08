@@ -2,6 +2,8 @@
 
 class Creature;
 
+static const int32_t SKILL_MAX_RATE = 1000;
+
 class Skill : public CoreObject
 {
 	OVERRIDE_OBJECT(Skill)
@@ -10,7 +12,7 @@ public:
 	Skill(const std::shared_ptr<Creature> owner, const SkillData& skillData);
 
 public:
-	bool UseSkill(void);
+	void UseSkill(void);
 
 private:
 	bool IsValidCoolTime(void);

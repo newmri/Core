@@ -202,6 +202,14 @@ void Zone::_Leave(std::shared_ptr<Creature> creature, Sector* sector, const Nati
 	sector->Remove(creature->GetObjectType(), creature->GetOID());
 }
 
+void Zone::SendAll(GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos)
+{
+	if (!IsValidCellPos(cellPos))
+		return;
+
+	GetSector(CellPosToIndex(cellPos))->SendAll(packetType, packet);
+}
+
 void Zone::SendAllExceptMe(const int64_t& oid, GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos)
 {
 	if (!IsValidCellPos(cellPos))

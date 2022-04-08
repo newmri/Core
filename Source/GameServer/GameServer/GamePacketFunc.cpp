@@ -145,10 +145,5 @@ void GamePacketFunc::CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session
 		return;
 
 	auto raw = static_cast<const GamePacket::CS_USE_SKILL_REQ*>(data);
-	if (!player->UseSkill(raw->skill_id()))
-		return;
-
-	PACKET_SEND_MANAGER.builder.Clear();
-	auto message = GamePacket::CreateSC_USE_SKILL_RES(PACKET_SEND_MANAGER.builder, player->GetObjectType(), oid);
-	ZONE_MANAGER.SendAllExceptMe(player->GetMapID(), oid, GamePacket::Packet_SC_USE_SKILL_RES, message.Union(), player->GetPos());
+	player->UseSkill(raw->skill_id());
 }

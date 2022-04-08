@@ -26,6 +26,12 @@ Info::CreatureInfoT Creature::GetInfo(void)
 	return this->creatureInfo;
 }
 
+int32_t Creature::GetAbility(const Define::AbilityType abilityType)
+{
+	READ_LOCK(this->abilityMutex);
+	return this->creatureInfo.ability.value[abilityType];
+}
+
 Define::ObjectType Creature::GetObjectType(void) const
 {
 	return this->creatureInfo.object_type;
@@ -83,6 +89,12 @@ bool Creature::UseHPMP(const int32_t HP, const int32_t MP)
 	this->creatureInfo.hp -= HP;
 	this->creatureInfo.mp -= MP;
 	return true;
+}
+
+void Creature::AddHP(const int32_t HP)
+{
+	WRITE_LOCK(this->infoMutex);
+	this->creatureInfo.hp += HP;
 }
 
 std::tuple<int32_t, int32_t> Creature::GetHPMP(void)
@@ -164,13 +176,23 @@ void Creature::AddSkill(const int32_t skillID)
 	this->skillList[skillID] = Skill(this->shared_from_this(), skillData);
 }
 
-bool Creature::UseSkill(const int32_t skillID)
+void Creature::UseSkill(const int32_t skillID)
 {
 	READ_LOCK(this->skillMutex);
 
 	auto iter = this->skillList.find(skillID);
 	if(IS_SAME(iter, this->skillList.end()))
-		return false;
+		return;
 
-	return iter->second.UseSkill();
+	iter->second.UseSkill();
+}
+
+void Creature::OnGetDamage(int32_t damage, const Define::AbilityType defenceType, const bool isCritical)
+{
+	damage = CoreUtil::Max(0, damage - GetAbility(defenceType));
+
+	if (IS_SAME(0, damage))
+		return;
+
+	AddHP(-damage);
 }
