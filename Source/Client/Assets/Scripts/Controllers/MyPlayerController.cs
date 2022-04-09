@@ -257,6 +257,9 @@ public class MyPlayerController : PlayerController
 
 	public override bool UseSkill(int skillID)
 	{
+		if (State == CreatureState.SKILL)
+			return false;
+
 		Skill skill = null;
 		if(_skillList.TryGetValue(skillID, out skill))
         {

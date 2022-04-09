@@ -51,15 +51,17 @@ public class UIGameScene : UIScene
 
     public void UpdateHPBar(int HP, int MaxHP)
     {
-        GetSlider((int)Sliders.HPSlider).value = HP / MaxHP;
+        Debug.Log("HP " + HP.ToString());
+        Debug.Log("MaxHP " + MaxHP.ToString());
+        GetSlider((int)Sliders.HPSlider).value = (float)HP / MaxHP;
     }
 
     public void UpdateMPBar(int MP, int MaxMP)
     {
-        GetSlider((int)Sliders.MPSlider).value = MP / MaxMP;
+        GetSlider((int)Sliders.MPSlider).value = (float)MP / MaxMP;
     }
 
-    public void UpdateCharacterInfo(string name, byte level, Define.Job job)
+    public void UpdateCharacterInfo(string name, byte level, Job job)
     {
         this.GetTextMesh((int)TextMeshProUGUIs.CharacterNameText).text = name;
         this.GetTextMesh((int)TextMeshProUGUIs.CharacterLevelText).text = "Lv." + level.ToString();

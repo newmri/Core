@@ -15,6 +15,7 @@ public class PlayerController : CreatureController
 	protected CharacterInfoBaseUnion _characterInfo = new CharacterInfoBaseUnion();
 
 	protected GearEquipper _gear;
+	private Coroutine _skillCoroutine;
 
 	public CharacterInfoT CharacterInfo
 	{
@@ -60,10 +61,10 @@ public class PlayerController : CreatureController
 
 	public override bool UseSkill(int skillID)
 	{
-		if (State == CreatureState.SKILL)
-			return false;
+		if (_skillCoroutine != null)
+			CoreManagers.Coroutine.Stop(_skillCoroutine);
 
-		CoreManagers.Coroutine.Add(CoSkill(skillID,
+		_skillCoroutine = CoreManagers.Coroutine.Add(CoSkill(skillID,
 			(float)((int)Managers.CharacterData.GetSkill(skillID, "CoolTime") / 1000.0f)));
 
 		return true;

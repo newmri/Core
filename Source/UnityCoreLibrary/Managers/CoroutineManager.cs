@@ -13,18 +13,23 @@ namespace UnityCoreLibrary
             _maxActive = 100;
         }
 
-        public void Add(IEnumerator coroutine)
+        public Coroutine Add(IEnumerator coroutine)
         {
+            Coroutine retCorutine = null;
+
             if (_numActive < _maxActive)
             {
                 IEnumerator runner = CoroutineRunner(coroutine);
-                _runningCoroutineList.Add(StartCoroutine(runner));
+                retCorutine = StartCoroutine(runner);
+                _runningCoroutineList.Add(retCorutine);
             }
 
             else
             {
                 _queue.Enqueue(coroutine);
             }
+
+            return retCorutine;
         }
 
         public void Stop()
@@ -34,8 +39,17 @@ namespace UnityCoreLibrary
                 StopCoroutine(coroutine);
             }
 
+            _numActive = 0;
+
             _queue.Clear();
             _runningCoroutineList.Clear();
+        }
+
+        public void Stop(Coroutine coroutine)
+        {
+            StopCoroutine(coroutine);
+            _runningCoroutineList.Remove(coroutine);
+            --_numActive;
         }
 
         private IEnumerator CoroutineRunner(IEnumerator coroutine)

@@ -37,14 +37,20 @@ public class BaseController : MonoBehaviour
 	{
 		get { return CreatureInfo.Hp; }
 		set
-		{ 
-			if(CreatureInfo.Hp > value)
-            {
+		{
+			if (CreatureInfo.Hp > value)
+			{
 				DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _hudPos.position, 100).GetComponent<DamageText>();
 				text.Damage = CreatureInfo.Hp - value;
 			}
 
-			CreatureInfo.Hp = value; 
+			CreatureInfo.Hp = value;
+
+			if (0 >= CreatureInfo.Hp)
+			{
+				CreatureInfo.Hp = 0;
+				State = CreatureState.DEAD;
+			}
 		}
 	}
 

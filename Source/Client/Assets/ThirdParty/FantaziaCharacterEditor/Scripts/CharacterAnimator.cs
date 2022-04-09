@@ -102,7 +102,7 @@ public class CharacterAnimator : MonoBehaviour
         WarriorAnimations.Add(PlayerAnimations.Buff, "Buff");
         WarriorAnimations.Add(PlayerAnimations.Hurt, "Hurt");
         WarriorAnimations.Add(PlayerAnimations.Special, "Defence");
-        WarriorAnimations.Add(PlayerAnimations.Death, "Death");
+        WarriorAnimations.Add(PlayerAnimations.DEAD, "Death");
 
         ArcherAnimations.Add(PlayerAnimations.ATTACK_1, "Shoot1");
         ArcherAnimations.Add(PlayerAnimations.Attack2, "Shoot2");
@@ -116,7 +116,7 @@ public class CharacterAnimator : MonoBehaviour
         ArcherAnimations.Add(PlayerAnimations.Buff, "Buff");
         ArcherAnimations.Add(PlayerAnimations.Hurt, "Hurt");
         ArcherAnimations.Add(PlayerAnimations.Special, "Shoot3");
-        ArcherAnimations.Add(PlayerAnimations.Death, "Death");
+        ArcherAnimations.Add(PlayerAnimations.DEAD, "Death");
 
         SorcererAnimations.Add(PlayerAnimations.ATTACK_1, "Cast2");
         SorcererAnimations.Add(PlayerAnimations.Attack2, "Cast2");
@@ -130,7 +130,7 @@ public class CharacterAnimator : MonoBehaviour
         SorcererAnimations.Add(PlayerAnimations.Buff, "Buff");
         SorcererAnimations.Add(PlayerAnimations.Hurt, "Hurt");
         SorcererAnimations.Add(PlayerAnimations.Special, "Cast3");
-        SorcererAnimations.Add(PlayerAnimations.Death, "Death");
+        SorcererAnimations.Add(PlayerAnimations.DEAD, "Death");
 
         DuelistAnimations.Add(PlayerAnimations.ATTACK_1, "Attack 1 DUELIST");
         DuelistAnimations.Add(PlayerAnimations.Attack2, "Attack 2 DUELIST");
@@ -144,7 +144,7 @@ public class CharacterAnimator : MonoBehaviour
         DuelistAnimations.Add(PlayerAnimations.Buff, "Buff");
         DuelistAnimations.Add(PlayerAnimations.Hurt, "Hurt");
         DuelistAnimations.Add(PlayerAnimations.Special, "Attack 3 DUELIST");
-        DuelistAnimations.Add(PlayerAnimations.Death, "Death");
+        DuelistAnimations.Add(PlayerAnimations.DEAD, "Death");
 
         JobsAnimations.Add(Define.Job.ARCHER, ArcherAnimations);
         JobsAnimations.Add(Define.Job.WARRIOR, WarriorAnimations);
@@ -196,8 +196,8 @@ public class CharacterAnimator : MonoBehaviour
 
         switch (AnimationToPlay)
         {
-            case PlayerAnimations.ATTACK_1:
-            case PlayerAnimations.Death:
+            //case PlayerAnimations.ATTACK_1:
+            case PlayerAnimations.DEAD:
                 IsLoop = false;
                 break;
             default:
@@ -210,5 +210,5 @@ public class CharacterAnimator : MonoBehaviour
 }
 public enum PlayerAnimations
 {
-    IDLE, WALK, ATTACK_1, Death, FullJump,Jump1, Jump2, Jump3, Hurt, RUN, Attack2, Special, Buff
+    IDLE, WALK, ATTACK_1, DEAD, FullJump,Jump1, Jump2, Jump3, Hurt, RUN, Attack2, Special, Buff
 }

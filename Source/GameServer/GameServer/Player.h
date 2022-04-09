@@ -9,6 +9,9 @@ public:
 		const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
 
 public:
+	std::shared_ptr<CoreClientSession> GetSession(void);
+
+public:
 	GamePacket::CharacterInfoT GetCharacterInfo(void);
 
 public:

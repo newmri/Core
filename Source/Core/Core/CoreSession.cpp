@@ -2,12 +2,14 @@
 
 CoreSession::CoreSession(boost::asio::ip::tcp::socket socket, const int64_t oid) : socket(std::move(socket)), oid(oid)
 {
-
+	boost::asio::ip::tcp::no_delay option(true);
+	this->socket.set_option(option);
 }
 
 CoreSession::CoreSession(boost::asio::io_context& ioContext) : socket(ioContext)
 {
-
+	boost::asio::ip::tcp::no_delay option(true);
+	this->socket.set_option(option);
 }
 
 CoreSession::~CoreSession()
