@@ -115,6 +115,23 @@ public class CreatureManager
         creatureController.UseSkill(skillID);
     }
 
+    public void OnGetDamage(DamageInfo damageInfo)
+    {
+        Debug.Log($"ObjectType:{damageInfo.ObjectType} " +
+                  $"Oid:{damageInfo.Oid} " +
+                  $"Damaged:{damageInfo.Damage}");
+
+        if (damageInfo.Oid == MyPlayer.CreatureInfo.Oid)
+        {
+            MyPlayer.HP -= damageInfo.Damage;
+        }
+        else
+        {
+            CreatureController creatureController = GetCreatureController(damageInfo.ObjectType, damageInfo.Oid);
+            creatureController.HP -= damageInfo.Damage;
+        }
+    }
+
     public void Remove(ObjectType objectType, long oid)
     {
         switch (objectType)

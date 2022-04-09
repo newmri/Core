@@ -32,6 +32,7 @@ public enum Packet : byte
   SC_SET_STATE_RES = 11,
   CS_USE_SKILL_REQ = 12,
   SC_USE_SKILL_RES = 13,
+  SC_GET_DAMAGE_NOTI = 14,
 };
 
 public class PacketUnion {
@@ -57,6 +58,7 @@ public class PacketUnion {
   public GamePacket.SC_SET_STATE_REST AsSC_SET_STATE_RES() { return this.As<GamePacket.SC_SET_STATE_REST>(); }
   public GamePacket.CS_USE_SKILL_REQT AsCS_USE_SKILL_REQ() { return this.As<GamePacket.CS_USE_SKILL_REQT>(); }
   public GamePacket.SC_USE_SKILL_REST AsSC_USE_SKILL_RES() { return this.As<GamePacket.SC_USE_SKILL_REST>(); }
+  public GamePacket.SC_GET_DAMAGE_NOTIT AsSC_GET_DAMAGE_NOTI() { return this.As<GamePacket.SC_GET_DAMAGE_NOTIT>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -74,6 +76,7 @@ public class PacketUnion {
       case Packet.SC_SET_STATE_RES: return GamePacket.SC_SET_STATE_RES.Pack(builder, _o.AsSC_SET_STATE_RES()).Value;
       case Packet.CS_USE_SKILL_REQ: return GamePacket.CS_USE_SKILL_REQ.Pack(builder, _o.AsCS_USE_SKILL_REQ()).Value;
       case Packet.SC_USE_SKILL_RES: return GamePacket.SC_USE_SKILL_RES.Pack(builder, _o.AsSC_USE_SKILL_RES()).Value;
+      case Packet.SC_GET_DAMAGE_NOTI: return GamePacket.SC_GET_DAMAGE_NOTI.Pack(builder, _o.AsSC_GET_DAMAGE_NOTI()).Value;
     }
   }
 }
@@ -974,6 +977,141 @@ public class SC_USE_SKILL_REST
   }
 }
 
+public struct DamageInfo : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static DamageInfo GetRootAsDamageInfo(ByteBuffer _bb) { return GetRootAsDamageInfo(_bb, new DamageInfo()); }
+  public static DamageInfo GetRootAsDamageInfo(ByteBuffer _bb, DamageInfo obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public DamageInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public int Damage { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public bool IsCritical { get { int o = __p.__offset(10); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+
+  public static Offset<GamePacket.DamageInfo> CreateDamageInfo(FlatBufferBuilder builder,
+      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      long oid = 0,
+      int damage = 0,
+      bool is_critical = false) {
+    builder.StartTable(4);
+    DamageInfo.AddOid(builder, oid);
+    DamageInfo.AddDamage(builder, damage);
+    DamageInfo.AddIsCritical(builder, is_critical);
+    DamageInfo.AddObjectType(builder, object_type);
+    return DamageInfo.EndDamageInfo(builder);
+  }
+
+  public static void StartDamageInfo(FlatBufferBuilder builder) { builder.StartTable(4); }
+  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
+  public static void AddOid(FlatBufferBuilder builder, long oid) { builder.AddLong(1, oid, 0); }
+  public static void AddDamage(FlatBufferBuilder builder, int damage) { builder.AddInt(2, damage, 0); }
+  public static void AddIsCritical(FlatBufferBuilder builder, bool isCritical) { builder.AddBool(3, isCritical, false); }
+  public static Offset<GamePacket.DamageInfo> EndDamageInfo(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.DamageInfo>(o);
+  }
+  public DamageInfoT UnPack() {
+    var _o = new DamageInfoT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(DamageInfoT _o) {
+    _o.ObjectType = this.ObjectType;
+    _o.Oid = this.Oid;
+    _o.Damage = this.Damage;
+    _o.IsCritical = this.IsCritical;
+  }
+  public static Offset<GamePacket.DamageInfo> Pack(FlatBufferBuilder builder, DamageInfoT _o) {
+    if (_o == null) return default(Offset<GamePacket.DamageInfo>);
+    return CreateDamageInfo(
+      builder,
+      _o.ObjectType,
+      _o.Oid,
+      _o.Damage,
+      _o.IsCritical);
+  }
+};
+
+public class DamageInfoT
+{
+  public Define.ObjectType ObjectType { get; set; }
+  public long Oid { get; set; }
+  public int Damage { get; set; }
+  public bool IsCritical { get; set; }
+
+  public DamageInfoT() {
+    this.ObjectType = Define.ObjectType.PLAYER;
+    this.Oid = 0;
+    this.Damage = 0;
+    this.IsCritical = false;
+  }
+}
+
+public struct SC_GET_DAMAGE_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_GET_DAMAGE_NOTI GetRootAsSC_GET_DAMAGE_NOTI(ByteBuffer _bb) { return GetRootAsSC_GET_DAMAGE_NOTI(_bb, new SC_GET_DAMAGE_NOTI()); }
+  public static SC_GET_DAMAGE_NOTI GetRootAsSC_GET_DAMAGE_NOTI(ByteBuffer _bb, SC_GET_DAMAGE_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_GET_DAMAGE_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public GamePacket.DamageInfo? DamageInfo(int j) { int o = __p.__offset(4); return o != 0 ? (GamePacket.DamageInfo?)(new GamePacket.DamageInfo()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
+  public int DamageInfoLength { get { int o = __p.__offset(4); return o != 0 ? __p.__vector_len(o) : 0; } }
+
+  public static Offset<GamePacket.SC_GET_DAMAGE_NOTI> CreateSC_GET_DAMAGE_NOTI(FlatBufferBuilder builder,
+      VectorOffset damage_infoOffset = default(VectorOffset)) {
+    builder.StartTable(1);
+    SC_GET_DAMAGE_NOTI.AddDamageInfo(builder, damage_infoOffset);
+    return SC_GET_DAMAGE_NOTI.EndSC_GET_DAMAGE_NOTI(builder);
+  }
+
+  public static void StartSC_GET_DAMAGE_NOTI(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddDamageInfo(FlatBufferBuilder builder, VectorOffset damageInfoOffset) { builder.AddOffset(0, damageInfoOffset.Value, 0); }
+  public static VectorOffset CreateDamageInfoVector(FlatBufferBuilder builder, Offset<GamePacket.DamageInfo>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateDamageInfoVectorBlock(FlatBufferBuilder builder, Offset<GamePacket.DamageInfo>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartDamageInfoVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static Offset<GamePacket.SC_GET_DAMAGE_NOTI> EndSC_GET_DAMAGE_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_GET_DAMAGE_NOTI>(o);
+  }
+  public SC_GET_DAMAGE_NOTIT UnPack() {
+    var _o = new SC_GET_DAMAGE_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_GET_DAMAGE_NOTIT _o) {
+    _o.DamageInfo = new List<GamePacket.DamageInfoT>();
+    for (var _j = 0; _j < this.DamageInfoLength; ++_j) {_o.DamageInfo.Add(this.DamageInfo(_j).HasValue ? this.DamageInfo(_j).Value.UnPack() : null);}
+  }
+  public static Offset<GamePacket.SC_GET_DAMAGE_NOTI> Pack(FlatBufferBuilder builder, SC_GET_DAMAGE_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_GET_DAMAGE_NOTI>);
+    var _damage_info = default(VectorOffset);
+    if (_o.DamageInfo != null) {
+      var __damage_info = new Offset<GamePacket.DamageInfo>[_o.DamageInfo.Count];
+      for (var _j = 0; _j < __damage_info.Length; ++_j) { __damage_info[_j] = GamePacket.DamageInfo.Pack(builder, _o.DamageInfo[_j]); }
+      _damage_info = CreateDamageInfoVector(builder, __damage_info);
+    }
+    return CreateSC_GET_DAMAGE_NOTI(
+      builder,
+      _damage_info);
+  }
+};
+
+public class SC_GET_DAMAGE_NOTIT
+{
+  public List<GamePacket.DamageInfoT> DamageInfo { get; set; }
+
+  public SC_GET_DAMAGE_NOTIT() {
+    this.DamageInfo = null;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -999,6 +1137,7 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_SET_STATE_RES PacketAsSC_SET_STATE_RES() { return Packet<GamePacket.SC_SET_STATE_RES>().Value; }
   public GamePacket.CS_USE_SKILL_REQ PacketAsCS_USE_SKILL_REQ() { return Packet<GamePacket.CS_USE_SKILL_REQ>().Value; }
   public GamePacket.SC_USE_SKILL_RES PacketAsSC_USE_SKILL_RES() { return Packet<GamePacket.SC_USE_SKILL_RES>().Value; }
+  public GamePacket.SC_GET_DAMAGE_NOTI PacketAsSC_GET_DAMAGE_NOTI() { return Packet<GamePacket.SC_GET_DAMAGE_NOTI>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -1066,6 +1205,9 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_USE_SKILL_RES:
         _o.Packet.Value = this.Packet<GamePacket.SC_USE_SKILL_RES>().HasValue ? this.Packet<GamePacket.SC_USE_SKILL_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_GET_DAMAGE_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_GET_DAMAGE_NOTI>().HasValue ? this.Packet<GamePacket.SC_GET_DAMAGE_NOTI>().Value.UnPack() : null;
         break;
     }
   }

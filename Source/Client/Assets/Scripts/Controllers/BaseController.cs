@@ -4,10 +4,12 @@ using System.Configuration;
 using UnityEngine;
 using Define;
 using Info;
+using UnityCoreLibrary;
 
 public class BaseController : MonoBehaviour
 {
 	protected bool _isRunning = false;
+	protected Transform _hudPos;
 
 	[SerializeField]
 	CreatureInfoT _creatureInfo = new CreatureInfoT();
@@ -34,7 +36,16 @@ public class BaseController : MonoBehaviour
 	public virtual int HP
 	{
 		get { return CreatureInfo.Hp; }
-		set { CreatureInfo.Hp = value; }
+		set
+		{ 
+			if(CreatureInfo.Hp > value)
+            {
+				DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _hudPos.position, 100).GetComponent<DamageText>();
+				text.Damage = CreatureInfo.Hp - value;
+			}
+
+			CreatureInfo.Hp = value; 
+		}
 	}
 
 	public virtual int MP
@@ -129,6 +140,7 @@ public class BaseController : MonoBehaviour
 
 	protected virtual void Init()
 	{
+		_hudPos = GetComponentInChildren<HUD>().transform;
 		UpdateAnimation();
 	}
 

@@ -71,6 +71,15 @@ class GamePacketHandler
         SC_USE_SKILL_RES useSkillRes = packet.PacketAsSC_USE_SKILL_RES();
         Managers.Creature.UseSkill(useSkillRes.ObjectType, useSkillRes.ObjectId, useSkillRes.SkillId);
     }
+
+    public static void SC_GET_DAMAGE_NOTI(PacketSession session, Root packet)
+    {
+        SC_GET_DAMAGE_NOTI getDamageNoti = packet.PacketAsSC_GET_DAMAGE_NOTI();
+        for (int i = 0; i < getDamageNoti.DamageInfoLength; ++i)
+        {
+            Managers.Creature.OnGetDamage(getDamageNoti.DamageInfo(i).Value);
+        }
+    }
 }
 
 

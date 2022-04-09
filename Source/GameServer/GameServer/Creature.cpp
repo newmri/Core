@@ -187,12 +187,16 @@ void Creature::UseSkill(const int32_t skillID)
 	iter->second.UseSkill();
 }
 
-void Creature::OnGetDamage(int32_t damage, const Define::AbilityType defenceType, const bool isCritical)
+bool Creature::OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType)
 {
-	damage = CoreUtil::Max(0, damage - GetAbility(defenceType));
+	damageInfo.damage = CoreUtil::Max(0, damageInfo.damage - GetAbility(defenceType));
 
-	if (IS_SAME(0, damage))
-		return;
+	if (IS_SAME(0, damageInfo.damage))
+		return false;
 
-	AddHP(-damage);
+	AddHP(-damageInfo.damage);
+
+	damageInfo.oid = GetOID();
+	damageInfo.object_type = GetObjectType();
+	return true;
 }

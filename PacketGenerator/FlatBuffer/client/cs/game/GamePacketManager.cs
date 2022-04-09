@@ -30,6 +30,7 @@ class GamePacketManager
        _handler.Add(Packet.SC_MOVE_RES, GamePacketHandler.SC_MOVE_RES);
        _handler.Add(Packet.SC_SET_STATE_RES, GamePacketHandler.SC_SET_STATE_RES);
        _handler.Add(Packet.SC_USE_SKILL_RES, GamePacketHandler.SC_USE_SKILL_RES);
+       _handler.Add(Packet.SC_GET_DAMAGE_NOTI, GamePacketHandler.SC_GET_DAMAGE_NOTI);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

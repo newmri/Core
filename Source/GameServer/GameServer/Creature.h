@@ -49,7 +49,7 @@ public:
 	void UseSkill(const int32_t skillID);
 
 public:
-	void OnGetDamage(int32_t damage, const Define::AbilityType defenceType, const bool isCritical);
+	bool OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType);
 
 protected:
 	Info::CreatureInfoT creatureInfo;

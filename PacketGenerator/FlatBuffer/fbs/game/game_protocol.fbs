@@ -25,6 +25,7 @@ union Packet
     SC_SET_STATE_RES,
     CS_USE_SKILL_REQ,
     SC_USE_SKILL_RES,
+    SC_GET_DAMAGE_NOTI
 }
 
 table CS_LOGIN_REQ
@@ -121,6 +122,19 @@ table SC_USE_SKILL_RES
     object_type:Define.ObjectType;
     object_id:int64;
     skill_id:int32;
+}
+
+table DamageInfo
+{
+    object_type:Define.ObjectType;
+    oid:int64;
+    damage:int32;
+    is_critical:bool;
+}
+
+table SC_GET_DAMAGE_NOTI
+{
+   damage_info:[DamageInfo];
 }
 
 table Root

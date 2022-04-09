@@ -81,9 +81,4 @@ public class PlayerController : CreatureController
 	{
 
 	}
-
-	public override void OnDamaged()
-	{
-		Debug.Log("Player HIT !");
-	}
 }

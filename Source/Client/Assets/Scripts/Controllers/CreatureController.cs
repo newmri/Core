@@ -16,11 +16,6 @@ public class CreatureController : BaseController
 		base.Init();
 	}
 
-	public virtual void OnDamaged()
-	{
-
-	}
-
 	public virtual void OnDead()
 	{
 		State = CreatureState.DEAD;

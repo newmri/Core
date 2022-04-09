@@ -71,6 +71,14 @@ struct SC_USE_SKILL_RES;
 struct SC_USE_SKILL_RESBuilder;
 struct SC_USE_SKILL_REST;
 
+struct DamageInfo;
+struct DamageInfoBuilder;
+struct DamageInfoT;
+
+struct SC_GET_DAMAGE_NOTI;
+struct SC_GET_DAMAGE_NOTIBuilder;
+struct SC_GET_DAMAGE_NOTIT;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -123,11 +131,12 @@ enum Packet : uint8_t {
   Packet_SC_SET_STATE_RES = 11,
   Packet_CS_USE_SKILL_REQ = 12,
   Packet_SC_USE_SKILL_RES = 13,
+  Packet_SC_GET_DAMAGE_NOTI = 14,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_USE_SKILL_RES
+  Packet_MAX = Packet_SC_GET_DAMAGE_NOTI
 };
 
-inline const Packet (&EnumValuesPacket())[14] {
+inline const Packet (&EnumValuesPacket())[15] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -142,13 +151,14 @@ inline const Packet (&EnumValuesPacket())[14] {
     Packet_CS_SET_STATE_REQ,
     Packet_SC_SET_STATE_RES,
     Packet_CS_USE_SKILL_REQ,
-    Packet_SC_USE_SKILL_RES
+    Packet_SC_USE_SKILL_RES,
+    Packet_SC_GET_DAMAGE_NOTI
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[15] = {
+  static const char * const names[16] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -163,13 +173,14 @@ inline const char * const *EnumNamesPacket() {
     "SC_SET_STATE_RES",
     "CS_USE_SKILL_REQ",
     "SC_USE_SKILL_RES",
+    "SC_GET_DAMAGE_NOTI",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_USE_SKILL_RES)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_GET_DAMAGE_NOTI)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -228,6 +239,10 @@ template<> struct PacketTraits<GamePacket::CS_USE_SKILL_REQ> {
 
 template<> struct PacketTraits<GamePacket::SC_USE_SKILL_RES> {
   static const Packet enum_value = Packet_SC_USE_SKILL_RES;
+};
+
+template<> struct PacketTraits<GamePacket::SC_GET_DAMAGE_NOTI> {
+  static const Packet enum_value = Packet_SC_GET_DAMAGE_NOTI;
 };
 
 struct PacketUnion {
@@ -365,6 +380,14 @@ struct PacketUnion {
   const GamePacket::SC_USE_SKILL_REST *AsSC_USE_SKILL_RES() const {
     return type == Packet_SC_USE_SKILL_RES ?
       reinterpret_cast<const GamePacket::SC_USE_SKILL_REST *>(value) : nullptr;
+  }
+  GamePacket::SC_GET_DAMAGE_NOTIT *AsSC_GET_DAMAGE_NOTI() {
+    return type == Packet_SC_GET_DAMAGE_NOTI ?
+      reinterpret_cast<GamePacket::SC_GET_DAMAGE_NOTIT *>(value) : nullptr;
+  }
+  const GamePacket::SC_GET_DAMAGE_NOTIT *AsSC_GET_DAMAGE_NOTI() const {
+    return type == Packet_SC_GET_DAMAGE_NOTI ?
+      reinterpret_cast<const GamePacket::SC_GET_DAMAGE_NOTIT *>(value) : nullptr;
   }
 };
 
@@ -1443,6 +1466,154 @@ inline flatbuffers::Offset<SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(
 
 flatbuffers::Offset<SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_SKILL_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct DamageInfoT : public flatbuffers::NativeTable {
+  typedef DamageInfo TableType;
+  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  int64_t oid = 0;
+  int32_t damage = 0;
+  bool is_critical = false;
+};
+
+struct DamageInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef DamageInfoT NativeTableType;
+  typedef DamageInfoBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_OBJECT_TYPE = 4,
+    VT_OID = 6,
+    VT_DAMAGE = 8,
+    VT_IS_CRITICAL = 10
+  };
+  Define::ObjectType object_type() const {
+    return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
+  }
+  int64_t oid() const {
+    return GetField<int64_t>(VT_OID, 0);
+  }
+  int32_t damage() const {
+    return GetField<int32_t>(VT_DAMAGE, 0);
+  }
+  bool is_critical() const {
+    return GetField<uint8_t>(VT_IS_CRITICAL, 0) != 0;
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
+           VerifyField<int64_t>(verifier, VT_OID) &&
+           VerifyField<int32_t>(verifier, VT_DAMAGE) &&
+           VerifyField<uint8_t>(verifier, VT_IS_CRITICAL) &&
+           verifier.EndTable();
+  }
+  DamageInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(DamageInfoT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<DamageInfo> Pack(flatbuffers::FlatBufferBuilder &_fbb, const DamageInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct DamageInfoBuilder {
+  typedef DamageInfo Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_object_type(Define::ObjectType object_type) {
+    fbb_.AddElement<uint8_t>(DamageInfo::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
+  }
+  void add_oid(int64_t oid) {
+    fbb_.AddElement<int64_t>(DamageInfo::VT_OID, oid, 0);
+  }
+  void add_damage(int32_t damage) {
+    fbb_.AddElement<int32_t>(DamageInfo::VT_DAMAGE, damage, 0);
+  }
+  void add_is_critical(bool is_critical) {
+    fbb_.AddElement<uint8_t>(DamageInfo::VT_IS_CRITICAL, static_cast<uint8_t>(is_critical), 0);
+  }
+  explicit DamageInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<DamageInfo> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<DamageInfo>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<DamageInfo> CreateDamageInfo(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    int64_t oid = 0,
+    int32_t damage = 0,
+    bool is_critical = false) {
+  DamageInfoBuilder builder_(_fbb);
+  builder_.add_oid(oid);
+  builder_.add_damage(damage);
+  builder_.add_is_critical(is_critical);
+  builder_.add_object_type(object_type);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<DamageInfo> CreateDamageInfo(flatbuffers::FlatBufferBuilder &_fbb, const DamageInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_GET_DAMAGE_NOTIT : public flatbuffers::NativeTable {
+  typedef SC_GET_DAMAGE_NOTI TableType;
+  std::vector<std::unique_ptr<GamePacket::DamageInfoT>> damage_info{};
+};
+
+struct SC_GET_DAMAGE_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_GET_DAMAGE_NOTIT NativeTableType;
+  typedef SC_GET_DAMAGE_NOTIBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_DAMAGE_INFO = 4
+  };
+  const flatbuffers::Vector<flatbuffers::Offset<GamePacket::DamageInfo>> *damage_info() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<GamePacket::DamageInfo>> *>(VT_DAMAGE_INFO);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_DAMAGE_INFO) &&
+           verifier.VerifyVector(damage_info()) &&
+           verifier.VerifyVectorOfTables(damage_info()) &&
+           verifier.EndTable();
+  }
+  SC_GET_DAMAGE_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_GET_DAMAGE_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_GET_DAMAGE_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_GET_DAMAGE_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_GET_DAMAGE_NOTIBuilder {
+  typedef SC_GET_DAMAGE_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_damage_info(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<GamePacket::DamageInfo>>> damage_info) {
+    fbb_.AddOffset(SC_GET_DAMAGE_NOTI::VT_DAMAGE_INFO, damage_info);
+  }
+  explicit SC_GET_DAMAGE_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_GET_DAMAGE_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_GET_DAMAGE_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_GET_DAMAGE_NOTI> CreateSC_GET_DAMAGE_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<GamePacket::DamageInfo>>> damage_info = 0) {
+  SC_GET_DAMAGE_NOTIBuilder builder_(_fbb);
+  builder_.add_damage_info(damage_info);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<SC_GET_DAMAGE_NOTI> CreateSC_GET_DAMAGE_NOTIDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<flatbuffers::Offset<GamePacket::DamageInfo>> *damage_info = nullptr) {
+  auto damage_info__ = damage_info ? _fbb.CreateVector<flatbuffers::Offset<GamePacket::DamageInfo>>(*damage_info) : 0;
+  return GamePacket::CreateSC_GET_DAMAGE_NOTI(
+      _fbb,
+      damage_info__);
+}
+
+flatbuffers::Offset<SC_GET_DAMAGE_NOTI> CreateSC_GET_DAMAGE_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_GET_DAMAGE_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -1500,6 +1671,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_USE_SKILL_RES *packet_as_SC_USE_SKILL_RES() const {
     return packet_type() == GamePacket::Packet_SC_USE_SKILL_RES ? static_cast<const GamePacket::SC_USE_SKILL_RES *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_GET_DAMAGE_NOTI *packet_as_SC_GET_DAMAGE_NOTI() const {
+    return packet_type() == GamePacket::Packet_SC_GET_DAMAGE_NOTI ? static_cast<const GamePacket::SC_GET_DAMAGE_NOTI *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -1563,6 +1737,10 @@ template<> inline const GamePacket::CS_USE_SKILL_REQ *Root::packet_as<GamePacket
 
 template<> inline const GamePacket::SC_USE_SKILL_RES *Root::packet_as<GamePacket::SC_USE_SKILL_RES>() const {
   return packet_as_SC_USE_SKILL_RES();
+}
+
+template<> inline const GamePacket::SC_GET_DAMAGE_NOTI *Root::packet_as<GamePacket::SC_GET_DAMAGE_NOTI>() const {
+  return packet_as_SC_GET_DAMAGE_NOTI();
 }
 
 struct RootBuilder {
@@ -2033,6 +2211,67 @@ inline flatbuffers::Offset<SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(flatbuffers:
       _skill_id);
 }
 
+inline DamageInfoT *DamageInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<DamageInfoT>(new DamageInfoT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void DamageInfo::UnPackTo(DamageInfoT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = object_type(); _o->object_type = _e; }
+  { auto _e = oid(); _o->oid = _e; }
+  { auto _e = damage(); _o->damage = _e; }
+  { auto _e = is_critical(); _o->is_critical = _e; }
+}
+
+inline flatbuffers::Offset<DamageInfo> DamageInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const DamageInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateDamageInfo(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<DamageInfo> CreateDamageInfo(flatbuffers::FlatBufferBuilder &_fbb, const DamageInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DamageInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _object_type = _o->object_type;
+  auto _oid = _o->oid;
+  auto _damage = _o->damage;
+  auto _is_critical = _o->is_critical;
+  return GamePacket::CreateDamageInfo(
+      _fbb,
+      _object_type,
+      _oid,
+      _damage,
+      _is_critical);
+}
+
+inline SC_GET_DAMAGE_NOTIT *SC_GET_DAMAGE_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_GET_DAMAGE_NOTIT>(new SC_GET_DAMAGE_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_GET_DAMAGE_NOTI::UnPackTo(SC_GET_DAMAGE_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = damage_info(); if (_e) { _o->damage_info.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->damage_info[_i] = std::unique_ptr<GamePacket::DamageInfoT>(_e->Get(_i)->UnPack(_resolver)); } } }
+}
+
+inline flatbuffers::Offset<SC_GET_DAMAGE_NOTI> SC_GET_DAMAGE_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_GET_DAMAGE_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_GET_DAMAGE_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_GET_DAMAGE_NOTI> CreateSC_GET_DAMAGE_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_GET_DAMAGE_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_GET_DAMAGE_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _damage_info = _o->damage_info.size() ? _fbb.CreateVector<flatbuffers::Offset<GamePacket::DamageInfo>> (_o->damage_info.size(), [](size_t i, _VectorArgs *__va) { return CreateDamageInfo(*__va->__fbb, __va->__o->damage_info[i].get(), __va->__rehasher); }, &_va ) : 0;
+  return GamePacket::CreateSC_GET_DAMAGE_NOTI(
+      _fbb,
+      _damage_info);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -2119,6 +2358,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_USE_SKILL_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_GET_DAMAGE_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_GET_DAMAGE_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -2189,6 +2432,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_USE_SKILL_RES *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_GET_DAMAGE_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_GET_DAMAGE_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -2247,6 +2494,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_USE_SKILL_REST *>(value);
       return CreateSC_USE_SKILL_RES(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_GET_DAMAGE_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_GET_DAMAGE_NOTIT *>(value);
+      return CreateSC_GET_DAMAGE_NOTI(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -2303,6 +2554,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_USE_SKILL_RES: {
       value = new GamePacket::SC_USE_SKILL_REST(*reinterpret_cast<GamePacket::SC_USE_SKILL_REST *>(u.value));
+      break;
+    }
+    case Packet_SC_GET_DAMAGE_NOTI: {
+      FLATBUFFERS_ASSERT(false);  // GamePacket::SC_GET_DAMAGE_NOTIT not copyable.
       break;
     }
     default:
@@ -2374,6 +2629,11 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_USE_SKILL_RES: {
       auto ptr = reinterpret_cast<GamePacket::SC_USE_SKILL_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_GET_DAMAGE_NOTI: {
+      auto ptr = reinterpret_cast<GamePacket::SC_GET_DAMAGE_NOTIT *>(value);
       delete ptr;
       break;
     }

@@ -164,8 +164,17 @@ void Sector::GetFrontObjects(NativeInfo::Vec2Int cellPos, const Define::Dir dir,
 	if (increasePos.x)
 	{
 		cellPos.x += increasePos.x;
-		for (; cellPos.x <= destPos.x; cellPos.x += increasePos.x)
-			GetObjects(cellPos, objectList);
+
+		if (0 < increasePos.x)
+		{
+			for (; cellPos.x <= destPos.x; cellPos.x += increasePos.x)
+				GetObjects(cellPos, objectList);
+		}
+		else
+		{
+			for (; cellPos.x >= destPos.x; cellPos.x += increasePos.x)
+				GetObjects(cellPos, objectList);
+		}
 	}
 	// Up or Down
 	else

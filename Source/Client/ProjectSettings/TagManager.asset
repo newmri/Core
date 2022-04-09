@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Map
   - Character
+  - Text
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Map
   - Player
   - Arrow
-  - 
+  - Text
   - 
   - 
   - 
@@ -51,6 +52,9 @@ TagManager:
     locked: 0
   - name: Arrow
     uniqueID: 869499601
+    locked: 0
+  - name: Text
+    uniqueID: 1510299633
     locked: 0
   - name: UI
     uniqueID: 1060941783
