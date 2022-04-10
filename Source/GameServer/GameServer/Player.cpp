@@ -7,6 +7,11 @@ Player::Player(const int64_t& uid, const std::shared_ptr<CoreClientSession> sess
 	Init();
 }
 
+int64_t Player::GetUID(void) const
+{
+	return this->uid;
+}
+
 std::shared_ptr<CoreClientSession> Player::GetSession(void)
 {
 	return this->session->shared_from_this();

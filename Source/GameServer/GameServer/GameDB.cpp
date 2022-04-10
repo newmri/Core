@@ -111,3 +111,17 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }
+
+void GameDB::Logout(const int64_t uid)
+{
+	Prepare(L"Logout");
+	BindArgument(uid);
+	Execute();
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}

@@ -316,3 +316,7 @@
 21:06:41	[LOG_DEBUG]	Server is Running...
 21:06:41	[LOG_DEBUG]	[Thread Num]: 41
 21:06:41	[LOG_DEBUG]	[Port]: 7000
+21:34:34	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+21:34:34	[LOG_CONNECT]	AccountDB is Connected
+21:34:34	[LOG_CONNECT]	GameDB is Connected
+21:35:02	[LOG_DISCONNECT]	oid(0)	

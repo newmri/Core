@@ -49,6 +49,8 @@ void CreatureManager::RemovePlayer(const int64_t& oid)
 	if (IS_NULL(player))
 		return;
 
+	GAME_SERVER.GetGameDB()->Logout(player->GetUID());
+
 	ZONE_MANAGER.Leave(player);
 
 	WRITE_LOCK(this->mutex);

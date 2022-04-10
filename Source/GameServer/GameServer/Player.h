@@ -9,6 +9,9 @@ public:
 		const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
 
 public:
+	int64_t GetUID(void) const;
+
+public:
 	std::shared_ptr<CoreClientSession> GetSession(void);
 
 public:
