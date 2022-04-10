@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Define;
+using Spine;
 using Spine.Unity;
 using UnityCoreLibrary;
 using GamePacket;
@@ -15,7 +16,6 @@ public class PlayerController : CreatureController
 	protected CharacterInfoBaseUnion _characterInfo = new CharacterInfoBaseUnion();
 
 	protected GearEquipper _gear;
-	private Coroutine _skillCoroutine;
 
 	public CharacterInfoT CharacterInfo
 	{
@@ -40,6 +40,8 @@ public class PlayerController : CreatureController
 		base.Init();
 		_animator = GetComponent<CharacterAnimator>();
 		_animator.JobChanged(Job.WARRIOR);
+		_animator.AddAnimationEndEvent(AnimationEndEvent);
+
 		_gear = GetComponent<GearEquipper>();
 
 		MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
@@ -61,25 +63,24 @@ public class PlayerController : CreatureController
 
 	public override bool UseSkill(int skillID)
 	{
-		if (_skillCoroutine != null)
-			CoreManagers.Coroutine.Stop(_skillCoroutine);
-
-		_skillCoroutine = CoreManagers.Coroutine.Add(CoSkill(skillID,
-			(float)((int)Managers.CharacterData.GetSkill(skillID, "CoolTime") / 1000.0f)));
-
-		return true;
-	}
-
-	IEnumerator CoSkill(int skillID, float coolTime)
-    {
 		_skillAnimationType = (SkillAnimationType)(int)Managers.CharacterData.GetSkill(skillID, "SkillAnimationType");
 		State = CreatureState.SKILL;
-		yield return new WaitForSeconds(coolTime);
-		State = CreatureState.IDLE;
+		return true;
 	}
 
 	protected virtual void CheckUpdatedFlag()
 	{
 
 	}
+
+	protected virtual void AnimationEndEvent()
+    {
+		switch(State)
+        {
+			case CreatureState.HIT:
+			case CreatureState.SKILL:
+				State = CreatureState.IDLE;
+				break;
+        }
+    }
 }

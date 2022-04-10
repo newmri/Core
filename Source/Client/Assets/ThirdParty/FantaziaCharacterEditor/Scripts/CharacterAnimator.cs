@@ -41,6 +41,16 @@ public class CharacterAnimator : MonoBehaviour
         CreateAnimationsDictionary();
     }
 
+    public void AddAnimationEndEvent(Action AnimationEndEvent)
+    {
+        Spine.AnimationState.TrackEntryDelegate ac = delegate
+        {
+            AnimationEndEvent();
+        };
+
+        characterSkeleton.AnimationState.Complete += ac;
+    }
+
     private void Start()
     {
         //Subscribe the event of the animation to a function called OnEventAnimation
@@ -100,7 +110,7 @@ public class CharacterAnimator : MonoBehaviour
         WarriorAnimations.Add(PlayerAnimations.Jump2, "Jump2");
         WarriorAnimations.Add(PlayerAnimations.Jump3, "Jump3");
         WarriorAnimations.Add(PlayerAnimations.Buff, "Buff");
-        WarriorAnimations.Add(PlayerAnimations.Hurt, "Hurt");
+        WarriorAnimations.Add(PlayerAnimations.HIT, "Hurt");
         WarriorAnimations.Add(PlayerAnimations.Special, "Defence");
         WarriorAnimations.Add(PlayerAnimations.DEAD, "Death");
 
@@ -114,7 +124,7 @@ public class CharacterAnimator : MonoBehaviour
         ArcherAnimations.Add(PlayerAnimations.Jump2, "Jump2");
         ArcherAnimations.Add(PlayerAnimations.Jump3, "Jump3 ARCHER");
         ArcherAnimations.Add(PlayerAnimations.Buff, "Buff");
-        ArcherAnimations.Add(PlayerAnimations.Hurt, "Hurt");
+        ArcherAnimations.Add(PlayerAnimations.HIT, "Hurt");
         ArcherAnimations.Add(PlayerAnimations.Special, "Shoot3");
         ArcherAnimations.Add(PlayerAnimations.DEAD, "Death");
 
@@ -128,7 +138,7 @@ public class CharacterAnimator : MonoBehaviour
         SorcererAnimations.Add(PlayerAnimations.Jump2, "Jump2");
         SorcererAnimations.Add(PlayerAnimations.Jump3, "Jump3");
         SorcererAnimations.Add(PlayerAnimations.Buff, "Buff");
-        SorcererAnimations.Add(PlayerAnimations.Hurt, "Hurt");
+        SorcererAnimations.Add(PlayerAnimations.HIT, "Hurt");
         SorcererAnimations.Add(PlayerAnimations.Special, "Cast3");
         SorcererAnimations.Add(PlayerAnimations.DEAD, "Death");
 
@@ -142,7 +152,7 @@ public class CharacterAnimator : MonoBehaviour
         DuelistAnimations.Add(PlayerAnimations.Jump2, "Jump2");
         DuelistAnimations.Add(PlayerAnimations.Jump3, "Jump3");
         DuelistAnimations.Add(PlayerAnimations.Buff, "Buff");
-        DuelistAnimations.Add(PlayerAnimations.Hurt, "Hurt");
+        DuelistAnimations.Add(PlayerAnimations.HIT, "Hurt");
         DuelistAnimations.Add(PlayerAnimations.Special, "Attack 3 DUELIST");
         DuelistAnimations.Add(PlayerAnimations.DEAD, "Death");
 
@@ -196,7 +206,7 @@ public class CharacterAnimator : MonoBehaviour
 
         switch (AnimationToPlay)
         {
-            //case PlayerAnimations.ATTACK_1:
+            case PlayerAnimations.ATTACK_1:
             case PlayerAnimations.DEAD:
                 IsLoop = false;
                 break;
@@ -210,5 +220,5 @@ public class CharacterAnimator : MonoBehaviour
 }
 public enum PlayerAnimations
 {
-    IDLE, WALK, ATTACK_1, DEAD, FullJump,Jump1, Jump2, Jump3, Hurt, RUN, Attack2, Special, Buff
+    IDLE, WALK, ATTACK_1, DEAD, FullJump,Jump1, Jump2, Jump3, HIT, RUN, Attack2, Special, Buff
 }

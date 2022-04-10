@@ -114,6 +114,7 @@ enum CreatureState : ubyte
 	WALK,
 	RUN,
 	JUMP,
+	HIT,
 	SKILL,
 	DEAD
 }

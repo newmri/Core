@@ -123,8 +123,9 @@ public enum CreatureState : byte
   WALK = 1,
   RUN = 2,
   JUMP = 3,
-  SKILL = 4,
-  DEAD = 5,
+  HIT = 4,
+  SKILL = 5,
+  DEAD = 6,
 };
 
 public enum MoneyType : byte

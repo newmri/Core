@@ -483,18 +483,20 @@ enum CreatureState : uint8_t {
   CreatureState_WALK = 1,
   CreatureState_RUN = 2,
   CreatureState_JUMP = 3,
-  CreatureState_SKILL = 4,
-  CreatureState_DEAD = 5,
+  CreatureState_HIT = 4,
+  CreatureState_SKILL = 5,
+  CreatureState_DEAD = 6,
   CreatureState_MIN = CreatureState_IDLE,
   CreatureState_MAX = CreatureState_DEAD
 };
 
-inline const CreatureState (&EnumValuesCreatureState())[6] {
+inline const CreatureState (&EnumValuesCreatureState())[7] {
   static const CreatureState values[] = {
     CreatureState_IDLE,
     CreatureState_WALK,
     CreatureState_RUN,
     CreatureState_JUMP,
+    CreatureState_HIT,
     CreatureState_SKILL,
     CreatureState_DEAD
   };
@@ -502,11 +504,12 @@ inline const CreatureState (&EnumValuesCreatureState())[6] {
 }
 
 inline const char * const *EnumNamesCreatureState() {
-  static const char * const names[7] = {
+  static const char * const names[8] = {
     "IDLE",
     "WALK",
     "RUN",
     "JUMP",
+    "HIT",
     "SKILL",
     "DEAD",
     nullptr

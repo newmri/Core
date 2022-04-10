@@ -121,15 +121,18 @@ public class CreatureManager
                   $"Oid:{damageInfo.Oid} " +
                   $"Damaged:{damageInfo.Damage}");
 
+        CreatureController creatureController = null;
+
         if (damageInfo.Oid == MyPlayer.CreatureInfo.Oid)
         {
-            MyPlayer.HP -= damageInfo.Damage;
+            creatureController = MyPlayer;
         }
         else
         {
-            CreatureController creatureController = GetCreatureController(damageInfo.ObjectType, damageInfo.Oid);
-            creatureController.HP -= damageInfo.Damage;
+            creatureController = GetCreatureController(damageInfo.ObjectType, damageInfo.Oid);
         }
+
+        creatureController.HP -= damageInfo.Damage;
     }
 
     public void Remove(ObjectType objectType, long oid)

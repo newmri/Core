@@ -29,8 +29,8 @@ public class BaseController : MonoBehaviour
 
 	public float MoveSpeed
 	{
-		get { return CreatureInfo.Speed.Value[(int)Define.SpeedType.MOVE_SPEED]; }
-		set { CreatureInfo.Speed.Value[(int)Define.SpeedType.MOVE_SPEED] = value; }
+		get { return CreatureInfo.Speed.Value[(int)SpeedType.MOVE_SPEED]; }
+		set { CreatureInfo.Speed.Value[(int)SpeedType.MOVE_SPEED] = value; }
 	}
 
 	public virtual int HP
@@ -40,7 +40,8 @@ public class BaseController : MonoBehaviour
 		{
 			if (CreatureInfo.Hp > value)
 			{
-				DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _hudPos.position, 100).GetComponent<DamageText>();
+				State = CreatureState.HIT;
+				DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _hudPos.position, 30).GetComponent<DamageText>();
 				text.Damage = CreatureInfo.Hp - value;
 			}
 
@@ -134,6 +135,7 @@ public class BaseController : MonoBehaviour
 	{
 		
 	}
+
 	void Start()
 	{
 		Init();
@@ -160,6 +162,9 @@ public class BaseController : MonoBehaviour
 			case CreatureState.WALK:
 			case CreatureState.RUN:
 				UpdateMoving();
+				break;
+			case CreatureState.HIT:
+				UpdateHit();
 				break;
 			case CreatureState.SKILL:
 				UpdateSkill();
@@ -203,6 +208,11 @@ public class BaseController : MonoBehaviour
 	}
 
 	protected virtual void MoveToNextPos()
+	{
+
+	}
+
+	protected virtual void UpdateHit()
 	{
 
 	}
