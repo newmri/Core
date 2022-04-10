@@ -916,3 +916,85 @@
 23:30:55	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
 23:31:53	[LOG_DISCONNECT]	oid(5)	
 23:31:56	[LOG_DISCONNECT]	oid(6)	
+23:45:11	[LOG_INFO]	[DBConfig.csv is loading...]
+23:45:11	[LOG_INFO]	string,string
+23:45:11	[LOG_INFO]	World,112.145.214.226
+23:45:11	[LOG_INFO]	Account,112.145.214.226
+23:45:11	[LOG_INFO]	Game,112.145.214.226
+23:45:11	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:45:11	[LOG_INFO]	[ServerConfig.csv is loading...]
+23:45:11	[LOG_INFO]	string,int32_t,int32_t
+23:45:11	[LOG_INFO]	Game,1,3000
+23:45:11	[LOG_INFO]	[ServerConfig.csv is loaded...]
+23:45:11	[LOG_CONNECT]	WorldDB is Connected
+23:45:11	[LOG_DEBUG]	[Server Type]: Game
+23:45:11	[LOG_DEBUG]	[GroupID]: 0
+23:45:11	[LOG_DEBUG]	[WorldID]: 1
+23:45:11	[LOG_DEBUG]	[ServerID]: 3000
+23:45:11	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loading...]
+23:45:11	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+23:45:11	[LOG_INFO]	8 ,2 ,10 ,0 ,7 ,3 
+23:45:11	[LOG_INFO]	5 ,5 ,8 ,2 ,6 ,4 
+23:45:11	[LOG_INFO]	3 ,7 ,0 ,10 ,3 ,7 
+23:45:11	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loaded...]
+23:45:11	[LOG_INFO]	[Data/CharacterCreateSpeedStat.csv is loading...]
+23:45:11	[LOG_INFO]	float_t,float_t,float_t
+23:45:11	[LOG_INFO]	10.0 ,5.0 ,11.6 
+23:45:11	[LOG_INFO]	12.0 ,3.0 ,11.8 
+23:45:11	[LOG_INFO]	5.0 ,10.0 ,11.4 
+23:45:11	[LOG_INFO]	13.0 ,2.0 ,12.0 
+23:45:11	[LOG_INFO]	[Data/CharacterCreateSpeedStat.csv is loaded...]
+23:45:11	[LOG_INFO]	[Data/CharacterSkill.csv is loading...]
+23:45:11	[LOG_INFO]	int32_t,uint8_t,uint8_t,int32_t,uint8_t,uint8_t,uint8_t,uint8_t,int32_t,int32_t,int32_t
+23:45:11	[LOG_INFO]	0,0 ,2 ,1 ,6 ,4 ,0 ,4 ,1100 ,0 ,0 
+23:45:11	[LOG_INFO]	1,1 ,2 ,1 ,6 ,4 ,0 ,1 ,1600 ,0 ,0 
+23:45:11	[LOG_INFO]	2,2 ,3 ,1 ,7 ,5 ,0 ,1 ,1200 ,0 ,0 
+23:45:11	[LOG_INFO]	3,3 ,2 ,1 ,6 ,4 ,0 ,3 ,700 ,0 ,0 
+23:45:11	[LOG_INFO]	[Data/CharacterSkill.csv is loaded...]
+23:45:11	[LOG_INFO]	[Data/Map_000.csv is loading...]
+23:45:11	[LOG_INFO]	MinX: -22 minY: -10 maxX: 21 maxY: -1
+23:45:11	[LOG_INFO]	[Data/Map_000.csv is loaded...]
+23:45:11	[LOG_DEBUG]	Server is Running...
+23:45:11	[LOG_DEBUG]	[Thread Num]: 41
+23:45:11	[LOG_DEBUG]	[Port]: 9000
+23:47:03	[LOG_INFO]	[DBConfig.csv is loading...]
+23:47:03	[LOG_INFO]	string,string
+23:47:03	[LOG_INFO]	World,112.145.214.226
+23:47:03	[LOG_INFO]	Account,112.145.214.226
+23:47:03	[LOG_INFO]	Game,112.145.214.226
+23:47:03	[LOG_INFO]	[DBConfig.csv is loaded...]
+23:47:03	[LOG_INFO]	[ServerConfig.csv is loading...]
+23:47:03	[LOG_INFO]	string,int32_t,int32_t
+23:47:03	[LOG_INFO]	Game,1,3000
+23:47:03	[LOG_INFO]	[ServerConfig.csv is loaded...]
+23:47:03	[LOG_CONNECT]	WorldDB is Connected
+23:47:03	[LOG_DEBUG]	[Server Type]: Game
+23:47:03	[LOG_DEBUG]	[GroupID]: 0
+23:47:03	[LOG_DEBUG]	[WorldID]: 1
+23:47:03	[LOG_DEBUG]	[ServerID]: 3000
+23:47:03	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loading...]
+23:47:03	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+23:47:03	[LOG_INFO]	8 ,2 ,10 ,0 ,7 ,3 
+23:47:03	[LOG_INFO]	5 ,5 ,8 ,2 ,6 ,4 
+23:47:03	[LOG_INFO]	3 ,7 ,0 ,10 ,3 ,7 
+23:47:03	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loaded...]
+23:47:03	[LOG_INFO]	[Data/CharacterCreateSpeedStat.csv is loading...]
+23:47:03	[LOG_INFO]	float_t,float_t,float_t
+23:47:03	[LOG_INFO]	10.0 ,5.0 ,11.6 
+23:47:03	[LOG_INFO]	12.0 ,3.0 ,11.8 
+23:47:03	[LOG_INFO]	5.0 ,10.0 ,11.4 
+23:47:03	[LOG_INFO]	13.0 ,2.0 ,12.0 
+23:47:03	[LOG_INFO]	[Data/CharacterCreateSpeedStat.csv is loaded...]
+23:47:03	[LOG_INFO]	[Data/CharacterSkill.csv is loading...]
+23:47:03	[LOG_INFO]	int32_t,uint8_t,uint8_t,int32_t,uint8_t,uint8_t,uint8_t,uint8_t,int32_t,int32_t,int32_t
+23:47:03	[LOG_INFO]	0,0 ,2 ,1 ,6 ,4 ,0 ,4 ,1100 ,0 ,0 
+23:47:03	[LOG_INFO]	1,1 ,2 ,1 ,6 ,4 ,0 ,1 ,1600 ,0 ,0 
+23:47:03	[LOG_INFO]	2,2 ,3 ,1 ,7 ,5 ,0 ,1 ,1200 ,0 ,0 
+23:47:03	[LOG_INFO]	3,3 ,2 ,1 ,6 ,4 ,0 ,3 ,700 ,0 ,0 
+23:47:03	[LOG_INFO]	[Data/CharacterSkill.csv is loaded...]
+23:47:03	[LOG_INFO]	[Data/Map_000.csv is loading...]
+23:47:03	[LOG_INFO]	MinX: -22 minY: -10 maxX: 21 maxY: -1
+23:47:03	[LOG_INFO]	[Data/Map_000.csv is loaded...]
+23:47:03	[LOG_DEBUG]	Server is Running...
+23:47:03	[LOG_DEBUG]	[Thread Num]: 41
+23:47:03	[LOG_DEBUG]	[Port]: 9000

@@ -218,7 +218,7 @@ void Zone::SendAllExceptMe(const int64_t& oid, GamePacket::Packet packetType, fl
 	GetSector(CellPosToIndex(cellPos))->SendAllExceptMe(oid, packetType, packet);
 }
 
-void Zone::GetObjects(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList)
+void Zone::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly)
 {
 	if (!IsValidCellPos(creature->GetPos()))
 		return;
@@ -228,5 +228,5 @@ void Zone::GetObjects(std::shared_ptr<Creature> creature, const Define::RangeDir
 	Sector* sector = GetSector(index);
 
 	WRITE_LOCK(this->mutex);
-	sector->GetObjects(creature, rangeDir, range, objectList);
+	sector->GetCreatures(creature, rangeDir, range, objectList, liveCreatureOnly);
 }

@@ -257,7 +257,7 @@ public class MyPlayerController : PlayerController
 
 	public override bool UseSkill(int skillID)
 	{
-		if (State == CreatureState.SKILL)
+		if (State == CreatureState.SKILL || IsDead())
 			return false;
 
 		Skill skill = null;

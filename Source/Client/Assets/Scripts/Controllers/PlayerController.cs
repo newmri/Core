@@ -63,6 +63,9 @@ public class PlayerController : CreatureController
 
 	public override bool UseSkill(int skillID)
 	{
+		if (IsDead())
+			return false;
+
 		_skillAnimationType = (SkillAnimationType)(int)Managers.CharacterData.GetSkill(skillID, "SkillAnimationType");
 		State = CreatureState.SKILL;
 		return true;

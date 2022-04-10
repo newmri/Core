@@ -27,6 +27,11 @@ public class BaseController : MonoBehaviour
 		}
 	}
 
+	public bool IsDead()
+	{
+		return (State == CreatureState.DEAD);
+	}
+
 	public float MoveSpeed
 	{
 		get { return CreatureInfo.Speed.Value[(int)SpeedType.MOVE_SPEED]; }

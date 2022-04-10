@@ -36,7 +36,7 @@ void Skill::UseSkill(void)
 	}
 
 	CoreList<std::shared_ptr<Creature>> objectList;
-	ZONE_MANAGER.GetObjects(owner, this->skillData.rangeDir, this->skillData.range, objectList);
+	ZONE_MANAGER.GetCreatures(owner, this->skillData.rangeDir, this->skillData.range, objectList, true);
 
 	if (objectList.empty())
 		return;

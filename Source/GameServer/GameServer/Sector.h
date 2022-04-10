@@ -26,11 +26,11 @@ public:
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);
 
 public:
-	void GetObjects(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList);
+	void GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly);
 
 private:
-	void GetFrontObjects(NativeInfo::Vec2Int cellPos, const Define::Dir dir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList);
-	void GetObjects(const NativeInfo::Vec2Int& cellPos, CoreList<std::shared_ptr<Creature>>& objectList);
+	void GetFrontCreatures(NativeInfo::Vec2Int cellPos, const Define::Dir dir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly);
+	void GetCreatures(const NativeInfo::Vec2Int& cellPos, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly);
 
 private:
 	NativeInfo::Vec2Int index;
