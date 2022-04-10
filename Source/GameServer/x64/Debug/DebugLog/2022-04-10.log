@@ -998,3 +998,16 @@
 23:47:03	[LOG_DEBUG]	Server is Running...
 23:47:03	[LOG_DEBUG]	[Thread Num]: 41
 23:47:03	[LOG_DEBUG]	[Port]: 9000
+23:47:59	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+23:47:59	[LOG_CONNECT]	AccountDB is Connected
+23:47:59	[LOG_CONNECT]	GameDB is Connected
+23:48:04	[LOG_DISCONNECT]	oid(0)	
+23:49:42	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+23:51:20	[LOG_DISCONNECT]	oid(1)	
+23:51:20	[LOG_CONNECT]	GameDB is Connected
+23:51:29	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+23:51:29	[LOG_CONNECT]	GameDB is Connected
+23:51:29	[LOG_CONNECT]	AccountDB is Connected
+23:52:24	[LOG_DISCONNECT]	oid(2)	
+23:54:00	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+23:54:26	[LOG_DISCONNECT]	oid(3)	
