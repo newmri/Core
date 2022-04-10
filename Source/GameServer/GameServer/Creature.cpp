@@ -66,6 +66,17 @@ float Creature::GetSpeed(const Define::SpeedType speedType)
 	return GetSpeedWithNoLock(speedType);
 }
 
+bool Creature::IsDead(void)
+{
+	return (IS_SAME(Define::CreatureState_DEAD, GetState()));
+}
+
+Define::CreatureState Creature::GetState(void)
+{
+	READ_LOCK(this->infoMutex);
+	return GetStateWithNoLock();
+}
+
 NativeInfo::Vec2Int Creature::GetPosWithNoLock(void) const
 {
 	return this->creatureInfo.pos_info.pos;
@@ -74,6 +85,11 @@ NativeInfo::Vec2Int Creature::GetPosWithNoLock(void) const
 float Creature::GetSpeedWithNoLock(const Define::SpeedType speedType) const
 {
 	return this->creatureInfo.speed.value[speedType];
+}
+
+Define::CreatureState Creature::GetStateWithNoLock(void) const
+{
+	return this->creatureInfo.pos_info.state;
 }
 
 bool Creature::UseHPMP(const int32_t HP, const int32_t MP)
@@ -95,6 +111,12 @@ void Creature::AddHP(const int32_t HP)
 {
 	WRITE_LOCK(this->infoMutex);
 	this->creatureInfo.hp += HP;
+
+	if (0 >= this->creatureInfo.hp)
+	{
+		this->creatureInfo.hp = 0;
+		SetStateWithNoLock(Define::CreatureState_DEAD);
+	}
 }
 
 std::tuple<int32_t, int32_t> Creature::GetHPMP(void)

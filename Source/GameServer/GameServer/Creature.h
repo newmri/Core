@@ -16,10 +16,13 @@ public:
 	NativeInfo::Vec2Int GetPos(void);
 	Define::Dir GetDir(void);
 	float GetSpeed(const Define::SpeedType speedType);
+	bool IsDead(void);
+	Define::CreatureState GetState(void);
 
 protected:
 	NativeInfo::Vec2Int GetPosWithNoLock(void) const;
 	float GetSpeedWithNoLock(const Define::SpeedType speedType) const;
+	Define::CreatureState GetStateWithNoLock(void) const;
 
 public:
 	bool UseHPMP(const int32_t HP, const int32_t MP);

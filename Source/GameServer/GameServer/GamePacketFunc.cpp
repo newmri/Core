@@ -118,6 +118,9 @@ void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, con
 	if (!player->IsValidMoveSpeed(destPos))
 		return;
 
+	if (player->IsDead())
+		return;
+
 	ZONE_MANAGER.Move(player, destPos);
 }
 
@@ -126,6 +129,9 @@ void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session
 	int64_t oid = session->GetPlayerOID();
 	auto player = CREATURE_MANAGER.FindPlayer(oid);
 	if (IS_NULL(player))
+		return;
+
+	if (player->IsDead())
 		return;
 
 	auto raw = static_cast<const GamePacket::CS_SET_STATE_REQ*>(data);
@@ -142,6 +148,9 @@ void GamePacketFunc::CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session
 	int64_t oid = session->GetPlayerOID();
 	auto player = CREATURE_MANAGER.FindPlayer(oid);
 	if (IS_NULL(player))
+		return;
+
+	if (player->IsDead())
 		return;
 
 	auto raw = static_cast<const GamePacket::CS_USE_SKILL_REQ*>(data);
