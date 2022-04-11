@@ -156,3 +156,16 @@ void GamePacketFunc::CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session
 	auto raw = static_cast<const GamePacket::CS_USE_SKILL_REQ*>(data);
 	player->UseSkill(raw->skill_id());
 }
+
+void GamePacketFunc::CS_REVIVE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	int64_t oid = session->GetPlayerOID();
+	auto player = CREATURE_MANAGER.FindPlayer(oid);
+	if (IS_NULL(player))
+		return;
+
+	if (!player->IsDead())
+		return;
+
+	player->Revive();
+}

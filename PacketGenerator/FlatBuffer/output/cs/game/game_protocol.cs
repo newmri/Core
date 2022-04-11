@@ -33,6 +33,8 @@ public enum Packet : byte
   CS_USE_SKILL_REQ = 12,
   SC_USE_SKILL_RES = 13,
   SC_GET_DAMAGE_NOTI = 14,
+  CS_REVIVE_REQ = 15,
+  SC_REVIVE_RES = 16,
 };
 
 public class PacketUnion {
@@ -59,6 +61,8 @@ public class PacketUnion {
   public GamePacket.CS_USE_SKILL_REQT AsCS_USE_SKILL_REQ() { return this.As<GamePacket.CS_USE_SKILL_REQT>(); }
   public GamePacket.SC_USE_SKILL_REST AsSC_USE_SKILL_RES() { return this.As<GamePacket.SC_USE_SKILL_REST>(); }
   public GamePacket.SC_GET_DAMAGE_NOTIT AsSC_GET_DAMAGE_NOTI() { return this.As<GamePacket.SC_GET_DAMAGE_NOTIT>(); }
+  public GamePacket.CS_REVIVE_REQT AsCS_REVIVE_REQ() { return this.As<GamePacket.CS_REVIVE_REQT>(); }
+  public GamePacket.SC_REVIVE_REST AsSC_REVIVE_RES() { return this.As<GamePacket.SC_REVIVE_REST>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -77,6 +81,8 @@ public class PacketUnion {
       case Packet.CS_USE_SKILL_REQ: return GamePacket.CS_USE_SKILL_REQ.Pack(builder, _o.AsCS_USE_SKILL_REQ()).Value;
       case Packet.SC_USE_SKILL_RES: return GamePacket.SC_USE_SKILL_RES.Pack(builder, _o.AsSC_USE_SKILL_RES()).Value;
       case Packet.SC_GET_DAMAGE_NOTI: return GamePacket.SC_GET_DAMAGE_NOTI.Pack(builder, _o.AsSC_GET_DAMAGE_NOTI()).Value;
+      case Packet.CS_REVIVE_REQ: return GamePacket.CS_REVIVE_REQ.Pack(builder, _o.AsCS_REVIVE_REQ()).Value;
+      case Packet.SC_REVIVE_RES: return GamePacket.SC_REVIVE_RES.Pack(builder, _o.AsSC_REVIVE_RES()).Value;
     }
   }
 }
@@ -1112,6 +1118,109 @@ public class SC_GET_DAMAGE_NOTIT
   }
 }
 
+public struct CS_REVIVE_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_REVIVE_REQ GetRootAsCS_REVIVE_REQ(ByteBuffer _bb) { return GetRootAsCS_REVIVE_REQ(_bb, new CS_REVIVE_REQ()); }
+  public static CS_REVIVE_REQ GetRootAsCS_REVIVE_REQ(ByteBuffer _bb, CS_REVIVE_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_REVIVE_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+
+  public static void StartCS_REVIVE_REQ(FlatBufferBuilder builder) { builder.StartTable(0); }
+  public static Offset<GamePacket.CS_REVIVE_REQ> EndCS_REVIVE_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CS_REVIVE_REQ>(o);
+  }
+  public CS_REVIVE_REQT UnPack() {
+    var _o = new CS_REVIVE_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_REVIVE_REQT _o) {
+  }
+  public static Offset<GamePacket.CS_REVIVE_REQ> Pack(FlatBufferBuilder builder, CS_REVIVE_REQT _o) {
+    if (_o == null) return default(Offset<GamePacket.CS_REVIVE_REQ>);
+    StartCS_REVIVE_REQ(builder);
+    return EndCS_REVIVE_REQ(builder);
+  }
+};
+
+public class CS_REVIVE_REQT
+{
+
+  public CS_REVIVE_REQT() {
+  }
+}
+
+public struct SC_REVIVE_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_REVIVE_RES GetRootAsSC_REVIVE_RES(ByteBuffer _bb) { return GetRootAsSC_REVIVE_RES(_bb, new SC_REVIVE_RES()); }
+  public static SC_REVIVE_RES GetRootAsSC_REVIVE_RES(ByteBuffer _bb, SC_REVIVE_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_REVIVE_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(8); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+
+  public static Offset<GamePacket.SC_REVIVE_RES> CreateSC_REVIVE_RES(FlatBufferBuilder builder,
+      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      long oid = 0,
+      Info.PositionInfoT pos_info = null) {
+    builder.StartTable(3);
+    SC_REVIVE_RES.AddOid(builder, oid);
+    SC_REVIVE_RES.AddPosInfo(builder, Info.PositionInfo.Pack(builder, pos_info));
+    SC_REVIVE_RES.AddObjectType(builder, object_type);
+    return SC_REVIVE_RES.EndSC_REVIVE_RES(builder);
+  }
+
+  public static void StartSC_REVIVE_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
+  public static void AddOid(FlatBufferBuilder builder, long oid) { builder.AddLong(1, oid, 0); }
+  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(2, posInfoOffset.Value, 0); }
+  public static Offset<GamePacket.SC_REVIVE_RES> EndSC_REVIVE_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_REVIVE_RES>(o);
+  }
+  public SC_REVIVE_REST UnPack() {
+    var _o = new SC_REVIVE_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_REVIVE_REST _o) {
+    _o.ObjectType = this.ObjectType;
+    _o.Oid = this.Oid;
+    _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
+  }
+  public static Offset<GamePacket.SC_REVIVE_RES> Pack(FlatBufferBuilder builder, SC_REVIVE_REST _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_REVIVE_RES>);
+    return CreateSC_REVIVE_RES(
+      builder,
+      _o.ObjectType,
+      _o.Oid,
+      _o.PosInfo);
+  }
+};
+
+public class SC_REVIVE_REST
+{
+  public Define.ObjectType ObjectType { get; set; }
+  public long Oid { get; set; }
+  public Info.PositionInfoT PosInfo { get; set; }
+
+  public SC_REVIVE_REST() {
+    this.ObjectType = Define.ObjectType.PLAYER;
+    this.Oid = 0;
+    this.PosInfo = new Info.PositionInfoT();
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -1138,6 +1247,8 @@ public struct Root : IFlatbufferObject
   public GamePacket.CS_USE_SKILL_REQ PacketAsCS_USE_SKILL_REQ() { return Packet<GamePacket.CS_USE_SKILL_REQ>().Value; }
   public GamePacket.SC_USE_SKILL_RES PacketAsSC_USE_SKILL_RES() { return Packet<GamePacket.SC_USE_SKILL_RES>().Value; }
   public GamePacket.SC_GET_DAMAGE_NOTI PacketAsSC_GET_DAMAGE_NOTI() { return Packet<GamePacket.SC_GET_DAMAGE_NOTI>().Value; }
+  public GamePacket.CS_REVIVE_REQ PacketAsCS_REVIVE_REQ() { return Packet<GamePacket.CS_REVIVE_REQ>().Value; }
+  public GamePacket.SC_REVIVE_RES PacketAsSC_REVIVE_RES() { return Packet<GamePacket.SC_REVIVE_RES>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -1208,6 +1319,12 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_GET_DAMAGE_NOTI:
         _o.Packet.Value = this.Packet<GamePacket.SC_GET_DAMAGE_NOTI>().HasValue ? this.Packet<GamePacket.SC_GET_DAMAGE_NOTI>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.CS_REVIVE_REQ:
+        _o.Packet.Value = this.Packet<GamePacket.CS_REVIVE_REQ>().HasValue ? this.Packet<GamePacket.CS_REVIVE_REQ>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_REVIVE_RES:
+        _o.Packet.Value = this.Packet<GamePacket.SC_REVIVE_RES>().HasValue ? this.Packet<GamePacket.SC_REVIVE_RES>().Value.UnPack() : null;
         break;
     }
   }

@@ -79,6 +79,14 @@ struct SC_GET_DAMAGE_NOTI;
 struct SC_GET_DAMAGE_NOTIBuilder;
 struct SC_GET_DAMAGE_NOTIT;
 
+struct CS_REVIVE_REQ;
+struct CS_REVIVE_REQBuilder;
+struct CS_REVIVE_REQT;
+
+struct SC_REVIVE_RES;
+struct SC_REVIVE_RESBuilder;
+struct SC_REVIVE_REST;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -132,11 +140,13 @@ enum Packet : uint8_t {
   Packet_CS_USE_SKILL_REQ = 12,
   Packet_SC_USE_SKILL_RES = 13,
   Packet_SC_GET_DAMAGE_NOTI = 14,
+  Packet_CS_REVIVE_REQ = 15,
+  Packet_SC_REVIVE_RES = 16,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_GET_DAMAGE_NOTI
+  Packet_MAX = Packet_SC_REVIVE_RES
 };
 
-inline const Packet (&EnumValuesPacket())[15] {
+inline const Packet (&EnumValuesPacket())[17] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -152,13 +162,15 @@ inline const Packet (&EnumValuesPacket())[15] {
     Packet_SC_SET_STATE_RES,
     Packet_CS_USE_SKILL_REQ,
     Packet_SC_USE_SKILL_RES,
-    Packet_SC_GET_DAMAGE_NOTI
+    Packet_SC_GET_DAMAGE_NOTI,
+    Packet_CS_REVIVE_REQ,
+    Packet_SC_REVIVE_RES
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[16] = {
+  static const char * const names[18] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -174,13 +186,15 @@ inline const char * const *EnumNamesPacket() {
     "CS_USE_SKILL_REQ",
     "SC_USE_SKILL_RES",
     "SC_GET_DAMAGE_NOTI",
+    "CS_REVIVE_REQ",
+    "SC_REVIVE_RES",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_GET_DAMAGE_NOTI)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_REVIVE_RES)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -243,6 +257,14 @@ template<> struct PacketTraits<GamePacket::SC_USE_SKILL_RES> {
 
 template<> struct PacketTraits<GamePacket::SC_GET_DAMAGE_NOTI> {
   static const Packet enum_value = Packet_SC_GET_DAMAGE_NOTI;
+};
+
+template<> struct PacketTraits<GamePacket::CS_REVIVE_REQ> {
+  static const Packet enum_value = Packet_CS_REVIVE_REQ;
+};
+
+template<> struct PacketTraits<GamePacket::SC_REVIVE_RES> {
+  static const Packet enum_value = Packet_SC_REVIVE_RES;
 };
 
 struct PacketUnion {
@@ -388,6 +410,22 @@ struct PacketUnion {
   const GamePacket::SC_GET_DAMAGE_NOTIT *AsSC_GET_DAMAGE_NOTI() const {
     return type == Packet_SC_GET_DAMAGE_NOTI ?
       reinterpret_cast<const GamePacket::SC_GET_DAMAGE_NOTIT *>(value) : nullptr;
+  }
+  GamePacket::CS_REVIVE_REQT *AsCS_REVIVE_REQ() {
+    return type == Packet_CS_REVIVE_REQ ?
+      reinterpret_cast<GamePacket::CS_REVIVE_REQT *>(value) : nullptr;
+  }
+  const GamePacket::CS_REVIVE_REQT *AsCS_REVIVE_REQ() const {
+    return type == Packet_CS_REVIVE_REQ ?
+      reinterpret_cast<const GamePacket::CS_REVIVE_REQT *>(value) : nullptr;
+  }
+  GamePacket::SC_REVIVE_REST *AsSC_REVIVE_RES() {
+    return type == Packet_SC_REVIVE_RES ?
+      reinterpret_cast<GamePacket::SC_REVIVE_REST *>(value) : nullptr;
+  }
+  const GamePacket::SC_REVIVE_REST *AsSC_REVIVE_RES() const {
+    return type == Packet_SC_REVIVE_RES ?
+      reinterpret_cast<const GamePacket::SC_REVIVE_REST *>(value) : nullptr;
   }
 };
 
@@ -1614,6 +1652,119 @@ inline flatbuffers::Offset<SC_GET_DAMAGE_NOTI> CreateSC_GET_DAMAGE_NOTIDirect(
 
 flatbuffers::Offset<SC_GET_DAMAGE_NOTI> CreateSC_GET_DAMAGE_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_GET_DAMAGE_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct CS_REVIVE_REQT : public flatbuffers::NativeTable {
+  typedef CS_REVIVE_REQ TableType;
+};
+
+struct CS_REVIVE_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_REVIVE_REQT NativeTableType;
+  typedef CS_REVIVE_REQBuilder Builder;
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           verifier.EndTable();
+  }
+  CS_REVIVE_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_REVIVE_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_REVIVE_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_REVIVE_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct CS_REVIVE_REQBuilder {
+  typedef CS_REVIVE_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  explicit CS_REVIVE_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_REVIVE_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_REVIVE_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_REVIVE_REQ> CreateCS_REVIVE_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb) {
+  CS_REVIVE_REQBuilder builder_(_fbb);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<CS_REVIVE_REQ> CreateCS_REVIVE_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_REVIVE_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_REVIVE_REST : public flatbuffers::NativeTable {
+  typedef SC_REVIVE_RES TableType;
+  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  int64_t oid = 0;
+  NativeInfo::PositionInfo pos_info{};
+};
+
+struct SC_REVIVE_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_REVIVE_REST NativeTableType;
+  typedef SC_REVIVE_RESBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_OBJECT_TYPE = 4,
+    VT_OID = 6,
+    VT_POS_INFO = 8
+  };
+  Define::ObjectType object_type() const {
+    return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
+  }
+  int64_t oid() const {
+    return GetField<int64_t>(VT_OID, 0);
+  }
+  const Info::PositionInfo *pos_info() const {
+    return GetStruct<const Info::PositionInfo *>(VT_POS_INFO);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
+           VerifyField<int64_t>(verifier, VT_OID) &&
+           VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
+           verifier.EndTable();
+  }
+  SC_REVIVE_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_REVIVE_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_REVIVE_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_REVIVE_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_REVIVE_RESBuilder {
+  typedef SC_REVIVE_RES Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_object_type(Define::ObjectType object_type) {
+    fbb_.AddElement<uint8_t>(SC_REVIVE_RES::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
+  }
+  void add_oid(int64_t oid) {
+    fbb_.AddElement<int64_t>(SC_REVIVE_RES::VT_OID, oid, 0);
+  }
+  void add_pos_info(const Info::PositionInfo *pos_info) {
+    fbb_.AddStruct(SC_REVIVE_RES::VT_POS_INFO, pos_info);
+  }
+  explicit SC_REVIVE_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_REVIVE_RES> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_REVIVE_RES>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    int64_t oid = 0,
+    const Info::PositionInfo *pos_info = 0) {
+  SC_REVIVE_RESBuilder builder_(_fbb);
+  builder_.add_oid(oid);
+  builder_.add_pos_info(pos_info);
+  builder_.add_object_type(object_type);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_REVIVE_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -1674,6 +1825,12 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_GET_DAMAGE_NOTI *packet_as_SC_GET_DAMAGE_NOTI() const {
     return packet_type() == GamePacket::Packet_SC_GET_DAMAGE_NOTI ? static_cast<const GamePacket::SC_GET_DAMAGE_NOTI *>(packet()) : nullptr;
+  }
+  const GamePacket::CS_REVIVE_REQ *packet_as_CS_REVIVE_REQ() const {
+    return packet_type() == GamePacket::Packet_CS_REVIVE_REQ ? static_cast<const GamePacket::CS_REVIVE_REQ *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_REVIVE_RES *packet_as_SC_REVIVE_RES() const {
+    return packet_type() == GamePacket::Packet_SC_REVIVE_RES ? static_cast<const GamePacket::SC_REVIVE_RES *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -1741,6 +1898,14 @@ template<> inline const GamePacket::SC_USE_SKILL_RES *Root::packet_as<GamePacket
 
 template<> inline const GamePacket::SC_GET_DAMAGE_NOTI *Root::packet_as<GamePacket::SC_GET_DAMAGE_NOTI>() const {
   return packet_as_SC_GET_DAMAGE_NOTI();
+}
+
+template<> inline const GamePacket::CS_REVIVE_REQ *Root::packet_as<GamePacket::CS_REVIVE_REQ>() const {
+  return packet_as_CS_REVIVE_REQ();
+}
+
+template<> inline const GamePacket::SC_REVIVE_RES *Root::packet_as<GamePacket::SC_REVIVE_RES>() const {
+  return packet_as_SC_REVIVE_RES();
 }
 
 struct RootBuilder {
@@ -2272,6 +2437,61 @@ inline flatbuffers::Offset<SC_GET_DAMAGE_NOTI> CreateSC_GET_DAMAGE_NOTI(flatbuff
       _damage_info);
 }
 
+inline CS_REVIVE_REQT *CS_REVIVE_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_REVIVE_REQT>(new CS_REVIVE_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_REVIVE_REQ::UnPackTo(CS_REVIVE_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+}
+
+inline flatbuffers::Offset<CS_REVIVE_REQ> CS_REVIVE_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_REVIVE_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_REVIVE_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_REVIVE_REQ> CreateCS_REVIVE_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_REVIVE_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_REVIVE_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  return GamePacket::CreateCS_REVIVE_REQ(
+      _fbb);
+}
+
+inline SC_REVIVE_REST *SC_REVIVE_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_REVIVE_REST>(new SC_REVIVE_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_REVIVE_RES::UnPackTo(SC_REVIVE_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = object_type(); _o->object_type = _e; }
+  { auto _e = oid(); _o->oid = _e; }
+  { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
+}
+
+inline flatbuffers::Offset<SC_REVIVE_RES> SC_REVIVE_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_REVIVE_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_REVIVE_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_REVIVE_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_REVIVE_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _object_type = _o->object_type;
+  auto _oid = _o->oid;
+  auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
+  return GamePacket::CreateSC_REVIVE_RES(
+      _fbb,
+      _object_type,
+      _oid,
+      &_pos_info);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -2362,6 +2582,14 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_GET_DAMAGE_NOTI *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_CS_REVIVE_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_REVIVE_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_SC_REVIVE_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_REVIVE_RES *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -2436,6 +2664,14 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_GET_DAMAGE_NOTI *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_CS_REVIVE_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_REVIVE_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_REVIVE_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_REVIVE_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -2498,6 +2734,14 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_GET_DAMAGE_NOTIT *>(value);
       return CreateSC_GET_DAMAGE_NOTI(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_CS_REVIVE_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_REVIVE_REQT *>(value);
+      return CreateCS_REVIVE_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_REVIVE_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_REVIVE_REST *>(value);
+      return CreateSC_REVIVE_RES(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -2558,6 +2802,14 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_GET_DAMAGE_NOTI: {
       FLATBUFFERS_ASSERT(false);  // GamePacket::SC_GET_DAMAGE_NOTIT not copyable.
+      break;
+    }
+    case Packet_CS_REVIVE_REQ: {
+      value = new GamePacket::CS_REVIVE_REQT(*reinterpret_cast<GamePacket::CS_REVIVE_REQT *>(u.value));
+      break;
+    }
+    case Packet_SC_REVIVE_RES: {
+      value = new GamePacket::SC_REVIVE_REST(*reinterpret_cast<GamePacket::SC_REVIVE_REST *>(u.value));
       break;
     }
     default:
@@ -2634,6 +2886,16 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_GET_DAMAGE_NOTI: {
       auto ptr = reinterpret_cast<GamePacket::SC_GET_DAMAGE_NOTIT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_REVIVE_REQ: {
+      auto ptr = reinterpret_cast<GamePacket::CS_REVIVE_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_REVIVE_RES: {
+      auto ptr = reinterpret_cast<GamePacket::SC_REVIVE_REST *>(value);
       delete ptr;
       break;
     }

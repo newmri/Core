@@ -43,6 +43,7 @@ protected:
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 	void MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
+	void MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 public:
 	void CalculateAbility(void);
@@ -53,6 +54,9 @@ public:
 
 public:
 	bool OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType);
+
+public:
+	virtual void Revive(void);
 
 protected:
 	Info::CreatureInfoT creatureInfo;

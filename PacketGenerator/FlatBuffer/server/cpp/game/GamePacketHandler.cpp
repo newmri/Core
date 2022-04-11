@@ -21,4 +21,5 @@ void GamePacketHandler::Register(void)
     this->func[GamePacket::Packet_CS_MOVE_REQ] = &GamePacketFunc::CS_MOVE_REQ;
     this->func[GamePacket::Packet_CS_SET_STATE_REQ] = &GamePacketFunc::CS_SET_STATE_REQ;
     this->func[GamePacket::Packet_CS_USE_SKILL_REQ] = &GamePacketFunc::CS_USE_SKILL_REQ;
+    this->func[GamePacket::Packet_CS_REVIVE_REQ] = &GamePacketFunc::CS_REVIVE_REQ;
 }

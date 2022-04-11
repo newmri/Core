@@ -50,3 +50,8 @@ void ZoneManager::GetCreatures(std::shared_ptr<Creature> creature, const Define:
 {
 	this->zoneList[creature->GetMapID()]->GetCreatures(creature, rangeDir, range, objectList, liveCreatureOnly);
 }
+
+void ZoneManager::Revive(std::shared_ptr<Creature> creature)
+{
+	this->zoneList[creature->GetMapID()]->Revive(creature);
+}

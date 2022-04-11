@@ -48,7 +48,10 @@ void Zone::Init(void)
 		{
 			this->data.path[index.y][index.x] = (Define::PathType)table[offset];
 			if (IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))
-				this->data.startPos = IndexToCellPos(index);
+			{
+				this->data.startIndex = index;
+				this->data.startCellPos = IndexToCellPos(index);
+			}
 
 			offset += SIZE_OF_UINT8;
 		}
@@ -85,9 +88,9 @@ void Zone::InitSector(void)
 bool Zone::EnterStartPos(std::shared_ptr<Creature> creature, const bool checkObjects)
 {
 	auto backupPos = creature->GetPos();
-	creature->SetPos(this->data.startPos);
+	creature->SetPos(this->data.startCellPos);
 
-	if (!Enter(creature, this->data.startPos, checkObjects))
+	if (!Enter(creature, this->data.startCellPos, checkObjects))
 	{
 		creature->SetPos(backupPos);
 		return false;
@@ -229,4 +232,28 @@ void Zone::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeD
 
 	WRITE_LOCK(this->mutex);
 	sector->GetCreatures(creature, rangeDir, range, objectList, liveCreatureOnly);
+}
+
+void Zone::Revive(std::shared_ptr<Creature> creature)
+{
+	if (!IsValidCellPos(creature->GetPos()))
+		return;
+
+	NativeInfo::Vec2Int deadIndex = CellPosToIndex(creature->GetPos());
+
+	Sector* deadSector = GetSector(deadIndex);
+	Sector* reviveSector = GetSector(this->data.startIndex);
+
+	creature->SetPos(this->data.startCellPos);
+
+	// 사망 섹터와 부활 섹터가 같음
+	if (IS_SAME(deadSector, reviveSector))
+	{
+		reviveSector->Revive(creature);
+	}
+	else
+	{
+		_Leave(creature, deadSector, deadIndex);
+		_Enter(creature, reviveSector, this->data.startIndex);
+	}
 }

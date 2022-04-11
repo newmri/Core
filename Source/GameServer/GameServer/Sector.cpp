@@ -54,6 +54,17 @@ void Sector::Move(std::shared_ptr<Creature> creature)
 	SendAllExceptMe(creature->GetOID(), packetType, packet);
 }
 
+void Sector::Revive(std::shared_ptr<Creature> creature)
+{
+	if (IS_NULL(creature))
+		return;
+
+	GamePacket::Packet packetType;
+	flatbuffers::Offset<void> packet;
+	creature->MakeRevivePacket(packetType, packet);
+	SendAll(packetType, packet);
+}
+
 void Sector::Remove(const Define::ObjectType objectType, const int64_t& oid)
 {
 	switch (objectType)

@@ -80,6 +80,12 @@ class GamePacketHandler
             Managers.Creature.OnGetDamage(getDamageNoti.DamageInfo(i).Value);
         }
     }
+
+    public static void SC_REVIVE_RES(PacketSession session, Root packet)
+    {
+        SC_REVIVE_RES reviveRes = packet.PacketAsSC_REVIVE_RES();
+        Managers.Creature.Revive(reviveRes.ObjectType, reviveRes.Oid, reviveRes.UnPack().PosInfo);
+    } 
 }
 
 

@@ -26,6 +26,9 @@ public:
 public:
 	void GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly = false);
 
+public:
+	void Revive(std::shared_ptr<Creature> creature);
+
 private:
 	CoreVector<std::shared_ptr<Zone>> zoneList;
 };

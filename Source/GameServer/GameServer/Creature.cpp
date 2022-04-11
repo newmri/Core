@@ -181,6 +181,16 @@ void Creature::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offse
 	packet = message.Union();
 }
 
+void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+{
+	auto creatureInfo = GetInfo();
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto packedPos = flatbuffers::PackPositionInfo(creatureInfo.pos_info);
+	auto message = GamePacket::CreateSC_REVIVE_RES(PACKET_SEND_MANAGER.builder, GetObjectType(), GetOID(), &packedPos);
+	packetType = GamePacket::Packet_SC_REVIVE_RES;
+	packet = message.Union();
+}
+
 void Creature::CalculateAbility(void)
 {
 	WRITE_LOCK(this->abilityMutex);
@@ -221,4 +231,11 @@ bool Creature::OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::Ab
 	damageInfo.oid = GetOID();
 	damageInfo.object_type = GetObjectType();
 	return true;
+}
+
+void Creature::Revive(void)
+{
+	// 부활 시간 검증 필요
+	SetState(Define::CreatureState_IDLE);
+	ZONE_MANAGER.Revive(shared_from_this());
 }

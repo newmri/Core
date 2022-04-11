@@ -10,6 +10,7 @@ public:
 public:
 	void Add(std::shared_ptr<Creature> creature);
 	void Move(std::shared_ptr<Creature> creature);
+	void Revive(std::shared_ptr<Creature> creature);
 	void Remove(const Define::ObjectType objectType, const int64_t& oid);
 
 private:

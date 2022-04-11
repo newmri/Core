@@ -5,6 +5,7 @@ using GamePacket;
 using UnityCoreLibrary;
 using Info;
 using Define;
+using System;
 
 public class CreatureManager
 {
@@ -71,7 +72,13 @@ public class CreatureManager
 
     BaseController GetBaseController(ObjectType objectType, long oid)
     {
+        if (oid == MyPlayer.CreatureInfo.Oid)
+        {
+            return MyPlayer;
+        }
+
         BaseController baseController = null;
+
         switch (objectType)
         {
             case ObjectType.PLAYER:
@@ -88,6 +95,11 @@ public class CreatureManager
 
     CreatureController GetCreatureController(ObjectType objectType, long oid)
     {
+        if (oid == MyPlayer.CreatureInfo.Oid)
+        {
+            return MyPlayer;
+        }
+
         CreatureController creatureController = null;
         switch (objectType)
         {
@@ -101,6 +113,13 @@ public class CreatureManager
         }
 
         return creatureController;
+    }
+
+    public void Revive(ObjectType objectType, long oid, PositionInfoT pos)
+    {
+        BaseController baseController = GetBaseController(objectType, oid);
+        baseController.PosInfo = pos;
+        baseController.SyncPos();
     }
 
     public void SetState(ObjectType objectType, long oid, CreatureState state)
@@ -121,17 +140,7 @@ public class CreatureManager
                   $"Oid:{damageInfo.Oid} " +
                   $"Damaged:{damageInfo.Damage}");
 
-        CreatureController creatureController = null;
-
-        if (damageInfo.Oid == MyPlayer.CreatureInfo.Oid)
-        {
-            creatureController = MyPlayer;
-        }
-        else
-        {
-            creatureController = GetCreatureController(damageInfo.ObjectType, damageInfo.Oid);
-        }
-
+        CreatureController creatureController = GetCreatureController(damageInfo.ObjectType, damageInfo.Oid);
         creatureController.HP -= damageInfo.Damage;
     }
 

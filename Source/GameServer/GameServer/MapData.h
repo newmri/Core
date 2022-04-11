@@ -14,5 +14,7 @@ struct MapData
 	NativeInfo::Vec2Int size;
 	Define::PathType** path = nullptr;
 	int64_t** objects = nullptr;
-	NativeInfo::Vec2Int startPos;
+
+	NativeInfo::Vec2Int startIndex;
+	NativeInfo::Vec2Int startCellPos;
 };

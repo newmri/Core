@@ -25,7 +25,9 @@ union Packet
     SC_SET_STATE_RES,
     CS_USE_SKILL_REQ,
     SC_USE_SKILL_RES,
-    SC_GET_DAMAGE_NOTI
+    SC_GET_DAMAGE_NOTI,
+    CS_REVIVE_REQ,
+    SC_REVIVE_RES
 }
 
 table CS_LOGIN_REQ
@@ -135,6 +137,17 @@ table DamageInfo
 table SC_GET_DAMAGE_NOTI
 {
    damage_info:[DamageInfo];
+}
+
+table CS_REVIVE_REQ
+{
+}
+
+table SC_REVIVE_RES
+{
+    object_type:Define.ObjectType;
+    oid:int64;
+    pos_info:Info.PositionInfo (native_inline);
 }
 
 table Root
