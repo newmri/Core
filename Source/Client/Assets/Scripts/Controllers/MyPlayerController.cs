@@ -27,6 +27,9 @@ public class MyPlayerController : PlayerController
 		{
 			base.HP = value;
 			_uiGameScene.UpdateHPBar(base.HP, CreatureInfo.Ability.Value[(int)Define.AbilityType.HP]);
+
+			if (IsDead())
+				Managers.UI.ShowPopupUI<UIDead>();
 		}
 	}
 
@@ -149,6 +152,9 @@ public class MyPlayerController : PlayerController
 	// 키보드 입력
 	void GetDirInput()
 	{
+		if (IsDead())
+			return;
+
 		_moveKeyPressed = true;
 
 		if (Input.GetKey(KeyCode.A))
@@ -167,6 +173,9 @@ public class MyPlayerController : PlayerController
 
 	void GetRunInput()
 	{
+		if (IsDead())
+			return;
+
 		if (Input.GetKey(KeyCode.LeftShift))
 		{
 			_isRunning = true;

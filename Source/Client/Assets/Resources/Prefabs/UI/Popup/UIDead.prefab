@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7303377357885840620}
-  - component: {fileID: 5259218810027389454}
+  - component: {fileID: 8746701191139434353}
   m_Layer: 5
   m_Name: UIDead
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5259218810027389454
+--- !u!114 &8746701191139434353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,11 +46,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1430405597294037966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a00128818eda43dfaa959b83527b255, type: 3}
+  m_Script: {fileID: 11500000, guid: 569a0d156240b984895f7730de09a44d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPanels:
-  - {fileID: 0}
 --- !u!1 &1454050446378377400
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +445,7 @@ GameObject:
   - component: {fileID: 8197122532709442481}
   - component: {fileID: 1983155327224811147}
   m_Layer: 5
-  m_Name: RiviveText
+  m_Name: ReviveText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,7 +580,7 @@ GameObject:
   - component: {fileID: 3125392097797902451}
   - component: {fileID: 1841855055375768421}
   m_Layer: 5
-  m_Name: RiviveButton
+  m_Name: ReviveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
