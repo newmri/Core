@@ -152,9 +152,6 @@ public class MyPlayerController : PlayerController
 	// 키보드 입력
 	void GetDirInput()
 	{
-		if (IsDead())
-			return;
-
 		_moveKeyPressed = true;
 
 		if (Input.GetKey(KeyCode.A))
@@ -173,9 +170,6 @@ public class MyPlayerController : PlayerController
 
 	void GetRunInput()
 	{
-		if (IsDead())
-			return;
-
 		if (Input.GetKey(KeyCode.LeftShift))
 		{
 			_isRunning = true;
