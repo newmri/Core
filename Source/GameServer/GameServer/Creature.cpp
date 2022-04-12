@@ -115,6 +115,7 @@ void Creature::AddHP(const int32_t HP)
 	if (0 >= this->creatureInfo.hp)
 	{
 		this->creatureInfo.hp = 0;
+		this->deadTime = CORE_TIME_MANAGER.GetNowSeconds();
 		SetStateWithNoLock(Define::CreatureState_DEAD);
 	}
 }
@@ -235,7 +236,9 @@ bool Creature::OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::Ab
 
 void Creature::Revive(void)
 {
-	// 부활 시간 검증 필요
+	if (this->deadTime < CORE_TIME_MANAGER.GetNowSeconds() + reviveTime)
+		return;
+
 	SetState(Define::CreatureState_IDLE);
 	ZONE_MANAGER.Revive(shared_from_this());
 }

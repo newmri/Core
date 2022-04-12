@@ -67,4 +67,8 @@ protected:
 protected:
 	CACHE_ALIGN std::shared_mutex skillMutex;
 	std::map<int32_t, Skill> skillList;
+
+private:
+	TIME_VALUE deadTime = 0;
+	TIME_VALUE reviveTime = 5;
 };
