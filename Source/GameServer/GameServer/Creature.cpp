@@ -236,6 +236,9 @@ bool Creature::OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::Ab
 
 void Creature::Revive(void)
 {
+	if (!IsDead())
+		return;
+
 	if (this->deadTime < CORE_TIME_MANAGER.GetNowSeconds() + reviveTime)
 		return;
 

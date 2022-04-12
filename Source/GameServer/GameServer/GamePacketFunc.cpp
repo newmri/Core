@@ -164,8 +164,5 @@ void GamePacketFunc::CS_REVIVE_REQ(std::shared_ptr<CoreClientSession> session, c
 	if (IS_NULL(player))
 		return;
 
-	if (!player->IsDead())
-		return;
-
 	player->Revive();
 }
