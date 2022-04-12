@@ -7,10 +7,12 @@ using Spine.Unity;
 using UnityCoreLibrary;
 using GamePacket;
 using FlatBuffers;
+using TMPro;
 
 public class PlayerController : CreatureController
 {
 	protected CharacterAnimator _animator;
+	protected TextMeshPro _name;
 
 	[SerializeField]
 	protected CharacterInfoBaseUnion _characterInfo = new CharacterInfoBaseUnion();
@@ -32,6 +34,8 @@ public class PlayerController : CreatureController
 
 			_gear.Job = CharacterInfo.Job;
 			_gear.SetGear(CharacterInfo.Gear);
+
+			_name.text = value.Name;
 		}
 	}
 
@@ -46,6 +50,8 @@ public class PlayerController : CreatureController
 
 		MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
 		mesh.sortingOrder = Managers.Creature.GetSortOrder(this);
+
+		_name = transform.Find("NameText").GetComponent<TextMeshPro>();
 	}
 
 	protected override void UpdateAnimation()
@@ -54,6 +60,7 @@ public class PlayerController : CreatureController
 			return;
 
 		_animator.ChangeAnimation(State, Dir, _skillAnimationType);
+		_name.transform.localScale = _animator.transform.localScale;
 	}
 
 	protected override void UpdateController()

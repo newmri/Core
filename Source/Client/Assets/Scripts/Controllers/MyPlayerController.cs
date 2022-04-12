@@ -59,6 +59,8 @@ public class MyPlayerController : PlayerController
 			_gear.Job = MyCharacterInfo.Job;
 			_gear.SetGear(MyCharacterInfo.Gear);
 			_uiGameScene.UpdateCharacterInfo(MyCharacterInfo.Name, CreatureInfo.Level, MyCharacterInfo.Job);
+
+			_name.text = value.Name;
 		}
 	}
 

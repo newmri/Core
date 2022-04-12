@@ -5,11 +5,12 @@ using UnityEngine;
 using Define;
 using Info;
 using UnityCoreLibrary;
+using TMPro;
 
 public class BaseController : MonoBehaviour
 {
 	protected bool _isRunning = false;
-	protected Transform _hudPos;
+	protected Transform _damageTextPos;
 
 	[SerializeField]
 	CreatureInfoT _creatureInfo = new CreatureInfoT();
@@ -46,7 +47,7 @@ public class BaseController : MonoBehaviour
 			if (CreatureInfo.Hp > value)
 			{
 				State = CreatureState.HIT;
-				DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _hudPos.position, 30).GetComponent<DamageText>();
+				DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _damageTextPos.position, 30).GetComponent<DamageText>();
 				text.Damage = CreatureInfo.Hp - value;
 			}
 
@@ -153,7 +154,7 @@ public class BaseController : MonoBehaviour
 
 	protected virtual void Init()
 	{
-		_hudPos = GetComponentInChildren<HUD>().transform;
+		_damageTextPos = transform.Find("DamageTextPoint");
 		UpdateAnimation();
 	}
 

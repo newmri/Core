@@ -175,7 +175,7 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     //Takes a string AnimationString which is the name of the animation and assigns it to AnimationToPlay
-    public void ChangeAnimation(Define.CreatureState state, Define.Dir dir = Define.Dir.RIGHT, SkillAnimationType skillType = SkillAnimationType.NONE)
+    public void ChangeAnimation(Define.CreatureState state, Define.Dir dir, SkillAnimationType skillType)
     {
         if (_dir != dir)
         {
