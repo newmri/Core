@@ -11,6 +11,7 @@ public class BaseController : MonoBehaviour
 {
 	protected bool _isRunning = false;
 	protected Transform _damageTextPos;
+	protected Transform _bloodPos;
 
 	[SerializeField]
 	CreatureInfoT _creatureInfo = new CreatureInfoT();
@@ -44,20 +45,13 @@ public class BaseController : MonoBehaviour
 		get { return CreatureInfo.Hp; }
 		set
 		{
-			if (CreatureInfo.Hp > value)
-			{
-				State = CreatureState.HIT;
-				DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _damageTextPos.position, 30).GetComponent<DamageText>();
-				text.Damage = CreatureInfo.Hp - value;
-			}
-
-			CreatureInfo.Hp = value;
-
-			if (0 >= CreatureInfo.Hp)
-			{
+			if(0 >= value)
+            {
 				CreatureInfo.Hp = 0;
-				State = CreatureState.DEAD;
+				OnDead();
 			}
+
+			CreatureInfo.Hp = value; 
 		}
 	}
 
@@ -155,6 +149,7 @@ public class BaseController : MonoBehaviour
 	protected virtual void Init()
 	{
 		_damageTextPos = transform.Find("DamageTextPoint");
+		_bloodPos = transform.Find("BloodPoint");
 		UpdateAnimation();
 	}
 
@@ -231,5 +226,21 @@ public class BaseController : MonoBehaviour
 	protected virtual void UpdateDead()
 	{
 
+	}
+
+	public virtual void OnHit(int damage, bool isCritical)
+    {
+		State = CreatureState.HIT;
+		HP -= damage;
+
+		DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _damageTextPos.position, 30).GetComponent<DamageText>();
+		text.Damage = damage;
+
+		CoreManagers.Obj.Add("Effect", "HitBlood", _bloodPos.position, 30);
+	}
+
+	protected virtual void OnDead()
+    {
+		State = CreatureState.DEAD;
 	}
 }

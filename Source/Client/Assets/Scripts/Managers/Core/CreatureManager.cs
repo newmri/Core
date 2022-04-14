@@ -141,7 +141,7 @@ public class CreatureManager
                   $"Damaged:{damageInfo.Damage}");
 
         CreatureController creatureController = GetCreatureController(damageInfo.ObjectType, damageInfo.Oid);
-        creatureController.HP -= damageInfo.Damage;
+        creatureController.OnHit(damageInfo.Damage, damageInfo.IsCritical);
     }
 
     public void Remove(ObjectType objectType, long oid)

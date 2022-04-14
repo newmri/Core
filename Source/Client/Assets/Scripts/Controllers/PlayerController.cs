@@ -91,6 +91,31 @@ public class PlayerController : CreatureController
 			case CreatureState.SKILL:
 				State = CreatureState.IDLE;
 				break;
+			case CreatureState.DEAD:
+				OnDeadEffect();
+				break;
         }
     }
+
+    public override void OnHit(int damage, bool isCritical)
+    {
+		base.OnHit(damage, isCritical);
+	}
+
+	protected override void OnDead()
+	{
+		base.OnDead();
+	}
+
+	protected virtual void OnDeadEffect()
+    {
+		Vector3 effectPos = _name.transform.position;
+		float offsetX = 1.5f;
+
+		if (Dir == Dir.RIGHT)
+			offsetX = -offsetX;
+
+		effectPos.x += offsetX;
+		CoreManagers.Obj.Add("Effect", "DeadBlood", effectPos, 30);
+	}
 }
