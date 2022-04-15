@@ -17,6 +17,7 @@ public class MyPlayerController : PlayerController
 			base.CreatureInfo = value;
 			_uiGameScene.UpdateHPBar(HP, base.CreatureInfo.Ability.Value[(int)Define.AbilityType.HP]);
 			_uiGameScene.UpdateHPBar(MP, base.CreatureInfo.Ability.Value[(int)Define.AbilityType.MP]);
+			_uiGameScene.UpdateEXPBar(EXP, MaxEXP);
 		}
 	}
 
@@ -42,6 +43,14 @@ public class MyPlayerController : PlayerController
 			_uiGameScene.UpdateHPBar(base.MP, CreatureInfo.Ability.Value[(int)Define.AbilityType.MP]);
 		}
 	}
+
+	private long MaxEXP
+    {
+		get
+		{
+			return (int)Managers.CharacterData.GetLevel(Level, "MaxEXP");
+		}
+    }
 
 	public MyCharacterInfoT MyCharacterInfo
 	{

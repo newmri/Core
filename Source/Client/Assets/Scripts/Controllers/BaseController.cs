@@ -61,6 +61,18 @@ public class BaseController : MonoBehaviour
 		set { CreatureInfo.Mp = value; }
 	}
 
+	public byte Level
+	{
+		get { return CreatureInfo.Level; }
+		set { CreatureInfo.Level = value; }
+	}
+
+	public long EXP
+	{
+		get { return CreatureInfo.Exp; }
+		set { CreatureInfo.Exp = value; }
+	}
+
 	protected bool _updated = false;
 
 	public PositionInfoT PosInfo

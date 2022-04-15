@@ -15,7 +15,8 @@ public class UIGameScene : UIScene
     enum Sliders
     {
         HPSlider,
-        MPSlider
+        MPSlider,
+        EXPSlider,
     }
 
     enum TextMeshProUGUIs
@@ -51,14 +52,17 @@ public class UIGameScene : UIScene
 
     public void UpdateHPBar(int HP, int MaxHP)
     {
-        Debug.Log("HP " + HP.ToString());
-        Debug.Log("MaxHP " + MaxHP.ToString());
         GetSlider((int)Sliders.HPSlider).value = (float)HP / MaxHP;
     }
 
     public void UpdateMPBar(int MP, int MaxMP)
     {
         GetSlider((int)Sliders.MPSlider).value = (float)MP / MaxMP;
+    }
+
+    public void UpdateEXPBar(long EXP, long MaxEXP)
+    {
+        GetSlider((int)Sliders.EXPSlider).value = (float)EXP / MaxEXP;
     }
 
     public void UpdateCharacterInfo(string name, byte level, Job job)
