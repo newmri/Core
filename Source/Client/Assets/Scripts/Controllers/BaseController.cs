@@ -49,6 +49,7 @@ public class BaseController : MonoBehaviour
             {
 				CreatureInfo.Hp = 0;
 				OnDead();
+				return;
 			}
 
 			CreatureInfo.Hp = value; 
