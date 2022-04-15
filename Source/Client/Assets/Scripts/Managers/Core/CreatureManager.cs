@@ -118,6 +118,7 @@ public class CreatureManager
     public void Revive(ObjectType objectType, long oid, PositionInfoT pos)
     {
         BaseController baseController = GetBaseController(objectType, oid);
+        baseController.State = CreatureState.IDLE;
         baseController.PosInfo = pos;
         baseController.SyncPos();
     }
