@@ -27,4 +27,10 @@ struct SkillData
 	int32_t MP = 0;
 };
 
+struct LevelData
+{
+	int64_t maxEXP;
+	int32_t bonusPoint;
+};
+
 #pragma pack(pop)

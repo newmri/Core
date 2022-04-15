@@ -16,6 +16,7 @@ void CharacterDataManager::Load(void)
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterAbilityByStat.csv", CharacterAbilityByStat, this->characterAbilityByStat);
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateSpeedStat.csv", NativeInfo::Speed, this->characterSpeed);
 	CSV_LOAD_AND_TO_HAS_MAP("Data/CharacterSkill.csv", SkillData, this->skill, skillID);
+	CSV_LOAD_AND_TO_VECTOR("Data/CharacterLevel.csv", LevelData, this->level);
 }
 
 void CharacterDataManager::CalculateAbilityByStat(Info::CreatureInfoT& info)
@@ -42,4 +43,9 @@ bool CharacterDataManager::GetSkillData(const int32_t skillID, SkillData& skillD
 
 	memcpy_s(&skillData, sizeof(SkillData), iter->second.get(), sizeof(SkillData));
 	return true;
+}
+
+void CharacterDataManager::GetLevelData(const uint8_t level, LevelData& levelData)
+{
+	levelData = this->level[level - 1];
 }
