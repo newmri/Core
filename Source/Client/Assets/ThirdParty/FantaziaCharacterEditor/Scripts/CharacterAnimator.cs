@@ -68,7 +68,7 @@ public class CharacterAnimator : MonoBehaviour
                 return;
 
             Vector3 ArrowStartingPosition = Vector3.zero;
-            float Angle = 0;
+
             if (trackEntry.Animation.ToString() == "Shoot1")
             {
                 ArrowStartingPosition = transform.Find("ArrowsFirePoints").Find("FirePoint_Shoot1").position;
@@ -80,12 +80,10 @@ public class CharacterAnimator : MonoBehaviour
             else if (trackEntry.Animation.ToString() == "Shoot3")
             {
                 ArrowStartingPosition = transform.Find("ArrowsFirePoints").Find("FirePoint_Shoot3").position;
-                Angle = 50;
             }
 
             Vector2Int cellPos = new Vector2Int((int)ArrowStartingPosition.x, (int)ArrowStartingPosition.y);
-            GameObject newArrow = CoreManagers.Obj.Add(ArrowPrefab, cellPos, 100);
-            newArrow.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(Angle*Mathf.PI/180), Mathf.Sin(Angle *  Mathf.PI/180)) *3200;
+            CoreManagers.Obj.Add(ArrowPrefab, cellPos, 100);
         }
 
     }
