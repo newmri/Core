@@ -1,0 +1,8 @@
+16:34:06	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+16:35:42	[LOG_DISCONNECT]	oid(5)	
+16:35:42	[LOG_CONNECT]	GameDB is Connected
+16:37:16	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+16:37:16	[LOG_CONNECT]	AccountDB is Connected
+16:37:27	[LOG_DISCONNECT]	oid(6)	
+16:38:00	[LOG_CONNECT]	oid(7)	[ip]: 127.0.0.1
+16:38:20	[LOG_DISCONNECT]	oid(7)	
