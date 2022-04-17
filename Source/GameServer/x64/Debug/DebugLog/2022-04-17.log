@@ -121,3 +121,13 @@
 16:55:08	[LOG_CONNECT]	GameDB is Connected
 16:55:25	[LOG_DISCONNECT]	oid(0)	
 16:55:25	[LOG_CONNECT]	GameDB is Connected
+17:04:09	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+17:04:09	[LOG_CONNECT]	GameDB is Connected
+17:04:09	[LOG_CONNECT]	AccountDB is Connected
+17:04:52	[LOG_DISCONNECT]	oid(1)	
+17:05:34	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+17:05:47	[LOG_DISCONNECT]	oid(2)	
+17:33:20	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+17:34:02	[LOG_DISCONNECT]	oid(3)	
+17:36:05	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+17:36:21	[LOG_DISCONNECT]	oid(4)	

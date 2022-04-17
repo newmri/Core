@@ -82,8 +82,16 @@ public class CharacterAnimator : MonoBehaviour
                 ArrowStartingPosition = transform.Find("ArrowsFirePoints").Find("FirePoint_Shoot3").position;
             }
 
-            Vector2Int cellPos = new Vector2Int((int)ArrowStartingPosition.x, (int)ArrowStartingPosition.y);
-            CoreManagers.Obj.Add(ArrowPrefab, cellPos, 100);
+            Managers.Creature.MyPlayer.SendUseSkill();
+
+           // Vector2Int cellPos = new Vector2Int((int)ArrowStartingPosition.x, (int)ArrowStartingPosition.y);
+            //Debug.Log(cellPos.x + " " + cellPos.y);
+
+            //CoreManagers.Obj.Add(ArrowPrefab, cellPos, 100);
+        }
+        else if(e.Data.Name == "OnDamaging" || e.Data.Name == "OnFinishingCasting")
+        {
+            Managers.Creature.MyPlayer.SendUseSkill();
         }
 
     }
@@ -189,7 +197,7 @@ public class CharacterAnimator : MonoBehaviour
 
         _dir = dir;
 
-        if(state == Define.CreatureState.SKILL)
+        if (state == Define.CreatureState.SKILL)
             AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), skillType.ToString());
         else
             AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), state.ToString());
