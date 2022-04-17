@@ -16,6 +16,7 @@ struct SkillData
 {
 	int32_t skillID = 0;
 	Define::Job job = Define::Job_MIN;
+	TIME_VALUE skillHitTime = 0;
 	Define::AbilityType damageType = Define::AbilityType_DAMAGE;
 	int32_t damage = 0;
 	Define::AbilityType criticalType = Define::AbilityType_CRITICAL_RATE;

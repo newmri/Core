@@ -228,12 +228,8 @@ public class MyPlayerController : PlayerController
 		_updated = false;
 	}
 
-	public void SendUseSkill()
+	public void SendUseSkill(int skillID)
     {
-		if (_sendUseSkillList.Count == 0)
-			return;
-
-		int skillID = _sendUseSkillList.Dequeue();
 		FlatBufferBuilder builder = new FlatBufferBuilder(1);
 		var message = CS_USE_SKILL_REQ.CreateCS_USE_SKILL_REQ(builder, skillID);
 		Managers.GameNetwork.Send(builder, Packet.CS_USE_SKILL_REQ, message.Value);
@@ -288,7 +284,7 @@ public class MyPlayerController : PlayerController
 			if (!base.UseSkill(skillID))
 				return false;
 
-			_sendUseSkillList.Enqueue(skillID);
+			SendUseSkill(skillID);
 			skill.Used = true;
 			return true;
 		}
@@ -297,7 +293,6 @@ public class MyPlayerController : PlayerController
 	}
 
 	Dictionary<int, Skill> _skillList = new Dictionary<int, Skill>();
-	Queue<int> _sendUseSkillList = new Queue<int>();
 
 	public void AddSkill(int skillID)
     {

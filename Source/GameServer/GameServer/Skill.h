@@ -14,6 +14,9 @@ public:
 public:
 	void UseSkill(void);
 
+public:
+	void DoDamage(void);
+
 private:
 	bool IsValidCoolTime(void);
 

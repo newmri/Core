@@ -23,7 +23,7 @@ Skill::Skill(const std::shared_ptr<Creature> owner, const SkillData& skillData)
 
 void Skill::UseSkill(void)
 {
-	if (!owner->UseHPMP(this->skillData.HP, this->skillData.MP))
+	if (!this->owner->UseHPMP(this->skillData.HP, this->skillData.MP))
 		return;
 
 	if (!IsValidCoolTime())
@@ -31,12 +31,18 @@ void Skill::UseSkill(void)
 
 	{
 		PACKET_SEND_MANAGER.builder.Clear();
-		auto message = GamePacket::CreateSC_USE_SKILL_RES(PACKET_SEND_MANAGER.builder, owner->GetObjectType(), owner->GetOID());
-		ZONE_MANAGER.SendAllExceptMe(owner->GetMapID(), owner->GetOID(), GamePacket::Packet_SC_USE_SKILL_RES, message.Union(), owner->GetPos());
+		auto message = GamePacket::CreateSC_USE_SKILL_RES(PACKET_SEND_MANAGER.builder, this->owner->GetObjectType(), this->owner->GetOID());
+		ZONE_MANAGER.SendAllExceptMe(this->owner->GetMapID(), this->owner->GetOID(), GamePacket::Packet_SC_USE_SKILL_RES, message.Union(), this->owner->GetPos());
 	}
 
+	CORE_TIME_DELEGATE_MANAGER.Push(
+		CoreTimeDelegate<>(std::bind(&Skill::DoDamage, this), this->skillData.skillHitTime));
+}
+
+void Skill::DoDamage(void)
+{
 	CoreList<std::shared_ptr<Creature>> objectList;
-	ZONE_MANAGER.GetCreatures(owner, this->skillData.rangeDir, this->skillData.range, objectList, true);
+	ZONE_MANAGER.GetCreatures(this->owner, this->skillData.rangeDir, this->skillData.range, objectList, true);
 
 	if (objectList.empty())
 		return;
@@ -50,8 +56,8 @@ void Skill::UseSkill(void)
 	auto iter_end = objectList.end();
 	for (; iter_begin != iter_end; ++iter_begin)
 	{
-		damageInfo.damage = owner->GetAbility(this->skillData.damageType) + this->skillData.damage;
-		damageInfo.is_critical = CORE_RANDOM_MANAGER_INT.GetRandomByPercent(owner->GetAbility(this->skillData.criticalType), SKILL_MAX_RATE);
+		damageInfo.damage = this->owner->GetAbility(this->skillData.damageType) + this->skillData.damage;
+		damageInfo.is_critical = CORE_RANDOM_MANAGER_INT.GetRandomByPercent(this->owner->GetAbility(this->skillData.criticalType), SKILL_MAX_RATE);
 
 		if (!(*iter_begin)->OnGetDamage(damageInfo, this->skillData.defenceType))
 			continue;
@@ -61,7 +67,7 @@ void Skill::UseSkill(void)
 
 	{
 		auto message = GamePacket::CreateSC_GET_DAMAGE_NOTI(PACKET_SEND_MANAGER.builder, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
-		ZONE_MANAGER.SendAll(owner->GetMapID(), GamePacket::Packet_SC_GET_DAMAGE_NOTI, message.Union(), owner->GetPos());
+		ZONE_MANAGER.SendAll(this->owner->GetMapID(), GamePacket::Packet_SC_GET_DAMAGE_NOTI, message.Union(), this->owner->GetPos());
 	}
 }
 

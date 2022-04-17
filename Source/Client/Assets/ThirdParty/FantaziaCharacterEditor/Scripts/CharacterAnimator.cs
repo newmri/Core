@@ -82,7 +82,7 @@ public class CharacterAnimator : MonoBehaviour
                 ArrowStartingPosition = transform.Find("ArrowsFirePoints").Find("FirePoint_Shoot3").position;
             }
 
-            Managers.Creature.MyPlayer.SendUseSkill();
+            //Managers.Creature.MyPlayer.SendUseSkill();
 
            // Vector2Int cellPos = new Vector2Int((int)ArrowStartingPosition.x, (int)ArrowStartingPosition.y);
             //Debug.Log(cellPos.x + " " + cellPos.y);
@@ -91,7 +91,7 @@ public class CharacterAnimator : MonoBehaviour
         }
         else if(e.Data.Name == "OnDamaging" || e.Data.Name == "OnFinishingCasting")
         {
-            Managers.Creature.MyPlayer.SendUseSkill();
+            //Managers.Creature.MyPlayer.SendUseSkill();
         }
 
     }
