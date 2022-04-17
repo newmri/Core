@@ -25,14 +25,8 @@
     <ClCompile Include="GameDB.cpp">
       <Filter>07.DB\01.GameDB</Filter>
     </ClCompile>
-    <ClCompile Include="Creature.cpp">
-      <Filter>05.Creature</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>05.Creature\00.Player</Filter>
-    </ClCompile>
-    <ClCompile Include="CreatureManager.cpp">
-      <Filter>05.Creature</Filter>
     </ClCompile>
     <ClCompile Include="CharacterDataManager.cpp">
       <Filter>02.DataManager\00.Character</Filter>
@@ -54,6 +48,15 @@
     </ClCompile>
     <ClCompile Include="ProjectileSkill.cpp">
       <Filter>04.Skill\00.ProjectileSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>05.Creature\01.Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Creature.cpp">
+      <Filter>05.Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="CreatureManager.cpp">
+      <Filter>05.Creature</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,14 +93,8 @@
     <ClInclude Include="game_protocol_generated.h">
       <Filter>03.Packet\00.FlatBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Creature.h">
-      <Filter>05.Creature</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>05.Creature\00.Player</Filter>
-    </ClInclude>
-    <ClInclude Include="CreatureManager.h">
-      <Filter>05.Creature</Filter>
     </ClInclude>
     <ClInclude Include="CharacterDataManager.h">
       <Filter>02.DataManager\00.Character</Filter>
@@ -125,6 +122,15 @@
     </ClInclude>
     <ClInclude Include="ProjectileSkill.h">
       <Filter>04.Skill\00.ProjectileSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>05.Creature\01.Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>05.Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="CreatureManager.h">
+      <Filter>05.Creature</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,12 +167,6 @@
     <Filter Include="03.Packet\02.PacketSendManager">
       <UniqueIdentifier>{4399bbc9-a228-445f-8deb-edfbd48a1d1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.Creature">
-      <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.Creature\00.Player">
-      <UniqueIdentifier>{e91e2d21-3145-42b4-9564-86ad96126814}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06.Map">
       <UniqueIdentifier>{565df15c-019a-4203-a78a-29a139559395}</UniqueIdentifier>
     </Filter>
@@ -190,6 +190,15 @@
     </Filter>
     <Filter Include="04.Skill\00.ProjectileSkill">
       <UniqueIdentifier>{e6bb46bf-a3a7-4e56-911b-7a913ff010ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Creature">
+      <UniqueIdentifier>{23ebb4f2-9f32-4be0-a202-031988a90839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Creature\00.Player">
+      <UniqueIdentifier>{e91e2d21-3145-42b4-9564-86ad96126814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Creature\01.Projectile">
+      <UniqueIdentifier>{604a7196-bb4c-4007-89f2-1b4cf807a61d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@
 #include "Creature.h"
 #include "Player.h"
 #include "CreatureManager.h"
+#include "Projectile.h"
 #include "MapData.h"
 #include "Sector.h"
 #include "Zone.h"
