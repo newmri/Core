@@ -83,7 +83,8 @@ bool Player::IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos)
 		if (clientDist > 1)
 			return false;
 
-		moveSpeed = GetSpeedWithNoLock(Define::SpeedType_MOVE_SPEED);
+		float_t runSpeed = GetStateWithNoLock() == Define::CreatureState_RUN ? 1.3f : 1.0f;
+		moveSpeed = GetSpeedWithNoLock(Define::SpeedType_MOVE_SPEED) * runSpeed;
 	}
 
 	// √π ¿Ãµø

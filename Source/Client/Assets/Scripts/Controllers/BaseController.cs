@@ -201,14 +201,15 @@ public class BaseController : MonoBehaviour
 
 		// 도착 여부 체크
 		float dist = moveDir.magnitude;
-		if (dist < MoveSpeed * Time.deltaTime)
+		float runSpeed = _isRunning == true ? 1.3f : 1.0f;
+		if (dist < MoveSpeed * runSpeed * Time.deltaTime)
 		{
 			transform.position = destPos;
 			MoveToNextPos();
 		}
 		else
 		{
-			transform.position += moveDir.normalized * MoveSpeed * Time.deltaTime;
+			transform.position += moveDir.normalized * MoveSpeed * runSpeed * Time.deltaTime;
 			SetMoveState();
 		}
 	}
