@@ -150,5 +150,12 @@ public enum PathType : byte
   PATH = 3,
 };
 
+public enum SkillType : byte
+{
+  NONE = 0,
+  NORMAL = 1,
+  PROJECTILE = 2,
+};
+
 
 }

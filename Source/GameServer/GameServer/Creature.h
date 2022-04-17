@@ -49,7 +49,7 @@ public:
 	void CalculateAbility(void);
 
 public:
-	void AddSkill(const int32_t skillID);
+	virtual void AddSkill(const int32_t skillID);
 	void UseSkill(const int32_t skillID);
 
 public:

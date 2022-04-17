@@ -625,6 +625,39 @@ inline const char *EnumNamePathType(PathType e) {
   return EnumNamesPathType()[index];
 }
 
+enum SkillType : uint8_t {
+  SkillType_NONE = 0,
+  SkillType_NORMAL = 1,
+  SkillType_PROJECTILE = 2,
+  SkillType_MIN = SkillType_NONE,
+  SkillType_MAX = SkillType_PROJECTILE
+};
+
+inline const SkillType (&EnumValuesSkillType())[3] {
+  static const SkillType values[] = {
+    SkillType_NONE,
+    SkillType_NORMAL,
+    SkillType_PROJECTILE
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesSkillType() {
+  static const char * const names[4] = {
+    "NONE",
+    "NORMAL",
+    "PROJECTILE",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameSkillType(SkillType e) {
+  if (flatbuffers::IsOutRange(e, SkillType_NONE, SkillType_PROJECTILE)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesSkillType()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_

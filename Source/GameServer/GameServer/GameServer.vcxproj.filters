@@ -52,6 +52,9 @@
     <ClCompile Include="Skill.cpp">
       <Filter>04.Skill</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectileSkill.cpp">
+      <Filter>04.Skill\00.ProjectileSkill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="Skill.h">
       <Filter>04.Skill</Filter>
     </ClInclude>
+    <ClInclude Include="ProjectileSkill.h">
+      <Filter>04.Skill\00.ProjectileSkill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -181,6 +187,9 @@
     </Filter>
     <Filter Include="04.Skill">
       <UniqueIdentifier>{a7e065ff-7bea-434e-b7ee-a2463566d155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Skill\00.ProjectileSkill">
+      <UniqueIdentifier>{e6bb46bf-a3a7-4e56-911b-7a913ff010ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
-﻿SkillID,Job,Name,SkillAnimationType,DamageType,Damage,CriticalType,DefenceType,RangeDir,Range,CoolTime,HP,MP
-0,0 ,내려치기,1 ,2 ,1 ,6 ,4 ,0 ,4 ,1100 ,0 ,0 
-1,1 ,활쏘기,1 ,2 ,1 ,6 ,4 ,0 ,1 ,1600 ,0 ,0 
-2,2 ,마법화살,1 ,3 ,1 ,7 ,5 ,0 ,1 ,1200 ,0 ,0 
-3,3 ,찌르기,1 ,2 ,1 ,6 ,4 ,0 ,3 ,700 ,0 ,0 
+﻿SkillID,Name,Job,SkillAnimationType,DamageType,Damage,CriticalType,DefenceType,RangeDir,Range,CoolTime,HP,MP
+0,내려치기,0 ,1 ,2 ,1 ,6 ,4 ,0 ,4 ,1100 ,0 ,0 
+1,활쏘기,1 ,1 ,2 ,1 ,6 ,4 ,0 ,1 ,1600 ,0 ,0 
+2,마법화살,2 ,1 ,3 ,1 ,7 ,5 ,0 ,1 ,1200 ,0 ,0 
+3,찌르기,3 ,1 ,2 ,1 ,6 ,4 ,0 ,3 ,700 ,0 ,0 

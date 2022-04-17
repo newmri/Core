@@ -29,6 +29,9 @@ public:
 public:
 	bool IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos);
 
+public:
+	virtual void AddSkill(const int32_t skillID);
+
 private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;

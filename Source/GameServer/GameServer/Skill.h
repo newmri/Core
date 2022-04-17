@@ -14,8 +14,8 @@ public:
 public:
 	void UseSkill(void);
 
-public:
-	void DoDamage(void);
+protected:
+	virtual void DoAction(void);
 
 private:
 	bool IsValidCoolTime(void);

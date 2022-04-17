@@ -200,13 +200,7 @@ void Creature::CalculateAbility(void)
 
 void Creature::AddSkill(const int32_t skillID)
 {
-	WRITE_LOCK(this->skillMutex);
-
-	SkillData skillData;
-	if (!CHARACTER_DATA_MANAGER.GetSkillData(skillID, skillData))
-		return;
-
-	this->skillList[skillID] = Skill(this->shared_from_this(), skillData);
+	
 }
 
 void Creature::UseSkill(const int32_t skillID)

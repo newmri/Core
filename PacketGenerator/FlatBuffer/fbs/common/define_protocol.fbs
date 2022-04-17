@@ -140,3 +140,10 @@ enum PathType : ubyte
 	COLLISION,
 	PATH
 }
+
+enum SkillType : ubyte
+{
+	NONE,
+	NORMAL,
+	PROJECTILE
+}

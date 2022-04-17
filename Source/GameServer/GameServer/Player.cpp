@@ -107,3 +107,22 @@ bool Player::IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos)
 	this->lastMoveTime = nowTime;
 	return true;
 }
+
+void Player::AddSkill(const int32_t skillID)
+{
+	WRITE_LOCK(this->skillMutex);
+
+	SkillData skillData;
+	if (!CHARACTER_DATA_MANAGER.GetSkillData(skillID, skillData))
+		return;
+
+	switch (skillData.skillType)
+	{
+	case Define::SkillType_NORMAL:
+		this->skillList[skillID] = Skill(this->shared_from_this(), skillData);
+		break;
+	case Define::SkillType_PROJECTILE:
+		this->skillList[skillID] = ProjectileSkill(this->shared_from_this(), skillData);
+		break;
+	}
+}

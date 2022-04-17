@@ -9,6 +9,7 @@
 #include "GamePacketFunc.h"
 #include "GamePacketHandler.h"
 #include "Skill.h"
+#include "ProjectileSkill.h"
 #include "Creature.h"
 #include "Player.h"
 #include "CreatureManager.h"
