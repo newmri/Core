@@ -8,6 +8,7 @@
   GameServerManager.cpp
   Main.cpp
   PacketSendManager.cpp
+  Projectile.cpp
   ProjectileSkill.cpp
   Skill.cpp
   Zone.cpp

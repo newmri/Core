@@ -761,17 +761,17 @@ public struct CS_SET_STATE_REQ : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public CS_SET_STATE_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.CreatureState State { get { int o = __p.__offset(4); return o != 0 ? (Define.CreatureState)__p.bb.Get(o + __p.bb_pos) : Define.CreatureState.IDLE; } }
+  public Define.ObjectState State { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectState)__p.bb.Get(o + __p.bb_pos) : Define.ObjectState.IDLE; } }
 
   public static Offset<GamePacket.CS_SET_STATE_REQ> CreateCS_SET_STATE_REQ(FlatBufferBuilder builder,
-      Define.CreatureState state = Define.CreatureState.IDLE) {
+      Define.ObjectState state = Define.ObjectState.IDLE) {
     builder.StartTable(1);
     CS_SET_STATE_REQ.AddState(builder, state);
     return CS_SET_STATE_REQ.EndCS_SET_STATE_REQ(builder);
   }
 
   public static void StartCS_SET_STATE_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddState(FlatBufferBuilder builder, Define.CreatureState state) { builder.AddByte(0, (byte)state, 0); }
+  public static void AddState(FlatBufferBuilder builder, Define.ObjectState state) { builder.AddByte(0, (byte)state, 0); }
   public static Offset<GamePacket.CS_SET_STATE_REQ> EndCS_SET_STATE_REQ(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.CS_SET_STATE_REQ>(o);
@@ -794,10 +794,10 @@ public struct CS_SET_STATE_REQ : IFlatbufferObject
 
 public class CS_SET_STATE_REQT
 {
-  public Define.CreatureState State { get; set; }
+  public Define.ObjectState State { get; set; }
 
   public CS_SET_STATE_REQT() {
-    this.State = Define.CreatureState.IDLE;
+    this.State = Define.ObjectState.IDLE;
   }
 }
 
@@ -813,12 +813,12 @@ public struct SC_SET_STATE_RES : IFlatbufferObject
 
   public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
   public long ObjectId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public Define.CreatureState State { get { int o = __p.__offset(8); return o != 0 ? (Define.CreatureState)__p.bb.Get(o + __p.bb_pos) : Define.CreatureState.IDLE; } }
+  public Define.ObjectState State { get { int o = __p.__offset(8); return o != 0 ? (Define.ObjectState)__p.bb.Get(o + __p.bb_pos) : Define.ObjectState.IDLE; } }
 
   public static Offset<GamePacket.SC_SET_STATE_RES> CreateSC_SET_STATE_RES(FlatBufferBuilder builder,
       Define.ObjectType object_type = Define.ObjectType.PLAYER,
       long object_id = 0,
-      Define.CreatureState state = Define.CreatureState.IDLE) {
+      Define.ObjectState state = Define.ObjectState.IDLE) {
     builder.StartTable(3);
     SC_SET_STATE_RES.AddObjectId(builder, object_id);
     SC_SET_STATE_RES.AddState(builder, state);
@@ -829,7 +829,7 @@ public struct SC_SET_STATE_RES : IFlatbufferObject
   public static void StartSC_SET_STATE_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
   public static void AddObjectId(FlatBufferBuilder builder, long objectId) { builder.AddLong(1, objectId, 0); }
-  public static void AddState(FlatBufferBuilder builder, Define.CreatureState state) { builder.AddByte(2, (byte)state, 0); }
+  public static void AddState(FlatBufferBuilder builder, Define.ObjectState state) { builder.AddByte(2, (byte)state, 0); }
   public static Offset<GamePacket.SC_SET_STATE_RES> EndSC_SET_STATE_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_SET_STATE_RES>(o);
@@ -858,12 +858,12 @@ public class SC_SET_STATE_REST
 {
   public Define.ObjectType ObjectType { get; set; }
   public long ObjectId { get; set; }
-  public Define.CreatureState State { get; set; }
+  public Define.ObjectState State { get; set; }
 
   public SC_SET_STATE_REST() {
     this.ObjectType = Define.ObjectType.PLAYER;
     this.ObjectId = 0;
-    this.State = Define.CreatureState.IDLE;
+    this.State = Define.ObjectState.IDLE;
   }
 }
 

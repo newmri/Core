@@ -104,14 +104,14 @@ table SC_MOVE_RES
 
 table CS_SET_STATE_REQ
 {
-    state:Define.CreatureState;
+    state:Define.ObjectState;
 }
 
 table SC_SET_STATE_RES
 {
     object_type:Define.ObjectType;
     object_id:int64;
-    state:Define.CreatureState;
+    state:Define.ObjectState;
 }
 
 table CS_USE_SKILL_REQ

@@ -1,8 +1,8 @@
 #include "Include.h"
 
 Player::Player(const int64_t& uid, const std::shared_ptr<CoreClientSession> session,
-	const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo) :
-	uid(uid), session(session), Creature(creatureInfo), characterInfo(characterInfo)
+	const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo) :
+	uid(uid), session(session), Creature(objectInfo, creatureInfo), characterInfo(characterInfo)
 {
 	Init();
 }
@@ -45,12 +45,16 @@ GamePacket::CharacterInfoT Player::GetCharacterInfo(void)
 
 void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
-	auto creatureInfo = GetInfo();
+	auto objectInfo = GetObjectInfo();
+	auto creatureInfo = GetCreatureInfo();
 	auto characterInfo = GetCharacterInfo();
+
 	PACKET_SEND_MANAGER.builder.Clear();
+	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
 	auto packedCreatureInfo = Info::CreatureInfo::Pack(PACKET_SEND_MANAGER.builder, &creatureInfo);
 	auto packedCharacterInfo = GamePacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &characterInfo);
-	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(PACKET_SEND_MANAGER.builder, packedCreatureInfo, packedCharacterInfo);
+	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(PACKET_SEND_MANAGER.builder, packedObjectInfo, packedCreatureInfo, packedCharacterInfo);
+
 	packetType = GamePacket::Packet_SC_SPAWN_PLAYER_NOTI;
 	packet = message.Union();
 }
@@ -60,11 +64,11 @@ void Player::Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packe
 	PACKET_SEND_MANAGER.Send(session, packetType, packet);
 }
 
-void Player::SetState(const Define::CreatureState state)
+void Player::SetState(const Define::ObjectState state)
 {
 	Creature::SetState(state);
 
-	if (IS_NOT_SAME(Define::CreatureState_WALK, state))
+	if (IS_NOT_SAME(Define::ObjectState_WALK, state))
 	{
 		this->lastMoveTime = 0;
 	}
@@ -83,7 +87,7 @@ bool Player::IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos)
 		if (clientDist > 1)
 			return false;
 
-		float_t runSpeed = GetStateWithNoLock() == Define::CreatureState_RUN ? 1.3f : 1.0f;
+		float_t runSpeed = GetStateWithNoLock() == Define::ObjectState_RUN ? 1.3f : 1.0f;
 		moveSpeed = GetSpeedWithNoLock(Define::SpeedType_MOVE_SPEED) * runSpeed;
 	}
 
@@ -119,10 +123,10 @@ void Player::AddSkill(const int32_t skillID)
 	switch (skillData.skillType)
 	{
 	case Define::SkillType_NORMAL:
-		this->skillList[skillID] = Skill(this->shared_from_this(), skillData);
+		this->skillList[skillID] = Skill(Object::downcasted_shared_from_this<Creature>(), skillData);
 		break;
 	case Define::SkillType_PROJECTILE:
-		this->skillList[skillID] = ProjectileSkill(this->shared_from_this(), skillData);
+		this->skillList[skillID] = ProjectileSkill(Object::downcasted_shared_from_this<Creature>(), skillData);
 		break;
 	}
 }

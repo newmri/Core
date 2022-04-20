@@ -117,7 +117,7 @@ public enum RangeDir : byte
   ALL = 5,
 };
 
-public enum CreatureState : byte
+public enum ObjectState : byte
 {
   IDLE = 0,
   WALK = 1,

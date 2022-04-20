@@ -478,32 +478,32 @@ inline const char *EnumNameRangeDir(RangeDir e) {
   return EnumNamesRangeDir()[index];
 }
 
-enum CreatureState : uint8_t {
-  CreatureState_IDLE = 0,
-  CreatureState_WALK = 1,
-  CreatureState_RUN = 2,
-  CreatureState_JUMP = 3,
-  CreatureState_HIT = 4,
-  CreatureState_SKILL = 5,
-  CreatureState_DEAD = 6,
-  CreatureState_MIN = CreatureState_IDLE,
-  CreatureState_MAX = CreatureState_DEAD
+enum ObjectState : uint8_t {
+  ObjectState_IDLE = 0,
+  ObjectState_WALK = 1,
+  ObjectState_RUN = 2,
+  ObjectState_JUMP = 3,
+  ObjectState_HIT = 4,
+  ObjectState_SKILL = 5,
+  ObjectState_DEAD = 6,
+  ObjectState_MIN = ObjectState_IDLE,
+  ObjectState_MAX = ObjectState_DEAD
 };
 
-inline const CreatureState (&EnumValuesCreatureState())[7] {
-  static const CreatureState values[] = {
-    CreatureState_IDLE,
-    CreatureState_WALK,
-    CreatureState_RUN,
-    CreatureState_JUMP,
-    CreatureState_HIT,
-    CreatureState_SKILL,
-    CreatureState_DEAD
+inline const ObjectState (&EnumValuesObjectState())[7] {
+  static const ObjectState values[] = {
+    ObjectState_IDLE,
+    ObjectState_WALK,
+    ObjectState_RUN,
+    ObjectState_JUMP,
+    ObjectState_HIT,
+    ObjectState_SKILL,
+    ObjectState_DEAD
   };
   return values;
 }
 
-inline const char * const *EnumNamesCreatureState() {
+inline const char * const *EnumNamesObjectState() {
   static const char * const names[8] = {
     "IDLE",
     "WALK",
@@ -517,10 +517,10 @@ inline const char * const *EnumNamesCreatureState() {
   return names;
 }
 
-inline const char *EnumNameCreatureState(CreatureState e) {
-  if (flatbuffers::IsOutRange(e, CreatureState_IDLE, CreatureState_DEAD)) return "";
+inline const char *EnumNameObjectState(ObjectState e) {
+  if (flatbuffers::IsOutRange(e, ObjectState_IDLE, ObjectState_DEAD)) return "";
   const size_t index = static_cast<size_t>(e);
-  return EnumNamesCreatureState()[index];
+  return EnumNamesObjectState()[index];
 }
 
 enum MoneyType : uint8_t {

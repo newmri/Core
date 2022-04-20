@@ -12,7 +12,7 @@ struct PositionInfo (native_type:"NativeInfo::PositionInfo", native_type_pack_na
 {
   map_id:int32;
   pos:Vec2Int (native_inline);
-  state:Define.CreatureState;
+  state:Define.ObjectState;
   move_dir:Define.Dir;
 }
 
@@ -51,10 +51,15 @@ table MoneyWrapper (native_type:"MoneyT")
     value:Money (native_inline);
 }
 
-table CreatureInfo (native_type:"CreatureInfoT")
+table ObjectInfo (native_type:"ObjectInfoT")
 {
     object_type:Define.ObjectType;
     oid:int64;
+    pos_info:PositionInfo (native_inline);
+}
+
+table CreatureInfo (native_type:"CreatureInfoT")
+{
     level:ubyte;
     exp:int64;
     stat:Stat (native_inline);
@@ -62,5 +67,4 @@ table CreatureInfo (native_type:"CreatureInfoT")
     mp:int32;
     ability:Ability (native_inline);
     speed:Speed (native_inline);
-    pos_info:PositionInfo (native_inline);
 }

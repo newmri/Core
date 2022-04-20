@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "define_protocol_generated.h"
 #include "info_protocol_generated.h"
+#include "define_protocol_generated.h"
 
 namespace GamePacket {
 
@@ -1254,7 +1254,7 @@ flatbuffers::Offset<SC_MOVE_RES> CreateSC_MOVE_RES(flatbuffers::FlatBufferBuilde
 
 struct CS_SET_STATE_REQT : public flatbuffers::NativeTable {
   typedef CS_SET_STATE_REQ TableType;
-  Define::CreatureState state = Define::CreatureState_IDLE;
+  Define::ObjectState state = Define::ObjectState_IDLE;
 };
 
 struct CS_SET_STATE_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -1263,8 +1263,8 @@ struct CS_SET_STATE_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_STATE = 4
   };
-  Define::CreatureState state() const {
-    return static_cast<Define::CreatureState>(GetField<uint8_t>(VT_STATE, 0));
+  Define::ObjectState state() const {
+    return static_cast<Define::ObjectState>(GetField<uint8_t>(VT_STATE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -1280,7 +1280,7 @@ struct CS_SET_STATE_REQBuilder {
   typedef CS_SET_STATE_REQ Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_state(Define::CreatureState state) {
+  void add_state(Define::ObjectState state) {
     fbb_.AddElement<uint8_t>(CS_SET_STATE_REQ::VT_STATE, static_cast<uint8_t>(state), 0);
   }
   explicit CS_SET_STATE_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -1296,7 +1296,7 @@ struct CS_SET_STATE_REQBuilder {
 
 inline flatbuffers::Offset<CS_SET_STATE_REQ> CreateCS_SET_STATE_REQ(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Define::CreatureState state = Define::CreatureState_IDLE) {
+    Define::ObjectState state = Define::ObjectState_IDLE) {
   CS_SET_STATE_REQBuilder builder_(_fbb);
   builder_.add_state(state);
   return builder_.Finish();
@@ -1308,7 +1308,7 @@ struct SC_SET_STATE_REST : public flatbuffers::NativeTable {
   typedef SC_SET_STATE_RES TableType;
   Define::ObjectType object_type = Define::ObjectType_PLAYER;
   int64_t object_id = 0;
-  Define::CreatureState state = Define::CreatureState_IDLE;
+  Define::ObjectState state = Define::ObjectState_IDLE;
 };
 
 struct SC_SET_STATE_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -1325,8 +1325,8 @@ struct SC_SET_STATE_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int64_t object_id() const {
     return GetField<int64_t>(VT_OBJECT_ID, 0);
   }
-  Define::CreatureState state() const {
-    return static_cast<Define::CreatureState>(GetField<uint8_t>(VT_STATE, 0));
+  Define::ObjectState state() const {
+    return static_cast<Define::ObjectState>(GetField<uint8_t>(VT_STATE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -1350,7 +1350,7 @@ struct SC_SET_STATE_RESBuilder {
   void add_object_id(int64_t object_id) {
     fbb_.AddElement<int64_t>(SC_SET_STATE_RES::VT_OBJECT_ID, object_id, 0);
   }
-  void add_state(Define::CreatureState state) {
+  void add_state(Define::ObjectState state) {
     fbb_.AddElement<uint8_t>(SC_SET_STATE_RES::VT_STATE, static_cast<uint8_t>(state), 0);
   }
   explicit SC_SET_STATE_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -1368,7 +1368,7 @@ inline flatbuffers::Offset<SC_SET_STATE_RES> CreateSC_SET_STATE_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
     Define::ObjectType object_type = Define::ObjectType_PLAYER,
     int64_t object_id = 0,
-    Define::CreatureState state = Define::CreatureState_IDLE) {
+    Define::ObjectState state = Define::ObjectState_IDLE) {
   SC_SET_STATE_RESBuilder builder_(_fbb);
   builder_.add_object_id(object_id);
   builder_.add_state(state);

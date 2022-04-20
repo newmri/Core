@@ -1,6 +1,6 @@
 #include "Include.h"
 
-Creature::Creature(const Info::CreatureInfoT& creatureInfo) : creatureInfo(creatureInfo)
+Creature::Creature(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo) : Object(objectInfo), creatureInfo(creatureInfo)
 {
 	Init();
 }
@@ -20,7 +20,7 @@ void Creature::Update(void)
 
 }
 
-Info::CreatureInfoT Creature::GetInfo(void)
+Info::CreatureInfoT Creature::GetCreatureInfo(void)
 {
 	READ_LOCK(this->infoMutex);
 	return this->creatureInfo;
@@ -32,64 +32,15 @@ int32_t Creature::GetAbility(const Define::AbilityType abilityType)
 	return this->creatureInfo.ability.value[abilityType];
 }
 
-Define::ObjectType Creature::GetObjectType(void) const
-{
-	return this->creatureInfo.object_type;
-}
-
-int64_t Creature::GetOID(void) const
-{
-	return this->creatureInfo.oid;
-}
-
-int32_t Creature::GetMapID(void)
-{
-	READ_LOCK(this->infoMutex);
-	return this->creatureInfo.pos_info.mapID;
-}
-
-NativeInfo::Vec2Int Creature::GetPos(void)
-{
-	READ_LOCK(this->infoMutex);
-	return GetPosWithNoLock();
-}
-
-Define::Dir Creature::GetDir(void)
-{
-	READ_LOCK(this->infoMutex);
-	return this->creatureInfo.pos_info.moveDir;
-}
-
 float Creature::GetSpeed(const Define::SpeedType speedType)
 {
 	READ_LOCK(this->infoMutex);
 	return GetSpeedWithNoLock(speedType);
 }
 
-bool Creature::IsDead(void)
-{
-	return (IS_SAME(Define::CreatureState_DEAD, GetState()));
-}
-
-Define::CreatureState Creature::GetState(void)
-{
-	READ_LOCK(this->infoMutex);
-	return GetStateWithNoLock();
-}
-
-NativeInfo::Vec2Int Creature::GetPosWithNoLock(void) const
-{
-	return this->creatureInfo.pos_info.pos;
-}
-
 float Creature::GetSpeedWithNoLock(const Define::SpeedType speedType) const
 {
 	return this->creatureInfo.speed.value[speedType];
-}
-
-Define::CreatureState Creature::GetStateWithNoLock(void) const
-{
-	return this->creatureInfo.pos_info.state;
 }
 
 bool Creature::UseHPMP(const int32_t HP, const int32_t MP)
@@ -116,7 +67,7 @@ void Creature::AddHP(const int32_t HP)
 	{
 		this->creatureInfo.hp = 0;
 		this->deadTime = CORE_TIME_MANAGER.GetNowSeconds();
-		SetStateWithNoLock(Define::CreatureState_DEAD);
+		SetStateWithNoLock(Define::ObjectState_DEAD);
 	}
 }
 
@@ -126,47 +77,6 @@ std::tuple<int32_t, int32_t> Creature::GetHPMP(void)
 	return std::tuple<int32_t, int32_t>(this->creatureInfo.hp, this->creatureInfo.mp);
 }
 
-void Creature::SetMove(const Define::CreatureState state, const NativeInfo::Vec2Int& destPos)
-{
-	WRITE_LOCK(this->infoMutex);
-	SetStateWithNoLock(state);
-	SetDirectionWithNoLock(destPos);
-	SetPosWithNoLock(destPos);
-}
-
-void Creature::SetState(const Define::CreatureState state)
-{
-	WRITE_LOCK(this->infoMutex);
-	SetStateWithNoLock(state);
-}
-
-void Creature::SetDirection(const NativeInfo::Vec2Int& destPos)
-{
-	WRITE_LOCK(this->infoMutex);
-	SetDirectionWithNoLock(destPos);
-}
-
-void Creature::SetPos(const NativeInfo::Vec2Int& pos)
-{
-	WRITE_LOCK(this->infoMutex);
-	SetPosWithNoLock(pos);
-}
-
-void Creature::SetStateWithNoLock(const Define::CreatureState state)
-{
-	this->creatureInfo.pos_info.state = state;
-}
-
-void Creature::SetDirectionWithNoLock(const NativeInfo::Vec2Int& destPos)
-{
-	this->creatureInfo.pos_info.moveDir = GetPosWithNoLock().GetDirection(destPos);
-}
-
-void Creature::SetPosWithNoLock(const NativeInfo::Vec2Int& pos)
-{
-	this->creatureInfo.pos_info.pos = pos;
-}
-
 void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 	
@@ -174,9 +84,8 @@ void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offs
 
 void Creature::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
-	auto creatureInfo = GetInfo();
 	PACKET_SEND_MANAGER.builder.Clear();
-	auto packedPos = flatbuffers::PackPositionInfo(creatureInfo.pos_info);
+	auto packedPos = flatbuffers::PackPositionInfo(GetPosInfo());
 	auto message = GamePacket::CreateSC_MOVE_RES(PACKET_SEND_MANAGER.builder, GetObjectType(), GetOID(), &packedPos);
 	packetType = GamePacket::Packet_SC_MOVE_RES;
 	packet = message.Union();
@@ -184,9 +93,8 @@ void Creature::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offse
 
 void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
-	auto creatureInfo = GetInfo();
 	PACKET_SEND_MANAGER.builder.Clear();
-	auto packedPos = flatbuffers::PackPositionInfo(creatureInfo.pos_info);
+	auto packedPos = flatbuffers::PackPositionInfo(GetPosInfo());
 	auto message = GamePacket::CreateSC_REVIVE_RES(PACKET_SEND_MANAGER.builder, GetObjectType(), GetOID(), &packedPos);
 	packetType = GamePacket::Packet_SC_REVIVE_RES;
 	packet = message.Union();
@@ -236,6 +144,6 @@ void Creature::Revive(void)
 	if (this->deadTime + this->reviveTime > CORE_TIME_MANAGER.GetNowSeconds())
 		return;
 
-	SetState(Define::CreatureState_IDLE);
-	ZONE_MANAGER.Revive(shared_from_this());
+	SetState(Define::ObjectState_IDLE);
+	ZONE_MANAGER.Revive(Object::downcasted_shared_from_this<Creature>());
 }

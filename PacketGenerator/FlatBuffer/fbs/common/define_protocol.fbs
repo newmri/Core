@@ -108,7 +108,7 @@ enum RangeDir : ubyte
 	ALL
 }
 
-enum CreatureState : ubyte
+enum ObjectState : ubyte
 {
 	IDLE,
 	WALK,

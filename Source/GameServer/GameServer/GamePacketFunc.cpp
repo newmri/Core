@@ -57,7 +57,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 
 		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
-		account->SetPlayerOID(CREATURE_MANAGER.AddPlayer(raw->character_uid(), session, creatureInfo, characterInfo));
+		account->SetPlayerOID(OBJECT_MANAGER.AddPlayer(raw->character_uid(), session, creatureInfo, characterInfo));
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드
@@ -109,7 +109,7 @@ void GamePacketFunc::CS_LOGOUT_NOTI(std::shared_ptr<CoreClientSession> session, 
 
 void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
-	auto player = CREATURE_MANAGER.FindPlayer(session->GetPlayerOID());
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
 	if (IS_NULL(player))
 		return;
 
@@ -127,7 +127,7 @@ void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, con
 void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	int64_t oid = session->GetPlayerOID();
-	auto player = CREATURE_MANAGER.FindPlayer(oid);
+	auto player = OBJECT_MANAGER.FindPlayer(oid);
 	if (IS_NULL(player))
 		return;
 
@@ -146,7 +146,7 @@ void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session
 void GamePacketFunc::CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	int64_t oid = session->GetPlayerOID();
-	auto player = CREATURE_MANAGER.FindPlayer(oid);
+	auto player = OBJECT_MANAGER.FindPlayer(oid);
 	if (IS_NULL(player))
 		return;
 
@@ -160,7 +160,7 @@ void GamePacketFunc::CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session
 void GamePacketFunc::CS_REVIVE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	int64_t oid = session->GetPlayerOID();
-	auto player = CREATURE_MANAGER.FindPlayer(oid);
+	auto player = OBJECT_MANAGER.FindPlayer(oid);
 	if (IS_NULL(player))
 		return;
 

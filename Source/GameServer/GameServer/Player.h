@@ -6,7 +6,7 @@ class Player : public Creature, public CoreMemoryPoolObj<Player, CORE_BIG_SIZE>
 
 public:
 	Player(const int64_t& uid, const std::shared_ptr<CoreClientSession> session,
-		const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
+		const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
 
 public:
 	int64_t GetUID(void) const;
@@ -24,7 +24,7 @@ public:
 	void Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet);
 
 public:
-	virtual void SetState(const Define::CreatureState state) override;
+	virtual void SetState(const Define::ObjectState state) override;
 
 public:
 	bool IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos);
