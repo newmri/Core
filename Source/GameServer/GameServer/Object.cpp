@@ -126,3 +126,13 @@ void Object::SetPosWithNoLock(const NativeInfo::Vec2Int& pos)
 void Object::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 }
+
+void Object::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
+{
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto objectInfo = GetObjectInfo();
+	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
+	auto message = GamePacket::CreateSC_MOVE_RES(PACKET_SEND_MANAGER.builder, packedObjectInfo);
+	packetType = GamePacket::Packet_SC_MOVE_RES;
+	packet = message.Union();
+}

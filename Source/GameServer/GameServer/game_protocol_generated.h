@@ -796,6 +796,7 @@ flatbuffers::Offset<MyCharacterInfo> CreateMyCharacterInfo(flatbuffers::FlatBuff
 struct SC_LOGIN_REST : public flatbuffers::NativeTable {
   typedef SC_LOGIN_RES TableType;
   GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS;
+  std::unique_ptr<Info::ObjectInfoT> object_info{};
   std::unique_ptr<Info::CreatureInfoT> creature_info{};
   std::unique_ptr<GamePacket::MyCharacterInfoT> character_info{};
   std::unique_ptr<Info::MoneyWrapperT> money{};
@@ -806,12 +807,16 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SC_LOGIN_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_RESULT = 4,
-    VT_CREATURE_INFO = 6,
-    VT_CHARACTER_INFO = 8,
-    VT_MONEY = 10
+    VT_OBJECT_INFO = 6,
+    VT_CREATURE_INFO = 8,
+    VT_CHARACTER_INFO = 10,
+    VT_MONEY = 12
   };
   GamePacket::ErrorCode result() const {
     return static_cast<GamePacket::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
+  }
+  const Info::ObjectInfo *object_info() const {
+    return GetPointer<const Info::ObjectInfo *>(VT_OBJECT_INFO);
   }
   const Info::CreatureInfo *creature_info() const {
     return GetPointer<const Info::CreatureInfo *>(VT_CREATURE_INFO);
@@ -825,6 +830,8 @@ struct SC_LOGIN_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int8_t>(verifier, VT_RESULT) &&
+           VerifyOffset(verifier, VT_OBJECT_INFO) &&
+           verifier.VerifyTable(object_info()) &&
            VerifyOffset(verifier, VT_CREATURE_INFO) &&
            verifier.VerifyTable(creature_info()) &&
            VerifyOffset(verifier, VT_CHARACTER_INFO) &&
@@ -844,6 +851,9 @@ struct SC_LOGIN_RESBuilder {
   flatbuffers::uoffset_t start_;
   void add_result(GamePacket::ErrorCode result) {
     fbb_.AddElement<int8_t>(SC_LOGIN_RES::VT_RESULT, static_cast<int8_t>(result), 0);
+  }
+  void add_object_info(flatbuffers::Offset<Info::ObjectInfo> object_info) {
+    fbb_.AddOffset(SC_LOGIN_RES::VT_OBJECT_INFO, object_info);
   }
   void add_creature_info(flatbuffers::Offset<Info::CreatureInfo> creature_info) {
     fbb_.AddOffset(SC_LOGIN_RES::VT_CREATURE_INFO, creature_info);
@@ -868,6 +878,7 @@ struct SC_LOGIN_RESBuilder {
 inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
     GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
+    flatbuffers::Offset<Info::ObjectInfo> object_info = 0,
     flatbuffers::Offset<Info::CreatureInfo> creature_info = 0,
     flatbuffers::Offset<GamePacket::MyCharacterInfo> character_info = 0,
     flatbuffers::Offset<Info::MoneyWrapper> money = 0) {
@@ -875,6 +886,7 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
   builder_.add_money(money);
   builder_.add_character_info(character_info);
   builder_.add_creature_info(creature_info);
+  builder_.add_object_info(object_info);
   builder_.add_result(result);
   return builder_.Finish();
 }
@@ -1000,6 +1012,7 @@ flatbuffers::Offset<CS_LOGOUT_NOTI> CreateCS_LOGOUT_NOTI(flatbuffers::FlatBuffer
 
 struct SC_SPAWN_PLAYER_NOTIT : public flatbuffers::NativeTable {
   typedef SC_SPAWN_PLAYER_NOTI TableType;
+  std::unique_ptr<Info::ObjectInfoT> object_info{};
   std::unique_ptr<Info::CreatureInfoT> creature_info{};
   std::unique_ptr<GamePacket::CharacterInfoT> character_info{};
 };
@@ -1008,9 +1021,13 @@ struct SC_SPAWN_PLAYER_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   typedef SC_SPAWN_PLAYER_NOTIT NativeTableType;
   typedef SC_SPAWN_PLAYER_NOTIBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_CREATURE_INFO = 4,
-    VT_CHARACTER_INFO = 6
+    VT_OBJECT_INFO = 4,
+    VT_CREATURE_INFO = 6,
+    VT_CHARACTER_INFO = 8
   };
+  const Info::ObjectInfo *object_info() const {
+    return GetPointer<const Info::ObjectInfo *>(VT_OBJECT_INFO);
+  }
   const Info::CreatureInfo *creature_info() const {
     return GetPointer<const Info::CreatureInfo *>(VT_CREATURE_INFO);
   }
@@ -1019,6 +1036,8 @@ struct SC_SPAWN_PLAYER_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_OBJECT_INFO) &&
+           verifier.VerifyTable(object_info()) &&
            VerifyOffset(verifier, VT_CREATURE_INFO) &&
            verifier.VerifyTable(creature_info()) &&
            VerifyOffset(verifier, VT_CHARACTER_INFO) &&
@@ -1034,6 +1053,9 @@ struct SC_SPAWN_PLAYER_NOTIBuilder {
   typedef SC_SPAWN_PLAYER_NOTI Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
+  void add_object_info(flatbuffers::Offset<Info::ObjectInfo> object_info) {
+    fbb_.AddOffset(SC_SPAWN_PLAYER_NOTI::VT_OBJECT_INFO, object_info);
+  }
   void add_creature_info(flatbuffers::Offset<Info::CreatureInfo> creature_info) {
     fbb_.AddOffset(SC_SPAWN_PLAYER_NOTI::VT_CREATURE_INFO, creature_info);
   }
@@ -1053,11 +1075,13 @@ struct SC_SPAWN_PLAYER_NOTIBuilder {
 
 inline flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(
     flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<Info::ObjectInfo> object_info = 0,
     flatbuffers::Offset<Info::CreatureInfo> creature_info = 0,
     flatbuffers::Offset<GamePacket::CharacterInfo> character_info = 0) {
   SC_SPAWN_PLAYER_NOTIBuilder builder_(_fbb);
   builder_.add_character_info(character_info);
   builder_.add_creature_info(creature_info);
+  builder_.add_object_info(object_info);
   return builder_.Finish();
 }
 
@@ -1180,33 +1204,22 @@ flatbuffers::Offset<CS_MOVE_REQ> CreateCS_MOVE_REQ(flatbuffers::FlatBufferBuilde
 
 struct SC_MOVE_REST : public flatbuffers::NativeTable {
   typedef SC_MOVE_RES TableType;
-  Define::ObjectType object_type = Define::ObjectType_PLAYER;
-  int64_t object_id = 0;
-  NativeInfo::PositionInfo pos_info{};
+  std::unique_ptr<Info::ObjectInfoT> object_info{};
 };
 
 struct SC_MOVE_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SC_MOVE_REST NativeTableType;
   typedef SC_MOVE_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_OBJECT_TYPE = 4,
-    VT_OBJECT_ID = 6,
-    VT_POS_INFO = 8
+    VT_OBJECT_INFO = 4
   };
-  Define::ObjectType object_type() const {
-    return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
-  }
-  int64_t object_id() const {
-    return GetField<int64_t>(VT_OBJECT_ID, 0);
-  }
-  const Info::PositionInfo *pos_info() const {
-    return GetStruct<const Info::PositionInfo *>(VT_POS_INFO);
+  const Info::ObjectInfo *object_info() const {
+    return GetPointer<const Info::ObjectInfo *>(VT_OBJECT_INFO);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
-           VerifyField<int64_t>(verifier, VT_OBJECT_ID) &&
-           VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
+           VerifyOffset(verifier, VT_OBJECT_INFO) &&
+           verifier.VerifyTable(object_info()) &&
            verifier.EndTable();
   }
   SC_MOVE_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
@@ -1218,14 +1231,8 @@ struct SC_MOVE_RESBuilder {
   typedef SC_MOVE_RES Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_object_type(Define::ObjectType object_type) {
-    fbb_.AddElement<uint8_t>(SC_MOVE_RES::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
-  }
-  void add_object_id(int64_t object_id) {
-    fbb_.AddElement<int64_t>(SC_MOVE_RES::VT_OBJECT_ID, object_id, 0);
-  }
-  void add_pos_info(const Info::PositionInfo *pos_info) {
-    fbb_.AddStruct(SC_MOVE_RES::VT_POS_INFO, pos_info);
+  void add_object_info(flatbuffers::Offset<Info::ObjectInfo> object_info) {
+    fbb_.AddOffset(SC_MOVE_RES::VT_OBJECT_INFO, object_info);
   }
   explicit SC_MOVE_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -1240,13 +1247,9 @@ struct SC_MOVE_RESBuilder {
 
 inline flatbuffers::Offset<SC_MOVE_RES> CreateSC_MOVE_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Define::ObjectType object_type = Define::ObjectType_PLAYER,
-    int64_t object_id = 0,
-    const Info::PositionInfo *pos_info = 0) {
+    flatbuffers::Offset<Info::ObjectInfo> object_info = 0) {
   SC_MOVE_RESBuilder builder_(_fbb);
-  builder_.add_object_id(object_id);
-  builder_.add_pos_info(pos_info);
-  builder_.add_object_type(object_type);
+  builder_.add_object_info(object_info);
   return builder_.Finish();
 }
 
@@ -1693,33 +1696,22 @@ flatbuffers::Offset<CS_REVIVE_REQ> CreateCS_REVIVE_REQ(flatbuffers::FlatBufferBu
 
 struct SC_REVIVE_REST : public flatbuffers::NativeTable {
   typedef SC_REVIVE_RES TableType;
-  Define::ObjectType object_type = Define::ObjectType_PLAYER;
-  int64_t oid = 0;
-  NativeInfo::PositionInfo pos_info{};
+  std::unique_ptr<Info::ObjectInfoT> object_info{};
 };
 
 struct SC_REVIVE_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SC_REVIVE_REST NativeTableType;
   typedef SC_REVIVE_RESBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_OBJECT_TYPE = 4,
-    VT_OID = 6,
-    VT_POS_INFO = 8
+    VT_OBJECT_INFO = 4
   };
-  Define::ObjectType object_type() const {
-    return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
-  }
-  int64_t oid() const {
-    return GetField<int64_t>(VT_OID, 0);
-  }
-  const Info::PositionInfo *pos_info() const {
-    return GetStruct<const Info::PositionInfo *>(VT_POS_INFO);
+  const Info::ObjectInfo *object_info() const {
+    return GetPointer<const Info::ObjectInfo *>(VT_OBJECT_INFO);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
-           VerifyField<int64_t>(verifier, VT_OID) &&
-           VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
+           VerifyOffset(verifier, VT_OBJECT_INFO) &&
+           verifier.VerifyTable(object_info()) &&
            verifier.EndTable();
   }
   SC_REVIVE_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
@@ -1731,14 +1723,8 @@ struct SC_REVIVE_RESBuilder {
   typedef SC_REVIVE_RES Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_object_type(Define::ObjectType object_type) {
-    fbb_.AddElement<uint8_t>(SC_REVIVE_RES::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
-  }
-  void add_oid(int64_t oid) {
-    fbb_.AddElement<int64_t>(SC_REVIVE_RES::VT_OID, oid, 0);
-  }
-  void add_pos_info(const Info::PositionInfo *pos_info) {
-    fbb_.AddStruct(SC_REVIVE_RES::VT_POS_INFO, pos_info);
+  void add_object_info(flatbuffers::Offset<Info::ObjectInfo> object_info) {
+    fbb_.AddOffset(SC_REVIVE_RES::VT_OBJECT_INFO, object_info);
   }
   explicit SC_REVIVE_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -1753,13 +1739,9 @@ struct SC_REVIVE_RESBuilder {
 
 inline flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Define::ObjectType object_type = Define::ObjectType_PLAYER,
-    int64_t oid = 0,
-    const Info::PositionInfo *pos_info = 0) {
+    flatbuffers::Offset<Info::ObjectInfo> object_info = 0) {
   SC_REVIVE_RESBuilder builder_(_fbb);
-  builder_.add_oid(oid);
-  builder_.add_pos_info(pos_info);
-  builder_.add_object_type(object_type);
+  builder_.add_object_info(object_info);
   return builder_.Finish();
 }
 
@@ -2050,6 +2032,7 @@ inline void SC_LOGIN_RES::UnPackTo(SC_LOGIN_REST *_o, const flatbuffers::resolve
   (void)_o;
   (void)_resolver;
   { auto _e = result(); _o->result = _e; }
+  { auto _e = object_info(); if (_e) _o->object_info = std::unique_ptr<Info::ObjectInfoT>(_e->UnPack(_resolver)); }
   { auto _e = creature_info(); if (_e) _o->creature_info = std::unique_ptr<Info::CreatureInfoT>(_e->UnPack(_resolver)); }
   { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<GamePacket::MyCharacterInfoT>(_e->UnPack(_resolver)); }
   { auto _e = money(); if (_e) _o->money = std::unique_ptr<Info::MoneyWrapperT>(_e->UnPack(_resolver)); }
@@ -2064,12 +2047,14 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBuf
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_LOGIN_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _result = _o->result;
+  auto _object_info = _o->object_info ? CreateObjectInfo(_fbb, _o->object_info.get(), _rehasher) : 0;
   auto _creature_info = _o->creature_info ? CreateCreatureInfo(_fbb, _o->creature_info.get(), _rehasher) : 0;
   auto _character_info = _o->character_info ? CreateMyCharacterInfo(_fbb, _o->character_info.get(), _rehasher) : 0;
   auto _money = _o->money ? CreateMoneyWrapper(_fbb, _o->money.get(), _rehasher) : 0;
   return GamePacket::CreateSC_LOGIN_RES(
       _fbb,
       _result,
+      _object_info,
       _creature_info,
       _character_info,
       _money);
@@ -2153,6 +2138,7 @@ inline SC_SPAWN_PLAYER_NOTIT *SC_SPAWN_PLAYER_NOTI::UnPack(const flatbuffers::re
 inline void SC_SPAWN_PLAYER_NOTI::UnPackTo(SC_SPAWN_PLAYER_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
+  { auto _e = object_info(); if (_e) _o->object_info = std::unique_ptr<Info::ObjectInfoT>(_e->UnPack(_resolver)); }
   { auto _e = creature_info(); if (_e) _o->creature_info = std::unique_ptr<Info::CreatureInfoT>(_e->UnPack(_resolver)); }
   { auto _e = character_info(); if (_e) _o->character_info = std::unique_ptr<GamePacket::CharacterInfoT>(_e->UnPack(_resolver)); }
 }
@@ -2165,10 +2151,12 @@ inline flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(flat
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_SPAWN_PLAYER_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _object_info = _o->object_info ? CreateObjectInfo(_fbb, _o->object_info.get(), _rehasher) : 0;
   auto _creature_info = _o->creature_info ? CreateCreatureInfo(_fbb, _o->creature_info.get(), _rehasher) : 0;
   auto _character_info = _o->character_info ? CreateCharacterInfo(_fbb, _o->character_info.get(), _rehasher) : 0;
   return GamePacket::CreateSC_SPAWN_PLAYER_NOTI(
       _fbb,
+      _object_info,
       _creature_info,
       _character_info);
 }
@@ -2237,9 +2225,7 @@ inline SC_MOVE_REST *SC_MOVE_RES::UnPack(const flatbuffers::resolver_function_t 
 inline void SC_MOVE_RES::UnPackTo(SC_MOVE_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = object_type(); _o->object_type = _e; }
-  { auto _e = object_id(); _o->object_id = _e; }
-  { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
+  { auto _e = object_info(); if (_e) _o->object_info = std::unique_ptr<Info::ObjectInfoT>(_e->UnPack(_resolver)); }
 }
 
 inline flatbuffers::Offset<SC_MOVE_RES> SC_MOVE_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_MOVE_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -2250,14 +2236,10 @@ inline flatbuffers::Offset<SC_MOVE_RES> CreateSC_MOVE_RES(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_MOVE_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _object_type = _o->object_type;
-  auto _object_id = _o->object_id;
-  auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
+  auto _object_info = _o->object_info ? CreateObjectInfo(_fbb, _o->object_info.get(), _rehasher) : 0;
   return GamePacket::CreateSC_MOVE_RES(
       _fbb,
-      _object_type,
-      _object_id,
-      &_pos_info);
+      _object_info);
 }
 
 inline CS_SET_STATE_REQT *CS_SET_STATE_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
@@ -2469,9 +2451,7 @@ inline SC_REVIVE_REST *SC_REVIVE_RES::UnPack(const flatbuffers::resolver_functio
 inline void SC_REVIVE_RES::UnPackTo(SC_REVIVE_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = object_type(); _o->object_type = _e; }
-  { auto _e = oid(); _o->oid = _e; }
-  { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
+  { auto _e = object_info(); if (_e) _o->object_info = std::unique_ptr<Info::ObjectInfoT>(_e->UnPack(_resolver)); }
 }
 
 inline flatbuffers::Offset<SC_REVIVE_RES> SC_REVIVE_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_REVIVE_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -2482,14 +2462,10 @@ inline flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(flatbuffers::FlatB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_REVIVE_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _object_type = _o->object_type;
-  auto _oid = _o->oid;
-  auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
+  auto _object_info = _o->object_info ? CreateObjectInfo(_fbb, _o->object_info.get(), _rehasher) : 0;
   return GamePacket::CreateSC_REVIVE_RES(
       _fbb,
-      _object_type,
-      _oid,
-      &_pos_info);
+      _object_info);
 }
 
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
@@ -2781,7 +2757,7 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
       break;
     }
     case Packet_SC_MOVE_RES: {
-      value = new GamePacket::SC_MOVE_REST(*reinterpret_cast<GamePacket::SC_MOVE_REST *>(u.value));
+      FLATBUFFERS_ASSERT(false);  // GamePacket::SC_MOVE_REST not copyable.
       break;
     }
     case Packet_CS_SET_STATE_REQ: {
@@ -2809,7 +2785,7 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
       break;
     }
     case Packet_SC_REVIVE_RES: {
-      value = new GamePacket::SC_REVIVE_REST(*reinterpret_cast<GamePacket::SC_REVIVE_REST *>(u.value));
+      FLATBUFFERS_ASSERT(false);  // GamePacket::SC_REVIVE_REST not copyable.
       break;
     }
     default:

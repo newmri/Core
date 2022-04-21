@@ -1,5 +1,5 @@
 ﻿  AccountDB.cpp
-  CreatureManager.cpp
+  ObjectManager.cpp
   CharacterDataManager.cpp
   GameDB.cpp
   GamePacketFunc.cpp
@@ -7,6 +7,7 @@
   GameServer.cpp
   GameServerManager.cpp
   Main.cpp
+  Object.cpp
   PacketSendManager.cpp
   Projectile.cpp
   ProjectileSkill.cpp
@@ -19,4 +20,5 @@ C:\Users\HavePoop\Desktop\Study\Core\Source\GameServer\GameServer\Zone.cpp(1,1):
   Player.cpp
   Sector.cpp
   코드를 생성하고 있습니다...
+C:\Users\HavePoop\Desktop\Study\Core\Source\GameServer\GameServer\Object.cpp(114): warning C4717: 'Object::SetStateWithNoLock': 모든 제어 경로에서 재귀적입니다. 함수로 인해 런타임 스택 오버플로가 발생합니다.
   GameServer.vcxproj -> C:\Users\HavePoop\Desktop\Study\Core\Source\GameServer\x64\Debug\GameServer.exe

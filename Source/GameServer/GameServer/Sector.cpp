@@ -20,22 +20,22 @@ void Sector::SetIndex(const NativeInfo::Vec2Int index)
 	this->index = index;
 }
 
-void Sector::Add(std::shared_ptr<Creature> creature)
+void Sector::Add(std::shared_ptr<Object> object)
 {
-	if (IS_NULL(creature))
+	if (IS_NULL(object))
 		return;
 
-	SendSpawnPacketToOldPlayer(creature);
+	SendSpawnPacketToOldPlayer(object);
 
-	Define::ObjectType objectType = creature->GetObjectType();
+	Define::ObjectType objectType = object->GetObjectType();
 
 	switch (objectType)
 	{
 	case Define::ObjectType_PLAYER:
 	{
-		auto player = std::dynamic_pointer_cast<Player>(creature);
+		auto player = std::dynamic_pointer_cast<Player>(object);
 		SendSpawnPacketToNewPlayer(player);
-		this->playerList[creature->GetOID()] = player;
+		this->playerList[object->GetOID()] = player;
 		break;
 	}
 	default:
@@ -43,15 +43,15 @@ void Sector::Add(std::shared_ptr<Creature> creature)
 	}
 }
 
-void Sector::Move(std::shared_ptr<Creature> creature)
+void Sector::Move(std::shared_ptr<Object> object)
 {
-	if (IS_NULL(creature))
+	if (IS_NULL(object))
 		return;
 
 	GamePacket::Packet packetType;
 	flatbuffers::Offset<void> packet;
-	creature->MakeMovePacket(packetType, packet);
-	SendAllExceptMe(creature->GetOID(), packetType, packet);
+	object->MakeMovePacket(packetType, packet);
+	SendAllExceptMe(object->GetOID(), packetType, packet);
 }
 
 void Sector::Revive(std::shared_ptr<Creature> creature)
@@ -79,11 +79,11 @@ void Sector::Remove(const Define::ObjectType objectType, const int64_t& oid)
 	SendDespawnPacket(objectType, oid);
 }
 
-void Sector::SendSpawnPacketToOldPlayer(std::shared_ptr<Creature> creature)
+void Sector::SendSpawnPacketToOldPlayer(std::shared_ptr<Object> object)
 {
 	GamePacket::Packet packetType;
 	flatbuffers::Offset<void> packet;
-	creature->MakeSpawnPacket(packetType, packet);
+	object->MakeSpawnPacket(packetType, packet);
 	SendAll(packetType, packet);
 }
 
@@ -143,7 +143,7 @@ std::shared_ptr<Player> Sector::FindPlayer(const int64_t& oid)
 	return nullptr;
 }
 
-void Sector::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly)
+void Sector::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& creatureList, const bool liveCreatureOnly)
 {
 	auto cellPos = creature->GetPos();
 	auto dir = creature->GetDir();
@@ -151,25 +151,25 @@ void Sector::GetCreatures(std::shared_ptr<Creature> creature, const Define::Rang
 	switch (rangeDir)
 	{
 	case Define::RangeDir_FRONT:
-		GetFrontCreatures(cellPos, dir, range, objectList, liveCreatureOnly);
+		GetFrontCreatures(cellPos, dir, range, creatureList, liveCreatureOnly);
 		break;
 	case Define::RangeDir_BACK:
-		GetFrontCreatures(cellPos, dir == Define::Dir_LEFT ? Define::Dir_RIGHT : Define::Dir_LEFT, range, objectList, liveCreatureOnly);
+		GetFrontCreatures(cellPos, dir == Define::Dir_LEFT ? Define::Dir_RIGHT : Define::Dir_LEFT, range, creatureList, liveCreatureOnly);
 		break;
 	case Define::RangeDir_TWO_WAY:
-		GetFrontCreatures(cellPos, dir, range, objectList, liveCreatureOnly);
-		GetFrontCreatures(cellPos, dir == Define::Dir_LEFT ? Define::Dir_RIGHT : Define::Dir_LEFT, range, objectList, liveCreatureOnly);
+		GetFrontCreatures(cellPos, dir, range, creatureList, liveCreatureOnly);
+		GetFrontCreatures(cellPos, dir == Define::Dir_LEFT ? Define::Dir_RIGHT : Define::Dir_LEFT, range, creatureList, liveCreatureOnly);
 		break;
 	case Define::RangeDir_UP:
-		GetFrontCreatures(cellPos, Define::Dir_UP, range, objectList, liveCreatureOnly);
+		GetFrontCreatures(cellPos, Define::Dir_UP, range, creatureList, liveCreatureOnly);
 		break;
 	case Define::RangeDir_DOWN:
-		GetFrontCreatures(cellPos, Define::Dir_DOWN, range, objectList, liveCreatureOnly);
+		GetFrontCreatures(cellPos, Define::Dir_DOWN, range, creatureList, liveCreatureOnly);
 		break;
 	}
 }
 
-void Sector::GetFrontCreatures(NativeInfo::Vec2Int cellPos, const Define::Dir dir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly)
+void Sector::GetFrontCreatures(NativeInfo::Vec2Int cellPos, const Define::Dir dir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& creatureList, const bool liveCreatureOnly)
 {
 	NativeInfo::Vec2Int increasePos;
 	NativeInfo::Vec2Int destPos = cellPos.GetFrontPos(dir, range, increasePos);
@@ -182,12 +182,12 @@ void Sector::GetFrontCreatures(NativeInfo::Vec2Int cellPos, const Define::Dir di
 		if (0 < increasePos.x)
 		{
 			for (; cellPos.x <= destPos.x; cellPos.x += increasePos.x)
-				GetCreatures(cellPos, objectList, liveCreatureOnly);
+				GetCreatures(cellPos, creatureList, liveCreatureOnly);
 		}
 		else
 		{
 			for (; cellPos.x >= destPos.x; cellPos.x += increasePos.x)
-				GetCreatures(cellPos, objectList, liveCreatureOnly);
+				GetCreatures(cellPos, creatureList, liveCreatureOnly);
 		}
 	}
 	// Up or Down
@@ -195,17 +195,17 @@ void Sector::GetFrontCreatures(NativeInfo::Vec2Int cellPos, const Define::Dir di
 	{
 		cellPos.y += increasePos.y;
 		for (; cellPos.y <= destPos.y; cellPos.y += increasePos.y)
-			GetCreatures(cellPos, objectList, liveCreatureOnly);
+			GetCreatures(cellPos, creatureList, liveCreatureOnly);
 	}
 }
 
-void Sector::GetCreatures(const NativeInfo::Vec2Int& cellPos, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly)
+void Sector::GetCreatures(const NativeInfo::Vec2Int& cellPos, CoreList<std::shared_ptr<Creature>>& creatureList, const bool liveCreatureOnly)
 {
 	auto iter_begin = this->playerList.begin();
 	auto iter_end = this->playerList.end();
 	for (; iter_begin != iter_end; ++iter_begin)
 	{
 		if ((iter_begin->second)->GetPos() == cellPos && liveCreatureOnly && !(iter_begin->second)->IsDead())
-			objectList.push_back((iter_begin->second)->shared_from_this());
+			creatureList.push_back(iter_begin->second);
 	}
 }

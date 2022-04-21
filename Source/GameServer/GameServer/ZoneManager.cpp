@@ -16,24 +16,24 @@ void ZoneManager::AddZone(const int32_t id)
 	this->zoneList.push_back(std::make_unique<Zone>(id));
 }
 
-bool ZoneManager::EnterStartPos(const int32_t id, std::shared_ptr<Creature> creature, const bool checkObjects)
+bool ZoneManager::EnterStartPos(const int32_t id, std::shared_ptr<Object> object, const bool checkObjects)
 {
-	return this->zoneList[id]->EnterStartPos(creature, checkObjects);
+	return this->zoneList[id]->EnterStartPos(object, checkObjects);
 }
 
-bool ZoneManager::Enter(const int32_t id, std::shared_ptr<Creature> creature, const bool checkObjects)
+bool ZoneManager::Enter(const int32_t id, std::shared_ptr<Object> object, const bool checkObjects)
 {
-	return this->zoneList[id]->Enter(creature, creature->GetPos(), checkObjects);
+	return this->zoneList[id]->Enter(object, object->GetPos(), checkObjects);
 }
 
-bool ZoneManager::Move(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
+bool ZoneManager::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
 {
-	return this->zoneList[creature->GetMapID()]->Move(creature, cellDestPos, checkObjects);
+	return this->zoneList[object->GetMapID()]->Move(object, cellDestPos, checkObjects);
 }
 
-bool ZoneManager::Leave(std::shared_ptr<Creature> creature)
+bool ZoneManager::Leave(std::shared_ptr<Object> object)
 {
-	return this->zoneList[creature->GetMapID()]->Leave(creature);
+	return this->zoneList[object->GetMapID()]->Leave(object);
 }
 
 void ZoneManager::SendAll(const int32_t id, GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos)
@@ -46,9 +46,9 @@ void ZoneManager::SendAllExceptMe(const int32_t id, const int64_t& oid, GamePack
 	this->zoneList[id]->SendAllExceptMe(oid, packetType, packet, cellPos);
 }
 
-void ZoneManager::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly)
+void ZoneManager::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& creatureList, const bool liveCreatureOnly)
 {
-	this->zoneList[creature->GetMapID()]->GetCreatures(creature, rangeDir, range, objectList, liveCreatureOnly);
+	this->zoneList[creature->GetMapID()]->GetCreatures(creature, rangeDir, range, creatureList, liveCreatureOnly);
 }
 
 void ZoneManager::Revive(std::shared_ptr<Creature> creature)

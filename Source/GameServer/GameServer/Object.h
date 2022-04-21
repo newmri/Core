@@ -35,6 +35,7 @@ protected:
 
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
+	void MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 protected:
 	Info::ObjectInfoT objectInfo;

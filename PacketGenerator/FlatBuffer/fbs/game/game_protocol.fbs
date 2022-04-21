@@ -99,7 +99,7 @@ table CS_MOVE_REQ
 
 table SC_MOVE_RES
 {
-    object_info:Info.ObjectInfo (native_inline);
+    object_info:Info.ObjectInfo;
 }
 
 table CS_SET_STATE_REQ
@@ -145,7 +145,7 @@ table CS_REVIVE_REQ
 
 table SC_REVIVE_RES
 {
-   object_info:Info.ObjectInfo (native_inline);
+   object_info:Info.ObjectInfo;
 }
 
 table Root

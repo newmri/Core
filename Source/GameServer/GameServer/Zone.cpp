@@ -85,21 +85,21 @@ void Zone::InitSector(void)
 	}
 }
 
-bool Zone::EnterStartPos(std::shared_ptr<Creature> creature, const bool checkObjects)
+bool Zone::EnterStartPos(std::shared_ptr<Object> object, const bool checkObjects)
 {
-	auto backupPos = creature->GetPos();
-	creature->SetPos(this->data.startCellPos);
+	auto backupPos = object->GetPos();
+	object->SetPos(this->data.startCellPos);
 
-	if (!Enter(creature, this->data.startCellPos, checkObjects))
+	if (!Enter(object, this->data.startCellPos, checkObjects))
 	{
-		creature->SetPos(backupPos);
+		object->SetPos(backupPos);
 		return false;
 	}
 
 	return true;
 }
 
-bool Zone::Enter(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
+bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
 {
 	if (!IsValidCellPos(cellPos))
 		return false;
@@ -113,14 +113,14 @@ bool Zone::Enter(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& 
 	if (!CanMove(index, checkObjects))
 		return false;
 
-	_Enter(creature, sector, index);
+	_Enter(object, sector, index);
 	return true;
 }
 
-void Zone::_Enter(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index)
+void Zone::_Enter(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	this->data.objects[index.y][index.x] = creature->GetOID();
-	sector->Add(creature);
+	this->data.objects[index.y][index.x] = object->GetOID();
+	sector->Add(object);
 }
 
 bool Zone::CanMove(const NativeInfo::Vec2Int& index, const bool checkObjects = false) const
@@ -149,9 +149,9 @@ Sector* Zone::GetSector(const NativeInfo::Vec2Int& index)
 	return &this->sectors[index.y / this->SectorCells][index.x / this->SectorCells];
 }
 
-bool Zone::Move(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
+bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
 {
-	NativeInfo::Vec2Int cellSourcePos = creature->GetPos();
+	NativeInfo::Vec2Int cellSourcePos = object->GetPos();
 	if (!IsValidCellPos(cellSourcePos) || !IsValidCellPos(cellDestPos))
 		return false;
 
@@ -169,40 +169,40 @@ bool Zone::Move(std::shared_ptr<Creature> creature, const NativeInfo::Vec2Int& c
 	if (!CanMove(destIndex, checkObjects))
 		return false;
 
-	creature->SetMove(Define::CreatureState_WALK, cellDestPos);
+	object->SetMove(Define::ObjectState_WALK, cellDestPos);
 
 	if (sourceSector != destSector)
 	{
-		_Leave(creature, sourceSector, sourceIndex);
-		_Enter(creature, destSector, destIndex);
+		_Leave(object, sourceSector, sourceIndex);
+		_Enter(object, destSector, destIndex);
 	}
 
 	else
 	{
-		destSector->Move(creature);
+		destSector->Move(object);
 	}
 
 	return true;
 }
 
-bool Zone::Leave(std::shared_ptr<Creature> creature)
+bool Zone::Leave(std::shared_ptr<Object> object)
 {
-	if (!IsValidCellPos(creature->GetPos()))
+	if (!IsValidCellPos(object->GetPos()))
 		return false;
 
-	NativeInfo::Vec2Int index = CellPosToIndex(creature->GetPos());
+	NativeInfo::Vec2Int index = CellPosToIndex(object->GetPos());
 
 	Sector* sector = GetSector(index);
 
 	WRITE_LOCK(this->mutex);
-	_Leave(creature, sector, index);
+	_Leave(object, sector, index);
 	return true;
 }
 
-void Zone::_Leave(std::shared_ptr<Creature> creature, Sector* sector, const NativeInfo::Vec2Int& index)
+void Zone::_Leave(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
 	this->data.objects[index.y][index.x] = 0;
-	sector->Remove(creature->GetObjectType(), creature->GetOID());
+	sector->Remove(object->GetObjectType(), object->GetOID());
 }
 
 void Zone::SendAll(GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos)
@@ -221,7 +221,7 @@ void Zone::SendAllExceptMe(const int64_t& oid, GamePacket::Packet packetType, fl
 	GetSector(CellPosToIndex(cellPos))->SendAllExceptMe(oid, packetType, packet);
 }
 
-void Zone::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& objectList, const bool liveCreatureOnly)
+void Zone::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& creatureList, const bool liveCreatureOnly)
 {
 	if (!IsValidCellPos(creature->GetPos()))
 		return;
@@ -231,7 +231,7 @@ void Zone::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeD
 	Sector* sector = GetSector(index);
 
 	WRITE_LOCK(this->mutex);
-	sector->GetCreatures(creature, rangeDir, range, objectList, liveCreatureOnly);
+	sector->GetCreatures(creature, rangeDir, range, creatureList, liveCreatureOnly);
 }
 
 void Zone::Revive(std::shared_ptr<Creature> creature)

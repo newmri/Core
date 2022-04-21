@@ -22,7 +22,7 @@ int64_t ObjectManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<Co
 	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(creatureInfo);
 	CHARACTER_DATA_MANAGER.CalculateSpeed(characterInfo.job, creatureInfo.speed);
 
-	auto player = std::make_shared<Player>(characterUID, session, creatureInfo, characterInfo);
+	auto player = std::make_shared<Player>(characterUID, session, objectInfo, creatureInfo, characterInfo);
 	ZONE_MANAGER.EnterStartPos(objectInfo.pos_info.mapID, player);
 	objectInfo.pos_info.pos = player->GetPos();
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));

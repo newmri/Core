@@ -82,20 +82,12 @@ void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offs
 	
 }
 
-void Creature::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
-{
-	PACKET_SEND_MANAGER.builder.Clear();
-	auto packedPos = flatbuffers::PackPositionInfo(GetPosInfo());
-	auto message = GamePacket::CreateSC_MOVE_RES(PACKET_SEND_MANAGER.builder, GetObjectType(), GetOID(), &packedPos);
-	packetType = GamePacket::Packet_SC_MOVE_RES;
-	packet = message.Union();
-}
-
 void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 	PACKET_SEND_MANAGER.builder.Clear();
-	auto packedPos = flatbuffers::PackPositionInfo(GetPosInfo());
-	auto message = GamePacket::CreateSC_REVIVE_RES(PACKET_SEND_MANAGER.builder, GetObjectType(), GetOID(), &packedPos);
+	auto objectInfo = GetObjectInfo();
+	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
+	auto message = GamePacket::CreateSC_REVIVE_RES(PACKET_SEND_MANAGER.builder, packedObjectInfo);
 	packetType = GamePacket::Packet_SC_REVIVE_RES;
 	packet = message.Union();
 }
