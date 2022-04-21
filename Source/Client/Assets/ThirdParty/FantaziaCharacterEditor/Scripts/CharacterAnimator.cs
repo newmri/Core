@@ -181,7 +181,7 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     //Takes a string AnimationString which is the name of the animation and assigns it to AnimationToPlay
-    public void ChangeAnimation(Define.CreatureState state, Define.Dir dir, SkillAnimationType skillType)
+    public void ChangeAnimation(Define.ObjectState state, Define.Dir dir, SkillAnimationType skillType)
     {
         if (_dir != dir)
         {
@@ -197,7 +197,7 @@ public class CharacterAnimator : MonoBehaviour
 
         _dir = dir;
 
-        if (state == Define.CreatureState.SKILL)
+        if (state == Define.ObjectState.SKILL)
             AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), skillType.ToString());
         else
             AnimationToPlay = (PlayerAnimations)Enum.Parse(typeof(PlayerAnimations), state.ToString());

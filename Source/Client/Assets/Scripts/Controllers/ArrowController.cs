@@ -14,7 +14,7 @@ public class ArrowController : BaseController
 				break;
 		}
 
-		State = CreatureState.WALK;
+		State = ObjectState.WALK;
 
 		base.Init();
 	}

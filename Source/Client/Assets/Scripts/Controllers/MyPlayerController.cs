@@ -86,23 +86,25 @@ public class MyPlayerController : PlayerController
 		RefreshAdditionalStat();
 	}
 
-	protected override void UpdateController()
+	protected override bool UpdateController()
 	{
 		GetUIKeyInput();
 
 		switch (State)
 		{
-			case CreatureState.IDLE:
-			case CreatureState.WALK:
-			case CreatureState.RUN:
+			case ObjectState.IDLE:
+			case ObjectState.WALK:
+			case ObjectState.RUN:
 				GetDirInput();
 				GetRunInput();
 				break;
 		}
 
-		base.UpdateController();
+		bool isStateRuned = base.UpdateController();
 
 		UpdateSkillCoolTime();
+
+		return isStateRuned;
 	}
 
 	protected override void UpdateIdle()
@@ -196,7 +198,7 @@ public class MyPlayerController : PlayerController
 	{
 		if (_moveKeyPressed == false)
 		{
-			State = CreatureState.IDLE;
+			State = ObjectState.IDLE;
 			SendSetState();
 			return;
 		}
@@ -272,7 +274,7 @@ public class MyPlayerController : PlayerController
 
 	public override bool UseSkill(int skillID)
 	{
-		if (State == CreatureState.SKILL || IsDead())
+		if (State == ObjectState.SKILL || IsDead())
 			return false;
 
 		Skill skill = null;

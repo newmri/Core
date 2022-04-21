@@ -13,6 +13,7 @@ public class CreatureManager
     static int _defaultSortOrder = 0;
     int _sortOrder = _defaultSortOrder;
 
+    public ObjectInfoT MyObjectInfo { get; set; }
     public CreatureInfoT MyCreatureInfo { get; set; }
     public MyCharacterInfoT MyCharacterInfo { get; set; }
     public MyPlayerController MyPlayer { get; set; }
@@ -21,7 +22,7 @@ public class CreatureManager
 
     public void AddMyPlayer()
     {
-        GameObject gameObject = CoreManagers.Obj.Add(MyCreatureInfo.Oid, "Player", "Player");
+        GameObject gameObject = CoreManagers.Obj.Add(MyObjectInfo.Oid, "Player", "Player");
         MyPlayer = gameObject.GetOrAddComponent<MyPlayerController>();
         CoreManagers.Coroutine.Add(MyPlayerSetInfoDelay());
     }
@@ -34,6 +35,7 @@ public class CreatureManager
         // UI 갱신을 위해
         Managers.Account.Money = Managers.Account.Money;
 
+        MyPlayer.ObjectInfo = MyObjectInfo;
         MyPlayer.CreatureInfo = MyCreatureInfo;
         MyPlayer.MyCharacterInfo = MyCharacterInfo;
         MyPlayer.SyncPos();
@@ -43,36 +45,37 @@ public class CreatureManager
         _isMyPlayerLoaded = true;
     }
 
-    public void AddPlayer(CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
+    public void AddPlayer(ObjectInfoT objectInfo, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
     {
-        GameObject gameObject = CoreManagers.Obj.Add(creatureInfo.Oid, "Player", "Player");
+        GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Player", "Player");
         PlayerController playerController = gameObject.GetOrAddComponent<PlayerController>();
-        CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, creatureInfo, characterInfo));
+        CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, objectInfo, creatureInfo, characterInfo));
     }
 
     // Player Init이 끝났을 때 까지 대기
-    IEnumerator PlayerSetInfoDelay(PlayerController playerController, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
+    IEnumerator PlayerSetInfoDelay(PlayerController playerController, ObjectInfoT objectInfo, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
     {
         if (_isMyPlayerLoaded)
             yield return new WaitForEndOfFrame();
         else
             yield return new WaitUntil(() => _isMyPlayerLoaded == true);
 
+        playerController.ObjectInfo = objectInfo;
         playerController.CreatureInfo = creatureInfo;
         playerController.CharacterInfo = characterInfo;
         playerController.SyncPos();
-        _playerList.Add(creatureInfo.Oid, playerController);
+        _playerList.Add(objectInfo.Oid, playerController);
     }
 
-    public void Move(ObjectType objectType, long oid, PositionInfoT pos)
+    public void Move(ObjectInfoT objectInfo)
     {
-        BaseController baseController = GetBaseController(objectType, oid);
-        baseController.PosInfo = pos;
+        BaseController baseController = GetBaseController(objectInfo.ObjectType, objectInfo.Oid);
+        baseController.PosInfo = objectInfo.PosInfo;
     }
 
     BaseController GetBaseController(ObjectType objectType, long oid)
     {
-        if (oid == MyPlayer.CreatureInfo.Oid)
+        if (oid == MyPlayer.ObjectInfo.Oid)
         {
             return MyPlayer;
         }
@@ -95,7 +98,7 @@ public class CreatureManager
 
     CreatureController GetCreatureController(ObjectType objectType, long oid)
     {
-        if (oid == MyPlayer.CreatureInfo.Oid)
+        if (oid == MyPlayer.ObjectInfo.Oid)
         {
             return MyPlayer;
         }
@@ -115,14 +118,14 @@ public class CreatureManager
         return creatureController;
     }
 
-    public void Revive(ObjectType objectType, long oid, PositionInfoT pos)
+    public void Revive(ObjectInfoT objectInfo)
     {
-        BaseController baseController = GetBaseController(objectType, oid);
-        baseController.PosInfo = pos;
+        BaseController baseController = GetBaseController(objectInfo.ObjectType, objectInfo.Oid);
+        baseController.PosInfo = objectInfo.PosInfo;
         baseController.SyncPos();
     }
 
-    public void SetState(ObjectType objectType, long oid, CreatureState state)
+    public void SetState(ObjectType objectType, long oid, ObjectState state)
     {
         BaseController baseController = GetBaseController(objectType, oid);
         baseController.State = state;
@@ -176,6 +179,7 @@ public class CreatureManager
     {
         _isMyPlayerLoaded = false;
         SetSortOrder(_defaultSortOrder);
+        MyObjectInfo = null;
         MyCreatureInfo = null;
         MyCharacterInfo = null;
         MyPlayer = null;

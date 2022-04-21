@@ -63,9 +63,9 @@ public class PlayerController : CreatureController
 		_name.transform.localScale = _animator.transform.localScale;
 	}
 
-	protected override void UpdateController()
+	protected override bool UpdateController()
 	{
-		base.UpdateController();
+		return base.UpdateController();
 	}
 
 	public override bool UseSkill(int skillID)
@@ -74,7 +74,7 @@ public class PlayerController : CreatureController
 			return false;
 
 		_skillAnimationType = (SkillAnimationType)(int)Managers.CharacterData.GetSkill(skillID, "SkillAnimationType");
-		State = CreatureState.SKILL;
+		State = ObjectState.SKILL;
 		return true;
 	}
 
@@ -87,11 +87,11 @@ public class PlayerController : CreatureController
     {
 		switch(State)
         {
-			case CreatureState.HIT:
-			case CreatureState.SKILL:
-				State = CreatureState.IDLE;
+			case ObjectState.HIT:
+			case ObjectState.SKILL:
+				State = ObjectState.IDLE;
 				break;
-			case CreatureState.DEAD:
+			case ObjectState.DEAD:
 				OnDeadEffect();
 				break;
         }

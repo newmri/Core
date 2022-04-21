@@ -30,6 +30,7 @@ class GamePacketHandler
             return;
         }
 
+        Managers.Creature.MyObjectInfo = loginRes.ObjectInfo.Value.UnPack();
         Managers.Creature.MyCreatureInfo = loginRes.CreatureInfo.Value.UnPack();
         Managers.Creature.MyCharacterInfo = loginRes.CharacterInfo.Value.UnPack();
         Managers.Account.Money = loginRes.Money.Value.UnPack().Value;
@@ -46,7 +47,7 @@ class GamePacketHandler
     public static void SC_SPAWN_PLAYER_NOTI(PacketSession session, Root packet)
     {
         SC_SPAWN_PLAYER_NOTI spawnNoti = packet.PacketAsSC_SPAWN_PLAYER_NOTI();
-        Managers.Creature.AddPlayer(spawnNoti.UnPack().CreatureInfo, spawnNoti.UnPack().CharacterInfo);
+        Managers.Creature.AddPlayer(spawnNoti.UnPack().ObjectInfo, spawnNoti.UnPack().CreatureInfo, spawnNoti.UnPack().CharacterInfo);
     }
 
     public static void SC_DESPAWN_OBJECT_NOTI(PacketSession session, Root packet)
@@ -58,7 +59,7 @@ class GamePacketHandler
     public static void SC_MOVE_RES(PacketSession session, Root packet)
     {
         SC_MOVE_RES moveRes = packet.PacketAsSC_MOVE_RES();
-        Managers.Creature.Move(moveRes.ObjectType, moveRes.ObjectId, moveRes.UnPack().PosInfo);
+        Managers.Creature.Move(moveRes.UnPack().ObjectInfo);
     }
     public static void SC_SET_STATE_RES(PacketSession session, Root packet)
     {
@@ -84,7 +85,7 @@ class GamePacketHandler
     public static void SC_REVIVE_RES(PacketSession session, Root packet)
     {
         SC_REVIVE_RES reviveRes = packet.PacketAsSC_REVIVE_RES();
-        Managers.Creature.Revive(reviveRes.ObjectType, reviveRes.Oid, reviveRes.UnPack().PosInfo);
+        Managers.Creature.Revive(reviveRes.UnPack().ObjectInfo);
     } 
 }
 

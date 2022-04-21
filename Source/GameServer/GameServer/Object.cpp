@@ -109,8 +109,7 @@ void Object::SetPos(const NativeInfo::Vec2Int& pos)
 
 void Object::SetStateWithNoLock(const Define::ObjectState state)
 {
-	WRITE_LOCK(this->infoMutex);
-	SetStateWithNoLock(state);
+	this->objectInfo.pos_info.state = state;
 }
 
 void Object::SetDirectionWithNoLock(const NativeInfo::Vec2Int& destPos)

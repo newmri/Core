@@ -9,79 +9,40 @@ using TMPro;
 
 public class BaseController : MonoBehaviour
 {
+	protected bool _updated = false;
+
 	protected bool _isRunning = false;
 	protected Transform _damageTextPos;
 	protected Transform _bloodPos;
 
 	[SerializeField]
-	CreatureInfoT _creatureInfo = new CreatureInfoT();
 
-	public virtual CreatureInfoT CreatureInfo
+	protected ObjectInfoT _objectInfo = new ObjectInfoT();
+
+	public ObjectInfoT ObjectInfo
 	{
-		get { return _creatureInfo; }
+		get { return _objectInfo; }
 		set
 		{
-			if (_creatureInfo.Equals(value))
+			if (_objectInfo.Equals(value))
 				return;
 
-			PosInfo = value.PosInfo;
-			_creatureInfo = value;
+			_objectInfo = value;
 		}
 	}
 
 	public bool IsDead()
 	{
-		return (State == CreatureState.DEAD);
+		return (State == ObjectState.DEAD);
 	}
 
-	public float MoveSpeed
-	{
-		get { return CreatureInfo.Speed.Value[(int)SpeedType.MOVE_SPEED]; }
-		set { CreatureInfo.Speed.Value[(int)SpeedType.MOVE_SPEED] = value; }
-	}
-
-	public virtual int HP
-	{
-		get { return CreatureInfo.Hp; }
-		set
-		{
-			if(0 >= value)
-            {
-				CreatureInfo.Hp = 0;
-				OnDead();
-				return;
-			}
-
-			CreatureInfo.Hp = value; 
-		}
-	}
-
-	public virtual int MP
-	{
-		get { return CreatureInfo.Mp; }
-		set { CreatureInfo.Mp = value; }
-	}
-
-	public byte Level
-	{
-		get { return CreatureInfo.Level; }
-		set { CreatureInfo.Level = value; }
-	}
-
-	public long EXP
-	{
-		get { return CreatureInfo.Exp; }
-		set { CreatureInfo.Exp = value; }
-	}
-
-	protected bool _updated = false;
 
 	public PositionInfoT PosInfo
 	{
-		get { return _creatureInfo.PosInfo; }
+		get { return _objectInfo.PosInfo; }
 		set
 		{
-			if (_creatureInfo.PosInfo.Equals(value))
+			if (_objectInfo.PosInfo.Equals(value))
 				return;
 
 			CellPos = new Vector3Int(value.Pos.X, value.Pos.Y, 0);
@@ -114,7 +75,7 @@ public class BaseController : MonoBehaviour
 		}
 	}
 
-	public virtual CreatureState State
+	public virtual ObjectState State
 	{
 		get { return PosInfo.State; }
 		set
@@ -166,31 +127,31 @@ public class BaseController : MonoBehaviour
 		UpdateAnimation();
 	}
 
-	protected virtual void UpdateController()
+	protected virtual bool UpdateController()
 	{
 		switch (State)
 		{
-			case CreatureState.IDLE:
+			case ObjectState.IDLE:
 				UpdateIdle();
-				break;
-			case CreatureState.WALK:
-			case CreatureState.RUN:
+				return true;
+			case ObjectState.WALK:
+			case ObjectState.RUN:
 				UpdateMoving();
-				break;
-			case CreatureState.HIT:
-				UpdateHit();
-				break;
-			case CreatureState.SKILL:
-				UpdateSkill();
-				break;
-			case CreatureState.DEAD:
-				UpdateDead();
-				break;
+				return true;
 		}
+
+		return false;
 	}
 
 	protected virtual void UpdateIdle()
 	{
+	}
+
+
+	public virtual float MoveSpeed
+	{
+		get { return 0.0f; }
+		set { }
 	}
 
 	// 스르륵 이동하는 것을 처리
@@ -213,48 +174,17 @@ public class BaseController : MonoBehaviour
 			SetMoveState();
 		}
 	}
-	
+
 	protected void SetMoveState()
 	{
 		if (_isRunning)
-			State = CreatureState.RUN;
+			State = ObjectState.RUN;
 		else
-			State = CreatureState.WALK;
+			State = ObjectState.WALK;
 	}
 
 	protected virtual void MoveToNextPos()
 	{
 
-	}
-
-	protected virtual void UpdateHit()
-	{
-
-	}
-
-	protected virtual void UpdateSkill()
-	{
-
-	}
-
-	protected virtual void UpdateDead()
-	{
-
-	}
-
-	public virtual void OnHit(int damage, bool isCritical)
-    {
-		State = CreatureState.HIT;
-		HP -= damage;
-
-		DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _damageTextPos.position, 30).GetComponent<DamageText>();
-		text.Damage = damage;
-
-		CoreManagers.Obj.Add("Effect", "HitBlood", _bloodPos.position, 30);
-	}
-
-	protected virtual void OnDead()
-    {
-		State = CreatureState.DEAD;
 	}
 }
