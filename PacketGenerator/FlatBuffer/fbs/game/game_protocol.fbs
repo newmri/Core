@@ -61,6 +61,7 @@ union CharacterInfoBase
 table SC_LOGIN_RES
 {
     result:ErrorCode;
+    object_info:Info.ObjectInfo;
     creature_info:Info.CreatureInfo;
     character_info:MyCharacterInfo;
     money:Info.MoneyWrapper;
@@ -80,6 +81,7 @@ table CS_LOGOUT_NOTI
 
 table SC_SPAWN_PLAYER_NOTI
 {
+    object_info:Info.ObjectInfo;
     creature_info:Info.CreatureInfo;
     character_info:CharacterInfo;
 }
@@ -97,9 +99,7 @@ table CS_MOVE_REQ
 
 table SC_MOVE_RES
 {
-    object_type:Define.ObjectType;
-    object_id:int64;
-    pos_info:Info.PositionInfo (native_inline);
+    object_info:Info.ObjectInfo (native_inline);
 }
 
 table CS_SET_STATE_REQ
@@ -145,9 +145,7 @@ table CS_REVIVE_REQ
 
 table SC_REVIVE_RES
 {
-    object_type:Define.ObjectType;
-    oid:int64;
-    pos_info:Info.PositionInfo (native_inline);
+   object_info:Info.ObjectInfo (native_inline);
 }
 
 table Root
