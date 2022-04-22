@@ -149,7 +149,7 @@ Sector* Zone::GetSector(const NativeInfo::Vec2Int& index)
 	return &this->sectors[index.y / this->SectorCells][index.x / this->SectorCells];
 }
 
-bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkPath, const bool checkObjects)
+bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool isRun, const bool checkPath, const bool checkObjects)
 {
 	NativeInfo::Vec2Int cellSourcePos = object->GetPos();
 	if (!IsValidCellPos(cellSourcePos) || !IsValidCellPos(cellDestPos))
@@ -169,7 +169,10 @@ bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellD
 	if (!CanMove(destIndex, checkPath, checkObjects))
 		return false;
 
-	object->SetMove(Define::ObjectState_WALK, cellDestPos);
+	if(isRun)
+		object->SetMove(Define::ObjectState_RUN, cellDestPos);
+	else
+		object->SetMove(Define::ObjectState_WALK, cellDestPos);
 
 	if (sourceSector != destSector)
 	{

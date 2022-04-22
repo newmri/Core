@@ -1171,6 +1171,7 @@ flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(flatbuf
 
 struct CS_MOVE_REQT : public flatbuffers::NativeTable {
   typedef CS_MOVE_REQ TableType;
+  bool is_run = false;
   NativeInfo::PositionInfo pos_info{};
 };
 
@@ -1178,13 +1179,18 @@ struct CS_MOVE_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef CS_MOVE_REQT NativeTableType;
   typedef CS_MOVE_REQBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_POS_INFO = 4
+    VT_IS_RUN = 4,
+    VT_POS_INFO = 6
   };
+  bool is_run() const {
+    return GetField<uint8_t>(VT_IS_RUN, 0) != 0;
+  }
   const Info::PositionInfo *pos_info() const {
     return GetStruct<const Info::PositionInfo *>(VT_POS_INFO);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_IS_RUN) &&
            VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
            verifier.EndTable();
   }
@@ -1197,6 +1203,9 @@ struct CS_MOVE_REQBuilder {
   typedef CS_MOVE_REQ Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
+  void add_is_run(bool is_run) {
+    fbb_.AddElement<uint8_t>(CS_MOVE_REQ::VT_IS_RUN, static_cast<uint8_t>(is_run), 0);
+  }
   void add_pos_info(const Info::PositionInfo *pos_info) {
     fbb_.AddStruct(CS_MOVE_REQ::VT_POS_INFO, pos_info);
   }
@@ -1213,9 +1222,11 @@ struct CS_MOVE_REQBuilder {
 
 inline flatbuffers::Offset<CS_MOVE_REQ> CreateCS_MOVE_REQ(
     flatbuffers::FlatBufferBuilder &_fbb,
+    bool is_run = false,
     const Info::PositionInfo *pos_info = 0) {
   CS_MOVE_REQBuilder builder_(_fbb);
   builder_.add_pos_info(pos_info);
+  builder_.add_is_run(is_run);
   return builder_.Finish();
 }
 
@@ -2289,6 +2300,7 @@ inline CS_MOVE_REQT *CS_MOVE_REQ::UnPack(const flatbuffers::resolver_function_t 
 inline void CS_MOVE_REQ::UnPackTo(CS_MOVE_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
+  { auto _e = is_run(); _o->is_run = _e; }
   { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
 }
 
@@ -2300,9 +2312,11 @@ inline flatbuffers::Offset<CS_MOVE_REQ> CreateCS_MOVE_REQ(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_MOVE_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _is_run = _o->is_run;
   auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
   return GamePacket::CreateCS_MOVE_REQ(
       _fbb,
+      _is_run,
       &_pos_info);
 }
 

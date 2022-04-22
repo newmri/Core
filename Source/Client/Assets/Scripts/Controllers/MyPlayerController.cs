@@ -243,6 +243,7 @@ public class MyPlayerController : PlayerController
 		{
 			FlatBufferBuilder builder = new FlatBufferBuilder(1);
 			CS_MOVE_REQT moveReq = new CS_MOVE_REQT();
+			moveReq.IsRun = _isRunning;
 			moveReq.PosInfo = PosInfo;
 			var message = CS_MOVE_REQ.Pack(builder, moveReq);
 			Managers.GameNetwork.Send(builder, Packet.CS_MOVE_REQ, message.Value);

@@ -25,7 +25,7 @@ protected:
 	Sector* GetSector(const NativeInfo::Vec2Int& index);
 
 public:
-	bool Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkPath, const bool checkObjects);
+	bool Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool isRun, const bool checkPath, const bool checkObjects);
 
 public:
 	bool Leave(std::shared_ptr<Object> object);

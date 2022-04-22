@@ -673,10 +673,21 @@ public struct CS_MOVE_REQ : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public CS_MOVE_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public bool IsRun { get { int o = __p.__offset(4); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(6); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
-  public static void StartCS_MOVE_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(0, posInfoOffset.Value, 0); }
+  public static Offset<GamePacket.CS_MOVE_REQ> CreateCS_MOVE_REQ(FlatBufferBuilder builder,
+      bool is_run = false,
+      Info.PositionInfoT pos_info = null) {
+    builder.StartTable(2);
+    CS_MOVE_REQ.AddPosInfo(builder, Info.PositionInfo.Pack(builder, pos_info));
+    CS_MOVE_REQ.AddIsRun(builder, is_run);
+    return CS_MOVE_REQ.EndCS_MOVE_REQ(builder);
+  }
+
+  public static void StartCS_MOVE_REQ(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddIsRun(FlatBufferBuilder builder, bool isRun) { builder.AddBool(0, isRun, false); }
+  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(1, posInfoOffset.Value, 0); }
   public static Offset<GamePacket.CS_MOVE_REQ> EndCS_MOVE_REQ(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.CS_MOVE_REQ>(o);
@@ -687,21 +698,25 @@ public struct CS_MOVE_REQ : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(CS_MOVE_REQT _o) {
+    _o.IsRun = this.IsRun;
     _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
   }
   public static Offset<GamePacket.CS_MOVE_REQ> Pack(FlatBufferBuilder builder, CS_MOVE_REQT _o) {
     if (_o == null) return default(Offset<GamePacket.CS_MOVE_REQ>);
-    StartCS_MOVE_REQ(builder);
-    AddPosInfo(builder, Info.PositionInfo.Pack(builder, _o.PosInfo));
-    return EndCS_MOVE_REQ(builder);
+    return CreateCS_MOVE_REQ(
+      builder,
+      _o.IsRun,
+      _o.PosInfo);
   }
 };
 
 public class CS_MOVE_REQT
 {
+  public bool IsRun { get; set; }
   public Info.PositionInfoT PosInfo { get; set; }
 
   public CS_MOVE_REQT() {
+    this.IsRun = false;
     this.PosInfo = new Info.PositionInfoT();
   }
 }

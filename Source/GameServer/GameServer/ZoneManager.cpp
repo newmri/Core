@@ -26,9 +26,9 @@ bool ZoneManager::Enter(const int32_t id, std::shared_ptr<Object> object, const 
 	return this->zoneList[id]->Enter(object, object->GetPos(), checkPath, checkObjects);
 }
 
-bool ZoneManager::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkPath, const bool checkObjects)
+bool ZoneManager::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool isRun, const bool checkPath, const bool checkObjects)
 {
-	return this->zoneList[object->GetMapID()]->Move(object, cellDestPos, checkPath, checkObjects);
+	return this->zoneList[object->GetMapID()]->Move(object, cellDestPos, isRun, checkPath, checkObjects);
 }
 
 bool ZoneManager::Leave(std::shared_ptr<Object> object)

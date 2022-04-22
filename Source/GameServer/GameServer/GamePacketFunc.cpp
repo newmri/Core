@@ -116,6 +116,7 @@ void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, con
 		return;
 
 	auto raw = static_cast<const GamePacket::CS_MOVE_REQ*>(data);
+	auto isRun = raw->UnPack()->is_run;
 	auto destPos = raw->UnPack()->pos_info.pos;
 	if (!player->IsValidMoveSpeed(destPos))
 		return;
@@ -123,7 +124,7 @@ void GamePacketFunc::CS_MOVE_REQ(std::shared_ptr<CoreClientSession> session, con
 	if (player->IsDead())
 		return;
 
-	ZONE_MANAGER.Move(player, destPos);
+	ZONE_MANAGER.Move(player, destPos, isRun);
 }
 
 void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)

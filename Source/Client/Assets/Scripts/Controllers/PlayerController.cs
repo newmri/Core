@@ -39,6 +39,26 @@ public class PlayerController : CreatureController
 		}
 	}
 
+	public override ObjectState State
+	{
+		get { return PosInfo.State; }
+		set
+		{
+			if (PosInfo.State == value)
+				return;
+
+			PosInfo.State = value;
+
+			if (value == ObjectState.RUN)
+				_isRunning = true;
+			else
+				_isRunning = false;
+
+			UpdateAnimation();
+			_updated = true;
+		}
+	}
+
 	protected override void Init()
 	{
 		base.Init();

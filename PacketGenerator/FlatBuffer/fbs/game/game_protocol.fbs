@@ -95,6 +95,7 @@ table SC_DESPAWN_OBJECT_NOTI
 
 table CS_MOVE_REQ
 {
+    is_run:bool;
     pos_info:Info.PositionInfo (native_inline);
 }
 

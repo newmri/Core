@@ -14,7 +14,7 @@ public:
 	bool Enter(const int32_t id, std::shared_ptr<Object> object, const bool checkPath = true, const bool checkObjects = false);
 
 public:
-	bool Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkPath = true, const bool checkObjects = false);
+	bool Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool isRun = false, const bool checkPath = true, const bool checkObjects = false);
 
 public:
 	bool Leave(std::shared_ptr<Object> object);
