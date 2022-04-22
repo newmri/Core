@@ -46,7 +46,7 @@ protected:
 
 protected:
 	CACHE_ALIGN std::shared_mutex skillMutex;
-	std::map<int32_t, Skill> skillList;
+	std::map<int32_t, std::unique_ptr<Skill>> skillList;
 
 private:
 	TIME_VALUE deadTime = 0;

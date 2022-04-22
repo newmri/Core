@@ -8,6 +8,7 @@ TagManager:
   - Character
   - Text
   - Effect
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - Map
   - Player
-  - Arrow
+  - Projectile
   - Text
   - Effect
   - 

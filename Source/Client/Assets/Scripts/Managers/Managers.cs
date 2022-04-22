@@ -20,7 +20,7 @@ public class Managers : MonoBehaviour
     LoginDataManager _loginData = new LoginDataManager();
     MapManager _map = new MapManager();
     AccountManager _account = new AccountManager();
-    CreatureManager _creature = new CreatureManager();
+    ObjectManager _object = new ObjectManager();
     CharacterDataManager _characterData = new CharacterDataManager();
 
     public static UIManager UI { get { return Instance._ui; } }
@@ -30,7 +30,7 @@ public class Managers : MonoBehaviour
     public static LoginDataManager LoginData { get { return Instance._loginData; } }
     public static MapManager Map { get { return Instance._map; } }
     public static AccountManager Account { get { return Instance._account; } }
-    public static CreatureManager Creature { get { return Instance._creature; } }
+    public static ObjectManager Object { get { return Instance._object; } }
     public static CharacterDataManager CharacterData { get { return Instance._characterData; } }
 
     #endregion
@@ -74,6 +74,6 @@ public class Managers : MonoBehaviour
     public static void Clear()
     {
         UI.Clear();
-        Creature.Clear();
+        Object.Clear();
     }
 }

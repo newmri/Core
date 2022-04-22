@@ -1,12 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum SkillAnimationType : byte
-{
-    NONE,
-    ATTACK_1,
-    ATTACK_2
-};
 
 public class Skill
 {

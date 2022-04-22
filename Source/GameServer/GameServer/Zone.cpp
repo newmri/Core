@@ -85,12 +85,12 @@ void Zone::InitSector(void)
 	}
 }
 
-bool Zone::EnterStartPos(std::shared_ptr<Object> object, const bool checkObjects)
+bool Zone::EnterStartPos(std::shared_ptr<Object> object, const bool checkPath, const bool checkObjects)
 {
 	auto backupPos = object->GetPos();
 	object->SetPos(this->data.startCellPos);
 
-	if (!Enter(object, this->data.startCellPos, checkObjects))
+	if (!Enter(object, this->data.startCellPos, checkPath, checkObjects))
 	{
 		object->SetPos(backupPos);
 		return false;
@@ -99,7 +99,7 @@ bool Zone::EnterStartPos(std::shared_ptr<Object> object, const bool checkObjects
 	return true;
 }
 
-bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellPos, const bool checkObjects)
+bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellPos, const bool checkPath, const bool checkObjects)
 {
 	if (!IsValidCellPos(cellPos))
 		return false;
@@ -110,7 +110,7 @@ bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cell
 
 	WRITE_LOCK(this->mutex);
 
-	if (!CanMove(index, checkObjects))
+	if (!CanMove(index, checkPath, checkObjects))
 		return false;
 
 	_Enter(object, sector, index);
@@ -123,9 +123,9 @@ void Zone::_Enter(std::shared_ptr<Object> object, Sector* sector, const NativeIn
 	sector->Add(object);
 }
 
-bool Zone::CanMove(const NativeInfo::Vec2Int& index, const bool checkObjects = false) const
+bool Zone::CanMove(const NativeInfo::Vec2Int& index, const bool checkPath, const bool checkObjects) const
 {
-	return (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) || IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))
+	return (!checkPath || (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) || IS_SAME(Define::PathType_START, this->data.path[index.y][index.x])))
 		&& (!checkObjects || IS_SAME(0, this->data.objects[index.y][index.x]));
 }
 
@@ -149,7 +149,7 @@ Sector* Zone::GetSector(const NativeInfo::Vec2Int& index)
 	return &this->sectors[index.y / this->SectorCells][index.x / this->SectorCells];
 }
 
-bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)
+bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkPath, const bool checkObjects)
 {
 	NativeInfo::Vec2Int cellSourcePos = object->GetPos();
 	if (!IsValidCellPos(cellSourcePos) || !IsValidCellPos(cellDestPos))
@@ -166,7 +166,7 @@ bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellD
 
 	WRITE_LOCK(this->mutex);
 
-	if (!CanMove(destIndex, checkObjects))
+	if (!CanMove(destIndex, checkPath, checkObjects))
 		return false;
 
 	object->SetMove(Define::ObjectState_WALK, cellDestPos);

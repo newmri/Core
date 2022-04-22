@@ -16,6 +16,7 @@ struct SkillData
 {
 	int32_t skillID = 0;
 	Define::SkillType skillType = Define::SkillType_NONE;
+	Define::SkillAnimationType skillAnimationType = Define::SkillAnimationType_NONE;
 	Define::Job job = Define::Job_MIN;
 	TIME_VALUE skillHitTime = 0;
 	Define::AbilityType damageType = Define::AbilityType_DAMAGE;

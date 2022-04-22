@@ -8,5 +8,5 @@ public:
 	ProjectileSkill(const std::shared_ptr<Creature> owner, const SkillData& skillData);
 
 protected:
-	virtual void DoAction(void);
+	virtual void DoAction(void) override;
 };

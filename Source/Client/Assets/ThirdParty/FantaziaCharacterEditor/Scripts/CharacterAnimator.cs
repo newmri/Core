@@ -89,11 +89,6 @@ public class CharacterAnimator : MonoBehaviour
 
             //CoreManagers.Obj.Add(ArrowPrefab, cellPos, 100);
         }
-        else if(e.Data.Name == "OnDamaging" || e.Data.Name == "OnFinishingCasting")
-        {
-            //Managers.Creature.MyPlayer.SendUseSkill();
-        }
-
     }
 
     public void FireArrow_Archer()
@@ -181,7 +176,7 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     //Takes a string AnimationString which is the name of the animation and assigns it to AnimationToPlay
-    public void ChangeAnimation(Define.ObjectState state, Define.Dir dir, SkillAnimationType skillType)
+    public void ChangeAnimation(Define.ObjectState state, Define.Dir dir, Define.SkillAnimationType skillType)
     {
         if (_dir != dir)
         {

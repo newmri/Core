@@ -35,6 +35,7 @@ public enum Packet : byte
   SC_GET_DAMAGE_NOTI = 14,
   CS_REVIVE_REQ = 15,
   SC_REVIVE_RES = 16,
+  SC_SPAWN_PROJECTILE_NOTI = 17,
 };
 
 public class PacketUnion {
@@ -63,6 +64,7 @@ public class PacketUnion {
   public GamePacket.SC_GET_DAMAGE_NOTIT AsSC_GET_DAMAGE_NOTI() { return this.As<GamePacket.SC_GET_DAMAGE_NOTIT>(); }
   public GamePacket.CS_REVIVE_REQT AsCS_REVIVE_REQ() { return this.As<GamePacket.CS_REVIVE_REQT>(); }
   public GamePacket.SC_REVIVE_REST AsSC_REVIVE_RES() { return this.As<GamePacket.SC_REVIVE_REST>(); }
+  public GamePacket.SC_SPAWN_PROJECTILE_NOTIT AsSC_SPAWN_PROJECTILE_NOTI() { return this.As<GamePacket.SC_SPAWN_PROJECTILE_NOTIT>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -83,6 +85,7 @@ public class PacketUnion {
       case Packet.SC_GET_DAMAGE_NOTI: return GamePacket.SC_GET_DAMAGE_NOTI.Pack(builder, _o.AsSC_GET_DAMAGE_NOTI()).Value;
       case Packet.CS_REVIVE_REQ: return GamePacket.CS_REVIVE_REQ.Pack(builder, _o.AsCS_REVIVE_REQ()).Value;
       case Packet.SC_REVIVE_RES: return GamePacket.SC_REVIVE_RES.Pack(builder, _o.AsSC_REVIVE_RES()).Value;
+      case Packet.SC_SPAWN_PROJECTILE_NOTI: return GamePacket.SC_SPAWN_PROJECTILE_NOTI.Pack(builder, _o.AsSC_SPAWN_PROJECTILE_NOTI()).Value;
     }
   }
 }
@@ -1209,6 +1212,65 @@ public class SC_REVIVE_REST
   }
 }
 
+public struct SC_SPAWN_PROJECTILE_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_SPAWN_PROJECTILE_NOTI GetRootAsSC_SPAWN_PROJECTILE_NOTI(ByteBuffer _bb) { return GetRootAsSC_SPAWN_PROJECTILE_NOTI(_bb, new SC_SPAWN_PROJECTILE_NOTI()); }
+  public static SC_SPAWN_PROJECTILE_NOTI GetRootAsSC_SPAWN_PROJECTILE_NOTI(ByteBuffer _bb, SC_SPAWN_PROJECTILE_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_SPAWN_PROJECTILE_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public float Speed { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+
+  public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder,
+      Offset<Info.ObjectInfo> object_infoOffset = default(Offset<Info.ObjectInfo>),
+      float speed = 0.0f) {
+    builder.StartTable(2);
+    SC_SPAWN_PROJECTILE_NOTI.AddSpeed(builder, speed);
+    SC_SPAWN_PROJECTILE_NOTI.AddObjectInfo(builder, object_infoOffset);
+    return SC_SPAWN_PROJECTILE_NOTI.EndSC_SPAWN_PROJECTILE_NOTI(builder);
+  }
+
+  public static void StartSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddOffset(0, objectInfoOffset.Value, 0); }
+  public static void AddSpeed(FlatBufferBuilder builder, float speed) { builder.AddFloat(1, speed, 0.0f); }
+  public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> EndSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI>(o);
+  }
+  public SC_SPAWN_PROJECTILE_NOTIT UnPack() {
+    var _o = new SC_SPAWN_PROJECTILE_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_SPAWN_PROJECTILE_NOTIT _o) {
+    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
+    _o.Speed = this.Speed;
+  }
+  public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> Pack(FlatBufferBuilder builder, SC_SPAWN_PROJECTILE_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI>);
+    var _object_info = _o.ObjectInfo == null ? default(Offset<Info.ObjectInfo>) : Info.ObjectInfo.Pack(builder, _o.ObjectInfo);
+    return CreateSC_SPAWN_PROJECTILE_NOTI(
+      builder,
+      _object_info,
+      _o.Speed);
+  }
+};
+
+public class SC_SPAWN_PROJECTILE_NOTIT
+{
+  public Info.ObjectInfoT ObjectInfo { get; set; }
+  public float Speed { get; set; }
+
+  public SC_SPAWN_PROJECTILE_NOTIT() {
+    this.ObjectInfo = null;
+    this.Speed = 0.0f;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -1237,6 +1299,7 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_GET_DAMAGE_NOTI PacketAsSC_GET_DAMAGE_NOTI() { return Packet<GamePacket.SC_GET_DAMAGE_NOTI>().Value; }
   public GamePacket.CS_REVIVE_REQ PacketAsCS_REVIVE_REQ() { return Packet<GamePacket.CS_REVIVE_REQ>().Value; }
   public GamePacket.SC_REVIVE_RES PacketAsSC_REVIVE_RES() { return Packet<GamePacket.SC_REVIVE_RES>().Value; }
+  public GamePacket.SC_SPAWN_PROJECTILE_NOTI PacketAsSC_SPAWN_PROJECTILE_NOTI() { return Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -1313,6 +1376,9 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_REVIVE_RES:
         _o.Packet.Value = this.Packet<GamePacket.SC_REVIVE_RES>().HasValue ? this.Packet<GamePacket.SC_REVIVE_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_SPAWN_PROJECTILE_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().HasValue ? this.Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().Value.UnPack() : null;
         break;
     }
   }

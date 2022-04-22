@@ -558,15 +558,17 @@ inline const char *EnumNameMoneyType(MoneyType e) {
 
 enum ObjectType : uint8_t {
   ObjectType_PLAYER = 0,
-  ObjectType_MONSTER = 1,
-  ObjectType_NPC = 2,
+  ObjectType_PROJECTILE = 1,
+  ObjectType_MONSTER = 2,
+  ObjectType_NPC = 3,
   ObjectType_MIN = ObjectType_PLAYER,
   ObjectType_MAX = ObjectType_NPC
 };
 
-inline const ObjectType (&EnumValuesObjectType())[3] {
+inline const ObjectType (&EnumValuesObjectType())[4] {
   static const ObjectType values[] = {
     ObjectType_PLAYER,
+    ObjectType_PROJECTILE,
     ObjectType_MONSTER,
     ObjectType_NPC
   };
@@ -574,8 +576,9 @@ inline const ObjectType (&EnumValuesObjectType())[3] {
 }
 
 inline const char * const *EnumNamesObjectType() {
-  static const char * const names[4] = {
+  static const char * const names[5] = {
     "PLAYER",
+    "PROJECTILE",
     "MONSTER",
     "NPC",
     nullptr
@@ -656,6 +659,39 @@ inline const char *EnumNameSkillType(SkillType e) {
   if (flatbuffers::IsOutRange(e, SkillType_NONE, SkillType_PROJECTILE)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesSkillType()[index];
+}
+
+enum SkillAnimationType : uint8_t {
+  SkillAnimationType_NONE = 0,
+  SkillAnimationType_ATTACK_1 = 1,
+  SkillAnimationType_ATTACK_2 = 2,
+  SkillAnimationType_MIN = SkillAnimationType_NONE,
+  SkillAnimationType_MAX = SkillAnimationType_ATTACK_2
+};
+
+inline const SkillAnimationType (&EnumValuesSkillAnimationType())[3] {
+  static const SkillAnimationType values[] = {
+    SkillAnimationType_NONE,
+    SkillAnimationType_ATTACK_1,
+    SkillAnimationType_ATTACK_2
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesSkillAnimationType() {
+  static const char * const names[4] = {
+    "NONE",
+    "ATTACK_1",
+    "ATTACK_2",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameSkillAnimationType(SkillAnimationType e) {
+  if (flatbuffers::IsOutRange(e, SkillAnimationType_NONE, SkillAnimationType_ATTACK_2)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesSkillAnimationType()[index];
 }
 
 }  // namespace Define

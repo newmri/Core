@@ -138,8 +138,9 @@ public enum MoneyType : byte
 public enum ObjectType : byte
 {
   PLAYER = 0,
-  MONSTER = 1,
-  NPC = 2,
+  PROJECTILE = 1,
+  MONSTER = 2,
+  NPC = 3,
 };
 
 public enum PathType : byte
@@ -155,6 +156,13 @@ public enum SkillType : byte
   NONE = 0,
   NORMAL = 1,
   PROJECTILE = 2,
+};
+
+public enum SkillAnimationType : byte
+{
+  NONE = 0,
+  ATTACK_1 = 1,
+  ATTACK_2 = 2,
 };
 
 

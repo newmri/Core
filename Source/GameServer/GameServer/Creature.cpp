@@ -111,7 +111,7 @@ void Creature::UseSkill(const int32_t skillID)
 	if(IS_SAME(iter, this->skillList.end()))
 		return;
 
-	iter->second.UseSkill();
+	iter->second->UseSkill();
 }
 
 bool Creature::OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType)

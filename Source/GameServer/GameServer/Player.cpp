@@ -123,10 +123,10 @@ void Player::AddSkill(const int32_t skillID)
 	switch (skillData.skillType)
 	{
 	case Define::SkillType_NORMAL:
-		this->skillList[skillID] = Skill(Object::downcasted_shared_from_this<Creature>(), skillData);
+		this->skillList[skillID] = std::make_unique<Skill>(Object::downcasted_shared_from_this<Creature>(), skillData);
 		break;
 	case Define::SkillType_PROJECTILE:
-		this->skillList[skillID] = ProjectileSkill(Object::downcasted_shared_from_this<Creature>(), skillData);
+		this->skillList[skillID] = std::make_unique<ProjectileSkill>(Object::downcasted_shared_from_this<Creature>(), skillData);
 		break;
 	}
 }

@@ -16,7 +16,7 @@ public class GameScene : BaseScene
         Managers.CharacterData.Load();
 
         Managers.Account.UIGameScene = Managers.UI.ShowSceneUI<UIGameScene>();
-        Managers.Creature.AddMyPlayer();
+        Managers.Object.AddMyPlayer();
     }
 
     public override void Clear()

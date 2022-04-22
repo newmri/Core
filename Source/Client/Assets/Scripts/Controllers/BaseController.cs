@@ -19,7 +19,7 @@ public class BaseController : MonoBehaviour
 
 	protected ObjectInfoT _objectInfo = new ObjectInfoT();
 
-	public ObjectInfoT ObjectInfo
+	public virtual ObjectInfoT ObjectInfo
 	{
 		get { return _objectInfo; }
 		set
@@ -148,10 +148,11 @@ public class BaseController : MonoBehaviour
 	}
 
 
+	float _moveSpeed;
 	public virtual float MoveSpeed
 	{
-		get { return 0.0f; }
-		set { }
+		get { return _moveSpeed; }
+		set { _moveSpeed = value; }
 	}
 
 	// 스르륵 이동하는 것을 처리

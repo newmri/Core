@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "info_protocol_generated.h"
 #include "define_protocol_generated.h"
+#include "info_protocol_generated.h"
 
 namespace GamePacket {
 
@@ -87,6 +87,10 @@ struct SC_REVIVE_RES;
 struct SC_REVIVE_RESBuilder;
 struct SC_REVIVE_REST;
 
+struct SC_SPAWN_PROJECTILE_NOTI;
+struct SC_SPAWN_PROJECTILE_NOTIBuilder;
+struct SC_SPAWN_PROJECTILE_NOTIT;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -142,11 +146,12 @@ enum Packet : uint8_t {
   Packet_SC_GET_DAMAGE_NOTI = 14,
   Packet_CS_REVIVE_REQ = 15,
   Packet_SC_REVIVE_RES = 16,
+  Packet_SC_SPAWN_PROJECTILE_NOTI = 17,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_REVIVE_RES
+  Packet_MAX = Packet_SC_SPAWN_PROJECTILE_NOTI
 };
 
-inline const Packet (&EnumValuesPacket())[17] {
+inline const Packet (&EnumValuesPacket())[18] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -164,13 +169,14 @@ inline const Packet (&EnumValuesPacket())[17] {
     Packet_SC_USE_SKILL_RES,
     Packet_SC_GET_DAMAGE_NOTI,
     Packet_CS_REVIVE_REQ,
-    Packet_SC_REVIVE_RES
+    Packet_SC_REVIVE_RES,
+    Packet_SC_SPAWN_PROJECTILE_NOTI
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[18] = {
+  static const char * const names[19] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -188,13 +194,14 @@ inline const char * const *EnumNamesPacket() {
     "SC_GET_DAMAGE_NOTI",
     "CS_REVIVE_REQ",
     "SC_REVIVE_RES",
+    "SC_SPAWN_PROJECTILE_NOTI",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_REVIVE_RES)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_SPAWN_PROJECTILE_NOTI)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -265,6 +272,10 @@ template<> struct PacketTraits<GamePacket::CS_REVIVE_REQ> {
 
 template<> struct PacketTraits<GamePacket::SC_REVIVE_RES> {
   static const Packet enum_value = Packet_SC_REVIVE_RES;
+};
+
+template<> struct PacketTraits<GamePacket::SC_SPAWN_PROJECTILE_NOTI> {
+  static const Packet enum_value = Packet_SC_SPAWN_PROJECTILE_NOTI;
 };
 
 struct PacketUnion {
@@ -426,6 +437,14 @@ struct PacketUnion {
   const GamePacket::SC_REVIVE_REST *AsSC_REVIVE_RES() const {
     return type == Packet_SC_REVIVE_RES ?
       reinterpret_cast<const GamePacket::SC_REVIVE_REST *>(value) : nullptr;
+  }
+  GamePacket::SC_SPAWN_PROJECTILE_NOTIT *AsSC_SPAWN_PROJECTILE_NOTI() {
+    return type == Packet_SC_SPAWN_PROJECTILE_NOTI ?
+      reinterpret_cast<GamePacket::SC_SPAWN_PROJECTILE_NOTIT *>(value) : nullptr;
+  }
+  const GamePacket::SC_SPAWN_PROJECTILE_NOTIT *AsSC_SPAWN_PROJECTILE_NOTI() const {
+    return type == Packet_SC_SPAWN_PROJECTILE_NOTI ?
+      reinterpret_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTIT *>(value) : nullptr;
   }
 };
 
@@ -1747,6 +1766,70 @@ inline flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(
 
 flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_REVIVE_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct SC_SPAWN_PROJECTILE_NOTIT : public flatbuffers::NativeTable {
+  typedef SC_SPAWN_PROJECTILE_NOTI TableType;
+  std::unique_ptr<Info::ObjectInfoT> object_info{};
+  float speed = 0.0f;
+};
+
+struct SC_SPAWN_PROJECTILE_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_SPAWN_PROJECTILE_NOTIT NativeTableType;
+  typedef SC_SPAWN_PROJECTILE_NOTIBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_OBJECT_INFO = 4,
+    VT_SPEED = 6
+  };
+  const Info::ObjectInfo *object_info() const {
+    return GetPointer<const Info::ObjectInfo *>(VT_OBJECT_INFO);
+  }
+  float speed() const {
+    return GetField<float>(VT_SPEED, 0.0f);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_OBJECT_INFO) &&
+           verifier.VerifyTable(object_info()) &&
+           VerifyField<float>(verifier, VT_SPEED) &&
+           verifier.EndTable();
+  }
+  SC_SPAWN_PROJECTILE_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_SPAWN_PROJECTILE_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PROJECTILE_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_SPAWN_PROJECTILE_NOTIBuilder {
+  typedef SC_SPAWN_PROJECTILE_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_object_info(flatbuffers::Offset<Info::ObjectInfo> object_info) {
+    fbb_.AddOffset(SC_SPAWN_PROJECTILE_NOTI::VT_OBJECT_INFO, object_info);
+  }
+  void add_speed(float speed) {
+    fbb_.AddElement<float>(SC_SPAWN_PROJECTILE_NOTI::VT_SPEED, speed, 0.0f);
+  }
+  explicit SC_SPAWN_PROJECTILE_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<Info::ObjectInfo> object_info = 0,
+    float speed = 0.0f) {
+  SC_SPAWN_PROJECTILE_NOTIBuilder builder_(_fbb);
+  builder_.add_speed(speed);
+  builder_.add_object_info(object_info);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PROJECTILE_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -1813,6 +1896,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_REVIVE_RES *packet_as_SC_REVIVE_RES() const {
     return packet_type() == GamePacket::Packet_SC_REVIVE_RES ? static_cast<const GamePacket::SC_REVIVE_RES *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_SPAWN_PROJECTILE_NOTI *packet_as_SC_SPAWN_PROJECTILE_NOTI() const {
+    return packet_type() == GamePacket::Packet_SC_SPAWN_PROJECTILE_NOTI ? static_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTI *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -1888,6 +1974,10 @@ template<> inline const GamePacket::CS_REVIVE_REQ *Root::packet_as<GamePacket::C
 
 template<> inline const GamePacket::SC_REVIVE_RES *Root::packet_as<GamePacket::SC_REVIVE_RES>() const {
   return packet_as_SC_REVIVE_RES();
+}
+
+template<> inline const GamePacket::SC_SPAWN_PROJECTILE_NOTI *Root::packet_as<GamePacket::SC_SPAWN_PROJECTILE_NOTI>() const {
+  return packet_as_SC_SPAWN_PROJECTILE_NOTI();
 }
 
 struct RootBuilder {
@@ -2468,6 +2558,35 @@ inline flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(flatbuffers::FlatB
       _object_info);
 }
 
+inline SC_SPAWN_PROJECTILE_NOTIT *SC_SPAWN_PROJECTILE_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_SPAWN_PROJECTILE_NOTIT>(new SC_SPAWN_PROJECTILE_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_SPAWN_PROJECTILE_NOTI::UnPackTo(SC_SPAWN_PROJECTILE_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = object_info(); if (_e) _o->object_info = std::unique_ptr<Info::ObjectInfoT>(_e->UnPack(_resolver)); }
+  { auto _e = speed(); _o->speed = _e; }
+}
+
+inline flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> SC_SPAWN_PROJECTILE_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PROJECTILE_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_SPAWN_PROJECTILE_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PROJECTILE_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_SPAWN_PROJECTILE_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _object_info = _o->object_info ? CreateObjectInfo(_fbb, _o->object_info.get(), _rehasher) : 0;
+  auto _speed = _o->speed;
+  return GamePacket::CreateSC_SPAWN_PROJECTILE_NOTI(
+      _fbb,
+      _object_info,
+      _speed);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -2566,6 +2685,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_REVIVE_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_SPAWN_PROJECTILE_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -2648,6 +2771,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_REVIVE_RES *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_SPAWN_PROJECTILE_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -2718,6 +2845,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_REVIVE_REST *>(value);
       return CreateSC_REVIVE_RES(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_SPAWN_PROJECTILE_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTIT *>(value);
+      return CreateSC_SPAWN_PROJECTILE_NOTI(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -2786,6 +2917,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_REVIVE_RES: {
       FLATBUFFERS_ASSERT(false);  // GamePacket::SC_REVIVE_REST not copyable.
+      break;
+    }
+    case Packet_SC_SPAWN_PROJECTILE_NOTI: {
+      FLATBUFFERS_ASSERT(false);  // GamePacket::SC_SPAWN_PROJECTILE_NOTIT not copyable.
       break;
     }
     default:
@@ -2872,6 +3007,11 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_REVIVE_RES: {
       auto ptr = reinterpret_cast<GamePacket::SC_REVIVE_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_SPAWN_PROJECTILE_NOTI: {
+      auto ptr = reinterpret_cast<GamePacket::SC_SPAWN_PROJECTILE_NOTIT *>(value);
       delete ptr;
       break;
     }

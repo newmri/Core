@@ -11,21 +11,21 @@ private:
 	void InitSector(void);
 
 public:
-	bool EnterStartPos(std::shared_ptr<Object> object, const bool checkObjects);
-	bool Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellPos, const bool checkObjects);
+	bool EnterStartPos(std::shared_ptr<Object> object, const bool checkPath, const bool checkObjects);
+	bool Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellPos, const bool checkPath, const bool checkObjects);
 
 private:
 	void _Enter(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index);
 
 protected:
-	bool CanMove(const NativeInfo::Vec2Int& index, const bool checkObjects) const;
+	bool CanMove(const NativeInfo::Vec2Int& index, const bool checkPath, const bool checkObjects) const;
 	bool IsValidCellPos(const NativeInfo::Vec2Int& cellPos) const;
 	NativeInfo::Vec2Int CellPosToIndex(const NativeInfo::Vec2Int& cellPos) const;
 	NativeInfo::Vec2Int IndexToCellPos(const NativeInfo::Vec2Int& index) const;
 	Sector* GetSector(const NativeInfo::Vec2Int& index);
 
 public:
-	bool Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects);
+	bool Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkPath, const bool checkObjects);
 
 public:
 	bool Leave(std::shared_ptr<Object> object);

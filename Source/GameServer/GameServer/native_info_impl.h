@@ -61,9 +61,23 @@ namespace NativeInfo
             return Vec2Int(x + rhs.x, y + rhs.y);
         }
 
+        Vec2Int& operator+=(const Vec2Int& rhs)
+        {
+            x += rhs.x;
+            y += rhs.y;
+            return *this;
+        }
+
         Vec2Int operator-(const Vec2Int& rhs) const
         {
             return Vec2Int(x - rhs.x, y - rhs.y);
+        }
+
+        Vec2Int& operator-=(const Vec2Int& rhs)
+        {
+            x -= rhs.x;
+            y -= rhs.y;
+            return *this;
         }
 
         Define::Dir GetDirection(const Vec2Int& destPos)
@@ -104,6 +118,51 @@ namespace NativeInfo
             return destPos;
         }
 
+        Vec2Int GetFrontPos(const Define::Dir& dir)
+        {
+            Vec2Int destPos = *this;
+
+            switch (dir)
+            {
+            case Define::Dir_UP:
+                destPos += Up();
+                break;
+            case Define::Dir_DOWN:
+                destPos += Down();
+                break;
+            case Define::Dir_LEFT:
+                destPos += Left();
+                break;
+            case Define::Dir_RIGHT:
+                destPos += Right();
+                break;
+            }
+
+            return destPos;
+        }
+
+        Vec2Int GetFrontPos(const Define::Dir& dir, const uint8_t& range)
+        {
+            Vec2Int destPos = *this;
+
+            switch (dir)
+            {
+            case Define::Dir_UP:
+                destPos.y += range;
+                break;
+            case Define::Dir_DOWN:
+                destPos.y -= range;
+                break;
+            case Define::Dir_LEFT:
+                destPos.x -= range;
+                break;
+            case Define::Dir_RIGHT:
+                destPos.x += range;
+                break;
+            }
+
+            return destPos;
+        }
         int32_t x = 0;
         int32_t y = 0;
     };

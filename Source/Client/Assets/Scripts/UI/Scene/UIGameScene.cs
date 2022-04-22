@@ -103,6 +103,6 @@ public class UIGameScene : UIScene
 
     public void OnClickAttackButton(PointerEventData evt)
     {
-        Managers.Creature.MyPlayer.UseSkill((int)Managers.Creature.MyPlayer.MyCharacterInfo.Job);
+        Managers.Object.MyPlayer.UseSkill((int)Managers.Object.MyPlayer.MyCharacterInfo.Job);
     }
 }

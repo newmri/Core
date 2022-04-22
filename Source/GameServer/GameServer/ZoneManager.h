@@ -10,11 +10,11 @@ public:
 	void AddZone(const int32_t id);
 
 public:
-	bool EnterStartPos(const int32_t id, std::shared_ptr<Object> object, const bool checkObjects = false);
-	bool Enter(const int32_t id, std::shared_ptr<Object> object, const bool checkObjects = false);
+	bool EnterStartPos(const int32_t id, std::shared_ptr<Object> object, const bool checkPath = true, const bool checkObjects = false);
+	bool Enter(const int32_t id, std::shared_ptr<Object> object, const bool checkPath = true, const bool checkObjects = false);
 
 public:
-	bool Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects = false);
+	bool Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool checkPath = true, const bool checkObjects = false);
 
 public:
 	bool Leave(std::shared_ptr<Object> object);

@@ -4,7 +4,7 @@ class CorePacket
 {
 public:
 	enum { HEADER_SIZE = 2 };
-	enum { MAX_BODY_SIZE = 512 };
+	enum { MAX_BODY_SIZE = 1024 };
 
 public:
 	DEFAULT_CONSTRUCTOR(CorePacket)

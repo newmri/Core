@@ -49,7 +49,7 @@ public class PlayerController : CreatureController
 		_gear = GetComponent<GearEquipper>();
 
 		MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-		mesh.sortingOrder = Managers.Creature.GetSortOrder(this);
+		mesh.sortingOrder = Managers.Object.GetSortOrder(this);
 
 		_name = transform.Find("NameText").GetComponent<TextMeshPro>();
 	}

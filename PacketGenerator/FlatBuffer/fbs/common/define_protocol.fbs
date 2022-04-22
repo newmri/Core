@@ -129,6 +129,7 @@ enum MoneyType : ubyte
 enum ObjectType : ubyte
 {
 	PLAYER,
+	PROJECTILE,
 	MONSTER,
 	NPC
 }
@@ -146,4 +147,11 @@ enum SkillType : ubyte
 	NONE,
 	NORMAL,
 	PROJECTILE
+}
+
+enum SkillAnimationType : ubyte
+{
+    NONE,
+	ATTACK_1,
+	ATTACK_2
 }
