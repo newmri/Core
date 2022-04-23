@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "define_protocol_generated.h"
 #include "info_protocol_generated.h"
+#include "define_protocol_generated.h"
 
 namespace GamePacket {
 
@@ -1108,7 +1108,7 @@ flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(flatbuffers
 
 struct SC_DESPAWN_OBJECT_NOTIT : public flatbuffers::NativeTable {
   typedef SC_DESPAWN_OBJECT_NOTI TableType;
-  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  Define::ObjectType object_type = Define::ObjectType_NONE;
   int64_t uid = 0;
 };
 
@@ -1159,7 +1159,7 @@ struct SC_DESPAWN_OBJECT_NOTIBuilder {
 
 inline flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    Define::ObjectType object_type = Define::ObjectType_NONE,
     int64_t uid = 0) {
   SC_DESPAWN_OBJECT_NOTIBuilder builder_(_fbb);
   builder_.add_uid(uid);
@@ -1339,7 +1339,7 @@ flatbuffers::Offset<CS_SET_STATE_REQ> CreateCS_SET_STATE_REQ(flatbuffers::FlatBu
 
 struct SC_SET_STATE_REST : public flatbuffers::NativeTable {
   typedef SC_SET_STATE_RES TableType;
-  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  Define::ObjectType object_type = Define::ObjectType_NONE;
   int64_t object_id = 0;
   Define::ObjectState state = Define::ObjectState_IDLE;
 };
@@ -1399,7 +1399,7 @@ struct SC_SET_STATE_RESBuilder {
 
 inline flatbuffers::Offset<SC_SET_STATE_RES> CreateSC_SET_STATE_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    Define::ObjectType object_type = Define::ObjectType_NONE,
     int64_t object_id = 0,
     Define::ObjectState state = Define::ObjectState_IDLE) {
   SC_SET_STATE_RESBuilder builder_(_fbb);
@@ -1465,7 +1465,7 @@ flatbuffers::Offset<CS_USE_SKILL_REQ> CreateCS_USE_SKILL_REQ(flatbuffers::FlatBu
 
 struct SC_USE_SKILL_REST : public flatbuffers::NativeTable {
   typedef SC_USE_SKILL_RES TableType;
-  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  Define::ObjectType object_type = Define::ObjectType_NONE;
   int64_t object_id = 0;
   int32_t skill_id = 0;
 };
@@ -1525,7 +1525,7 @@ struct SC_USE_SKILL_RESBuilder {
 
 inline flatbuffers::Offset<SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    Define::ObjectType object_type = Define::ObjectType_NONE,
     int64_t object_id = 0,
     int32_t skill_id = 0) {
   SC_USE_SKILL_RESBuilder builder_(_fbb);
@@ -1539,7 +1539,7 @@ flatbuffers::Offset<SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(flatbuffers::FlatBu
 
 struct DamageInfoT : public flatbuffers::NativeTable {
   typedef DamageInfo TableType;
-  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  Define::ObjectType object_type = Define::ObjectType_NONE;
   int64_t oid = 0;
   int32_t damage = 0;
   bool is_critical = false;
@@ -1608,7 +1608,7 @@ struct DamageInfoBuilder {
 
 inline flatbuffers::Offset<DamageInfo> CreateDamageInfo(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    Define::ObjectType object_type = Define::ObjectType_NONE,
     int64_t oid = 0,
     int32_t damage = 0,
     bool is_critical = false) {

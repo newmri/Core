@@ -1,5 +1,7 @@
 #pragma once
 
+#include <tuple>
+
 #include "../../Core/Core/CoreInclude.h"
 #include "native_info_impl.h"
 #include "game_protocol_generated.h"

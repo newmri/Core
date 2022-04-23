@@ -14,6 +14,7 @@ public class BaseController : MonoBehaviour
 	protected bool _isRunning = false;
 	protected Transform _damageTextPos;
 	protected Transform _bloodPos;
+	protected Vector3 _posCorrection = new Vector3(0.0f, 0.5f);
 
 	[SerializeField]
 
@@ -53,7 +54,7 @@ public class BaseController : MonoBehaviour
 
 	public void SyncPos()
 	{
-		Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.0f, 0.5f);
+		Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + _posCorrection;
 		transform.position = destPos;
 	}
 
@@ -158,7 +159,7 @@ public class BaseController : MonoBehaviour
 	// 스르륵 이동하는 것을 처리
 	protected virtual void UpdateMoving()
 	{
-		Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.0f, 0.5f);
+		Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + _posCorrection;
 		Vector3 moveDir = destPos - transform.position;
 
 		// 도착 여부 체크

@@ -49,26 +49,41 @@ void Skill::DoAction(void)
 
 	PACKET_SEND_MANAGER.builder.Clear();
 
-	GamePacket::DamageInfoT damageInfo;
 	std::vector<flatbuffers::Offset<GamePacket::DamageInfo>> sendList;
 
 	auto iter_begin = objectList.begin();
 	auto iter_end = objectList.end();
 	for (; iter_begin != iter_end; ++iter_begin)
 	{
-		damageInfo.damage = this->owner->GetAbility(this->skillData.damageType) + this->skillData.damage;
-		damageInfo.is_critical = CORE_RANDOM_MANAGER_INT.GetRandomByPercent(this->owner->GetAbility(this->skillData.criticalType), SKILL_MAX_RATE);
-
-		if (!(*iter_begin)->OnGetDamage(damageInfo, this->skillData.defenceType))
-			continue;
-
-		sendList.push_back(GamePacket::DamageInfo::Pack(PACKET_SEND_MANAGER.builder, &damageInfo));
+		DoDamage((*iter_begin), sendList);
 	}
 
 	{
 		auto message = GamePacket::CreateSC_GET_DAMAGE_NOTI(PACKET_SEND_MANAGER.builder, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
 		ZONE_MANAGER.SendAll(this->owner->GetMapID(), GamePacket::Packet_SC_GET_DAMAGE_NOTI, message.Union(), this->owner->GetPos());
 	}
+}
+
+void Skill::DoDamage(std::shared_ptr<Object> target, std::vector<flatbuffers::Offset<GamePacket::DamageInfo>>& sendList)
+{
+	GamePacket::DamageInfoT damageInfo;
+	damageInfo.damage = this->owner->GetAbility(this->skillData.damageType) + this->skillData.damage;
+	damageInfo.is_critical = CORE_RANDOM_MANAGER_INT.GetRandomByPercent(this->owner->GetAbility(this->skillData.criticalType), SKILL_MAX_RATE);
+
+	if (!target->OnGetDamage(damageInfo, this->skillData.defenceType))
+		return;
+
+	sendList.push_back(GamePacket::DamageInfo::Pack(PACKET_SEND_MANAGER.builder, &damageInfo));
+}
+
+int32_t Skill::GetMapID(void)
+{
+	return this->owner->GetMapID();
+}
+
+NativeInfo::Vec2Int Skill::GetPos(void)
+{
+	return this->owner->GetPos();
 }
 
 bool Skill::IsValidCoolTime(void)

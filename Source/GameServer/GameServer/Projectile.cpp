@@ -1,6 +1,6 @@
 #include "Include.h"
 
-Projectile::Projectile(const std::shared_ptr<Creature> owner, const Info::ObjectInfoT& objectInfo) : owner(owner), Object(objectInfo)
+Projectile::Projectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoT& objectInfo) : owner(owner), Object(objectInfo)
 {
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), 10));
@@ -30,18 +30,34 @@ void Projectile::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Of
 
 void Projectile::Update(void)
 {
-	if (!Move())
+	if (auto [moved, object] = Move(); IS_SAME(false, moved))
 	{
+		if(object)
+			DoDamage(object);
+
 		OBJECT_MANAGER.RemoveProjectile(this->GetOID());
 		return;
 	}
 
 	CORE_TIME_DELEGATE_MANAGER.Push(
-		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), SEC));
+		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), static_cast<TIME_VALUE>(SEC / this->moveSpeed)));
 }
 
-bool Projectile::Move(void)
+std::tuple<bool, std::shared_ptr<Object>> Projectile::Move(void)
 {
-	NativeInfo::Vec2Int destPos = GetPos().GetFrontPos(GetDir(), static_cast<uint8_t>(moveSpeed));
-	return ZONE_MANAGER.Move(shared_from_this(), destPos, false, true);
+	NativeInfo::Vec2Int destPos = GetPos().GetFrontPos(GetDir());
+	return ZONE_MANAGER.Move(shared_from_this(), destPos, true, false, true);
+}
+
+void Projectile::DoDamage(std::shared_ptr<Object> target)
+{
+	PACKET_SEND_MANAGER.builder.Clear();
+	std::vector<flatbuffers::Offset<GamePacket::DamageInfo>> sendList;
+	this->owner->DoDamage(target, sendList);
+
+	if (!sendList.empty())
+	{
+		auto message = GamePacket::CreateSC_GET_DAMAGE_NOTI(PACKET_SEND_MANAGER.builder, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
+		ZONE_MANAGER.SendAll(this->owner->GetMapID(), GamePacket::Packet_SC_GET_DAMAGE_NOTI, message.Union(), this->owner->GetPos());
+	}
 }

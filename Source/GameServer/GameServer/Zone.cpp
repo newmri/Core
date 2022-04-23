@@ -33,11 +33,11 @@ void Zone::Init(void)
 	this->data.size.y = this->data.max.y - this->data.min.y + 1;
 
 	this->data.path = new Define::PathType * [this->data.size.y];
-	this->data.objects = new int64_t * [this->data.size.y];
+	this->data.objects = new ObjectInfo * [this->data.size.y];
 	for (int32_t i = 0; i < this->data.size.y; ++i)
 	{
 		this->data.path[i] = new Define::PathType[this->data.size.x]{};
-		this->data.objects[i] = new int64_t[this->data.size.x]{};
+		this->data.objects[i] = new ObjectInfo[this->data.size.x]{};
 	}
 
 	int32_t offset = minMaxSize;
@@ -110,7 +110,7 @@ bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cell
 
 	WRITE_LOCK(this->mutex);
 
-	if (!CanMove(index, checkPath, checkObjects))
+	if (IS_NOT_NULL(CanMove(sector, index, checkPath, checkObjects)))
 		return false;
 
 	_Enter(object, sector, index);
@@ -119,14 +119,25 @@ bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cell
 
 void Zone::_Enter(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	this->data.objects[index.y][index.x] = object->GetOID();
+	this->data.objects[index.y][index.x] = ObjectInfo(object->GetOID(), object->GetObjectType());
 	sector->Add(object);
 }
 
-bool Zone::CanMove(const NativeInfo::Vec2Int& index, const bool checkPath, const bool checkObjects) const
+std::shared_ptr<Object> Zone::CanMove(Sector* sector, const NativeInfo::Vec2Int& index, const bool checkPath, const bool checkObjects) const
 {
-	return (!checkPath || (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) || IS_SAME(Define::PathType_START, this->data.path[index.y][index.x])))
-		&& (!checkObjects || IS_SAME(0, this->data.objects[index.y][index.x]));
+	if ((!checkPath || (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) || IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))) && 
+		checkObjects && IS_NOT_SAME(INVALID_OID, this->data.objects[index.y][index.x].oid))
+	{
+		if (auto object = sector->FindObject(this->data.objects[index.y][index.x]); IS_NOT_NULL(object))
+		{
+			if (object->IsDead())
+				return nullptr;
+
+			return object;
+		}
+	}
+
+	return nullptr;
 }
 
 bool Zone::IsValidCellPos(const NativeInfo::Vec2Int& cellPos) const
@@ -149,14 +160,14 @@ Sector* Zone::GetSector(const NativeInfo::Vec2Int& index)
 	return &this->sectors[index.y / this->SectorCells][index.x / this->SectorCells];
 }
 
-bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool isRun, const bool checkPath, const bool checkObjects)
+std::tuple<bool, std::shared_ptr<Object>> Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellDestPos, const bool isRun, const bool checkPath, const bool checkObjects)
 {
 	NativeInfo::Vec2Int cellSourcePos = object->GetPos();
 	if (!IsValidCellPos(cellSourcePos) || !IsValidCellPos(cellDestPos))
-		return false;
+		return std::make_tuple(false, nullptr);
 
 	if (cellSourcePos == cellDestPos)
-		return false;
+		return std::make_tuple(false, nullptr);
 
 	NativeInfo::Vec2Int sourceIndex = CellPosToIndex(cellSourcePos);
 	NativeInfo::Vec2Int destIndex = CellPosToIndex(cellDestPos);
@@ -166,8 +177,10 @@ bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellD
 
 	WRITE_LOCK(this->mutex);
 
-	if (!CanMove(destIndex, checkPath, checkObjects))
-		return false;
+	if (std::shared_ptr<Object> object = CanMove(destSector, destIndex, checkPath, checkObjects); IS_NOT_NULL(object))
+	{
+		return std::make_tuple(false, object);
+	}
 
 	if(isRun)
 		object->SetMove(Define::ObjectState_RUN, cellDestPos);
@@ -182,10 +195,13 @@ bool Zone::Move(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cellD
 
 	else
 	{
+		SetObjectInfo(sourceIndex, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
+		SetObjectInfo(destIndex, ObjectInfo(object->GetOID(), object->GetObjectType()));
+
 		destSector->Move(object);
 	}
 
-	return true;
+	return std::make_tuple(true, nullptr);
 }
 
 bool Zone::Leave(std::shared_ptr<Object> object)
@@ -204,7 +220,7 @@ bool Zone::Leave(std::shared_ptr<Object> object)
 
 void Zone::_Leave(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	this->data.objects[index.y][index.x] = 0;
+	SetObjectInfo(index, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
 	sector->Remove(object->GetObjectType(), object->GetOID());
 }
 
@@ -252,6 +268,9 @@ void Zone::Revive(std::shared_ptr<Creature> creature)
 	// 사망 섹터와 부활 섹터가 같음
 	if (IS_SAME(deadSector, reviveSector))
 	{
+		SetObjectInfo(deadIndex, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
+		SetObjectInfo(this->data.startIndex, ObjectInfo(creature->GetOID(), creature->GetObjectType()));
+
 		reviveSector->Revive(creature);
 	}
 	else
@@ -259,4 +278,9 @@ void Zone::Revive(std::shared_ptr<Creature> creature)
 		_Leave(creature, deadSector, deadIndex);
 		_Enter(creature, reviveSector, this->data.startIndex);
 	}
+}
+
+void Zone::SetObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo)
+{
+	this->data.objects[index.y][index.x] = objectInfo;
 }

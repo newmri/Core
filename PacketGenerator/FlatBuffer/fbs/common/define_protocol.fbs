@@ -128,6 +128,7 @@ enum MoneyType : ubyte
 
 enum ObjectType : ubyte
 {
+	NONE,
 	PLAYER,
 	PROJECTILE,
 	MONSTER,

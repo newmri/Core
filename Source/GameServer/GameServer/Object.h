@@ -1,5 +1,21 @@
 #pragma once
 
+struct ObjectInfo
+{
+	ObjectInfo() : oid(INVALID_OID), objectType(Define::ObjectType_NONE)
+	{
+		
+	}
+
+	ObjectInfo(const int64_t oid, const Define::ObjectType objectType) : oid(oid), objectType(objectType)
+	{
+		
+	}
+
+	int64_t oid;
+	Define::ObjectType objectType;
+};
+
 class Object : public CoreGameObject, public inheritable_enable_shared_from_this<Object>
 {
 	OVERRIDE_GAME_OBJECT(Object)
@@ -36,6 +52,9 @@ protected:
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 	void MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
+
+public:
+	virtual bool OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType);
 
 protected:
 	Info::ObjectInfoT objectInfo;

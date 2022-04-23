@@ -25,6 +25,8 @@ public:
 
 public:
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);
+	std::shared_ptr<Projectile> FindProjectile(const int64_t& oid);
+	std::shared_ptr<Object> FindObject(ObjectInfo& objectInfo);
 
 public:
 	void GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& creatureList, const bool liveCreatureOnly);
@@ -36,4 +38,5 @@ private:
 private:
 	NativeInfo::Vec2Int index;
 	std::map<int64_t, std::shared_ptr<Player>> playerList;
+	std::map<int64_t, std::shared_ptr<Projectile>> projectileList;
 };

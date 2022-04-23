@@ -1,5 +1,7 @@
 #pragma once
 
+static const int64_t INVALID_OID = -1;
+
 class CoreUIDObject : public CoreObject
 {
 	OVERRIDE_OBJECT_DELETE_DEFAULT_CONSTRUCTOR(CoreUIDObject)

@@ -21,7 +21,7 @@ public:
 	std::tuple<int32_t, int32_t> GetHPMP(void);
 
 public:
-	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
+	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
 	void MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 public:
@@ -32,7 +32,7 @@ public:
 	void UseSkill(const int32_t skillID);
 
 public:
-	bool OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType);
+	virtual bool OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType) override;
 
 public:
 	virtual void Revive(void);
@@ -46,7 +46,7 @@ protected:
 
 protected:
 	CACHE_ALIGN std::shared_mutex skillMutex;
-	std::map<int32_t, std::unique_ptr<Skill>> skillList;
+	std::map<int32_t, std::shared_ptr<Skill>> skillList;
 
 private:
 	TIME_VALUE deadTime = 0;

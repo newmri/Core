@@ -38,6 +38,12 @@ void Sector::Add(std::shared_ptr<Object> object)
 		this->playerList[object->GetOID()] = player;
 		break;
 	}
+	case Define::ObjectType_PROJECTILE:
+	{
+		auto projectile = std::dynamic_pointer_cast<Projectile>(object);
+		this->projectileList[object->GetOID()] = projectile;
+		break;
+	}
 	default:
 		break;
 	}
@@ -72,6 +78,9 @@ void Sector::Remove(const Define::ObjectType objectType, const int64_t& oid)
 	case Define::ObjectType_PLAYER:
 		this->playerList.erase(oid);
 		break;
+	case Define::ObjectType_PROJECTILE:
+		this->projectileList.erase(oid);
+		break;
 	default:
 		break;
 	}
@@ -89,14 +98,28 @@ void Sector::SendSpawnPacketToOldPlayer(std::shared_ptr<Object> object)
 
 void Sector::SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player)
 {
-	auto iter_begin = this->playerList.begin();
-	auto iter_end = this->playerList.end();
-	for (; iter_begin != iter_end; ++iter_begin)
 	{
-		GamePacket::Packet packetType;
-		flatbuffers::Offset<void> packet;
-		(iter_begin->second)->MakeSpawnPacket(packetType, packet);
-		player->Send(packetType, packet);
+		auto iter_begin = this->playerList.begin();
+		auto iter_end = this->playerList.end();
+		for (; iter_begin != iter_end; ++iter_begin)
+		{
+			GamePacket::Packet packetType;
+			flatbuffers::Offset<void> packet;
+			(iter_begin->second)->MakeSpawnPacket(packetType, packet);
+			player->Send(packetType, packet);
+		}
+	}
+
+	{
+		auto iter_begin = this->projectileList.begin();
+		auto iter_end = this->projectileList.end();
+		for (; iter_begin != iter_end; ++iter_begin)
+		{
+			GamePacket::Packet packetType;
+			flatbuffers::Offset<void> packet;
+			(iter_begin->second)->MakeSpawnPacket(packetType, packet);
+			player->Send(packetType, packet);
+		}
 	}
 }
 
@@ -139,6 +162,32 @@ std::shared_ptr<Player> Sector::FindPlayer(const int64_t& oid)
 	auto iter = this->playerList.find(oid);
 	if (IS_NOT_SAME(iter, this->playerList.end()))
 		return iter->second;
+
+	return nullptr;
+}
+
+std::shared_ptr<Projectile> Sector::FindProjectile(const int64_t& oid)
+{
+	auto iter = this->projectileList.find(oid);
+	if (IS_NOT_SAME(iter, this->projectileList.end()))
+		return iter->second;
+
+	return nullptr;
+}
+
+std::shared_ptr<Object> Sector::FindObject(ObjectInfo& objectInfo)
+{
+	switch (objectInfo.objectType)
+	{
+	case Define::ObjectType_PLAYER:
+		return FindPlayer(objectInfo.oid);
+	case Define::ObjectType_MONSTER:
+		break;
+	case Define::ObjectType_PROJECTILE:
+		return FindProjectile(objectInfo.oid);
+	default:
+		return nullptr;
+	}
 
 	return nullptr;
 }

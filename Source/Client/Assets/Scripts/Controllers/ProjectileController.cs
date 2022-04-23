@@ -26,6 +26,7 @@ public class ProjectileController : BaseController
 	protected override void Init()
 	{
 		base.Init();
+		_posCorrection = new Vector3(0.0f, 2.7f);
 	}
 
 	protected override void UpdateAnimation()

@@ -294,7 +294,7 @@ flatbuffers::Offset<MoneyWrapper> CreateMoneyWrapper(flatbuffers::FlatBufferBuil
 
 struct ObjectInfoT : public flatbuffers::NativeTable {
   typedef ObjectInfo TableType;
-  Define::ObjectType object_type = Define::ObjectType_PLAYER;
+  Define::ObjectType object_type = Define::ObjectType_NONE;
   int64_t oid = 0;
   NativeInfo::PositionInfo pos_info{};
 };
@@ -354,7 +354,7 @@ struct ObjectInfoBuilder {
 
 inline flatbuffers::Offset<ObjectInfo> CreateObjectInfo(
     flatbuffers::FlatBufferBuilder &_fbb,
-    Define::ObjectType object_type = Define::ObjectType_PLAYER,
+    Define::ObjectType object_type = Define::ObjectType_NONE,
     int64_t oid = 0,
     const Info::PositionInfo *pos_info = 0) {
   ObjectInfoBuilder builder_(_fbb);

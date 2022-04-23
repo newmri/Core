@@ -615,11 +615,11 @@ public struct SC_DESPAWN_OBJECT_NOTI : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_DESPAWN_OBJECT_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
   public long Uid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
 
   public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      Define.ObjectType object_type = Define.ObjectType.NONE,
       long uid = 0) {
     builder.StartTable(2);
     SC_DESPAWN_OBJECT_NOTI.AddUid(builder, uid);
@@ -658,7 +658,7 @@ public class SC_DESPAWN_OBJECT_NOTIT
   public long Uid { get; set; }
 
   public SC_DESPAWN_OBJECT_NOTIT() {
-    this.ObjectType = Define.ObjectType.PLAYER;
+    this.ObjectType = Define.ObjectType.NONE;
     this.Uid = 0;
   }
 }
@@ -832,12 +832,12 @@ public struct SC_SET_STATE_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_SET_STATE_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
   public long ObjectId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
   public Define.ObjectState State { get { int o = __p.__offset(8); return o != 0 ? (Define.ObjectState)__p.bb.Get(o + __p.bb_pos) : Define.ObjectState.IDLE; } }
 
   public static Offset<GamePacket.SC_SET_STATE_RES> CreateSC_SET_STATE_RES(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      Define.ObjectType object_type = Define.ObjectType.NONE,
       long object_id = 0,
       Define.ObjectState state = Define.ObjectState.IDLE) {
     builder.StartTable(3);
@@ -882,7 +882,7 @@ public class SC_SET_STATE_REST
   public Define.ObjectState State { get; set; }
 
   public SC_SET_STATE_REST() {
-    this.ObjectType = Define.ObjectType.PLAYER;
+    this.ObjectType = Define.ObjectType.NONE;
     this.ObjectId = 0;
     this.State = Define.ObjectState.IDLE;
   }
@@ -948,12 +948,12 @@ public struct SC_USE_SKILL_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_USE_SKILL_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
   public long ObjectId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
   public int SkillId { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GamePacket.SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      Define.ObjectType object_type = Define.ObjectType.NONE,
       long object_id = 0,
       int skill_id = 0) {
     builder.StartTable(3);
@@ -998,7 +998,7 @@ public class SC_USE_SKILL_REST
   public int SkillId { get; set; }
 
   public SC_USE_SKILL_REST() {
-    this.ObjectType = Define.ObjectType.PLAYER;
+    this.ObjectType = Define.ObjectType.NONE;
     this.ObjectId = 0;
     this.SkillId = 0;
   }
@@ -1014,13 +1014,13 @@ public struct DamageInfo : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public DamageInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
   public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
   public int Damage { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
   public bool IsCritical { get { int o = __p.__offset(10); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
 
   public static Offset<GamePacket.DamageInfo> CreateDamageInfo(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      Define.ObjectType object_type = Define.ObjectType.NONE,
       long oid = 0,
       int damage = 0,
       bool is_critical = false) {
@@ -1071,7 +1071,7 @@ public class DamageInfoT
   public bool IsCritical { get; set; }
 
   public DamageInfoT() {
-    this.ObjectType = Define.ObjectType.PLAYER;
+    this.ObjectType = Define.ObjectType.NONE;
     this.Oid = 0;
     this.Damage = 0;
     this.IsCritical = false;

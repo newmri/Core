@@ -557,16 +557,18 @@ inline const char *EnumNameMoneyType(MoneyType e) {
 }
 
 enum ObjectType : uint8_t {
-  ObjectType_PLAYER = 0,
-  ObjectType_PROJECTILE = 1,
-  ObjectType_MONSTER = 2,
-  ObjectType_NPC = 3,
-  ObjectType_MIN = ObjectType_PLAYER,
+  ObjectType_NONE = 0,
+  ObjectType_PLAYER = 1,
+  ObjectType_PROJECTILE = 2,
+  ObjectType_MONSTER = 3,
+  ObjectType_NPC = 4,
+  ObjectType_MIN = ObjectType_NONE,
   ObjectType_MAX = ObjectType_NPC
 };
 
-inline const ObjectType (&EnumValuesObjectType())[4] {
+inline const ObjectType (&EnumValuesObjectType())[5] {
   static const ObjectType values[] = {
+    ObjectType_NONE,
     ObjectType_PLAYER,
     ObjectType_PROJECTILE,
     ObjectType_MONSTER,
@@ -576,7 +578,8 @@ inline const ObjectType (&EnumValuesObjectType())[4] {
 }
 
 inline const char * const *EnumNamesObjectType() {
-  static const char * const names[5] = {
+  static const char * const names[6] = {
+    "NONE",
     "PLAYER",
     "PROJECTILE",
     "MONSTER",
@@ -587,7 +590,7 @@ inline const char * const *EnumNamesObjectType() {
 }
 
 inline const char *EnumNameObjectType(ObjectType e) {
-  if (flatbuffers::IsOutRange(e, ObjectType_PLAYER, ObjectType_NPC)) return "";
+  if (flatbuffers::IsOutRange(e, ObjectType_NONE, ObjectType_NPC)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesObjectType()[index];
 }

@@ -15,9 +15,12 @@ public:
 	void RemovePlayer(const int64_t& oid);
 
 public:
-	void AddProjectile(const std::shared_ptr<Creature> owner, Info::ObjectInfoT& objectInfo);
+	void AddProjectile(const std::shared_ptr<ProjectileSkill> owner, Info::ObjectInfoT& objectInfo);
 	std::shared_ptr<Projectile> FindProjectile(const int64_t& oid);
 	void RemoveProjectile(const int64_t& oid);
+
+public:
+	std::shared_ptr<Object> FindObject(ObjectInfo& objectInfo);
 
 private:
 	std::atomic<int64_t> oid;

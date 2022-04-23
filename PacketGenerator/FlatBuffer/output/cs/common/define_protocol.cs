@@ -137,10 +137,11 @@ public enum MoneyType : byte
 
 public enum ObjectType : byte
 {
-  PLAYER = 0,
-  PROJECTILE = 1,
-  MONSTER = 2,
-  NPC = 3,
+  NONE = 0,
+  PLAYER = 1,
+  PROJECTILE = 2,
+  MONSTER = 3,
+  NPC = 4,
 };
 
 public enum PathType : byte

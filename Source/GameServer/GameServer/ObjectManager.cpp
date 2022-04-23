@@ -57,7 +57,7 @@ void ObjectManager::RemovePlayer(const int64_t& oid)
 	this->playerList.erase(oid);
 }
 
-void ObjectManager::AddProjectile(const std::shared_ptr<Creature> owner, Info::ObjectInfoT& objectInfo)
+void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, Info::ObjectInfoT& objectInfo)
 {
 	int64_t oid = this->oid.fetch_add(1);
 
@@ -93,4 +93,21 @@ void ObjectManager::RemoveProjectile(const int64_t& oid)
 
 	WRITE_LOCK(this->projectileMutex);
 	this->projectileList.erase(oid);
+}
+
+std::shared_ptr<Object> ObjectManager::FindObject(ObjectInfo& objectInfo)
+{
+	switch (objectInfo.objectType)
+	{
+	case Define::ObjectType_PLAYER:
+		return FindPlayer(objectInfo.oid);
+	case Define::ObjectType_MONSTER:
+		break;
+	case Define::ObjectType_PROJECTILE:
+		return FindProjectile(objectInfo.oid);
+	default:
+		return nullptr;
+	}
+
+	return nullptr;
 }

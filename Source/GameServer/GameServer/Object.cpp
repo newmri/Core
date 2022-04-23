@@ -135,3 +135,8 @@ void Object::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<
 	packetType = GamePacket::Packet_SC_MOVE_RES;
 	packet = message.Union();
 }
+
+bool Object::OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType)
+{
+	return false;
+}

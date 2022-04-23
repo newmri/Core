@@ -428,12 +428,12 @@ public struct ObjectInfo : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public ObjectInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.PLAYER; } }
+  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
   public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
   public Info.PositionInfo? PosInfo { get { int o = __p.__offset(8); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
   public static Offset<Info.ObjectInfo> CreateObjectInfo(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.PLAYER,
+      Define.ObjectType object_type = Define.ObjectType.NONE,
       long oid = 0,
       Info.PositionInfoT pos_info = null) {
     builder.StartTable(3);
@@ -478,7 +478,7 @@ public class ObjectInfoT
   public Info.PositionInfoT PosInfo { get; set; }
 
   public ObjectInfoT() {
-    this.ObjectType = Define.ObjectType.PLAYER;
+    this.ObjectType = Define.ObjectType.NONE;
     this.Oid = 0;
     this.PosInfo = new Info.PositionInfoT();
   }
