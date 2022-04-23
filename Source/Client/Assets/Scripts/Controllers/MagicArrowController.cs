@@ -1,11 +1,13 @@
+using Info;
+using Define;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Define;
-using Info;
 
-public class ArrowController : ProjectileController
+public class MagicArrowController : ProjectileController
 {
+	private Vector3 _scale;
+
 	public override ObjectInfoT ObjectInfo
 	{
 		get { return _objectInfo; }
@@ -16,16 +18,18 @@ public class ArrowController : ProjectileController
 
 			_objectInfo = value;
 
+			transform.localScale = _scale;
+
 			if (Dir == Dir.LEFT)
-				transform.rotation = Quaternion.Euler(0, 0, -90);
-			else
-				transform.rotation = Quaternion.Euler(0, 0, 90);
+				transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
 		}
 	}
 
 	protected override void Init()
 	{
-		_posCorrection = new Vector3(0.0f, 2.7f);
+		_posCorrection = new Vector3(0.0f, 2.3f);
+		_scale = transform.localScale;
+
 		base.Init();
 	}
 
