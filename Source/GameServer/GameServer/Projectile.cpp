@@ -1,6 +1,6 @@
 #include "Include.h"
 
-Projectile::Projectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoT& objectInfo) : owner(owner), Object(objectInfo)
+Projectile::Projectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoT& objectInfo) : owner(owner), Object(objectInfo), moveSpeed(30.0f)
 {
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), 10));

@@ -63,7 +63,7 @@ void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, 
 
 	objectInfo.oid = oid;
 	objectInfo.object_type = Define::ObjectType_PROJECTILE;
-	objectInfo.pos_info.state = Define::ObjectState_RUN;
+	objectInfo.pos_info.state = Define::ObjectState_WALK;
 
 	auto projectile = std::make_shared<Projectile>(owner, objectInfo);
 	ZONE_MANAGER.Enter(objectInfo.pos_info.mapID, projectile, false);

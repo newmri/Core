@@ -18,5 +18,5 @@ protected:
 	std::shared_ptr<ProjectileSkill> owner;
 
 protected:
-	float moveSpeed = 15.0f;
+	float moveSpeed;
 };
