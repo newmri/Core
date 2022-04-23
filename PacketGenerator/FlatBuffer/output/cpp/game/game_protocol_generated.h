@@ -1780,6 +1780,7 @@ flatbuffers::Offset<SC_REVIVE_RES> CreateSC_REVIVE_RES(flatbuffers::FlatBufferBu
 struct SC_SPAWN_PROJECTILE_NOTIT : public flatbuffers::NativeTable {
   typedef SC_SPAWN_PROJECTILE_NOTI TableType;
   std::unique_ptr<Info::ObjectInfoT> object_info{};
+  Define::ProjectileType projectile_type = Define::ProjectileType_NONE;
   float speed = 0.0f;
 };
 
@@ -1788,10 +1789,14 @@ struct SC_SPAWN_PROJECTILE_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   typedef SC_SPAWN_PROJECTILE_NOTIBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_OBJECT_INFO = 4,
-    VT_SPEED = 6
+    VT_PROJECTILE_TYPE = 6,
+    VT_SPEED = 8
   };
   const Info::ObjectInfo *object_info() const {
     return GetPointer<const Info::ObjectInfo *>(VT_OBJECT_INFO);
+  }
+  Define::ProjectileType projectile_type() const {
+    return static_cast<Define::ProjectileType>(GetField<uint8_t>(VT_PROJECTILE_TYPE, 0));
   }
   float speed() const {
     return GetField<float>(VT_SPEED, 0.0f);
@@ -1800,6 +1805,7 @@ struct SC_SPAWN_PROJECTILE_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_OBJECT_INFO) &&
            verifier.VerifyTable(object_info()) &&
+           VerifyField<uint8_t>(verifier, VT_PROJECTILE_TYPE) &&
            VerifyField<float>(verifier, VT_SPEED) &&
            verifier.EndTable();
   }
@@ -1814,6 +1820,9 @@ struct SC_SPAWN_PROJECTILE_NOTIBuilder {
   flatbuffers::uoffset_t start_;
   void add_object_info(flatbuffers::Offset<Info::ObjectInfo> object_info) {
     fbb_.AddOffset(SC_SPAWN_PROJECTILE_NOTI::VT_OBJECT_INFO, object_info);
+  }
+  void add_projectile_type(Define::ProjectileType projectile_type) {
+    fbb_.AddElement<uint8_t>(SC_SPAWN_PROJECTILE_NOTI::VT_PROJECTILE_TYPE, static_cast<uint8_t>(projectile_type), 0);
   }
   void add_speed(float speed) {
     fbb_.AddElement<float>(SC_SPAWN_PROJECTILE_NOTI::VT_SPEED, speed, 0.0f);
@@ -1832,10 +1841,12 @@ struct SC_SPAWN_PROJECTILE_NOTIBuilder {
 inline flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_NOTI(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<Info::ObjectInfo> object_info = 0,
+    Define::ProjectileType projectile_type = Define::ProjectileType_NONE,
     float speed = 0.0f) {
   SC_SPAWN_PROJECTILE_NOTIBuilder builder_(_fbb);
   builder_.add_speed(speed);
   builder_.add_object_info(object_info);
+  builder_.add_projectile_type(projectile_type);
   return builder_.Finish();
 }
 
@@ -2582,6 +2593,7 @@ inline void SC_SPAWN_PROJECTILE_NOTI::UnPackTo(SC_SPAWN_PROJECTILE_NOTIT *_o, co
   (void)_o;
   (void)_resolver;
   { auto _e = object_info(); if (_e) _o->object_info = std::unique_ptr<Info::ObjectInfoT>(_e->UnPack(_resolver)); }
+  { auto _e = projectile_type(); _o->projectile_type = _e; }
   { auto _e = speed(); _o->speed = _e; }
 }
 
@@ -2594,10 +2606,12 @@ inline flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_N
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_SPAWN_PROJECTILE_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _object_info = _o->object_info ? CreateObjectInfo(_fbb, _o->object_info.get(), _rehasher) : 0;
+  auto _projectile_type = _o->projectile_type;
   auto _speed = _o->speed;
   return GamePacket::CreateSC_SPAWN_PROJECTILE_NOTI(
       _fbb,
       _object_info,
+      _projectile_type,
       _speed);
 }
 

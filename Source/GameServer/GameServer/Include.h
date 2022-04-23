@@ -16,6 +16,7 @@
 #include "Creature.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "Arrow.h"
 #include "ObjectManager.h"
 #include "MapData.h"
 #include "Sector.h"

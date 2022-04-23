@@ -7,6 +7,10 @@ class ProjectileSkill : public Skill
 public:
 	ProjectileSkill(const std::shared_ptr<Creature> owner, const SkillData& skillData);
 
+public:
+	Define::ProjectileType GetType(void);
+	float_t GetSpeed(void);
+
 protected:
 	virtual void DoAction(void) override;
 };

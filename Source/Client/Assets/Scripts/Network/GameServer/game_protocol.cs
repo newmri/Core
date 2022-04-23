@@ -1238,20 +1238,24 @@ public struct SC_SPAWN_PROJECTILE_NOTI : IFlatbufferObject
   public SC_SPAWN_PROJECTILE_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
-  public float Speed { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public Define.ProjectileType ProjectileType { get { int o = __p.__offset(6); return o != 0 ? (Define.ProjectileType)__p.bb.Get(o + __p.bb_pos) : Define.ProjectileType.NONE; } }
+  public float Speed { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
 
   public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder,
       Offset<Info.ObjectInfo> object_infoOffset = default(Offset<Info.ObjectInfo>),
+      Define.ProjectileType projectile_type = Define.ProjectileType.NONE,
       float speed = 0.0f) {
-    builder.StartTable(2);
+    builder.StartTable(3);
     SC_SPAWN_PROJECTILE_NOTI.AddSpeed(builder, speed);
     SC_SPAWN_PROJECTILE_NOTI.AddObjectInfo(builder, object_infoOffset);
+    SC_SPAWN_PROJECTILE_NOTI.AddProjectileType(builder, projectile_type);
     return SC_SPAWN_PROJECTILE_NOTI.EndSC_SPAWN_PROJECTILE_NOTI(builder);
   }
 
-  public static void StartSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void StartSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddOffset(0, objectInfoOffset.Value, 0); }
-  public static void AddSpeed(FlatBufferBuilder builder, float speed) { builder.AddFloat(1, speed, 0.0f); }
+  public static void AddProjectileType(FlatBufferBuilder builder, Define.ProjectileType projectileType) { builder.AddByte(1, (byte)projectileType, 0); }
+  public static void AddSpeed(FlatBufferBuilder builder, float speed) { builder.AddFloat(2, speed, 0.0f); }
   public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> EndSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI>(o);
@@ -1263,6 +1267,7 @@ public struct SC_SPAWN_PROJECTILE_NOTI : IFlatbufferObject
   }
   public void UnPackTo(SC_SPAWN_PROJECTILE_NOTIT _o) {
     _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
+    _o.ProjectileType = this.ProjectileType;
     _o.Speed = this.Speed;
   }
   public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> Pack(FlatBufferBuilder builder, SC_SPAWN_PROJECTILE_NOTIT _o) {
@@ -1271,6 +1276,7 @@ public struct SC_SPAWN_PROJECTILE_NOTI : IFlatbufferObject
     return CreateSC_SPAWN_PROJECTILE_NOTI(
       builder,
       _object_info,
+      _o.ProjectileType,
       _o.Speed);
   }
 };
@@ -1278,10 +1284,12 @@ public struct SC_SPAWN_PROJECTILE_NOTI : IFlatbufferObject
 public class SC_SPAWN_PROJECTILE_NOTIT
 {
   public Info.ObjectInfoT ObjectInfo { get; set; }
+  public Define.ProjectileType ProjectileType { get; set; }
   public float Speed { get; set; }
 
   public SC_SPAWN_PROJECTILE_NOTIT() {
     this.ObjectInfo = null;
+    this.ProjectileType = Define.ProjectileType.NONE;
     this.Speed = 0.0f;
   }
 }

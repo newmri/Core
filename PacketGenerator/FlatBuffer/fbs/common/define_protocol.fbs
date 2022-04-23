@@ -135,6 +135,13 @@ enum ObjectType : ubyte
 	NPC
 }
 
+enum ProjectileType : ubyte
+{
+	NONE,
+	ARROW,
+	MAGIC_ARROW
+}
+
 enum PathType : ubyte
 {
 	NONE,
@@ -147,7 +154,7 @@ enum SkillType : ubyte
 {
 	NONE,
 	NORMAL,
-	PROJECTILE
+	ARROW
 }
 
 enum SkillAnimationType : ubyte

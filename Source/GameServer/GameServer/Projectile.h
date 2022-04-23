@@ -12,7 +12,9 @@ public:
 
 private:
 	std::tuple<bool, std::shared_ptr<Object>> Move(void);
-	void DoDamage(std::shared_ptr<Object> target);
+
+protected:
+	virtual void DoDamage(std::shared_ptr<Object> target);
 
 protected:
 	std::shared_ptr<ProjectileSkill> owner;

@@ -125,7 +125,7 @@ void Player::AddSkill(const int32_t skillID)
 	case Define::SkillType_NORMAL:
 		this->skillList[skillID] = std::make_shared<Skill>(Object::downcasted_shared_from_this<Creature>(), skillData);
 		break;
-	case Define::SkillType_PROJECTILE:
+	case Define::SkillType_ARROW:
 		this->skillList[skillID] = std::make_shared<ProjectileSkill>(Object::downcasted_shared_from_this<Creature>(), skillData);
 		break;
 	}

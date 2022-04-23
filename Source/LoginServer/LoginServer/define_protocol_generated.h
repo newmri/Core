@@ -595,6 +595,39 @@ inline const char *EnumNameObjectType(ObjectType e) {
   return EnumNamesObjectType()[index];
 }
 
+enum ProjectileType : uint8_t {
+  ProjectileType_NONE = 0,
+  ProjectileType_ARROW = 1,
+  ProjectileType_MAGIC_ARROW = 2,
+  ProjectileType_MIN = ProjectileType_NONE,
+  ProjectileType_MAX = ProjectileType_MAGIC_ARROW
+};
+
+inline const ProjectileType (&EnumValuesProjectileType())[3] {
+  static const ProjectileType values[] = {
+    ProjectileType_NONE,
+    ProjectileType_ARROW,
+    ProjectileType_MAGIC_ARROW
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesProjectileType() {
+  static const char * const names[4] = {
+    "NONE",
+    "ARROW",
+    "MAGIC_ARROW",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameProjectileType(ProjectileType e) {
+  if (flatbuffers::IsOutRange(e, ProjectileType_NONE, ProjectileType_MAGIC_ARROW)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesProjectileType()[index];
+}
+
 enum PathType : uint8_t {
   PathType_NONE = 0,
   PathType_START = 1,
@@ -634,16 +667,16 @@ inline const char *EnumNamePathType(PathType e) {
 enum SkillType : uint8_t {
   SkillType_NONE = 0,
   SkillType_NORMAL = 1,
-  SkillType_PROJECTILE = 2,
+  SkillType_ARROW = 2,
   SkillType_MIN = SkillType_NONE,
-  SkillType_MAX = SkillType_PROJECTILE
+  SkillType_MAX = SkillType_ARROW
 };
 
 inline const SkillType (&EnumValuesSkillType())[3] {
   static const SkillType values[] = {
     SkillType_NONE,
     SkillType_NORMAL,
-    SkillType_PROJECTILE
+    SkillType_ARROW
   };
   return values;
 }
@@ -652,14 +685,14 @@ inline const char * const *EnumNamesSkillType() {
   static const char * const names[4] = {
     "NONE",
     "NORMAL",
-    "PROJECTILE",
+    "ARROW",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameSkillType(SkillType e) {
-  if (flatbuffers::IsOutRange(e, SkillType_NONE, SkillType_PROJECTILE)) return "";
+  if (flatbuffers::IsOutRange(e, SkillType_NONE, SkillType_ARROW)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesSkillType()[index];
 }

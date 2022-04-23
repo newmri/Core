@@ -144,6 +144,13 @@ public enum ObjectType : byte
   NPC = 4,
 };
 
+public enum ProjectileType : byte
+{
+  NONE = 0,
+  ARROW = 1,
+  MAGIC_ARROW = 2,
+};
+
 public enum PathType : byte
 {
   NONE = 0,
@@ -156,7 +163,7 @@ public enum SkillType : byte
 {
   NONE = 0,
   NORMAL = 1,
-  PROJECTILE = 2,
+  ARROW = 2,
 };
 
 public enum SkillAnimationType : byte

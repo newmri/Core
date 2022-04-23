@@ -91,7 +91,7 @@ class GamePacketHandler
     public static void SC_SPAWN_PROJECTILE_NOTI(PacketSession session, Root packet)
     {
         SC_SPAWN_PROJECTILE_NOTI spawnNoti = packet.PacketAsSC_SPAWN_PROJECTILE_NOTI();
-        Managers.Object.AddProjectile(spawnNoti.UnPack().ObjectInfo, spawnNoti.UnPack().Speed);
+        Managers.Object.AddProjectile(spawnNoti.UnPack().ObjectInfo, spawnNoti.UnPack().ProjectileType, spawnNoti.UnPack().Speed);
     }
 }
 

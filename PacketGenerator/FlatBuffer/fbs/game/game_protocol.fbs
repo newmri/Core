@@ -153,6 +153,7 @@ table SC_REVIVE_RES
 table SC_SPAWN_PROJECTILE_NOTI
 {
     object_info:Info.ObjectInfo;
+    projectile_type:Define.ProjectileType;
     speed:float;
 }
 

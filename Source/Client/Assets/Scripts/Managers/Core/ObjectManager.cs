@@ -53,9 +53,9 @@ public class ObjectManager
         CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, objectInfo, creatureInfo, characterInfo));
     }
 
-    public void AddProjectile(ObjectInfoT objectInfo, float speed)
+    public void AddProjectile(ObjectInfoT objectInfo, ProjectileType projectileType, float speed)
     {
-        GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Projectile", "MagicArrow", null, 100);
+        GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Projectile", projectileType.ToString(), null, 100);
         ProjectileController projectileController = gameObject.GetOrAddComponent<ProjectileController>();
         CoreManagers.Coroutine.Add(ProjectileSetInfoDelay(projectileController, objectInfo, speed));
     }

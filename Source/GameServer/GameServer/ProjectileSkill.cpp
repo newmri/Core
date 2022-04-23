@@ -17,6 +17,16 @@ ProjectileSkill::ProjectileSkill(const std::shared_ptr<Creature> owner, const Sk
 {
 }
 
+Define::ProjectileType ProjectileSkill::GetType(void)
+{
+	return this->skillData.projectileType;
+}
+
+float_t ProjectileSkill::GetSpeed(void)
+{
+	return this->skillData.projectileSpeed;
+}
+
 void ProjectileSkill::DoAction(void)
 {
 	Info::ObjectInfoT objectInfo;
