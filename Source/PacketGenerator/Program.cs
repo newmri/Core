@@ -22,7 +22,7 @@ namespace PacketGenerator
 
         static void Main(string[] args)
         {
-            if (args.Length >= 1)
+            if (1 <= args.Length)
             {
                 file = args[0];
                 type = args[1];
@@ -30,9 +30,9 @@ namespace PacketGenerator
                 serverName = args[3];
             }
 
-            if (type == "server")
+            if ("server" == type)
             {
-                if (language == "cpp")
+                if ("cpp" == language)
                     MakeServerPacketForCpp();
                 else
                     MakeServerPacketForCS();
@@ -40,7 +40,7 @@ namespace PacketGenerator
 
             else
             {
-                if (language == "cpp")
+                if ("cpp" == language)
                     MakeClientPacketForCpp();
                 else
                     MakeClientPacketForCS();
