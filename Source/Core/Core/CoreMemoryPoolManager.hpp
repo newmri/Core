@@ -24,7 +24,7 @@ T* CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
 
 	T* blockBody = nullptr;
 
-	Node<T, MAX_BLOCK_NUM>* currNode = head.get();
+	Node<T, MAX_BLOCK_NUM>* currNode = this->head.get();
 
 	do
 	{
@@ -38,7 +38,7 @@ T* CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::Alloc(const size_t needBlockNum)
 				if (IS_NULL(currNode->next))
 				{
 					currNode->next = std::make_unique<Node<T, MAX_BLOCK_NUM>>();
-					++pageNum;
+					++this->pageNum;
 				}
 			}
 
@@ -67,17 +67,17 @@ bool CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::IsValidBlockNum(const size_t needB
 template<typename T, size_t MAX_BLOCK_NUM>
 void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::CheckAndAllocHead(void)
 {
-	if (IS_NULL(head))
+	if (IS_NULL(this->head))
 	{
 		head = std::make_unique<Node<T, MAX_BLOCK_NUM>>();
-		++pageNum;
+		++this->pageNum;
 	}
 }
 
 template<typename T, size_t MAX_BLOCK_NUM>
 void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody)
 {
-	Node<T, MAX_BLOCK_NUM>* currNode = head.get();
+	Node<T, MAX_BLOCK_NUM>* currNode = this->head.get();
 
 	READ_LOCK(this->mutex);
 
@@ -96,6 +96,6 @@ void CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody)
 template<typename T, size_t MAX_BLOCK_NUM>
 size_t CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::GetPageNum(void)
 {
-	READ_LOCK(mutex);
-	return pageNum;
+	READ_LOCK(this->mutex);
+	return this->pageNum;
 }
