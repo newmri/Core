@@ -28,7 +28,7 @@ namespace ExcelToCSV
             excelApp = new Excel.Application();
             excelApp.DisplayAlerts = false;
 
-            this.doneMessage = "Converting " + this.sourceExtention + " to " + this.destExtention + " is done";
+            _doneMessage = "Converting " + _sourceExtention + " to " + _destExtention + " is done";
         }
 
         public void MainWindow_Closed(object sender, EventArgs e)
@@ -54,7 +54,7 @@ namespace ExcelToCSV
             String fileName = Path.GetFileName(fullPath);
 
             return (extension == Path.GetExtension(fileName) &&
-                    !fileName.Contains(this.tempFileName));
+                    !fileName.Contains(_tempFileName));
         }
 
         private void AddFullPathInList(String extension, String fullPath)
@@ -80,17 +80,17 @@ namespace ExcelToCSV
                 foreach (string fullPath in fullPathes)
                 {
                     if (IsDirectory(fullPath))
-                        AddFullPathInListFromDirectory(this.sourceExtention, fullPath);
+                        AddFullPathInListFromDirectory(_sourceExtention, fullPath);
 
                     else
-                        AddFullPathInList(this.sourceExtention, fullPath);
+                        AddFullPathInList(_sourceExtention, fullPath);
                 }
             }
         }
 
         private void ConvertAndSaveFile(Excel.Worksheet workSheet)
         {
-            String directory = Path.GetDirectoryName(this.sourceFullPath);
+            String directory = Path.GetDirectoryName(_sourceFullPath);
             directory += "\\";
 
             String serverDirectory = directory + "Server\\";
@@ -104,22 +104,22 @@ namespace ExcelToCSV
             if (!directoryInfo.Exists)
                 directoryInfo.Create();
 
-            if (checkDeleteColumnValue == workSheet.Range[checkDeleteColumnCell].Value2.ToString())
+            if (_checkDeleteColumnValue == workSheet.Range[_checkDeleteColumnCell].Value2.ToString())
             {
-                workSheet.Columns[deleteColumn].Delete();
+                workSheet.Columns[_deleteColumn].Delete();
             }
 
             var destBook = excelApp.Workbooks.Add(1);
             Excel.Worksheet destSheet = GetWorkSheet("Client", workSheet, destBook);
             if(destSheet != null)
-                destSheet.SaveAs(serverDirectory + workSheet.Name + this.destExtention, Excel.XlFileFormat.xlCSV);
+                destSheet.SaveAs(serverDirectory + workSheet.Name + _destExtention, Excel.XlFileFormat.xlCSV);
 
             destBook.Close(false);
 
             destBook = excelApp.Workbooks.Add(1);
             destSheet = GetWorkSheet("Server", workSheet, destBook);
             if (destSheet != null)
-                destSheet.SaveAs(clientDirectory + workSheet.Name + this.destExtention, xlCSVUTF8);
+                destSheet.SaveAs(clientDirectory + workSheet.Name + _destExtention, _xlCSVUTF8);
 
             destBook.Close(false);
         }
@@ -164,7 +164,7 @@ namespace ExcelToCSV
         {
             if (0 == this.FullPathListBox.Items.Count)
             {
-                MessageBox.Show(infoMessage, "INFO");
+                MessageBox.Show(_infoMessage, "INFO");
                 return;
             }
 
@@ -172,14 +172,14 @@ namespace ExcelToCSV
             {
                 foreach (var item in this.FullPathListBox.Items)
                 {
-                    this.sourceFullPath = item.ToString();
+                    _sourceFullPath = item.ToString();
 
-                    Excel.Workbook excelWorkbook = this.excelApp.Workbooks.Open(this.sourceFullPath);
+                    Excel.Workbook excelWorkbook = this.excelApp.Workbooks.Open(_sourceFullPath);
                     excelWorkbook = this.excelApp.ActiveWorkbook;
 
                     foreach (Excel.Worksheet workSheet in excelWorkbook.Worksheets)
                     {
-                        if (workSheet.Name.Contains(skipSheetName))
+                        if (workSheet.Name.Contains(_skipSheetName))
                             continue;
 
                         ConvertAndSaveFile(workSheet);
@@ -195,7 +195,7 @@ namespace ExcelToCSV
                 return;
             }
 
-            MessageBox.Show(doneMessage, "DONE");
+            MessageBox.Show(_doneMessage, "DONE");
         }
 
 
@@ -206,21 +206,21 @@ namespace ExcelToCSV
 
         private Excel.Application excelApp;
 
-        private String tempFileName = "~$";
+        private String _tempFileName = "~$";
 
-        private String sourceExtention = ".xlsx";
-        private String destExtention = ".csv";
+        private String _sourceExtention = ".xlsx";
+        private String _destExtention = ".csv";
 
-        private String sourceFullPath;
+        private String _sourceFullPath;
 
-        private String skipSheetName = "ForReference_";
+        private String _skipSheetName = "ForReference_";
 
-        private String infoMessage = "Plz drag and drop the file or the folder";
-        private String doneMessage;
+        private String _infoMessage = "Plz drag and drop the file or the folder";
+        private String _doneMessage;
 
-        private String deleteColumn = "A";
-        private String checkDeleteColumnCell = "A2";
-        private String checkDeleteColumnValue = "Index";
-        private int xlCSVUTF8 = 62;
+        private String _deleteColumn = "A";
+        private String _checkDeleteColumnCell = "A2";
+        private String _checkDeleteColumnValue = "Index";
+        private int _xlCSVUTF8 = 62;
     }
 }
