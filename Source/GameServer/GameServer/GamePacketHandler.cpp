@@ -7,10 +7,10 @@ GamePacketHandler::GamePacketHandler()
 
 void GamePacketHandler::Handle(std::shared_ptr<CoreClientSession> session, const GamePacket::Packet packetID, const void* data)
 {
-	if (func.end() == func.find(packetID))
+	if (this->func.end() == this->func.find(packetID))
 		return;
 
-	func[packetID](this->packetFunc, session, data);
+	this->func[packetID](this->packetFunc, session, data);
 }
 
 void GamePacketHandler::Register(void)

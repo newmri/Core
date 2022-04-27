@@ -21,10 +21,10 @@ namespace PacketGenerator
 
 void {0}Handler::Handle({1}, const {0}::Packet packetID, const void* data)
 {{
-	if (func.end() == func.find(packetID))
+	if (this->func.end() == this->func.find(packetID))
 		return;
 
-	func[packetID](this->packetFunc, session, data);
+	this->func[packetID](this->packetFunc, session, data);
 }}
 
 void {0}Handler::Register(void)
