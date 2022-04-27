@@ -25,15 +25,15 @@ namespace ExcelToCSV
         {
             InitializeComponent();
 
-            excelApp = new Excel.Application();
-            excelApp.DisplayAlerts = false;
+            _excelApp = new Excel.Application();
+            _excelApp.DisplayAlerts = false;
 
             _doneMessage = "Converting " + _sourceExtention + " to " + _destExtention + " is done";
         }
 
         public void MainWindow_Closed(object sender, EventArgs e)
         {
-            excelApp.Quit();
+            _excelApp.Quit();
         }
 
         private void FullPathListBox_DragEnterFullPathListBox(object sender, DragEventArgs e)
@@ -60,7 +60,7 @@ namespace ExcelToCSV
         private void AddFullPathInList(String extension, String fullPath)
         {
             if (IsRightFile(extension, fullPath))
-                this.FullPathListBox.Items.Add(fullPath);
+                FullPathListBox.Items.Add(fullPath);
         }
 
         private void AddFullPathInListFromDirectory(String extention, String fullPath)
@@ -109,14 +109,14 @@ namespace ExcelToCSV
                 workSheet.Columns[_deleteColumn].Delete();
             }
 
-            var destBook = excelApp.Workbooks.Add(1);
+            var destBook = _excelApp.Workbooks.Add(1);
             Excel.Worksheet destSheet = GetWorkSheet("Client", workSheet, destBook);
             if(destSheet != null)
                 destSheet.SaveAs(serverDirectory + workSheet.Name + _destExtention, Excel.XlFileFormat.xlCSV);
 
             destBook.Close(false);
 
-            destBook = excelApp.Workbooks.Add(1);
+            destBook = _excelApp.Workbooks.Add(1);
             destSheet = GetWorkSheet("Server", workSheet, destBook);
             if (destSheet != null)
                 destSheet.SaveAs(clientDirectory + workSheet.Name + _destExtention, _xlCSVUTF8);
@@ -162,7 +162,7 @@ namespace ExcelToCSV
 
         private void ExcelToCSVButton_Click(object sender, RoutedEventArgs e)
         {
-            if (0 == this.FullPathListBox.Items.Count)
+            if (0 == FullPathListBox.Items.Count)
             {
                 MessageBox.Show(_infoMessage, "INFO");
                 return;
@@ -170,12 +170,12 @@ namespace ExcelToCSV
 
             try
             {
-                foreach (var item in this.FullPathListBox.Items)
+                foreach (var item in FullPathListBox.Items)
                 {
                     _sourceFullPath = item.ToString();
 
-                    Excel.Workbook excelWorkbook = this.excelApp.Workbooks.Open(_sourceFullPath);
-                    excelWorkbook = this.excelApp.ActiveWorkbook;
+                    Excel.Workbook excelWorkbook = _excelApp.Workbooks.Open(_sourceFullPath);
+                    excelWorkbook = _excelApp.ActiveWorkbook;
 
                     foreach (Excel.Worksheet workSheet in excelWorkbook.Worksheets)
                     {
@@ -201,10 +201,10 @@ namespace ExcelToCSV
 
         private void ClearFullPathListButton_Click(object sender, RoutedEventArgs e)
         {
-            this.FullPathListBox.Items.Clear();
+           FullPathListBox.Items.Clear();
         }
 
-        private Excel.Application excelApp;
+        private Excel.Application _excelApp;
 
         private String _tempFileName = "~$";
 
