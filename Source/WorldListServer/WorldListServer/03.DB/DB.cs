@@ -9,7 +9,7 @@ namespace WorldListServer
 {
 	public class DB
 	{
-        private static string info = "Data Source=127.0.0.1;Initial Catalog=World;Integrated Security=True;";
+        private static string _info = "Data Source=127.0.0.1;Initial Catalog=World;Integrated Security=True;";
 
         public bool SignupAccount(SignupAccountPacketReq req)
         {
@@ -18,7 +18,7 @@ namespace WorldListServer
 
             bool IsSuccess = false;
 
-            using (SqlConnection connection = new SqlConnection(info))
+            using (SqlConnection connection = new SqlConnection(_info))
             {
                 connection.Open();
 
@@ -63,7 +63,7 @@ namespace WorldListServer
 
         private bool LoginAccount(LoginAccountPacketReq req, ref LoginAccountPacketRes res)
         {
-            using (SqlConnection connection = new SqlConnection(info))
+            using (SqlConnection connection = new SqlConnection(_info))
             {
                 connection.Open();
 
@@ -92,7 +92,7 @@ namespace WorldListServer
 
         private void UpdateAccountToken(LoginAccountPacketReq req, ref LoginAccountPacketRes res)
         {
-            using (SqlConnection connection = new SqlConnection(info))
+            using (SqlConnection connection = new SqlConnection(_info))
             {
                 connection.Open();
 
@@ -128,7 +128,7 @@ namespace WorldListServer
         {
             List<WorldListInfo> worldList = new List<WorldListInfo>();
 
-            using (SqlConnection connection = new SqlConnection(info))
+            using (SqlConnection connection = new SqlConnection(_info))
             {
                 connection.Open();
 
@@ -164,7 +164,7 @@ namespace WorldListServer
             if (req.ServerType <= ServerType.WorldList || req.ServerType >= ServerType.ServerTypeEnd)
                 return serverInfo;
 
-            using (SqlConnection connection = new SqlConnection(info))
+            using (SqlConnection connection = new SqlConnection(_info))
             {
                 connection.Open();
 
