@@ -1,7 +1,7 @@
 #pragma once
 
 template<typename T>
-struct CoreNode : public CoreMemoryPoolObj<CoreNode<T>, 1024>
+struct CoreNode : public CoreMemoryPoolObj<CoreNode<T>, CORE_BIG_SIZE>
 {
 	CoreNode() CORE_DEFAULT;
 

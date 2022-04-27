@@ -47,6 +47,24 @@ void AccountDB::Logout(const CoreAccount* account)
 {
 	Prepare(L"Logout");
 	BindArgument(account->GetUID());
+	BindArgument(LOGIN_SERVER.GetWorldID());
+	BindArgument(LOGIN_SERVER.GetServerID());
+	Execute();
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}
+
+void AccountDB::IncreaseUserCount(const int64_t accountUID)
+{
+	Prepare(L"IncreaseUserCount");
+	BindArgument(accountUID);
+	BindArgument(LOGIN_SERVER.GetWorldID());
+	BindArgument(LOGIN_SERVER.GetServerID());
 	Execute();
 
 	while (IsSuccess())

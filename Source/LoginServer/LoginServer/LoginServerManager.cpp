@@ -55,6 +55,16 @@ std::shared_ptr<GameDB> LoginServerManager::GetGameDB(void)
 	return this->gameDB;
 }
 
+int32_t LoginServerManager::GetWorldID(void)
+{
+	return this->serverConfig->WorldID;
+}
+
+int32_t LoginServerManager::GetServerID(void)
+{
+	return this->serverConfig->ServerID;
+}
+
 void LoginServerManager::MakeWorldDB(void)
 {
 	std::string dbName = ENUM_TO_STR(World);

@@ -13,8 +13,8 @@ void CoreServer::Run(void)
 {
 	this->asyncWork.reset(new boost::asio::io_context::work(this->ioContext));
 
-	unsigned int threadNum = (std::thread::hardware_concurrency() * 2) + 1;
-	for(unsigned int i = 0; i < threadNum; ++i)
+	int32_t threadNum = (std::thread::hardware_concurrency() * 2) + 1;
+	for(int32_t i = 0; i < threadNum; ++i)
 		this->asyncThread.create_thread(boost::bind(&boost::asio::io_context::run, &this->ioContext));
 
 	CORE_LOG.Log(LogType::LOG_DEBUG, "Server is Running...");
