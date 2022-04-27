@@ -105,20 +105,18 @@ namespace ExcelToCSV
                 directoryInfo.Create();
 
             if (_checkDeleteColumnValue == workSheet.Range[_checkDeleteColumnCell].Value2.ToString())
-            {
                 workSheet.Columns[_deleteColumn].Delete();
-            }
 
             var destBook = _excelApp.Workbooks.Add(1);
             Excel.Worksheet destSheet = GetWorkSheet("Client", workSheet, destBook);
-            if(destSheet != null)
+            if(null != destSheet)
                 destSheet.SaveAs(serverDirectory + workSheet.Name + _destExtention, Excel.XlFileFormat.xlCSV);
 
             destBook.Close(false);
 
             destBook = _excelApp.Workbooks.Add(1);
             destSheet = GetWorkSheet("Server", workSheet, destBook);
-            if (destSheet != null)
+            if (null != destSheet)
                 destSheet.SaveAs(clientDirectory + workSheet.Name + _destExtention, _xlCSVUTF8);
 
             destBook.Close(false);
@@ -134,7 +132,7 @@ namespace ExcelToCSV
             for (int i = 0; i < originalColumnCount; ++i)
             {
                 string name = Convert.ToString(usedRange.Rows[1].Cells[1, i + 1].Value2);
-                if (name == deleteName || name == "Reference")
+                if (deleteName == name || "Reference" == name)
                     deleteColumnList.Add(i + 1);
             }
 
@@ -152,7 +150,7 @@ namespace ExcelToCSV
 
             ((Excel.Range)destSheet.Rows[1, Type.Missing]).Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
 
-            if (deleteName == "Client")
+            if ("Client" == deleteName)
                 ((Excel.Range)destSheet.Rows[1, Type.Missing]).Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
             else
                 ((Excel.Range)destSheet.Rows[2, Type.Missing]).Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
