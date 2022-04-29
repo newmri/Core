@@ -11,6 +11,7 @@ public:
 	void Stop(void);
 
 public:
+	std::shared_ptr<WorldDB> GetWorldDB(void);
 	std::shared_ptr<AccountDB> GetAccountDB(void);
 	std::shared_ptr<GameDB> GetGameDB(void);
 

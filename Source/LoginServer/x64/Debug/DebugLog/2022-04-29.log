@@ -1,0 +1,127 @@
+12:20:48	[LOG_INFO]	[DBConfig.csv is loading...]
+12:20:48	[LOG_INFO]	string,string
+12:20:48	[LOG_INFO]	World,112.145.214.226
+12:20:48	[LOG_INFO]	Account,112.145.214.226
+12:20:48	[LOG_INFO]	Game,112.145.214.226
+12:20:48	[LOG_INFO]	[DBConfig.csv is loaded...]
+12:20:48	[LOG_INFO]	[ServerConfig.csv is loading...]
+12:20:48	[LOG_INFO]	string,int32_t,int32_t
+12:20:48	[LOG_INFO]	Login,1,1000
+12:20:48	[LOG_INFO]	[ServerConfig.csv is loaded...]
+12:20:48	[LOG_CONNECT]	WorldDB is Connected
+12:20:48	[LOG_DEBUG]	[Server Type]: Login
+12:20:48	[LOG_DEBUG]	[GroupID]: 0
+12:20:48	[LOG_DEBUG]	[WorldID]: 1
+12:20:48	[LOG_DEBUG]	[ServerID]: 1000
+12:20:48	[LOG_INFO]	[Data/CharacterCreateStat.csv is loading...]
+12:20:48	[LOG_INFO]	int32_t,int32_t,int32_t
+12:20:48	[LOG_INFO]	10 ,0 ,0 
+12:20:48	[LOG_INFO]	2 ,8 ,0 
+12:20:48	[LOG_INFO]	0 ,0 ,10 
+12:20:48	[LOG_INFO]	0 ,10 ,0 
+12:20:48	[LOG_INFO]	[Data/CharacterCreateStat.csv is loaded...]
+12:20:48	[LOG_INFO]	[Data/CharacterCreateGear.csv is loading...]
+12:20:48	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+12:20:48	[LOG_INFO]	1 ,2 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:20:48	[LOG_INFO]	0 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:20:48	[LOG_INFO]	0 ,0 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:20:48	[LOG_INFO]	1 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:20:48	[LOG_INFO]	[Data/CharacterCreateGear.csv is loaded...]
+12:20:48	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loading...]
+12:20:48	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+12:20:48	[LOG_INFO]	8 ,2 ,10 ,0 ,7 ,3 
+12:20:48	[LOG_INFO]	5 ,5 ,8 ,2 ,6 ,4 
+12:20:48	[LOG_INFO]	3 ,7 ,0 ,10 ,3 ,7 
+12:20:48	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loaded...]
+12:20:48	[LOG_DEBUG]	Server is Running...
+12:20:48	[LOG_DEBUG]	[Thread Num]: 41
+12:20:48	[LOG_DEBUG]	[Port]: 7000
+12:23:10	[LOG_INFO]	[DBConfig.csv is loading...]
+12:23:10	[LOG_INFO]	string,string
+12:23:10	[LOG_INFO]	World,112.145.214.226
+12:23:10	[LOG_INFO]	Account,112.145.214.226
+12:23:10	[LOG_INFO]	Game,112.145.214.226
+12:23:10	[LOG_INFO]	[DBConfig.csv is loaded...]
+12:23:10	[LOG_INFO]	[ServerConfig.csv is loading...]
+12:23:10	[LOG_INFO]	string,int32_t,int32_t
+12:23:10	[LOG_INFO]	Login,1,1000
+12:23:10	[LOG_INFO]	[ServerConfig.csv is loaded...]
+12:23:10	[LOG_CONNECT]	WorldDB is Connected
+12:23:10	[LOG_DEBUG]	[Server Type]: Login
+12:23:10	[LOG_DEBUG]	[GroupID]: 0
+12:23:10	[LOG_DEBUG]	[WorldID]: 1
+12:23:10	[LOG_DEBUG]	[ServerID]: 1000
+12:23:10	[LOG_INFO]	[Data/CharacterCreateStat.csv is loading...]
+12:23:10	[LOG_INFO]	int32_t,int32_t,int32_t
+12:23:10	[LOG_INFO]	10 ,0 ,0 
+12:23:10	[LOG_INFO]	2 ,8 ,0 
+12:23:10	[LOG_INFO]	0 ,0 ,10 
+12:23:10	[LOG_INFO]	0 ,10 ,0 
+12:23:10	[LOG_INFO]	[Data/CharacterCreateStat.csv is loaded...]
+12:23:10	[LOG_INFO]	[Data/CharacterCreateGear.csv is loading...]
+12:23:10	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+12:23:10	[LOG_INFO]	1 ,2 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:23:10	[LOG_INFO]	0 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:23:10	[LOG_INFO]	0 ,0 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:23:10	[LOG_INFO]	1 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:23:10	[LOG_INFO]	[Data/CharacterCreateGear.csv is loaded...]
+12:23:10	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loading...]
+12:23:10	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+12:23:10	[LOG_INFO]	8 ,2 ,10 ,0 ,7 ,3 
+12:23:10	[LOG_INFO]	5 ,5 ,8 ,2 ,6 ,4 
+12:23:10	[LOG_INFO]	3 ,7 ,0 ,10 ,3 ,7 
+12:23:10	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loaded...]
+12:23:10	[LOG_DEBUG]	Server is Running...
+12:23:10	[LOG_DEBUG]	[Thread Num]: 41
+12:23:10	[LOG_DEBUG]	[Port]: 7000
+12:24:08	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+12:24:08	[LOG_CONNECT]	AccountDB is Connected
+12:24:08	[LOG_CONNECT]	WorldDB is Connected
+12:24:08	[LOG_CONNECT]	GameDB is Connected
+12:25:07	[LOG_DISCONNECT]	oid(0)	
+12:25:07	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+12:27:48	[LOG_INFO]	[DBConfig.csv is loading...]
+12:27:48	[LOG_INFO]	string,string
+12:27:48	[LOG_INFO]	World,112.145.214.226
+12:27:48	[LOG_INFO]	Account,112.145.214.226
+12:27:48	[LOG_INFO]	Game,112.145.214.226
+12:27:48	[LOG_INFO]	[DBConfig.csv is loaded...]
+12:27:48	[LOG_INFO]	[ServerConfig.csv is loading...]
+12:27:48	[LOG_INFO]	string,int32_t,int32_t
+12:27:48	[LOG_INFO]	Login,1,1000
+12:27:48	[LOG_INFO]	[ServerConfig.csv is loaded...]
+12:27:48	[LOG_CONNECT]	WorldDB is Connected
+12:27:48	[LOG_DEBUG]	[Server Type]: Login
+12:27:48	[LOG_DEBUG]	[GroupID]: 0
+12:27:48	[LOG_DEBUG]	[WorldID]: 1
+12:27:48	[LOG_DEBUG]	[ServerID]: 1000
+12:27:48	[LOG_INFO]	[Data/CharacterCreateStat.csv is loading...]
+12:27:48	[LOG_INFO]	int32_t,int32_t,int32_t
+12:27:48	[LOG_INFO]	10 ,0 ,0 
+12:27:48	[LOG_INFO]	2 ,8 ,0 
+12:27:48	[LOG_INFO]	0 ,0 ,10 
+12:27:48	[LOG_INFO]	0 ,10 ,0 
+12:27:48	[LOG_INFO]	[Data/CharacterCreateStat.csv is loaded...]
+12:27:48	[LOG_INFO]	[Data/CharacterCreateGear.csv is loading...]
+12:27:48	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+12:27:48	[LOG_INFO]	1 ,2 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:27:48	[LOG_INFO]	0 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:27:48	[LOG_INFO]	0 ,0 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:27:48	[LOG_INFO]	1 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+12:27:48	[LOG_INFO]	[Data/CharacterCreateGear.csv is loaded...]
+12:27:48	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loading...]
+12:27:48	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+12:27:48	[LOG_INFO]	8 ,2 ,10 ,0 ,7 ,3 
+12:27:48	[LOG_INFO]	5 ,5 ,8 ,2 ,6 ,4 
+12:27:48	[LOG_INFO]	3 ,7 ,0 ,10 ,3 ,7 
+12:27:48	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loaded...]
+12:27:48	[LOG_DEBUG]	Server is Running...
+12:27:48	[LOG_DEBUG]	[Thread Num]: 41
+12:27:48	[LOG_DEBUG]	[Port]: 7000
+12:29:52	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+12:29:55	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+12:29:55	[LOG_CONNECT]	AccountDB is Connected
+12:29:55	[LOG_CONNECT]	WorldDB is Connected
+12:29:55	[LOG_CONNECT]	GameDB is Connected
+12:30:01	[LOG_DISCONNECT]	oid(1)	
+12:30:01	[LOG_DISCONNECT]	oid(0)	

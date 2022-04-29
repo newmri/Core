@@ -10,12 +10,6 @@
     <Filter Include="05.DB">
       <UniqueIdentifier>{ede77b35-6c64-466e-a091-2e95a54c07b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.DB\00.AccountDB">
-      <UniqueIdentifier>{a77d18fd-582a-4de5-a20f-e59422bbfd42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05.DB\01.GameDB">
-      <UniqueIdentifier>{ded080ab-e8cc-40df-b845-7c498cdb9a8b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03.Packet">
       <UniqueIdentifier>{adb8ddea-4059-4358-ade1-e9454d51bb9a}</UniqueIdentifier>
     </Filter>
@@ -42,6 +36,12 @@
     </Filter>
     <Filter Include="03.Packet\02.PacketSendManager">
       <UniqueIdentifier>{a9dcc120-dede-4f6c-9788-c043daf1a621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.DB\00.AccountDB">
+      <UniqueIdentifier>{a77d18fd-582a-4de5-a20f-e59422bbfd42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.DB\01.GameDB">
+      <UniqueIdentifier>{ded080ab-e8cc-40df-b845-7c498cdb9a8b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -14,12 +14,18 @@ void WorldDB::Release(void)
 {
 }
 
-void WorldDB::GerServerInfo(const int worldID, const int serverID, ServerInfo& serverInfo)
+void WorldDB::SetID(const int32_t worldID, const int32_t serverID)
+{
+	this->worldID = worldID;
+	this->serverID = serverID;
+}
+
+void WorldDB::GetServerInfo(ServerInfo& serverInfo)
 {
 	Prepare(L"GetServerInfo");
 
-	BindArgument(worldID);
-	BindArgument(serverID);
+	BindArgument(this->worldID);
+	BindArgument(this->serverID);
 
 	Execute();
 
@@ -31,6 +37,23 @@ void WorldDB::GerServerInfo(const int worldID, const int serverID, ServerInfo& s
 		this->retCode = SQLFetch(this->hstmt);
 
 	} while (IsSuccess());
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}
+
+void WorldDB::IncreaseUserCount(void)
+{
+	Prepare(L"IncreaseUserCount");
+
+	BindArgument(this->worldID);
+	BindArgument(this->serverID);
+
+	Execute();
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }
