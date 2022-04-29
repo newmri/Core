@@ -2,14 +2,14 @@
 #include "CoreMemoryPoolManager.h"
 
 template<typename T, size_t MAX_BLOCK_NUM>
-template <typename... Types>
+template<typename... Types>
 void* CoreMemoryPoolObj<T, MAX_BLOCK_NUM>::operator new(size_t size, Types... args)
 {
 	return CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::GetInstance().Alloc();
 }
 
 template<typename T, size_t MAX_BLOCK_NUM>
-template <typename... Types>
+template<typename... Types>
 void* CoreMemoryPoolObj<T, MAX_BLOCK_NUM>::operator new[](size_t size, Types... args)
 {
 	return CoreMemoryPoolManager<T, MAX_BLOCK_NUM>::GetInstance().Alloc((size - sizeof(void*)) / sizeof(T));
