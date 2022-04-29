@@ -35,7 +35,7 @@ void Run(void)
 	LOGIN_SERVER.Stop();
 }
 
-int main(void)
+int32_t main(void)
 {
 #if _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

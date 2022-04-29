@@ -30,7 +30,7 @@ void GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::Ch
 	BindCol(&info.level, sizeof(info.level));
 	BindCol((uint8_t*)&info.job, sizeof(info.job));
 
-	for (int i = 0; i < Define::GearType_END; ++i)
+	for (int32_t i = 0; i < Define::GearType_END; ++i)
 		BindCol(&info.gear.index[i], sizeof(info.gear.index[i]));
 
 	while (IsSuccess())
@@ -101,11 +101,11 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 	BindArgument(MP);
 
 	NativeInfo::Stat stat = DATA_MANAGER.GetCharacterCreateStat(info.job);
-	for (int i = 0; i < Define::StatType_END; ++i)
+	for (int32_t i = 0; i < Define::StatType_END; ++i)
 		BindArgument(stat.value[i]);
 
 	DATA_MANAGER.GetCharacterCreateGear(info.job, info.gear.index);
-	for (int i = 0; i < Define::GearType_END; ++i)
+	for (int32_t i = 0; i < Define::GearType_END; ++i)
 		BindArgument(info.gear.index[i]);
 
 	Execute();

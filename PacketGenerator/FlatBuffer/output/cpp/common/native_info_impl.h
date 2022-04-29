@@ -43,7 +43,7 @@ namespace NativeInfo
 
         int32_t GetMagnitude(void)
         {
-            return static_cast<int>(sqrtf(static_cast<float>(GetSqrMagnitude())));
+            return static_cast<int32_t>(sqrtf(static_cast<float>(GetSqrMagnitude())));
         }
 
         int32_t GetSqrMagnitude(void)

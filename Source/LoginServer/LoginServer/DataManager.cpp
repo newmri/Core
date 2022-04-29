@@ -30,7 +30,7 @@ void DataManager::GetCharacterCreateGear(const Define::Job& job, std::array<uint
 
 void DataManager::GetCharacterCreateHPMP(const Define::Job& job, int32_t& HP, int32_t& MP)
 {
-	for (int i = 0; i < Define::StatType_END; ++i)
+	for (int32_t i = 0; i < Define::StatType_END; ++i)
 	{
 		HP += this->characterCreateStat[job].value[i] * this->characterAbilityByStat[i].multipleRate[Define::AbilityByStatType_HP];
 		MP += this->characterCreateStat[job].value[i] * this->characterAbilityByStat[i].multipleRate[Define::AbilityByStatType_MP];
