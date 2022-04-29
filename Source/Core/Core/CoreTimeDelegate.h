@@ -9,7 +9,7 @@ public:
 
     }
 
-    CoreTimeDelegate(std::function<void(Types...)> func, Types... args, TIME_VALUE after = 0, TIME_VALUE tick = 0, int maxCallCnt = 1) :
+    CoreTimeDelegate(std::function<void(Types...)> func, Types... args, TIME_VALUE after = 0, TIME_VALUE tick = 0, int32_t maxCallCnt = 1) :
         func(func), args(args...), tickTime(tick), calledCnt(0), maxCallCnt(maxCallCnt)
     {
         this->activeTime = CORE_TIME_MANAGER.GetNowMilliSeconds() + after;
@@ -56,9 +56,9 @@ private:
     std::function<void(Types...)> func;
     std::tuple<Types...> args;
 
-    CACHE_ALIGN int calledCnt;
+    CACHE_ALIGN int32_t calledCnt;
     CACHE_ALIGN TIME_VALUE activeTime;
 
-    int maxCallCnt;
+    int32_t maxCallCnt;
     TIME_VALUE tickTime;
 };

@@ -25,6 +25,6 @@ template<typename T, typename FUNC = bool(*)(const T&, const T&)>
 void CoreQuickSort(T* start, T* end, FUNC Compare = CoreAscendingOrder);
 
 template<typename T, typename FUNC = bool(*)(const T&, const T&)>
-void CoreQuickSortRecursive(T* data, int start, int end, FUNC Compare);
+void CoreQuickSortRecursive(T* data, int32_t start, int32_t end, FUNC Compare);
 
 #include "CoreSort.hpp"

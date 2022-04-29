@@ -80,7 +80,7 @@ void CoreLoader::Parse(std::string& in, char* out)
 void CoreLoader::Parse(std::string& in, const size_t dataTypeIndex, char* out)
 {
 #if _DEBUG
-	unsigned int hashCode = HashCode(this->dataTypes[dataTypeIndex].c_str());
+	auto hashCode = HashCode(this->dataTypes[dataTypeIndex].c_str());
 	if (hashCode == HashCode(UINT8_NAME))
 	{
 		Parse(in, CHAR_TO_UINT8_REF out);

@@ -1,7 +1,7 @@
 #pragma once
 
 // EX)
-// CoreDelegate<const int attacker, const int victim> delegate;
+// CoreDelegate<const int32_t attacker, int32_t victim> delegate;
 // --------------------
 // function and lambda
 // [Add] delegate += Attack;
