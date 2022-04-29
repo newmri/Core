@@ -8,7 +8,7 @@ thread_local std::shared_ptr<GameDB> GameServerManager::gameDB;
 
 void GameServerManager::Init(void)
 {
-	CSV_LOAD_AND_TO_HAS_MAP("DBConfig.csv", DBConfig, this->dbConfig, Name);
+	CSV_LOAD_AND_TO_HASH_MAP("DBConfig.csv", DBConfig, this->dbConfig, Name);
 	CSV_LOAD_ONE_ROW("ServerConfig.csv", ServerConfig, this->serverConfig);
 
 	MakeWorldDB();

@@ -15,7 +15,7 @@ void CharacterDataManager::Load(void)
 {
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterAbilityByStat.csv", CharacterAbilityByStat, this->characterAbilityByStat);
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateSpeedStat.csv", NativeInfo::Speed, this->characterSpeed);
-	CSV_LOAD_AND_TO_HAS_MAP("Data/CharacterSkill.csv", SkillData, this->skill, skillID);
+	CSV_LOAD_AND_TO_HASH_MAP("Data/CharacterSkill.csv", SkillData, this->skill, skillID);
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterLevel.csv", LevelData, this->level);
 }
 
