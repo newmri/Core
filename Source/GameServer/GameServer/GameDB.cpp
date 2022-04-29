@@ -116,6 +116,8 @@ void GameDB::Logout(const int64_t uid)
 {
 	Prepare(L"Logout");
 	BindArgument(uid);
+	BindArgument(GAME_SERVER.GetWorldID());
+	BindArgument(GAME_SERVER.GetServerID());
 	Execute();
 
 	while (IsSuccess())

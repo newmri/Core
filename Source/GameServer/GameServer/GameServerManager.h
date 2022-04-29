@@ -15,6 +15,10 @@ public:
 	std::shared_ptr<AccountDB> GetAccountDB(void);
 	std::shared_ptr<GameDB> GetGameDB(void);
 
+public:
+	int32_t GetWorldID(void);
+	int32_t GetServerID(void);
+
 private:
 	void MakeWorldDB(void);
 	void MakeAccountDB(void);
