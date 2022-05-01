@@ -50,7 +50,7 @@
       <Filter>04.Skill\00.ProjectileSkill</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
-      <Filter>05.Object\00.Creature\01.Projectile</Filter>
+      <Filter>05.Object\01.Projectile</Filter>
     </ClCompile>
     <ClCompile Include="Creature.cpp">
       <Filter>05.Object\00.Creature</Filter>
@@ -62,7 +62,7 @@
       <Filter>05.Object</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
-      <Filter>05.Object\00.Creature\01.Projectile\00.Arrow</Filter>
+      <Filter>05.Object\01.Projectile\00.Arrow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +130,7 @@
       <Filter>04.Skill\00.ProjectileSkill</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
-      <Filter>05.Object\00.Creature\01.Projectile</Filter>
+      <Filter>05.Object\01.Projectile</Filter>
     </ClInclude>
     <ClInclude Include="Creature.h">
       <Filter>05.Object\00.Creature</Filter>
@@ -142,11 +142,12 @@
       <Filter>05.Object</Filter>
     </ClInclude>
     <ClInclude Include="Arrow.h">
-      <Filter>05.Object\00.Creature\01.Projectile\00.Arrow</Filter>
+      <Filter>05.Object\01.Projectile\00.Arrow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="00.Include">
@@ -212,10 +213,10 @@
     <Filter Include="05.Object\00.Creature\00.Player">
       <UniqueIdentifier>{e91e2d21-3145-42b4-9564-86ad96126814}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.Object\00.Creature\01.Projectile">
+    <Filter Include="05.Object\01.Projectile">
       <UniqueIdentifier>{604a7196-bb4c-4007-89f2-1b4cf807a61d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.Object\00.Creature\01.Projectile\00.Arrow">
+    <Filter Include="05.Object\01.Projectile\00.Arrow">
       <UniqueIdentifier>{89e8e455-85b4-4b22-880c-0efa1031f369}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

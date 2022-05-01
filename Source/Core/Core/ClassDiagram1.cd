@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Wrapper&lt;Child, T&gt;" Collapsed="true">
+    <Position X="33.75" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAgAAAAACAAEAAAAAAAAAA=</HashCode>
+      <FileName>CoreDataType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreTestManager" Collapsed="true">
+    <Position X="33.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreTestManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreMemoryPoolManager&lt;T, MAX_BLOCK_NUM&gt;" Collapsed="true">
+    <Position X="38.5" Y="1.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAgAAAAIAEAAgAAAAAAEAIAAAAAAAAIAA=</HashCode>
+      <FileName>CoreMemoryPoolManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreMemoryPool&lt;T, MAX_BLOCK_NUM&gt;" Collapsed="true">
+    <Position X="43" Y="2.75" Width="3" />
+    <NestedTypes>
+      <Struct Name="CoreMemoryPool&lt;T, MAX_BLOCK_NUM&gt;::BlockInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreMemoryPool.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AACAAARAAAAAACAQgAAAACgAhAAAAEEAAgAGQEIAJBA=</HashCode>
+      <FileName>CoreMemoryPool.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreMemoryPoolObj&lt;T, MAX_BLOCK_NUM&gt;" Collapsed="true">
+    <Position X="1.75" Y="1.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAQAAAAEAAAAIAAAAgAAAAAA=</HashCode>
+      <FileName>CoreMemoryPoolObj.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreSharedPtr&lt;T&gt;" Collapsed="true">
+    <Position X="30.25" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAIAUBAgAQgAAAAEAEAAAAAAgAAAAAAA=</HashCode>
+      <FileName>CoreSharedPtr.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MultipleInheritableEnableSharedFromThis" Collapsed="true">
+    <Position X="8" Y="7.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreSharedPtr.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="inheritable_enable_shared_from_this&lt;T&gt;" Collapsed="true">
+    <Position X="9.5" Y="11.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreSharedPtr.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreLogManager&lt;T&gt;" Collapsed="true">
+    <Position X="28.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAEAAAAAAgAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>CoreLogManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreLogger" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgBAAAAAAAAAECAAACAgAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>CoreLogger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreConsoleLogger" Collapsed="true">
+    <Position X="4" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreConsoleLogger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreFileLogger" Collapsed="true">
+    <Position X="6.25" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IgAABAAAAAAAAAAAAAAAAAAACAgAAUAABAAAAAAAAAA=</HashCode>
+      <FileName>CoreFileLogger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreTimeManager" Collapsed="true">
+    <Position X="32" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AUMBQAAKASEAAAAgAAQAIAACAAAEAiAAACAAgEAAIAA=</HashCode>
+      <FileName>CoreTimeManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreContainer&lt;T&gt;">
+    <Position X="12.5" Y="12" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAJAIAAACAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>CoreContainer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreIterator&lt;T&gt;" Collapsed="true">
+    <Position X="33.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAQAAAAAAAgAAAAEgAAAAAAA=</HashCode>
+      <FileName>CoreNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreArray&lt;T, N&gt;">
+    <Position X="14.5" Y="6.5" Width="2.25" />
+    <NestedTypes>
+      <Typedef Name="CoreArray&lt;T, N&gt;::iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreArray.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="CoreArray&lt;T, N&gt;::const_iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreArray.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAABAAIAAAAAQAgEAAAAAAAAyAgAAoCA=</HashCode>
+      <FileName>CoreArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreVector&lt;T&gt;">
+    <Position X="10" Y="14.75" Width="2.25" />
+    <NestedTypes>
+      <Typedef Name="CoreVector&lt;T&gt;::iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreVector.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="CoreVector&lt;T&gt;::const_iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreVector.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAAAADAAAAAABACAMAAEAQAiEAMAIAAAEwAgAAAAA=</HashCode>
+      <FileName>CoreVector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreQueue&lt;T&gt;">
+    <Position X="12.5" Y="14.75" Width="2.5" />
+    <NestedTypes>
+      <Typedef Name="CoreQueue&lt;T&gt;::iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreQueue.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="CoreQueue&lt;T&gt;::const_iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreQueue.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <InheritanceLine Type="CoreContainer&lt;T&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="13.375" Y="14.261" />
+        <Point X="13.375" Y="14.51" />
+        <Point X="13.25" Y="14.51" />
+        <Point X="13.25" Y="14.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AEAAAAECgBAAAABAAAAAAIAQAgAAgAAAAAAoAgAAAgA=</HashCode>
+      <FileName>CoreQueue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CorePriorityQueue&lt;T&gt;">
+    <Position X="15.5" Y="10.5" Width="2.75" />
+    <NestedTypes>
+      <Typedef Name="CorePriorityQueue&lt;T&gt;::iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CorePriorityQueue.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="CorePriorityQueue&lt;T&gt;::const_iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CorePriorityQueue.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAAAACgAAAAABQAAEAAIgQAgAAgAAAAAAqAgAAQAA=</HashCode>
+      <FileName>CorePriorityQueue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreList&lt;T&gt;">
+    <Position X="16" Y="15" Width="2.25" />
+    <NestedTypes>
+      <Typedef Name="CoreList&lt;T&gt;::iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreList.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="CoreList&lt;T&gt;::const_iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreList.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAACAAAEAAAAAEAAEAAAAAAgAAAEAAAAAgAAAAAAA=</HashCode>
+      <FileName>CoreList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreRandomManager&lt;T&gt;" Collapsed="true">
+    <Position X="26.75" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreRandomManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreLoadManager&lt;T&gt;">
+    <Position X="22" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreLoadManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="loader" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CoreLoader">
+    <Position X="19.25" Y="1.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgggEAABBAIAAAAAFAAACAABAgAEAACgAgAACAAQA=</HashCode>
+      <FileName>CoreLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreCSVLoader">
+    <Position X="19.5" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>CoreCSVLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreCSVMapLoader">
+    <Position X="19.5" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>CoreCSVMapLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreDataTypeManager" Collapsed="true">
+    <Position X="30.25" Y="0.5" Width="2" />
+    <NestedTypes>
+      <Typedef Name="CoreDataTypeManager::FUNC" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreDataTypeManager.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="CoreDataTypeManager::ProcessingMap" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreDataTypeManager.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEMgAAAAAAAAAAAAAAACBAAAAAAAAAAABAABAAECAAA=</HashCode>
+      <FileName>CoreDataTypeManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreStringManager" Collapsed="true">
+    <Position X="32" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAQAAEAAAAAAAAAAAAAAAAAAQAgAEAgAAAAA=</HashCode>
+      <FileName>CoreStringManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreDelegate&lt;...Types&gt;">
+    <Position X="37" Y="7.25" Width="2" />
+    <NestedTypes>
+      <Typedef Name="CoreDelegate&lt;...Types&gt;::iterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreDelegate.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAAAACAAAAAAAAEgAAAQAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreDelegate.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreTimeDelegate&lt;...Types&gt;">
+    <Position X="39.5" Y="7.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAIAAAAAAAAAAQAAAAAAAgEAAAAgAAAAEgM=</HashCode>
+      <FileName>CoreTimeDelegate.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreTimeDelegateManager">
+    <Position X="38" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABIAAAAAAAAAAQAAAAAAAAAAAIAAAEAAgCAI=</HashCode>
+      <FileName>CoreTimeDelegateManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreThreadManager" Collapsed="true">
+    <Position X="26.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAI=</HashCode>
+      <FileName>CoreThreadManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CorePacket" Collapsed="true">
+    <Position X="33.75" Y="1.5" Width="2" />
+    <NestedTypes>
+      <Enum Name="CorePacket::__unnamed_enum_0433_1" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CorePacket.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="CorePacket::__unnamed_enum_0433_2" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CorePacket.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAABAEEAAAAhSAAAAAAAAAAAAAAAAAAQAQAAAAAQA=</HashCode>
+      <FileName>CorePacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreSession">
+    <Position X="1.5" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QACAAAAIgABBEABAACAIBAAAAAAAAAAAAAEAAAAAAAI=</HashCode>
+      <FileName>CoreSession.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreClientSession">
+    <Position X="6.25" Y="9.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQgAJgAAmAAAAAAABABAAAAQAAAQAAQAAAACCEAABI=</HashCode>
+      <FileName>CoreClientSession.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreServerSession">
+    <Position X="2.75" Y="11.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAEAAAAAAAQAEAIAAAAAAAAAAAAAAFAGAAAA=</HashCode>
+      <FileName>CoreServerSession.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreServer" Collapsed="true">
+    <Position X="28.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEAQAAAABAAAAAAAAEQAAAAAAAAAAAIAAIAwCAIAI=</HashCode>
+      <FileName>CoreServer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreClient" Collapsed="true">
+    <Position X="28.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAABAAAEEAIAAAAAAAAAEACAIAAEAAAA=</HashCode>
+      <FileName>CoreClient.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreDB" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAFCAADAAAwAQEAAAAAIAGIAQAAAAAAABAEBAAAAA=</HashCode>
+      <FileName>CoreDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorldDB" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAIAgAAAAAQAAAAAAAAAIAAAAAAAAAABAAAABEAAAA=</HashCode>
+      <FileName>WorldDB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreAccountManager" Collapsed="true">
+    <Position X="26.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAoAAAAAAAAAAAAAAAAAAAgAAAgIAAAAAAAAAAAAoAA=</HashCode>
+      <FileName>CoreAccountManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreAccount" Collapsed="true">
+    <Position X="8.25" Y="3.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAQQKAAAAYgIBAmAEBAAIAAAAAGAAAAQAAABABgBA=</HashCode>
+      <FileName>CoreAccount.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreCharacter" Collapsed="true">
+    <Position X="8.5" Y="6" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>CoreCharacter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreObject" Collapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreUIDObject" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreUIDObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreGameObject" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreGameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::unique_ptr&lt;_Ty, _Dx&gt;">
+    <Position X="22.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAEAAAAAAgEAEAAQgAAAAAAAAAAAQAgAAAAAIg=</HashCode>
+      <FileName>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\memory</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="TestInfo" Collapsed="true">
+    <Position X="28.5" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAwAAAAAAAQAAAAIAAAAA=</HashCode>
+      <FileName>CoreTestManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Node&lt;T, MAX_BLOCK_NUM&gt;" Collapsed="true">
+    <Position X="32" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAMAAAA=</HashCode>
+      <FileName>CoreMemoryPoolManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BlockHeader" Collapsed="true">
+    <Position X="26.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreMemoryPool.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CoreNode&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAIAAAA=</HashCode>
+      <FileName>CoreNode.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ServerInfo" Collapsed="true">
+    <Position X="26.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreServer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ServerConfig" Collapsed="true">
+    <Position X="33.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAhAAAA=</HashCode>
+      <FileName>CoreServer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DBConfig" Collapsed="true">
+    <Position X="30.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreDB.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CoreToken" Collapsed="true">
+    <Position X="28.5" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAIQAAAAAAAA=</HashCode>
+      <FileName>CoreAccount.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="CORE_BYTE" Collapsed="true">
+    <Position X="26.75" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreDataType.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="CORE_BYTE_PTR" Collapsed="true">
+    <Position X="28.5" Y="8" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreDataType.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="LogType" Collapsed="true">
+    <Position X="30.25" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAQAAAAAAAAAAQAAAAAABYAAAAAAAAAAQ=</HashCode>
+      <FileName>CoreLogger.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DisconnectType" Collapsed="true">
+    <Position X="28.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CoreLogger.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DBType" Collapsed="true">
+    <Position X="26.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>CoreDB.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

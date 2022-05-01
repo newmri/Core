@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GamePacketFunc">
+    <Position X="23.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAIAAAAICAAgAAAAAAAAAAAAACQ=</HashCode>
+      <FileName>GamePacketFunc.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GamePacketHandler">
+    <Position X="21.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAIAAAABAAMAAAAAAAAAAAA=</HashCode>
+      <FileName>GamePacketHandler.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="packetFunc" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GameServer">
+    <Position X="21.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAgAAAAAAAAAAAAAAAAAEIAAAAAAIAAAAAAAAAI=</HashCode>
+      <FileName>GameServer.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="handler" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GameServerManager">
+    <Position X="19" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBAAAIAgAAAAAAQACQAQAAAAFAIAAAAAIAAAAQTAAAI=</HashCode>
+      <FileName>GameServerManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectManager">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAGAABAAgACABAAAAAgEAAAJAAAAAgAACAAAAA=</HashCode>
+      <FileName>ObjectManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Object">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACBNAAAAgAAgAgQgAAFEoAAACAAAAAACCAAAAoAAY=</HashCode>
+      <FileName>Object.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Creature" Collapsed="true">
+    <Position X="3.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAgCBAAQAAgAAAAQAAQEAAgAAEIBAABCCUAIAAIAIA=</HashCode>
+      <FileName>Creature.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="3.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAABAAAAAAAEAAABEEAABAAAAAAAwACAAAAAQAIIAA=</HashCode>
+      <FileName>Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projectile" Collapsed="true">
+    <Position X="6.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEIAAgAAAAAACAAAAAAAAAAAAAAAAAAAIIAA=</HashCode>
+      <FileName>Projectile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileSkill" Collapsed="true">
+    <Position X="1.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAEIAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>ProjectileSkill.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill" Collapsed="true">
+    <Position X="1.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAgAAAAAACEAoAAAAIAKAAAAAAAAAAAAI=</HashCode>
+      <FileName>Skill.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arrow" Collapsed="true">
+    <Position X="6.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Arrow.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZoneManager">
+    <Position X="10.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAACACAAQAAAAAKEEAAAABAAACAAAAAA=</HashCode>
+      <FileName>ZoneManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zone">
+    <Position X="12" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEACCAAAIAAAAAQKBARAAAGAIEEIAAAhIBQCAAAIgA=</HashCode>
+      <FileName>Zone.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="sectors" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Sector">
+    <Position X="14.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIAgACAIAAAAAACAEQBAAgEIAApAAAAAAACAQBAAA=</HashCode>
+      <FileName>Sector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
