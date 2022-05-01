@@ -121,9 +121,7 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 		this->retCode = SQLFetch(this->hstmt);
 
 		if (IsSuccess())
-		{
 			info.uid = characterUID;
-		}
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);

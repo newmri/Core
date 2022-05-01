@@ -33,9 +33,7 @@ bool AccountDB::Login(const int64_t accountUID, CoreToken& token)
 		this->retCode = SQLFetch(this->hstmt);
 
 		if (IsSuccess())
-		{
 			token.expireTime = time;
-		}
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
