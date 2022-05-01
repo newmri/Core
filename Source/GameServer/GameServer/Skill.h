@@ -22,6 +22,7 @@ public:
 	virtual void DoDamage(std::shared_ptr<Object> target, std::vector<flatbuffers::Offset<GamePacket::DamageInfo>>& sendList);
 
 public:
+	Define::SkillType GetSkillType(void);
 	int32_t GetMapID(void);
 	NativeInfo::Vec2Int GetPos(void);
 

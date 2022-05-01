@@ -76,6 +76,11 @@ void Skill::DoDamage(std::shared_ptr<Object> target, std::vector<flatbuffers::Of
 	sendList.push_back(GamePacket::DamageInfo::Pack(PACKET_SEND_MANAGER.builder, &damageInfo));
 }
 
+Define::SkillType Skill::GetSkillType(void)
+{
+	return this->skillData.skillType;
+}
+
 int32_t Skill::GetMapID(void)
 {
 	return this->owner->GetMapID();

@@ -116,7 +116,9 @@ bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cell
 
 void Zone::_Enter(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	this->data.objects[index.y][index.x] = ObjectInfo(object->GetOID(), object->GetObjectType());
+	if (IS_SAME(INVALID_OID, this->data.objects[index.y][index.x].oid))
+		SetObjectInfo(index, ObjectInfo(object->GetOID(), object->GetObjectType()));
+
 	sector->Add(object);
 }
 
@@ -192,8 +194,11 @@ std::tuple<bool, std::shared_ptr<Object>> Zone::Move(std::shared_ptr<Object> obj
 
 	else
 	{
-		SetObjectInfo(sourceIndex, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
-		SetObjectInfo(destIndex, ObjectInfo(object->GetOID(), object->GetObjectType()));
+		if (IS_SAME(object->GetOID(), this->data.objects[sourceIndex.y][sourceIndex.x].oid))
+			SetObjectInfo(sourceIndex, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
+
+		if (IS_SAME(INVALID_OID, this->data.objects[destIndex.y][destIndex.x].oid))
+			SetObjectInfo(destIndex, ObjectInfo(object->GetOID(), object->GetObjectType()));
 
 		destSector->Move(object);
 	}
@@ -217,7 +222,9 @@ bool Zone::Leave(std::shared_ptr<Object> object)
 
 void Zone::_Leave(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	SetObjectInfo(index, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
+	if (IS_SAME(object->GetOID(), this->data.objects[index.y][index.x].oid))
+		SetObjectInfo(index, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
+
 	sector->Remove(object->GetObjectType(), object->GetOID());
 }
 
