@@ -63,13 +63,10 @@ void Zone::Init(void)
 
 void Zone::InitSector(void)
 {
-	// 1~40ĭ = 1Sector
-	// 41~60ĭ = 2Sector
+	// 1~40 = 1Sector
+	// 41~60 = 2Sector
 	this->sectorCount.x = (this->data.size.x + this->SectorCells - 1) / this->SectorCells;
 	this->sectorCount.y = (this->data.size.y + this->SectorCells - 1) / this->SectorCells;
-
-	//std::cout << this->sectorCount.x << std::endl;
-	//std::cout << this->sectorCount.y << std::endl;
 
 	this->sectors = new Sector*[this->sectorCount.y];
 	for (int32_t i = 0; i < this->sectorCount.y; ++i)
