@@ -23,7 +23,7 @@ bool AccountDB::Login(const int64_t accountUID, CoreToken& token)
 	Execute();
 
 	bool isSuccess = false;
-	int32_t time = 0;
+	TIME_VALUE time = 0;
 
 	BindCol(&isSuccess, sizeof(isSuccess));
 	BindCol(&time, sizeof(time));

@@ -40,7 +40,7 @@ private:
 	TIME_POINT start, end;
 	std::chrono::duration<double> sec;
 	std::string timeEndMessage = "Time has been passed (sec) ";
-	static const int timeBufferSize = 128;
+	static const int32_t timeBufferSize = 128;
 	char timeBuffer[timeBufferSize];
 	std::string time;
 	std::string dateFormat = "%F";
