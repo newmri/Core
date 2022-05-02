@@ -107,6 +107,7 @@ void Sector::SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player)
 			flatbuffers::Offset<void> packet;
 			(iter_begin->second)->MakeSpawnPacket(packetType, packet);
 			player->Send(packetType, packet);
+			Sleep(1);
 		}
 	}
 
@@ -119,6 +120,7 @@ void Sector::SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player)
 			flatbuffers::Offset<void> packet;
 			(iter_begin->second)->MakeSpawnPacket(packetType, packet);
 			player->Send(packetType, packet);
+			Sleep(1);
 		}
 	}
 }
