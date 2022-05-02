@@ -68,6 +68,16 @@ public class ObjectManager
         else
             yield return new WaitUntil(() => _isMyPlayerLoaded == true);
 
+        if (playerController == null)
+        {
+            AddPlayer(objectInfo, creatureInfo, characterInfo);
+            yield break;
+        }
+
+        Debug.Log("AddPlayer");
+        Debug.Log("oid: " + objectInfo.Oid);
+        Debug.Log($"X: {objectInfo.PosInfo.Pos.X} Y: {objectInfo.PosInfo.Pos.Y}");
+
         playerController.ObjectInfo = objectInfo;
         playerController.CreatureInfo = creatureInfo;
         playerController.CharacterInfo = characterInfo;
