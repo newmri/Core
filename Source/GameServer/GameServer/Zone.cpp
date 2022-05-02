@@ -33,11 +33,11 @@ void Zone::Init(void)
 	this->data.size.y = this->data.max.y - this->data.min.y + 1;
 
 	this->data.path = new Define::PathType * [this->data.size.y];
-	this->data.objects = new ObjectInfo * [this->data.size.y];
+	this->data.objects = new Objects * [this->data.size.y];
 	for (int32_t i = 0; i < this->data.size.y; ++i)
 	{
 		this->data.path[i] = new Define::PathType[this->data.size.x]{};
-		this->data.objects[i] = new ObjectInfo[this->data.size.x]{};
+		this->data.objects[i] = new Objects[this->data.size.x]{};
 	}
 
 	int32_t offset = minMaxSize;
@@ -116,23 +116,24 @@ bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cell
 
 void Zone::_Enter(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	if (IS_SAME(INVALID_OID, this->data.objects[index.y][index.x].oid))
-		SetObjectInfo(index, ObjectInfo(object->GetOID(), object->GetObjectType()));
-
+	AddObjectInfo(index, ObjectInfo(object->GetOID(), object->GetObjectType()));
 	sector->Add(object);
 }
 
 std::shared_ptr<Object> Zone::CanMove(Sector* sector, const NativeInfo::Vec2Int& index, const bool checkPath, const bool checkObjects) const
 {
-	if ((!checkPath || (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) || IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))) && 
-		checkObjects && IS_NOT_SAME(INVALID_OID, this->data.objects[index.y][index.x].oid))
+	if ((!checkPath || (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) || IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))) &&
+		checkObjects && !this->data.objects[index.y][index.x].objectInfo.empty())
 	{
-		if (auto object = sector->FindObject(this->data.objects[index.y][index.x]); IS_NOT_NULL(object))
+		auto iter_begin = this->data.objects[index.y][index.x].objectInfo.begin();
+		auto iter_end = this->data.objects[index.y][index.x].objectInfo.end();
+		for (; iter_begin != iter_end; ++iter_begin)
 		{
-			if (object->IsDead())
-				return nullptr;
-
-			return object;
+			if (auto object = sector->FindObject((*iter_begin)); IS_NOT_NULL(object))
+			{
+				if (!object->IsDead())
+					return object;
+			}
 		}
 	}
 
@@ -194,11 +195,8 @@ std::tuple<bool, std::shared_ptr<Object>> Zone::Move(std::shared_ptr<Object> obj
 
 	else
 	{
-		if (IS_SAME(object->GetOID(), this->data.objects[sourceIndex.y][sourceIndex.x].oid))
-			SetObjectInfo(sourceIndex, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
-
-		if (IS_SAME(INVALID_OID, this->data.objects[destIndex.y][destIndex.x].oid))
-			SetObjectInfo(destIndex, ObjectInfo(object->GetOID(), object->GetObjectType()));
+		RemoveObjectInfo(sourceIndex, object->GetOID());
+		AddObjectInfo(destIndex, ObjectInfo(object->GetOID(), object->GetObjectType()));
 
 		destSector->Move(object);
 	}
@@ -222,9 +220,7 @@ bool Zone::Leave(std::shared_ptr<Object> object)
 
 void Zone::_Leave(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	if (IS_SAME(object->GetOID(), this->data.objects[index.y][index.x].oid))
-		SetObjectInfo(index, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
-
+	RemoveObjectInfo(index, object->GetOID());
 	sector->Remove(object->GetObjectType(), object->GetOID());
 }
 
@@ -272,8 +268,8 @@ void Zone::Revive(std::shared_ptr<Creature> creature)
 	// 사망 섹터와 부활 섹터가 같음
 	if (IS_SAME(deadSector, reviveSector))
 	{
-		SetObjectInfo(deadIndex, ObjectInfo(INVALID_OID, Define::ObjectType_NONE));
-		SetObjectInfo(this->data.startIndex, ObjectInfo(creature->GetOID(), creature->GetObjectType()));
+		RemoveObjectInfo(deadIndex, creature->GetOID());
+		AddObjectInfo(this->data.startIndex, ObjectInfo(creature->GetOID(), creature->GetObjectType()));
 
 		reviveSector->Revive(creature);
 	}
@@ -284,7 +280,19 @@ void Zone::Revive(std::shared_ptr<Creature> creature)
 	}
 }
 
-void Zone::SetObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo)
+void Zone::AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo)
 {
-	this->data.objects[index.y][index.x] = objectInfo;
+	this->data.objects[index.y][index.x].objectInfo.push_back(objectInfo);
 }
+
+void Zone::RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid)
+{
+	this->data.objects[index.y][index.x].objectInfo.erase(
+		std::remove_if(this->data.objects[index.y][index.x].objectInfo.begin(),
+		this->data.objects[index.y][index.x].objectInfo.end(),
+		[&](ObjectInfo info)
+		{
+			return IS_SAME(oid, info.oid);
+		}));
+}
+

@@ -13,7 +13,7 @@ struct MapData
 	NativeInfo::Vec2Int max;
 	NativeInfo::Vec2Int size;
 	Define::PathType** path = nullptr;
-	ObjectInfo** objects = nullptr;
+	Objects** objects = nullptr;
 
 	NativeInfo::Vec2Int startIndex;
 	NativeInfo::Vec2Int startCellPos;

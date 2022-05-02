@@ -1,6 +1,7 @@
 #pragma once
 
 #include <tuple>
+#include <list>
 
 #include "../../Core/Core/CoreInclude.h"
 #include "native_info_impl.h"

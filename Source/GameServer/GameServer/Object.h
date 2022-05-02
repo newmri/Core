@@ -16,6 +16,11 @@ struct ObjectInfo
 	Define::ObjectType objectType;
 };
 
+struct Objects
+{
+	std::list<ObjectInfo> objectInfo;
+};
+
 class Object : public CoreGameObject, public inheritable_enable_shared_from_this<Object>
 {
 	OVERRIDE_GAME_OBJECT(Object)

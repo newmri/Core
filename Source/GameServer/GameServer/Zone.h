@@ -44,7 +44,8 @@ public:
 	void Revive(std::shared_ptr<Creature> creature);
 
 private:
-	void SetObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo);
+	void AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo);
+	void RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid);
 
 private:
 	int32_t id;
