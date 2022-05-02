@@ -29,6 +29,7 @@ public class BaseController : MonoBehaviour
 				return;
 
 			_objectInfo = value;
+			UpdateAnimation();
 		}
 	}
 
