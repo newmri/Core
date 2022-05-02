@@ -20,7 +20,7 @@ void CoreClientSession::Write(const CorePacket& packet)
 {
 	this->writeQueue.push(packet);
 
-	if (!this->writeQueue.empty())
+	if (IS_SAME(1, this->writeQueue.size()))
 		Write();
 }
 
@@ -36,7 +36,7 @@ void CoreClientSession::Write(void)
 		{
 			if (error)
 			{
-				this->server->Close(shared_from_this(), false);
+				this->server->Close(self, false);
 			}
 			else
 			{
