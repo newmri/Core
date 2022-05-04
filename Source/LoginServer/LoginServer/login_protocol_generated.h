@@ -43,6 +43,10 @@ struct SC_CREATE_CHARACTER_RES;
 struct SC_CREATE_CHARACTER_RESBuilder;
 struct SC_CREATE_CHARACTER_REST;
 
+struct SC_TEST_REQ;
+struct SC_TEST_REQBuilder;
+struct SC_TEST_REQT;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -89,11 +93,12 @@ enum Packet : uint8_t {
   Packet_CS_LOGOUT_NOTI = 5,
   Packet_CS_CREATE_CHARACTER_REQ = 6,
   Packet_SC_CREATE_CHARACTER_RES = 7,
+  Packet_SC_TEST_REQ = 8,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_CREATE_CHARACTER_RES
+  Packet_MAX = Packet_SC_TEST_REQ
 };
 
-inline const Packet (&EnumValuesPacket())[8] {
+inline const Packet (&EnumValuesPacket())[9] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -102,13 +107,14 @@ inline const Packet (&EnumValuesPacket())[8] {
     Packet_CS_PING_RES,
     Packet_CS_LOGOUT_NOTI,
     Packet_CS_CREATE_CHARACTER_REQ,
-    Packet_SC_CREATE_CHARACTER_RES
+    Packet_SC_CREATE_CHARACTER_RES,
+    Packet_SC_TEST_REQ
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[9] = {
+  static const char * const names[10] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -117,13 +123,14 @@ inline const char * const *EnumNamesPacket() {
     "CS_LOGOUT_NOTI",
     "CS_CREATE_CHARACTER_REQ",
     "SC_CREATE_CHARACTER_RES",
+    "SC_TEST_REQ",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_CREATE_CHARACTER_RES)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_TEST_REQ)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -158,6 +165,10 @@ template<> struct PacketTraits<LoginPacket::CS_CREATE_CHARACTER_REQ> {
 
 template<> struct PacketTraits<LoginPacket::SC_CREATE_CHARACTER_RES> {
   static const Packet enum_value = Packet_SC_CREATE_CHARACTER_RES;
+};
+
+template<> struct PacketTraits<LoginPacket::SC_TEST_REQ> {
+  static const Packet enum_value = Packet_SC_TEST_REQ;
 };
 
 struct PacketUnion {
@@ -247,6 +258,14 @@ struct PacketUnion {
   const LoginPacket::SC_CREATE_CHARACTER_REST *AsSC_CREATE_CHARACTER_RES() const {
     return type == Packet_SC_CREATE_CHARACTER_RES ?
       reinterpret_cast<const LoginPacket::SC_CREATE_CHARACTER_REST *>(value) : nullptr;
+  }
+  LoginPacket::SC_TEST_REQT *AsSC_TEST_REQ() {
+    return type == Packet_SC_TEST_REQ ?
+      reinterpret_cast<LoginPacket::SC_TEST_REQT *>(value) : nullptr;
+  }
+  const LoginPacket::SC_TEST_REQT *AsSC_TEST_REQ() const {
+    return type == Packet_SC_TEST_REQ ?
+      reinterpret_cast<const LoginPacket::SC_TEST_REQT *>(value) : nullptr;
   }
 };
 
@@ -788,6 +807,58 @@ inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RE
 
 flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_CREATE_CHARACTER_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct SC_TEST_REQT : public flatbuffers::NativeTable {
+  typedef SC_TEST_REQ TableType;
+  int32_t test = 0;
+};
+
+struct SC_TEST_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_TEST_REQT NativeTableType;
+  typedef SC_TEST_REQBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_TEST = 4
+  };
+  int32_t test() const {
+    return GetField<int32_t>(VT_TEST, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int32_t>(verifier, VT_TEST) &&
+           verifier.EndTable();
+  }
+  SC_TEST_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_TEST_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_TEST_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_TEST_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_TEST_REQBuilder {
+  typedef SC_TEST_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_test(int32_t test) {
+    fbb_.AddElement<int32_t>(SC_TEST_REQ::VT_TEST, test, 0);
+  }
+  explicit SC_TEST_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_TEST_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_TEST_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_TEST_REQ> CreateSC_TEST_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    int32_t test = 0) {
+  SC_TEST_REQBuilder builder_(_fbb);
+  builder_.add_test(test);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_TEST_REQ> CreateSC_TEST_REQ(flatbuffers::FlatBufferBuilder &_fbb, const SC_TEST_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   LoginPacket::PacketUnion packet{};
@@ -828,6 +899,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const LoginPacket::SC_CREATE_CHARACTER_RES *packet_as_SC_CREATE_CHARACTER_RES() const {
     return packet_type() == LoginPacket::Packet_SC_CREATE_CHARACTER_RES ? static_cast<const LoginPacket::SC_CREATE_CHARACTER_RES *>(packet()) : nullptr;
   }
+  const LoginPacket::SC_TEST_REQ *packet_as_SC_TEST_REQ() const {
+    return packet_type() == LoginPacket::Packet_SC_TEST_REQ ? static_cast<const LoginPacket::SC_TEST_REQ *>(packet()) : nullptr;
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_PACKET_TYPE) &&
@@ -866,6 +940,10 @@ template<> inline const LoginPacket::CS_CREATE_CHARACTER_REQ *Root::packet_as<Lo
 
 template<> inline const LoginPacket::SC_CREATE_CHARACTER_RES *Root::packet_as<LoginPacket::SC_CREATE_CHARACTER_RES>() const {
   return packet_as_SC_CREATE_CHARACTER_RES();
+}
+
+template<> inline const LoginPacket::SC_TEST_REQ *Root::packet_as<LoginPacket::SC_TEST_REQ>() const {
+  return packet_as_SC_TEST_REQ();
 }
 
 struct RootBuilder {
@@ -1130,6 +1208,32 @@ inline flatbuffers::Offset<SC_CREATE_CHARACTER_RES> CreateSC_CREATE_CHARACTER_RE
       _character_info);
 }
 
+inline SC_TEST_REQT *SC_TEST_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_TEST_REQT>(new SC_TEST_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_TEST_REQ::UnPackTo(SC_TEST_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = test(); _o->test = _e; }
+}
+
+inline flatbuffers::Offset<SC_TEST_REQ> SC_TEST_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_TEST_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_TEST_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_TEST_REQ> CreateSC_TEST_REQ(flatbuffers::FlatBufferBuilder &_fbb, const SC_TEST_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_TEST_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _test = _o->test;
+  return LoginPacket::CreateSC_TEST_REQ(
+      _fbb,
+      _test);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -1192,6 +1296,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const LoginPacket::SC_CREATE_CHARACTER_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_TEST_REQ: {
+      auto ptr = reinterpret_cast<const LoginPacket::SC_TEST_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -1238,6 +1346,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const LoginPacket::SC_CREATE_CHARACTER_RES *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_TEST_REQ: {
+      auto ptr = reinterpret_cast<const LoginPacket::SC_TEST_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -1272,6 +1384,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const LoginPacket::SC_CREATE_CHARACTER_REST *>(value);
       return CreateSC_CREATE_CHARACTER_RES(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_TEST_REQ: {
+      auto ptr = reinterpret_cast<const LoginPacket::SC_TEST_REQT *>(value);
+      return CreateSC_TEST_REQ(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -1304,6 +1420,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_CREATE_CHARACTER_RES: {
       FLATBUFFERS_ASSERT(false);  // LoginPacket::SC_CREATE_CHARACTER_REST not copyable.
+      break;
+    }
+    case Packet_SC_TEST_REQ: {
+      value = new LoginPacket::SC_TEST_REQT(*reinterpret_cast<LoginPacket::SC_TEST_REQT *>(u.value));
       break;
     }
     default:
@@ -1345,6 +1465,11 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_CREATE_CHARACTER_RES: {
       auto ptr = reinterpret_cast<LoginPacket::SC_CREATE_CHARACTER_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_TEST_REQ: {
+      auto ptr = reinterpret_cast<LoginPacket::SC_TEST_REQT *>(value);
       delete ptr;
       break;
     }

@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using UnityEngine;
 
 namespace UnityCoreLibrary
 {
@@ -18,7 +19,6 @@ namespace UnityCoreLibrary
         public sealed override int OnRecv(ArraySegment<byte> buffer)
         {
             int processLen = 0;
-            int packetCount = 0;
 
             while (true)
             {
@@ -35,11 +35,10 @@ namespace UnityCoreLibrary
 
                 // 여기까지 왔으면 패킷 조립 가능
                 OnRecvPacket(new ArraySegment<byte>(buffer.Array, buffer.Offset, dataSize));
-                packetCount++;
-
                 processLen += dataSize;
 
                 buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize);
+
             }
 
             return processLen;

@@ -2,6 +2,14 @@
 
 void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
+	for (int i = 0; i < 10; ++i)
+	{
+		PACKET_SEND_MANAGER.builder.Clear();
+		auto message = LoginPacket::CreateSC_TEST_REQ(PACKET_SEND_MANAGER.builder, i);
+		PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_TEST_REQ, message.Union());
+	}
+	return;
+
 	auto raw = static_cast<const LoginPacket::CS_LOGIN_REQ*>(data);
 
 	LoginPacket::ErrorCode result = LoginPacket::ErrorCode_UNKNOWN;
