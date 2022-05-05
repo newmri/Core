@@ -2,14 +2,6 @@
 
 void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
-	for (int i = 0; i < 10; ++i)
-	{
-		PACKET_SEND_MANAGER.builder.Clear();
-		auto message = LoginPacket::CreateSC_TEST_REQ(PACKET_SEND_MANAGER.builder, i);
-		PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_TEST_REQ, message.Union());
-	}
-	return;
-
 	auto raw = static_cast<const LoginPacket::CS_LOGIN_REQ*>(data);
 
 	LoginPacket::ErrorCode result = LoginPacket::ErrorCode_UNKNOWN;
@@ -164,4 +156,18 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	}
 
 	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_CREATE_CHARACTER_RES, message.Union());
+}
+
+void LoginPacketFunc::CS_TEST_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto raw = static_cast<const LoginPacket::CS_TEST_REQ*>(data);
+
+	std::cout << raw->test() << std::endl;
+
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	PACKET_SEND_MANAGER.builder.Clear();
+	//	auto message = LoginPacket::CreateSC_TEST_RES(PACKET_SEND_MANAGER.builder, i);
+	//	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_TEST_RES, message.Union());
+	//}
 }

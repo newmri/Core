@@ -16,6 +16,12 @@ call generator.bat "flatc.exe --gen-object-api --csharp --gen-onefile -o output/
 
 rem copy flatbuffer files
 
+rem dummyclinet
+set clientpath="../../Source/DummyClient/DummyClient/*"
+call copy.bat %clientpath% cpp\common
+call copy.bat %clientpath% cpp\login
+call copy.bat %clientpath% cpp\game
+
 rem common
 set serverpath="../../Source/LoginServer/LoginServer/*"
 set clientpath="../../Source/Client/Assets/Scripts/Network/*"

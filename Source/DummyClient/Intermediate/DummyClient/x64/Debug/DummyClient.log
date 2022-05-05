@@ -1,13 +1,2 @@
-﻿  AccountDB.cpp
-  DataManager.cpp
-  GameDB.cpp
-  Character.cpp
-  LoginPacketFunc.cpp
-  LoginPacketHandler.cpp
-  LoginServer.cpp
-  LoginServerManager.cpp
-  Main.cpp
-  native_info_impl.cpp
-  PacketSendManager.cpp
-  코드를 생성하고 있습니다...
+﻿  DummyClientManager.cpp
   DummyClient.vcxproj -> C:\Users\HavePoop\Desktop\Study\Core\Source\DummyClient\x64\Debug\DummyClient.exe

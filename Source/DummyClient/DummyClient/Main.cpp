@@ -17,7 +17,7 @@ void Input(void)
 			IsRunning = false;
 			break;
 		case HashCode("/help"):
-			CORE_CONSOLE_LOG.Log("/quit: quit server");
+			CORE_CONSOLE_LOG.Log("/quit: quit DummyClient");
 			break;
 		default:
 			CORE_CONSOLE_LOG.Log("Input /help");
@@ -28,11 +28,11 @@ void Input(void)
 
 void Run(void)
 {
-	LOGIN_SERVER.Run();
+	DUMMY_CLIENT.Run();
 
 	Input();
 
-	LOGIN_SERVER.Stop();
+	DUMMY_CLIENT.Stop();
 }
 
 int32_t main(void)

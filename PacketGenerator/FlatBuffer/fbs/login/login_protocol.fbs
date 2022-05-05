@@ -19,6 +19,8 @@ union Packet
     CS_LOGOUT_NOTI,
     CS_CREATE_CHARACTER_REQ,
     SC_CREATE_CHARACTER_RES,
+    CS_TEST_REQ,
+    SC_TEST_RES,
 }
 
 table CS_LOGIN_REQ
@@ -66,6 +68,16 @@ table SC_CREATE_CHARACTER_RES
 {
     is_success:bool;
     character_info:CharacterInfo;
+}
+
+table CS_TEST_REQ
+{
+    test:int32;
+}
+
+table SC_TEST_RES
+{
+    test:int32;
 }
 
 table Root

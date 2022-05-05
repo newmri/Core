@@ -13,9 +13,16 @@ void PacketSendManager::Release(void)
 	GetInstance().~PacketSendManager();
 }
 
-void PacketSendManager::Send(std::shared_ptr<CoreClientSession> session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet)
+void PacketSendManager::Send(CoreServerSession& session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
 	auto data = LoginPacket::CreateRoot(builder, packetType, packet);
 	builder.Finish(data);
-	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
+	session.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
+}
+
+void PacketSendManager::Send(CoreServerSession& session, GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
+{
+	auto data = GamePacket::CreateRoot(builder, packetType, packet);
+	builder.Finish(data);
+	session.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }

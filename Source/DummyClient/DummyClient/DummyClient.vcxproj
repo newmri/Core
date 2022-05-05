@@ -90,14 +90,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AccountDB.cpp" />
     <ClCompile Include="DataManager.cpp" />
-    <ClCompile Include="GameDB.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="LoginPacketFunc.cpp" />
     <ClCompile Include="LoginPacketHandler.cpp" />
-    <ClCompile Include="LoginServer.cpp" />
-    <ClCompile Include="LoginServerManager.cpp" />
+    <ClCompile Include="LoginClient.cpp" />
+    <ClCompile Include="DummyClientManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="native_info_impl.cpp" />
     <ClCompile Include="PacketSendManager.cpp" />
@@ -108,23 +106,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AccountDB.h" />
     <ClInclude Include="CharacterData.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="define_protocol_generated.h" />
-    <ClInclude Include="GameDB.h" />
     <ClInclude Include="info_protocol_generated.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="LoginPacketFunc.h" />
     <ClInclude Include="LoginPacketHandler.h" />
-    <ClInclude Include="LoginServer.h" />
+    <ClInclude Include="LoginClient.h" />
     <ClInclude Include="Include.h" />
-    <ClInclude Include="LoginServerManager.h" />
+    <ClInclude Include="DummyClientManager.h" />
     <ClInclude Include="login_protocol_generated.h" />
     <ClInclude Include="native_info_impl.h" />
     <ClInclude Include="PacketSendManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

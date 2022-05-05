@@ -9,7 +9,6 @@ CoreServerSession::CoreServerSession(boost::asio::io_context& ioContext, CoreCli
 
 CoreServerSession::~CoreServerSession()
 {
-	this->ioContext.stop();
 	Close();
 }
 
@@ -21,9 +20,15 @@ void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 			if (error)
 			{
 				CORE_LOG.Log(LogType::LOG_ERROR, "connect error " + error.value() + error.message());
+				Close();
 			}
 			else
 			{
+				boost::asio::ip::tcp::no_delay option(true);
+				this->socket.set_option(option);
+
+				this->client->OnConnected();
+
 				ReadHeader();
 			}
 		});
@@ -31,7 +36,15 @@ void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 
 void CoreServerSession::Close(void)
 {
-	boost::asio::post(this->ioContext, [this]() { this->socket.close(); });
+	boost::asio::post(this->ioContext, [this]()
+		{
+			if (this->socket.is_open())
+			{
+				this->ioContext.stop();
+				this->socket.close();
+				this->client->OnDisconnected();
+			}
+		});
 }
 
 void CoreServerSession::Write(const CorePacket& packet)
@@ -109,7 +122,7 @@ void CoreServerSession::ReadBody(void)
 			}
 			else
 			{
-				client->ProcessPacket(this->read.GetBody(), this->read.GetBodySize());
+				this->client->ProcessPacket(this->read.GetBody(), this->read.GetBodySize());
 				ReadHeader();
 			}
 		});

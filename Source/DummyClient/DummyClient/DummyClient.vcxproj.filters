@@ -31,16 +31,7 @@
     <Filter Include="05.Character">
       <UniqueIdentifier>{f810c2c0-bb91-4f89-91af-5174d6ce564b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06.DB">
-      <UniqueIdentifier>{ede77b35-6c64-466e-a091-2e95a54c07b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.DB\00.AccountDB">
-      <UniqueIdentifier>{a77d18fd-582a-4de5-a20f-e59422bbfd42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="06.DB\01.GameDB">
-      <UniqueIdentifier>{ded080ab-e8cc-40df-b845-7c498cdb9a8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.LoginServer">
+    <Filter Include="02.DummyClient">
       <UniqueIdentifier>{4b05fb9b-f643-4208-9680-d2b7752f8061}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -48,8 +39,8 @@
     <ClCompile Include="Main.cpp">
       <Filter>01.Main</Filter>
     </ClCompile>
-    <ClCompile Include="LoginServer.cpp">
-      <Filter>02.LoginServer</Filter>
+    <ClCompile Include="LoginClient.cpp">
+      <Filter>02.DummyClient</Filter>
     </ClCompile>
     <ClCompile Include="LoginPacketHandler.cpp">
       <Filter>04.Packet\03.LoginPacketHandler</Filter>
@@ -57,14 +48,8 @@
     <ClCompile Include="LoginPacketFunc.cpp">
       <Filter>04.Packet\04.LoginPacketFunc</Filter>
     </ClCompile>
-    <ClCompile Include="LoginServerManager.cpp">
-      <Filter>02.LoginServer</Filter>
-    </ClCompile>
-    <ClCompile Include="AccountDB.cpp">
-      <Filter>06.DB\00.AccountDB</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDB.cpp">
-      <Filter>06.DB\01.GameDB</Filter>
+    <ClCompile Include="DummyClientManager.cpp">
+      <Filter>02.DummyClient</Filter>
     </ClCompile>
     <ClCompile Include="DataManager.cpp">
       <Filter>03.DataManager</Filter>
@@ -86,8 +71,8 @@
     <ClInclude Include="login_protocol_generated.h">
       <Filter>04.Packet\00.FlatBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="LoginServer.h">
-      <Filter>02.LoginServer</Filter>
+    <ClInclude Include="LoginClient.h">
+      <Filter>02.DummyClient</Filter>
     </ClInclude>
     <ClInclude Include="LoginPacketHandler.h">
       <Filter>04.Packet\03.LoginPacketHandler</Filter>
@@ -95,17 +80,11 @@
     <ClInclude Include="LoginPacketFunc.h">
       <Filter>04.Packet\04.LoginPacketFunc</Filter>
     </ClInclude>
-    <ClInclude Include="LoginServerManager.h">
-      <Filter>02.LoginServer</Filter>
+    <ClInclude Include="DummyClientManager.h">
+      <Filter>02.DummyClient</Filter>
     </ClInclude>
     <ClInclude Include="define_protocol_generated.h">
       <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="AccountDB.h">
-      <Filter>06.DB\00.AccountDB</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDB.h">
-      <Filter>06.DB\01.GameDB</Filter>
     </ClInclude>
     <ClInclude Include="DataManager.h">
       <Filter>03.DataManager</Filter>
@@ -128,5 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
