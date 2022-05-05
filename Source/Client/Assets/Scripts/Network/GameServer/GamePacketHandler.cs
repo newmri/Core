@@ -47,7 +47,11 @@ class GamePacketHandler
     public static void SC_SPAWN_PLAYER_NOTI(PacketSession session, Root packet)
     {
         SC_SPAWN_PLAYER_NOTI spawnNoti = packet.PacketAsSC_SPAWN_PLAYER_NOTI();
-        Managers.Object.AddPlayer(spawnNoti.UnPack().ObjectInfo, spawnNoti.UnPack().CreatureInfo, spawnNoti.UnPack().CharacterInfo);
+        CoreManagers.Coroutine.Add(
+            Managers.Object.AddPlayer(spawnNoti.UnPack().ObjectInfo,
+            spawnNoti.UnPack().CreatureInfo,
+            spawnNoti.UnPack().CharacterInfo));
+
     }
 
     public static void SC_DESPAWN_OBJECT_NOTI(PacketSession session, Root packet)
@@ -91,7 +95,10 @@ class GamePacketHandler
     public static void SC_SPAWN_PROJECTILE_NOTI(PacketSession session, Root packet)
     {
         SC_SPAWN_PROJECTILE_NOTI spawnNoti = packet.PacketAsSC_SPAWN_PROJECTILE_NOTI();
-        Managers.Object.AddProjectile(spawnNoti.UnPack().ObjectInfo, spawnNoti.UnPack().ProjectileType, spawnNoti.UnPack().Speed);
+        CoreManagers.Coroutine.Add(
+            Managers.Object.AddProjectile(spawnNoti.UnPack().ObjectInfo,
+            spawnNoti.UnPack().ProjectileType,
+            spawnNoti.UnPack().Speed));
     }
 }
 

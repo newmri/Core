@@ -46,27 +46,28 @@ public class ObjectManager
         _isMyPlayerLoaded = true;
     }
 
-    public void AddPlayer(ObjectInfoT objectInfo, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
+    public IEnumerator AddPlayer(ObjectInfoT objectInfo, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
     {
+        yield return new WaitUntil(() => _isMyPlayerLoaded == true);
+
         GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Player", "Player");
         PlayerController playerController = gameObject.GetOrAddComponent<PlayerController>();
         CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, objectInfo, creatureInfo, characterInfo));
     }
 
-    public void AddProjectile(ObjectInfoT objectInfo, ProjectileType projectileType, float speed)
+    public IEnumerator AddProjectile(ObjectInfoT objectInfo, ProjectileType projectileType, float speed)
     {
+        yield return new WaitUntil(() => _isMyPlayerLoaded == true);
+
         GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Projectile", projectileType.ToString(), null, 10);
         ProjectileController projectileController = gameObject.GetOrAddComponent<ProjectileController>();
         CoreManagers.Coroutine.Add(ProjectileSetInfoDelay(projectileController, objectInfo, speed));
     }
 
-    // Player Init이 끝났을 때 까지 대기
+    // Init이 끝났을 때 까지 대기
     IEnumerator PlayerSetInfoDelay(PlayerController playerController, ObjectInfoT objectInfo, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
     {
-        if (_isMyPlayerLoaded)
-            yield return new WaitForEndOfFrame();
-        else
-            yield return new WaitUntil(() => _isMyPlayerLoaded == true);
+        yield return new WaitForEndOfFrame();
 
         if (playerController == null)
         {
@@ -74,9 +75,7 @@ public class ObjectManager
             yield break;
         }
 
-        Debug.Log("AddPlayer");
-        Debug.Log("oid: " + objectInfo.Oid);
-        Debug.Log($"X: {objectInfo.PosInfo.Pos.X} Y: {objectInfo.PosInfo.Pos.Y}");
+        Debug.Log("AddPlayer oid: " + objectInfo.Oid);
 
         playerController.ObjectInfo = objectInfo;
         playerController.CreatureInfo = creatureInfo;
@@ -85,13 +84,10 @@ public class ObjectManager
         _playerList.Add(objectInfo.Oid, playerController);
     }
 
-    // Player Init이 끝났을 때 까지 대기
+    // Init이 끝났을 때 까지 대기
     IEnumerator ProjectileSetInfoDelay(ProjectileController projectileController, ObjectInfoT objectInfo, float speed)
     {
-        if (_isMyPlayerLoaded)
-            yield return new WaitForEndOfFrame();
-        else
-            yield return new WaitUntil(() => _isMyPlayerLoaded == true);
+        yield return new WaitForEndOfFrame();
 
         projectileController.ObjectInfo = objectInfo;
         projectileController.MoveSpeed = speed;
@@ -186,6 +182,8 @@ public class ObjectManager
 
     public void Remove(ObjectType objectType, long oid)
     {
+        Debug.Log("Remove oid: " + oid);
+
         switch (objectType)
         {
             case ObjectType.PLAYER:

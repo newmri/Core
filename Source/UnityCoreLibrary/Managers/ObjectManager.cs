@@ -78,7 +78,7 @@ namespace UnityCoreLibrary
         public GameObject Add(long oid, GameObject prefab, Vector3 pos, int poolCount = 1, Transform parent = null)
         {
             GameObject gameObject = CoreManagers.Resource.Instantiate(oid, prefab, pos, poolCount, parent);
-            AddServerObjectPostProcess(oid, gameObject.tag, gameObject);
+            AddServerObjectPostProcess(oid, gameObject);
             return gameObject;
         }
 
@@ -90,11 +90,11 @@ namespace UnityCoreLibrary
         public GameObject Add(long oid, string type, string name, Vector3 pos, int poolCount = 1, Transform parent = null)
         {
             GameObject gameObject = CoreManagers.Resource.Instantiate(oid, type, name, pos, poolCount, parent);
-            AddServerObjectPostProcess(oid, type, gameObject);
+            AddServerObjectPostProcess(oid, gameObject);
             return gameObject;
         }
 
-        private void AddServerObjectPostProcess(long oid, string type, GameObject gameObject)
+        private void AddServerObjectPostProcess(long oid, GameObject gameObject)
         {
             _serverObjects.Add(oid, gameObject);
             gameObject.SetActive(true);
@@ -107,7 +107,6 @@ namespace UnityCoreLibrary
                 return;
 
             _serverObjects.Remove(ID);
-
             CoreManagers.Resource.Destroy(gameObject);
         }
 
