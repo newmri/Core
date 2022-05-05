@@ -107,7 +107,6 @@ void Sector::SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player)
 			flatbuffers::Offset<void> packet;
 			(iter_begin->second)->MakeSpawnPacket(packetType, packet);
 			player->Send(packetType, packet);
-			Sleep(1);
 		}
 	}
 
@@ -120,7 +119,6 @@ void Sector::SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player)
 			flatbuffers::Offset<void> packet;
 			(iter_begin->second)->MakeSpawnPacket(packetType, packet);
 			player->Send(packetType, packet);
-			Sleep(1);
 		}
 	}
 }
@@ -142,7 +140,6 @@ void Sector::SendAll(GamePacket::Packet packetType, flatbuffers::Offset<void> pa
 	for (; iter_begin != iter_end; ++iter_begin)
 	{
 		(iter_begin->second)->Send(packetType, packet);
-		Sleep(1);
 	}
 }
 
@@ -154,8 +151,6 @@ void Sector::SendAllExceptMe(const int64_t& oid, GamePacket::Packet packetType, 
 	{
 		if((iter_begin->second)->GetOID() != oid)
 			(iter_begin->second)->Send(packetType, packet);
-
-		Sleep(1);
 	}
 }
 
