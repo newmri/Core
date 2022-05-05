@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
 
 namespace UnityCoreLibrary
 {
@@ -32,8 +31,6 @@ namespace UnityCoreLibrary
 
         public void Clean()
         {
-            Debug.Log("Clean");
-
             int dataSize = DataSize;
             if (dataSize == 0)
             {
