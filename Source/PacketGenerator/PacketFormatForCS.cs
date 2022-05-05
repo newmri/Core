@@ -41,10 +41,9 @@ class {0}Manager
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
     {{
-        ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
-
+        int size = buffer.Count;
         byte[] recvBuffer = new byte[size];
-        Array.Copy(buffer.Array, PackeSize.HEADER_SIZE, recvBuffer, 0, size);
+        Array.Copy(buffer.Array, buffer.Offset + PackeSize.HEADER_SIZE, recvBuffer, 0, size);
         ByteBuffer byteBuffer = new ByteBuffer(recvBuffer);
 
         Root root = Root.GetRootAsRoot(byteBuffer);

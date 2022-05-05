@@ -18725,3 +18725,60 @@
 18:22:50	[LOG_DISCONNECT]	oid(11)	
 18:25:15	[LOG_CONNECT]	oid(12)	[ip]: 127.0.0.1
 18:25:30	[LOG_DISCONNECT]	oid(12)	
+18:30:22	[LOG_INFO]	[DBConfig.csv is loading...]
+18:30:22	[LOG_INFO]	string,string
+18:30:22	[LOG_INFO]	World,112.145.214.226
+18:30:22	[LOG_INFO]	Account,112.145.214.226
+18:30:22	[LOG_INFO]	Game,112.145.214.226
+18:30:22	[LOG_INFO]	[DBConfig.csv is loaded...]
+18:30:22	[LOG_INFO]	[ServerConfig.csv is loading...]
+18:30:22	[LOG_INFO]	string,int32_t,int32_t
+18:30:22	[LOG_INFO]	Login,1,1000
+18:30:22	[LOG_INFO]	[ServerConfig.csv is loaded...]
+18:30:22	[LOG_CONNECT]	WorldDB is Connected
+18:30:22	[LOG_DEBUG]	[Server Type]: Login
+18:30:22	[LOG_DEBUG]	[GroupID]: 0
+18:30:22	[LOG_DEBUG]	[WorldID]: 1
+18:30:22	[LOG_DEBUG]	[ServerID]: 1000
+18:30:22	[LOG_INFO]	[Data/CharacterCreateStat.csv is loading...]
+18:30:22	[LOG_INFO]	int32_t,int32_t,int32_t
+18:30:22	[LOG_INFO]	10 ,0 ,0 
+18:30:22	[LOG_INFO]	2 ,8 ,0 
+18:30:22	[LOG_INFO]	0 ,0 ,10 
+18:30:22	[LOG_INFO]	0 ,10 ,0 
+18:30:22	[LOG_INFO]	[Data/CharacterCreateStat.csv is loaded...]
+18:30:22	[LOG_INFO]	[Data/CharacterCreateGear.csv is loading...]
+18:30:22	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+18:30:22	[LOG_INFO]	1 ,2 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+18:30:22	[LOG_INFO]	0 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+18:30:22	[LOG_INFO]	0 ,0 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+18:30:22	[LOG_INFO]	1 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 
+18:30:22	[LOG_INFO]	[Data/CharacterCreateGear.csv is loaded...]
+18:30:22	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loading...]
+18:30:22	[LOG_INFO]	uint8_t,uint8_t,uint8_t,uint8_t,uint8_t,uint8_t
+18:30:22	[LOG_INFO]	8 ,2 ,10 ,0 ,7 ,3 
+18:30:22	[LOG_INFO]	5 ,5 ,8 ,2 ,6 ,4 
+18:30:22	[LOG_INFO]	3 ,7 ,0 ,10 ,3 ,7 
+18:30:22	[LOG_INFO]	[Data/CharacterAbilityByStat.csv is loaded...]
+18:30:22	[LOG_DEBUG]	Server is Running...
+18:30:22	[LOG_DEBUG]	[Thread Num]: 41
+18:30:22	[LOG_DEBUG]	[Port]: 7000
+18:32:44	[LOG_CONNECT]	oid(0)	[ip]: 127.0.0.1
+18:32:44	[LOG_CONNECT]	AccountDB is Connected
+18:32:44	[LOG_CONNECT]	WorldDB is Connected
+18:32:44	[LOG_CONNECT]	GameDB is Connected
+18:32:56	[LOG_CONNECT]	oid(1)	[ip]: 127.0.0.1
+18:33:03	[LOG_CONNECT]	oid(2)	[ip]: 127.0.0.1
+18:33:27	[LOG_DISCONNECT]	oid(0)	
+18:33:28	[LOG_DISCONNECT]	oid(1)	
+18:33:32	[LOG_DISCONNECT]	oid(2)	
+18:33:53	[LOG_CONNECT]	oid(3)	[ip]: 127.0.0.1
+18:33:54	[LOG_DISCONNECT]	oid(3)	
+18:34:20	[LOG_CONNECT]	oid(4)	[ip]: 127.0.0.1
+18:34:22	[LOG_DISCONNECT]	oid(4)	
+18:35:12	[LOG_CONNECT]	oid(5)	[ip]: 127.0.0.1
+18:35:14	[LOG_DISCONNECT]	oid(5)	
+18:35:57	[LOG_CONNECT]	oid(6)	[ip]: 127.0.0.1
+18:35:57	[LOG_CONNECT]	WorldDB is Connected
+18:35:57	[LOG_CONNECT]	GameDB is Connected
+18:35:59	[LOG_DISCONNECT]	oid(6)	
