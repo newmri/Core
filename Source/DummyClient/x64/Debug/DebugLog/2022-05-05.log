@@ -23,3 +23,5 @@
 14:12:38	[LOG_ERROR]	Cannot Connect, Shutdown
 14:13:07	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
 14:13:07	[LOG_ERROR]	Cannot Connect, Shutdown
+14:24:49	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+14:24:49	[LOG_ERROR]	Cannot Connect, Shutdown

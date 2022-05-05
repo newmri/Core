@@ -26,14 +26,14 @@ class LoginPacketManager
        _handler.Add(Packet.SC_LOGIN_RES, LoginPacketHandler.SC_LOGIN_RES);
        _handler.Add(Packet.SC_PING_REQ, LoginPacketHandler.SC_PING_REQ);
        _handler.Add(Packet.SC_CREATE_CHARACTER_RES, LoginPacketHandler.SC_CREATE_CHARACTER_RES);
-       _handler.Add(Packet.SC_TEST_RES, LoginPacketHandler.SC_TEST_RES);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
     {
-        int size = buffer.Count;
+        ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+
         byte[] recvBuffer = new byte[size];
-        Array.Copy(buffer.Array, buffer.Offset + PackeSize.HEADER_SIZE, recvBuffer, 0, size);
+        Array.Copy(buffer.Array, PackeSize.HEADER_SIZE, recvBuffer, 0, size);
         ByteBuffer byteBuffer = new ByteBuffer(recvBuffer);
 
         Root root = Root.GetRootAsRoot(byteBuffer);

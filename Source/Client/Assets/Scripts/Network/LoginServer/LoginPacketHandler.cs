@@ -68,12 +68,6 @@ class LoginPacketHandler
         popUp.SetActiveSlot(loginRes.CharacterInfo.Value);
         popUp.RemoveLastEmptySlot();
     }
-
-    public static void SC_TEST_REQ(PacketSession session, Root packet)
-    {
-        SC_TEST_REQ spawnNoti = packet.PacketAsSC_TEST_REQ();
-        Debug.Log(spawnNoti.Test);
-    }
 }
 
 

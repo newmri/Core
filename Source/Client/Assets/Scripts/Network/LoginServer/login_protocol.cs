@@ -26,8 +26,6 @@ public enum Packet : byte
   CS_LOGOUT_NOTI = 5,
   CS_CREATE_CHARACTER_REQ = 6,
   SC_CREATE_CHARACTER_RES = 7,
-  CS_TEST_REQ = 8,
-  SC_TEST_RES = 9,
 };
 
 public class PacketUnion {
@@ -47,8 +45,6 @@ public class PacketUnion {
   public LoginPacket.CS_LOGOUT_NOTIT AsCS_LOGOUT_NOTI() { return this.As<LoginPacket.CS_LOGOUT_NOTIT>(); }
   public LoginPacket.CS_CREATE_CHARACTER_REQT AsCS_CREATE_CHARACTER_REQ() { return this.As<LoginPacket.CS_CREATE_CHARACTER_REQT>(); }
   public LoginPacket.SC_CREATE_CHARACTER_REST AsSC_CREATE_CHARACTER_RES() { return this.As<LoginPacket.SC_CREATE_CHARACTER_REST>(); }
-  public LoginPacket.CS_TEST_REQT AsCS_TEST_REQ() { return this.As<LoginPacket.CS_TEST_REQT>(); }
-  public LoginPacket.SC_TEST_REST AsSC_TEST_RES() { return this.As<LoginPacket.SC_TEST_REST>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -60,8 +56,6 @@ public class PacketUnion {
       case Packet.CS_LOGOUT_NOTI: return LoginPacket.CS_LOGOUT_NOTI.Pack(builder, _o.AsCS_LOGOUT_NOTI()).Value;
       case Packet.CS_CREATE_CHARACTER_REQ: return LoginPacket.CS_CREATE_CHARACTER_REQ.Pack(builder, _o.AsCS_CREATE_CHARACTER_REQ()).Value;
       case Packet.SC_CREATE_CHARACTER_RES: return LoginPacket.SC_CREATE_CHARACTER_RES.Pack(builder, _o.AsSC_CREATE_CHARACTER_RES()).Value;
-      case Packet.CS_TEST_REQ: return LoginPacket.CS_TEST_REQ.Pack(builder, _o.AsCS_TEST_REQ()).Value;
-      case Packet.SC_TEST_RES: return LoginPacket.SC_TEST_RES.Pack(builder, _o.AsSC_TEST_RES()).Value;
     }
   }
 }
@@ -533,106 +527,6 @@ public class SC_CREATE_CHARACTER_REST
   }
 }
 
-public struct CS_TEST_REQ : IFlatbufferObject
-{
-  private Table __p;
-  public ByteBuffer ByteBuffer { get { return __p.bb; } }
-  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
-  public static CS_TEST_REQ GetRootAsCS_TEST_REQ(ByteBuffer _bb) { return GetRootAsCS_TEST_REQ(_bb, new CS_TEST_REQ()); }
-  public static CS_TEST_REQ GetRootAsCS_TEST_REQ(ByteBuffer _bb, CS_TEST_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
-  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
-  public CS_TEST_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
-
-  public int Test { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-
-  public static Offset<LoginPacket.CS_TEST_REQ> CreateCS_TEST_REQ(FlatBufferBuilder builder,
-      int test = 0) {
-    builder.StartTable(1);
-    CS_TEST_REQ.AddTest(builder, test);
-    return CS_TEST_REQ.EndCS_TEST_REQ(builder);
-  }
-
-  public static void StartCS_TEST_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddTest(FlatBufferBuilder builder, int test) { builder.AddInt(0, test, 0); }
-  public static Offset<LoginPacket.CS_TEST_REQ> EndCS_TEST_REQ(FlatBufferBuilder builder) {
-    int o = builder.EndTable();
-    return new Offset<LoginPacket.CS_TEST_REQ>(o);
-  }
-  public CS_TEST_REQT UnPack() {
-    var _o = new CS_TEST_REQT();
-    this.UnPackTo(_o);
-    return _o;
-  }
-  public void UnPackTo(CS_TEST_REQT _o) {
-    _o.Test = this.Test;
-  }
-  public static Offset<LoginPacket.CS_TEST_REQ> Pack(FlatBufferBuilder builder, CS_TEST_REQT _o) {
-    if (_o == null) return default(Offset<LoginPacket.CS_TEST_REQ>);
-    return CreateCS_TEST_REQ(
-      builder,
-      _o.Test);
-  }
-};
-
-public class CS_TEST_REQT
-{
-  public int Test { get; set; }
-
-  public CS_TEST_REQT() {
-    this.Test = 0;
-  }
-}
-
-public struct SC_TEST_RES : IFlatbufferObject
-{
-  private Table __p;
-  public ByteBuffer ByteBuffer { get { return __p.bb; } }
-  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
-  public static SC_TEST_RES GetRootAsSC_TEST_RES(ByteBuffer _bb) { return GetRootAsSC_TEST_RES(_bb, new SC_TEST_RES()); }
-  public static SC_TEST_RES GetRootAsSC_TEST_RES(ByteBuffer _bb, SC_TEST_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
-  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
-  public SC_TEST_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
-
-  public int Test { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-
-  public static Offset<LoginPacket.SC_TEST_RES> CreateSC_TEST_RES(FlatBufferBuilder builder,
-      int test = 0) {
-    builder.StartTable(1);
-    SC_TEST_RES.AddTest(builder, test);
-    return SC_TEST_RES.EndSC_TEST_RES(builder);
-  }
-
-  public static void StartSC_TEST_RES(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddTest(FlatBufferBuilder builder, int test) { builder.AddInt(0, test, 0); }
-  public static Offset<LoginPacket.SC_TEST_RES> EndSC_TEST_RES(FlatBufferBuilder builder) {
-    int o = builder.EndTable();
-    return new Offset<LoginPacket.SC_TEST_RES>(o);
-  }
-  public SC_TEST_REST UnPack() {
-    var _o = new SC_TEST_REST();
-    this.UnPackTo(_o);
-    return _o;
-  }
-  public void UnPackTo(SC_TEST_REST _o) {
-    _o.Test = this.Test;
-  }
-  public static Offset<LoginPacket.SC_TEST_RES> Pack(FlatBufferBuilder builder, SC_TEST_REST _o) {
-    if (_o == null) return default(Offset<LoginPacket.SC_TEST_RES>);
-    return CreateSC_TEST_RES(
-      builder,
-      _o.Test);
-  }
-};
-
-public class SC_TEST_REST
-{
-  public int Test { get; set; }
-
-  public SC_TEST_REST() {
-    this.Test = 0;
-  }
-}
-
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -652,8 +546,6 @@ public struct Root : IFlatbufferObject
   public LoginPacket.CS_LOGOUT_NOTI PacketAsCS_LOGOUT_NOTI() { return Packet<LoginPacket.CS_LOGOUT_NOTI>().Value; }
   public LoginPacket.CS_CREATE_CHARACTER_REQ PacketAsCS_CREATE_CHARACTER_REQ() { return Packet<LoginPacket.CS_CREATE_CHARACTER_REQ>().Value; }
   public LoginPacket.SC_CREATE_CHARACTER_RES PacketAsSC_CREATE_CHARACTER_RES() { return Packet<LoginPacket.SC_CREATE_CHARACTER_RES>().Value; }
-  public LoginPacket.CS_TEST_REQ PacketAsCS_TEST_REQ() { return Packet<LoginPacket.CS_TEST_REQ>().Value; }
-  public LoginPacket.SC_TEST_RES PacketAsSC_TEST_RES() { return Packet<LoginPacket.SC_TEST_RES>().Value; }
 
   public static Offset<LoginPacket.Root> CreateRoot(FlatBufferBuilder builder,
       LoginPacket.Packet packet_type = LoginPacket.Packet.NONE,
@@ -703,12 +595,6 @@ public struct Root : IFlatbufferObject
         break;
       case LoginPacket.Packet.SC_CREATE_CHARACTER_RES:
         _o.Packet.Value = this.Packet<LoginPacket.SC_CREATE_CHARACTER_RES>().HasValue ? this.Packet<LoginPacket.SC_CREATE_CHARACTER_RES>().Value.UnPack() : null;
-        break;
-      case LoginPacket.Packet.CS_TEST_REQ:
-        _o.Packet.Value = this.Packet<LoginPacket.CS_TEST_REQ>().HasValue ? this.Packet<LoginPacket.CS_TEST_REQ>().Value.UnPack() : null;
-        break;
-      case LoginPacket.Packet.SC_TEST_RES:
-        _o.Packet.Value = this.Packet<LoginPacket.SC_TEST_RES>().HasValue ? this.Packet<LoginPacket.SC_TEST_RES>().Value.UnPack() : null;
         break;
     }
   }

@@ -15,5 +15,5 @@ void LoginPacketHandler::Handle(CoreServerSession& session, const LoginPacket::P
 
 void LoginPacketHandler::Register(void)
 {
-  
+	this->func[LoginPacket::Packet_SC_TEST_RES] = &LoginPacketFunc::SC_TEST_RES;
 }
