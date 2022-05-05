@@ -55,7 +55,7 @@ public class ObjectManager
 
     public void AddProjectile(ObjectInfoT objectInfo, ProjectileType projectileType, float speed)
     {
-        GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Projectile", projectileType.ToString(), null, 100);
+        GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Projectile", projectileType.ToString(), null, 10);
         ProjectileController projectileController = gameObject.GetOrAddComponent<ProjectileController>();
         CoreManagers.Coroutine.Add(ProjectileSetInfoDelay(projectileController, objectInfo, speed));
     }
