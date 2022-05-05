@@ -17,6 +17,10 @@ public:
 private:
 	void _Enter(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index);
 
+private:
+	void AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo);
+	void RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid);
+
 protected:
 	std::shared_ptr<Object> CanMove(Sector* sector, const NativeInfo::Vec2Int& index, const bool checkPath, const bool checkObjects) const;
 	bool IsValidCellPos(const NativeInfo::Vec2Int& cellPos) const;
@@ -42,10 +46,6 @@ public:
 
 public:
 	void Revive(std::shared_ptr<Creature> creature);
-
-private:
-	void AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo);
-	void RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid);
 
 private:
 	int32_t id;

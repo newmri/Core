@@ -120,9 +120,26 @@ void Zone::_Enter(std::shared_ptr<Object> object, Sector* sector, const NativeIn
 	sector->Add(object);
 }
 
+void Zone::AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo)
+{
+	this->data.objects[index.y][index.x].objectInfo.push_back(objectInfo);
+}
+
+void Zone::RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid)
+{
+	this->data.objects[index.y][index.x].objectInfo.erase(
+		std::remove_if(this->data.objects[index.y][index.x].objectInfo.begin(),
+			this->data.objects[index.y][index.x].objectInfo.end(),
+			[&](ObjectInfo info)
+			{
+				return IS_SAME(oid, info.oid);
+			}));
+}
+
 std::shared_ptr<Object> Zone::CanMove(Sector* sector, const NativeInfo::Vec2Int& index, const bool checkPath, const bool checkObjects) const
 {
-	if ((!checkPath || (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) || IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))) &&
+	if ((!checkPath || (IS_SAME(Define::PathType_PATH, this->data.path[index.y][index.x]) ||
+		IS_SAME(Define::PathType_START, this->data.path[index.y][index.x]))) &&
 		checkObjects && !this->data.objects[index.y][index.x].objectInfo.empty())
 	{
 		auto iter_begin = this->data.objects[index.y][index.x].objectInfo.begin();
@@ -278,21 +295,5 @@ void Zone::Revive(std::shared_ptr<Creature> creature)
 		_Leave(creature, deadSector, deadIndex);
 		_Enter(creature, reviveSector, this->data.startIndex);
 	}
-}
-
-void Zone::AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo)
-{
-	this->data.objects[index.y][index.x].objectInfo.push_back(objectInfo);
-}
-
-void Zone::RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid)
-{
-	this->data.objects[index.y][index.x].objectInfo.erase(
-		std::remove_if(this->data.objects[index.y][index.x].objectInfo.begin(),
-		this->data.objects[index.y][index.x].objectInfo.end(),
-		[&](ObjectInfo info)
-		{
-			return IS_SAME(oid, info.oid);
-		}));
 }
 
