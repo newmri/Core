@@ -18,14 +18,10 @@ void CoreClientSession::Start(void)
 
 void CoreClientSession::Write(const CorePacket& packet)
 {
-	boost::asio::post(
-		[this, packet]()
-		{
-			this->writeQueue.push(packet);
+	this->writeQueue.push(packet);
 
-			if (IS_SAME(1, this->writeQueue.size()))
-				Write();
-		});
+	if (IS_SAME(1, this->writeQueue.size()))
+		Write();
 }
 
 void CoreClientSession::Write(void)
