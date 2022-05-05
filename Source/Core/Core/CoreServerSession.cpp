@@ -54,10 +54,8 @@ void CoreServerSession::Write(const CorePacket& packet)
 		{
 			this->writeQueue.push(packet);
 
-			if (!this->writeQueue.empty())
-			{
+			if (IS_SAME(1, this->writeQueue.size()))
 				Write();
-			}
 		});
 }
 
