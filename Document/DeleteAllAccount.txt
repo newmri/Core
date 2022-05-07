@@ -1,0 +1,8 @@
+DELETE FROM Game.dbo.Character;
+DELETE FROM Game.dbo.CharacterGear;
+DELETE FROM Game.dbo.CharacterSlot;
+DELETE FROM Game.dbo.CharacterStat;
+
+DELETE FROM Account.dbo.Account;
+DELETE FROM Account.dbo.AccountToken;
+DELETE FROM Account.dbo.Money;
