@@ -166,14 +166,14 @@ public class BaseController : MonoBehaviour
 		// 도착 여부 체크
 		float dist = moveDir.magnitude;
 		float runSpeed = _isRunning == true ? 1.3f : 1.0f;
-		if (dist < MoveSpeed * runSpeed * Time.deltaTime)
+		if (dist < MoveSpeed * runSpeed * Time.smoothDeltaTime)
 		{
 			transform.position = destPos;
 			MoveToNextPos();
 		}
 		else
 		{
-			transform.position += moveDir.normalized * MoveSpeed * runSpeed * Time.deltaTime;
+			transform.position += moveDir.normalized * MoveSpeed * runSpeed * Time.smoothDeltaTime;
 			SetMoveState();
 		}
 	}
