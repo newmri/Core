@@ -15,5 +15,7 @@ void LoginPacketHandler::Handle(CoreServerSession& session, const LoginPacket::P
 
 void LoginPacketHandler::Register(void)
 {
-	this->func[LoginPacket::Packet_SC_TEST_RES] = &LoginPacketFunc::SC_TEST_RES;
+    this->func[LoginPacket::Packet_SC_LOGIN_RES] = &LoginPacketFunc::SC_LOGIN_RES;
+    this->func[LoginPacket::Packet_SC_PING_REQ] = &LoginPacketFunc::SC_PING_REQ;
+    this->func[LoginPacket::Packet_SC_CREATE_CHARACTER_RES] = &LoginPacketFunc::SC_CREATE_CHARACTER_RES;
 }
