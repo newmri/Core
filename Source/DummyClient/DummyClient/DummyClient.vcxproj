@@ -132,6 +132,7 @@
     <Import Project="..\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets" Condition="Exists('..\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets')" />
     <Import Project="..\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets" Condition="Exists('..\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets')" />
     <Import Project="..\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets" Condition="Exists('..\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets')" />
+    <Import Project="..\packages\jsoncpp-vc140-static-64.1.8.0\build\native\jsoncpp-vc140-static-64.targets" Condition="Exists('..\packages\jsoncpp-vc140-static-64.1.8.0\build\native\jsoncpp-vc140-static-64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -141,5 +142,6 @@
     <Error Condition="!Exists('..\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets'))" />
     <Error Condition="!Exists('..\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets'))" />
     <Error Condition="!Exists('..\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets'))" />
+    <Error Condition="!Exists('..\packages\jsoncpp-vc140-static-64.1.8.0\build\native\jsoncpp-vc140-static-64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jsoncpp-vc140-static-64.1.8.0\build\native\jsoncpp-vc140-static-64.targets'))" />
   </Target>
 </Project>
