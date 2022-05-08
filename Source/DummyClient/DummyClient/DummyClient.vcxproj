@@ -99,6 +99,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="native_info_impl.cpp" />
     <ClCompile Include="PacketSendManager.cpp" />
+    <ClCompile Include="WebManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core\Core.vcxproj">
@@ -119,6 +120,7 @@
     <ClInclude Include="login_protocol_generated.h" />
     <ClInclude Include="native_info_impl.h" />
     <ClInclude Include="PacketSendManager.h" />
+    <ClInclude Include="WebManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

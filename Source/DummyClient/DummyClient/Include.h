@@ -9,6 +9,7 @@
 #include "PacketSendManager.h"
 #include "LoginPacketFunc.h"
 #include "LoginPacketHandler.h"
+#include "WebManager.h"
 #include "Character.h"
 #include "LoginClient.h"
 #include "DummyClientManager.h"
