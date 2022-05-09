@@ -41,8 +41,6 @@ int32_t main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	WEB_MANAGER.Signup("1111", "1111");
-
 	CORE_THREAD_MANAGER.Push(Run);
 	CORE_THREAD_MANAGER.Run();
 

@@ -27,7 +27,7 @@ public:
 	void GetWorldList(void);
 
 public:
-	bool Signup(std::string_view ID, std::string_view Password);
+	void Signup(std::string_view ID, std::string_view Password);
 
 public:
 	std::string Get(const char* path);

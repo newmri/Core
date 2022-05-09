@@ -11,9 +11,9 @@ public:
 	void Stop(void);
 
 public:
-	void AddLoginClient(std::shared_ptr<LoginClient> client);
-	void DeleteLoginClient(std::shared_ptr<LoginClient> client);
+	void DeleteLoginClient(const int64_t uid);
 
 private:
-	CoreList<std::shared_ptr<LoginClient>> clientList;
+	std::shared_mutex mutex;
+	std::map<int64_t, std::shared_ptr<LoginClient>> clientList;
 };

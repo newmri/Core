@@ -1,9 +1,9 @@
 #pragma once
 
-class CoreClient : public inheritable_enable_shared_from_this<CoreClient>
+class CoreClient : public inheritable_enable_shared_from_this<CoreClient>, public CoreUIDObject
 {
 public:
-	CoreClient();
+	CoreClient(const int64_t uid);
 	virtual ~CoreClient();
 
 public:

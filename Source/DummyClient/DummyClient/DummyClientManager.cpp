@@ -4,13 +4,15 @@ IMPLEMENT_SINGLETON(DummyClientManager)
 
 void DummyClientManager::Init(void)
 {
-	for (int32_t i = 0; i < 1; ++i)
+	for (int64_t i = 0; i < 100; ++i)
 	{
-		auto client = std::make_shared<LoginClient>();
+		auto client = std::make_shared<LoginClient>(i);
 		client->Connect("127.0.0.1", "7000");
 		boost::asio::io_context& ioContext = client->GetContext();
 		boost::thread t(boost::bind(&boost::asio::io_context::run, &ioContext));
-		AddLoginClient(client);
+
+		WRITE_LOCK(this->mutex);
+		this->clientList[i] = client;
 	}
 }
 
@@ -29,14 +31,11 @@ void DummyClientManager::Stop(void)
 	
 }
 
-void DummyClientManager::AddLoginClient(std::shared_ptr<LoginClient> client)
+void DummyClientManager::DeleteLoginClient(const int64_t uid)
 {
-	this->clientList.push_back(client);
-}
+	WRITE_LOCK(this->mutex);
 
-void DummyClientManager::DeleteLoginClient(std::shared_ptr<LoginClient> client)
-{
-	this->clientList.remove(client);
+	this->clientList.erase(uid);
 
 	if (this->clientList.empty())
 	{

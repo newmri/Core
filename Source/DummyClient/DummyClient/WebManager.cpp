@@ -54,7 +54,7 @@ void WebManager::GetWorldList(void)
 	}
 }
 
-bool WebManager::Signup(std::string_view ID, std::string_view Password)
+void WebManager::Signup(std::string_view ID, std::string_view Password)
 {
 	std::string response;
 	{
@@ -76,8 +76,6 @@ bool WebManager::Signup(std::string_view ID, std::string_view Password)
 		CORE_LOG.Log(LogType::LOG_ERROR, "SignUp Parse Failed");
 		abort();
 	}
-
-	return root["IsSuccess"].asBool();
 }
 
 std::string WebManager::Get(const char* path)

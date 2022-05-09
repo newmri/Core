@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CoreClient::CoreClient() : resolver(ioContext), session(ioContext, this)
+CoreClient::CoreClient(const int64_t uid) : CoreUIDObject(uid), resolver(ioContext), session(ioContext, this)
 {
 
 }
