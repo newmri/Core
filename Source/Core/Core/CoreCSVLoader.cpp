@@ -38,7 +38,7 @@ void CoreCSVLoader::PreLoad(std::string_view filePath, char*& out)
 
 		newLinePos = str.find('\n');
 
-		if (0 == this->rows)
+		if (IS_SAME(0, this->rows))
 			++this->columns;
 
 		if (std::string::npos != newLinePos)
@@ -49,10 +49,8 @@ void CoreCSVLoader::PreLoad(std::string_view filePath, char*& out)
 
 			strForParse.append("\n,");
 
-			if (0 == rows)
-			{
+			if (IS_SAME(0, this->rows))
 				ParseDataTypesAndCalRowSize(strForParse);
-			}
 
 			CORE_LOG.Log(LogType::LOG_INFO, log);
 
@@ -65,7 +63,8 @@ void CoreCSVLoader::PreLoad(std::string_view filePath, char*& out)
 		else log += str;
 	}
 
-	this->rows -= 1;
+	if(1 < this->rows)
+		this->rows -= 1;
 
 	out = new char[this->rowSize * (this->rows)]{};
 
@@ -98,9 +97,7 @@ void CoreCSVLoader::Load(char*& out)
 			strForParse.append("\n,");
 
 			if (0 != rows)
-			{
 				Parse(strForParse, out + (this->rowSize * (rows - 1)));
-			}
 
 			strForParse = "";
 			strForParse.append(str, newLinePos + 1);
@@ -110,6 +107,9 @@ void CoreCSVLoader::Load(char*& out)
 
 		else strForParse += str;
 	}
+
+	if(IS_SAME(1, rows))
+		Parse(strForParse, out);
 
 	Close();
 }
