@@ -27,7 +27,9 @@ public:
 	void GetWorldList(void);
 
 public:
-	void Signup(std::string_view ID, std::string_view Password);
+	void Signup(std::shared_ptr<LoginClient> client);
+	bool Login(std::shared_ptr<LoginClient> client);
+	ServerConnectInfo SelectServer(const Define::ServerType serverType);
 
 public:
 	std::string Get(const char* path);

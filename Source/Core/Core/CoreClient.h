@@ -23,8 +23,10 @@ public:
 	virtual void OnDisconnected(void) CORE_PURE;
 	virtual void ProcessPacket(const uint8_t* data, size_t size) CORE_PURE;
 
-protected:
+private:
 	boost::asio::io_context ioContext;
 	boost::asio::ip::tcp::resolver resolver;
+
+protected:
 	CoreServerSession session;
 };

@@ -1,5 +1,5 @@
 #include "Include.h"
-#include "json/json.h"
+#include <packages/jsoncpp-vc140-static-64.1.8.0/lib/native/include/json/json.h>
 
 IMPLEMENT_SINGLETON(WebManager)
 
@@ -54,17 +54,17 @@ void WebManager::GetWorldList(void)
 	}
 }
 
-void WebManager::Signup(std::string_view ID, std::string_view Password)
+void WebManager::Signup(std::shared_ptr<LoginClient> client)
 {
 	std::string response;
 	{
 		Json::Value root;
-		root["ID"] = ID.data();
-		root["Password"] = Password.data();
+		root["ID"] = client->GetID().data();
+		root["Password"] = client->GetPassword().data();
 		Json::FastWriter fastWriter;
 		if (response = Post(fastWriter.write(root), "http://localhost:5000/worldlist/signup"); response.empty())
 		{
-			CORE_LOG.Log(LogType::LOG_ERROR, "SignUp curl Failed");
+			CORE_LOG.Log(LogType::LOG_ERROR, "Signup curl Failed");
 			abort();
 		}
 	}
@@ -73,9 +73,83 @@ void WebManager::Signup(std::string_view ID, std::string_view Password)
 	Json::Value root;
 	if (!reader.parse(response, root))
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "SignUp Parse Failed");
+		CORE_LOG.Log(LogType::LOG_ERROR, "Signup Parse Failed");
 		abort();
 	}
+}
+
+bool WebManager::Login(std::shared_ptr<LoginClient> client)
+{
+	std::string response;
+	{
+		Json::Value root;
+		root["ID"] = client->GetID().data();
+		root["Password"] = client->GetPassword().data();
+		Json::FastWriter fastWriter;
+		if (response = Post(fastWriter.write(root), "http://localhost:5000/worldlist/login"); response.empty())
+		{
+			CORE_LOG.Log(LogType::LOG_ERROR, "Login curl Failed");
+			abort();
+		}
+	}
+
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(response, root))
+	{
+		CORE_LOG.Log(LogType::LOG_ERROR, "Login Parse Failed");
+		abort();
+	}
+
+	if (root["IsSuccess"].asBool())
+	{
+		client->SetAccountUID(root["UID"].asInt64());
+		client->SetToken(root["Token"].asInt());
+		int32_t worldID = 0;
+
+		Json::Value worldList = root["WorldList"];
+		auto iter_begin = worldList.begin();
+		auto iter_end = worldList.end();
+		for (; iter_begin != iter_end; ++iter_begin)
+		{
+			worldID = (*iter_begin)["ID"].asInt();
+			if (IS_SAME(DUMMY_CLIENT.GetWorldID(), worldID))
+				return true;
+		}
+	}
+
+	return false;
+}
+
+ServerConnectInfo WebManager::SelectServer(const Define::ServerType serverType)
+{
+	std::string response;
+	{
+		Json::Value root;
+		root["WorldID"] = DUMMY_CLIENT.GetWorldID();
+		root["ServerType"] = serverType;
+		Json::FastWriter fastWriter;
+		if (response = Post(fastWriter.write(root), "http://localhost:5000/worldlist/serverselect"); response.empty())
+		{
+			CORE_LOG.Log(LogType::LOG_ERROR, "SelectServer curl Failed");
+			abort();
+		}
+	}
+
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(response, root))
+	{
+		CORE_LOG.Log(LogType::LOG_ERROR, "SelectServer Parse Failed");
+		abort();
+	}
+
+	ServerConnectInfo connectInfo;
+
+	connectInfo.ServerIP = root["ServerIP"].asString();
+	connectInfo.ServerPort = TO_STR(root["ServerPort"].asInt());
+
+	return connectInfo;
 }
 
 std::string WebManager::Get(const char* path)

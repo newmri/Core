@@ -19,6 +19,9 @@ void Input(void)
 		case HashCode("/help"):
 			CORE_CONSOLE_LOG.Log("/quit: quit DummyClient");
 			break;
+		case HashCode("/logincount"):
+			DUMMY_CLIENT.ShowConnectedLoginClientCount();
+			break;
 		default:
 			CORE_CONSOLE_LOG.Log("Input /help");
 			break;

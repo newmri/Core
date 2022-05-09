@@ -4,16 +4,10 @@ IMPLEMENT_SINGLETON(DummyClientManager)
 
 void DummyClientManager::Init(void)
 {
-	for (int64_t i = 0; i < 100; ++i)
-	{
-		auto client = std::make_shared<LoginClient>(i);
-		client->Connect("127.0.0.1", "7000");
-		boost::asio::io_context& ioContext = client->GetContext();
-		boost::thread t(boost::bind(&boost::asio::io_context::run, &ioContext));
+	CSV_LOAD_ONE_ROW("DummyClientConfig.csv", DummyClientConfig, this->dummyClientConfig);
+	CORE_ALL_LOG(LogType::LOG_DEBUG, "[World ID]: " + TO_STR(GetWorldID()));
+	CORE_ALL_LOG(LogType::LOG_DEBUG, "[MaxConnection]: " + TO_STR(GetMaxConnectionCount()));
 
-		WRITE_LOCK(this->mutex);
-		this->clientList[i] = client;
-	}
 }
 
 void DummyClientManager::Release(void)
@@ -23,7 +17,8 @@ void DummyClientManager::Release(void)
 
 void DummyClientManager::Run(void)
 {
-
+	ConnectToLoginServer();
+	ShowConnectedLoginClientCount();
 }
 
 void DummyClientManager::Stop(void)
@@ -31,13 +26,60 @@ void DummyClientManager::Stop(void)
 	
 }
 
+void DummyClientManager::ConnectToLoginServer(void)
+{
+	int32_t maxConnectionCount = GetMaxConnectionCount();
+	for (int32_t i = 0; i < maxConnectionCount; ++i)
+	{
+		auto client = std::make_shared<LoginClient>(i);
+		client->Connect();
+
+		WRITE_LOCK(this->mutex);
+		this->loginClientList[i] = client;
+	}
+
+	Sleep(SEC);
+}
+
+void DummyClientManager::ShowConnectedLoginClientCount(void)
+{
+	CORE_ALL_LOG(LogType::LOG_DEBUG, "[Connected To LoginServer]: " + TO_STR(GetConnectedLoginClientCount()));
+}
+
+int32_t DummyClientManager::GetConnectedLoginClientCount(void)
+{
+	int32_t connectedCount = 0;
+
+	READ_LOCK(this->mutex);
+
+	auto iter_begin = this->loginClientList.begin();
+	auto iter_end = this->loginClientList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		if ((*iter_begin).second->IsConnected())
+			++connectedCount;
+	}
+
+	return connectedCount;
+}
+
+int32_t DummyClientManager::GetWorldID(void)
+{
+	return this->dummyClientConfig.get()->WorldID;
+}
+
+int32_t DummyClientManager::GetMaxConnectionCount(void)
+{
+	return this->dummyClientConfig.get()->MaxConnectionCount;
+}
+
 void DummyClientManager::DeleteLoginClient(const int64_t uid)
 {
 	WRITE_LOCK(this->mutex);
 
-	this->clientList.erase(uid);
+	this->loginClientList.erase(uid);
 
-	if (this->clientList.empty())
+	if (this->loginClientList.empty())
 	{
 		std::cout << "\n" << std::endl;
 		CORE_ALL_LOG(LogType::LOG_ERROR, "Cannot Connect, Shutdown");

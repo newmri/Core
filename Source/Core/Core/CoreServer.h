@@ -13,6 +13,12 @@ struct ServerConfig
 	int32_t ServerID = 0;
 };
 
+struct ServerConnectInfo
+{
+	std::string ServerIP;
+	std::string ServerPort;
+};
+
 class CoreServer
 {
 public:
