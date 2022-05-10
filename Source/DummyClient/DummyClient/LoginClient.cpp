@@ -37,7 +37,9 @@ void LoginClient::Connect(void)
 
 void LoginClient::OnConnected(void)
 {
-	
+	PACKET_SEND_MANAGER.builder.Clear();
+	auto message = LoginPacket::CreateCS_LOGIN_REQ(PACKET_SEND_MANAGER.builder, GetAccountUID(), GetToken());
+	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_CS_LOGIN_REQ, message.Union());
 }
 
 void LoginClient::OnDisconnected(void)

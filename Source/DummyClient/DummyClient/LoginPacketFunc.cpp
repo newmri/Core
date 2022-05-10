@@ -2,6 +2,28 @@
 
 void LoginPacketFunc::SC_LOGIN_RES(CoreServerSession& session, const void* data)
 {
+	auto raw = static_cast<const LoginPacket::SC_LOGIN_RES*>(data);
+
+	if (IS_SAME(LoginPacket::ErrorCode_SUCCESS, raw->result()))
+	{
+		auto loginClient = dynamic_cast<LoginClient*>(session.GetClient());
+
+		auto account = CORE_ACCOUNT_MANAGER.Add(loginClient->GetAccountUID(), loginClient->GetToken());
+		account->SetLogin();
+		account->SetMaxSlotCount(raw->max_slot_count());
+		
+		if (0 < raw->character_info()->size())
+		{
+			auto iter_begin = raw->character_info()->begin();
+			auto iter_end = raw->character_info()->end();
+			for (; iter_begin != iter_end; ++iter_begin)
+			{
+				auto info = iter_begin->UnPack();
+				account->AddCharacter(std::make_shared<Character>(loginClient->GetAccountUID(), info->uid, *info));
+			}
+		}
+	}
+
 }
 
 void LoginPacketFunc::SC_PING_REQ(CoreServerSession& session, const void* data)

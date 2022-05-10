@@ -12,6 +12,11 @@ CoreServerSession::~CoreServerSession()
 	Close();
 }
 
+CoreClient* CoreServerSession::GetClient(void)
+{
+	return this->client;
+}
+
 void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint)
 {
 	boost::asio::async_connect(this->socket, endpoint,

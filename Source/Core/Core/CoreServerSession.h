@@ -9,6 +9,9 @@ public:
 	virtual ~CoreServerSession() override;
 
 public:
+	CoreClient* GetClient(void);
+
+public:
 	void Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint);
 	void Close(void);
 
