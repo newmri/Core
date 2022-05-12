@@ -13,7 +13,15 @@ void LoginPacketFunc::SC_LOGIN_RES(CoreServerSession& session, const void* data)
 		account->SetMaxSlotCount(raw->max_slot_count());
 		
 		auto infoList = raw->character_info();
-		if (0 < infoList->size())
+		if (IS_NULL(infoList))
+		{
+			PACKET_SEND_MANAGER.builder.Clear();
+			auto pakcedCharacterName = PACKET_SEND_MANAGER.builder.CreateString(loginClient->GetID());
+			auto job = static_cast<Define::Job>(CORE_RANDOM_MANAGER_INT.GetRandom(Define::Job_MIN, Define::Job_MAX));
+			auto message = LoginPacket::CreateCS_CREATE_CHARACTER_REQ(PACKET_SEND_MANAGER.builder, pakcedCharacterName, job);
+			PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_CS_CREATE_CHARACTER_REQ, message.Union());
+		}
+		else
 		{
 			auto iter_begin = infoList->begin();
 			auto iter_end = infoList->end();

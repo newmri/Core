@@ -15,7 +15,7 @@ LoginClient::~LoginClient()
 
 void LoginClient::MakeAccountInfo(void)
 {
-	boost::format format("%04d\n");
+	boost::format format("%04d");
 	format% GetUID();
 	this->id = "test" + format.str();
 	this->password = this->id;
