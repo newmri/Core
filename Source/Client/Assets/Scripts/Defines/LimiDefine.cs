@@ -38,7 +38,7 @@ public static class LimiDefine
         {
             UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
             string message = "캐릭터명은 {0} ~ {1}자 사이로 입력 해주세요 \n";
-            message = string.Format(message, (int)AccountLimit.MinIDLen, (int)AccountLimit.MaxIDLen);
+            message = string.Format(message, (int)CharacterLimit.MinNameLen, (int)CharacterLimit.MaxNameLen);
 
             messagePopup.SetText("회원가입 실패", message);
         }
