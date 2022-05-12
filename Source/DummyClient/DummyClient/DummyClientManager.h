@@ -17,6 +17,10 @@ public:
 	void Stop(void);
 
 public:
+	Define::ServerType GetCurrServerType(void);
+	void SetCurrServerType(const Define::ServerType currServerType);
+
+public:
 	void ConnectToLoginServer(void);
 	void ShowConnectedLoginClientCount(void);
 
@@ -29,6 +33,9 @@ public:
 
 public:
 	void DeleteLoginClient(const int64_t uid);
+
+private:
+	Define::ServerType currServerType = Define::ServerType_Login;
 
 private:
 	std::shared_ptr<DummyClientConfig> dummyClientConfig;

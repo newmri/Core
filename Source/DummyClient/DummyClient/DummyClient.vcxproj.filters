@@ -37,13 +37,16 @@
     <Filter Include="04.Packet\05.WebManager">
       <UniqueIdentifier>{357ff0e7-d613-492c-8443-e46eb9e3cc94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.DummyClient\00.LoginClient">
+      <UniqueIdentifier>{bcf15642-f8be-41ab-837e-0e0070819129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.DummyClient\01.GameClient">
+      <UniqueIdentifier>{96c810db-66af-440f-a27f-b03b939a6f97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>01.Main</Filter>
-    </ClCompile>
-    <ClCompile Include="LoginClient.cpp">
-      <Filter>02.DummyClient</Filter>
     </ClCompile>
     <ClCompile Include="LoginPacketHandler.cpp">
       <Filter>04.Packet\03.LoginPacketHandler</Filter>
@@ -69,6 +72,9 @@
     <ClCompile Include="WebManager.cpp">
       <Filter>04.Packet\05.WebManager</Filter>
     </ClCompile>
+    <ClCompile Include="LoginClient.cpp">
+      <Filter>02.DummyClient\00.LoginClient</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include.h">
@@ -76,9 +82,6 @@
     </ClInclude>
     <ClInclude Include="login_protocol_generated.h">
       <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginClient.h">
-      <Filter>02.DummyClient</Filter>
     </ClInclude>
     <ClInclude Include="LoginPacketHandler.h">
       <Filter>04.Packet\03.LoginPacketHandler</Filter>
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="WebManager.h">
       <Filter>04.Packet\05.WebManager</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginClient.h">
+      <Filter>02.DummyClient\00.LoginClient</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,17 @@ void DummyClientManager::Stop(void)
 	
 }
 
+Define::ServerType DummyClientManager::GetCurrServerType(void)
+{
+	return this->currServerType;
+}
+
+void DummyClientManager::SetCurrServerType(const Define::ServerType currServerType)
+{
+	WRITE_LOCK(this->mutex);
+	this->currServerType = currServerType;
+}
+
 void DummyClientManager::ConnectToLoginServer(void)
 {
 	int32_t maxConnectionCount = GetMaxConnectionCount();
@@ -79,7 +90,7 @@ void DummyClientManager::DeleteLoginClient(const int64_t uid)
 
 	this->loginClientList.erase(uid);
 
-	if (this->loginClientList.empty())
+	if (this->loginClientList.empty() && IS_SAME(Define::ServerType_Login, GetCurrServerType()))
 	{
 		std::cout << "\n" << std::endl;
 		CORE_ALL_LOG(LogType::LOG_ERROR, "Cannot Connect, Shutdown");
