@@ -50,7 +50,7 @@ void CoreServer::Accept(void)
 				std::string ip = socket.remote_endpoint().address().to_string();
 				CORE_LOG.Log(LogType::LOG_CONNECT, oid, "[ip]: " + ip);
 
-				auto session = std::make_shared<CoreClientSession>(std::move(socket), oid, this);
+				auto session = std::make_shared<CoreClientSession>(oid, std::move(socket), this);
 				session->Start();
 
 				WRITE_LOCK(this->mutex);

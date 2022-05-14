@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CoreClient::CoreClient(const int64_t uid) : CoreUIDObject(uid), resolver(ioContext), session(ioContext, this)
+CoreClient::CoreClient(const int64_t oid) : resolver(ioContext), session(oid, ioContext, this)
 {
 
 }
@@ -28,4 +28,14 @@ void CoreClient::Write(const CorePacket& packet)
 boost::asio::io_context& CoreClient::GetContext(void)
 {
 	return this->ioContext;
+}
+
+void CoreClient::SetAccountUID(const int64_t accountUID)
+{
+	this->session.SetAccountUID(accountUID);
+}
+
+void CoreClient::SetToken(const int32_t token)
+{
+	this->session.SetToken(token);
 }

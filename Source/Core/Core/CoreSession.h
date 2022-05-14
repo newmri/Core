@@ -4,8 +4,8 @@ class CoreSession
 {
 
 public:
-	CoreSession(boost::asio::ip::tcp::socket socket, const int64_t oid);
-	CoreSession(boost::asio::io_context& ioContext);
+	CoreSession(const int64_t oid, boost::asio::ip::tcp::socket socket);
+	CoreSession(const int64_t oid, boost::asio::io_context& ioContext);
 	virtual ~CoreSession();
 
 public:

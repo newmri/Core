@@ -1,8 +1,8 @@
 #include "CoreInclude.h"
 
-CoreServerSession::CoreServerSession(boost::asio::io_context& ioContext, CoreClient* client) :
+CoreServerSession::CoreServerSession(const int64_t oid, boost::asio::io_context& ioContext, CoreClient* client) :
 	ioContext(ioContext),
-	CoreSession(ioContext),
+	CoreSession(oid, ioContext),
 	client(client)
 {
 }
@@ -129,4 +129,14 @@ void CoreServerSession::ReadBody(void)
 				ReadHeader();
 			}
 		});
+}
+
+int32_t CoreServerSession::GetToken(void) const
+{
+	return this->token;
+}
+
+void CoreServerSession::SetToken(const int32_t token)
+{
+	this->token = token;
 }

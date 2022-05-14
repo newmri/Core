@@ -1,12 +1,12 @@
 #include "CoreInclude.h"
 
-CoreSession::CoreSession(boost::asio::ip::tcp::socket socket, const int64_t oid) : socket(std::move(socket)), oid(oid)
+CoreSession::CoreSession(const int64_t oid, boost::asio::ip::tcp::socket socket) : oid(oid), socket(std::move(socket))
 {
 	boost::asio::ip::tcp::no_delay option(true);
 	this->socket.set_option(option);
 }
 
-CoreSession::CoreSession(boost::asio::io_context& ioContext) : socket(ioContext)
+CoreSession::CoreSession(const int64_t oid, boost::asio::io_context& ioContext) : oid(oid), socket(ioContext)
 {
 
 }

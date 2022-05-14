@@ -37,6 +37,7 @@ public:
 	std::shared_ptr<CoreCharacter> GetCharacter(const int64_t& uid);
 	void GetCharacter(CoreVector<std::shared_ptr<CoreCharacter>>& characterList);
 
+public:
 	void AddCharacter(std::shared_ptr<CoreCharacter> character);
 
 public:
