@@ -21,14 +21,19 @@ int64_t CoreSession::GetOID(void)
 	return this->oid;
 }
 
-void CoreSession::SetOID(const int64_t oid)
-{
-	this->oid = oid;
-}
-
 int64_t CoreSession::GetAccountUID(void)
 {
 	return this->accountUID;
+}
+
+int64_t CoreSession::GetPlayerOID(void) const
+{
+	return this->playerOID;
+}
+
+void CoreSession::SetOID(const int64_t oid)
+{
+	this->oid = oid;
 }
 
 void CoreSession::SetAccountUID(const int64_t accountUID)
@@ -39,11 +44,6 @@ void CoreSession::SetAccountUID(const int64_t accountUID)
 void CoreSession::SetPlayerOID(const int64_t playerOID)
 {
 	this->playerOID = playerOID;
-}
-
-int64_t CoreSession::GetPlayerOID(void) const
-{
-	return this->playerOID;
 }
 
 boost::asio::ip::tcp::socket& CoreSession::GetSocket(void)

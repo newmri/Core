@@ -10,14 +10,12 @@ public:
 
 public:
 	int64_t GetOID(void);
-	void SetOID(const int64_t oid);
-
-public:
 	int64_t GetAccountUID(void);
-	void SetAccountUID(const int64_t accountUID);
+	int64_t GetPlayerOID(void) const;
 
 public:
-	int64_t GetPlayerOID(void) const;
+	void SetOID(const int64_t oid);
+	void SetAccountUID(const int64_t accountUID);
 	void SetPlayerOID(const int64_t playerOID);
 
 public:
