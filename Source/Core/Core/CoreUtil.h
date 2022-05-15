@@ -15,4 +15,6 @@ namespace CoreUtil
 	{
 		return (lValue > rValue ? lValue : rValue);
 	}
+
+	std::string GetThreadID(void);
 }

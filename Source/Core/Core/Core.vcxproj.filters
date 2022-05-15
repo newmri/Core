@@ -4,15 +4,6 @@
     <Filter Include="00.CoreGlobal">
       <UniqueIdentifier>{a36ed90a-019d-4737-a235-015749f99d26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.CoreGlobal\01.CoreMacro">
-      <UniqueIdentifier>{4ee8d6d0-f7bb-4482-a2d0-2111480cdc77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.CoreGlobal\01.CoreMacro\00.CoreSingletonMacro">
-      <UniqueIdentifier>{10102ac8-e117-4804-931c-0ed3fc3ff9fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.CoreGlobal\02.CoreDataType">
-      <UniqueIdentifier>{ac7d9ce2-5bcd-4f95-9811-e77ec7d054be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00.CoreGlobal\00.CoreInclude">
       <UniqueIdentifier>{ec3ca700-be24-472b-a0e6-8e91a2b7d53a}</UniqueIdentifier>
     </Filter>
@@ -145,8 +136,17 @@
     <Filter Include="02.CoreObject\01.CoreGameObject">
       <UniqueIdentifier>{2b7305a6-e2e6-499a-9ae2-12481957682c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="16.CoreUtil">
-      <UniqueIdentifier>{5b7c9057-8cfb-435a-8002-712b15115a2f}</UniqueIdentifier>
+    <Filter Include="00.CoreGlobal\02.CoreMacro">
+      <UniqueIdentifier>{4ee8d6d0-f7bb-4482-a2d0-2111480cdc77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.CoreGlobal\02.CoreMacro\00.CoreSingletonMacro">
+      <UniqueIdentifier>{10102ac8-e117-4804-931c-0ed3fc3ff9fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.CoreGlobal\03.CoreDataType">
+      <UniqueIdentifier>{ac7d9ce2-5bcd-4f95-9811-e77ec7d054be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.CoreGlobal\01.CoreUtil">
+      <UniqueIdentifier>{3451ecca-2b2e-4d15-a091-7d72470f5cdf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +226,7 @@
       <Filter>02.CoreObject\01.CoreGameObject</Filter>
     </ClCompile>
     <ClCompile Include="CoreUtil.cpp">
-      <Filter>16.CoreUtil</Filter>
+      <Filter>00.CoreGlobal\01.CoreUtil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -240,16 +240,16 @@
       <Filter>05.CoreContainer\00.CoreArray</Filter>
     </ClInclude>
     <ClInclude Include="CoreMacro.h">
-      <Filter>00.CoreGlobal\01.CoreMacro</Filter>
+      <Filter>00.CoreGlobal\02.CoreMacro</Filter>
     </ClInclude>
     <ClInclude Include="CoreDataType.h">
-      <Filter>00.CoreGlobal\02.CoreDataType</Filter>
+      <Filter>00.CoreGlobal\03.CoreDataType</Filter>
     </ClInclude>
     <ClInclude Include="CoreTimeManager.h">
       <Filter>04.CoreTimeManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreSingletonMacro.h">
-      <Filter>00.CoreGlobal\01.CoreMacro\00.CoreSingletonMacro</Filter>
+      <Filter>00.CoreGlobal\02.CoreMacro\00.CoreSingletonMacro</Filter>
     </ClInclude>
     <ClInclude Include="CoreLogManager.h">
       <Filter>03.CoreLogManager</Filter>
@@ -408,7 +408,7 @@
       <Filter>02.CoreObject\00.CoreUIDObject</Filter>
     </ClInclude>
     <ClInclude Include="CoreUtil.h">
-      <Filter>16.CoreUtil</Filter>
+      <Filter>00.CoreGlobal\01.CoreUtil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

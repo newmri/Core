@@ -1,0 +1,32 @@
+01:58:44	7008	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:58:44	7008	[LOG_INFO]	int32_t,int32_t
+01:58:44	7008	[LOG_INFO]	1,100
+01:58:44	7008	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:58:44	7008	[LOG_DEBUG]	[World ID]: 1
+01:58:44	7008	[LOG_DEBUG]	[MaxConnection]: 100
+02:04:30	ThreadID:34516	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:04:30	ThreadID:34516	[LOG_INFO]	int32_t,int32_t
+02:04:30	ThreadID:34516	[LOG_INFO]	1,100
+02:04:30	ThreadID:34516	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:04:30	ThreadID:34516	[LOG_DEBUG]	[World ID]: 1
+02:04:30	ThreadID:34516	[LOG_DEBUG]	[MaxConnection]: 100
+02:04:30	ThreadID:11420	[LOG_ERROR]	요청한 주소는 해당 컨텍스트에서 유효하지 않습니다
+02:04:32	ThreadID:36532	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:32	ThreadID:54404	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:32	ThreadID:62108	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:32	ThreadID:48272	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:32	ThreadID:27116	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:32	ThreadID:18312	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:32	ThreadID:58156	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:32	ThreadID:38776	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:32	ThreadID:45364	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+02:04:58	ThreadID:46276	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:38296	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:5500	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:46752	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:29740	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:56336	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:36216	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:43012	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:32048	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+02:04:58	ThreadID:55608	[LOG_ERROR]	현재 연결은 원격 호스트에 의해 강제로 끊겼습니다

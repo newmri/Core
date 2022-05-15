@@ -36,6 +36,7 @@
 #include "flatbuffers/flatbuffers.h"
 
 #include "CoreMacro.h"
+#include "CoreUtil.h"
 #include "CoreDataType.h"
 #include "CoreObject.h"
 #include "CoreUIDObject.h"
@@ -75,5 +76,4 @@
 #include "CoreCharacter.h"
 #include "CoreAccount.h"
 #include "CoreAccountManager.h"
-#include "CoreUtil.h"
 #include "CoreTestManager.h"
