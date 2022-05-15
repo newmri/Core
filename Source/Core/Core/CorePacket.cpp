@@ -2,6 +2,12 @@
 
 CorePacket::CorePacket(const uint8_t* body, const uint32_t bodySize) : bodySize(bodySize)
 {
+	if (MAX_BODY_SIZE < bodySize)
+	{
+		CORE_LOG.Log(LogType::LOG_ERROR, "body size is " + TO_STR(bodySize));
+		return;
+	}
+
 	std::copy(body, body + bodySize, GetBody());
 	EncodeHeader();
 }
