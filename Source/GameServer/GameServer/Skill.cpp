@@ -57,7 +57,7 @@ void Skill::DoAction(void)
 	{
 		DoDamage((*iter_begin), sendList);
 
-		if (CorePacket::MAX_PLAYER_INFO_SIZE <= sendList.size())
+		if (CorePacket::MAX_PLAYER_INFO_SEND_COUNT <= sendList.size())
 		{
 			auto message = GamePacket::CreateSC_GET_DAMAGE_NOTI(PACKET_SEND_MANAGER.builder, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
 			ZONE_MANAGER.SendAll(this->owner->GetMapID(), GamePacket::Packet_SC_GET_DAMAGE_NOTI, message.Union(), this->owner->GetPos());
