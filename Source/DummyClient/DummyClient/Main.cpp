@@ -18,6 +18,8 @@ void Input(void)
 			break;
 		case HashCode("/help"):
 			CORE_CONSOLE_LOG.Log("/quit: quit DummyClient");
+			CORE_CONSOLE_LOG.Log("/logincount: ShowConnectedLoginClientCount");
+			CORE_CONSOLE_LOG.Log("/gamecount: ShowConnectedGameClientCount");
 			break;
 		case HashCode("/logincount"):
 			DUMMY_CLIENT.ShowConnectedLoginClientCount();
