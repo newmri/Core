@@ -2,8 +2,8 @@
 
 IMPLEMENT_SINGLETON(PacketSendManager)
 
-thread_local flatbuffers::FlatBufferBuilder PacketSendManager::builder;
 thread_local bool PacketSendManager::isFinished;
+thread_local flatbuffers::FlatBufferBuilder PacketSendManager::builder;
 
 void PacketSendManager::Init(void)
 {
