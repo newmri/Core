@@ -127,16 +127,13 @@ void Zone::AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo
 
 void Zone::RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid)
 {
-	if (IS_SAME(0, this->data.objects[index.y][index.x].objectInfo.size()))
-		return;
-
 	this->data.objects[index.y][index.x].objectInfo.erase(
 		std::remove_if(this->data.objects[index.y][index.x].objectInfo.begin(),
 			this->data.objects[index.y][index.x].objectInfo.end(),
 			[&](ObjectInfo info)
 			{
 				return IS_SAME(oid, info.oid);
-			}));
+			}), this->data.objects[index.y][index.x].objectInfo.end());
 }
 
 std::shared_ptr<Object> Zone::CanMove(Sector* sector, const NativeInfo::Vec2Int& index, const bool checkPath, const bool checkObjects) const
