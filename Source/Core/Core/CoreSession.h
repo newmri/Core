@@ -17,6 +17,10 @@ public:
 	void SetAccountUID(const int64_t accountUID);
 
 public:
+	int64_t GetPlayerOID(void) const;
+	void SetPlayerOID(const int64_t playerOID);
+
+public:
 	boost::asio::ip::tcp::socket& GetSocket(void);
 	bool IsConnected(void);
 
@@ -31,6 +35,7 @@ protected:
 protected:
 	int64_t oid = 0;
 	int64_t accountUID = 0;
+	int64_t playerOID = 0;
 
 protected:
 	boost::asio::ip::tcp::socket socket;

@@ -36,6 +36,16 @@ void CoreSession::SetAccountUID(const int64_t accountUID)
 	this->accountUID = accountUID;
 }
 
+void CoreSession::SetPlayerOID(const int64_t playerOID)
+{
+	this->playerOID = playerOID;
+}
+
+int64_t CoreSession::GetPlayerOID(void) const
+{
+	return this->playerOID;
+}
+
 boost::asio::ip::tcp::socket& CoreSession::GetSocket(void)
 {
 	return this->socket;

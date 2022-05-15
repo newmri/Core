@@ -142,13 +142,3 @@ void CoreClientSession::UpdatePingPongTime(void)
 {
 	this->prevPingPongTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
 }
-
-void CoreClientSession::SetPlayerOID(const int64_t playerOID)
-{
-	this->playerOID = playerOID;
-}
-
-int64_t CoreClientSession::GetPlayerOID(void) const
-{
-	return this->playerOID;
-}
