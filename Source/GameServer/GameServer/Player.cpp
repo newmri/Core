@@ -49,7 +49,7 @@ void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset
 	auto creatureInfo = GetCreatureInfo();
 	auto characterInfo = GetCharacterInfo();
 
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
 	auto packedCreatureInfo = Info::CreatureInfo::Pack(PACKET_SEND_MANAGER.builder, &creatureInfo);
 	auto packedCharacterInfo = GamePacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &characterInfo);
@@ -61,7 +61,7 @@ void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset
 
 void Player::Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
-	PACKET_SEND_MANAGER.Send(session, packetType, packet);
+	PACKET_SEND_MANAGER.Send(this->session, packetType, packet);
 }
 
 void Player::SetState(const Define::ObjectState state)

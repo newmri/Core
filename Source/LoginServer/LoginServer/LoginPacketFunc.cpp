@@ -40,7 +40,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		}
 	}
 
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 
 	flatbuffers::Offset<LoginPacket::SC_LOGIN_RES> message;
 
@@ -92,7 +92,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 
 void LoginPacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 {
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 	auto message = LoginPacket::CreateSC_PING_REQ(PACKET_SEND_MANAGER.builder);
 	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_PING_REQ, message.Union());
 
@@ -138,7 +138,7 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	bool isSuccess = LOGIN_SERVER.GetGameDB()->CreateCharacter(session->GetAccountUID(), wName, info);
 
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 
 	flatbuffers::Offset<LoginPacket::SC_CREATE_CHARACTER_RES> message;
 

@@ -7,8 +7,12 @@ class PacketSendManager
 	DECLARE_SINGLETON(PacketSendManager)
 
 public:
+	static void Clear(void);
+
+public:
 	static void Send(std::shared_ptr<CoreClientSession> session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet);
 
 public:
+	static thread_local bool isFinished;
 	static thread_local flatbuffers::FlatBufferBuilder builder;
 };

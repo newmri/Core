@@ -40,8 +40,6 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		}
 	}
 
-	PACKET_SEND_MANAGER.builder.Clear();
-
 	flatbuffers::Offset<GamePacket::SC_LOGIN_RES> message;
 
 	// 성공
@@ -70,6 +68,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 			account->PushMoney(money.value.value[i]);
 #pragma endregion 재화 로드
 
+		PACKET_SEND_MANAGER.Clear();
 		auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
 		auto packedCreatureInfo = Info::CreatureInfo::Pack(PACKET_SEND_MANAGER.builder, &creatureInfo);
 		auto packedCharacterInfo = GamePacket::MyCharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &characterInfo);
@@ -84,14 +83,17 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 	}
 	// 실패
 	else
+	{
+		PACKET_SEND_MANAGER.Clear();
 		message = GamePacket::CreateSC_LOGIN_RES(PACKET_SEND_MANAGER.builder, result);
-	
+	}
+
 	PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_SC_LOGIN_RES, message.Union());
 }
 
 void GamePacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 {
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 	auto message = GamePacket::CreateSC_PING_REQ(PACKET_SEND_MANAGER.builder);
 	PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_SC_PING_REQ, message.Union());
 
@@ -143,7 +145,7 @@ void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session
 	auto state = raw->UnPack()->state;
 	player->SetState(state);
 	
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 	auto message = GamePacket::CreateSC_SET_STATE_RES(PACKET_SEND_MANAGER.builder, player->GetObjectType(), oid, state);
 	ZONE_MANAGER.SendAllExceptMe(player->GetMapID(), oid, GamePacket::Packet_SC_SET_STATE_RES, message.Union(), player->GetPos());
 }

@@ -21,7 +21,7 @@ void Projectile::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Of
 {
 	auto objectInfo = GetObjectInfo();
 
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
 	auto message = GamePacket::CreateSC_SPAWN_PROJECTILE_NOTI(PACKET_SEND_MANAGER.builder, packedObjectInfo, this->owner->GetType(), this->moveSpeed);
 

@@ -22,7 +22,7 @@ void Arrow::Update(void)
 
 void Arrow::DoDamage(std::shared_ptr<Object> target)
 {
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 	std::vector<flatbuffers::Offset<GamePacket::DamageInfo>> sendList;
 	this->owner->DoDamage(target, sendList);
 

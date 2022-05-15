@@ -84,7 +84,7 @@ void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offs
 
 void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 	auto objectInfo = GetObjectInfo();
 	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
 	auto message = GamePacket::CreateSC_REVIVE_RES(PACKET_SEND_MANAGER.builder, packedObjectInfo);

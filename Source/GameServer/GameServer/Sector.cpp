@@ -127,7 +127,7 @@ void Sector::SendDespawnPacket(const Define::ObjectType objectType, const int64_
 {
 	GamePacket::Packet packetType = GamePacket::Packet_SC_DESPAWN_OBJECT_NOTI;
 	flatbuffers::Offset<void> packet;
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 	auto message = GamePacket::CreateSC_DESPAWN_OBJECT_NOTI(PACKET_SEND_MANAGER.builder, objectType, oid);
 	packet = message.Union();
 	SendAll(packetType, packet);

@@ -30,7 +30,7 @@ void Skill::UseSkill(void)
 		return;
 
 	{
-		PACKET_SEND_MANAGER.builder.Clear();
+		PACKET_SEND_MANAGER.Clear();
 		auto message = GamePacket::CreateSC_USE_SKILL_RES(PACKET_SEND_MANAGER.builder, this->owner->GetObjectType(), this->owner->GetOID());
 		ZONE_MANAGER.SendAllExceptMe(this->owner->GetMapID(), this->owner->GetOID(), GamePacket::Packet_SC_USE_SKILL_RES, message.Union(), this->owner->GetPos());
 	}
@@ -47,7 +47,7 @@ void Skill::DoAction(void)
 	if (objectList.empty())
 		return;
 
-	PACKET_SEND_MANAGER.builder.Clear();
+	PACKET_SEND_MANAGER.Clear();
 
 	std::vector<flatbuffers::Offset<GamePacket::DamageInfo>> sendList;
 
