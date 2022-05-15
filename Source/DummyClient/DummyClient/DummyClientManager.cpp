@@ -19,6 +19,8 @@ void DummyClientManager::Run(void)
 {
 	ConnectToLoginServer();
 	ShowConnectedLoginClientCount();
+	Sleep(SEC);
+	ShowConnectedGameClientCount();
 }
 
 void DummyClientManager::Stop(void)
@@ -26,15 +28,14 @@ void DummyClientManager::Stop(void)
 	
 }
 
-Define::ServerType DummyClientManager::GetCurrServerType(void)
+int32_t DummyClientManager::GetWorldID(void)
 {
-	return this->currServerType;
+	return this->dummyClientConfig.get()->WorldID;
 }
 
-void DummyClientManager::SetCurrServerType(const Define::ServerType currServerType)
+int32_t DummyClientManager::GetMaxConnectionCount(void)
 {
-	WRITE_LOCK(this->mutex);
-	this->currServerType = currServerType;
+	return this->dummyClientConfig.get()->MaxConnectionCount;
 }
 
 void DummyClientManager::ConnectToLoginServer(void)
@@ -45,7 +46,7 @@ void DummyClientManager::ConnectToLoginServer(void)
 		auto client = std::make_shared<LoginClient>(i);
 		client->Connect();
 
-		WRITE_LOCK(this->mutex);
+		WRITE_LOCK(this->loginMutex);
 		this->loginClientList[i] = client;
 	}
 
@@ -61,7 +62,7 @@ int32_t DummyClientManager::GetConnectedLoginClientCount(void)
 {
 	int32_t connectedCount = 0;
 
-	READ_LOCK(this->mutex);
+	READ_LOCK(this->loginMutex);
 
 	auto iter_begin = this->loginClientList.begin();
 	auto iter_end = this->loginClientList.end();
@@ -74,27 +75,62 @@ int32_t DummyClientManager::GetConnectedLoginClientCount(void)
 	return connectedCount;
 }
 
-int32_t DummyClientManager::GetWorldID(void)
+void DummyClientManager::DeleteLoginClient(const int64_t oid)
 {
-	return this->dummyClientConfig.get()->WorldID;
-}
+	WRITE_LOCK(this->loginMutex);
 
-int32_t DummyClientManager::GetMaxConnectionCount(void)
-{
-	return this->dummyClientConfig.get()->MaxConnectionCount;
-}
+	this->loginClientList.erase(oid);
 
-void DummyClientManager::DeleteLoginClient(const int64_t uid)
-{
-	WRITE_LOCK(this->mutex);
-
-	this->loginClientList.erase(uid);
-
-	if (this->loginClientList.empty() && IS_SAME(Define::ServerType_Login, GetCurrServerType()))
+	if (this->loginClientList.empty())
 	{
 		std::cout << "\n" << std::endl;
 		CORE_ALL_LOG(LogType::LOG_ERROR, "Cannot Connect, Shutdown");
-		Sleep(3000);
+		Sleep(1000);
+		abort();
+	}
+}
+
+void DummyClientManager::ConnectToGameServer(const int64_t oid, const int64_t accountUID, const int32_t token, const int64_t characterUID)
+{
+	auto client = std::make_shared<GameClient>(oid, accountUID, token, characterUID);
+	client->Connect();
+
+	WRITE_LOCK(this->gameMutex);
+	this->gameClientList[oid] = client;
+}
+
+void DummyClientManager::ShowConnectedGameClientCount(void)
+{
+	CORE_ALL_LOG(LogType::LOG_DEBUG, "[Connected To GameServer]: " + TO_STR(GetConnectedGameClientCount()));
+}
+
+int32_t DummyClientManager::GetConnectedGameClientCount(void)
+{
+	int32_t connectedCount = 0;
+
+	READ_LOCK(this->gameMutex);
+
+	auto iter_begin = this->gameClientList.begin();
+	auto iter_end = this->gameClientList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		if ((*iter_begin).second->IsConnected())
+			++connectedCount;
+	}
+
+	return connectedCount;
+}
+
+void DummyClientManager::DeleteGameClient(const int64_t oid)
+{
+	WRITE_LOCK(this->gameMutex);
+
+	this->gameClientList.erase(oid);
+
+	if (this->gameClientList.empty())
+	{
+		std::cout << "\n" << std::endl;
+		CORE_ALL_LOG(LogType::LOG_ERROR, "GameClient is Zero, Shutdown");
 		abort();
 	}
 }

@@ -13,7 +13,7 @@ public:
 
 public:
 	void Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint);
-	void Close(void);
+	void Close(bool isForce = false);
 
 public:
 	virtual void Write(const CorePacket& packet) override;

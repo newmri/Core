@@ -9,7 +9,7 @@ CoreServerSession::CoreServerSession(const int64_t oid, boost::asio::io_context&
 
 CoreServerSession::~CoreServerSession()
 {
-	Close();
+	Close(true);
 }
 
 CoreClient* CoreServerSession::GetClient(void)
@@ -39,15 +39,17 @@ void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 		});
 }
 
-void CoreServerSession::Close(void)
+void CoreServerSession::Close(bool isForce)
 {
-	boost::asio::post(this->ioContext, [this]()
+	boost::asio::post(this->ioContext, [this, isForce]()
 		{
 			if (this->socket.is_open())
 			{
 				this->ioContext.stop();
 				this->socket.close();
-				this->client->OnDisconnected();
+
+				if(!isForce)
+					this->client->OnDisconnected();
 			}
 		});
 }

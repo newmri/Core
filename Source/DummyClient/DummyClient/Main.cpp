@@ -22,6 +22,9 @@ void Input(void)
 		case HashCode("/logincount"):
 			DUMMY_CLIENT.ShowConnectedLoginClientCount();
 			break;
+		case HashCode("/gamecount"):
+			DUMMY_CLIENT.ShowConnectedGameClientCount();
+			break;
 		default:
 			CORE_CONSOLE_LOG.Log("Input /help");
 			break;

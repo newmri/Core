@@ -19,23 +19,11 @@
     <Filter Include="04.Packet\00.FlatBuffer">
       <UniqueIdentifier>{82466a53-4571-41da-918c-2070a1358473}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Packet\03.LoginPacketHandler">
-      <UniqueIdentifier>{2b43e67d-d5aa-4cac-9208-0851350af7fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.Packet\04.LoginPacketFunc">
-      <UniqueIdentifier>{5858db9b-2a77-4f97-8bdb-2965824a0755}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.Packet\02.PacketSendManager">
-      <UniqueIdentifier>{a9dcc120-dede-4f6c-9788-c043daf1a621}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05.Character">
       <UniqueIdentifier>{f810c2c0-bb91-4f89-91af-5174d6ce564b}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.DummyClient">
       <UniqueIdentifier>{4b05fb9b-f643-4208-9680-d2b7752f8061}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.Packet\05.WebManager">
-      <UniqueIdentifier>{357ff0e7-d613-492c-8443-e46eb9e3cc94}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.DummyClient\00.LoginClient">
       <UniqueIdentifier>{bcf15642-f8be-41ab-837e-0e0070819129}</UniqueIdentifier>
@@ -43,16 +31,40 @@
     <Filter Include="02.DummyClient\01.GameClient">
       <UniqueIdentifier>{96c810db-66af-440f-a27f-b03b939a6f97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.Packet\07.WebManager">
+      <UniqueIdentifier>{357ff0e7-d613-492c-8443-e46eb9e3cc94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\01.Login">
+      <UniqueIdentifier>{d3a03569-1e12-472e-91d9-d8b3b15df546}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\01.Login\00.LoginPacketSendManager">
+      <UniqueIdentifier>{a9dcc120-dede-4f6c-9788-c043daf1a621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\01.Login\01.LoginPacketHandler">
+      <UniqueIdentifier>{2b43e67d-d5aa-4cac-9208-0851350af7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\01.Login\02.LoginPacketFunc">
+      <UniqueIdentifier>{5858db9b-2a77-4f97-8bdb-2965824a0755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\02.Game">
+      <UniqueIdentifier>{d3ef1cd8-fee7-4241-8a2a-02deed7e5773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\02.Game\01.GamePacketHandler">
+      <UniqueIdentifier>{bab1c228-f81a-4524-849e-30f37d6070f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\02.Game\02.GamePacketFunc">
+      <UniqueIdentifier>{0b778297-8292-4dfe-af01-37aca147dda6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\02.Game\00.GamePacketSendManager">
+      <UniqueIdentifier>{ff0e14f4-5f20-46b2-848b-781c6308a0ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>01.Main</Filter>
     </ClCompile>
-    <ClCompile Include="LoginPacketHandler.cpp">
-      <Filter>04.Packet\03.LoginPacketHandler</Filter>
-    </ClCompile>
     <ClCompile Include="LoginPacketFunc.cpp">
-      <Filter>04.Packet\04.LoginPacketFunc</Filter>
+      <Filter>04.Packet\01.Login\02.LoginPacketFunc</Filter>
     </ClCompile>
     <ClCompile Include="DummyClientManager.cpp">
       <Filter>02.DummyClient</Filter>
@@ -66,14 +78,29 @@
     <ClCompile Include="native_info_impl.cpp">
       <Filter>04.Packet\00.FlatBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="PacketSendManager.cpp">
-      <Filter>04.Packet\02.PacketSendManager</Filter>
-    </ClCompile>
     <ClCompile Include="WebManager.cpp">
-      <Filter>04.Packet\05.WebManager</Filter>
+      <Filter>04.Packet\07.WebManager</Filter>
     </ClCompile>
     <ClCompile Include="LoginClient.cpp">
       <Filter>02.DummyClient\00.LoginClient</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClient.cpp">
+      <Filter>02.DummyClient\01.GameClient</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePacketHandler.cpp">
+      <Filter>04.Packet\02.Game\01.GamePacketHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePacketFunc.cpp">
+      <Filter>04.Packet\02.Game\02.GamePacketFunc</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginPacketSendManager.cpp">
+      <Filter>04.Packet\01.Login\00.LoginPacketSendManager</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginPacketHandler.cpp">
+      <Filter>04.Packet\01.Login\01.LoginPacketHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePacketSendManager.cpp">
+      <Filter>04.Packet\02.Game\00.GamePacketSendManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,11 +110,8 @@
     <ClInclude Include="login_protocol_generated.h">
       <Filter>04.Packet\00.FlatBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="LoginPacketHandler.h">
-      <Filter>04.Packet\03.LoginPacketHandler</Filter>
-    </ClInclude>
     <ClInclude Include="LoginPacketFunc.h">
-      <Filter>04.Packet\04.LoginPacketFunc</Filter>
+      <Filter>04.Packet\01.Login\02.LoginPacketFunc</Filter>
     </ClInclude>
     <ClInclude Include="DummyClientManager.h">
       <Filter>02.DummyClient</Filter>
@@ -110,14 +134,29 @@
     <ClInclude Include="CharacterData.h">
       <Filter>03.DataManager\00.CharacterData</Filter>
     </ClInclude>
-    <ClInclude Include="PacketSendManager.h">
-      <Filter>04.Packet\02.PacketSendManager</Filter>
-    </ClInclude>
     <ClInclude Include="WebManager.h">
-      <Filter>04.Packet\05.WebManager</Filter>
+      <Filter>04.Packet\07.WebManager</Filter>
     </ClInclude>
     <ClInclude Include="LoginClient.h">
       <Filter>02.DummyClient\00.LoginClient</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClient.h">
+      <Filter>02.DummyClient\01.GameClient</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePacketHandler.h">
+      <Filter>04.Packet\02.Game\01.GamePacketHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePacketFunc.h">
+      <Filter>04.Packet\02.Game\02.GamePacketFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginPacketSendManager.h">
+      <Filter>04.Packet\01.Login\00.LoginPacketSendManager</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginPacketHandler.h">
+      <Filter>04.Packet\01.Login\01.LoginPacketHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePacketSendManager.h">
+      <Filter>04.Packet\02.Game\00.GamePacketSendManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

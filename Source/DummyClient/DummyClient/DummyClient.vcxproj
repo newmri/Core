@@ -92,13 +92,17 @@
   <ItemGroup>
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="GamePacketFunc.cpp" />
+    <ClCompile Include="GamePacketHandler.cpp" />
+    <ClCompile Include="GamePacketSendManager.cpp" />
     <ClCompile Include="LoginPacketFunc.cpp" />
     <ClCompile Include="LoginPacketHandler.cpp" />
     <ClCompile Include="LoginClient.cpp" />
     <ClCompile Include="DummyClientManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="native_info_impl.cpp" />
-    <ClCompile Include="PacketSendManager.cpp" />
+    <ClCompile Include="LoginPacketSendManager.cpp" />
     <ClCompile Include="WebManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +114,10 @@
     <ClInclude Include="CharacterData.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="define_protocol_generated.h" />
+    <ClInclude Include="GameClient.h" />
+    <ClInclude Include="GamePacketFunc.h" />
+    <ClInclude Include="GamePacketHandler.h" />
+    <ClInclude Include="GamePacketSendManager.h" />
     <ClInclude Include="info_protocol_generated.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="LoginPacketFunc.h" />
@@ -119,7 +127,7 @@
     <ClInclude Include="DummyClientManager.h" />
     <ClInclude Include="login_protocol_generated.h" />
     <ClInclude Include="native_info_impl.h" />
-    <ClInclude Include="PacketSendManager.h" />
+    <ClInclude Include="LoginPacketSendManager.h" />
     <ClInclude Include="WebManager.h" />
   </ItemGroup>
   <ItemGroup>

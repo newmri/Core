@@ -1,7 +1,7 @@
 #include "Include.h"
 #include <boost/format.hpp>
 
-LoginClient::LoginClient(const int64_t uid) : CoreClient(uid)
+LoginClient::LoginClient(const int64_t oid) : CoreClient(oid)
 {
 	this->handler = new LoginPacketHandler;
 
@@ -16,7 +16,7 @@ LoginClient::~LoginClient()
 void LoginClient::MakeAccountInfo(void)
 {
 	boost::format format("%04d");
-	format% GetUID();
+	format% this->session.GetOID();
 	this->id = "test" + format.str();
 	this->password = this->id;
 }
@@ -37,14 +37,14 @@ void LoginClient::Connect(void)
 
 void LoginClient::OnConnected(void)
 {
-	PACKET_SEND_MANAGER.builder.Clear();
-	auto message = LoginPacket::CreateCS_LOGIN_REQ(PACKET_SEND_MANAGER.builder, GetAccountUID(), GetToken());
-	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_CS_LOGIN_REQ, message.Union());
+	LOGIN_PACKET_SEND_MANAGER.Clear();
+	auto message = LoginPacket::CreateCS_LOGIN_REQ(LOGIN_PACKET_SEND_MANAGER.builder, session.GetAccountUID(), session.GetToken());
+	LOGIN_PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_CS_LOGIN_REQ, message.Union());
 }
 
 void LoginClient::OnDisconnected(void)
 {
-	DUMMY_CLIENT.DeleteLoginClient(GetUID());
+	DUMMY_CLIENT.DeleteLoginClient(this->session.GetOID());
 }
 
 void LoginClient::ProcessPacket(const uint8_t* data, size_t size)
@@ -59,6 +59,13 @@ void LoginClient::ProcessPacket(const uint8_t* data, size_t size)
 	}
 }
 
+void LoginClient::SendLogout(void)
+{
+	LOGIN_PACKET_SEND_MANAGER.Clear();
+	auto message = LoginPacket::CreateCS_LOGOUT_NOTI(LOGIN_PACKET_SEND_MANAGER.builder);
+	LOGIN_PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_CS_LOGOUT_NOTI, message.Union());
+}
+
 std::string_view LoginClient::GetID(void)
 {
 	return this->id;
@@ -67,24 +74,4 @@ std::string_view LoginClient::GetID(void)
 std::string_view LoginClient::GetPassword(void)
 {
 	return this->password;
-}
-
-int64_t LoginClient::GetAccountUID(void) const
-{
-	return this->accountUID;
-}
-
-int32_t LoginClient::GetToken(void) const
-{
-	return this->token;
-}
-
-void LoginClient::SetAccountUID(const int64_t accountUID)
-{
-	this->accountUID = accountUID;
-}
-
-void LoginClient::SetToken(const int32_t token)
-{
-	this->token = token;
 }
