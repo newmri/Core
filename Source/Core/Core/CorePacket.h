@@ -3,7 +3,7 @@
 class CorePacket
 {
 public:
-	enum { MAX_PLAYER_INFO_SIZE = 20 };
+	enum { MAX_PLAYER_INFO_SEND_COUNT = 20 };
 	enum { HEADER_SIZE = 2 };
 	enum { MAX_BODY_SIZE = 1024 };
 
