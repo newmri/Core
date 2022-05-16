@@ -7,12 +7,14 @@ CoreClient::CoreClient(const int64_t oid) : resolver(ioContext)
 
 CoreClient::~CoreClient()
 {
-
+	this->ioContext.stop();
+	this->asyncThread.join_all();
 }
 
 void CoreClient::Connect(std::string_view ip, std::string_view port)
 {
 	this->session->Connect(resolver.resolve(ip, port));
+	this->asyncThread.create_thread(boost::bind(&boost::asio::io_service::run, &GetContext()));
 }
 
 bool CoreClient::IsConnected(void)

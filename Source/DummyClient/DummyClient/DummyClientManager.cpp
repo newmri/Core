@@ -23,6 +23,7 @@ void DummyClientManager::Run(void)
 	ShowConnectedLoginClientCount();
 	Sleep(SEC);
 	ShowConnectedGameClientCount();
+	DeleteAllLoginClient();
 }
 
 void DummyClientManager::Stop(void)
@@ -64,7 +65,7 @@ void DummyClientManager::OnLoginServerConnected(std::shared_ptr<CoreServerSessio
 
 void DummyClientManager::OnLoginServerDisconnected(std::shared_ptr<CoreServerSession> session)
 {
-	DeleteLoginClient(session->GetOID());
+	DeleteLoginClient(session->GetOID(), true);
 }
 
 void DummyClientManager::LoginServerProcessPacket(std::shared_ptr<CoreServerSession> session, const uint8_t* data, size_t size)
@@ -101,13 +102,13 @@ int32_t DummyClientManager::GetConnectedLoginClientCount(void)
 	return connectedCount;
 }
 
-void DummyClientManager::DeleteLoginClient(const int64_t oid)
+void DummyClientManager::DeleteLoginClient(const int64_t oid, const bool isForce)
 {
 	WRITE_LOCK(this->loginMutex);
 
 	this->loginClientList.erase(oid);
 
-	if (this->loginClientList.empty())
+	if (this->loginClientList.empty() && !isForce)
 	{
 		std::cout << "\n" << std::endl;
 		CORE_ALL_LOG(LogType::LOG_ERROR, "Cannot Connect, Shutdown");
@@ -116,13 +117,23 @@ void DummyClientManager::DeleteLoginClient(const int64_t oid)
 	}
 }
 
+void DummyClientManager::DeleteAllLoginClient(void)
+{
+	CORE_ALL_LOG(LogType::LOG_DEBUG, "All LoginClient is Deleted");
+
+	WRITE_LOCK(this->loginMutex);
+	this->loginClientList.clear();
+}
+
 void DummyClientManager::ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID)
 {
 	auto client = std::make_shared<GameClient>(session, characterUID);
 	client->Connect();
 
+	auto oid = session->GetOID();
+
 	WRITE_LOCK(this->gameMutex);
-	this->gameClientList[session->GetOID()] = client;
+	this->gameClientList[oid] = client;
 }
 
 void DummyClientManager::OnGameServerConnected(std::shared_ptr<CoreServerSession> session)

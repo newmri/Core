@@ -30,8 +30,6 @@ void LoginClient::Connect(void)
 	{
 		auto connectInfo = WEB_MANAGER.SelectServer(Define::ServerType_Login);
 		CoreClient::Connect(connectInfo.ServerIP, connectInfo.ServerPort);
-		boost::asio::io_context& ioContext = GetContext();
-		boost::thread t(boost::bind(&boost::asio::io_context::run, &ioContext));
 	}
 }
 

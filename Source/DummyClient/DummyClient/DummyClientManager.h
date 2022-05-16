@@ -36,7 +36,8 @@ private:
 	int32_t GetConnectedLoginClientCount(void);
 
 public:
-	void DeleteLoginClient(const int64_t oid);
+	void DeleteLoginClient(const int64_t oid, const bool isForce = false);
+	void DeleteAllLoginClient(void);
 #pragma endregion
 
 #pragma region GameServer
@@ -63,6 +64,7 @@ private:
 
 private:
 	std::unique_ptr<LoginPacketHandler> loginHandler;
+	std::vector<std::thread> loginThread;
 	std::shared_mutex loginMutex;
 	std::map<int64_t, std::shared_ptr<LoginClient>> loginClientList;
 

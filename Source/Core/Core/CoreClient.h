@@ -21,6 +21,7 @@ public:
 private:
 	boost::asio::io_context ioContext;
 	boost::asio::ip::tcp::resolver resolver;
+	boost::thread_group asyncThread;
 
 protected:
 	std::shared_ptr<CoreServerSession> session;

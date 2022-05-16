@@ -1,16 +1,2 @@
-﻿  Character.cpp
-  DataManager.cpp
-  DummyClientManager.cpp
-  GameClient.cpp
-  GamePacketFunc.cpp
-  GamePacketHandler.cpp
-  GamePacketSendManager.cpp
-  LoginClient.cpp
-  LoginPacketFunc.cpp
-  LoginPacketHandler.cpp
-  LoginPacketSendManager.cpp
-  Main.cpp
-  WebManager.cpp
-  native_info_impl.cpp
-  코드를 생성하고 있습니다...
+﻿  DummyClientManager.cpp
   DummyClient.vcxproj -> C:\Users\HavePoop\Desktop\Study\Core\Source\DummyClient\x64\Debug\DummyClient.exe

@@ -14,4 +14,7 @@ public:
 
 public:
 	void SendLogout(void);
+
+private:
+	boost::thread_group m_group;
 };

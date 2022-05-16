@@ -2167,3 +2167,739 @@
 01:25:19	ThreadID:14596	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
 01:25:19	ThreadID:50276	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
 01:25:19	ThreadID:1224	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:38	ThreadID:17196	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:30:38	ThreadID:17196	[LOG_INFO]	int32_t,int32_t
+01:30:38	ThreadID:17196	[LOG_INFO]	1,100
+01:30:38	ThreadID:17196	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:30:38	ThreadID:17196	[LOG_DEBUG]	[World ID]: 1
+01:30:38	ThreadID:17196	[LOG_DEBUG]	[MaxConnection]: 100
+01:30:39	ThreadID:17196	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:30:40	ThreadID:27828	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:26944	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:24404	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:44356	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:58232	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:52676	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:63376	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:55120	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:29596	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:61520	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:13368	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:10120	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:58760	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:62064	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:22176	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:33516	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:16792	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:15380	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:48012	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:11864	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:58808	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:25368	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:38300	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:42008	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:63232	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:19316	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:42468	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:46092	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:54440	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:62336	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:54804	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:27752	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:47620	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:12544	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:31660	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:3396	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:57276	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:22800	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:59260	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:57452	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:54860	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:19632	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:30812	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:43788	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:28972	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:28400	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:21860	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:24928	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:56088	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:3056	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:53328	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:59316	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:20552	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:48808	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:62936	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:33452	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:2116	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:58592	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:31580	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:56876	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:57196	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:32224	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:41900	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:51828	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:4968	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:33128	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:40248	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:40276	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:61556	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:58556	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:5952	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:62372	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:20948	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:48640	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:23240	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:21324	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:45220	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:23360	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:34388	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:51328	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:21192	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:19724	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:28116	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:43648	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:15244	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:30140	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:23800	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:31808	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:40120	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:51872	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:15656	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:25440	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:33396	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:48016	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:10612	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:62912	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:17196	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:30:40	ThreadID:17380	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:25664	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:13992	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:40	ThreadID:36756	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:30:55	ThreadID:26280	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:30:55	ThreadID:26280	[LOG_INFO]	int32_t,int32_t
+01:30:55	ThreadID:26280	[LOG_INFO]	1,100
+01:30:55	ThreadID:26280	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:30:55	ThreadID:26280	[LOG_DEBUG]	[World ID]: 1
+01:30:55	ThreadID:26280	[LOG_DEBUG]	[MaxConnection]: 100
+01:30:57	ThreadID:26280	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:30:57	ThreadID:23728	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:33280	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:40496	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:61156	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:29172	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:61104	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:11868	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:38404	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:10320	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:1560	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:59016	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:7696	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:5160	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:29520	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:10488	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:20300	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:54880	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:32404	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:22236	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:29272	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:11432	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:19344	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:26016	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:12740	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:46272	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:17644	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:27004	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:14468	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:55868	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:7544	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:28288	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:42584	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:48052	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:21712	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:48988	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:43332	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:40844	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:28524	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:47444	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:14136	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:62104	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:57988	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:60944	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:37096	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:46544	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:12476	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:52344	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:43072	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:10776	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:38832	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:37064	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:32284	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:2940	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:10844	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:36764	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:42752	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:30820	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:26720	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:56372	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:61328	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:49068	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:46896	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:35688	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:36596	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:36084	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:2800	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:46760	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:8048	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:57504	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:47356	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:24160	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:37688	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:60868	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:22404	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:32964	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:35288	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:30392	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:60020	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:33624	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:40060	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:62412	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:37232	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:40836	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:44248	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:54236	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:12920	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:11480	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:36000	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:59572	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:32360	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:8676	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:55928	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:38268	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:4020	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:63288	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:52464	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:14860	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:39540	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:42312	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:51724	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:31:01	ThreadID:26280	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:34:01	ThreadID:48744	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:34:01	ThreadID:48744	[LOG_INFO]	int32_t,int32_t
+01:34:01	ThreadID:48744	[LOG_INFO]	1,100
+01:34:01	ThreadID:48744	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:34:01	ThreadID:48744	[LOG_DEBUG]	[World ID]: 1
+01:34:01	ThreadID:48744	[LOG_DEBUG]	[MaxConnection]: 100
+01:34:02	ThreadID:48744	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:34:03	ThreadID:52948	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:27416	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:59296	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:6924	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:11468	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:47880	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:45224	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:11580	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:23900	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:36184	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:49084	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:27556	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:59892	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:21648	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:25452	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:59528	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:15200	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:55676	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:11040	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:21592	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:52772	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:7892	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:49468	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:17964	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:34628	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:58676	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:54024	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:23508	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:59808	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:19420	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:41416	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:60644	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:19052	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:57752	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:46604	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:13500	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:46624	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:59556	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:3336	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:25668	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:30360	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:43020	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:60772	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:63224	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:24516	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:60280	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:53324	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:37188	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:40664	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:9880	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:25044	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:47440	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:42268	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:38652	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:48736	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:45428	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:44324	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:18592	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:19216	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:51252	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:26100	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:36724	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:36636	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:38560	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:53216	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:58412	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:58128	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:27644	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:20084	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:24620	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:54524	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:28492	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:42212	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:17008	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:21084	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:18776	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:31976	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:43464	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:26220	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:51128	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:51812	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:16816	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:60476	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:63080	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:41264	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:60088	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:50416	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:61492	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:740	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:56484	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:60224	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:50784	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:59268	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:26404	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:14552	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:48744	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:34:03	ThreadID:12128	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:56116	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:51348	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:29524	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:03	ThreadID:61252	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:34:18	ThreadID:57968	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:34:18	ThreadID:57968	[LOG_INFO]	int32_t,int32_t
+01:34:18	ThreadID:57968	[LOG_INFO]	1,100
+01:34:18	ThreadID:57968	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:34:18	ThreadID:57968	[LOG_DEBUG]	[World ID]: 1
+01:34:18	ThreadID:57968	[LOG_DEBUG]	[MaxConnection]: 100
+01:34:19	ThreadID:57968	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:34:20	ThreadID:52160	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:36:18	ThreadID:58128	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:36:18	ThreadID:58128	[LOG_INFO]	int32_t,int32_t
+01:36:18	ThreadID:58128	[LOG_INFO]	1,100
+01:36:18	ThreadID:58128	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:36:18	ThreadID:58128	[LOG_DEBUG]	[World ID]: 1
+01:36:18	ThreadID:58128	[LOG_DEBUG]	[MaxConnection]: 100
+01:36:20	ThreadID:26100	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:36:20	ThreadID:58128	[LOG_ERROR]	Cannot Connect, Shutdown
+01:36:32	ThreadID:38464	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:36:32	ThreadID:38464	[LOG_INFO]	int32_t,int32_t
+01:36:32	ThreadID:38464	[LOG_INFO]	1,100
+01:36:32	ThreadID:38464	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:36:32	ThreadID:38464	[LOG_DEBUG]	[World ID]: 1
+01:36:32	ThreadID:38464	[LOG_DEBUG]	[MaxConnection]: 100
+01:36:34	ThreadID:29264	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:36:34	ThreadID:38464	[LOG_ERROR]	Cannot Connect, Shutdown
+01:36:48	ThreadID:10636	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:36:48	ThreadID:10636	[LOG_INFO]	int32_t,int32_t
+01:36:48	ThreadID:10636	[LOG_INFO]	1,100
+01:36:48	ThreadID:10636	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:36:48	ThreadID:10636	[LOG_DEBUG]	[World ID]: 1
+01:36:48	ThreadID:10636	[LOG_DEBUG]	[MaxConnection]: 100
+01:36:50	ThreadID:62780	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:36:50	ThreadID:62780	[LOG_ERROR]	Cannot Connect, Shutdown
+01:39:03	ThreadID:49724	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:39:03	ThreadID:49724	[LOG_INFO]	int32_t,int32_t
+01:39:03	ThreadID:49724	[LOG_INFO]	1,100
+01:39:03	ThreadID:49724	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:39:03	ThreadID:49724	[LOG_DEBUG]	[World ID]: 1
+01:39:03	ThreadID:49724	[LOG_DEBUG]	[MaxConnection]: 100
+01:39:18	ThreadID:5860	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:39:18	ThreadID:5860	[LOG_INFO]	int32_t,int32_t
+01:39:18	ThreadID:5860	[LOG_INFO]	1,100
+01:39:18	ThreadID:5860	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:39:18	ThreadID:5860	[LOG_DEBUG]	[World ID]: 1
+01:39:18	ThreadID:5860	[LOG_DEBUG]	[MaxConnection]: 100
+01:39:23	ThreadID:38584	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:39:23	ThreadID:38584	[LOG_INFO]	int32_t,int32_t
+01:39:23	ThreadID:38584	[LOG_INFO]	1,100
+01:39:23	ThreadID:38584	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:39:23	ThreadID:38584	[LOG_DEBUG]	[World ID]: 1
+01:39:23	ThreadID:38584	[LOG_DEBUG]	[MaxConnection]: 100
+01:39:50	ThreadID:53496	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:39:50	ThreadID:53496	[LOG_INFO]	int32_t,int32_t
+01:39:50	ThreadID:53496	[LOG_INFO]	1,100
+01:39:50	ThreadID:53496	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:39:50	ThreadID:53496	[LOG_DEBUG]	[World ID]: 1
+01:39:50	ThreadID:53496	[LOG_DEBUG]	[MaxConnection]: 100
+01:40:38	ThreadID:42844	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:40:38	ThreadID:42844	[LOG_INFO]	int32_t,int32_t
+01:40:38	ThreadID:42844	[LOG_INFO]	1,100
+01:40:38	ThreadID:42844	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:40:38	ThreadID:42844	[LOG_DEBUG]	[World ID]: 1
+01:40:38	ThreadID:42844	[LOG_DEBUG]	[MaxConnection]: 100
+01:41:03	ThreadID:53984	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:41:03	ThreadID:53984	[LOG_INFO]	int32_t,int32_t
+01:41:03	ThreadID:53984	[LOG_INFO]	1,100
+01:41:03	ThreadID:53984	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:41:03	ThreadID:53984	[LOG_DEBUG]	[World ID]: 1
+01:41:03	ThreadID:53984	[LOG_DEBUG]	[MaxConnection]: 100
+01:41:43	ThreadID:30284	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:41:43	ThreadID:30284	[LOG_INFO]	int32_t,int32_t
+01:41:43	ThreadID:30284	[LOG_INFO]	1,100
+01:41:43	ThreadID:30284	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:41:43	ThreadID:30284	[LOG_DEBUG]	[World ID]: 1
+01:41:43	ThreadID:30284	[LOG_DEBUG]	[MaxConnection]: 100
+01:42:09	ThreadID:45580	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:42:09	ThreadID:45580	[LOG_INFO]	int32_t,int32_t
+01:42:09	ThreadID:45580	[LOG_INFO]	1,100
+01:42:09	ThreadID:45580	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:42:09	ThreadID:45580	[LOG_DEBUG]	[World ID]: 1
+01:42:09	ThreadID:45580	[LOG_DEBUG]	[MaxConnection]: 100
+01:42:41	ThreadID:34576	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:42:41	ThreadID:34576	[LOG_INFO]	int32_t,int32_t
+01:42:41	ThreadID:34576	[LOG_INFO]	1,100
+01:42:41	ThreadID:34576	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:42:41	ThreadID:34576	[LOG_DEBUG]	[World ID]: 1
+01:42:41	ThreadID:34576	[LOG_DEBUG]	[MaxConnection]: 100
+01:42:42	ThreadID:34576	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:42:43	ThreadID:52184	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:53864	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:23800	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:48852	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:52564	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:31484	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:17576	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:53904	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:9308	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:22980	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:59884	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:21144	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:47044	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:50548	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:23020	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:59608	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:20248	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:61792	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:51116	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:49484	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:1100	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:30192	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:58264	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:41816	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:41584	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:5772	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:34276	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:56916	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:21760	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:24720	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:2252	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:56964	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:43640	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:32812	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:59028	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:25564	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:56780	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:41752	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:51324	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:31924	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:6252	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:47168	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:12808	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:40508	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:36872	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:21424	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:44560	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:21352	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:22396	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:16516	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:5032	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:59672	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:63276	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:14468	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:43816	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:63120	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:13664	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:55020	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:29836	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:28872	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:59584	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:48164	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:11096	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:6392	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:26832	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:12796	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:2492	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:34052	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:11664	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:12944	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:52560	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:18344	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:12408	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:8288	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:40764	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:15896	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:57132	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:39868	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:31848	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:43364	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:30900	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:34316	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:53580	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:11408	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:17972	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:18912	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:48952	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:27696	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:32564	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:62740	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:52532	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:49224	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:57960	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:36860	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:32528	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:31296	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:16504	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:25068	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:25000	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:52704	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:43	ThreadID:34576	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:42:56	ThreadID:41364	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:42:56	ThreadID:41364	[LOG_INFO]	int32_t,int32_t
+01:42:56	ThreadID:41364	[LOG_INFO]	1,100
+01:42:56	ThreadID:41364	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:42:56	ThreadID:41364	[LOG_DEBUG]	[World ID]: 1
+01:42:56	ThreadID:41364	[LOG_DEBUG]	[MaxConnection]: 100
+01:42:58	ThreadID:42524	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:42:58	ThreadID:41364	[LOG_ERROR]	Cannot Connect, Shutdown
+01:43:09	ThreadID:11348	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:43:09	ThreadID:11348	[LOG_INFO]	int32_t,int32_t
+01:43:09	ThreadID:11348	[LOG_INFO]	1,100
+01:43:09	ThreadID:11348	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:43:09	ThreadID:11348	[LOG_DEBUG]	[World ID]: 1
+01:43:09	ThreadID:11348	[LOG_DEBUG]	[MaxConnection]: 100
+01:43:11	ThreadID:54816	[LOG_ERROR]	대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+01:43:11	ThreadID:11348	[LOG_ERROR]	Cannot Connect, Shutdown
+01:43:17	ThreadID:47308	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:43:17	ThreadID:47308	[LOG_INFO]	int32_t,int32_t
+01:43:17	ThreadID:47308	[LOG_INFO]	1,100
+01:43:17	ThreadID:47308	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:43:17	ThreadID:47308	[LOG_DEBUG]	[World ID]: 1
+01:43:17	ThreadID:47308	[LOG_DEBUG]	[MaxConnection]: 100
+01:44:29	ThreadID:61524	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:44:29	ThreadID:61524	[LOG_INFO]	int32_t,int32_t
+01:44:29	ThreadID:61524	[LOG_INFO]	1,100
+01:44:29	ThreadID:61524	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:44:29	ThreadID:61524	[LOG_DEBUG]	[World ID]: 1
+01:44:29	ThreadID:61524	[LOG_DEBUG]	[MaxConnection]: 100
+01:44:37	ThreadID:58548	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:44:37	ThreadID:58548	[LOG_INFO]	int32_t,int32_t
+01:44:37	ThreadID:58548	[LOG_INFO]	1,100
+01:44:37	ThreadID:58548	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:44:37	ThreadID:58548	[LOG_DEBUG]	[World ID]: 1
+01:44:37	ThreadID:58548	[LOG_DEBUG]	[MaxConnection]: 100
+01:45:04	ThreadID:37752	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:45:04	ThreadID:37752	[LOG_INFO]	int32_t,int32_t
+01:45:04	ThreadID:37752	[LOG_INFO]	1,100
+01:45:04	ThreadID:37752	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:45:04	ThreadID:37752	[LOG_DEBUG]	[World ID]: 1
+01:45:04	ThreadID:37752	[LOG_DEBUG]	[MaxConnection]: 100
+01:49:09	ThreadID:60344	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:49:09	ThreadID:60344	[LOG_INFO]	int32_t,int32_t
+01:49:09	ThreadID:60344	[LOG_INFO]	1,100
+01:49:09	ThreadID:60344	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:49:09	ThreadID:60344	[LOG_DEBUG]	[World ID]: 1
+01:49:09	ThreadID:60344	[LOG_DEBUG]	[MaxConnection]: 100
+01:49:36	ThreadID:13208	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:49:36	ThreadID:13208	[LOG_INFO]	int32_t,int32_t
+01:49:36	ThreadID:13208	[LOG_INFO]	1,100
+01:49:36	ThreadID:13208	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:49:36	ThreadID:13208	[LOG_DEBUG]	[World ID]: 1
+01:49:36	ThreadID:13208	[LOG_DEBUG]	[MaxConnection]: 100
+01:50:20	ThreadID:42312	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:50:20	ThreadID:42312	[LOG_INFO]	int32_t,int32_t
+01:50:20	ThreadID:42312	[LOG_INFO]	1,100
+01:50:20	ThreadID:42312	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:50:20	ThreadID:42312	[LOG_DEBUG]	[World ID]: 1
+01:50:20	ThreadID:42312	[LOG_DEBUG]	[MaxConnection]: 100
+01:50:41	ThreadID:53296	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:50:41	ThreadID:53296	[LOG_INFO]	int32_t,int32_t
+01:50:41	ThreadID:53296	[LOG_INFO]	1,100
+01:50:41	ThreadID:53296	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:50:41	ThreadID:53296	[LOG_DEBUG]	[World ID]: 1
+01:50:41	ThreadID:53296	[LOG_DEBUG]	[MaxConnection]: 100
+01:50:42	ThreadID:53296	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:50:43	ThreadID:53296	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:51:05	ThreadID:15924	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:51:05	ThreadID:15924	[LOG_INFO]	int32_t,int32_t
+01:51:05	ThreadID:15924	[LOG_INFO]	1,100
+01:51:05	ThreadID:15924	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:51:05	ThreadID:15924	[LOG_DEBUG]	[World ID]: 1
+01:51:05	ThreadID:15924	[LOG_DEBUG]	[MaxConnection]: 100
+01:51:07	ThreadID:15924	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:51:08	ThreadID:15924	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:51:16	ThreadID:15924	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:51:27	ThreadID:24108	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:51:27	ThreadID:24108	[LOG_INFO]	int32_t,int32_t
+01:51:27	ThreadID:24108	[LOG_INFO]	1,100
+01:51:27	ThreadID:24108	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:51:27	ThreadID:24108	[LOG_DEBUG]	[World ID]: 1
+01:51:27	ThreadID:24108	[LOG_DEBUG]	[MaxConnection]: 100
+01:51:28	ThreadID:24108	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:51:29	ThreadID:24108	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:51:50	ThreadID:55352	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:51:50	ThreadID:55352	[LOG_INFO]	int32_t,int32_t
+01:51:50	ThreadID:55352	[LOG_INFO]	1,100
+01:51:50	ThreadID:55352	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:51:50	ThreadID:55352	[LOG_DEBUG]	[World ID]: 1
+01:51:50	ThreadID:55352	[LOG_DEBUG]	[MaxConnection]: 100
+01:51:51	ThreadID:55352	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:51:52	ThreadID:55352	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:51:59	ThreadID:52260	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:51:59	ThreadID:52260	[LOG_INFO]	int32_t,int32_t
+01:51:59	ThreadID:52260	[LOG_INFO]	1,100
+01:51:59	ThreadID:52260	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:51:59	ThreadID:52260	[LOG_DEBUG]	[World ID]: 1
+01:51:59	ThreadID:52260	[LOG_DEBUG]	[MaxConnection]: 100
+01:52:01	ThreadID:52260	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:52:02	ThreadID:52260	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:52:26	ThreadID:26908	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:52:26	ThreadID:26908	[LOG_INFO]	int32_t,int32_t
+01:52:26	ThreadID:26908	[LOG_INFO]	1,100
+01:52:26	ThreadID:26908	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:52:26	ThreadID:26908	[LOG_DEBUG]	[World ID]: 1
+01:52:26	ThreadID:26908	[LOG_DEBUG]	[MaxConnection]: 100
+01:52:37	ThreadID:60748	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:52:37	ThreadID:60748	[LOG_INFO]	int32_t,int32_t
+01:52:37	ThreadID:60748	[LOG_INFO]	1,100
+01:52:37	ThreadID:60748	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:52:37	ThreadID:60748	[LOG_DEBUG]	[World ID]: 1
+01:52:37	ThreadID:60748	[LOG_DEBUG]	[MaxConnection]: 100
+01:52:51	ThreadID:42624	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:52:51	ThreadID:42624	[LOG_INFO]	int32_t,int32_t
+01:52:51	ThreadID:42624	[LOG_INFO]	1,100
+01:52:51	ThreadID:42624	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:52:51	ThreadID:42624	[LOG_DEBUG]	[World ID]: 1
+01:52:51	ThreadID:42624	[LOG_DEBUG]	[MaxConnection]: 100
+01:55:07	ThreadID:60788	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:55:07	ThreadID:60788	[LOG_INFO]	int32_t,int32_t
+01:55:07	ThreadID:60788	[LOG_INFO]	1,100
+01:55:07	ThreadID:60788	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:55:07	ThreadID:60788	[LOG_DEBUG]	[World ID]: 1
+01:55:07	ThreadID:60788	[LOG_DEBUG]	[MaxConnection]: 100
+01:55:22	ThreadID:18256	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:55:22	ThreadID:18256	[LOG_INFO]	int32_t,int32_t
+01:55:22	ThreadID:18256	[LOG_INFO]	1,100
+01:55:22	ThreadID:18256	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:55:22	ThreadID:18256	[LOG_DEBUG]	[World ID]: 1
+01:55:22	ThreadID:18256	[LOG_DEBUG]	[MaxConnection]: 100
+01:55:24	ThreadID:18256	[LOG_DEBUG]	[Connected To LoginServer]: 100
+01:55:25	ThreadID:18256	[LOG_DEBUG]	[Connected To GameServer]: 0
+01:57:51	ThreadID:59652	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:57:51	ThreadID:59652	[LOG_INFO]	int32_t,int32_t
+01:57:51	ThreadID:59652	[LOG_INFO]	1,100
+01:57:51	ThreadID:59652	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:57:51	ThreadID:59652	[LOG_DEBUG]	[World ID]: 1
+01:57:51	ThreadID:59652	[LOG_DEBUG]	[MaxConnection]: 100
+01:58:03	ThreadID:20836	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+01:58:03	ThreadID:20836	[LOG_INFO]	int32_t,int32_t
+01:58:03	ThreadID:20836	[LOG_INFO]	1,100
+01:58:03	ThreadID:20836	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+01:58:03	ThreadID:20836	[LOG_DEBUG]	[World ID]: 1
+01:58:03	ThreadID:20836	[LOG_DEBUG]	[MaxConnection]: 100
+02:04:56	ThreadID:60820	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:04:56	ThreadID:60820	[LOG_INFO]	int32_t,int32_t
+02:04:56	ThreadID:60820	[LOG_INFO]	1,100
+02:04:56	ThreadID:60820	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:04:56	ThreadID:60820	[LOG_DEBUG]	[World ID]: 1
+02:04:56	ThreadID:60820	[LOG_DEBUG]	[MaxConnection]: 100
+02:05:33	ThreadID:14044	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:05:33	ThreadID:14044	[LOG_INFO]	int32_t,int32_t
+02:05:33	ThreadID:14044	[LOG_INFO]	1,100
+02:05:33	ThreadID:14044	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:05:33	ThreadID:14044	[LOG_DEBUG]	[World ID]: 1
+02:05:33	ThreadID:14044	[LOG_DEBUG]	[MaxConnection]: 100
+02:05:37	ThreadID:14044	[LOG_DEBUG]	[Connected To LoginServer]: 100
+02:05:38	ThreadID:14044	[LOG_DEBUG]	[Connected To GameServer]: 99
+02:09:13	ThreadID:22348	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:09:13	ThreadID:22348	[LOG_INFO]	int32_t,int32_t
+02:09:13	ThreadID:22348	[LOG_INFO]	1,100
+02:09:13	ThreadID:22348	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:09:13	ThreadID:22348	[LOG_DEBUG]	[World ID]: 1
+02:09:13	ThreadID:22348	[LOG_DEBUG]	[MaxConnection]: 100
+02:09:16	ThreadID:22348	[LOG_DEBUG]	[Connected To LoginServer]: 100
+02:09:17	ThreadID:22348	[LOG_DEBUG]	[Connected To GameServer]: 99
+02:09:21	ThreadID:22348	[LOG_DEBUG]	[Connected To LoginServer]: 100
+02:09:26	ThreadID:22348	[LOG_DEBUG]	[Connected To GameServer]: 99
+02:10:04	ThreadID:68612	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:10:04	ThreadID:68612	[LOG_INFO]	int32_t,int32_t
+02:10:04	ThreadID:68612	[LOG_INFO]	1,100
+02:10:04	ThreadID:68612	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:10:04	ThreadID:68612	[LOG_DEBUG]	[World ID]: 1
+02:10:04	ThreadID:68612	[LOG_DEBUG]	[MaxConnection]: 100
+02:10:04	ThreadID:69072	[LOG_ERROR]	요청한 주소는 해당 컨텍스트에서 유효하지 않습니다
+02:10:04	ThreadID:69072	[LOG_ERROR]	GameClient is Zero, Shutdown
+02:11:53	ThreadID:42744	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:11:53	ThreadID:42744	[LOG_INFO]	int32_t,int32_t
+02:11:53	ThreadID:42744	[LOG_INFO]	1,100
+02:11:53	ThreadID:42744	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:11:53	ThreadID:42744	[LOG_DEBUG]	[World ID]: 1
+02:11:53	ThreadID:42744	[LOG_DEBUG]	[MaxConnection]: 100
+02:12:07	ThreadID:21384	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:12:07	ThreadID:21384	[LOG_INFO]	int32_t,int32_t
+02:12:07	ThreadID:21384	[LOG_INFO]	1,100
+02:12:07	ThreadID:21384	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:12:07	ThreadID:21384	[LOG_DEBUG]	[World ID]: 1
+02:12:07	ThreadID:21384	[LOG_DEBUG]	[MaxConnection]: 100
+02:12:22	ThreadID:65652	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:12:22	ThreadID:65652	[LOG_INFO]	int32_t,int32_t
+02:12:22	ThreadID:65652	[LOG_INFO]	1,100
+02:12:22	ThreadID:65652	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:12:22	ThreadID:65652	[LOG_DEBUG]	[World ID]: 1
+02:12:22	ThreadID:65652	[LOG_DEBUG]	[MaxConnection]: 100
+02:12:24	ThreadID:65652	[LOG_DEBUG]	[Connected To LoginServer]: 100
+02:12:25	ThreadID:65652	[LOG_DEBUG]	[Connected To GameServer]: 99
+02:14:15	ThreadID:73004	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:14:15	ThreadID:73004	[LOG_INFO]	int32_t,int32_t
+02:14:15	ThreadID:73004	[LOG_INFO]	1,100
+02:14:15	ThreadID:73004	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:14:15	ThreadID:73004	[LOG_DEBUG]	[World ID]: 1
+02:14:15	ThreadID:73004	[LOG_DEBUG]	[MaxConnection]: 100
+02:14:17	ThreadID:73004	[LOG_DEBUG]	[Connected To LoginServer]: 100
+02:14:18	ThreadID:73004	[LOG_DEBUG]	[Connected To GameServer]: 99
+02:14:22	ThreadID:73004	[LOG_DEBUG]	[Connected To LoginServer]: 0
+02:15:49	ThreadID:68224	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:15:49	ThreadID:68224	[LOG_INFO]	int32_t,int32_t
+02:15:49	ThreadID:68224	[LOG_INFO]	1,100
+02:15:49	ThreadID:68224	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:15:49	ThreadID:68224	[LOG_DEBUG]	[World ID]: 1
+02:15:49	ThreadID:68224	[LOG_DEBUG]	[MaxConnection]: 100
+02:15:52	ThreadID:68224	[LOG_DEBUG]	[Connected To LoginServer]: 100
+02:15:53	ThreadID:68224	[LOG_DEBUG]	[Connected To GameServer]: 99
+02:15:53	ThreadID:68224	[LOG_DEBUG]	[All LoginClient is Deleted]: 
+02:16:08	ThreadID:73772	[LOG_INFO]	[DummyClientConfig.csv is loading...]
+02:16:08	ThreadID:73772	[LOG_INFO]	int32_t,int32_t
+02:16:08	ThreadID:73772	[LOG_INFO]	1,100
+02:16:08	ThreadID:73772	[LOG_INFO]	[DummyClientConfig.csv is loaded...]
+02:16:08	ThreadID:73772	[LOG_DEBUG]	[World ID]: 1
+02:16:08	ThreadID:73772	[LOG_DEBUG]	[MaxConnection]: 100
+02:16:10	ThreadID:73772	[LOG_DEBUG]	[Connected To LoginServer]: 100
+02:16:11	ThreadID:73772	[LOG_DEBUG]	[Connected To GameServer]: 99
+02:16:11	ThreadID:73772	[LOG_DEBUG]	All LoginClient is Deleted
+02:16:16	ThreadID:73772	[LOG_DEBUG]	[Connected To GameServer]: 99
+02:16:19	ThreadID:73772	[LOG_DEBUG]	[Connected To LoginServer]: 0
