@@ -57,7 +57,7 @@ void CoreClientSession::ReadHeader(void)
 		{
 			if (error)
 			{
-				this->server->Close(shared_from_this(), false);
+				this->server->Close(self, false);
 			}
 			else
 			{
@@ -77,11 +77,11 @@ void CoreClientSession::ReadBody(void)
 		{
 			if (error)
 			{
-				this->server->Close(shared_from_this(), false);
+				this->server->Close(self, false);
 			}
 			else
 			{
-				this->server->ProcessPacket(shared_from_this(), this->read.GetBody(), this->read.GetBodySize());
+				this->server->ProcessPacket(self, this->read.GetBody(), this->read.GetBodySize());
 				ReadHeader();
 			}
 		});
