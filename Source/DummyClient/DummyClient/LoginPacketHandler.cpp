@@ -5,7 +5,7 @@ LoginPacketHandler::LoginPacketHandler()
     Register();
 }
 
-void LoginPacketHandler::Handle(CoreServerSession& session, const LoginPacket::Packet packetID, const void* data)
+void LoginPacketHandler::Handle(std::shared_ptr<CoreServerSession> session, const LoginPacket::Packet packetID, const void* data)
 {
 	if (this->func.end() == this->func.find(packetID))
 		return;

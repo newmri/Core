@@ -11,7 +11,7 @@ void ObjectManager::Release(void)
 	GetInstance().~ObjectManager();
 }
 
-void ObjectManager::AddPlayer(CoreServerSession& session, const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo)
+void ObjectManager::AddPlayer(std::shared_ptr<CoreServerSession> session, const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo)
 {
 	session.SetPlayerOID(objectInfo.oid);
 

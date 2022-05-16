@@ -5,7 +5,7 @@ GamePacketHandler::GamePacketHandler()
     Register();
 }
 
-void GamePacketHandler::Handle(CoreServerSession& session, const GamePacket::Packet packetID, const void* data)
+void GamePacketHandler::Handle(std::shared_ptr<CoreServerSession> session, const GamePacket::Packet packetID, const void* data)
 {
 	if (this->func.end() == this->func.find(packetID))
 		return;

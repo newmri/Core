@@ -27,8 +27,8 @@ public:
 	void GetWorldList(void);
 
 public:
-	void Signup(std::shared_ptr<LoginClient> client);
-	bool Login(std::shared_ptr<LoginClient> client);
+	void Signup(std::shared_ptr<CoreServerSession> session);
+	bool Login(std::shared_ptr<CoreServerSession> session);
 	ServerConnectInfo SelectServer(const Define::ServerType serverType);
 
 public:

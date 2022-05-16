@@ -20,7 +20,7 @@ void LoginPacketSendManager::Clear(void)
 	builder.Clear();
 }
 
-void LoginPacketSendManager::Send(CoreServerSession& session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet)
+void LoginPacketSendManager::Send(std::shared_ptr<CoreServerSession> session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
 	if (!isFinished)
 	{
@@ -29,5 +29,5 @@ void LoginPacketSendManager::Send(CoreServerSession& session, LoginPacket::Packe
 		builder.Finish(data);
 	}
 
-	session.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
+	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }

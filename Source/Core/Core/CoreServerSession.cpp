@@ -1,20 +1,14 @@
 #include "CoreInclude.h"
 
-CoreServerSession::CoreServerSession(const int64_t oid, boost::asio::io_context& ioContext, CoreClient* client) :
+CoreServerSession::CoreServerSession(const int64_t oid, boost::asio::io_context& ioContext) :
 	ioContext(ioContext),
-	CoreSession(oid, ioContext),
-	client(client)
+	CoreSession(oid, ioContext)
 {
 }
 
 CoreServerSession::~CoreServerSession()
 {
 	Close(true);
-}
-
-CoreClient* CoreServerSession::GetClient(void)
-{
-	return this->client;
 }
 
 void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint)
@@ -32,7 +26,7 @@ void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 				boost::asio::ip::tcp::no_delay option(true);
 				this->socket.set_option(option);
 
-				this->client->OnConnected();
+				this->onConnectedFunc(shared_from_this());
 
 				ReadHeader();
 			}
@@ -49,7 +43,7 @@ void CoreServerSession::Close(bool isForce)
 				this->socket.close();
 
 				if(!isForce)
-					this->client->OnDisconnected();
+					this->onDisconnectedFunc(shared_from_this());
 			}
 		});
 }
@@ -127,10 +121,56 @@ void CoreServerSession::ReadBody(void)
 			}
 			else
 			{
-				this->client->ProcessPacket(this->read.GetBody(), this->read.GetBodySize());
+				this->processPacketFunc(shared_from_this(), this->read.GetBody(), this->read.GetBodySize());
 				ReadHeader();
 			}
 		});
+}
+
+void CoreServerSession::SetOnConnectedFunc(std::function<void(std::shared_ptr<CoreServerSession>)> func)
+{
+	this->onConnectedFunc = func;
+}
+
+void CoreServerSession::SetOnDisconnectedFunc(std::function<void(std::shared_ptr<CoreServerSession>)> func)
+{
+	this->onDisconnectedFunc = func;
+}
+
+void CoreServerSession::SetProcessPacketFunc(std::function<void(std::shared_ptr<CoreServerSession>, uint8_t*, uint32_t)> func)
+{
+	this->processPacketFunc = func;
+}
+
+std::string_view CoreServerSession::GetAccountID(void)
+{
+	return this->accountID;
+}
+
+
+std::string_view CoreServerSession::GetAccountPassword(void)
+{
+	return this->accountPassword;
+}
+
+int64_t CoreServerSession::GetCharacterUID(void)
+{
+	return this->characterUID;
+}
+
+void CoreServerSession::SetAccountID(std::string_view accountID)
+{
+	this->accountID = accountID;
+}
+
+void CoreServerSession::SetAccountPassword(std::string_view accountPassword)
+{
+	this->accountPassword = accountPassword;
+}
+
+void CoreServerSession::SetCharacterUID(int64_t characterUID)
+{
+	this->characterUID = characterUID;
 }
 
 int32_t CoreServerSession::GetToken(void) const

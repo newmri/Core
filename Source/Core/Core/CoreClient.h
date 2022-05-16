@@ -1,6 +1,6 @@
 #pragma once
 
-class CoreClient : public inheritable_enable_shared_from_this<CoreClient>
+class CoreClient
 {
 public:
 	CoreClient(const int64_t oid);
@@ -18,19 +18,10 @@ public:
 public:
 	boost::asio::io_context& GetContext(void);
 
-public:
-	virtual void OnConnected(void) CORE_PURE;
-	virtual void OnDisconnected(void) CORE_PURE;
-	virtual void ProcessPacket(const uint8_t* data, size_t size) CORE_PURE;
-
-public:
-	void SetAccountUID(const int64_t accountUID);
-	void SetToken(const int32_t token);
-
 private:
 	boost::asio::io_context ioContext;
 	boost::asio::ip::tcp::resolver resolver;
 
 protected:
-	CoreServerSession session;
+	std::shared_ptr<CoreServerSession> session;
 };

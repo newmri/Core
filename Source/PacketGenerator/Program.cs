@@ -80,7 +80,7 @@ namespace PacketGenerator
         {
             string nameSpaceName = ParseNamespaceName();
 
-            clientRegister += string.Format(PacketFormatForCpp.FunctionBasicFormat, nameSpaceName, "CoreServerSession& session");
+            clientRegister += string.Format(PacketFormatForCpp.FunctionBasicFormat, nameSpaceName, "std::shared_ptr<CoreServerSession> session");
 
             List<string> packetNames = ParsePacketName("Packet_NONE", "Packet_MIN");
             foreach (string packetName in packetNames)

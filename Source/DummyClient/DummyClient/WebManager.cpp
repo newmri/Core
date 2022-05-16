@@ -54,13 +54,13 @@ void WebManager::GetWorldList(void)
 	}
 }
 
-void WebManager::Signup(std::shared_ptr<LoginClient> client)
+void WebManager::Signup(std::shared_ptr<CoreServerSession> session)
 {
 	std::string response;
 	{
 		Json::Value root;
-		root["ID"] = client->GetID().data();
-		root["Password"] = client->GetPassword().data();
+		root["ID"] = session->GetAccountID().data();
+		root["Password"] = session->GetAccountPassword().data();
 		Json::FastWriter fastWriter;
 		if (response = Post(fastWriter.write(root), "http://localhost:5000/worldlist/signup"); response.empty())
 		{
@@ -78,13 +78,13 @@ void WebManager::Signup(std::shared_ptr<LoginClient> client)
 	}
 }
 
-bool WebManager::Login(std::shared_ptr<LoginClient> client)
+bool WebManager::Login(std::shared_ptr<CoreServerSession> session)
 {
 	std::string response;
 	{
 		Json::Value root;
-		root["ID"] = client->GetID().data();
-		root["Password"] = client->GetPassword().data();
+		root["ID"] = session->GetAccountID().data();
+		root["Password"] = session->GetAccountPassword().data();
 		Json::FastWriter fastWriter;
 		if (response = Post(fastWriter.write(root), "http://localhost:5000/worldlist/login"); response.empty())
 		{
@@ -103,8 +103,8 @@ bool WebManager::Login(std::shared_ptr<LoginClient> client)
 
 	if (root["IsSuccess"].asBool())
 	{
-		client->SetAccountUID(root["UID"].asInt64());
-		client->SetToken(root["Token"].asInt());
+		session->SetAccountUID(root["UID"].asInt64());
+		session->SetToken(root["Token"].asInt());
 		int32_t worldID = 0;
 
 		Json::Value worldList = root["WorldList"];

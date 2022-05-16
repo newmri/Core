@@ -23,6 +23,13 @@ public:
 #pragma region LoginServer
 public:
 	void ConnectToLoginServer(void);
+
+public:
+	void OnLoginServerConnected(std::shared_ptr<CoreServerSession> session);
+	void OnLoginServerDisconnected(std::shared_ptr<CoreServerSession> session);
+	void LoginServerProcessPacket(std::shared_ptr<CoreServerSession> session, const uint8_t* data, size_t size);
+
+public:
 	void ShowConnectedLoginClientCount(void);
 
 private:
@@ -34,7 +41,14 @@ public:
 
 #pragma region GameServer
 public:
-	void ConnectToGameServer(const int64_t oid, const int64_t accountUID, const int32_t token, const int64_t characterUID);
+	void ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID);
+
+public:
+	void OnGameServerConnected(std::shared_ptr<CoreServerSession> session);
+	void OnGameServerDisconnected(std::shared_ptr<CoreServerSession> session);
+	void GameServerProcessPacket(std::shared_ptr<CoreServerSession> session, const uint8_t* data, size_t size);
+
+public:
 	void ShowConnectedGameClientCount(void);
 
 private:
@@ -48,10 +62,12 @@ private:
 	std::shared_ptr<DummyClientConfig> dummyClientConfig;
 
 private:
+	std::unique_ptr<LoginPacketHandler> loginHandler;
 	std::shared_mutex loginMutex;
 	std::map<int64_t, std::shared_ptr<LoginClient>> loginClientList;
 
 private:
+	std::unique_ptr<GamePacketHandler> gameHandler;
 	std::shared_mutex gameMutex;
 	std::map<int64_t, std::shared_ptr<GameClient>> gameClientList;
 

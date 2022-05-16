@@ -8,6 +8,8 @@ void DummyClientManager::Init(void)
 	CORE_ALL_LOG(LogType::LOG_DEBUG, "[World ID]: " + TO_STR(GetWorldID()));
 	CORE_ALL_LOG(LogType::LOG_DEBUG, "[MaxConnection]: " + TO_STR(GetMaxConnectionCount()));
 
+	this->loginHandler = std::make_unique<LoginPacketHandler>();
+	this->gameHandler = std::make_unique<GamePacketHandler>();
 }
 
 void DummyClientManager::Release(void)
@@ -53,6 +55,30 @@ void DummyClientManager::ConnectToLoginServer(void)
 	Sleep(SEC);
 }
 
+void DummyClientManager::OnLoginServerConnected(std::shared_ptr<CoreServerSession> session)
+{
+	LOGIN_PACKET_SEND_MANAGER.Clear();
+	auto message = LoginPacket::CreateCS_LOGIN_REQ(LOGIN_PACKET_SEND_MANAGER.builder, session->GetAccountUID(), session->GetToken());
+	LOGIN_PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_CS_LOGIN_REQ, message.Union());
+}
+
+void DummyClientManager::OnLoginServerDisconnected(std::shared_ptr<CoreServerSession> session)
+{
+	DeleteLoginClient(session->GetOID());
+}
+
+void DummyClientManager::LoginServerProcessPacket(std::shared_ptr<CoreServerSession> session, const uint8_t* data, size_t size)
+{
+	auto verifier = flatbuffers::Verifier(data, size);
+
+	if (LoginPacket::VerifyRootBuffer(verifier))
+	{
+		auto root = LoginPacket::GetRoot(data);
+
+		this->loginHandler->Handle(session, root->packet_type(), root->packet());
+	}
+}
+
 void DummyClientManager::ShowConnectedLoginClientCount(void)
 {
 	CORE_ALL_LOG(LogType::LOG_DEBUG, "[Connected To LoginServer]: " + TO_STR(GetConnectedLoginClientCount()));
@@ -90,13 +116,37 @@ void DummyClientManager::DeleteLoginClient(const int64_t oid)
 	}
 }
 
-void DummyClientManager::ConnectToGameServer(const int64_t oid, const int64_t accountUID, const int32_t token, const int64_t characterUID)
+void DummyClientManager::ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID)
 {
-	auto client = std::make_shared<GameClient>(oid, accountUID, token, characterUID);
+	auto client = std::make_shared<GameClient>(session, characterUID);
 	client->Connect();
 
 	WRITE_LOCK(this->gameMutex);
-	this->gameClientList[oid] = client;
+	this->gameClientList[session->GetOID()] = client;
+}
+
+void DummyClientManager::OnGameServerConnected(std::shared_ptr<CoreServerSession> session)
+{
+	GAME_PACKET_SEND_MANAGER.Clear();
+	auto message = GamePacket::CreateCS_LOGIN_REQ(GAME_PACKET_SEND_MANAGER.builder, session->GetAccountUID(), session->GetCharacterUID(), session->GetToken());
+	GAME_PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_CS_LOGIN_REQ, message.Union());
+}
+
+void DummyClientManager::OnGameServerDisconnected(std::shared_ptr<CoreServerSession> session)
+{
+	DUMMY_CLIENT.DeleteGameClient(session->GetOID());
+}
+
+void DummyClientManager::GameServerProcessPacket(std::shared_ptr<CoreServerSession> session, const uint8_t* data, size_t size)
+{
+	auto verifier = flatbuffers::Verifier(data, size);
+
+	if (GamePacket::VerifyRootBuffer(verifier))
+	{
+		auto root = GamePacket::GetRoot(data);
+
+		this->gameHandler->Handle(session, root->packet_type(), root->packet());
+	}
 }
 
 void DummyClientManager::ShowConnectedGameClientCount(void)

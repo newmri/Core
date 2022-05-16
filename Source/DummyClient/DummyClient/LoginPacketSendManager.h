@@ -10,7 +10,7 @@ public:
 	static void Clear(void);
 	
 public:
-	static void Send(CoreServerSession& session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet);
+	static void Send(std::shared_ptr<CoreServerSession> session, LoginPacket::Packet packetType, flatbuffers::Offset<void> packet);
 
 public:
 	static thread_local bool isFinished;

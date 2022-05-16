@@ -20,7 +20,7 @@ void GamePacketSendManager::Clear(void)
 	builder.Clear();
 }
 
-void GamePacketSendManager::Send(CoreServerSession& session, GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
+void GamePacketSendManager::Send(std::shared_ptr<CoreServerSession> session, GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
 	if (!isFinished)
 	{
@@ -29,5 +29,5 @@ void GamePacketSendManager::Send(CoreServerSession& session, GamePacket::Packet 
 		builder.Finish(data);
 	}
 
-	session.Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
+	session->Write(CorePacket(builder.GetBufferPointer(), builder.GetSize()));
 }
