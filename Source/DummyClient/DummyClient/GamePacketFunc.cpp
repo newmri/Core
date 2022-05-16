@@ -2,11 +2,11 @@
 
 void GamePacketFunc::SC_LOGIN_RES(CoreServerSession& session, const void* data)
 {
-	auto raw = static_cast<const LoginPacket::SC_LOGIN_RES*>(data);
+	auto raw = static_cast<const GamePacket::SC_LOGIN_RES*>(data);
 
-	if (IS_SAME(LoginPacket::ErrorCode_SUCCESS, raw->result()))
+	if (IS_SAME(GamePacket::ErrorCode_SUCCESS, raw->result()))
 	{
-		
+		//OBJECT_MANAGER.AddPlayer(session, *raw->object_info()->UnPack(), *raw->creature_info()->UnPack(), *raw->character_info()->UnPack());
 	}
 }
 
