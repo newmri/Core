@@ -19,15 +19,6 @@
     <Filter Include="04.Packet\00.FlatBuffer">
       <UniqueIdentifier>{82466a53-4571-41da-918c-2070a1358473}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Packet\03.LoginPacketHandler">
-      <UniqueIdentifier>{2b43e67d-d5aa-4cac-9208-0851350af7fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.Packet\04.LoginPacketFunc">
-      <UniqueIdentifier>{5858db9b-2a77-4f97-8bdb-2965824a0755}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.Packet\02.PacketSendManager">
-      <UniqueIdentifier>{a9dcc120-dede-4f6c-9788-c043daf1a621}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05.Character">
       <UniqueIdentifier>{f810c2c0-bb91-4f89-91af-5174d6ce564b}</UniqueIdentifier>
     </Filter>
@@ -43,6 +34,15 @@
     <Filter Include="02.LoginServer">
       <UniqueIdentifier>{4b05fb9b-f643-4208-9680-d2b7752f8061}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.Packet\01.PacketSendManager">
+      <UniqueIdentifier>{a9dcc120-dede-4f6c-9788-c043daf1a621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\02.LoginPacketHandler">
+      <UniqueIdentifier>{2b43e67d-d5aa-4cac-9208-0851350af7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Packet\03.LoginPacketFunc">
+      <UniqueIdentifier>{5858db9b-2a77-4f97-8bdb-2965824a0755}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -52,10 +52,10 @@
       <Filter>02.LoginServer</Filter>
     </ClCompile>
     <ClCompile Include="LoginPacketHandler.cpp">
-      <Filter>04.Packet\03.LoginPacketHandler</Filter>
+      <Filter>04.Packet\02.LoginPacketHandler</Filter>
     </ClCompile>
     <ClCompile Include="LoginPacketFunc.cpp">
-      <Filter>04.Packet\04.LoginPacketFunc</Filter>
+      <Filter>04.Packet\03.LoginPacketFunc</Filter>
     </ClCompile>
     <ClCompile Include="LoginServerManager.cpp">
       <Filter>02.LoginServer</Filter>
@@ -76,7 +76,7 @@
       <Filter>04.Packet\00.FlatBuffer</Filter>
     </ClCompile>
     <ClCompile Include="PacketSendManager.cpp">
-      <Filter>04.Packet\02.PacketSendManager</Filter>
+      <Filter>04.Packet\01.PacketSendManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,10 +93,10 @@
       <Filter>02.LoginServer</Filter>
     </ClInclude>
     <ClInclude Include="LoginPacketHandler.h">
-      <Filter>04.Packet\03.LoginPacketHandler</Filter>
+      <Filter>04.Packet\02.LoginPacketHandler</Filter>
     </ClInclude>
     <ClInclude Include="LoginPacketFunc.h">
-      <Filter>04.Packet\04.LoginPacketFunc</Filter>
+      <Filter>04.Packet\03.LoginPacketFunc</Filter>
     </ClInclude>
     <ClInclude Include="LoginServerManager.h">
       <Filter>02.LoginServer</Filter>
@@ -126,7 +126,7 @@
       <Filter>03.DataManager\00.CharacterData</Filter>
     </ClInclude>
     <ClInclude Include="PacketSendManager.h">
-      <Filter>04.Packet\02.PacketSendManager</Filter>
+      <Filter>04.Packet\01.PacketSendManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
