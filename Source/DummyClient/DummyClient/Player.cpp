@@ -1,13 +1,13 @@
 #include "Include.h"
 
-Player::Player(const std::shared_ptr<CoreClientSession> session,
+Player::Player(const std::shared_ptr<CoreServerSession> session,
 	const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo) :
 	session(session), Creature(objectInfo, creatureInfo), characterInfo(characterInfo)
 {
 	Init();
 }
 
-std::shared_ptr<CoreClientSession> Player::GetSession(void)
+std::shared_ptr<CoreServerSession> Player::GetSession(void)
 {
 	return this->session->shared_from_this();
 }
@@ -44,11 +44,11 @@ void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset
 	auto creatureInfo = GetCreatureInfo();
 	auto characterInfo = GetCharacterInfo();
 
-	PACKET_SEND_MANAGER.Clear();
-	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
-	auto packedCreatureInfo = Info::CreatureInfo::Pack(PACKET_SEND_MANAGER.builder, &creatureInfo);
-	auto packedCharacterInfo = GamePacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &characterInfo);
-	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(PACKET_SEND_MANAGER.builder, packedObjectInfo, packedCreatureInfo, packedCharacterInfo);
+	GAME_PACKET_SEND_MANAGER.Clear();
+	auto packedObjectInfo = Info::ObjectInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfo);
+	auto packedCreatureInfo = Info::CreatureInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &creatureInfo);
+	auto packedCharacterInfo = GamePacket::CharacterInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &characterInfo);
+	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(GAME_PACKET_SEND_MANAGER.builder, packedObjectInfo, packedCreatureInfo, packedCharacterInfo);
 
 	packetType = GamePacket::Packet_SC_SPAWN_PLAYER_NOTI;
 	packet = message.Union();
@@ -56,7 +56,7 @@ void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset
 
 void Player::Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
 {
-	PACKET_SEND_MANAGER.Send(this->session, packetType, packet);
+	GAME_PACKET_SEND_MANAGER.Send(this->session, packetType, packet);
 }
 
 void Player::SetState(const Define::ObjectState state)

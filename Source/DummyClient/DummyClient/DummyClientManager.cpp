@@ -10,6 +10,8 @@ void DummyClientManager::Init(void)
 
 	this->loginHandler = std::make_unique<LoginPacketHandler>();
 	this->gameHandler = std::make_unique<GamePacketHandler>();
+
+	CHARACTER_DATA_MANAGER.Load();
 }
 
 void DummyClientManager::Release(void)

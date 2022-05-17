@@ -1,2 +1,29 @@
-﻿  DummyClientManager.cpp
+﻿  Arrow.cpp
+  Character.cpp
+  CharacterDataManager.cpp
+  Creature.cpp
+  GameClient.cpp
+  GamePacketFunc.cpp
+  GamePacketHandler.cpp
+  GamePacketSendManager.cpp
+  LoginPacketFunc.cpp
+  LoginPacketHandler.cpp
+  LoginClient.cpp
+  DummyClientManager.cpp
+  Main.cpp
+  native_info_impl.cpp
+  LoginPacketSendManager.cpp
+  Object.cpp
+  ObjectManager.cpp
+  Player.cpp
+  Projectile.cpp
+  ProjectileSkill.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  Skill.cpp
+  WebManager.cpp
+  코드를 생성하고 있습니다...
+jsoncpp.lib(json_value.obj) : warning LNK4099: 'jsoncpp_lib_static.pdb' PDB를 'jsoncpp.lib(json_value.obj)' 또는 'C:\Users\HavePoop\Desktop\Study\Core\Source\DummyClient\x64\Debug\jsoncpp_lib_static.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+jsoncpp.lib(json_reader.obj) : warning LNK4099: 'jsoncpp_lib_static.pdb' PDB를 'jsoncpp.lib(json_reader.obj)' 또는 'C:\Users\HavePoop\Desktop\Study\Core\Source\DummyClient\x64\Debug\jsoncpp_lib_static.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+jsoncpp.lib(json_writer.obj) : warning LNK4099: 'jsoncpp_lib_static.pdb' PDB를 'jsoncpp.lib(json_writer.obj)' 또는 'C:\Users\HavePoop\Desktop\Study\Core\Source\DummyClient\x64\Debug\jsoncpp_lib_static.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
   DummyClient.vcxproj -> C:\Users\HavePoop\Desktop\Study\Core\Source\DummyClient\x64\Debug\DummyClient.exe

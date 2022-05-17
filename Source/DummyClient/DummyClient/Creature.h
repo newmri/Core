@@ -25,9 +25,6 @@ public:
 	void MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 public:
-	void CalculateAbility(void);
-
-public:
 	virtual void AddSkill(const int32_t skillID);
 	void UseSkill(const int32_t skillID);
 

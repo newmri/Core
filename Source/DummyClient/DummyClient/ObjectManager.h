@@ -13,10 +13,10 @@ public:
 
 	void RemovePlayer(const int64_t& oid);
 
-//public:
-//	void AddProjectile(const std::shared_ptr<ProjectileSkill> owner, Info::ObjectInfoT& objectInfo);
-//	std::shared_ptr<Projectile> FindProjectile(const int64_t& oid);
-//	void RemoveProjectile(const int64_t& oid);
+public:
+	void AddProjectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoT& objectInfo);
+	std::shared_ptr<Projectile> FindProjectile(const int64_t& oid);
+	void RemoveProjectile(const int64_t& oid);
 
 public:
 	std::shared_ptr<Object> FindObject(ObjectInfo& objectInfo);
@@ -24,9 +24,9 @@ public:
 private:
 	CACHE_ALIGN std::shared_mutex playerMutex;
 	std::map<int64_t, std::shared_ptr<Player>> playerList;
-//
-//private:
-//	CACHE_ALIGN std::shared_mutex projectileMutex;
-//	std::map<int64_t, std::shared_ptr<Projectile>> projectileList;
+
+private:
+	CACHE_ALIGN std::shared_mutex projectileMutex;
+	std::map<int64_t, std::shared_ptr<Projectile>> projectileList;
 
 };

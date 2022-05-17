@@ -84,18 +84,12 @@ void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offs
 
 void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
-	PACKET_SEND_MANAGER.Clear();
+	GAME_PACKET_SEND_MANAGER.Clear();
 	auto objectInfo = GetObjectInfo();
-	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
-	auto message = GamePacket::CreateSC_REVIVE_RES(PACKET_SEND_MANAGER.builder, packedObjectInfo);
+	auto packedObjectInfo = Info::ObjectInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfo);
+	auto message = GamePacket::CreateSC_REVIVE_RES(GAME_PACKET_SEND_MANAGER.builder, packedObjectInfo);
 	packetType = GamePacket::Packet_SC_REVIVE_RES;
 	packet = message.Union();
-}
-
-void Creature::CalculateAbility(void)
-{
-	WRITE_LOCK(this->abilityMutex);
-	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(this->creatureInfo);
 }
 
 void Creature::AddSkill(const int32_t skillID)
@@ -137,5 +131,4 @@ void Creature::Revive(void)
 		return;
 
 	SetState(Define::ObjectState_IDLE);
-	ZONE_MANAGER.Revive(Object::downcasted_shared_from_this<Creature>());
 }

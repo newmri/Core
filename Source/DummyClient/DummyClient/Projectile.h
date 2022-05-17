@@ -10,9 +10,6 @@ public:
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
 
-private:
-	std::tuple<bool, std::shared_ptr<Object>> Move(void);
-
 protected:
 	virtual void DoDamage(std::shared_ptr<Object> target);
 

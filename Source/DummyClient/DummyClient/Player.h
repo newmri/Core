@@ -5,11 +5,11 @@ class Player : public Creature, public CoreMemoryPoolObj<Player, CORE_BIG_SIZE>
 	OVERRIDE_GAME_OBJECT(Player)
 
 public:
-	Player(const std::shared_ptr<CoreClientSession> session,
+	Player(const std::shared_ptr<CoreServerSession> session,
 		const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
 
 public:
-	std::shared_ptr<CoreClientSession> GetSession(void);
+	std::shared_ptr<CoreServerSession> GetSession(void);
 
 public:
 	GamePacket::CharacterInfoT GetCharacterInfo(void);
@@ -30,7 +30,7 @@ public:
 	virtual void AddSkill(const int32_t skillID);
 
 private:
-	std::shared_ptr<CoreClientSession> session;
+	std::shared_ptr<CoreServerSession> session;
 	GamePacket::MyCharacterInfoT characterInfo;
 
 private:

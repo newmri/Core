@@ -21,9 +21,9 @@ void Projectile::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Of
 {
 	auto objectInfo = GetObjectInfo();
 
-	PACKET_SEND_MANAGER.Clear();
-	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
-	auto message = GamePacket::CreateSC_SPAWN_PROJECTILE_NOTI(PACKET_SEND_MANAGER.builder, packedObjectInfo, this->owner->GetType(), this->moveSpeed);
+	GAME_PACKET_SEND_MANAGER.Clear();
+	auto packedObjectInfo = Info::ObjectInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfo);
+	auto message = GamePacket::CreateSC_SPAWN_PROJECTILE_NOTI(GAME_PACKET_SEND_MANAGER.builder, packedObjectInfo, this->owner->GetType(), this->moveSpeed);
 
 	packetType = GamePacket::Packet_SC_SPAWN_PROJECTILE_NOTI;
 	packet = message.Union();
@@ -31,23 +31,7 @@ void Projectile::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Of
 
 void Projectile::Update(void)
 {
-	if (auto [moved, object] = Move(); IS_SAME(false, moved))
-	{
-		if(object)
-			DoDamage(object);
 
-		OBJECT_MANAGER.RemoveProjectile(this->GetOID());
-		return;
-	}
-
-	CORE_TIME_DELEGATE_MANAGER.Push(
-		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), static_cast<TIME_VALUE>(SEC / this->moveSpeed)));
-}
-
-std::tuple<bool, std::shared_ptr<Object>> Projectile::Move(void)
-{
-	NativeInfo::Vec2Int destPos = GetPos().GetFrontPos(GetDir());
-	return ZONE_MANAGER.Move(shared_from_this(), destPos, true, false, true);
 }
 
 void Projectile::DoDamage(std::shared_ptr<Object> target)
