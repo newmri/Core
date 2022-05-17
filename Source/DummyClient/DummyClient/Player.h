@@ -1,38 +1,33 @@
 #pragma once
 
-class Player : public Creature, public CoreMemoryPoolObj<Player, CORE_BIG_SIZE>
+enum class PlayerType
+{
+	MY_PLAYER,
+	OTHER_PLAYER
+};
+
+class Player : public Creature
 {
 	OVERRIDE_GAME_OBJECT(Player)
 
 public:
-	Player(const std::shared_ptr<CoreServerSession> session,
-		const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
+	Player(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const PlayerType playerType);
 
 public:
-	std::shared_ptr<CoreServerSession> GetSession(void);
+	PlayerType GetPlayerType(void);
 
 public:
-	GamePacket::CharacterInfoT GetCharacterInfo(void);
+	virtual GamePacket::CharacterInfoT GetCharacterInfo(void);
 
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
 
 public:
-	void Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet);
-
-public:
 	virtual void SetState(const Define::ObjectState state) override;
 
 public:
-	bool IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos);
-
-public:
-	virtual void AddSkill(const int32_t skillID);
+	virtual void AddSkill(const int32_t skillID) override;
 
 private:
-	std::shared_ptr<CoreServerSession> session;
-	GamePacket::MyCharacterInfoT characterInfo;
-
-private:
-	TIME_VALUE lastMoveTime = 0;
+	PlayerType playerType;
 };

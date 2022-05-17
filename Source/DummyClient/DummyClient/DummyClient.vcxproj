@@ -107,6 +107,7 @@
     <ClCompile Include="LoginClient.cpp" />
     <ClCompile Include="DummyClientManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MyPlayer.cpp" />
     <ClCompile Include="native_info_impl.cpp" />
     <ClCompile Include="LoginPacketSendManager.cpp" />
     <ClCompile Include="Object.cpp">
@@ -115,6 +116,7 @@
     <ClCompile Include="ObjectManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="OtherPlayer.cpp" />
     <ClCompile Include="Player.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -152,6 +154,7 @@
     <ClInclude Include="Include.h" />
     <ClInclude Include="DummyClientManager.h" />
     <ClInclude Include="login_protocol_generated.h" />
+    <ClInclude Include="MyPlayer.h" />
     <ClInclude Include="native_info_impl.h" />
     <ClInclude Include="LoginPacketSendManager.h" />
     <ClInclude Include="Object.h">
@@ -160,6 +163,7 @@
     <ClInclude Include="ObjectManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="OtherPlayer.h" />
     <ClInclude Include="Player.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>

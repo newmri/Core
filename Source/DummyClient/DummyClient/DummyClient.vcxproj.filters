@@ -25,9 +25,6 @@
     <Filter Include="02.DummyClient\01.GameClient">
       <UniqueIdentifier>{96c810db-66af-440f-a27f-b03b939a6f97}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Packet\07.WebManager">
-      <UniqueIdentifier>{357ff0e7-d613-492c-8443-e46eb9e3cc94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.Packet\01.Login">
       <UniqueIdentifier>{d3a03569-1e12-472e-91d9-d8b3b15df546}</UniqueIdentifier>
     </Filter>
@@ -79,6 +76,15 @@
     <Filter Include="05.Skill\00.ProjectileSkill">
       <UniqueIdentifier>{fd107152-9acb-47a0-9ad5-4e2744071f52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.Packet\03.WebManager">
+      <UniqueIdentifier>{357ff0e7-d613-492c-8443-e46eb9e3cc94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.Object\00.Creature\00.Player\00.MyPlayer">
+      <UniqueIdentifier>{d6d770bf-eb36-44fe-9aab-f53c68fcbca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.Object\00.Creature\00.Player\01.OtherPlayer">
+      <UniqueIdentifier>{bc55109c-8d76-467d-b995-5470fa8b5b7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -94,7 +100,7 @@
       <Filter>04.Packet\00.FlatBuffer</Filter>
     </ClCompile>
     <ClCompile Include="WebManager.cpp">
-      <Filter>04.Packet\07.WebManager</Filter>
+      <Filter>04.Packet\03.WebManager</Filter>
     </ClCompile>
     <ClCompile Include="LoginClient.cpp">
       <Filter>02.DummyClient\00.LoginClient</Filter>
@@ -147,6 +153,12 @@
     <ClCompile Include="ProjectileSkill.cpp">
       <Filter>05.Skill\00.ProjectileSkill</Filter>
     </ClCompile>
+    <ClCompile Include="MyPlayer.cpp">
+      <Filter>06.Object\00.Creature\00.Player\00.MyPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherPlayer.cpp">
+      <Filter>06.Object\00.Creature\00.Player\01.OtherPlayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include.h">
@@ -174,7 +186,7 @@
       <Filter>03.DataManager\00.Character</Filter>
     </ClInclude>
     <ClInclude Include="WebManager.h">
-      <Filter>04.Packet\07.WebManager</Filter>
+      <Filter>04.Packet\03.WebManager</Filter>
     </ClInclude>
     <ClInclude Include="LoginClient.h">
       <Filter>02.DummyClient\00.LoginClient</Filter>
@@ -226,6 +238,12 @@
     </ClInclude>
     <ClInclude Include="ProjectileSkill.h">
       <Filter>05.Skill\00.ProjectileSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="MyPlayer.h">
+      <Filter>06.Object\00.Creature\00.Player\00.MyPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherPlayer.h">
+      <Filter>06.Object\00.Creature\00.Player\01.OtherPlayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

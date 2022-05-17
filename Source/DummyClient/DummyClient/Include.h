@@ -22,6 +22,8 @@
 #include "Object.h"
 #include "Creature.h"
 #include "Player.h"
+#include "MyPlayer.h"
+#include "OtherPlayer.h"
 #include "Projectile.h"
 #include "Arrow.h"
 #include "ObjectManager.h"
