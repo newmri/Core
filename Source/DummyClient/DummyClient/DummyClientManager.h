@@ -42,7 +42,7 @@ public:
 
 #pragma region GameServer
 public:
-	void ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID);
+	void ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID, std::string_view characterName);
 
 public:
 	void OnGameServerConnected(std::shared_ptr<CoreServerSession> session);
@@ -58,6 +58,9 @@ private:
 public:
 	void DeleteGameClient(const int64_t oid);
 #pragma endregion
+
+public:
+	bool IsMyPlayer(std::string_view characterName);
 
 private:
 	std::shared_ptr<DummyClientConfig> dummyClientConfig;

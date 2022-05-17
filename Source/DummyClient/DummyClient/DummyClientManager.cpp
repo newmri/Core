@@ -127,9 +127,9 @@ void DummyClientManager::DeleteAllLoginClient(void)
 	this->loginClientList.clear();
 }
 
-void DummyClientManager::ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID)
+void DummyClientManager::ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID, std::string_view characterName)
 {
-	auto client = std::make_shared<GameClient>(session, characterUID);
+	auto client = std::make_shared<GameClient>(session, characterUID, characterName);
 	client->Connect();
 
 	auto oid = session->GetOID();
@@ -196,4 +196,19 @@ void DummyClientManager::DeleteGameClient(const int64_t oid)
 		CORE_ALL_LOG(LogType::LOG_ERROR, "GameClient is Zero, Shutdown");
 		abort();
 	}
+}
+
+bool DummyClientManager::IsMyPlayer(std::string_view characterName)
+{
+	READ_LOCK(this->gameMutex);
+
+	auto iter_begin = this->gameClientList.begin();
+	auto iter_end = this->gameClientList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		if (IS_SAME(characterName, (*iter_begin).second->GetCharacterName()))
+			return true;
+	}
+
+	return false;
 }

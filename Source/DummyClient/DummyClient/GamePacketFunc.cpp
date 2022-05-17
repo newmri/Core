@@ -29,7 +29,11 @@ void GamePacketFunc::SC_SPAWN_PLAYER_NOTI(std::shared_ptr<CoreServerSession> ses
 {
 	auto raw = static_cast<const GamePacket::SC_SPAWN_PLAYER_NOTI*>(data);
 
-	OBJECT_MANAGER.AddPlayer(session, *raw->object_info()->UnPack(), *raw->creature_info()->UnPack(), *raw->character_info()->UnPack());
+	auto characterInfo = raw->character_info()->UnPack();
+	if (DUMMY_CLIENT.IsMyPlayer(characterInfo->name))
+		return;
+
+	OBJECT_MANAGER.AddPlayer(*raw->object_info()->UnPack(), *raw->creature_info()->UnPack(), *characterInfo);
 }
 
 void GamePacketFunc::SC_DESPAWN_OBJECT_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)

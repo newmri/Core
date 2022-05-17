@@ -1,6 +1,7 @@
 #include "Include.h"
 
-GameClient::GameClient(std::shared_ptr<CoreServerSession> session, const int64_t characterUID) : CoreClient(session->GetOID())
+GameClient::GameClient(std::shared_ptr<CoreServerSession> session, const int64_t characterUID, std::string_view characterName) :
+	CoreClient(session->GetOID()), characterName(characterName)
 {
 	this->session->SetOnConnectedFunc(std::bind(&DummyClientManager::OnGameServerConnected, &DUMMY_CLIENT, std::placeholders::_1));
 	this->session->SetOnDisconnectedFunc(std::bind(&DummyClientManager::OnGameServerDisconnected, &DUMMY_CLIENT, std::placeholders::_1));
@@ -16,6 +17,11 @@ GameClient::GameClient(std::shared_ptr<CoreServerSession> session, const int64_t
 GameClient::~GameClient()
 {
 	
+}
+
+std::string_view GameClient::GetCharacterName(void)
+{
+	return this->characterName;
 }
 
 void GameClient::Connect(void)
