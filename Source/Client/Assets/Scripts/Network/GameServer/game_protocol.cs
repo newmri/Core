@@ -616,20 +616,20 @@ public struct SC_DESPAWN_OBJECT_NOTI : IFlatbufferObject
   public SC_DESPAWN_OBJECT_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
-  public long Uid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
 
   public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder,
       Define.ObjectType object_type = Define.ObjectType.NONE,
-      long uid = 0) {
+      long oid = 0) {
     builder.StartTable(2);
-    SC_DESPAWN_OBJECT_NOTI.AddUid(builder, uid);
+    SC_DESPAWN_OBJECT_NOTI.AddOid(builder, oid);
     SC_DESPAWN_OBJECT_NOTI.AddObjectType(builder, object_type);
     return SC_DESPAWN_OBJECT_NOTI.EndSC_DESPAWN_OBJECT_NOTI(builder);
   }
 
   public static void StartSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder) { builder.StartTable(2); }
   public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
-  public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(1, uid, 0); }
+  public static void AddOid(FlatBufferBuilder builder, long oid) { builder.AddLong(1, oid, 0); }
   public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> EndSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI>(o);
@@ -641,25 +641,25 @@ public struct SC_DESPAWN_OBJECT_NOTI : IFlatbufferObject
   }
   public void UnPackTo(SC_DESPAWN_OBJECT_NOTIT _o) {
     _o.ObjectType = this.ObjectType;
-    _o.Uid = this.Uid;
+    _o.Oid = this.Oid;
   }
   public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> Pack(FlatBufferBuilder builder, SC_DESPAWN_OBJECT_NOTIT _o) {
     if (_o == null) return default(Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI>);
     return CreateSC_DESPAWN_OBJECT_NOTI(
       builder,
       _o.ObjectType,
-      _o.Uid);
+      _o.Oid);
   }
 };
 
 public class SC_DESPAWN_OBJECT_NOTIT
 {
   public Define.ObjectType ObjectType { get; set; }
-  public long Uid { get; set; }
+  public long Oid { get; set; }
 
   public SC_DESPAWN_OBJECT_NOTIT() {
     this.ObjectType = Define.ObjectType.NONE;
-    this.Uid = 0;
+    this.Oid = 0;
   }
 }
 

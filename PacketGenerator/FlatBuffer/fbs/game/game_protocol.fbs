@@ -90,7 +90,7 @@ table SC_SPAWN_PLAYER_NOTI
 table SC_DESPAWN_OBJECT_NOTI
 {
      object_type:Define.ObjectType;
-     uid:int64;
+     oid:int64;
 }
 
 table CS_MOVE_REQ

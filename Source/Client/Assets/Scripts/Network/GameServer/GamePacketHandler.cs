@@ -57,7 +57,7 @@ class GamePacketHandler
     public static void SC_DESPAWN_OBJECT_NOTI(PacketSession session, Root packet)
     {
         SC_DESPAWN_OBJECT_NOTI despawnNoti = packet.PacketAsSC_DESPAWN_OBJECT_NOTI();
-        Managers.Object.Remove(despawnNoti.ObjectType, despawnNoti.Uid);
+        Managers.Object.Remove(despawnNoti.ObjectType, despawnNoti.Oid);
     }
 
     public static void SC_MOVE_RES(PacketSession session, Root packet)

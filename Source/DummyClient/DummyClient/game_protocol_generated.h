@@ -1109,7 +1109,7 @@ flatbuffers::Offset<SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(flatbuffers
 struct SC_DESPAWN_OBJECT_NOTIT : public flatbuffers::NativeTable {
   typedef SC_DESPAWN_OBJECT_NOTI TableType;
   Define::ObjectType object_type = Define::ObjectType_NONE;
-  int64_t uid = 0;
+  int64_t oid = 0;
 };
 
 struct SC_DESPAWN_OBJECT_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -1117,18 +1117,18 @@ struct SC_DESPAWN_OBJECT_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
   typedef SC_DESPAWN_OBJECT_NOTIBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_OBJECT_TYPE = 4,
-    VT_UID = 6
+    VT_OID = 6
   };
   Define::ObjectType object_type() const {
     return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
   }
-  int64_t uid() const {
-    return GetField<int64_t>(VT_UID, 0);
+  int64_t oid() const {
+    return GetField<int64_t>(VT_OID, 0);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
-           VerifyField<int64_t>(verifier, VT_UID) &&
+           VerifyField<int64_t>(verifier, VT_OID) &&
            verifier.EndTable();
   }
   SC_DESPAWN_OBJECT_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
@@ -1143,8 +1143,8 @@ struct SC_DESPAWN_OBJECT_NOTIBuilder {
   void add_object_type(Define::ObjectType object_type) {
     fbb_.AddElement<uint8_t>(SC_DESPAWN_OBJECT_NOTI::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
   }
-  void add_uid(int64_t uid) {
-    fbb_.AddElement<int64_t>(SC_DESPAWN_OBJECT_NOTI::VT_UID, uid, 0);
+  void add_oid(int64_t oid) {
+    fbb_.AddElement<int64_t>(SC_DESPAWN_OBJECT_NOTI::VT_OID, oid, 0);
   }
   explicit SC_DESPAWN_OBJECT_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -1160,9 +1160,9 @@ struct SC_DESPAWN_OBJECT_NOTIBuilder {
 inline flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(
     flatbuffers::FlatBufferBuilder &_fbb,
     Define::ObjectType object_type = Define::ObjectType_NONE,
-    int64_t uid = 0) {
+    int64_t oid = 0) {
   SC_DESPAWN_OBJECT_NOTIBuilder builder_(_fbb);
-  builder_.add_uid(uid);
+  builder_.add_oid(oid);
   builder_.add_object_type(object_type);
   return builder_.Finish();
 }
@@ -2283,7 +2283,7 @@ inline void SC_DESPAWN_OBJECT_NOTI::UnPackTo(SC_DESPAWN_OBJECT_NOTIT *_o, const 
   (void)_o;
   (void)_resolver;
   { auto _e = object_type(); _o->object_type = _e; }
-  { auto _e = uid(); _o->uid = _e; }
+  { auto _e = oid(); _o->oid = _e; }
 }
 
 inline flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> SC_DESPAWN_OBJECT_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_DESPAWN_OBJECT_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -2295,11 +2295,11 @@ inline flatbuffers::Offset<SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_DESPAWN_OBJECT_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _object_type = _o->object_type;
-  auto _uid = _o->uid;
+  auto _oid = _o->oid;
   return GamePacket::CreateSC_DESPAWN_OBJECT_NOTI(
       _fbb,
       _object_type,
-      _uid);
+      _oid);
 }
 
 inline CS_MOVE_REQT *CS_MOVE_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
