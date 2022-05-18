@@ -350,14 +350,14 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   public SC_LOGIN_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public GamePacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (GamePacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : GamePacket.ErrorCode.SUCCESS; } }
-  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(6); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public Info.ObjectInfoWithPos? ObjectInfoWithPos { get { int o = __p.__offset(6); return o != 0 ? (Info.ObjectInfoWithPos?)(new Info.ObjectInfoWithPos()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
   public Info.CreatureInfo? CreatureInfo { get { int o = __p.__offset(8); return o != 0 ? (Info.CreatureInfo?)(new Info.CreatureInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
   public GamePacket.MyCharacterInfo? CharacterInfo { get { int o = __p.__offset(10); return o != 0 ? (GamePacket.MyCharacterInfo?)(new GamePacket.MyCharacterInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
   public Info.MoneyWrapper? Money { get { int o = __p.__offset(12); return o != 0 ? (Info.MoneyWrapper?)(new Info.MoneyWrapper()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
 
   public static Offset<GamePacket.SC_LOGIN_RES> CreateSC_LOGIN_RES(FlatBufferBuilder builder,
       GamePacket.ErrorCode result = GamePacket.ErrorCode.SUCCESS,
-      Offset<Info.ObjectInfo> object_infoOffset = default(Offset<Info.ObjectInfo>),
+      Offset<Info.ObjectInfoWithPos> object_info_with_posOffset = default(Offset<Info.ObjectInfoWithPos>),
       Offset<Info.CreatureInfo> creature_infoOffset = default(Offset<Info.CreatureInfo>),
       Offset<GamePacket.MyCharacterInfo> character_infoOffset = default(Offset<GamePacket.MyCharacterInfo>),
       Offset<Info.MoneyWrapper> moneyOffset = default(Offset<Info.MoneyWrapper>)) {
@@ -365,14 +365,14 @@ public struct SC_LOGIN_RES : IFlatbufferObject
     SC_LOGIN_RES.AddMoney(builder, moneyOffset);
     SC_LOGIN_RES.AddCharacterInfo(builder, character_infoOffset);
     SC_LOGIN_RES.AddCreatureInfo(builder, creature_infoOffset);
-    SC_LOGIN_RES.AddObjectInfo(builder, object_infoOffset);
+    SC_LOGIN_RES.AddObjectInfoWithPos(builder, object_info_with_posOffset);
     SC_LOGIN_RES.AddResult(builder, result);
     return SC_LOGIN_RES.EndSC_LOGIN_RES(builder);
   }
 
   public static void StartSC_LOGIN_RES(FlatBufferBuilder builder) { builder.StartTable(5); }
   public static void AddResult(FlatBufferBuilder builder, GamePacket.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
-  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddOffset(1, objectInfoOffset.Value, 0); }
+  public static void AddObjectInfoWithPos(FlatBufferBuilder builder, Offset<Info.ObjectInfoWithPos> objectInfoWithPosOffset) { builder.AddOffset(1, objectInfoWithPosOffset.Value, 0); }
   public static void AddCreatureInfo(FlatBufferBuilder builder, Offset<Info.CreatureInfo> creatureInfoOffset) { builder.AddOffset(2, creatureInfoOffset.Value, 0); }
   public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<GamePacket.MyCharacterInfo> characterInfoOffset) { builder.AddOffset(3, characterInfoOffset.Value, 0); }
   public static void AddMoney(FlatBufferBuilder builder, Offset<Info.MoneyWrapper> moneyOffset) { builder.AddOffset(4, moneyOffset.Value, 0); }
@@ -387,21 +387,21 @@ public struct SC_LOGIN_RES : IFlatbufferObject
   }
   public void UnPackTo(SC_LOGIN_REST _o) {
     _o.Result = this.Result;
-    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
+    _o.ObjectInfoWithPos = this.ObjectInfoWithPos.HasValue ? this.ObjectInfoWithPos.Value.UnPack() : null;
     _o.CreatureInfo = this.CreatureInfo.HasValue ? this.CreatureInfo.Value.UnPack() : null;
     _o.CharacterInfo = this.CharacterInfo.HasValue ? this.CharacterInfo.Value.UnPack() : null;
     _o.Money = this.Money.HasValue ? this.Money.Value.UnPack() : null;
   }
   public static Offset<GamePacket.SC_LOGIN_RES> Pack(FlatBufferBuilder builder, SC_LOGIN_REST _o) {
     if (_o == null) return default(Offset<GamePacket.SC_LOGIN_RES>);
-    var _object_info = _o.ObjectInfo == null ? default(Offset<Info.ObjectInfo>) : Info.ObjectInfo.Pack(builder, _o.ObjectInfo);
+    var _object_info_with_pos = _o.ObjectInfoWithPos == null ? default(Offset<Info.ObjectInfoWithPos>) : Info.ObjectInfoWithPos.Pack(builder, _o.ObjectInfoWithPos);
     var _creature_info = _o.CreatureInfo == null ? default(Offset<Info.CreatureInfo>) : Info.CreatureInfo.Pack(builder, _o.CreatureInfo);
     var _character_info = _o.CharacterInfo == null ? default(Offset<GamePacket.MyCharacterInfo>) : GamePacket.MyCharacterInfo.Pack(builder, _o.CharacterInfo);
     var _money = _o.Money == null ? default(Offset<Info.MoneyWrapper>) : Info.MoneyWrapper.Pack(builder, _o.Money);
     return CreateSC_LOGIN_RES(
       builder,
       _o.Result,
-      _object_info,
+      _object_info_with_pos,
       _creature_info,
       _character_info,
       _money);
@@ -411,14 +411,14 @@ public struct SC_LOGIN_RES : IFlatbufferObject
 public class SC_LOGIN_REST
 {
   public GamePacket.ErrorCode Result { get; set; }
-  public Info.ObjectInfoT ObjectInfo { get; set; }
+  public Info.ObjectInfoWithPosT ObjectInfoWithPos { get; set; }
   public Info.CreatureInfoT CreatureInfo { get; set; }
   public GamePacket.MyCharacterInfoT CharacterInfo { get; set; }
   public Info.MoneyWrapperT Money { get; set; }
 
   public SC_LOGIN_REST() {
     this.Result = GamePacket.ErrorCode.SUCCESS;
-    this.ObjectInfo = null;
+    this.ObjectInfoWithPos = null;
     this.CreatureInfo = null;
     this.CharacterInfo = null;
     this.Money = null;
@@ -546,23 +546,23 @@ public struct SC_SPAWN_PLAYER_NOTI : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_SPAWN_PLAYER_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public Info.ObjectInfoWithPos? ObjectInfoWithPos { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfoWithPos?)(new Info.ObjectInfoWithPos()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
   public Info.CreatureInfo? CreatureInfo { get { int o = __p.__offset(6); return o != 0 ? (Info.CreatureInfo?)(new Info.CreatureInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
   public GamePacket.CharacterInfo? CharacterInfo { get { int o = __p.__offset(8); return o != 0 ? (GamePacket.CharacterInfo?)(new GamePacket.CharacterInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
 
   public static Offset<GamePacket.SC_SPAWN_PLAYER_NOTI> CreateSC_SPAWN_PLAYER_NOTI(FlatBufferBuilder builder,
-      Offset<Info.ObjectInfo> object_infoOffset = default(Offset<Info.ObjectInfo>),
+      Offset<Info.ObjectInfoWithPos> object_info_with_posOffset = default(Offset<Info.ObjectInfoWithPos>),
       Offset<Info.CreatureInfo> creature_infoOffset = default(Offset<Info.CreatureInfo>),
       Offset<GamePacket.CharacterInfo> character_infoOffset = default(Offset<GamePacket.CharacterInfo>)) {
     builder.StartTable(3);
     SC_SPAWN_PLAYER_NOTI.AddCharacterInfo(builder, character_infoOffset);
     SC_SPAWN_PLAYER_NOTI.AddCreatureInfo(builder, creature_infoOffset);
-    SC_SPAWN_PLAYER_NOTI.AddObjectInfo(builder, object_infoOffset);
+    SC_SPAWN_PLAYER_NOTI.AddObjectInfoWithPos(builder, object_info_with_posOffset);
     return SC_SPAWN_PLAYER_NOTI.EndSC_SPAWN_PLAYER_NOTI(builder);
   }
 
   public static void StartSC_SPAWN_PLAYER_NOTI(FlatBufferBuilder builder) { builder.StartTable(3); }
-  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddOffset(0, objectInfoOffset.Value, 0); }
+  public static void AddObjectInfoWithPos(FlatBufferBuilder builder, Offset<Info.ObjectInfoWithPos> objectInfoWithPosOffset) { builder.AddOffset(0, objectInfoWithPosOffset.Value, 0); }
   public static void AddCreatureInfo(FlatBufferBuilder builder, Offset<Info.CreatureInfo> creatureInfoOffset) { builder.AddOffset(1, creatureInfoOffset.Value, 0); }
   public static void AddCharacterInfo(FlatBufferBuilder builder, Offset<GamePacket.CharacterInfo> characterInfoOffset) { builder.AddOffset(2, characterInfoOffset.Value, 0); }
   public static Offset<GamePacket.SC_SPAWN_PLAYER_NOTI> EndSC_SPAWN_PLAYER_NOTI(FlatBufferBuilder builder) {
@@ -575,18 +575,18 @@ public struct SC_SPAWN_PLAYER_NOTI : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(SC_SPAWN_PLAYER_NOTIT _o) {
-    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
+    _o.ObjectInfoWithPos = this.ObjectInfoWithPos.HasValue ? this.ObjectInfoWithPos.Value.UnPack() : null;
     _o.CreatureInfo = this.CreatureInfo.HasValue ? this.CreatureInfo.Value.UnPack() : null;
     _o.CharacterInfo = this.CharacterInfo.HasValue ? this.CharacterInfo.Value.UnPack() : null;
   }
   public static Offset<GamePacket.SC_SPAWN_PLAYER_NOTI> Pack(FlatBufferBuilder builder, SC_SPAWN_PLAYER_NOTIT _o) {
     if (_o == null) return default(Offset<GamePacket.SC_SPAWN_PLAYER_NOTI>);
-    var _object_info = _o.ObjectInfo == null ? default(Offset<Info.ObjectInfo>) : Info.ObjectInfo.Pack(builder, _o.ObjectInfo);
+    var _object_info_with_pos = _o.ObjectInfoWithPos == null ? default(Offset<Info.ObjectInfoWithPos>) : Info.ObjectInfoWithPos.Pack(builder, _o.ObjectInfoWithPos);
     var _creature_info = _o.CreatureInfo == null ? default(Offset<Info.CreatureInfo>) : Info.CreatureInfo.Pack(builder, _o.CreatureInfo);
     var _character_info = _o.CharacterInfo == null ? default(Offset<GamePacket.CharacterInfo>) : GamePacket.CharacterInfo.Pack(builder, _o.CharacterInfo);
     return CreateSC_SPAWN_PLAYER_NOTI(
       builder,
-      _object_info,
+      _object_info_with_pos,
       _creature_info,
       _character_info);
   }
@@ -594,12 +594,12 @@ public struct SC_SPAWN_PLAYER_NOTI : IFlatbufferObject
 
 public class SC_SPAWN_PLAYER_NOTIT
 {
-  public Info.ObjectInfoT ObjectInfo { get; set; }
+  public Info.ObjectInfoWithPosT ObjectInfoWithPos { get; set; }
   public Info.CreatureInfoT CreatureInfo { get; set; }
   public GamePacket.CharacterInfoT CharacterInfo { get; set; }
 
   public SC_SPAWN_PLAYER_NOTIT() {
-    this.ObjectInfo = null;
+    this.ObjectInfoWithPos = null;
     this.CreatureInfo = null;
     this.CharacterInfo = null;
   }
@@ -615,21 +615,10 @@ public struct SC_DESPAWN_OBJECT_NOTI : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_DESPAWN_OBJECT_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
-  public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
-  public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> CreateSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.NONE,
-      long oid = 0) {
-    builder.StartTable(2);
-    SC_DESPAWN_OBJECT_NOTI.AddOid(builder, oid);
-    SC_DESPAWN_OBJECT_NOTI.AddObjectType(builder, object_type);
-    return SC_DESPAWN_OBJECT_NOTI.EndSC_DESPAWN_OBJECT_NOTI(builder);
-  }
-
-  public static void StartSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder) { builder.StartTable(2); }
-  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
-  public static void AddOid(FlatBufferBuilder builder, long oid) { builder.AddLong(1, oid, 0); }
+  public static void StartSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddStruct(0, objectInfoOffset.Value, 0); }
   public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> EndSC_DESPAWN_OBJECT_NOTI(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI>(o);
@@ -640,26 +629,22 @@ public struct SC_DESPAWN_OBJECT_NOTI : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(SC_DESPAWN_OBJECT_NOTIT _o) {
-    _o.ObjectType = this.ObjectType;
-    _o.Oid = this.Oid;
+    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
   }
   public static Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI> Pack(FlatBufferBuilder builder, SC_DESPAWN_OBJECT_NOTIT _o) {
     if (_o == null) return default(Offset<GamePacket.SC_DESPAWN_OBJECT_NOTI>);
-    return CreateSC_DESPAWN_OBJECT_NOTI(
-      builder,
-      _o.ObjectType,
-      _o.Oid);
+    StartSC_DESPAWN_OBJECT_NOTI(builder);
+    AddObjectInfo(builder, Info.ObjectInfo.Pack(builder, _o.ObjectInfo));
+    return EndSC_DESPAWN_OBJECT_NOTI(builder);
   }
 };
 
 public class SC_DESPAWN_OBJECT_NOTIT
 {
-  public Define.ObjectType ObjectType { get; set; }
-  public long Oid { get; set; }
+  public Info.ObjectInfoT ObjectInfo { get; set; }
 
   public SC_DESPAWN_OBJECT_NOTIT() {
-    this.ObjectType = Define.ObjectType.NONE;
-    this.Oid = 0;
+    this.ObjectInfo = new Info.ObjectInfoT();
   }
 }
 
@@ -731,17 +716,17 @@ public struct SC_MOVE_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_MOVE_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public Info.ObjectInfoWithPos? ObjectInfoWithPos { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfoWithPos?)(new Info.ObjectInfoWithPos()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
 
   public static Offset<GamePacket.SC_MOVE_RES> CreateSC_MOVE_RES(FlatBufferBuilder builder,
-      Offset<Info.ObjectInfo> object_infoOffset = default(Offset<Info.ObjectInfo>)) {
+      Offset<Info.ObjectInfoWithPos> object_info_with_posOffset = default(Offset<Info.ObjectInfoWithPos>)) {
     builder.StartTable(1);
-    SC_MOVE_RES.AddObjectInfo(builder, object_infoOffset);
+    SC_MOVE_RES.AddObjectInfoWithPos(builder, object_info_with_posOffset);
     return SC_MOVE_RES.EndSC_MOVE_RES(builder);
   }
 
   public static void StartSC_MOVE_RES(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddOffset(0, objectInfoOffset.Value, 0); }
+  public static void AddObjectInfoWithPos(FlatBufferBuilder builder, Offset<Info.ObjectInfoWithPos> objectInfoWithPosOffset) { builder.AddOffset(0, objectInfoWithPosOffset.Value, 0); }
   public static Offset<GamePacket.SC_MOVE_RES> EndSC_MOVE_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_MOVE_RES>(o);
@@ -752,23 +737,23 @@ public struct SC_MOVE_RES : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(SC_MOVE_REST _o) {
-    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
+    _o.ObjectInfoWithPos = this.ObjectInfoWithPos.HasValue ? this.ObjectInfoWithPos.Value.UnPack() : null;
   }
   public static Offset<GamePacket.SC_MOVE_RES> Pack(FlatBufferBuilder builder, SC_MOVE_REST _o) {
     if (_o == null) return default(Offset<GamePacket.SC_MOVE_RES>);
-    var _object_info = _o.ObjectInfo == null ? default(Offset<Info.ObjectInfo>) : Info.ObjectInfo.Pack(builder, _o.ObjectInfo);
+    var _object_info_with_pos = _o.ObjectInfoWithPos == null ? default(Offset<Info.ObjectInfoWithPos>) : Info.ObjectInfoWithPos.Pack(builder, _o.ObjectInfoWithPos);
     return CreateSC_MOVE_RES(
       builder,
-      _object_info);
+      _object_info_with_pos);
   }
 };
 
 public class SC_MOVE_REST
 {
-  public Info.ObjectInfoT ObjectInfo { get; set; }
+  public Info.ObjectInfoWithPosT ObjectInfoWithPos { get; set; }
 
   public SC_MOVE_REST() {
-    this.ObjectInfo = null;
+    this.ObjectInfoWithPos = null;
   }
 }
 
@@ -832,25 +817,21 @@ public struct SC_SET_STATE_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_SET_STATE_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
-  public long ObjectId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public Define.ObjectState State { get { int o = __p.__offset(8); return o != 0 ? (Define.ObjectState)__p.bb.Get(o + __p.bb_pos) : Define.ObjectState.IDLE; } }
+  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public Define.ObjectState State { get { int o = __p.__offset(6); return o != 0 ? (Define.ObjectState)__p.bb.Get(o + __p.bb_pos) : Define.ObjectState.IDLE; } }
 
   public static Offset<GamePacket.SC_SET_STATE_RES> CreateSC_SET_STATE_RES(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.NONE,
-      long object_id = 0,
+      Info.ObjectInfoT object_info = null,
       Define.ObjectState state = Define.ObjectState.IDLE) {
-    builder.StartTable(3);
-    SC_SET_STATE_RES.AddObjectId(builder, object_id);
+    builder.StartTable(2);
+    SC_SET_STATE_RES.AddObjectInfo(builder, Info.ObjectInfo.Pack(builder, object_info));
     SC_SET_STATE_RES.AddState(builder, state);
-    SC_SET_STATE_RES.AddObjectType(builder, object_type);
     return SC_SET_STATE_RES.EndSC_SET_STATE_RES(builder);
   }
 
-  public static void StartSC_SET_STATE_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
-  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
-  public static void AddObjectId(FlatBufferBuilder builder, long objectId) { builder.AddLong(1, objectId, 0); }
-  public static void AddState(FlatBufferBuilder builder, Define.ObjectState state) { builder.AddByte(2, (byte)state, 0); }
+  public static void StartSC_SET_STATE_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddStruct(0, objectInfoOffset.Value, 0); }
+  public static void AddState(FlatBufferBuilder builder, Define.ObjectState state) { builder.AddByte(1, (byte)state, 0); }
   public static Offset<GamePacket.SC_SET_STATE_RES> EndSC_SET_STATE_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_SET_STATE_RES>(o);
@@ -861,29 +842,25 @@ public struct SC_SET_STATE_RES : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(SC_SET_STATE_REST _o) {
-    _o.ObjectType = this.ObjectType;
-    _o.ObjectId = this.ObjectId;
+    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
     _o.State = this.State;
   }
   public static Offset<GamePacket.SC_SET_STATE_RES> Pack(FlatBufferBuilder builder, SC_SET_STATE_REST _o) {
     if (_o == null) return default(Offset<GamePacket.SC_SET_STATE_RES>);
     return CreateSC_SET_STATE_RES(
       builder,
-      _o.ObjectType,
-      _o.ObjectId,
+      _o.ObjectInfo,
       _o.State);
   }
 };
 
 public class SC_SET_STATE_REST
 {
-  public Define.ObjectType ObjectType { get; set; }
-  public long ObjectId { get; set; }
+  public Info.ObjectInfoT ObjectInfo { get; set; }
   public Define.ObjectState State { get; set; }
 
   public SC_SET_STATE_REST() {
-    this.ObjectType = Define.ObjectType.NONE;
-    this.ObjectId = 0;
+    this.ObjectInfo = new Info.ObjectInfoT();
     this.State = Define.ObjectState.IDLE;
   }
 }
@@ -948,25 +925,21 @@ public struct SC_USE_SKILL_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_USE_SKILL_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
-  public long ObjectId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public int SkillId { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public int SkillId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
 
   public static Offset<GamePacket.SC_USE_SKILL_RES> CreateSC_USE_SKILL_RES(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.NONE,
-      long object_id = 0,
+      Info.ObjectInfoT object_info = null,
       int skill_id = 0) {
-    builder.StartTable(3);
-    SC_USE_SKILL_RES.AddObjectId(builder, object_id);
+    builder.StartTable(2);
     SC_USE_SKILL_RES.AddSkillId(builder, skill_id);
-    SC_USE_SKILL_RES.AddObjectType(builder, object_type);
+    SC_USE_SKILL_RES.AddObjectInfo(builder, Info.ObjectInfo.Pack(builder, object_info));
     return SC_USE_SKILL_RES.EndSC_USE_SKILL_RES(builder);
   }
 
-  public static void StartSC_USE_SKILL_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
-  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
-  public static void AddObjectId(FlatBufferBuilder builder, long objectId) { builder.AddLong(1, objectId, 0); }
-  public static void AddSkillId(FlatBufferBuilder builder, int skillId) { builder.AddInt(2, skillId, 0); }
+  public static void StartSC_USE_SKILL_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddStruct(0, objectInfoOffset.Value, 0); }
+  public static void AddSkillId(FlatBufferBuilder builder, int skillId) { builder.AddInt(1, skillId, 0); }
   public static Offset<GamePacket.SC_USE_SKILL_RES> EndSC_USE_SKILL_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_USE_SKILL_RES>(o);
@@ -977,29 +950,25 @@ public struct SC_USE_SKILL_RES : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(SC_USE_SKILL_REST _o) {
-    _o.ObjectType = this.ObjectType;
-    _o.ObjectId = this.ObjectId;
+    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
     _o.SkillId = this.SkillId;
   }
   public static Offset<GamePacket.SC_USE_SKILL_RES> Pack(FlatBufferBuilder builder, SC_USE_SKILL_REST _o) {
     if (_o == null) return default(Offset<GamePacket.SC_USE_SKILL_RES>);
     return CreateSC_USE_SKILL_RES(
       builder,
-      _o.ObjectType,
-      _o.ObjectId,
+      _o.ObjectInfo,
       _o.SkillId);
   }
 };
 
 public class SC_USE_SKILL_REST
 {
-  public Define.ObjectType ObjectType { get; set; }
-  public long ObjectId { get; set; }
+  public Info.ObjectInfoT ObjectInfo { get; set; }
   public int SkillId { get; set; }
 
   public SC_USE_SKILL_REST() {
-    this.ObjectType = Define.ObjectType.NONE;
-    this.ObjectId = 0;
+    this.ObjectInfo = new Info.ObjectInfoT();
     this.SkillId = 0;
   }
 }
@@ -1014,29 +983,25 @@ public struct DamageInfo : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public DamageInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
-  public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public int Damage { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
-  public bool IsCritical { get { int o = __p.__offset(10); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public int Damage { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public bool IsCritical { get { int o = __p.__offset(8); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
 
   public static Offset<GamePacket.DamageInfo> CreateDamageInfo(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.NONE,
-      long oid = 0,
+      Info.ObjectInfoT object_info = null,
       int damage = 0,
       bool is_critical = false) {
-    builder.StartTable(4);
-    DamageInfo.AddOid(builder, oid);
+    builder.StartTable(3);
     DamageInfo.AddDamage(builder, damage);
+    DamageInfo.AddObjectInfo(builder, Info.ObjectInfo.Pack(builder, object_info));
     DamageInfo.AddIsCritical(builder, is_critical);
-    DamageInfo.AddObjectType(builder, object_type);
     return DamageInfo.EndDamageInfo(builder);
   }
 
-  public static void StartDamageInfo(FlatBufferBuilder builder) { builder.StartTable(4); }
-  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
-  public static void AddOid(FlatBufferBuilder builder, long oid) { builder.AddLong(1, oid, 0); }
-  public static void AddDamage(FlatBufferBuilder builder, int damage) { builder.AddInt(2, damage, 0); }
-  public static void AddIsCritical(FlatBufferBuilder builder, bool isCritical) { builder.AddBool(3, isCritical, false); }
+  public static void StartDamageInfo(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddStruct(0, objectInfoOffset.Value, 0); }
+  public static void AddDamage(FlatBufferBuilder builder, int damage) { builder.AddInt(1, damage, 0); }
+  public static void AddIsCritical(FlatBufferBuilder builder, bool isCritical) { builder.AddBool(2, isCritical, false); }
   public static Offset<GamePacket.DamageInfo> EndDamageInfo(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.DamageInfo>(o);
@@ -1047,8 +1012,7 @@ public struct DamageInfo : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(DamageInfoT _o) {
-    _o.ObjectType = this.ObjectType;
-    _o.Oid = this.Oid;
+    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
     _o.Damage = this.Damage;
     _o.IsCritical = this.IsCritical;
   }
@@ -1056,8 +1020,7 @@ public struct DamageInfo : IFlatbufferObject
     if (_o == null) return default(Offset<GamePacket.DamageInfo>);
     return CreateDamageInfo(
       builder,
-      _o.ObjectType,
-      _o.Oid,
+      _o.ObjectInfo,
       _o.Damage,
       _o.IsCritical);
   }
@@ -1065,14 +1028,12 @@ public struct DamageInfo : IFlatbufferObject
 
 public class DamageInfoT
 {
-  public Define.ObjectType ObjectType { get; set; }
-  public long Oid { get; set; }
+  public Info.ObjectInfoT ObjectInfo { get; set; }
   public int Damage { get; set; }
   public bool IsCritical { get; set; }
 
   public DamageInfoT() {
-    this.ObjectType = Define.ObjectType.NONE;
-    this.Oid = 0;
+    this.ObjectInfo = new Info.ObjectInfoT();
     this.Damage = 0;
     this.IsCritical = false;
   }
@@ -1186,17 +1147,17 @@ public struct SC_REVIVE_RES : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_REVIVE_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public Info.ObjectInfoWithPos? ObjectInfoWithPos { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfoWithPos?)(new Info.ObjectInfoWithPos()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
 
   public static Offset<GamePacket.SC_REVIVE_RES> CreateSC_REVIVE_RES(FlatBufferBuilder builder,
-      Offset<Info.ObjectInfo> object_infoOffset = default(Offset<Info.ObjectInfo>)) {
+      Offset<Info.ObjectInfoWithPos> object_info_with_posOffset = default(Offset<Info.ObjectInfoWithPos>)) {
     builder.StartTable(1);
-    SC_REVIVE_RES.AddObjectInfo(builder, object_infoOffset);
+    SC_REVIVE_RES.AddObjectInfoWithPos(builder, object_info_with_posOffset);
     return SC_REVIVE_RES.EndSC_REVIVE_RES(builder);
   }
 
   public static void StartSC_REVIVE_RES(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddOffset(0, objectInfoOffset.Value, 0); }
+  public static void AddObjectInfoWithPos(FlatBufferBuilder builder, Offset<Info.ObjectInfoWithPos> objectInfoWithPosOffset) { builder.AddOffset(0, objectInfoWithPosOffset.Value, 0); }
   public static Offset<GamePacket.SC_REVIVE_RES> EndSC_REVIVE_RES(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<GamePacket.SC_REVIVE_RES>(o);
@@ -1207,23 +1168,23 @@ public struct SC_REVIVE_RES : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(SC_REVIVE_REST _o) {
-    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
+    _o.ObjectInfoWithPos = this.ObjectInfoWithPos.HasValue ? this.ObjectInfoWithPos.Value.UnPack() : null;
   }
   public static Offset<GamePacket.SC_REVIVE_RES> Pack(FlatBufferBuilder builder, SC_REVIVE_REST _o) {
     if (_o == null) return default(Offset<GamePacket.SC_REVIVE_RES>);
-    var _object_info = _o.ObjectInfo == null ? default(Offset<Info.ObjectInfo>) : Info.ObjectInfo.Pack(builder, _o.ObjectInfo);
+    var _object_info_with_pos = _o.ObjectInfoWithPos == null ? default(Offset<Info.ObjectInfoWithPos>) : Info.ObjectInfoWithPos.Pack(builder, _o.ObjectInfoWithPos);
     return CreateSC_REVIVE_RES(
       builder,
-      _object_info);
+      _object_info_with_pos);
   }
 };
 
 public class SC_REVIVE_REST
 {
-  public Info.ObjectInfoT ObjectInfo { get; set; }
+  public Info.ObjectInfoWithPosT ObjectInfoWithPos { get; set; }
 
   public SC_REVIVE_REST() {
-    this.ObjectInfo = null;
+    this.ObjectInfoWithPos = null;
   }
 }
 
@@ -1237,23 +1198,23 @@ public struct SC_SPAWN_PROJECTILE_NOTI : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public SC_SPAWN_PROJECTILE_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
+  public Info.ObjectInfoWithPos? ObjectInfoWithPos { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfoWithPos?)(new Info.ObjectInfoWithPos()).__assign(__p.__indirect(o + __p.bb_pos), __p.bb) : null; } }
   public Define.ProjectileType ProjectileType { get { int o = __p.__offset(6); return o != 0 ? (Define.ProjectileType)__p.bb.Get(o + __p.bb_pos) : Define.ProjectileType.NONE; } }
   public float Speed { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
 
   public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder,
-      Offset<Info.ObjectInfo> object_infoOffset = default(Offset<Info.ObjectInfo>),
+      Offset<Info.ObjectInfoWithPos> object_info_with_posOffset = default(Offset<Info.ObjectInfoWithPos>),
       Define.ProjectileType projectile_type = Define.ProjectileType.NONE,
       float speed = 0.0f) {
     builder.StartTable(3);
     SC_SPAWN_PROJECTILE_NOTI.AddSpeed(builder, speed);
-    SC_SPAWN_PROJECTILE_NOTI.AddObjectInfo(builder, object_infoOffset);
+    SC_SPAWN_PROJECTILE_NOTI.AddObjectInfoWithPos(builder, object_info_with_posOffset);
     SC_SPAWN_PROJECTILE_NOTI.AddProjectileType(builder, projectile_type);
     return SC_SPAWN_PROJECTILE_NOTI.EndSC_SPAWN_PROJECTILE_NOTI(builder);
   }
 
   public static void StartSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder) { builder.StartTable(3); }
-  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddOffset(0, objectInfoOffset.Value, 0); }
+  public static void AddObjectInfoWithPos(FlatBufferBuilder builder, Offset<Info.ObjectInfoWithPos> objectInfoWithPosOffset) { builder.AddOffset(0, objectInfoWithPosOffset.Value, 0); }
   public static void AddProjectileType(FlatBufferBuilder builder, Define.ProjectileType projectileType) { builder.AddByte(1, (byte)projectileType, 0); }
   public static void AddSpeed(FlatBufferBuilder builder, float speed) { builder.AddFloat(2, speed, 0.0f); }
   public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> EndSC_SPAWN_PROJECTILE_NOTI(FlatBufferBuilder builder) {
@@ -1266,16 +1227,16 @@ public struct SC_SPAWN_PROJECTILE_NOTI : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(SC_SPAWN_PROJECTILE_NOTIT _o) {
-    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
+    _o.ObjectInfoWithPos = this.ObjectInfoWithPos.HasValue ? this.ObjectInfoWithPos.Value.UnPack() : null;
     _o.ProjectileType = this.ProjectileType;
     _o.Speed = this.Speed;
   }
   public static Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI> Pack(FlatBufferBuilder builder, SC_SPAWN_PROJECTILE_NOTIT _o) {
     if (_o == null) return default(Offset<GamePacket.SC_SPAWN_PROJECTILE_NOTI>);
-    var _object_info = _o.ObjectInfo == null ? default(Offset<Info.ObjectInfo>) : Info.ObjectInfo.Pack(builder, _o.ObjectInfo);
+    var _object_info_with_pos = _o.ObjectInfoWithPos == null ? default(Offset<Info.ObjectInfoWithPos>) : Info.ObjectInfoWithPos.Pack(builder, _o.ObjectInfoWithPos);
     return CreateSC_SPAWN_PROJECTILE_NOTI(
       builder,
-      _object_info,
+      _object_info_with_pos,
       _o.ProjectileType,
       _o.Speed);
   }
@@ -1283,12 +1244,12 @@ public struct SC_SPAWN_PROJECTILE_NOTI : IFlatbufferObject
 
 public class SC_SPAWN_PROJECTILE_NOTIT
 {
-  public Info.ObjectInfoT ObjectInfo { get; set; }
+  public Info.ObjectInfoWithPosT ObjectInfoWithPos { get; set; }
   public Define.ProjectileType ProjectileType { get; set; }
   public float Speed { get; set; }
 
   public SC_SPAWN_PROJECTILE_NOTIT() {
-    this.ObjectInfo = null;
+    this.ObjectInfoWithPos = null;
     this.ProjectileType = Define.ProjectileType.NONE;
     this.Speed = 0.0f;
   }

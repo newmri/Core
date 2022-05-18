@@ -12,19 +12,19 @@ void ObjectManager::Release(void)
 }
 
 int64_t ObjectManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
-	Info::ObjectInfoT& objectInfo, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
+	Info::ObjectInfoWithPosT& objectInfoWithPos, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
 {
 	int64_t oid = this->oid.fetch_add(1);
 	session->SetPlayerOID(oid);
 
-	objectInfo.oid = oid;
-	objectInfo.object_type = Define::ObjectType_PLAYER;
+	objectInfoWithPos.object_info.oid = oid;
+	objectInfoWithPos.object_info.objectType = Define::ObjectType_PLAYER;
 	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(creatureInfo);
 	CHARACTER_DATA_MANAGER.CalculateSpeed(characterInfo.job, creatureInfo.speed);
 
-	auto player = std::make_shared<Player>(characterUID, session, objectInfo, creatureInfo, characterInfo);
-	ZONE_MANAGER.EnterStartPos(objectInfo.pos_info.mapID, player);
-	objectInfo.pos_info.pos = player->GetPos();
+	auto player = std::make_shared<Player>(characterUID, session, objectInfoWithPos, creatureInfo, characterInfo);
+	ZONE_MANAGER.EnterStartPos(objectInfoWithPos.pos_info.mapID, player);
+	objectInfoWithPos.pos_info.pos = player->GetPos();
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
 
 	WRITE_LOCK(this->playerMutex);
@@ -57,25 +57,25 @@ void ObjectManager::RemovePlayer(const int64_t& oid)
 	this->playerList.erase(oid);
 }
 
-void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, Info::ObjectInfoT& objectInfo)
+void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, Info::ObjectInfoWithPosT& objectInfoWithPos)
 {
 	int64_t oid = this->oid.fetch_add(1);
 
-	objectInfo.oid = oid;
-	objectInfo.object_type = Define::ObjectType_PROJECTILE;
-	objectInfo.pos_info.state = Define::ObjectState_WALK;
+	objectInfoWithPos.object_info.oid = oid;
+	objectInfoWithPos.object_info.objectType = Define::ObjectType_PROJECTILE;
+	objectInfoWithPos.pos_info.state = Define::ObjectState_WALK;
 
 	std::shared_ptr<Projectile> projectile = nullptr;
 	switch (owner->GetSkillType())
 	{
 	case Define::SkillType_ARROW:
-		projectile = std::make_shared<Arrow>(owner, objectInfo);
+		projectile = std::make_shared<Arrow>(owner, objectInfoWithPos);
 		break;
 	default:
 		return;
 	}
 
-	ZONE_MANAGER.Enter(objectInfo.pos_info.mapID, projectile, false);
+	ZONE_MANAGER.Enter(objectInfoWithPos.pos_info.mapID, projectile, false);
 
 	WRITE_LOCK(this->projectileMutex);
 	this->projectileList[oid] = projectile;
@@ -104,7 +104,7 @@ void ObjectManager::RemoveProjectile(const int64_t& oid)
 	this->projectileList.erase(oid);
 }
 
-std::shared_ptr<Object> ObjectManager::FindObject(ObjectInfo& objectInfo)
+std::shared_ptr<Object> ObjectManager::FindObject(const NativeInfo::ObjectInfo& objectInfo)
 {
 	switch (objectInfo.objectType)
 	{

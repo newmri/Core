@@ -71,21 +71,21 @@ void Sector::Revive(std::shared_ptr<Creature> creature)
 	SendAll(packetType, packet);
 }
 
-void Sector::Remove(const Define::ObjectType objectType, const int64_t& oid)
+void Sector::Remove(const NativeInfo::ObjectInfo& objectInfo)
 {
-	switch (objectType)
+	switch (objectInfo.objectType)
 	{
 	case Define::ObjectType_PLAYER:
-		this->playerList.erase(oid);
+		this->playerList.erase(objectInfo.oid);
 		break;
 	case Define::ObjectType_PROJECTILE:
-		this->projectileList.erase(oid);
+		this->projectileList.erase(objectInfo.oid);
 		break;
 	default:
 		break;
 	}
 
-	SendDespawnPacket(objectType, oid);
+	SendDespawnPacket(objectInfo);
 }
 
 void Sector::SendSpawnPacketToOldPlayer(std::shared_ptr<Object> object)
@@ -123,12 +123,13 @@ void Sector::SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player)
 	}
 }
 
-void Sector::SendDespawnPacket(const Define::ObjectType objectType, const int64_t& oid)
+void Sector::SendDespawnPacket(const NativeInfo::ObjectInfo& objectInfo)
 {
 	GamePacket::Packet packetType = GamePacket::Packet_SC_DESPAWN_OBJECT_NOTI;
 	flatbuffers::Offset<void> packet;
 	PACKET_SEND_MANAGER.Clear();
-	auto message = GamePacket::CreateSC_DESPAWN_OBJECT_NOTI(PACKET_SEND_MANAGER.builder, objectType, oid);
+	auto packetObjectInfo = flatbuffers::PackObjectInfo(objectInfo);
+	auto message = GamePacket::CreateSC_DESPAWN_OBJECT_NOTI(PACKET_SEND_MANAGER.builder, &packetObjectInfo);
 	packet = message.Union();
 	SendAll(packetType, packet);
 }
@@ -172,7 +173,7 @@ std::shared_ptr<Projectile> Sector::FindProjectile(const int64_t& oid)
 	return nullptr;
 }
 
-std::shared_ptr<Object> Sector::FindObject(ObjectInfo& objectInfo)
+std::shared_ptr<Object> Sector::FindObject(const NativeInfo::ObjectInfo& objectInfo)
 {
 	switch (objectInfo.objectType)
 	{

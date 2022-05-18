@@ -29,9 +29,9 @@ float_t ProjectileSkill::GetSpeed(void)
 
 void ProjectileSkill::DoAction(void)
 {
-	Info::ObjectInfoT objectInfo;
-	objectInfo.pos_info = this->owner->GetPosInfo();
-	objectInfo.pos_info.pos = objectInfo.pos_info.pos.GetFrontPos(this->owner->GetDir());
+	Info::ObjectInfoWithPosT objectInfoWithPos;
+	objectInfoWithPos.pos_info = this->owner->GetPosInfo();
+	objectInfoWithPos.pos_info.pos = objectInfoWithPos.pos_info.pos.GetFrontPos(this->owner->GetDir());
 
-	OBJECT_MANAGER.AddProjectile(Skill::downcasted_shared_from_this<ProjectileSkill>(), objectInfo);
+	OBJECT_MANAGER.AddProjectile(Skill::downcasted_shared_from_this<ProjectileSkill>(), objectInfoWithPos);
 }

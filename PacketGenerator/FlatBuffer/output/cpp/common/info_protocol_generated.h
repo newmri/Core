@@ -12,7 +12,13 @@ namespace Info {
 
 struct Vec2Int;
 
+struct ObjectInfo;
+
 struct PositionInfo;
+
+struct ObjectInfoWithPos;
+struct ObjectInfoWithPosBuilder;
+struct ObjectInfoWithPosT;
 
 struct Stat;
 
@@ -31,10 +37,6 @@ struct Money;
 struct MoneyWrapper;
 struct MoneyWrapperBuilder;
 struct MoneyWrapperT;
-
-struct ObjectInfo;
-struct ObjectInfoBuilder;
-struct ObjectInfoT;
 
 struct CreatureInfo;
 struct CreatureInfoBuilder;
@@ -62,6 +64,42 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Vec2Int FLATBUFFERS_FINAL_CLASS {
   }
 };
 FLATBUFFERS_STRUCT_END(Vec2Int, 8);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8) ObjectInfo FLATBUFFERS_FINAL_CLASS {
+ private:
+  uint8_t object_type_;
+  int8_t padding0__;  int16_t padding1__;  int32_t padding2__;
+  int64_t oid_;
+
+ public:
+  ObjectInfo()
+      : object_type_(0),
+        padding0__(0),
+        padding1__(0),
+        padding2__(0),
+        oid_(0) {
+    (void)padding0__;
+    (void)padding1__;
+    (void)padding2__;
+  }
+  ObjectInfo(Define::ObjectType _object_type, int64_t _oid)
+      : object_type_(flatbuffers::EndianScalar(static_cast<uint8_t>(_object_type))),
+        padding0__(0),
+        padding1__(0),
+        padding2__(0),
+        oid_(flatbuffers::EndianScalar(_oid)) {
+    (void)padding0__;
+    (void)padding1__;
+    (void)padding2__;
+  }
+  Define::ObjectType object_type() const {
+    return static_cast<Define::ObjectType>(flatbuffers::EndianScalar(object_type_));
+  }
+  int64_t oid() const {
+    return flatbuffers::EndianScalar(oid_);
+  }
+};
+FLATBUFFERS_STRUCT_END(ObjectInfo, 16);
 
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) PositionInfo FLATBUFFERS_FINAL_CLASS {
  private:
@@ -188,6 +226,69 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Money FLATBUFFERS_FINAL_CLASS {
 };
 FLATBUFFERS_STRUCT_END(Money, 8);
 
+struct ObjectInfoWithPosT : public flatbuffers::NativeTable {
+  typedef ObjectInfoWithPos TableType;
+  NativeInfo::ObjectInfo object_info{};
+  NativeInfo::PositionInfo pos_info{};
+};
+
+struct ObjectInfoWithPos FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef ObjectInfoWithPosT NativeTableType;
+  typedef ObjectInfoWithPosBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_OBJECT_INFO = 4,
+    VT_POS_INFO = 6
+  };
+  const Info::ObjectInfo *object_info() const {
+    return GetStruct<const Info::ObjectInfo *>(VT_OBJECT_INFO);
+  }
+  const Info::PositionInfo *pos_info() const {
+    return GetStruct<const Info::PositionInfo *>(VT_POS_INFO);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<Info::ObjectInfo>(verifier, VT_OBJECT_INFO) &&
+           VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
+           verifier.EndTable();
+  }
+  ObjectInfoWithPosT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ObjectInfoWithPosT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<ObjectInfoWithPos> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ObjectInfoWithPosT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct ObjectInfoWithPosBuilder {
+  typedef ObjectInfoWithPos Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_object_info(const Info::ObjectInfo *object_info) {
+    fbb_.AddStruct(ObjectInfoWithPos::VT_OBJECT_INFO, object_info);
+  }
+  void add_pos_info(const Info::PositionInfo *pos_info) {
+    fbb_.AddStruct(ObjectInfoWithPos::VT_POS_INFO, pos_info);
+  }
+  explicit ObjectInfoWithPosBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<ObjectInfoWithPos> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<ObjectInfoWithPos>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<ObjectInfoWithPos> CreateObjectInfoWithPos(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const Info::ObjectInfo *object_info = 0,
+    const Info::PositionInfo *pos_info = 0) {
+  ObjectInfoWithPosBuilder builder_(_fbb);
+  builder_.add_pos_info(pos_info);
+  builder_.add_object_info(object_info);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<ObjectInfoWithPos> CreateObjectInfoWithPos(flatbuffers::FlatBufferBuilder &_fbb, const ObjectInfoWithPosT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct StatWrapperT : public flatbuffers::NativeTable {
   typedef StatWrapper TableType;
   NativeInfo::Stat value{};
@@ -291,80 +392,6 @@ inline flatbuffers::Offset<MoneyWrapper> CreateMoneyWrapper(
 }
 
 flatbuffers::Offset<MoneyWrapper> CreateMoneyWrapper(flatbuffers::FlatBufferBuilder &_fbb, const MoneyWrapperT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
-
-struct ObjectInfoT : public flatbuffers::NativeTable {
-  typedef ObjectInfo TableType;
-  Define::ObjectType object_type = Define::ObjectType_NONE;
-  int64_t oid = 0;
-  NativeInfo::PositionInfo pos_info{};
-};
-
-struct ObjectInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef ObjectInfoT NativeTableType;
-  typedef ObjectInfoBuilder Builder;
-  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_OBJECT_TYPE = 4,
-    VT_OID = 6,
-    VT_POS_INFO = 8
-  };
-  Define::ObjectType object_type() const {
-    return static_cast<Define::ObjectType>(GetField<uint8_t>(VT_OBJECT_TYPE, 0));
-  }
-  int64_t oid() const {
-    return GetField<int64_t>(VT_OID, 0);
-  }
-  const Info::PositionInfo *pos_info() const {
-    return GetStruct<const Info::PositionInfo *>(VT_POS_INFO);
-  }
-  bool Verify(flatbuffers::Verifier &verifier) const {
-    return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_OBJECT_TYPE) &&
-           VerifyField<int64_t>(verifier, VT_OID) &&
-           VerifyField<Info::PositionInfo>(verifier, VT_POS_INFO) &&
-           verifier.EndTable();
-  }
-  ObjectInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(ObjectInfoT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<ObjectInfo> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ObjectInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
-};
-
-struct ObjectInfoBuilder {
-  typedef ObjectInfo Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_object_type(Define::ObjectType object_type) {
-    fbb_.AddElement<uint8_t>(ObjectInfo::VT_OBJECT_TYPE, static_cast<uint8_t>(object_type), 0);
-  }
-  void add_oid(int64_t oid) {
-    fbb_.AddElement<int64_t>(ObjectInfo::VT_OID, oid, 0);
-  }
-  void add_pos_info(const Info::PositionInfo *pos_info) {
-    fbb_.AddStruct(ObjectInfo::VT_POS_INFO, pos_info);
-  }
-  explicit ObjectInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
-        : fbb_(_fbb) {
-    start_ = fbb_.StartTable();
-  }
-  flatbuffers::Offset<ObjectInfo> Finish() {
-    const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ObjectInfo>(end);
-    return o;
-  }
-};
-
-inline flatbuffers::Offset<ObjectInfo> CreateObjectInfo(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    Define::ObjectType object_type = Define::ObjectType_NONE,
-    int64_t oid = 0,
-    const Info::PositionInfo *pos_info = 0) {
-  ObjectInfoBuilder builder_(_fbb);
-  builder_.add_oid(oid);
-  builder_.add_pos_info(pos_info);
-  builder_.add_object_type(object_type);
-  return builder_.Finish();
-}
-
-flatbuffers::Offset<ObjectInfo> CreateObjectInfo(flatbuffers::FlatBufferBuilder &_fbb, const ObjectInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 struct CreatureInfoT : public flatbuffers::NativeTable {
   typedef CreatureInfo TableType;
@@ -484,6 +511,35 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(
 
 flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(flatbuffers::FlatBufferBuilder &_fbb, const CreatureInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+inline ObjectInfoWithPosT *ObjectInfoWithPos::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<ObjectInfoWithPosT>(new ObjectInfoWithPosT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void ObjectInfoWithPos::UnPackTo(ObjectInfoWithPosT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = object_info(); if (_e) _o->object_info = flatbuffers::UnPackObjectInfo(*_e); }
+  { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
+}
+
+inline flatbuffers::Offset<ObjectInfoWithPos> ObjectInfoWithPos::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ObjectInfoWithPosT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateObjectInfoWithPos(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<ObjectInfoWithPos> CreateObjectInfoWithPos(flatbuffers::FlatBufferBuilder &_fbb, const ObjectInfoWithPosT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ObjectInfoWithPosT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _object_info = flatbuffers::PackObjectInfo(_o->object_info);
+  auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
+  return Info::CreateObjectInfoWithPos(
+      _fbb,
+      &_object_info,
+      &_pos_info);
+}
+
 inline StatWrapperT *StatWrapper::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<StatWrapperT>(new StatWrapperT());
   UnPackTo(_o.get(), _resolver);
@@ -534,38 +590,6 @@ inline flatbuffers::Offset<MoneyWrapper> CreateMoneyWrapper(flatbuffers::FlatBuf
   return Info::CreateMoneyWrapper(
       _fbb,
       &_value);
-}
-
-inline ObjectInfoT *ObjectInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
-  auto _o = std::unique_ptr<ObjectInfoT>(new ObjectInfoT());
-  UnPackTo(_o.get(), _resolver);
-  return _o.release();
-}
-
-inline void ObjectInfo::UnPackTo(ObjectInfoT *_o, const flatbuffers::resolver_function_t *_resolver) const {
-  (void)_o;
-  (void)_resolver;
-  { auto _e = object_type(); _o->object_type = _e; }
-  { auto _e = oid(); _o->oid = _e; }
-  { auto _e = pos_info(); if (_e) _o->pos_info = flatbuffers::UnPackPositionInfo(*_e); }
-}
-
-inline flatbuffers::Offset<ObjectInfo> ObjectInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ObjectInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
-  return CreateObjectInfo(_fbb, _o, _rehasher);
-}
-
-inline flatbuffers::Offset<ObjectInfo> CreateObjectInfo(flatbuffers::FlatBufferBuilder &_fbb, const ObjectInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
-  (void)_rehasher;
-  (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ObjectInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _object_type = _o->object_type;
-  auto _oid = _o->oid;
-  auto _pos_info = flatbuffers::PackPositionInfo(_o->pos_info);
-  return Info::CreateObjectInfo(
-      _fbb,
-      _object_type,
-      _oid,
-      &_pos_info);
 }
 
 inline CreatureInfoT *CreatureInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {

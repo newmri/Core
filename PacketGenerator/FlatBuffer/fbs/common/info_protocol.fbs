@@ -8,12 +8,24 @@ struct Vec2Int (native_type:"NativeInfo::Vec2Int", native_type_pack_name:"Vec2In
   y:int32;
 }
 
+struct ObjectInfo (native_type:"NativeInfo::ObjectInfo", native_type_pack_name:"ObjectInfo")
+{
+    object_type:Define.ObjectType;
+    oid:int64;
+}
+
 struct PositionInfo (native_type:"NativeInfo::PositionInfo", native_type_pack_name:"PositionInfo")
 {
   map_id:int32;
   pos:Vec2Int (native_inline);
   state:Define.ObjectState;
   move_dir:Define.Dir;
+}
+
+table ObjectInfoWithPos (native_type:"ObjectInfoWithPosT")
+{
+    object_info:ObjectInfo (native_inline);
+    pos_info:PositionInfo (native_inline);
 }
 
 struct Stat (native_type:"NativeInfo::Stat", native_type_pack_name:"Stat")
@@ -49,13 +61,6 @@ struct Money (native_type:"NativeInfo::Money", native_type_pack_name:"Money")
 table MoneyWrapper (native_type:"MoneyT")
 {
     value:Money (native_inline);
-}
-
-table ObjectInfo (native_type:"ObjectInfoT")
-{
-    object_type:Define.ObjectType;
-    oid:int64;
-    pos_info:PositionInfo (native_inline);
 }
 
 table CreatureInfo (native_type:"CreatureInfoT")

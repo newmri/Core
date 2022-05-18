@@ -50,7 +50,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		GAME_SERVER.GetWorldDB()->IncreaseUserCount();
 
 #pragma region 캐릭터 로드
-		Info::ObjectInfoT objectInfo;
+		Info::ObjectInfoWithPosT objectInfoWithPos;
 		Info::CreatureInfoT creatureInfo;
 		GamePacket::MyCharacterInfoT characterInfo;
 		if (!GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), raw->character_uid(), creatureInfo, characterInfo))
@@ -58,7 +58,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 
 		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
-		account->SetPlayerOID(OBJECT_MANAGER.AddPlayer(raw->character_uid(), session, objectInfo, creatureInfo, characterInfo));
+		account->SetPlayerOID(OBJECT_MANAGER.AddPlayer(raw->character_uid(), session, objectInfoWithPos, creatureInfo, characterInfo));
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드
@@ -69,12 +69,12 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 #pragma endregion 재화 로드
 
 		PACKET_SEND_MANAGER.Clear();
-		auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
+		auto packedObjectInfoWithPos = Info::ObjectInfoWithPos::Pack(PACKET_SEND_MANAGER.builder, &objectInfoWithPos);
 		auto packedCreatureInfo = Info::CreatureInfo::Pack(PACKET_SEND_MANAGER.builder, &creatureInfo);
 		auto packedCharacterInfo = GamePacket::MyCharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &characterInfo);
 		auto packedMoney = Info::MoneyWrapper::Pack(PACKET_SEND_MANAGER.builder, &money);
 
-		message = GamePacket::CreateSC_LOGIN_RES(PACKET_SEND_MANAGER.builder, result, packedObjectInfo, packedCreatureInfo, packedCharacterInfo, packedMoney);
+		message = GamePacket::CreateSC_LOGIN_RES(PACKET_SEND_MANAGER.builder, result, packedObjectInfoWithPos, packedCreatureInfo, packedCharacterInfo, packedMoney);
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(
@@ -146,7 +146,8 @@ void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session
 	player->SetState(state);
 	
 	PACKET_SEND_MANAGER.Clear();
-	auto message = GamePacket::CreateSC_SET_STATE_RES(PACKET_SEND_MANAGER.builder, player->GetObjectType(), oid, state);
+	auto packetObjectInfo = player->GetPackedObjectInfo();
+	auto message = GamePacket::CreateSC_SET_STATE_RES(PACKET_SEND_MANAGER.builder, &packetObjectInfo, state);
 	ZONE_MANAGER.SendAllExceptMe(player->GetMapID(), oid, GamePacket::Packet_SC_SET_STATE_RES, message.Union(), player->GetPos());
 }
 

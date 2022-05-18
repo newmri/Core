@@ -13,7 +13,7 @@ public class ObjectManager
     static int _defaultSortOrder = 0;
     int _sortOrder = _defaultSortOrder;
 
-    public ObjectInfoT MyObjectInfo { get; set; }
+    public ObjectInfoWithPosT MyObjectInfo { get; set; }
     public CreatureInfoT MyCreatureInfo { get; set; }
     public MyCharacterInfoT MyCharacterInfo { get; set; }
     public MyPlayerController MyPlayer { get; set; }
@@ -23,7 +23,7 @@ public class ObjectManager
 
     public void AddMyPlayer()
     {
-        GameObject gameObject = CoreManagers.Obj.Add(MyObjectInfo.Oid, "Player", "Player");
+        GameObject gameObject = CoreManagers.Obj.Add(MyObjectInfo.ObjectInfo.Oid, "Player", "Player");
         MyPlayer = gameObject.GetOrAddComponent<MyPlayerController>();
         CoreManagers.Coroutine.Add(MyPlayerSetInfoDelay());
     }
@@ -36,7 +36,7 @@ public class ObjectManager
         // UI 갱신을 위해
         Managers.Account.Money = Managers.Account.Money;
 
-        MyPlayer.ObjectInfo = MyObjectInfo;
+        MyPlayer.ObjectInfoWithPos = MyObjectInfo;
         MyPlayer.CreatureInfo = MyCreatureInfo;
         MyPlayer.MyCharacterInfo = MyCharacterInfo;
         MyPlayer.SyncPos();
@@ -46,80 +46,80 @@ public class ObjectManager
         _isMyPlayerLoaded = true;
     }
 
-    public IEnumerator AddPlayer(ObjectInfoT objectInfo, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
+    public IEnumerator AddPlayer(ObjectInfoWithPosT objectInfoWithPos, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
     {
         yield return new WaitUntil(() => _isMyPlayerLoaded == true);
 
-        GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Player", "Player");
+        GameObject gameObject = CoreManagers.Obj.Add(objectInfoWithPos.ObjectInfo.Oid, "Player", "Player");
         PlayerController playerController = gameObject.GetOrAddComponent<PlayerController>();
-        CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, objectInfo, creatureInfo, characterInfo));
+        CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, objectInfoWithPos, creatureInfo, characterInfo));
     }
 
-    public IEnumerator AddProjectile(ObjectInfoT objectInfo, ProjectileType projectileType, float speed)
+    public IEnumerator AddProjectile(ObjectInfoWithPosT objectInfoWithPos, ProjectileType projectileType, float speed)
     {
         yield return new WaitUntil(() => _isMyPlayerLoaded == true);
 
-        GameObject gameObject = CoreManagers.Obj.Add(objectInfo.Oid, "Projectile", projectileType.ToString(), null, 10);
+        GameObject gameObject = CoreManagers.Obj.Add(objectInfoWithPos.ObjectInfo.Oid, "Projectile", projectileType.ToString(), null, 10);
         ProjectileController projectileController = gameObject.GetOrAddComponent<ProjectileController>();
-        CoreManagers.Coroutine.Add(ProjectileSetInfoDelay(projectileController, objectInfo, speed));
+        CoreManagers.Coroutine.Add(ProjectileSetInfoDelay(projectileController, objectInfoWithPos, speed));
     }
 
     // Init이 끝났을 때 까지 대기
-    IEnumerator PlayerSetInfoDelay(PlayerController playerController, ObjectInfoT objectInfo, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
+    IEnumerator PlayerSetInfoDelay(PlayerController playerController, ObjectInfoWithPosT objectInfoWithPos, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
     {
         yield return new WaitForEndOfFrame();
 
         if (playerController == null)
         {
-            AddPlayer(objectInfo, creatureInfo, characterInfo);
+            AddPlayer(objectInfoWithPos, creatureInfo, characterInfo);
             yield break;
         }
 
-        Debug.Log("AddPlayer oid: " + objectInfo.Oid);
+        Debug.Log("AddPlayer oid: " + objectInfoWithPos.ObjectInfo.Oid);
 
-        playerController.ObjectInfo = objectInfo;
+        playerController.ObjectInfoWithPos = objectInfoWithPos;
         playerController.CreatureInfo = creatureInfo;
         playerController.CharacterInfo = characterInfo;
         playerController.SyncPos();
-        _playerList.Add(objectInfo.Oid, playerController);
+        _playerList.Add(objectInfoWithPos.ObjectInfo.Oid, playerController);
     }
 
     // Init이 끝났을 때 까지 대기
-    IEnumerator ProjectileSetInfoDelay(ProjectileController projectileController, ObjectInfoT objectInfo, float speed)
+    IEnumerator ProjectileSetInfoDelay(ProjectileController projectileController, ObjectInfoWithPosT objectInfoWithPos, float speed)
     {
         yield return new WaitForEndOfFrame();
 
-        projectileController.ObjectInfo = objectInfo;
+        projectileController.ObjectInfoWithPos = objectInfoWithPos;
         projectileController.MoveSpeed = speed;
         projectileController.SyncPos();
-        _projectileList.Add(objectInfo.Oid, projectileController);
+        _projectileList.Add(objectInfoWithPos.ObjectInfo.Oid, projectileController);
     }
 
-    public void Move(ObjectInfoT objectInfo)
+    public void Move(ObjectInfoWithPosT objectInfoWithPos)
     {
-        BaseController baseController = GetBaseController(objectInfo.ObjectType, objectInfo.Oid);
-        baseController.PosInfo = objectInfo.PosInfo;
+        BaseController baseController = GetBaseController(objectInfoWithPos.ObjectInfo);
+        baseController.PosInfo = objectInfoWithPos.PosInfo;
     }
 
-    BaseController GetBaseController(ObjectType objectType, long oid)
+    BaseController GetBaseController(ObjectInfoT objectInfo)
     {
-        if (oid == MyPlayer.ObjectInfo.Oid)
+        if (objectInfo.Oid == MyPlayer.ObjectInfoWithPos.ObjectInfo.Oid)
         {
             return MyPlayer;
         }
 
         BaseController baseController = null;
 
-        switch (objectType)
+        switch (objectInfo.ObjectType)
         {
             case ObjectType.PLAYER:
                 PlayerController playerController;
-                if (_playerList.TryGetValue(oid, out playerController))
+                if (_playerList.TryGetValue(objectInfo.Oid, out playerController))
                     baseController = playerController;
                 break;
             case ObjectType.PROJECTILE:
                 ProjectileController projectileController;
-                if (_projectileList.TryGetValue(oid, out projectileController))
+                if (_projectileList.TryGetValue(objectInfo.Oid, out projectileController))
                     baseController = projectileController;
                 break;
             default:
@@ -129,19 +129,19 @@ public class ObjectManager
         return baseController;
     }
 
-    CreatureController GetCreatureController(ObjectType objectType, long oid)
+    CreatureController GetCreatureController(ObjectInfoT objectInfo)
     {
-        if (oid == MyPlayer.ObjectInfo.Oid)
+        if (objectInfo.Oid == MyPlayer.ObjectInfoWithPos.ObjectInfo.Oid)
         {
             return MyPlayer;
         }
 
         CreatureController creatureController = null;
-        switch (objectType)
+        switch (objectInfo.ObjectType)
         {
             case ObjectType.PLAYER:
                 PlayerController controller;
-                if (_playerList.TryGetValue(oid, out controller))
+                if (_playerList.TryGetValue(objectInfo.Oid, out controller))
                     creatureController = controller;
                 break;
             default:
@@ -151,52 +151,52 @@ public class ObjectManager
         return creatureController;
     }
 
-    public void Revive(ObjectInfoT objectInfo)
+    public void Revive(ObjectInfoWithPosT objectInfoWithPos)
     {
-        BaseController baseController = GetBaseController(objectInfo.ObjectType, objectInfo.Oid);
-        baseController.PosInfo = objectInfo.PosInfo;
+        BaseController baseController = GetBaseController(objectInfoWithPos.ObjectInfo);
+        baseController.PosInfo = objectInfoWithPos.PosInfo;
         baseController.SyncPos();
     }
 
-    public void SetState(ObjectType objectType, long oid, ObjectState state)
+    public void SetState(ObjectInfoT objectInfo, ObjectState state)
     {
-        BaseController baseController = GetBaseController(objectType, oid);
+        BaseController baseController = GetBaseController(objectInfo);
         baseController.State = state;
     }
 
-    public void UseSkill(ObjectType objectType, long oid, int skillID)
+    public void UseSkill(ObjectInfoT objectInfo, int skillID)
     {
-        CreatureController creatureController = GetCreatureController(objectType, oid);
+        CreatureController creatureController = GetCreatureController(objectInfo);
         creatureController.UseSkill(skillID);
     }
 
-    public void OnGetDamage(DamageInfo damageInfo)
+    public void OnGetDamage(DamageInfoT damageInfo)
     {
-        Debug.Log($"ObjectType:{damageInfo.ObjectType} " +
-                  $"Oid:{damageInfo.Oid} " +
+        Debug.Log($"ObjectType:{damageInfo.ObjectInfo.ObjectType} " +
+                  $"Oid:{damageInfo.ObjectInfo.Oid} " +
                   $"Damaged:{damageInfo.Damage}");
 
-        CreatureController creatureController = GetCreatureController(damageInfo.ObjectType, damageInfo.Oid);
+        CreatureController creatureController = GetCreatureController(damageInfo.ObjectInfo);
         creatureController.OnHit(damageInfo.Damage, damageInfo.IsCritical);
     }
 
-    public void Remove(ObjectType objectType, long oid)
+    public void Remove(ObjectInfoT objectInfo)
     {
-        Debug.Log("Remove oid: " + oid);
+        Debug.Log("Remove oid: " + objectInfo.Oid);
 
-        switch (objectType)
+        switch (objectInfo.ObjectType)
         {
             case ObjectType.PLAYER:
-                _playerList.Remove(oid);
+                _playerList.Remove(objectInfo.Oid);
                 break;
             case ObjectType.PROJECTILE:
-                _projectileList.Remove(oid);
+                _projectileList.Remove(objectInfo.Oid);
                 break;
             default:
                 return;
         }
 
-        CoreManagers.Obj.RemoveServerObject(oid);
+        CoreManagers.Obj.RemoveServerObject(objectInfo.Oid);
         SetSortOrder(_sortOrder - 1);
     }
 

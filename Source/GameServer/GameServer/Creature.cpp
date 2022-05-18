@@ -1,6 +1,6 @@
 #include "Include.h"
 
-Creature::Creature(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo) : Object(objectInfo), creatureInfo(creatureInfo)
+Creature::Creature(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo) : Object(objectInfoWithPos), creatureInfo(creatureInfo)
 {
 	Init();
 }
@@ -85,8 +85,8 @@ void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offs
 void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 	PACKET_SEND_MANAGER.Clear();
-	auto objectInfo = GetObjectInfo();
-	auto packedObjectInfo = Info::ObjectInfo::Pack(PACKET_SEND_MANAGER.builder, &objectInfo);
+	auto objectInfoWithPos = GetObjectInfoWithPos();
+	auto packedObjectInfo = Info::ObjectInfoWithPos::Pack(PACKET_SEND_MANAGER.builder, &objectInfoWithPos);
 	auto message = GamePacket::CreateSC_REVIVE_RES(PACKET_SEND_MANAGER.builder, packedObjectInfo);
 	packetType = GamePacket::Packet_SC_REVIVE_RES;
 	packet = message.Union();
@@ -123,8 +123,8 @@ bool Creature::OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::Ab
 
 	AddHP(-damageInfo.damage);
 
-	damageInfo.oid = GetOID();
-	damageInfo.object_type = GetObjectType();
+	damageInfo.object_info = GetObjectInfo();
+
 	return true;
 }
 

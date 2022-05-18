@@ -12,6 +12,16 @@ namespace flatbuffers
 		return NativeInfo::Vec2Int(obj.x(), obj.y());
 	}
 
+	Info::ObjectInfo PackObjectInfo(const NativeInfo::ObjectInfo& obj)
+	{
+		return Info::ObjectInfo(obj.objectType, obj.oid);
+	}
+
+	NativeInfo::ObjectInfo UnPackObjectInfo(const Info::ObjectInfo& obj)
+	{
+		return NativeInfo::ObjectInfo(obj.object_type(), obj.oid());
+	}
+
 	Info::PositionInfo PackPositionInfo(const NativeInfo::PositionInfo& obj)
 	{
 		return Info::PositionInfo(obj.mapID, PackVec2Int(obj.pos), obj.state, obj.moveDir);

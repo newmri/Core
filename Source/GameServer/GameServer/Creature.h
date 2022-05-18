@@ -5,7 +5,7 @@ class Creature : public Object, public inheritable_enable_shared_from_this<Creat
 	OVERRIDE_GAME_OBJECT(Creature)
 
 public:
-	Creature(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo);
+	Creature(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo);
 
 public:
 	Info::CreatureInfoT GetCreatureInfo(void);

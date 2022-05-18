@@ -31,7 +31,8 @@ void Skill::UseSkill(void)
 
 	{
 		PACKET_SEND_MANAGER.Clear();
-		auto message = GamePacket::CreateSC_USE_SKILL_RES(PACKET_SEND_MANAGER.builder, this->owner->GetObjectType(), this->owner->GetOID());
+		auto packetObjectInfo = this->owner->GetPackedObjectInfo();
+		auto message = GamePacket::CreateSC_USE_SKILL_RES(PACKET_SEND_MANAGER.builder, &packetObjectInfo);
 		ZONE_MANAGER.SendAllExceptMe(this->owner->GetMapID(), this->owner->GetOID(), GamePacket::Packet_SC_USE_SKILL_RES, message.Union(), this->owner->GetPos());
 	}
 

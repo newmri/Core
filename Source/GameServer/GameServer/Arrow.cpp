@@ -1,6 +1,6 @@
 #include "Include.h"
 
-Arrow::Arrow(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoT& objectInfo) : Projectile(owner, objectInfo)
+Arrow::Arrow(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoWithPosT& objectInfoWithPos) : Projectile(owner, objectInfoWithPos)
 {
 	
 }

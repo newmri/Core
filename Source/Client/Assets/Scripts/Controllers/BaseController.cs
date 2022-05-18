@@ -18,17 +18,17 @@ public class BaseController : MonoBehaviour
 
 	[SerializeField]
 
-	protected ObjectInfoT _objectInfo = new ObjectInfoT();
+	protected ObjectInfoWithPosT _objectInfoWithPos = new ObjectInfoWithPosT();
 
-	public virtual ObjectInfoT ObjectInfo
+	public virtual ObjectInfoWithPosT ObjectInfoWithPos
 	{
-		get { return _objectInfo; }
+		get { return _objectInfoWithPos; }
 		set
 		{
-			if (_objectInfo.Equals(value))
+			if (_objectInfoWithPos.Equals(value))
 				return;
 
-			_objectInfo = value;
+			_objectInfoWithPos = value;
 			UpdateAnimation();
 		}
 	}
@@ -41,10 +41,10 @@ public class BaseController : MonoBehaviour
 
 	public PositionInfoT PosInfo
 	{
-		get { return _objectInfo.PosInfo; }
+		get { return _objectInfoWithPos.PosInfo; }
 		set
 		{
-			if (_objectInfo.PosInfo.Equals(value))
+			if (_objectInfoWithPos.PosInfo.Equals(value))
 				return;
 
 			CellPos = new Vector3Int(value.Pos.X, value.Pos.Y, 0);

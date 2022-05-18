@@ -167,6 +167,21 @@ namespace NativeInfo
         int32_t y = 0;
     };
 
+    struct ObjectInfo
+    {
+        ObjectInfo()
+        {
+        };
+
+        ObjectInfo(const Define::ObjectType objectType, const int64_t oid) : objectType(objectType), oid(oid)
+        {
+
+        }
+
+        Define::ObjectType objectType = Define::ObjectType_NONE;
+        int64_t oid = 0;
+    };
+
     struct PositionInfo
     {
         PositionInfo()
@@ -259,6 +274,7 @@ namespace NativeInfo
 namespace Info
 {
     struct Vec2Int;
+    struct ObjectInfo;
     struct PositionInfo;
     struct Stat;
     struct Ability;
@@ -271,6 +287,9 @@ namespace flatbuffers
 {
     Info::Vec2Int PackVec2Int(const NativeInfo::Vec2Int& obj);
     NativeInfo::Vec2Int UnPackVec2Int(const Info::Vec2Int& obj);
+
+    Info::ObjectInfo PackObjectInfo(const NativeInfo::ObjectInfo& obj);
+    NativeInfo::ObjectInfo UnPackObjectInfo(const Info::ObjectInfo& obj);
 
     Info::PositionInfo PackPositionInfo(const NativeInfo::PositionInfo& obj);
     NativeInfo::PositionInfo UnPackPositionInfo(const Info::PositionInfo& obj);

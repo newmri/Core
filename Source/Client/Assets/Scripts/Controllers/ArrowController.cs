@@ -6,15 +6,15 @@ using Info;
 
 public class ArrowController : ProjectileController
 {
-	public override ObjectInfoT ObjectInfo
+	public override ObjectInfoWithPosT ObjectInfoWithPos
 	{
-		get { return _objectInfo; }
+		get { return _objectInfoWithPos; }
 		set
 		{
-			if (_objectInfo.Equals(value))
+			if (_objectInfoWithPos.Equals(value))
 				return;
 
-			_objectInfo = value;
+			_objectInfoWithPos = value;
 
 			if (Dir == Dir.LEFT)
 				transform.rotation = Quaternion.Euler(0, 0, -90);

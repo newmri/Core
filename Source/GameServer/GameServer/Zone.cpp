@@ -116,11 +116,11 @@ bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cell
 
 void Zone::_Enter(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
-	AddObjectInfo(index, ObjectInfo(object->GetOID(), object->GetObjectType()));
+	AddObjectInfo(index, NativeInfo::ObjectInfo(object->GetObjectType(), object->GetOID()));
 	sector->Add(object);
 }
 
-void Zone::AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo)
+void Zone::AddObjectInfo(const NativeInfo::Vec2Int& index, const NativeInfo::ObjectInfo& objectInfo)
 {
 	this->data.objects[index.y][index.x].objectInfo.push_back(objectInfo);
 }
@@ -130,7 +130,7 @@ void Zone::RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid)
 	this->data.objects[index.y][index.x].objectInfo.erase(
 		std::remove_if(this->data.objects[index.y][index.x].objectInfo.begin(),
 			this->data.objects[index.y][index.x].objectInfo.end(),
-			[&](ObjectInfo info)
+			[&](NativeInfo::ObjectInfo info)
 			{
 				return IS_SAME(oid, info.oid);
 			}), this->data.objects[index.y][index.x].objectInfo.end());
@@ -213,7 +213,7 @@ std::tuple<bool, std::shared_ptr<Object>> Zone::Move(std::shared_ptr<Object> obj
 	else
 	{
 		RemoveObjectInfo(sourceIndex, object->GetOID());
-		AddObjectInfo(destIndex, ObjectInfo(object->GetOID(), object->GetObjectType()));
+		AddObjectInfo(destIndex, NativeInfo::ObjectInfo(object->GetObjectType(), object->GetOID()));
 
 		destSector->Move(object);
 	}
@@ -238,7 +238,7 @@ bool Zone::Leave(std::shared_ptr<Object> object)
 void Zone::_Leave(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index)
 {
 	RemoveObjectInfo(index, object->GetOID());
-	sector->Remove(object->GetObjectType(), object->GetOID());
+	sector->Remove(object->GetObjectInfo());
 }
 
 void Zone::SendAll(GamePacket::Packet packetType, flatbuffers::Offset<void> packet, const NativeInfo::Vec2Int& cellPos)
@@ -286,7 +286,7 @@ void Zone::Revive(std::shared_ptr<Creature> creature)
 	if (IS_SAME(deadSector, reviveSector))
 	{
 		RemoveObjectInfo(deadIndex, creature->GetOID());
-		AddObjectInfo(this->data.startIndex, ObjectInfo(creature->GetOID(), creature->GetObjectType()));
+		AddObjectInfo(this->data.startIndex, NativeInfo::ObjectInfo(creature->GetObjectType(), creature->GetOID()));
 
 		reviveSector->Revive(creature);
 	}

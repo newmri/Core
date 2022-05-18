@@ -18,7 +18,7 @@ private:
 	void _Enter(std::shared_ptr<Object> object, Sector* sector, const NativeInfo::Vec2Int& index);
 
 private:
-	void AddObjectInfo(const NativeInfo::Vec2Int& index, ObjectInfo objectInfo);
+	void AddObjectInfo(const NativeInfo::Vec2Int& index, const NativeInfo::ObjectInfo& objectInfo);
 	void RemoveObjectInfo(const NativeInfo::Vec2Int& index, const int64_t oid);
 
 protected:

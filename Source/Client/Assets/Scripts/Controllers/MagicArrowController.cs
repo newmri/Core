@@ -8,15 +8,15 @@ public class MagicArrowController : ProjectileController
 {
 	private Vector3 _scale;
 
-	public override ObjectInfoT ObjectInfo
+	public override ObjectInfoWithPosT ObjectInfoWithPos
 	{
-		get { return _objectInfo; }
+		get { return _objectInfoWithPos; }
 		set
 		{
-			if (_objectInfo.Equals(value))
+			if (_objectInfoWithPos.Equals(value))
 				return;
 
-			_objectInfo = value;
+			_objectInfoWithPos = value;
 
 			transform.localScale = _scale;
 

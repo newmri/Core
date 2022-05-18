@@ -54,6 +54,52 @@ public class Vec2IntT
   }
 }
 
+public struct ObjectInfo : IFlatbufferObject
+{
+  private Struct __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
+  public ObjectInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.ObjectType ObjectType { get { return (Define.ObjectType)__p.bb.Get(__p.bb_pos + 0); } }
+  public long Oid { get { return __p.bb.GetLong(__p.bb_pos + 8); } }
+
+  public static Offset<Info.ObjectInfo> CreateObjectInfo(FlatBufferBuilder builder, Define.ObjectType ObjectType, long Oid) {
+    builder.Prep(8, 16);
+    builder.PutLong(Oid);
+    builder.Pad(7);
+    builder.PutByte((byte)ObjectType);
+    return new Offset<Info.ObjectInfo>(builder.Offset);
+  }
+  public ObjectInfoT UnPack() {
+    var _o = new ObjectInfoT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(ObjectInfoT _o) {
+    _o.ObjectType = this.ObjectType;
+    _o.Oid = this.Oid;
+  }
+  public static Offset<Info.ObjectInfo> Pack(FlatBufferBuilder builder, ObjectInfoT _o) {
+    if (_o == null) return default(Offset<Info.ObjectInfo>);
+    return CreateObjectInfo(
+      builder,
+      _o.ObjectType,
+      _o.Oid);
+  }
+};
+
+public class ObjectInfoT
+{
+  public Define.ObjectType ObjectType { get; set; }
+  public long Oid { get; set; }
+
+  public ObjectInfoT() {
+    this.ObjectType = Define.ObjectType.NONE;
+    this.Oid = 0;
+  }
+}
+
 public struct PositionInfo : IFlatbufferObject
 {
   private Struct __p;
@@ -114,6 +160,55 @@ public class PositionInfoT
     this.Pos = new Info.Vec2IntT();
     this.State = Define.ObjectState.IDLE;
     this.MoveDir = Define.Dir.UP;
+  }
+}
+
+public struct ObjectInfoWithPos : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static ObjectInfoWithPos GetRootAsObjectInfoWithPos(ByteBuffer _bb) { return GetRootAsObjectInfoWithPos(_bb, new ObjectInfoWithPos()); }
+  public static ObjectInfoWithPos GetRootAsObjectInfoWithPos(ByteBuffer _bb, ObjectInfoWithPos obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public ObjectInfoWithPos __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Info.ObjectInfo? ObjectInfo { get { int o = __p.__offset(4); return o != 0 ? (Info.ObjectInfo?)(new Info.ObjectInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(6); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+
+  public static void StartObjectInfoWithPos(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddObjectInfo(FlatBufferBuilder builder, Offset<Info.ObjectInfo> objectInfoOffset) { builder.AddStruct(0, objectInfoOffset.Value, 0); }
+  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(1, posInfoOffset.Value, 0); }
+  public static Offset<Info.ObjectInfoWithPos> EndObjectInfoWithPos(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Info.ObjectInfoWithPos>(o);
+  }
+  public ObjectInfoWithPosT UnPack() {
+    var _o = new ObjectInfoWithPosT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(ObjectInfoWithPosT _o) {
+    _o.ObjectInfo = this.ObjectInfo.HasValue ? this.ObjectInfo.Value.UnPack() : null;
+    _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
+  }
+  public static Offset<Info.ObjectInfoWithPos> Pack(FlatBufferBuilder builder, ObjectInfoWithPosT _o) {
+    if (_o == null) return default(Offset<Info.ObjectInfoWithPos>);
+    StartObjectInfoWithPos(builder);
+    AddObjectInfo(builder, Info.ObjectInfo.Pack(builder, _o.ObjectInfo));
+    AddPosInfo(builder, Info.PositionInfo.Pack(builder, _o.PosInfo));
+    return EndObjectInfoWithPos(builder);
+  }
+};
+
+public class ObjectInfoWithPosT
+{
+  public Info.ObjectInfoT ObjectInfo { get; set; }
+  public Info.PositionInfoT PosInfo { get; set; }
+
+  public ObjectInfoWithPosT() {
+    this.ObjectInfo = new Info.ObjectInfoT();
+    this.PosInfo = new Info.PositionInfoT();
   }
 }
 
@@ -415,72 +510,6 @@ public class MoneyWrapperT
 
   public MoneyWrapperT() {
     this.Value = new Info.MoneyT();
-  }
-}
-
-public struct ObjectInfo : IFlatbufferObject
-{
-  private Table __p;
-  public ByteBuffer ByteBuffer { get { return __p.bb; } }
-  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
-  public static ObjectInfo GetRootAsObjectInfo(ByteBuffer _bb) { return GetRootAsObjectInfo(_bb, new ObjectInfo()); }
-  public static ObjectInfo GetRootAsObjectInfo(ByteBuffer _bb, ObjectInfo obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
-  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
-  public ObjectInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
-
-  public Define.ObjectType ObjectType { get { int o = __p.__offset(4); return o != 0 ? (Define.ObjectType)__p.bb.Get(o + __p.bb_pos) : Define.ObjectType.NONE; } }
-  public long Oid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
-  public Info.PositionInfo? PosInfo { get { int o = __p.__offset(8); return o != 0 ? (Info.PositionInfo?)(new Info.PositionInfo()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-
-  public static Offset<Info.ObjectInfo> CreateObjectInfo(FlatBufferBuilder builder,
-      Define.ObjectType object_type = Define.ObjectType.NONE,
-      long oid = 0,
-      Info.PositionInfoT pos_info = null) {
-    builder.StartTable(3);
-    ObjectInfo.AddOid(builder, oid);
-    ObjectInfo.AddPosInfo(builder, Info.PositionInfo.Pack(builder, pos_info));
-    ObjectInfo.AddObjectType(builder, object_type);
-    return ObjectInfo.EndObjectInfo(builder);
-  }
-
-  public static void StartObjectInfo(FlatBufferBuilder builder) { builder.StartTable(3); }
-  public static void AddObjectType(FlatBufferBuilder builder, Define.ObjectType objectType) { builder.AddByte(0, (byte)objectType, 0); }
-  public static void AddOid(FlatBufferBuilder builder, long oid) { builder.AddLong(1, oid, 0); }
-  public static void AddPosInfo(FlatBufferBuilder builder, Offset<Info.PositionInfo> posInfoOffset) { builder.AddStruct(2, posInfoOffset.Value, 0); }
-  public static Offset<Info.ObjectInfo> EndObjectInfo(FlatBufferBuilder builder) {
-    int o = builder.EndTable();
-    return new Offset<Info.ObjectInfo>(o);
-  }
-  public ObjectInfoT UnPack() {
-    var _o = new ObjectInfoT();
-    this.UnPackTo(_o);
-    return _o;
-  }
-  public void UnPackTo(ObjectInfoT _o) {
-    _o.ObjectType = this.ObjectType;
-    _o.Oid = this.Oid;
-    _o.PosInfo = this.PosInfo.HasValue ? this.PosInfo.Value.UnPack() : null;
-  }
-  public static Offset<Info.ObjectInfo> Pack(FlatBufferBuilder builder, ObjectInfoT _o) {
-    if (_o == null) return default(Offset<Info.ObjectInfo>);
-    return CreateObjectInfo(
-      builder,
-      _o.ObjectType,
-      _o.Oid,
-      _o.PosInfo);
-  }
-};
-
-public class ObjectInfoT
-{
-  public Define.ObjectType ObjectType { get; set; }
-  public long Oid { get; set; }
-  public Info.PositionInfoT PosInfo { get; set; }
-
-  public ObjectInfoT() {
-    this.ObjectType = Define.ObjectType.NONE;
-    this.Oid = 0;
-    this.PosInfo = new Info.PositionInfoT();
   }
 }
 

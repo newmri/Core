@@ -11,13 +11,13 @@ public:
 	void Add(std::shared_ptr<Object> object);
 	void Move(std::shared_ptr<Object> object);
 	void Revive(std::shared_ptr<Creature> creature);
-	void Remove(const Define::ObjectType objectType, const int64_t& oid);
+	void Remove(const NativeInfo::ObjectInfo& objectInfo);
 
 private:
 	void SendSpawnPacketToOldPlayer(std::shared_ptr<Object> object);
 	void SendSpawnPacketToNewPlayer(std::shared_ptr<Player> player);
 
-	void SendDespawnPacket(const Define::ObjectType objectType, const int64_t& oid);
+	void SendDespawnPacket(const NativeInfo::ObjectInfo& objectInfo);
 
 public:
 	void SendAll(GamePacket::Packet packetType, flatbuffers::Offset<void> packet);
@@ -26,7 +26,7 @@ public:
 public:
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);
 	std::shared_ptr<Projectile> FindProjectile(const int64_t& oid);
-	std::shared_ptr<Object> FindObject(ObjectInfo& objectInfo);
+	std::shared_ptr<Object> FindObject(const NativeInfo::ObjectInfo& objectInfo);
 
 public:
 	void GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeDir& rangeDir, const uint8_t& range, CoreList<std::shared_ptr<Creature>>& creatureList, const bool liveCreatureOnly);

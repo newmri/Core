@@ -8,19 +8,19 @@ class ObjectManager
 
 public:
 	int64_t AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
-		Info::ObjectInfoT& objectInfo, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);
+		Info::ObjectInfoWithPosT& objectInfoWithPos, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);
 
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);
 
 	void RemovePlayer(const int64_t& oid);
 
 public:
-	void AddProjectile(const std::shared_ptr<ProjectileSkill> owner, Info::ObjectInfoT& objectInfo);
+	void AddProjectile(const std::shared_ptr<ProjectileSkill> owner, Info::ObjectInfoWithPosT& objectInfoWithPos);
 	std::shared_ptr<Projectile> FindProjectile(const int64_t& oid);
 	void RemoveProjectile(const int64_t& oid);
 
 public:
-	std::shared_ptr<Object> FindObject(ObjectInfo& objectInfo);
+	std::shared_ptr<Object> FindObject(const NativeInfo::ObjectInfo& objectInfo);
 
 private:
 	std::atomic<int64_t> oid;
