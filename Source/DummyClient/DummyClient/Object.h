@@ -45,7 +45,7 @@ public:
 	void MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 public:
-	virtual bool OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType);
+	virtual void OnGetDamage(const GamePacket::DamageInfoT& damageInfo);
 
 protected:
 	Info::ObjectInfoWithPosT objectInfoWithPos;

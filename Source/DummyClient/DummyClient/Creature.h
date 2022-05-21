@@ -29,7 +29,7 @@ public:
 	void UseSkill(const int32_t skillID);
 
 public:
-	virtual bool OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType) override;
+	virtual void OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
 
 public:
 	virtual void Revive(void);

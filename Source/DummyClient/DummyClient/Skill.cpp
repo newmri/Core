@@ -29,14 +29,8 @@ void Skill::UseSkill(void)
 	if (!IsValidCoolTime())
 		return;
 
-	{
-		GAME_PACKET_SEND_MANAGER.Clear();
-		auto packetObjectInfo = this->owner->GetPackedObjectInfo();
-		auto message = GamePacket::CreateSC_USE_SKILL_RES(GAME_PACKET_SEND_MANAGER.builder, &packetObjectInfo);
-	}
-
-	CORE_TIME_DELEGATE_MANAGER.Push(
-		CoreTimeDelegate<>(std::bind(&Skill::DoAction, this), this->skillData.skillHitTime));
+	GAME_PACKET_SEND_MANAGER.Clear();
+	auto message = GamePacket::CreateCS_USE_SKILL_REQ(GAME_PACKET_SEND_MANAGER.builder, this->skillData.skillID);
 }
 
 void Skill::DoAction(void)

@@ -49,14 +49,47 @@ void GamePacketFunc::SC_MOVE_RES(std::shared_ptr<CoreServerSession> session, con
 
 void GamePacketFunc::SC_SET_STATE_RES(std::shared_ptr<CoreServerSession> session, const void* data)
 {
+	auto raw = static_cast<const GamePacket::SC_SET_STATE_RES*>(data);
+	auto unpakcedObjectInfo = flatbuffers::UnPackObjectInfo(*raw->object_info());
+	auto object = OBJECT_MANAGER.FindObject(unpakcedObjectInfo);
+	if (IS_NULL(object))
+		return;
+
+	object->SetState(raw->state());
 }
 
 void GamePacketFunc::SC_USE_SKILL_RES(std::shared_ptr<CoreServerSession> session, const void* data)
 {
+	auto raw = static_cast<const GamePacket::SC_USE_SKILL_RES*>(data);
+	auto unpakcedObjectInfo = flatbuffers::UnPackObjectInfo(*raw->object_info());
+	auto object = OBJECT_MANAGER.FindObject(unpakcedObjectInfo);
+	if (IS_NULL(object))
+		return;
+
+	object->SetState(Define::ObjectState_SKILL);
 }
 
 void GamePacketFunc::SC_GET_DAMAGE_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
 {
+	auto raw = static_cast<const GamePacket::SC_GET_DAMAGE_NOTI*>(data);
+	auto infoList = raw->damage_info();
+	if (IS_NULL(infoList))
+		return;
+
+	auto iter_begin = infoList->begin();
+	auto iter_end = infoList->end();
+	std::shared_ptr<Object> object;
+	GamePacket::DamageInfoT damageInfo;
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		damageInfo = *iter_begin->UnPack();
+
+		object = OBJECT_MANAGER.FindObject(damageInfo.object_info);
+		if (IS_NULL(object))
+			return;
+
+		object->OnGetDamage(damageInfo);
+	}
 }
 
 void GamePacketFunc::SC_REVIVE_RES(std::shared_ptr<CoreServerSession> session, const void* data)
