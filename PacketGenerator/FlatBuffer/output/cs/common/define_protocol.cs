@@ -173,5 +173,10 @@ public enum SkillAnimationType : byte
   ATTACK_2 = 2,
 };
 
+public enum ReviveTime : int
+{
+  COOL_TIME = 5,
+};
+
 
 }

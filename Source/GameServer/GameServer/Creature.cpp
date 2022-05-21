@@ -133,7 +133,7 @@ void Creature::Revive(void)
 	if (!IsDead())
 		return;
 
-	if (this->deadTime + this->reviveTime > CORE_TIME_MANAGER.GetNowSeconds())
+	if (this->deadTime + Define::ReviveTime_COOL_TIME > CORE_TIME_MANAGER.GetNowSeconds())
 		return;
 
 	SetState(Define::ObjectState_IDLE);

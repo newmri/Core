@@ -163,3 +163,8 @@ enum SkillAnimationType : ubyte
 	ATTACK_1,
 	ATTACK_2
 }
+
+enum ReviveTime : int32
+{
+    COOL_TIME = 5,
+}

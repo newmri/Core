@@ -50,5 +50,4 @@ protected:
 
 private:
 	TIME_VALUE deadTime = 0;
-	TIME_VALUE reviveTime = 5;
 };

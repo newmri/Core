@@ -5,10 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Define;
 
 public class UIDead : UIPopup
 {
-    private int _reviveTime = 5;
+    private int _reviveTime = (int)ReviveTime.COOL_TIME;
 
     enum TextMeshProUGUIs
     {

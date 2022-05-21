@@ -730,6 +730,33 @@ inline const char *EnumNameSkillAnimationType(SkillAnimationType e) {
   return EnumNamesSkillAnimationType()[index];
 }
 
+enum ReviveTime : int32_t {
+  ReviveTime_COOL_TIME = 5,
+  ReviveTime_MIN = ReviveTime_COOL_TIME,
+  ReviveTime_MAX = ReviveTime_COOL_TIME
+};
+
+inline const ReviveTime (&EnumValuesReviveTime())[1] {
+  static const ReviveTime values[] = {
+    ReviveTime_COOL_TIME
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesReviveTime() {
+  static const char * const names[2] = {
+    "COOL_TIME",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameReviveTime(ReviveTime e) {
+  if (flatbuffers::IsOutRange(e, ReviveTime_COOL_TIME, ReviveTime_COOL_TIME)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(ReviveTime_COOL_TIME);
+  return EnumNamesReviveTime()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_
