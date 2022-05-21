@@ -1,7 +1,7 @@
 #include "Include.h"
 
-OtherPlayer::OtherPlayer(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo) :
-	Player(objectInfo, creatureInfo, PlayerType::OTHER_PLAYER), characterInfo(characterInfo)
+OtherPlayer::OtherPlayer(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo) :
+	Player(objectInfoWithPos, creatureInfo, PlayerType::OTHER_PLAYER), characterInfo(characterInfo)
 {
 	Init();
 }

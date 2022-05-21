@@ -5,7 +5,7 @@ class OtherPlayer : public Player, public CoreMemoryPoolObj<OtherPlayer, CORE_BI
 	OVERRIDE_GAME_OBJECT(OtherPlayer)
 
 public:
-	OtherPlayer(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo);
+	OtherPlayer(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo);
 
 public:
 	virtual GamePacket::CharacterInfoT GetCharacterInfo(void);

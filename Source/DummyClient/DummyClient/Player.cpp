@@ -1,7 +1,7 @@
 #include "Include.h"
 
-Player::Player(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const PlayerType playerType) :
-	Creature(objectInfo, creatureInfo), playerType(playerType)
+Player::Player(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const PlayerType playerType) :
+	Creature(objectInfoWithPos, creatureInfo), playerType(playerType)
 {
 	Init();
 }

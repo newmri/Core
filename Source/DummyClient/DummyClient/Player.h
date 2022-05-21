@@ -11,7 +11,7 @@ class Player : public Creature
 	OVERRIDE_GAME_OBJECT(Player)
 
 public:
-	Player(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const PlayerType playerType);
+	Player(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const PlayerType playerType);
 
 public:
 	PlayerType GetPlayerType(void);

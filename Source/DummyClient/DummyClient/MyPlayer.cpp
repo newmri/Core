@@ -1,8 +1,8 @@
 #include "Include.h"
 
 MyPlayer::MyPlayer(const std::shared_ptr<CoreServerSession> session,
-	const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo) :
-	session(session), Player(objectInfo, creatureInfo, PlayerType::MY_PLAYER), characterInfo(characterInfo)
+	const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo) :
+	session(session), Player(objectInfoWithPos, creatureInfo, PlayerType::MY_PLAYER), characterInfo(characterInfo)
 {
 	Init();
 }
@@ -45,10 +45,10 @@ void MyPlayer::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offs
 	auto characterInfo = GetCharacterInfo();
 
 	GAME_PACKET_SEND_MANAGER.Clear();
-	auto packedObjectInfo = Info::ObjectInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfo);
+	auto packedObjectInfoWithPos = Info::ObjectInfoWithPos::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfoWithPos);
 	auto packedCreatureInfo = Info::CreatureInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &creatureInfo);
 	auto packedCharacterInfo = GamePacket::CharacterInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &characterInfo);
-	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(GAME_PACKET_SEND_MANAGER.builder, packedObjectInfo, packedCreatureInfo, packedCharacterInfo);
+	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(GAME_PACKET_SEND_MANAGER.builder, packedObjectInfoWithPos, packedCreatureInfo, packedCharacterInfo);
 
 	packetType = GamePacket::Packet_SC_SPAWN_PLAYER_NOTI;
 	packet = message.Union();

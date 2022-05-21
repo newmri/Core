@@ -31,7 +31,8 @@ void Skill::UseSkill(void)
 
 	{
 		GAME_PACKET_SEND_MANAGER.Clear();
-		auto message = GamePacket::CreateSC_USE_SKILL_RES(GAME_PACKET_SEND_MANAGER.builder, this->owner->GetObjectType(), this->owner->GetOID());
+		auto packetObjectInfo = this->owner->GetPackedObjectInfo();
+		auto message = GamePacket::CreateSC_USE_SKILL_RES(GAME_PACKET_SEND_MANAGER.builder, &packetObjectInfo);
 	}
 
 	CORE_TIME_DELEGATE_MANAGER.Push(

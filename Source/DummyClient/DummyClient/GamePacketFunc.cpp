@@ -6,7 +6,7 @@ void GamePacketFunc::SC_LOGIN_RES(std::shared_ptr<CoreServerSession> session, co
 
 	if (IS_SAME(GamePacket::ErrorCode_SUCCESS, raw->result()))
 	{
-		OBJECT_MANAGER.AddPlayer(session, *raw->object_info()->UnPack(), *raw->creature_info()->UnPack(), *raw->character_info()->UnPack());
+		OBJECT_MANAGER.AddPlayer(session, *raw->object_info_with_pos()->UnPack(), *raw->creature_info()->UnPack(), *raw->character_info()->UnPack());
 
 		CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
 		if (IS_NULL(account))
@@ -33,11 +33,14 @@ void GamePacketFunc::SC_SPAWN_PLAYER_NOTI(std::shared_ptr<CoreServerSession> ses
 	if (DUMMY_CLIENT.IsMyPlayer(characterInfo->name))
 		return;
 
-	OBJECT_MANAGER.AddPlayer(*raw->object_info()->UnPack(), *raw->creature_info()->UnPack(), *characterInfo);
+	OBJECT_MANAGER.AddPlayer(*raw->object_info_with_pos()->UnPack(), *raw->creature_info()->UnPack(), *characterInfo);
 }
 
 void GamePacketFunc::SC_DESPAWN_OBJECT_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
 {
+	auto raw = static_cast<const GamePacket::SC_DESPAWN_OBJECT_NOTI*>(data);
+	auto unpakcedObjectInfo = flatbuffers::UnPackObjectInfo(*raw->object_info());
+	OBJECT_MANAGER.RemoveObject(unpakcedObjectInfo);
 }
 
 void GamePacketFunc::SC_MOVE_RES(std::shared_ptr<CoreServerSession> session, const void* data)

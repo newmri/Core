@@ -1,24 +1,8 @@
 #pragma once
 
-struct ObjectInfo
-{
-	ObjectInfo() : oid(INVALID_OID), objectType(Define::ObjectType_NONE)
-	{
-
-	}
-
-	ObjectInfo(const int64_t oid, const Define::ObjectType objectType) : oid(oid), objectType(objectType)
-	{
-
-	}
-
-	int64_t oid;
-	Define::ObjectType objectType;
-};
-
 struct Objects
 {
-	std::list<ObjectInfo> objectInfo;
+	std::list<NativeInfo::ObjectInfo> objectInfo;
 };
 
 class Object : public CoreGameObject, public inheritable_enable_shared_from_this<Object>
@@ -26,10 +10,12 @@ class Object : public CoreGameObject, public inheritable_enable_shared_from_this
 	OVERRIDE_GAME_OBJECT(Object)
 
 public:
-	Object(const Info::ObjectInfoT& objectInfo);
+	Object(const Info::ObjectInfoWithPosT& objectInfoWithPos);
 
 public:
-	Info::ObjectInfoT GetObjectInfo(void);
+	Info::ObjectInfoWithPosT GetObjectInfoWithPos(void);
+	NativeInfo::ObjectInfo GetObjectInfo(void);
+	Info::ObjectInfo GetPackedObjectInfo(void);
 	NativeInfo::PositionInfo GetPosInfo(void);
 	Define::ObjectType GetObjectType(void) const;
 	int64_t GetOID(void) const;
@@ -62,7 +48,7 @@ public:
 	virtual bool OnGetDamage(GamePacket::DamageInfoT& damageInfo, const Define::AbilityType defenceType);
 
 protected:
-	Info::ObjectInfoT objectInfo;
+	Info::ObjectInfoWithPosT objectInfoWithPos;
 
 private:
 	CACHE_ALIGN std::shared_mutex infoMutex;

@@ -11,24 +11,56 @@ void ObjectManager::Release(void)
 	GetInstance().~ObjectManager();
 }
 
-void ObjectManager::AddPlayer(std::shared_ptr<CoreServerSession> session, const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo)
+void ObjectManager::AddPlayer(std::shared_ptr<CoreServerSession> session, const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo)
 {
-	session->SetPlayerOID(objectInfo.oid);
+	session->SetPlayerOID(objectInfoWithPos.object_info.oid);
 
-	auto player = std::make_shared<MyPlayer>(session, objectInfo, creatureInfo, characterInfo);
+	auto player = std::make_shared<MyPlayer>(session, objectInfoWithPos, creatureInfo, characterInfo);
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
 
 	WRITE_LOCK(this->playerMutex);
-	this->playerList[objectInfo.oid] = player;
+	this->playerList[objectInfoWithPos.object_info.oid] = player;
 }
 
-void ObjectManager::AddPlayer(const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo)
+void ObjectManager::AddPlayer(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo)
 {
-	auto player = std::make_shared<OtherPlayer>(objectInfo, creatureInfo, characterInfo);
+	auto player = std::make_shared<OtherPlayer>(objectInfoWithPos, creatureInfo, characterInfo);
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
 
 	WRITE_LOCK(this->playerMutex);
-	this->playerList[objectInfo.oid] = player;
+	this->playerList[objectInfoWithPos.object_info.oid] = player;
+}
+
+void ObjectManager::RemoveObject(const NativeInfo::ObjectInfo& objectInfo)
+{
+}
+
+std::shared_ptr<Object> ObjectManager::FindObject(const NativeInfo::ObjectInfo& objectInfo)
+{
+	switch (objectInfo.objectType)
+	{
+	case Define::ObjectType_PLAYER:
+		return FindPlayer(objectInfo.oid);
+	case Define::ObjectType_MONSTER:
+		break;
+	case Define::ObjectType_PROJECTILE:
+		return FindProjectile(objectInfo.oid);
+	default:
+		return nullptr;
+	}
+
+	return nullptr;
+}
+
+
+void ObjectManager::RemovePlayer(const int64_t& oid)
+{
+	auto player = FindPlayer(oid);
+	if (IS_NULL(player))
+		return;
+
+	WRITE_LOCK(this->playerMutex);
+	this->playerList.erase(oid);
 }
 
 std::shared_ptr<Player> ObjectManager::FindPlayer(const int64_t& oid)
@@ -42,41 +74,20 @@ std::shared_ptr<Player> ObjectManager::FindPlayer(const int64_t& oid)
 	return nullptr;
 }
 
-void ObjectManager::RemovePlayer(const int64_t& oid)
-{
-	auto player = FindPlayer(oid);
-	if (IS_NULL(player))
-		return;
-
-	WRITE_LOCK(this->playerMutex);
-	this->playerList.erase(oid);
-}
-
-void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoT& objectInfo)
+void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoWithPosT& objectInfoWithPos)
 {
 	std::shared_ptr<Projectile> projectile = nullptr;
 	switch (owner->GetSkillType())
 	{
 	case Define::SkillType_ARROW:
-		projectile = std::make_shared<Arrow>(owner, objectInfo);
+		projectile = std::make_shared<Arrow>(owner, objectInfoWithPos);
 		break;
 	default:
 		return;
 	}
 
 	WRITE_LOCK(this->projectileMutex);
-	this->projectileList[objectInfo.oid] = projectile;
-}
-
-std::shared_ptr<Projectile> ObjectManager::FindProjectile(const int64_t& oid)
-{
-	READ_LOCK(this->projectileMutex);
-
-	auto iter = this->projectileList.find(oid);
-	if (IS_NOT_SAME(iter, this->projectileList.end()))
-		return iter->second;
-
-	return nullptr;
+	this->projectileList[objectInfoWithPos.object_info.oid] = projectile;
 }
 
 void ObjectManager::RemoveProjectile(const int64_t& oid)
@@ -89,19 +100,13 @@ void ObjectManager::RemoveProjectile(const int64_t& oid)
 	this->projectileList.erase(oid);
 }
 
-std::shared_ptr<Object> ObjectManager::FindObject(ObjectInfo& objectInfo)
+std::shared_ptr<Projectile> ObjectManager::FindProjectile(const int64_t& oid)
 {
-	switch (objectInfo.objectType)
-	{
-	case Define::ObjectType_PLAYER:
-		return FindPlayer(objectInfo.oid);
-	case Define::ObjectType_MONSTER:
-		break;
-	case Define::ObjectType_PROJECTILE:
-		return FindProjectile(objectInfo.oid);
-	default:
-		return nullptr;
-	}
+	READ_LOCK(this->projectileMutex);
+
+	auto iter = this->projectileList.find(oid);
+	if (IS_NOT_SAME(iter, this->projectileList.end()))
+		return iter->second;
 
 	return nullptr;
 }

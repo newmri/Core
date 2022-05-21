@@ -1,6 +1,6 @@
 #include "Include.h"
 
-Object::Object(const Info::ObjectInfoT& objectInfo) : objectInfo(objectInfo)
+Object::Object(const Info::ObjectInfoWithPosT& objectInfoWithPos) : objectInfoWithPos(objectInfoWithPos)
 {
 	Init();
 }
@@ -20,32 +20,42 @@ void Object::Update(void)
 
 }
 
-Info::ObjectInfoT Object::GetObjectInfo(void)
+Info::ObjectInfoWithPosT Object::GetObjectInfoWithPos(void)
 {
 	READ_LOCK(this->infoMutex);
-	return this->objectInfo;
+	return this->objectInfoWithPos;
+}
+
+NativeInfo::ObjectInfo Object::GetObjectInfo(void)
+{
+	return this->objectInfoWithPos.object_info;
+}
+
+Info::ObjectInfo Object::GetPackedObjectInfo(void)
+{
+	return flatbuffers::PackObjectInfo(GetObjectInfo());
 }
 
 NativeInfo::PositionInfo Object::GetPosInfo(void)
 {
 	READ_LOCK(this->infoMutex);
-	return this->objectInfo.pos_info;
+	return this->objectInfoWithPos.pos_info;
 }
 
 Define::ObjectType Object::GetObjectType(void) const
 {
-	return this->objectInfo.object_type;
+	return this->objectInfoWithPos.object_info.objectType;
 }
 
 int64_t Object::GetOID(void) const
 {
-	return this->objectInfo.oid;
+	return this->objectInfoWithPos.object_info.oid;
 }
 
 int32_t Object::GetMapID(void)
 {
 	READ_LOCK(this->infoMutex);
-	return this->objectInfo.pos_info.mapID;
+	return this->objectInfoWithPos.pos_info.mapID;
 }
 
 NativeInfo::Vec2Int Object::GetPos(void)
@@ -57,7 +67,7 @@ NativeInfo::Vec2Int Object::GetPos(void)
 Define::Dir Object::GetDir(void)
 {
 	READ_LOCK(this->infoMutex);
-	return this->objectInfo.pos_info.moveDir;
+	return this->objectInfoWithPos.pos_info.moveDir;
 }
 
 bool Object::IsDead(void)
@@ -73,12 +83,12 @@ Define::ObjectState Object::GetState(void)
 
 NativeInfo::Vec2Int Object::GetPosWithNoLock(void) const
 {
-	return this->objectInfo.pos_info.pos;
+	return this->objectInfoWithPos.pos_info.pos;
 }
 
 Define::ObjectState Object::GetStateWithNoLock(void) const
 {
-	return this->objectInfo.pos_info.state;
+	return this->objectInfoWithPos.pos_info.state;
 }
 
 void Object::SetMove(const Define::ObjectState state, const NativeInfo::Vec2Int& destPos)
@@ -109,17 +119,17 @@ void Object::SetPos(const NativeInfo::Vec2Int& pos)
 
 void Object::SetStateWithNoLock(const Define::ObjectState state)
 {
-	this->objectInfo.pos_info.state = state;
+	this->objectInfoWithPos.pos_info.state = state;
 }
 
 void Object::SetDirectionWithNoLock(const NativeInfo::Vec2Int& destPos)
 {
-	this->objectInfo.pos_info.moveDir = GetPosWithNoLock().GetDirection(destPos);
+	this->objectInfoWithPos.pos_info.moveDir = GetPosWithNoLock().GetDirection(destPos);
 }
 
 void Object::SetPosWithNoLock(const NativeInfo::Vec2Int& pos)
 {
-	this->objectInfo.pos_info.pos = pos;
+	this->objectInfoWithPos.pos_info.pos = pos;
 }
 
 void Object::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
@@ -129,8 +139,8 @@ void Object::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset
 void Object::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 	GAME_PACKET_SEND_MANAGER.Clear();
-	auto objectInfo = GetObjectInfo();
-	auto packedObjectInfo = Info::ObjectInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfo);
+	auto objectInfoWithPos = GetObjectInfoWithPos();
+	auto packedObjectInfo = Info::ObjectInfoWithPos::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfoWithPos);
 	auto message = GamePacket::CreateSC_MOVE_RES(GAME_PACKET_SEND_MANAGER.builder, packedObjectInfo);
 	packetType = GamePacket::Packet_SC_MOVE_RES;
 	packet = message.Union();

@@ -6,7 +6,7 @@ class MyPlayer : public Player, public CoreMemoryPoolObj<MyPlayer, CORE_BIG_SIZE
 
 public:
 	MyPlayer(const std::shared_ptr<CoreServerSession> session,
-		const Info::ObjectInfoT& objectInfo, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
+		const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo);
 
 public:
 	std::shared_ptr<CoreServerSession> GetSession(void);
