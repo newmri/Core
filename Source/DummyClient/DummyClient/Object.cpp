@@ -138,10 +138,6 @@ void Object::SetPosWithNoLock(const NativeInfo::Vec2Int& pos)
 	this->objectInfoWithPos.pos_info.pos = pos;
 }
 
-void Object::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
-{
-}
-
 void Object::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 	GAME_PACKET_SEND_MANAGER.Clear();

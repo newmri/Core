@@ -4,6 +4,8 @@
 
 #define CORE_RANDOM_MANAGER_INT (GET_INSTANCE(CoreRandomManager<int32_t>))
 #define CORE_RANDOM_MANAGER_SIZE_T (GET_INSTANCE(CoreRandomManager<size_t>))
+#define CORE_RANDOM_MANAGER_TIME (GET_INSTANCE(CoreRandomManager<TIME_VALUE>))
+
 #define CORE_RANDOM_MANAGER_FLOAT (GET_INSTANCE(CoreRandomManager<float_t>))
 
 template<typename T>

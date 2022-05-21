@@ -25,7 +25,6 @@ void ObjectManager::AddPlayer(std::shared_ptr<CoreServerSession> session, const 
 void ObjectManager::AddPlayer(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo)
 {
 	auto player = std::make_shared<OtherPlayer>(objectInfoWithPos, creatureInfo, characterInfo);
-	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
 
 	WRITE_LOCK(this->playerMutex);
 	this->playerList[objectInfoWithPos.object_info.oid] = player;

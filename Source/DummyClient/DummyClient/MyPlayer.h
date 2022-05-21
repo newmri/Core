@@ -15,16 +15,14 @@ public:
 	virtual GamePacket::CharacterInfoT GetCharacterInfo(void) override;
 
 public:
-	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
-
-public:
 	void Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet);
 
 public:
 	virtual void SetState(const Define::ObjectState state) override;
 
 public:
-	virtual void AddSkill(const int32_t skillID) override;
+	void AddSkill(const int32_t skillID);
+	void UseSkill(void);
 
 public:
 	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;

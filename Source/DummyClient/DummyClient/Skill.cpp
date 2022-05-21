@@ -21,16 +21,15 @@ Skill::Skill(const std::shared_ptr<Creature> owner, const SkillData& skillData)
 	Init();
 }
 
-void Skill::UseSkill(void)
+bool Skill::UseSkill(void)
 {
 	if (!this->owner->UseHPMP(this->skillData.HP, this->skillData.MP))
-		return;
+		return false;
 
 	if (!IsValidCoolTime())
-		return;
+		return false;
 
-	GAME_PACKET_SEND_MANAGER.Clear();
-	auto message = GamePacket::CreateCS_USE_SKILL_REQ(GAME_PACKET_SEND_MANAGER.builder, this->skillData.skillID);
+	return true;
 }
 
 void Skill::DoAction(void)

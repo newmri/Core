@@ -79,27 +79,6 @@ std::tuple<int32_t, int32_t> Creature::GetHPMP(void)
 	return std::tuple<int32_t, int32_t>(this->creatureInfo.hp, this->creatureInfo.mp);
 }
 
-void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
-{
-
-}
-
-void Creature::AddSkill(const int32_t skillID)
-{
-
-}
-
-void Creature::UseSkill(const int32_t skillID)
-{
-	READ_LOCK(this->skillMutex);
-
-	auto iter = this->skillList.find(skillID);
-	if (IS_SAME(iter, this->skillList.end()))
-		return;
-
-	iter->second->UseSkill();
-}
-
 bool Creature::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
 {
 	if (IsDead())

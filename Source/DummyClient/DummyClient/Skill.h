@@ -13,7 +13,7 @@ public:
 	Skill(const std::shared_ptr<Creature> owner, const SkillData& skillData);
 
 public:
-	void UseSkill(void);
+	bool UseSkill(void);
 
 protected:
 	virtual void DoAction(void);

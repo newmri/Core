@@ -7,9 +7,6 @@ class Projectile : public Object, public CoreMemoryPoolObj<Projectile, CORE_BIG_
 public:
 	Projectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoWithPosT& objectInfoWithPos);
 
-public:
-	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
-
 protected:
 	virtual void DoDamage(std::shared_ptr<Object> target);
 

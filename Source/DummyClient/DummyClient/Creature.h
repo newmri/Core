@@ -21,13 +21,6 @@ public:
 	std::tuple<int32_t, int32_t> GetHPMP(void);
 
 public:
-	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
-
-public:
-	virtual void AddSkill(const int32_t skillID);
-	void UseSkill(const int32_t skillID);
-
-public:
 	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
 
 public:

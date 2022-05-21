@@ -31,19 +31,9 @@ GamePacket::CharacterInfoT Player::GetCharacterInfo(void)
 	return GamePacket::CharacterInfoT();
 }
 
-void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
-{
-
-}
-
 void Player::SetState(const Define::ObjectState state)
 {
 	Creature::SetState(state);
-}
-
-void Player::AddSkill(const int32_t skillID)
-{
-	
 }
 
 bool Player::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)

@@ -27,16 +27,7 @@ GamePacket::CharacterInfoT OtherPlayer::GetCharacterInfo(void)
 	return this->characterInfo;
 }
 
-void OtherPlayer::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
-{
-
-}
 void OtherPlayer::SetState(const Define::ObjectState state)
 {
 	Player::SetState(state);
-}
-
-void OtherPlayer::AddSkill(const int32_t skillID)
-{
-
 }

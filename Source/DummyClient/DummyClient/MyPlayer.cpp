@@ -19,7 +19,10 @@ MyPlayer::~MyPlayer()
 
 void MyPlayer::Init(void)
 {
-
+	CORE_TIME_DELEGATE_MANAGER.Push(
+		CoreTimeDelegate<>(
+			std::bind(&MyPlayer::UseSkill, this),
+			CORE_RANDOM_MANAGER_TIME.GetRandom(SEC, SEC * 10)));
 }
 
 void MyPlayer::Update(void)
@@ -36,22 +39,6 @@ GamePacket::CharacterInfoT MyPlayer::GetCharacterInfo(void)
 	info.job = this->characterInfo.job;
 	memcpy_s(&info.gear, sizeof(info.gear), &this->characterInfo.gear, sizeof(this->characterInfo.gear));
 	return info;
-}
-
-void MyPlayer::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
-{
-	auto objectInfo = GetObjectInfo();
-	auto creatureInfo = GetCreatureInfo();
-	auto characterInfo = GetCharacterInfo();
-
-	GAME_PACKET_SEND_MANAGER.Clear();
-	auto packedObjectInfoWithPos = Info::ObjectInfoWithPos::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfoWithPos);
-	auto packedCreatureInfo = Info::CreatureInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &creatureInfo);
-	auto packedCharacterInfo = GamePacket::CharacterInfo::Pack(GAME_PACKET_SEND_MANAGER.builder, &characterInfo);
-	auto message = GamePacket::CreateSC_SPAWN_PLAYER_NOTI(GAME_PACKET_SEND_MANAGER.builder, packedObjectInfoWithPos, packedCreatureInfo, packedCharacterInfo);
-
-	packetType = GamePacket::Packet_SC_SPAWN_PLAYER_NOTI;
-	packet = message.Union();
 }
 
 void MyPlayer::Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
@@ -86,6 +73,36 @@ void MyPlayer::AddSkill(const int32_t skillID)
 		this->skillList[skillID] = std::make_shared<ProjectileSkill>(Object::downcasted_shared_from_this<Creature>(), skillData);
 		break;
 	}
+}
+
+void MyPlayer::UseSkill(void)
+{
+	CORE_TIME_DELEGATE_MANAGER.Push(
+		CoreTimeDelegate<>(
+			std::bind(&MyPlayer::UseSkill, this),
+			CORE_RANDOM_MANAGER_TIME.GetRandom(SEC, SEC * 10)));
+
+	if (IsDead())
+		return;
+
+	READ_LOCK(this->skillMutex);
+
+	if (this->skillList.empty())
+		return;
+
+	int32_t offset = CORE_RANDOM_MANAGER_INT.GetRandom(0, static_cast<int32_t>(this->skillList.size() - 1));
+	auto iter = this->skillList.begin();
+
+	for (int32_t i = 0; i < offset; ++i)
+		++iter;
+
+	if (iter->second->UseSkill())
+	{
+		GAME_PACKET_SEND_MANAGER.Clear();
+		auto message = GamePacket::CreateCS_USE_SKILL_REQ(GAME_PACKET_SEND_MANAGER.builder, iter->first);
+		GAME_PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_CS_USE_SKILL_REQ, message.Union());
+	}
+
 }
 
 bool MyPlayer::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
