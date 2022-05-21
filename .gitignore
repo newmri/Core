@@ -12,16 +12,19 @@
 /Source/GameServer/x64/*/*.exe
 /Source/GameServer/x64/*/*.idb
 /Source/GameServer/x64/*/*.lib
+/Source/GameServer/x64/*/*.log
 
 /Source/LoginServer/Intermediate/
 /Source/LoginServer/x64/*/*.exe
 /Source/LoginServer/x64/*/*.idb
 /Source/LoginServer/x64/*/*.lib
+/Source/LoginServer/x64/*/*.log
 
 /Source/DummyClient/Intermediate/
 /Source/DummyClient/x64/*/*.exe
 /Source/DummyClient/x64/*/*.idb
 /Source/DummyClient/x64/*/*.lib
+/Source/DummyClient/x64/*/*.log
 
 ### C++ ###
 # Prerequisites
