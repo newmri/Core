@@ -2,16 +2,26 @@
 # Created by https://www.toptal.com/developers/gitignore/api/c++,windows,visualstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=c++,windows,visualstudio
 
+
 /Source/Client/[Ll]ibrary/
 /Source/Client/Temp
 
 /Source/Client/Builds/
 
 /Source/GameServer/Intermediate/
+/Source/GameServer/x64/*/*.exe
+/Source/GameServer/x64/*/*.idb
+/Source/GameServer/x64/*/*.lib
 
 /Source/LoginServer/Intermediate/
+/Source/LoginServer/x64/*/*.exe
+/Source/LoginServer/x64/*/*.idb
+/Source/LoginServer/x64/*/*.lib
 
 /Source/DummyClient/Intermediate/
+/Source/DummyClient/x64/*/*.exe
+/Source/DummyClient/x64/*/*.idb
+/Source/DummyClient/x64/*/*.lib
 
 ### C++ ###
 # Prerequisites
