@@ -10,7 +10,7 @@ namespace UnityCoreLibrary
         // Start is called before the first frame update
         void Start()
         {
-            _maxActive = 100;
+            _maxActive = 1024;
         }
 
         public Coroutine Add(IEnumerator coroutine)
