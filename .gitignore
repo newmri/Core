@@ -6,6 +6,16 @@
 /Source/Client/Temp
 
 /Source/Client/Builds/
+
+/Source/GameServer/x64/
+/Source/GameServer/Intermediate/
+
+/Source/LoginServer/x64/
+/Source/LoginServer/Intermediate/
+
+/Source/DummyClient/x64/
+/Source/DummyClient/Intermediate/
+
 ### C++ ###
 # Prerequisites
 *.d
