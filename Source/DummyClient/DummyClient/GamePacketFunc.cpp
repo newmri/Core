@@ -94,6 +94,13 @@ void GamePacketFunc::SC_GET_DAMAGE_NOTI(std::shared_ptr<CoreServerSession> sessi
 
 void GamePacketFunc::SC_REVIVE_RES(std::shared_ptr<CoreServerSession> session, const void* data)
 {
+	auto raw = static_cast<const GamePacket::SC_REVIVE_RES*>(data);
+	auto unpakcedObjectInfoWithPos = raw->object_info_with_pos()->UnPack();
+	auto object = OBJECT_MANAGER.FindObject(unpakcedObjectInfoWithPos->object_info);
+	if (IS_NULL(object))
+		return;
+
+	object->SetObjectInfoWithPos(*unpakcedObjectInfoWithPos);
 }
 
 void GamePacketFunc::SC_SPAWN_PROJECTILE_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)

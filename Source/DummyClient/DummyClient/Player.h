@@ -28,6 +28,9 @@ public:
 public:
 	virtual void AddSkill(const int32_t skillID) override;
 
+public:
+	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
+
 private:
 	PlayerType playerType;
 };

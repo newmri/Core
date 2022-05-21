@@ -58,7 +58,7 @@ bool Creature::UseHPMP(const int32_t HP, const int32_t MP)
 	return true;
 }
 
-void Creature::AddHP(const int32_t HP)
+bool Creature::AddHP(const int32_t HP)
 {
 	WRITE_LOCK(this->infoMutex);
 	this->creatureInfo.hp += HP;
@@ -66,9 +66,11 @@ void Creature::AddHP(const int32_t HP)
 	if (0 >= this->creatureInfo.hp)
 	{
 		this->creatureInfo.hp = 0;
-		this->deadTime = CORE_TIME_MANAGER.GetNowSeconds();
 		SetStateWithNoLock(Define::ObjectState_DEAD);
+		return true;
 	}
+
+	return false;
 }
 
 std::tuple<int32_t, int32_t> Creature::GetHPMP(void)
@@ -80,16 +82,6 @@ std::tuple<int32_t, int32_t> Creature::GetHPMP(void)
 void Creature::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 
-}
-
-void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
-{
-	GAME_PACKET_SEND_MANAGER.Clear();
-	auto objectInfoWithPos = GetObjectInfoWithPos();
-	auto packedObjectInfo = Info::ObjectInfoWithPos::Pack(GAME_PACKET_SEND_MANAGER.builder, &objectInfoWithPos);
-	auto message = GamePacket::CreateSC_REVIVE_RES(GAME_PACKET_SEND_MANAGER.builder, packedObjectInfo);
-	packetType = GamePacket::Packet_SC_REVIVE_RES;
-	packet = message.Union();
 }
 
 void Creature::AddSkill(const int32_t skillID)
@@ -108,17 +100,17 @@ void Creature::UseSkill(const int32_t skillID)
 	iter->second->UseSkill();
 }
 
-void Creature::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
+bool Creature::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
 {
-	AddHP(-damageInfo.damage);
+	if (IsDead())
+		return false;
+
+	return AddHP(-damageInfo.damage);
 }
 
 void Creature::Revive(void)
 {
 	if (!IsDead())
-		return;
-
-	if (this->deadTime + this->reviveTime > CORE_TIME_MANAGER.GetNowSeconds())
 		return;
 
 	SetState(Define::ObjectState_IDLE);

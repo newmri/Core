@@ -26,6 +26,10 @@ public:
 public:
 	virtual void AddSkill(const int32_t skillID) override;
 
+public:
+	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
+	void SendReviveReq(void);
+
 private:
 	std::shared_ptr<CoreServerSession> session;
 	GamePacket::MyCharacterInfoT characterInfo;

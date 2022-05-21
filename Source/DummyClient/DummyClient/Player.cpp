@@ -45,3 +45,8 @@ void Player::AddSkill(const int32_t skillID)
 {
 	
 }
+
+bool Player::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
+{
+	return Creature::OnGetDamage(damageInfo);
+}

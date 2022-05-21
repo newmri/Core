@@ -285,13 +285,17 @@ void Zone::Revive(std::shared_ptr<Creature> creature)
 	// 사망 섹터와 부활 섹터가 같음
 	if (IS_SAME(deadSector, reviveSector))
 	{
-		RemoveObjectInfo(deadIndex, creature->GetOID());
-		AddObjectInfo(this->data.startIndex, NativeInfo::ObjectInfo(creature->GetObjectType(), creature->GetOID()));
+		{
+			WRITE_LOCK(this->mutex);
+			RemoveObjectInfo(deadIndex, creature->GetOID());
+			AddObjectInfo(this->data.startIndex, NativeInfo::ObjectInfo(creature->GetObjectType(), creature->GetOID()));
+		}
 
 		reviveSector->Revive(creature);
 	}
 	else
 	{
+		WRITE_LOCK(this->mutex);
 		_Leave(creature, deadSector, deadIndex);
 		_Enter(creature, reviveSector, this->data.startIndex);
 	}

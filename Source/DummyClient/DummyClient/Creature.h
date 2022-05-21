@@ -17,19 +17,18 @@ protected:
 
 public:
 	bool UseHPMP(const int32_t HP, const int32_t MP);
-	void AddHP(const int32_t HP);
+	bool AddHP(const int32_t HP);
 	std::tuple<int32_t, int32_t> GetHPMP(void);
 
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
-	void MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 public:
 	virtual void AddSkill(const int32_t skillID);
 	void UseSkill(const int32_t skillID);
 
 public:
-	virtual void OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
+	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
 
 public:
 	virtual void Revive(void);
@@ -44,8 +43,4 @@ protected:
 protected:
 	CACHE_ALIGN std::shared_mutex skillMutex;
 	std::map<int32_t, std::shared_ptr<Skill>> skillList;
-
-private:
-	TIME_VALUE deadTime = 0;
-	TIME_VALUE reviveTime = 5;
 };

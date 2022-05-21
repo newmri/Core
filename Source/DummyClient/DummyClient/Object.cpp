@@ -91,6 +91,12 @@ Define::ObjectState Object::GetStateWithNoLock(void) const
 	return this->objectInfoWithPos.pos_info.state;
 }
 
+void Object::SetObjectInfoWithPos(const Info::ObjectInfoWithPosT& objectInfoWithPos)
+{
+	WRITE_LOCK(this->infoMutex);
+	this->objectInfoWithPos = objectInfoWithPos;
+}
+
 void Object::SetMove(const Define::ObjectState state, const NativeInfo::Vec2Int& destPos)
 {
 	WRITE_LOCK(this->infoMutex);
@@ -146,7 +152,7 @@ void Object::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<
 	packet = message.Union();
 }
 
-void Object::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
+bool Object::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
 {
-	
+	return false;
 }

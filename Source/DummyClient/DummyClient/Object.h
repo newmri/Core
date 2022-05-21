@@ -30,6 +30,7 @@ protected:
 	Define::ObjectState GetStateWithNoLock(void) const;
 
 public:
+	void SetObjectInfoWithPos(const Info::ObjectInfoWithPosT& objectInfoWithPos);
 	void SetMove(const Define::ObjectState state, const NativeInfo::Vec2Int& destPos);
 	virtual void SetState(const Define::ObjectState state);
 	void SetDirection(const NativeInfo::Vec2Int& destPos);
@@ -45,7 +46,7 @@ public:
 	void MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet);
 
 public:
-	virtual void OnGetDamage(const GamePacket::DamageInfoT& damageInfo);
+	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo);
 
 protected:
 	Info::ObjectInfoWithPosT objectInfoWithPos;
