@@ -36,4 +36,5 @@ private:
 
 private:
 	TIME_VALUE lastMoveTime = 0;
+	TIME_VALUE reviveTime = Define::ReviveTime_COOL_TIME * SEC;
 };

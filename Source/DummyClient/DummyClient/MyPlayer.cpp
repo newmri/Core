@@ -92,12 +92,10 @@ bool MyPlayer::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
 {
 	if (Player::OnGetDamage(damageInfo))
 	{
-		TIME_VALUE reviveTime = Define::ReviveTime_COOL_TIME * SEC;
-
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(
 				std::bind(&MyPlayer::SendReviveReq, this),
-				reviveTime, reviveTime, 2));
+				this->reviveTime, this->reviveTime, 2));
 
 		return true;
 	}
