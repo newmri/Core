@@ -92,10 +92,12 @@ bool MyPlayer::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
 {
 	if (Player::OnGetDamage(damageInfo))
 	{
+		TIME_VALUE reviveTime = Define::ReviveTime_COOL_TIME * SEC;
+
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(
 				std::bind(&MyPlayer::SendReviveReq, this),
-				(Define::ReviveTime_COOL_TIME + 1) * SEC));
+				reviveTime, reviveTime, 2));
 
 		return true;
 	}
@@ -105,7 +107,10 @@ bool MyPlayer::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
 
 void MyPlayer::SendReviveReq(void)
 {
-	GAME_PACKET_SEND_MANAGER.Clear();
-	auto message = GamePacket::CreateCS_REVIVE_REQ(GAME_PACKET_SEND_MANAGER.builder);
-	GAME_PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_CS_REVIVE_REQ, message.Union());
+	if (IsDead())
+	{
+		GAME_PACKET_SEND_MANAGER.Clear();
+		auto message = GamePacket::CreateCS_REVIVE_REQ(GAME_PACKET_SEND_MANAGER.builder);
+		GAME_PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_CS_REVIVE_REQ, message.Union());
+	}
 }
