@@ -213,7 +213,7 @@ std::tuple<bool, std::shared_ptr<Object>> Zone::Move(std::shared_ptr<Object> obj
 	else
 	{
 		RemoveObjectInfo(sourceIndex, object->GetOID());
-		AddObjectInfo(destIndex, NativeInfo::ObjectInfo(object->GetObjectType(), object->GetOID()));
+		AddObjectInfo(destIndex, object->GetObjectInfo());
 
 		destSector->Move(object);
 	}

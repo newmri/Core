@@ -89,26 +89,38 @@ void CoreClientSession::ReadBody(void)
 
 bool CoreClientSession::IsValidPacketSpeed(void)
 {
-	if (IS_SAME(0, this->prevPacketTime))
+	TIME_VALUE _prevPacketTime = 0;
+	{
+		READ_LOCK(this->speedHackMutex);
+		_prevPacketTime = this->prevPingPongTime;
+	}
+
+	if (IS_SAME(0, _prevPacketTime))
+	{
+		WRITE_LOCK(this->speedHackMutex);
 		this->prevPacketTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
+	}
 	else
 	{
 		TIME_VALUE now = CORE_TIME_MANAGER.GetNowMilliSeconds();
-		TIME_VALUE timeDiff = now - this->prevPacketTime;
+		TIME_VALUE timeDiff = now - _prevPacketTime;
 
+		int32_t _packetCount = 0;
 		if (this->speedHackCheckTime < timeDiff)
 		{
+			WRITE_LOCK(this->speedHackMutex);
 			this->prevPacketTime = now;
 			this->packetCount = 0;
 		}
 		else
 		{
-			++this->packetCount;
+			WRITE_LOCK(this->speedHackMutex);
+			_packetCount = ++this->packetCount;
 		}
 
-		if (this->maxPacketCount <= this->packetCount)
+		if (this->maxPacketCount <= _packetCount)
 		{
-			CORE_LOG.Log(LogType::LOG_HACK, GetOID(), ENUM_TO_STR(SPEED_HACK));
+			CORE_LOG.Log(LogType::LOG_HACK, GetOID(), ENUM_TO_STR(SPEED_HACK) + " PacketCount: " + TO_STR(_packetCount));
 			this->server->Close(shared_from_this());
 			return false;
 		}
@@ -119,7 +131,13 @@ bool CoreClientSession::IsValidPacketSpeed(void)
 
 void CoreClientSession::CheckPingPongTime(void)
 {
-	if (IS_SAME(0, this->prevPingPongTime))
+	TIME_VALUE _prevPingPongTime = 0;
+	{
+		READ_LOCK(this->pingPongMutex);
+		_prevPingPongTime = this->prevPingPongTime;
+	}
+
+	if (IS_SAME(0, _prevPingPongTime))
 	{
 		UpdatePingPongTime();
 		this->server->SendPing(shared_from_this());
@@ -127,10 +145,11 @@ void CoreClientSession::CheckPingPongTime(void)
 	}
 
 	TIME_VALUE now = CORE_TIME_MANAGER.GetNowMilliSeconds();
-	TIME_VALUE timeDiff = now - this->prevPingPongTime;
+	TIME_VALUE timeDiff = now - _prevPingPongTime;
 
-	if (this->pingPongCheckTime < timeDiff)
+	if (_prevPingPongTime < timeDiff)
 	{
+		CORE_LOG.Log(LogType::LOG_DEBUG, GetOID(), ENUM_TO_STR(PING_PONG_NO_RESPONSE) + " TimeDiff: " + TO_STR(timeDiff));
 		server->Close(shared_from_this());
 		return;
 	}
@@ -140,5 +159,7 @@ void CoreClientSession::CheckPingPongTime(void)
 
 void CoreClientSession::UpdatePingPongTime(void)
 {
-	this->prevPingPongTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
+	TIME_VALUE now = CORE_TIME_MANAGER.GetNowMilliSeconds();
+	WRITE_LOCK(this->pingPongMutex);
+	this->prevPingPongTime = now;
 }

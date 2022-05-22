@@ -28,12 +28,14 @@ private:
 	CoreServer* server;
 
 private:
+	CACHE_ALIGN std::shared_mutex speedHackMutex;
 	TIME_VALUE speedHackCheckTime = SEC;
 	TIME_VALUE prevPacketTime = 0;
-	size_t packetCount = 0;
-	size_t maxPacketCount = 20;
+	int32_t packetCount = 0;
+	int32_t maxPacketCount = 20;
 
 private:
+	CACHE_ALIGN std::shared_mutex pingPongMutex;
 	TIME_VALUE pingPongCheckTime = MIN;
 	TIME_VALUE prevPingPongTime = 0;
 };

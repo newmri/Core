@@ -1,7 +1,7 @@
 #include "Include.h"
 
 Projectile::Projectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoWithPosT& objectInfoWithPos) :
-	owner(owner), Object(objectInfoWithPos), moveSpeed(owner->GetSpeed())
+	owner(owner), Object(objectInfoWithPos), moveSpeed(owner->GetSpeed()), moveTick(static_cast<TIME_VALUE>(SEC / this->moveSpeed))
 {
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), 10));
@@ -41,7 +41,7 @@ void Projectile::Update(void)
 	}
 
 	CORE_TIME_DELEGATE_MANAGER.Push(
-		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), static_cast<TIME_VALUE>(SEC / this->moveSpeed)));
+		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), this->moveTick));
 }
 
 std::tuple<bool, std::shared_ptr<Object>> Projectile::Move(void)

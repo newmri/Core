@@ -140,8 +140,8 @@ void Object::MakeMovePacket(GamePacket::Packet& packetType, flatbuffers::Offset<
 {
 	PACKET_SEND_MANAGER.Clear();
 	auto objectInfoWithPos = GetObjectInfoWithPos();
-	auto packedObjectInfo = Info::ObjectInfoWithPos::Pack(PACKET_SEND_MANAGER.builder, &objectInfoWithPos);
-	auto message = GamePacket::CreateSC_MOVE_RES(PACKET_SEND_MANAGER.builder, packedObjectInfo);
+	auto packedObjectInfoWithPos = Info::ObjectInfoWithPos::Pack(PACKET_SEND_MANAGER.builder, &objectInfoWithPos);
+	auto message = GamePacket::CreateSC_MOVE_RES(PACKET_SEND_MANAGER.builder, packedObjectInfoWithPos);
 	packetType = GamePacket::Packet_SC_MOVE_RES;
 	packet = message.Union();
 }

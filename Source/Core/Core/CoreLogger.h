@@ -13,7 +13,8 @@ enum class LogType : size_t
 
 enum class DisconnectType : size_t
 {
-	SPEED_HACK
+	SPEED_HACK,
+	PING_PONG_NO_RESPONSE
 };
 
 class CoreLogger : public CoreObject

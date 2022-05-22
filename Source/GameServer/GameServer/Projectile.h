@@ -21,4 +21,5 @@ protected:
 
 protected:
 	float moveSpeed;
+	TIME_VALUE moveTick;
 };
