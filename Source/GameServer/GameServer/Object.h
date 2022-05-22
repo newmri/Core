@@ -13,6 +13,9 @@ public:
 	Object(const Info::ObjectInfoWithPosT& objectInfoWithPos);
 
 public:
+	bool IsCreature(void);
+
+public:
 	Info::ObjectInfoWithPosT GetObjectInfoWithPos(void);
 	NativeInfo::ObjectInfo GetObjectInfo(void);
 	Info::ObjectInfo GetPackedObjectInfo(void);
@@ -52,4 +55,7 @@ protected:
 
 private:
 	CACHE_ALIGN std::shared_mutex infoMutex;
+
+private:
+	bool isCreature = false;
 };

@@ -12,12 +12,25 @@ Object::~Object()
 
 void Object::Init(void)
 {
-
+	switch (this->objectInfoWithPos.object_info.objectType)
+	{
+	case Define::ObjectType_PLAYER:
+	case Define::ObjectType_MONSTER:
+		this->isCreature = true;
+		break;
+	default:
+		break;
+	}
 }
 
 void Object::Update(void)
 {
 
+}
+
+bool Object::IsCreature(void)
+{
+	return this->isCreature;
 }
 
 Info::ObjectInfoWithPosT Object::GetObjectInfoWithPos(void)

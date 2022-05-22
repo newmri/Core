@@ -59,8 +59,6 @@ void CoreTimeDelegateManager::Run(void)
 			if (this->queueTwoIntArguments.top()->Run())
 				this->queueTwoIntArguments.pop();
 		}
-
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 }
 

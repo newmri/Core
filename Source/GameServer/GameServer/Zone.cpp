@@ -148,7 +148,7 @@ std::shared_ptr<Object> Zone::CanMove(Sector* sector, const NativeInfo::Vec2Int&
 		{
 			if (auto object = sector->FindObject((*iter_begin)); IS_NOT_NULL(object))
 			{
-				if (!object->IsDead())
+				if (object->IsCreature() && !object->IsDead())
 					return object;
 			}
 		}
