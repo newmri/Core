@@ -12,6 +12,7 @@ public class ObjectManager
     bool _isMyPlayerLoaded = false;
     static int _defaultSortOrder = 0;
     int _sortOrder = _defaultSortOrder;
+    Vector2Int _objectDefaultPos = new Vector2Int(0, -100);
 
     public ObjectInfoWithPosT MyObjectInfo { get; set; }
     public CreatureInfoT MyCreatureInfo { get; set; }
@@ -50,7 +51,7 @@ public class ObjectManager
     {
         yield return new WaitUntil(() => _isMyPlayerLoaded == true);
 
-        GameObject gameObject = CoreManagers.Obj.Add(objectInfoWithPos.ObjectInfo.Oid, "Player", "Player");
+        GameObject gameObject = CoreManagers.Obj.Add(objectInfoWithPos.ObjectInfo.Oid, "Player", "Player", _objectDefaultPos, 100);
         PlayerController playerController = gameObject.GetOrAddComponent<PlayerController>();
         CoreManagers.Coroutine.Add(PlayerSetInfoDelay(playerController, objectInfoWithPos, creatureInfo, characterInfo));
     }
@@ -59,7 +60,7 @@ public class ObjectManager
     {
         yield return new WaitUntil(() => _isMyPlayerLoaded == true);
 
-        GameObject gameObject = CoreManagers.Obj.Add(objectInfoWithPos.ObjectInfo.Oid, "Projectile", projectileType.ToString(), null, 10);
+        GameObject gameObject = CoreManagers.Obj.Add(objectInfoWithPos.ObjectInfo.Oid, "Projectile", projectileType.ToString(), _objectDefaultPos, 100);
         ProjectileController projectileController = gameObject.GetOrAddComponent<ProjectileController>();
         CoreManagers.Coroutine.Add(ProjectileSetInfoDelay(projectileController, objectInfoWithPos, speed));
     }
@@ -74,8 +75,6 @@ public class ObjectManager
             AddPlayer(objectInfoWithPos, creatureInfo, characterInfo);
             yield break;
         }
-
-        Debug.Log("AddPlayer oid: " + objectInfoWithPos.ObjectInfo.Oid);
 
         playerController.ObjectInfoWithPos = objectInfoWithPos;
         playerController.CreatureInfo = creatureInfo;
@@ -182,8 +181,6 @@ public class ObjectManager
 
     public void Remove(ObjectInfoT objectInfo)
     {
-        Debug.Log("Remove oid: " + objectInfo.Oid);
-
         switch (objectInfo.ObjectType)
         {
             case ObjectType.PLAYER:
