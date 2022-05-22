@@ -97,12 +97,15 @@ public class ObjectManager
     public void Move(ObjectInfoWithPosT objectInfoWithPos)
     {
         BaseController baseController = GetBaseController(objectInfoWithPos.ObjectInfo);
+        if (baseController == null)
+            return;
+
         baseController.PosInfo = objectInfoWithPos.PosInfo;
     }
 
     BaseController GetBaseController(ObjectInfoT objectInfo)
     {
-        if (objectInfo.Oid == MyPlayer.ObjectInfoWithPos.ObjectInfo.Oid)
+        if (MyPlayer != null && objectInfo.Oid == MyPlayer.ObjectInfoWithPos.ObjectInfo.Oid)
         {
             return MyPlayer;
         }
@@ -130,7 +133,7 @@ public class ObjectManager
 
     CreatureController GetCreatureController(ObjectInfoT objectInfo)
     {
-        if (objectInfo.Oid == MyPlayer.ObjectInfoWithPos.ObjectInfo.Oid)
+        if (MyPlayer != null && objectInfo.Oid == MyPlayer.ObjectInfoWithPos.ObjectInfo.Oid)
         {
             return MyPlayer;
         }
@@ -166,6 +169,9 @@ public class ObjectManager
     public void UseSkill(ObjectInfoT objectInfo, int skillID)
     {
         CreatureController creatureController = GetCreatureController(objectInfo);
+        if (creatureController == null)
+            return;
+
         creatureController.UseSkill(skillID);
     }
 
