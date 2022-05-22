@@ -147,7 +147,7 @@ void CoreClientSession::CheckPingPongTime(void)
 	TIME_VALUE now = CORE_TIME_MANAGER.GetNowMilliSeconds();
 	TIME_VALUE timeDiff = now - _prevPingPongTime;
 
-	if (_prevPingPongTime < timeDiff)
+	if (pingPongCheckTime < timeDiff)
 	{
 		CORE_LOG.Log(LogType::LOG_DEBUG, GetOID(), ENUM_TO_STR(PING_PONG_NO_RESPONSE) + " TimeDiff: " + TO_STR(timeDiff));
 		server->Close(shared_from_this());
