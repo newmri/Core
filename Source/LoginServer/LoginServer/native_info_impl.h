@@ -37,6 +37,9 @@ namespace NativeInfo
         void Normalize(void)
         {
             int32_t magnitude = GetMagnitude();
+            if (IS_SAME(0, magnitude))
+                return;
+
             x /= magnitude;
             y /= magnitude;
         }
@@ -85,7 +88,7 @@ namespace NativeInfo
             NativeInfo::Vec2Int dir = destPos - *this;
             dir.Normalize();
 
-            if (dir.x > 0)
+            if (dir.x >= 0)
                 return Define::Dir_RIGHT;
             else
                 return Define::Dir_LEFT;
