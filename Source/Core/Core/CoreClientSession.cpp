@@ -131,13 +131,7 @@ bool CoreClientSession::IsValidPacketSpeed(void)
 
 void CoreClientSession::CheckPingPongTime(void)
 {
-	TIME_VALUE _prevPingPongTime = 0;
-	{
-		READ_LOCK(this->pingPongMutex);
-		_prevPingPongTime = this->prevPingPongTime;
-	}
-
-	if (IS_SAME(0, _prevPingPongTime))
+	if (IS_SAME(0, this->prevPingPongTime))
 	{
 		UpdatePingPongTime();
 		this->server->SendPing(shared_from_this());
@@ -145,9 +139,9 @@ void CoreClientSession::CheckPingPongTime(void)
 	}
 
 	TIME_VALUE now = CORE_TIME_MANAGER.GetNowMilliSeconds();
-	TIME_VALUE timeDiff = now - _prevPingPongTime;
+	TIME_VALUE timeDiff = now - this->prevPingPongTime;
 
-	if (pingPongCheckTime < timeDiff)
+	if (this->pingPongCheckTime < timeDiff)
 	{
 		CORE_LOG.Log(LogType::LOG_DEBUG, GetOID(), ENUM_TO_STR(PING_PONG_NO_RESPONSE) + " TimeDiff: " + TO_STR(timeDiff));
 		server->Close(shared_from_this());
@@ -159,7 +153,5 @@ void CoreClientSession::CheckPingPongTime(void)
 
 void CoreClientSession::UpdatePingPongTime(void)
 {
-	TIME_VALUE now = CORE_TIME_MANAGER.GetNowMilliSeconds();
-	WRITE_LOCK(this->pingPongMutex);
-	this->prevPingPongTime = now;
+	this->prevPingPongTime = CORE_TIME_MANAGER.GetNowMilliSeconds();
 }

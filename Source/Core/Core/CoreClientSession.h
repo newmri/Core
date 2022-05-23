@@ -35,7 +35,6 @@ private:
 	int32_t maxPacketCount = 20;
 
 private:
-	CACHE_ALIGN std::shared_mutex pingPongMutex;
 	TIME_VALUE pingPongCheckTime = MIN;
 	TIME_VALUE prevPingPongTime = 0;
 };
