@@ -8,9 +8,6 @@ class CoreTimeDelegateManager
 
 public:
 	void Push(CoreTimeDelegate<> func);
-	void Push(CoreTimeDelegate<void*> func);
-	void Push(CoreTimeDelegate<int32_t> func);
-	void Push(CoreTimeDelegate<int32_t, int32_t> func);
 
 public:
 	void Run(void);
@@ -21,7 +18,4 @@ private:
 
 private:
 	CorePriorityQueue<CoreTimeDelegate<>> queueNoneArguments;
-	CorePriorityQueue<CoreTimeDelegate<void*>> queueOnePointerArguments;
-	CorePriorityQueue<CoreTimeDelegate<int32_t>> queueOneIntArguments;
-	CorePriorityQueue<CoreTimeDelegate<int32_t, int32_t>> queueTwoIntArguments;
 };
