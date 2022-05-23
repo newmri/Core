@@ -92,6 +92,9 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 
 void LoginPacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 {
+	if (!session->IsConnected())
+		return;
+
 	PACKET_SEND_MANAGER.Clear();
 	auto message = LoginPacket::CreateSC_PING_REQ(PACKET_SEND_MANAGER.builder);
 	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_PING_REQ, message.Union());

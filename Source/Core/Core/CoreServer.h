@@ -33,7 +33,7 @@ private:
 	void Accept(void);
 
 public:
-	void Close(std::shared_ptr<CoreClientSession> session, bool needSocketClose = true);
+	void Close(std::shared_ptr<CoreClientSession> session);
 
 public:
 	virtual void ProcessPacket(std::shared_ptr<CoreClientSession> session, const uint8_t* data, size_t size) CORE_PURE;

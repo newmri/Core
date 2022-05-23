@@ -93,6 +93,9 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 
 void GamePacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)
 {
+	if (!session->IsConnected())
+		return;
+
 	PACKET_SEND_MANAGER.Clear();
 	auto message = GamePacket::CreateSC_PING_REQ(PACKET_SEND_MANAGER.builder);
 	PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_SC_PING_REQ, message.Union());

@@ -36,7 +36,7 @@ void CoreClientSession::Write(void)
 		{
 			if (error)
 			{
-				this->server->Close(self, false);
+				this->server->Close(self);
 			}
 			else
 			{
@@ -57,7 +57,7 @@ void CoreClientSession::ReadHeader(void)
 		{
 			if (error)
 			{
-				this->server->Close(self, false);
+				this->server->Close(self);
 			}
 			else
 			{
@@ -77,7 +77,7 @@ void CoreClientSession::ReadBody(void)
 		{
 			if (error)
 			{
-				this->server->Close(self, false);
+				this->server->Close(self);
 			}
 			else
 			{

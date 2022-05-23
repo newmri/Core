@@ -72,7 +72,7 @@ bool CoreServer::IsValidSession(const int64_t oid)
 	return false;
 }
 
-void CoreServer::Close(std::shared_ptr<CoreClientSession> session, bool needSocketClose)
+void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 {
 	if (session->IsConnected())
 	{
@@ -81,13 +81,9 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session, bool needSock
 		if (!IsValidSession(oid))
 			return;
 
-		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "");
+		socket.close();
 
-		if (needSocketClose)
-		{
-			socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-			socket.close();
-		}
+		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "");
 
 		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountUID());
 
