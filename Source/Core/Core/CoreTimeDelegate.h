@@ -45,6 +45,9 @@ public:
             if (this->tickTime)
                 this->activeTime += this->tickTime;
 
+            if (IS_NULL(this->func))
+                return true;
+
             std::apply(this->func, this->args);
             return (++this->calledCnt == this->maxCallCnt);
         }
