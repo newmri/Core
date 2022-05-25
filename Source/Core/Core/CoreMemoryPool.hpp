@@ -65,7 +65,9 @@ void CoreMemoryPool<T, MAX_BLOCK_NUM>::DeAlloc(T* blockBody) noexcept
 	for (size_t i = startIndex; i <= endIndex; ++i)
 		SetBlockHeader(i, 0);
 
-	this->allocPos = 0;
+	if (this->allocPos > startIndex)
+		this->allocPos = startIndex;
+
 	SetRemainedBlockNum(this->blockInfo.remainedBlockNum + (endIndex - startIndex) + 1);
 	blockBody = nullptr;
 
