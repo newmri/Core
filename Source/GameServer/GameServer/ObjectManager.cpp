@@ -53,6 +53,8 @@ void ObjectManager::RemovePlayer(const int64_t& oid)
 
 	ZONE_MANAGER.Leave(player);
 
+	player->Clear();
+
 	WRITE_LOCK(this->playerMutex);
 	this->playerList.erase(oid);
 }

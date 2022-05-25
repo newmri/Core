@@ -20,6 +20,14 @@ void Creature::Update(void)
 
 }
 
+void Creature::Clear(void)
+{
+	Object::Clear();
+
+	WRITE_LOCK(this->skillMutex);
+	this->skillList.clear();
+}
+
 Info::CreatureInfoT Creature::GetCreatureInfo(void)
 {
 	READ_LOCK(this->infoMutex);

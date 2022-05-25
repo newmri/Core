@@ -30,7 +30,8 @@
 	OVERRIDE_OBJECT_DELETE_DEFAULT_CONSTRUCTOR(CLASS)						\
 																			\
 	public:																	\
-		virtual void Update(void) override;
+		virtual void Update(void) override;									\
+		virtual void Clear(void) override;
 
 #define NO_COPY(CLASS)														\
 	private:																\

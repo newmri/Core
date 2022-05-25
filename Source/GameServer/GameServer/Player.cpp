@@ -32,6 +32,11 @@ void Player::Update(void)
 
 }
 
+void Player::Clear(void)
+{
+	Creature::Clear();
+}
+
 GamePacket::CharacterInfoT Player::GetCharacterInfo(void)
 {
 	GamePacket::CharacterInfoT info;
@@ -114,11 +119,11 @@ bool Player::IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos)
 
 void Player::AddSkill(const int32_t skillID)
 {
-	WRITE_LOCK(this->skillMutex);
-
 	SkillData skillData;
 	if (!CHARACTER_DATA_MANAGER.GetSkillData(skillID, skillData))
 		return;
+
+	WRITE_LOCK(this->skillMutex);
 
 	switch (skillData.skillType)
 	{

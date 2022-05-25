@@ -30,6 +30,11 @@ void MyPlayer::Update(void)
 
 }
 
+void MyPlayer::Clear(void)
+{
+	Player::Clear();
+}
+
 GamePacket::CharacterInfoT MyPlayer::GetCharacterInfo(void)
 {
 	GamePacket::CharacterInfoT info;
@@ -58,11 +63,11 @@ void MyPlayer::SetState(const Define::ObjectState state)
 
 void MyPlayer::AddSkill(const int32_t skillID)
 {
-	WRITE_LOCK(this->skillMutex);
-
 	SkillData skillData;
 	if (!CHARACTER_DATA_MANAGER.GetSkillData(skillID, skillData))
 		return;
+
+	WRITE_LOCK(this->skillMutex);
 
 	switch (skillData.skillType)
 	{

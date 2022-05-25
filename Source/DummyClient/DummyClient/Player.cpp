@@ -26,6 +26,11 @@ void Player::Update(void)
 
 }
 
+void Player::Clear(void)
+{
+	Creature::Clear();
+}
+
 GamePacket::CharacterInfoT Player::GetCharacterInfo(void)
 {
 	return GamePacket::CharacterInfoT();

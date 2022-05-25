@@ -22,6 +22,11 @@ void Projectile::Update(void)
 
 }
 
+void Projectile::Clear(void)
+{
+	Object::Clear();
+}
+
 void Projectile::DoDamage(std::shared_ptr<Object> target)
 {
 	

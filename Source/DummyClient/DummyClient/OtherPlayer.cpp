@@ -21,6 +21,11 @@ void OtherPlayer::Update(void)
 
 }
 
+void OtherPlayer::Clear(void)
+{
+	Player::Clear();
+}
+
 GamePacket::CharacterInfoT OtherPlayer::GetCharacterInfo(void)
 {
 	READ_LOCK(this->infoMutex);

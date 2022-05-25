@@ -20,6 +20,11 @@ void Object::Update(void)
 
 }
 
+void Object::Clear(void)
+{
+
+}
+
 Info::ObjectInfoWithPosT Object::GetObjectInfoWithPos(void)
 {
 	READ_LOCK(this->infoMutex);

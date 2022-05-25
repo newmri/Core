@@ -44,6 +44,7 @@ public class ObjectManager
         MyPlayer.AddSkill((int)MyPlayer.MyCharacterInfo.Job);
         Managers.UI.GetSceneUI<UIGameScene>().AddSkill((int)MyPlayer.MyCharacterInfo.Job);
 
+        Debug.Log($"MyPlayer oid: {MyObjectInfo.ObjectInfo.Oid}");
         _isMyPlayerLoaded = true;
     }
 

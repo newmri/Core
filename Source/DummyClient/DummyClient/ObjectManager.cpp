@@ -18,6 +18,8 @@ void ObjectManager::AddPlayer(std::shared_ptr<CoreServerSession> session, const 
 	auto player = std::make_shared<MyPlayer>(session, objectInfoWithPos, creatureInfo, characterInfo);
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
 
+	player->Clear();
+
 	WRITE_LOCK(this->playerMutex);
 	this->playerList[objectInfoWithPos.object_info.oid] = player;
 }

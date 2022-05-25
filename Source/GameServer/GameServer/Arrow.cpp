@@ -20,6 +20,11 @@ void Arrow::Update(void)
 	Projectile::Update();
 }
 
+void Arrow::Clear(void)
+{
+	Projectile::Clear();
+}
+
 void Arrow::DoDamage(std::shared_ptr<Object> target)
 {
 	PACKET_SEND_MANAGER.Clear();

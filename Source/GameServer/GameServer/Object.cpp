@@ -28,6 +28,11 @@ void Object::Update(void)
 
 }
 
+void Object::Clear(void)
+{
+
+}
+
 bool Object::IsCreature(void)
 {
 	return this->isCreature;

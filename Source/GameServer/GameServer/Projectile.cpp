@@ -17,6 +17,11 @@ void Projectile::Init(void)
 
 }
 
+void Projectile::Clear(void)
+{
+	Object::Clear();
+}
+
 void Projectile::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
 {
 	auto objectInfoWithPos = GetObjectInfoWithPos();
