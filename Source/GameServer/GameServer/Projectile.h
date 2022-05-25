@@ -8,6 +8,9 @@ public:
 	Projectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoWithPosT& objectInfoWithPos);
 
 public:
+	void PushMove(void);
+
+public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
 
 private:

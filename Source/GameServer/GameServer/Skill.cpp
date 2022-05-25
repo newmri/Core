@@ -37,7 +37,7 @@ void Skill::UseSkill(void)
 	}
 
 	CORE_TIME_DELEGATE_MANAGER.Push(
-		CoreTimeDelegate<>(std::bind(&Skill::DoAction, this), this->skillData.skillHitTime));
+		CoreTimeDelegate<>(std::bind(&Skill::DoAction, shared_from_this()), this->skillData.skillHitTime));
 }
 
 void Skill::DoAction(void)

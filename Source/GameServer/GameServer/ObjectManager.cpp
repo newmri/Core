@@ -79,6 +79,8 @@ void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, 
 
 	ZONE_MANAGER.Enter(objectInfoWithPos.pos_info.mapID, projectile, false);
 
+	projectile->PushMove();
+
 	WRITE_LOCK(this->projectileMutex);
 	this->projectileList[oid] = projectile;
 }

@@ -3,8 +3,7 @@
 Projectile::Projectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoWithPosT& objectInfoWithPos) :
 	owner(owner), Object(objectInfoWithPos), moveSpeed(owner->GetSpeed()), moveTick(static_cast<TIME_VALUE>(SEC / this->moveSpeed))
 {
-	CORE_TIME_DELEGATE_MANAGER.Push(
-		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), 10));
+
 }
 
 Projectile::~Projectile()
@@ -20,6 +19,12 @@ void Projectile::Init(void)
 void Projectile::Clear(void)
 {
 	Object::Clear();
+}
+
+void Projectile::PushMove(void)
+{
+	CORE_TIME_DELEGATE_MANAGER.Push(
+		CoreTimeDelegate<>(std::bind(&Projectile::Update, Object::downcasted_shared_from_this<Projectile>()), this->moveTick));
 }
 
 void Projectile::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet)
@@ -45,8 +50,7 @@ void Projectile::Update(void)
 		return;
 	}
 
-	CORE_TIME_DELEGATE_MANAGER.Push(
-		CoreTimeDelegate<>(std::bind(&Projectile::Update, this), this->moveTick));
+	PushMove();
 }
 
 std::tuple<bool, std::shared_ptr<Object>> Projectile::Move(void)
