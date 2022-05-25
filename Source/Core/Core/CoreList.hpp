@@ -12,8 +12,6 @@ template<typename T>
 CoreList<T>::~CoreList()
 {
 	clear();
-
-	SAFE_DELETE(this->head);
 }
 
 template<typename T>
