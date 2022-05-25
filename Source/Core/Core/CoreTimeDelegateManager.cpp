@@ -25,8 +25,6 @@ void CoreTimeDelegateManager::Run(void)
 		{
 			if (this->queueNoneArguments.top()->Run())
 				this->queueNoneArguments.pop();
-
-			CORE_LOG.Log(LogType::LOG_DEBUG, TO_STR(this->queueNoneArguments.size()));
 		}
 	}
 }
