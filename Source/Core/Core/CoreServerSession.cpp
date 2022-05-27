@@ -35,29 +35,22 @@ void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 
 void CoreServerSession::Close(bool isForce)
 {
-	boost::asio::post(this->ioContext, [this, isForce]()
-		{
-			if (this->socket.is_open())
-			{
-				this->ioContext.stop();
-				this->socket.close();
+	if (this->socket.is_open())
+	{
+		this->socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
+		this->socket.close();
 
-				if(!isForce)
-					this->onDisconnectedFunc(shared_from_this());
-			}
-		});
+		if (!isForce)
+			this->onDisconnectedFunc(shared_from_this());
+	}
 }
 
 void CoreServerSession::Write(const CorePacket& packet)
 {
-	boost::asio::post(this->ioContext,
-		[this, packet]()
-		{
-			this->writeQueue.push(packet);
+	this->writeQueue.push(packet);
 
-			if (IS_SAME(1, this->writeQueue.size()))
-				Write();
-		});
+	if (IS_SAME(1, this->writeQueue.size()))
+		Write();
 }
 
 void CoreServerSession::Write(void)

@@ -6,7 +6,7 @@ CoreServer::CoreServer(const unsigned short port) : acceptor(ioContext, boost::a
 
 CoreServer::~CoreServer()
 {
-	
+
 }
 
 void CoreServer::Run(void)
@@ -63,17 +63,13 @@ void CoreServer::Accept(void)
 
 bool CoreServer::IsValidSession(const int64_t oid)
 {
-	READ_LOCK(this->mutex);
-
-	auto iter = this->sessionList.find(oid);
-	if (IS_NOT_SAME(iter, this->sessionList.end()))
-		return true;
-
-	return false;
+	return (IS_NOT_SAME(this->sessionList.find(oid), this->sessionList.end()));
 }
 
 void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 {
+	WRITE_LOCK(this->mutex);
+
 	if (session->IsConnected())
 	{
 		boost::asio::ip::tcp::socket& socket = session->GetSocket();
@@ -81,13 +77,13 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 		if (!IsValidSession(oid))
 			return;
 
+		socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 		socket.close();
 
 		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "");
 
 		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountUID());
 
-		WRITE_LOCK(this->mutex);
 		this->sessionList.erase(oid);
 	}
 }
