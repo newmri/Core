@@ -112,7 +112,7 @@ void CoreQuickSort(T* start, T* end, FUNC Compare)
 
 	if (IS_SAME(0, len)) return;
 
-	CoreQuickSortRecursive(start, 0, static_cast<int32_t>(len - 1), Compare);
+	CoreQuickSortRecursive(start, 0, static_cast<int32_t>(len), Compare);
 }
 
 template<typename T, typename FUNC>
@@ -126,14 +126,14 @@ void CoreQuickSortRecursive(T* data, int32_t start, int32_t end, FUNC Compare)
 
 	while (low <= high)
 	{
-		while (Compare(data[pivot], data[low]) && low <= end)
+		while (low <= end && Compare(data[pivot], data[low]))
 			++low;
-		while (Compare(data[high], data[pivot]) && high > start)
+		while (high > start && Compare(data[high], data[pivot]))
 			--high;
 
 		if (low > high)
 			CoreSwap(data[pivot], data[high]);
-		else 
+		else
 			CoreSwap(data[low], data[high]);
 	}
 
