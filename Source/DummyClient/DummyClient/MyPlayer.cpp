@@ -84,7 +84,7 @@ void MyPlayer::UseSkill(void)
 {
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
-			std::bind(&MyPlayer::UseSkill, this),
+			std::bind(&MyPlayer::UseSkill, Object::downcasted_shared_from_this<MyPlayer>()),
 			CORE_RANDOM_MANAGER_TIME.GetRandom(SEC, SEC * 10)));
 
 	if (IsDead())

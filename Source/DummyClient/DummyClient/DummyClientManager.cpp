@@ -107,7 +107,7 @@ int32_t DummyClientManager::GetConnectedLoginClientCount(void)
 void DummyClientManager::DeleteLoginClient(const int64_t oid)
 {
 	WRITE_LOCK(this->loginMutex);
-
+	this->loginClientList[oid]->Stop();
 	this->loginClientList.erase(oid);
 }
 
@@ -116,6 +116,14 @@ void DummyClientManager::DeleteAllLoginClient(void)
 	CORE_ALL_LOG(LogType::LOG_DEBUG, "All LoginClient is Deleted");
 
 	WRITE_LOCK(this->loginMutex);
+
+	auto iter_begin = this->loginClientList.begin();
+	auto iter_end = this->loginClientList.end();
+	for (; iter_begin != iter_end; ++iter_begin)
+	{
+		iter_begin->second->Stop();
+	}
+
 	this->loginClientList.clear();
 }
 
@@ -180,8 +188,11 @@ int32_t DummyClientManager::GetConnectedGameClientCount(void)
 
 void DummyClientManager::DeleteGameClient(const int64_t oid)
 {
+	OBJECT_MANAGER.RemoveObject(NativeInfo::ObjectInfo(Define::ObjectType_PLAYER, gameClientList[oid]->GetPlayerOID()));
+
 	WRITE_LOCK(this->gameMutex);
 
+	this->gameClientList[oid]->Stop();
 	this->gameClientList.erase(oid);
 
 	if (this->gameClientList.empty())

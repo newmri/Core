@@ -32,6 +32,19 @@ void ObjectManager::AddPlayer(const Info::ObjectInfoWithPosT& objectInfoWithPos,
 
 void ObjectManager::RemoveObject(const NativeInfo::ObjectInfo& objectInfo)
 {
+	switch (objectInfo.objectType)
+	{
+	case Define::ObjectType_PLAYER:
+		RemovePlayer(objectInfo.oid);
+		break;
+	case Define::ObjectType_MONSTER:
+		break;
+	case Define::ObjectType_PROJECTILE:
+		RemoveProjectile(objectInfo.oid);
+		break;
+	default:
+		break;
+	}
 }
 
 std::shared_ptr<Object> ObjectManager::FindObject(const NativeInfo::ObjectInfo& objectInfo)
@@ -50,7 +63,6 @@ std::shared_ptr<Object> ObjectManager::FindObject(const NativeInfo::ObjectInfo& 
 
 	return nullptr;
 }
-
 
 void ObjectManager::RemovePlayer(const int64_t& oid)
 {

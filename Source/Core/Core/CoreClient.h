@@ -8,6 +8,7 @@ public:
 
 public:
 	bool Connect(std::string_view ip, std::string_view port);
+	void Stop(void);
 
 public:
 	bool IsConnected(void);
@@ -17,11 +18,12 @@ public:
 
 public:
 	boost::asio::io_context& GetContext(void);
+	int64_t GetPlayerOID(void);
 
 private:
 	boost::asio::io_context ioContext;
 	boost::asio::ip::tcp::resolver resolver;
-	boost::thread_group asyncThread;
+	boost::thread thread;
 
 protected:
 	std::shared_ptr<CoreServerSession> session;

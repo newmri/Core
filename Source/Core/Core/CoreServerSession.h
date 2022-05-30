@@ -23,6 +23,9 @@ public:
 	void SetOnDisconnectedFunc(std::function<void(std::shared_ptr<CoreServerSession>)> func);
 	void SetProcessPacketFunc(std::function<void(std::shared_ptr<CoreServerSession>, uint8_t*, uint32_t)> func);
 
+private:
+	void OnDisconnectedFunc(void);
+
 public:
 	std::string_view GetAccountID(void);
 	std::string_view GetAccountPassword(void);

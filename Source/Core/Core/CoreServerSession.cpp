@@ -34,7 +34,12 @@ bool CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 
 void CoreServerSession::Close(void)
 {
-	this->onDisconnectedFunc(shared_from_this());
+	auto self(shared_from_this());
+
+	CORE_TIME_DELEGATE_MANAGER.Push(
+		CoreTimeDelegate<>(
+			std::bind(&CoreServerSession::OnDisconnectedFunc, shared_from_this()),
+			0));
 }
 
 void CoreServerSession::Write(const CorePacket& packet)
@@ -133,11 +138,15 @@ void CoreServerSession::SetProcessPacketFunc(std::function<void(std::shared_ptr<
 	this->processPacketFunc = func;
 }
 
+void CoreServerSession::OnDisconnectedFunc(void)
+{
+	this->onDisconnectedFunc(shared_from_this());
+}
+
 std::string_view CoreServerSession::GetAccountID(void)
 {
 	return this->accountID;
 }
-
 
 std::string_view CoreServerSession::GetAccountPassword(void)
 {
