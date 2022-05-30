@@ -2,6 +2,12 @@
 
 #define DUMMY_CLIENT GET_INSTANCE(DummyClientManager)
 
+enum ConnectState
+{
+	LOGIN,
+	GAME
+};
+
 struct DummyClientConfig
 {
 	int32_t WorldID = 0;
@@ -36,7 +42,7 @@ private:
 	int32_t GetConnectedLoginClientCount(void);
 
 public:
-	void DeleteLoginClient(const int64_t oid, const bool isForce = false);
+	void DeleteLoginClient(const int64_t oid);
 	void DeleteAllLoginClient(void);
 #pragma endregion
 
@@ -76,4 +82,7 @@ private:
 	std::shared_mutex gameMutex;
 	std::map<int64_t, std::shared_ptr<GameClient>> gameClientList;
 
+private:
+	boost::thread_group asyncThread;
+	ConnectState connectState = ConnectState::LOGIN;
 };

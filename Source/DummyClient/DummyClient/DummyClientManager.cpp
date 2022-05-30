@@ -23,14 +23,13 @@ void DummyClientManager::Run(void)
 {
 	ConnectToLoginServer();
 	ShowConnectedLoginClientCount();
-	Sleep(SEC);
 	ShowConnectedGameClientCount();
 	DeleteAllLoginClient();
 }
 
 void DummyClientManager::Stop(void)
 {
-	
+	this->asyncThread.join_all();
 }
 
 int32_t DummyClientManager::GetWorldID(void)
@@ -50,12 +49,11 @@ void DummyClientManager::ConnectToLoginServer(void)
 	{
 		auto client = std::make_shared<LoginClient>(i);
 		client->Connect();
+		this->asyncThread.create_thread(boost::bind(&boost::asio::io_service::run, &client->GetContext()));
 
 		WRITE_LOCK(this->loginMutex);
 		this->loginClientList[i] = client;
 	}
-
-	Sleep(SEC);
 }
 
 void DummyClientManager::OnLoginServerConnected(std::shared_ptr<CoreServerSession> session)
@@ -67,7 +65,7 @@ void DummyClientManager::OnLoginServerConnected(std::shared_ptr<CoreServerSessio
 
 void DummyClientManager::OnLoginServerDisconnected(std::shared_ptr<CoreServerSession> session)
 {
-	DeleteLoginClient(session->GetOID(), true);
+	DeleteLoginClient(session->GetOID());
 }
 
 void DummyClientManager::LoginServerProcessPacket(std::shared_ptr<CoreServerSession> session, const uint8_t* data, size_t size)
@@ -104,13 +102,13 @@ int32_t DummyClientManager::GetConnectedLoginClientCount(void)
 	return connectedCount;
 }
 
-void DummyClientManager::DeleteLoginClient(const int64_t oid, const bool isForce)
+void DummyClientManager::DeleteLoginClient(const int64_t oid)
 {
 	WRITE_LOCK(this->loginMutex);
 
 	this->loginClientList.erase(oid);
 
-	if (this->loginClientList.empty() && !isForce)
+	if (this->loginClientList.empty() && ConnectState::LOGIN == this->connectState)
 	{
 		std::cout << "\n" << std::endl;
 		CORE_ALL_LOG(LogType::LOG_ERROR, "Cannot Connect, Shutdown");
@@ -131,6 +129,7 @@ void DummyClientManager::ConnectToGameServer(std::shared_ptr<CoreServerSession> 
 {
 	auto client = std::make_shared<GameClient>(session, characterUID, characterName);
 	client->Connect();
+	this->asyncThread.create_thread(boost::bind(&boost::asio::io_service::run, &client->GetContext()));
 
 	auto oid = session->GetOID();
 

@@ -13,33 +13,28 @@ CoreServerSession::~CoreServerSession()
 
 void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint)
 {
-	boost::asio::async_connect(this->socket, endpoint,
-		[this](boost::system::error_code error, boost::asio::ip::tcp::endpoint)
-		{
-			if (error)
-			{
-				CORE_LOG.Log(LogType::LOG_ERROR, "connect error " + error.value() + error.message());
-				Close();
-			}
-			else
-			{
-				boost::asio::ip::tcp::no_delay option(true);
-				this->socket.set_option(option);
+	boost::system::error_code error;
+	boost::asio::connect(this->socket, endpoint, error);
+	if (error)
+	{
+		CORE_LOG.Log(LogType::LOG_ERROR, "connect error " + error.value() + error.message());
+		Close();
+	}
+	else
+	{
+		boost::asio::ip::tcp::no_delay option(true);
+		this->socket.set_option(option);
 
-				this->onConnectedFunc(shared_from_this());
+		this->onConnectedFunc(shared_from_this());
 
-				ReadHeader();
-			}
-		});
+		ReadHeader();
+	}
 }
 
 void CoreServerSession::Close(bool isForce)
 {
 	if (this->socket.is_open())
 	{
-		this->socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-		this->socket.close();
-
 		if (!isForce)
 			this->onDisconnectedFunc(shared_from_this());
 	}
