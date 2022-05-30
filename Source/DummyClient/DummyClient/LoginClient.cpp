@@ -23,14 +23,16 @@ void LoginClient::MakeAccountInfo(void)
 	this->session->SetAccountPassword(this->session->GetAccountID());
 }
 
-void LoginClient::Connect(void)
+bool LoginClient::Connect(void)
 {
 	WEB_MANAGER.Signup(this->session);
 	if (WEB_MANAGER.Login(this->session))
 	{
 		auto connectInfo = WEB_MANAGER.SelectServer(Define::ServerType_Login);
-		CoreClient::Connect(connectInfo.ServerIP, connectInfo.ServerPort);
+		return CoreClient::Connect(connectInfo.ServerIP, connectInfo.ServerPort);
 	}
+
+	return false;
 }
 
 void LoginClient::SendLogout(void)

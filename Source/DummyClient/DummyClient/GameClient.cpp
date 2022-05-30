@@ -24,8 +24,8 @@ std::string_view GameClient::GetCharacterName(void)
 	return this->characterName;
 }
 
-void GameClient::Connect(void)
+bool GameClient::Connect(void)
 {
 	auto connectInfo = WEB_MANAGER.SelectServer(Define::ServerType_Game);
-	CoreClient::Connect(connectInfo.ServerIP, connectInfo.ServerPort);
+	return CoreClient::Connect(connectInfo.ServerIP, connectInfo.ServerPort);
 }

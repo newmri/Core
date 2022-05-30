@@ -7,8 +7,8 @@ public:
 	virtual ~CoreServerSession() override;
 
 public:
-	void Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint);
-	void Close(bool isForce = false);
+	bool Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint);
+	void Close(void);
 
 public:
 	virtual void Write(const CorePacket& packet) override;

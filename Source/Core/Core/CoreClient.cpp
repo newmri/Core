@@ -9,11 +9,19 @@ CoreClient::~CoreClient()
 {
 	if (!this->ioContext.stopped())
 		this->ioContext.stop();
+
+	this->asyncThread.join_all();
 }
 
-void CoreClient::Connect(std::string_view ip, std::string_view port)
+bool CoreClient::Connect(std::string_view ip, std::string_view port)
 {
-	this->session->Connect(resolver.resolve(ip, port));
+	if (this->session->Connect(resolver.resolve(ip, port)))
+	{
+		this->asyncThread.create_thread(boost::bind(&boost::asio::io_service::run, &GetContext()));
+		return true;
+	}
+	
+	return false;
 }
 
 bool CoreClient::IsConnected(void)

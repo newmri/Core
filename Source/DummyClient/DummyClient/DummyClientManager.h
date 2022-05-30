@@ -69,6 +69,9 @@ public:
 	bool IsMyPlayer(std::string_view characterName);
 
 private:
+	void Shutdown(void);
+
+private:
 	std::shared_ptr<DummyClientConfig> dummyClientConfig;
 
 private:
@@ -83,6 +86,5 @@ private:
 	std::map<int64_t, std::shared_ptr<GameClient>> gameClientList;
 
 private:
-	boost::thread_group asyncThread;
 	ConnectState connectState = ConnectState::LOGIN;
 };

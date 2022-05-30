@@ -12,7 +12,7 @@ public:
 	std::string_view GetCharacterName(void);
 
 public:
-	void Connect(void);
+	bool Connect(void);
 
 private:
 	std::string characterName;

@@ -21,15 +21,17 @@ void DummyClientManager::Release(void)
 
 void DummyClientManager::Run(void)
 {
+	CORE_ALL_LOG(LogType::LOG_DEBUG, "Trying to connect to LoginServer..... ");
 	ConnectToLoginServer();
 	ShowConnectedLoginClientCount();
+	CORE_ALL_LOG(LogType::LOG_DEBUG, "Trying to connect to GameServer..... ");
 	ShowConnectedGameClientCount();
 	DeleteAllLoginClient();
 }
 
 void DummyClientManager::Stop(void)
 {
-	this->asyncThread.join_all();
+
 }
 
 int32_t DummyClientManager::GetWorldID(void)
@@ -48,8 +50,8 @@ void DummyClientManager::ConnectToLoginServer(void)
 	for (int32_t i = 0; i < maxConnectionCount; ++i)
 	{
 		auto client = std::make_shared<LoginClient>(i);
-		client->Connect();
-		this->asyncThread.create_thread(boost::bind(&boost::asio::io_service::run, &client->GetContext()));
+		if (!client->Connect())
+			Shutdown();
 
 		WRITE_LOCK(this->loginMutex);
 		this->loginClientList[i] = client;
@@ -107,14 +109,6 @@ void DummyClientManager::DeleteLoginClient(const int64_t oid)
 	WRITE_LOCK(this->loginMutex);
 
 	this->loginClientList.erase(oid);
-
-	if (this->loginClientList.empty() && ConnectState::LOGIN == this->connectState)
-	{
-		std::cout << "\n" << std::endl;
-		CORE_ALL_LOG(LogType::LOG_ERROR, "Cannot Connect, Shutdown");
-		Sleep(1000);
-		abort();
-	}
 }
 
 void DummyClientManager::DeleteAllLoginClient(void)
@@ -127,13 +121,14 @@ void DummyClientManager::DeleteAllLoginClient(void)
 
 void DummyClientManager::ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID, std::string_view characterName)
 {
+	WRITE_LOCK(this->gameMutex);
+
 	auto client = std::make_shared<GameClient>(session, characterUID, characterName);
-	client->Connect();
-	this->asyncThread.create_thread(boost::bind(&boost::asio::io_service::run, &client->GetContext()));
+	if (!client->Connect())
+		Shutdown();
 
 	auto oid = session->GetOID();
 
-	WRITE_LOCK(this->gameMutex);
 	this->gameClientList[oid] = client;
 }
 
@@ -190,11 +185,7 @@ void DummyClientManager::DeleteGameClient(const int64_t oid)
 	this->gameClientList.erase(oid);
 
 	if (this->gameClientList.empty())
-	{
-		std::cout << "\n" << std::endl;
-		CORE_ALL_LOG(LogType::LOG_ERROR, "GameClient is Zero, Shutdown");
-		abort();
-	}
+		Shutdown();
 }
 
 bool DummyClientManager::IsMyPlayer(std::string_view characterName)
@@ -210,4 +201,12 @@ bool DummyClientManager::IsMyPlayer(std::string_view characterName)
 	}
 
 	return false;
+}
+
+void DummyClientManager::Shutdown(void)
+{
+	std::cout << "\n" << std::endl;
+	CORE_ALL_LOG(LogType::LOG_ERROR, "Cannot Connect, Shutdown");
+	Sleep(1000);
+	abort();
 }

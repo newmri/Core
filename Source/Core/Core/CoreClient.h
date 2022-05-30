@@ -7,7 +7,7 @@ public:
 	virtual ~CoreClient();
 
 public:
-	void Connect(std::string_view ip, std::string_view port);
+	bool Connect(std::string_view ip, std::string_view port);
 
 public:
 	bool IsConnected(void);
@@ -21,6 +21,7 @@ public:
 private:
 	boost::asio::io_context ioContext;
 	boost::asio::ip::tcp::resolver resolver;
+	boost::thread_group asyncThread;
 
 protected:
 	std::shared_ptr<CoreServerSession> session;

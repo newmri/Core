@@ -8,17 +8,16 @@ CoreServerSession::CoreServerSession(const int64_t oid, boost::asio::io_context&
 
 CoreServerSession::~CoreServerSession()
 {
-	Close(true);
 }
 
-void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint)
+bool CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint)
 {
 	boost::system::error_code error;
 	boost::asio::connect(this->socket, endpoint, error);
 	if (error)
 	{
 		CORE_LOG.Log(LogType::LOG_ERROR, "connect error " + error.value() + error.message());
-		Close();
+		return false;
 	}
 	else
 	{
@@ -29,15 +28,13 @@ void CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 
 		ReadHeader();
 	}
+
+	return true;
 }
 
-void CoreServerSession::Close(bool isForce)
+void CoreServerSession::Close(void)
 {
-	if (this->socket.is_open())
-	{
-		if (!isForce)
-			this->onDisconnectedFunc(shared_from_this());
-	}
+	this->onDisconnectedFunc(shared_from_this());
 }
 
 void CoreServerSession::Write(const CorePacket& packet)
@@ -50,11 +47,13 @@ void CoreServerSession::Write(const CorePacket& packet)
 
 void CoreServerSession::Write(void)
 {
+	auto self(shared_from_this());
+
 	CorePacket packet = this->writeQueue.front();
 
 	boost::asio::async_write(this->socket,
 		boost::asio::buffer(packet.GetData(), packet.GetSize()),
-		[this](boost::system::error_code error, size_t)
+		[this, self](boost::system::error_code error, size_t)
 		{
 			if (error)
 			{
@@ -71,9 +70,11 @@ void CoreServerSession::Write(void)
 
 void CoreServerSession::ReadHeader(void)
 {
+	auto self(shared_from_this());
+
 	boost::asio::async_read(this->socket,
 		boost::asio::buffer(this->read.GetData(), CorePacket::HEADER_SIZE),
-		[this](boost::system::error_code error, size_t)
+		[this, self](boost::system::error_code error, size_t)
 		{
 			if (error)
 			{
@@ -94,9 +95,11 @@ void CoreServerSession::ReadHeader(void)
 
 void CoreServerSession::ReadBody(void)
 {
+	auto self(shared_from_this());
+
 	boost::asio::async_read(this->socket,
 		boost::asio::buffer(this->read.GetBody(), this->read.GetBodySize()),
-		[this](boost::system::error_code error, size_t)
+		[this, self](boost::system::error_code error, size_t)
 		{
 			if (error)
 			{
@@ -109,7 +112,7 @@ void CoreServerSession::ReadBody(void)
 			}
 			else
 			{
-				this->processPacketFunc(shared_from_this(), this->read.GetBody(), this->read.GetBodySize());
+				this->processPacketFunc(self, this->read.GetBody(), this->read.GetBodySize());
 				ReadHeader();
 			}
 		});
