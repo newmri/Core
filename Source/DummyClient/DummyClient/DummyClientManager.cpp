@@ -12,6 +12,7 @@ void DummyClientManager::Init(void)
 	this->gameHandler = std::make_unique<GamePacketHandler>();
 
 	CHARACTER_DATA_MANAGER.Load();
+	ZONE_MANAGER.AddZone(0);
 }
 
 void DummyClientManager::Release(void)

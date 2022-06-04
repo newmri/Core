@@ -27,3 +27,6 @@
 #include "Projectile.h"
 #include "Arrow.h"
 #include "ObjectManager.h"
+#include "MapData.h"
+#include "Zone.h"
+#include "ZoneManager.h"

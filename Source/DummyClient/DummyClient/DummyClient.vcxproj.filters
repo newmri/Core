@@ -85,6 +85,12 @@
     <Filter Include="06.Object\00.Creature\00.Player\01.OtherPlayer">
       <UniqueIdentifier>{bc55109c-8d76-467d-b995-5470fa8b5b7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07.Map">
+      <UniqueIdentifier>{0f0e1d9f-8281-42a7-9c60-4e7801c821c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07.Map\00.Zone">
+      <UniqueIdentifier>{1d154508-2fb4-4939-82f1-24e1041146cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -158,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="OtherPlayer.cpp">
       <Filter>06.Object\00.Creature\00.Player\01.OtherPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager.cpp">
+      <Filter>07.Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Zone.cpp">
+      <Filter>07.Map\00.Zone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +256,15 @@
     </ClInclude>
     <ClInclude Include="OtherPlayer.h">
       <Filter>06.Object\00.Creature\00.Player\01.OtherPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager.h">
+      <Filter>07.Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone.h">
+      <Filter>07.Map\00.Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="MapData.h">
+      <Filter>07.Map\00.Zone</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

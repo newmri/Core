@@ -126,6 +126,8 @@
     <ClCompile Include="ProjectileSkill.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="WebManager.cpp" />
+    <ClCompile Include="Zone.cpp" />
+    <ClCompile Include="ZoneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core\Core.vcxproj">
@@ -154,6 +156,7 @@
     <ClInclude Include="Include.h" />
     <ClInclude Include="DummyClientManager.h" />
     <ClInclude Include="login_protocol_generated.h" />
+    <ClInclude Include="MapData.h" />
     <ClInclude Include="MyPlayer.h" />
     <ClInclude Include="native_info_impl.h" />
     <ClInclude Include="LoginPacketSendManager.h" />
@@ -173,6 +176,8 @@
     <ClInclude Include="ProjectileSkill.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="WebManager.h" />
+    <ClInclude Include="Zone.h" />
+    <ClInclude Include="ZoneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
