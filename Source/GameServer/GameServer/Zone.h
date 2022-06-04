@@ -48,7 +48,7 @@ public:
 	void Revive(std::shared_ptr<Creature> creature);
 
 private:
-	int32_t id;
+	int32_t id = 0;
 	MapData data;
 
 private:
