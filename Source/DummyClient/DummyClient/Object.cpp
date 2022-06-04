@@ -77,6 +77,7 @@ Define::Dir Object::GetDir(void)
 
 bool Object::IsDead(void)
 {
+	READ_LOCK(this->infoMutex);
 	return (IS_SAME(Define::ObjectState_DEAD, GetState()));
 }
 
@@ -94,6 +95,11 @@ NativeInfo::Vec2Int Object::GetPosWithNoLock(void) const
 Define::ObjectState Object::GetStateWithNoLock(void) const
 {
 	return this->objectInfoWithPos.pos_info.state;
+}
+
+Define::Dir Object::GetDirWithNoLock(void) const
+{
+	return this->objectInfoWithPos.pos_info.moveDir;
 }
 
 void Object::SetObjectInfoWithPos(const Info::ObjectInfoWithPosT& objectInfoWithPos)
@@ -136,6 +142,11 @@ void Object::SetStateWithNoLock(const Define::ObjectState state)
 void Object::SetDirectionWithNoLock(const NativeInfo::Vec2Int& destPos)
 {
 	this->objectInfoWithPos.pos_info.moveDir = GetPosWithNoLock().GetDirection(destPos);
+}
+
+void Object::SetDirectionWithNoLock(const Define::Dir& dir)
+{
+	this->objectInfoWithPos.pos_info.moveDir = dir;
 }
 
 void Object::SetPosWithNoLock(const NativeInfo::Vec2Int& pos)

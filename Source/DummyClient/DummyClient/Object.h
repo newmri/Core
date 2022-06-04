@@ -28,6 +28,7 @@ public:
 protected:
 	NativeInfo::Vec2Int GetPosWithNoLock(void) const;
 	Define::ObjectState GetStateWithNoLock(void) const;
+	Define::Dir GetDirWithNoLock(void) const;
 
 public:
 	void SetObjectInfoWithPos(const Info::ObjectInfoWithPosT& objectInfoWithPos);
@@ -39,6 +40,7 @@ public:
 protected:
 	void SetStateWithNoLock(const Define::ObjectState state);
 	void SetDirectionWithNoLock(const NativeInfo::Vec2Int& destPos);
+	void SetDirectionWithNoLock(const Define::Dir& dir);
 	void SetPosWithNoLock(const NativeInfo::Vec2Int& pos);
 
 public:

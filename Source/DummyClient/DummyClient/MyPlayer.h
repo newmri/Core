@@ -29,10 +29,18 @@ public:
 	void SendReviveReq(void);
 
 private:
+	void DoAI(void);
+	void MoveRandom(bool isRun);
+	void Move(void);
+
+private:
 	std::shared_ptr<CoreServerSession> session;
 	GamePacket::MyCharacterInfoT characterInfo;
 
 private:
 	TIME_VALUE lastMoveTime = 0;
 	TIME_VALUE reviveTime = Define::ReviveTime_COOL_TIME * SEC;
+
+private:
+	uint8_t destDist;
 };

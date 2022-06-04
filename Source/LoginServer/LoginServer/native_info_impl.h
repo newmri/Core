@@ -166,6 +166,15 @@ namespace NativeInfo
 
             return destPos;
         }
+
+        Define::Dir GetRandomDir(void)
+        {
+            static int32_t minDir = static_cast<int32_t>(Define::Dir_MIN);
+            static int32_t maxDir = static_cast<int32_t>(Define::Dir_MAX);
+
+            return static_cast<Define::Dir>(CORE_RANDOM_MANAGER_INT.GetRandom(minDir, maxDir));
+        }
+
         int32_t x = 0;
         int32_t y = 0;
     };

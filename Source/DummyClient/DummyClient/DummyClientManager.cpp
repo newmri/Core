@@ -189,9 +189,9 @@ int32_t DummyClientManager::GetConnectedGameClientCount(void)
 
 void DummyClientManager::DeleteGameClient(const int64_t oid)
 {
-	OBJECT_MANAGER.RemoveObject(NativeInfo::ObjectInfo(Define::ObjectType_PLAYER, gameClientList[oid]->GetPlayerOID()));
-
 	WRITE_LOCK(this->gameMutex);
+
+	OBJECT_MANAGER.RemoveObject(NativeInfo::ObjectInfo(Define::ObjectType_PLAYER, gameClientList[oid]->GetPlayerOID()));
 
 	this->gameClientList[oid]->Stop();
 	this->gameClientList.erase(oid);
