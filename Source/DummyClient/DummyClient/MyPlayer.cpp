@@ -132,13 +132,25 @@ void MyPlayer::SendReviveReq(void)
 
 void MyPlayer::DoAI(void)
 {
+	if (IsDead())
+	{
+		SendReviveReq();
+
+		CORE_TIME_DELEGATE_MANAGER.Push(
+			CoreTimeDelegate<>(
+				std::bind(&MyPlayer::DoAI, Object::downcasted_shared_from_this<MyPlayer>()),
+				CORE_RANDOM_MANAGER_TIME.GetRandom(SEC, SEC * 2)));
+
+		return;
+	}
+
 	static int32_t stateMin = Define::ObjectState_MIN;
 	static int32_t stateMax = Define::ObjectState_MAX;
 
 	auto currState = GetState();
 	Define::ObjectState state = static_cast<Define::ObjectState>(CORE_RANDOM_MANAGER_INT.GetRandom(stateMin, stateMax));
 
-	if (!IsDead() && IS_NOT_SAME(currState, state))
+	if (IS_NOT_SAME(currState, state))
 	{
 		switch (state)
 		{
@@ -158,7 +170,7 @@ void MyPlayer::DoAI(void)
 			MoveRandom(true);
 			return;
 		case Define::ObjectState_SKILL:
-			//UseSkill();
+			UseSkill();
 			break;
 		default:
 			MoveRandom(false);
