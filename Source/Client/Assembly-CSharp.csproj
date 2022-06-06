@@ -175,6 +175,8 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Message\UIMessagePopup.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Message\UIErrorMessagePopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Message\UINameMessagePopup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -19,7 +19,8 @@ public class UICharacterActiveSlot : UIPopup
 
     enum Buttons
     {
-        UICharacterActiveSlot
+        UICharacterActiveSlot,
+        DeleteButton
     }
 
     enum Images
@@ -51,6 +52,8 @@ public class UICharacterActiveSlot : UIPopup
 
         GetObject((int)GameObjects.CharacterBgActive).SetActive(false);
         GetButton((int)Buttons.UICharacterActiveSlot).gameObject.BindEvent(OnClickSlotButton);
+        GetButton((int)Buttons.DeleteButton).gameObject.BindEvent(OnClickDeleteButton);
+
 
         UpdateSlot();
     }
@@ -77,6 +80,24 @@ public class UICharacterActiveSlot : UIPopup
     {
         transform.GetComponentInParent<UICharacterSelectPopup>().OnActiveSlotSelected();
         OnSelected();
+    }
+
+    public void OnClickDeleteButton(PointerEventData evt)
+    {
+        UINameMessagePopup nameMessagePopup = Managers.UI.ShowPopupUI<UINameMessagePopup>();
+        nameMessagePopup.SetText("캐릭터 삭제", "캐릭터명", "캐릭터를 삭제하면 되돌릴 수 없습니다.\n 신중히 선택하세요.",
+         (evt) =>
+         {
+             if (_info.Name != nameMessagePopup.Name)
+             {
+                 UIErrorMessagePopup errorMessagePopup = Managers.UI.ShowPopupUI<UIErrorMessagePopup>();
+                 errorMessagePopup.SetText("캐릭터명이 잘못 되었습니다.");
+             }
+             else
+             {
+                 
+             }
+         });
     }
 
     public void OnSelected()
