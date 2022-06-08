@@ -18,4 +18,5 @@ void LoginPacketHandler::Register(void)
     this->func[LoginPacket::Packet_SC_LOGIN_RES] = &LoginPacketFunc::SC_LOGIN_RES;
     this->func[LoginPacket::Packet_SC_PING_REQ] = &LoginPacketFunc::SC_PING_REQ;
     this->func[LoginPacket::Packet_SC_CREATE_CHARACTER_RES] = &LoginPacketFunc::SC_CREATE_CHARACTER_RES;
+    this->func[LoginPacket::Packet_SC_DELETE_CHARACTER_RES] = &LoginPacketFunc::SC_DELETE_CHARACTER_RES;
 }

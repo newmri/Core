@@ -14,6 +14,7 @@ public enum ErrorCode : sbyte
   SUCCESS = 0,
   UNKNOWN = 1,
   ALREADY_LOGINED = 2,
+  INVALID_CHARACTER = 3,
 };
 
 public enum Packet : byte
@@ -26,6 +27,8 @@ public enum Packet : byte
   CS_LOGOUT_NOTI = 5,
   CS_CREATE_CHARACTER_REQ = 6,
   SC_CREATE_CHARACTER_RES = 7,
+  CS_DELETE_CHARACTER_REQ = 8,
+  SC_DELETE_CHARACTER_RES = 9,
 };
 
 public class PacketUnion {
@@ -45,6 +48,8 @@ public class PacketUnion {
   public LoginPacket.CS_LOGOUT_NOTIT AsCS_LOGOUT_NOTI() { return this.As<LoginPacket.CS_LOGOUT_NOTIT>(); }
   public LoginPacket.CS_CREATE_CHARACTER_REQT AsCS_CREATE_CHARACTER_REQ() { return this.As<LoginPacket.CS_CREATE_CHARACTER_REQT>(); }
   public LoginPacket.SC_CREATE_CHARACTER_REST AsSC_CREATE_CHARACTER_RES() { return this.As<LoginPacket.SC_CREATE_CHARACTER_REST>(); }
+  public LoginPacket.CS_DELETE_CHARACTER_REQT AsCS_DELETE_CHARACTER_REQ() { return this.As<LoginPacket.CS_DELETE_CHARACTER_REQT>(); }
+  public LoginPacket.SC_DELETE_CHARACTER_REST AsSC_DELETE_CHARACTER_RES() { return this.As<LoginPacket.SC_DELETE_CHARACTER_REST>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -56,6 +61,8 @@ public class PacketUnion {
       case Packet.CS_LOGOUT_NOTI: return LoginPacket.CS_LOGOUT_NOTI.Pack(builder, _o.AsCS_LOGOUT_NOTI()).Value;
       case Packet.CS_CREATE_CHARACTER_REQ: return LoginPacket.CS_CREATE_CHARACTER_REQ.Pack(builder, _o.AsCS_CREATE_CHARACTER_REQ()).Value;
       case Packet.SC_CREATE_CHARACTER_RES: return LoginPacket.SC_CREATE_CHARACTER_RES.Pack(builder, _o.AsSC_CREATE_CHARACTER_RES()).Value;
+      case Packet.CS_DELETE_CHARACTER_REQ: return LoginPacket.CS_DELETE_CHARACTER_REQ.Pack(builder, _o.AsCS_DELETE_CHARACTER_REQ()).Value;
+      case Packet.SC_DELETE_CHARACTER_RES: return LoginPacket.SC_DELETE_CHARACTER_RES.Pack(builder, _o.AsSC_DELETE_CHARACTER_RES()).Value;
     }
   }
 }
@@ -527,6 +534,114 @@ public class SC_CREATE_CHARACTER_REST
   }
 }
 
+public struct CS_DELETE_CHARACTER_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_DELETE_CHARACTER_REQ GetRootAsCS_DELETE_CHARACTER_REQ(ByteBuffer _bb) { return GetRootAsCS_DELETE_CHARACTER_REQ(_bb, new CS_DELETE_CHARACTER_REQ()); }
+  public static CS_DELETE_CHARACTER_REQ GetRootAsCS_DELETE_CHARACTER_REQ(ByteBuffer _bb, CS_DELETE_CHARACTER_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_DELETE_CHARACTER_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public long Uid { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+
+  public static Offset<LoginPacket.CS_DELETE_CHARACTER_REQ> CreateCS_DELETE_CHARACTER_REQ(FlatBufferBuilder builder,
+      long uid = 0) {
+    builder.StartTable(1);
+    CS_DELETE_CHARACTER_REQ.AddUid(builder, uid);
+    return CS_DELETE_CHARACTER_REQ.EndCS_DELETE_CHARACTER_REQ(builder);
+  }
+
+  public static void StartCS_DELETE_CHARACTER_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(0, uid, 0); }
+  public static Offset<LoginPacket.CS_DELETE_CHARACTER_REQ> EndCS_DELETE_CHARACTER_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<LoginPacket.CS_DELETE_CHARACTER_REQ>(o);
+  }
+  public CS_DELETE_CHARACTER_REQT UnPack() {
+    var _o = new CS_DELETE_CHARACTER_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_DELETE_CHARACTER_REQT _o) {
+    _o.Uid = this.Uid;
+  }
+  public static Offset<LoginPacket.CS_DELETE_CHARACTER_REQ> Pack(FlatBufferBuilder builder, CS_DELETE_CHARACTER_REQT _o) {
+    if (_o == null) return default(Offset<LoginPacket.CS_DELETE_CHARACTER_REQ>);
+    return CreateCS_DELETE_CHARACTER_REQ(
+      builder,
+      _o.Uid);
+  }
+};
+
+public class CS_DELETE_CHARACTER_REQT
+{
+  public long Uid { get; set; }
+
+  public CS_DELETE_CHARACTER_REQT() {
+    this.Uid = 0;
+  }
+}
+
+public struct SC_DELETE_CHARACTER_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_DELETE_CHARACTER_RES GetRootAsSC_DELETE_CHARACTER_RES(ByteBuffer _bb) { return GetRootAsSC_DELETE_CHARACTER_RES(_bb, new SC_DELETE_CHARACTER_RES()); }
+  public static SC_DELETE_CHARACTER_RES GetRootAsSC_DELETE_CHARACTER_RES(ByteBuffer _bb, SC_DELETE_CHARACTER_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_DELETE_CHARACTER_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public LoginPacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (LoginPacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : LoginPacket.ErrorCode.SUCCESS; } }
+  public long Uid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+
+  public static Offset<LoginPacket.SC_DELETE_CHARACTER_RES> CreateSC_DELETE_CHARACTER_RES(FlatBufferBuilder builder,
+      LoginPacket.ErrorCode result = LoginPacket.ErrorCode.SUCCESS,
+      long uid = 0) {
+    builder.StartTable(2);
+    SC_DELETE_CHARACTER_RES.AddUid(builder, uid);
+    SC_DELETE_CHARACTER_RES.AddResult(builder, result);
+    return SC_DELETE_CHARACTER_RES.EndSC_DELETE_CHARACTER_RES(builder);
+  }
+
+  public static void StartSC_DELETE_CHARACTER_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddResult(FlatBufferBuilder builder, LoginPacket.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
+  public static void AddUid(FlatBufferBuilder builder, long uid) { builder.AddLong(1, uid, 0); }
+  public static Offset<LoginPacket.SC_DELETE_CHARACTER_RES> EndSC_DELETE_CHARACTER_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<LoginPacket.SC_DELETE_CHARACTER_RES>(o);
+  }
+  public SC_DELETE_CHARACTER_REST UnPack() {
+    var _o = new SC_DELETE_CHARACTER_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_DELETE_CHARACTER_REST _o) {
+    _o.Result = this.Result;
+    _o.Uid = this.Uid;
+  }
+  public static Offset<LoginPacket.SC_DELETE_CHARACTER_RES> Pack(FlatBufferBuilder builder, SC_DELETE_CHARACTER_REST _o) {
+    if (_o == null) return default(Offset<LoginPacket.SC_DELETE_CHARACTER_RES>);
+    return CreateSC_DELETE_CHARACTER_RES(
+      builder,
+      _o.Result,
+      _o.Uid);
+  }
+};
+
+public class SC_DELETE_CHARACTER_REST
+{
+  public LoginPacket.ErrorCode Result { get; set; }
+  public long Uid { get; set; }
+
+  public SC_DELETE_CHARACTER_REST() {
+    this.Result = LoginPacket.ErrorCode.SUCCESS;
+    this.Uid = 0;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -546,6 +661,8 @@ public struct Root : IFlatbufferObject
   public LoginPacket.CS_LOGOUT_NOTI PacketAsCS_LOGOUT_NOTI() { return Packet<LoginPacket.CS_LOGOUT_NOTI>().Value; }
   public LoginPacket.CS_CREATE_CHARACTER_REQ PacketAsCS_CREATE_CHARACTER_REQ() { return Packet<LoginPacket.CS_CREATE_CHARACTER_REQ>().Value; }
   public LoginPacket.SC_CREATE_CHARACTER_RES PacketAsSC_CREATE_CHARACTER_RES() { return Packet<LoginPacket.SC_CREATE_CHARACTER_RES>().Value; }
+  public LoginPacket.CS_DELETE_CHARACTER_REQ PacketAsCS_DELETE_CHARACTER_REQ() { return Packet<LoginPacket.CS_DELETE_CHARACTER_REQ>().Value; }
+  public LoginPacket.SC_DELETE_CHARACTER_RES PacketAsSC_DELETE_CHARACTER_RES() { return Packet<LoginPacket.SC_DELETE_CHARACTER_RES>().Value; }
 
   public static Offset<LoginPacket.Root> CreateRoot(FlatBufferBuilder builder,
       LoginPacket.Packet packet_type = LoginPacket.Packet.NONE,
@@ -595,6 +712,12 @@ public struct Root : IFlatbufferObject
         break;
       case LoginPacket.Packet.SC_CREATE_CHARACTER_RES:
         _o.Packet.Value = this.Packet<LoginPacket.SC_CREATE_CHARACTER_RES>().HasValue ? this.Packet<LoginPacket.SC_CREATE_CHARACTER_RES>().Value.UnPack() : null;
+        break;
+      case LoginPacket.Packet.CS_DELETE_CHARACTER_REQ:
+        _o.Packet.Value = this.Packet<LoginPacket.CS_DELETE_CHARACTER_REQ>().HasValue ? this.Packet<LoginPacket.CS_DELETE_CHARACTER_REQ>().Value.UnPack() : null;
+        break;
+      case LoginPacket.Packet.SC_DELETE_CHARACTER_RES:
+        _o.Packet.Value = this.Packet<LoginPacket.SC_DELETE_CHARACTER_RES>().HasValue ? this.Packet<LoginPacket.SC_DELETE_CHARACTER_RES>().Value.UnPack() : null;
         break;
     }
   }

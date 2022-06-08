@@ -26,6 +26,7 @@ class LoginPacketManager
        _handler.Add(Packet.SC_LOGIN_RES, LoginPacketHandler.SC_LOGIN_RES);
        _handler.Add(Packet.SC_PING_REQ, LoginPacketHandler.SC_PING_REQ);
        _handler.Add(Packet.SC_CREATE_CHARACTER_RES, LoginPacketHandler.SC_CREATE_CHARACTER_RES);
+       _handler.Add(Packet.SC_DELETE_CHARACTER_RES, LoginPacketHandler.SC_DELETE_CHARACTER_RES);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

@@ -128,3 +128,23 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 
 	return isSuccess;
 }
+
+bool GameDB::DeleteCharacter(const int64_t accountUID, const int64_t characterUID)
+{
+	Prepare(L"DeleteCharacter");
+	BindArgument(accountUID);
+	BindArgument(characterUID);
+	Execute();
+
+	bool isSuccess = false;
+	BindCol(&isSuccess, sizeof(isSuccess));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+
+	return isSuccess;
+}

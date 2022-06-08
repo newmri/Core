@@ -9,6 +9,7 @@ using TMPro;
 using System;
 using LoginPacket;
 using Spine.Unity;
+using FlatBuffers;
 
 public class UICharacterActiveSlot : UIPopup
 {
@@ -95,7 +96,9 @@ public class UICharacterActiveSlot : UIPopup
              }
              else
              {
-                 
+                 FlatBufferBuilder builder = new FlatBufferBuilder(1);
+                 var message = CS_DELETE_CHARACTER_REQ.CreateCS_DELETE_CHARACTER_REQ(builder, _info.Uid);
+                 Managers.LoginNetwork.Send(builder, Packet.CS_DELETE_CHARACTER_REQ, message.Value);
              }
          });
     }

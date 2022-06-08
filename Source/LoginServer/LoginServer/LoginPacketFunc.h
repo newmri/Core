@@ -8,4 +8,5 @@ public:
 	void CS_PING_RES(std::shared_ptr<CoreClientSession> session, const void* data);
 	void CS_LOGOUT_NOTI(std::shared_ptr<CoreClientSession> session, const void* data);
 	void CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
+	void CS_DELETE_CHARACTER_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 };

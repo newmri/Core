@@ -160,3 +160,37 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_CREATE_CHARACTER_RES, message.Union());
 }
+
+void LoginPacketFunc::CS_DELETE_CHARACTER_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto raw = static_cast<const LoginPacket::CS_DELETE_CHARACTER_REQ*>(data);
+
+	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
+	if (IS_NULL(account))
+		return;
+
+	int64_t uid = raw->uid();
+
+	PACKET_SEND_MANAGER.Clear();
+
+	flatbuffers::Offset<LoginPacket::SC_DELETE_CHARACTER_RES> message;
+
+	if (account->HaveCharacter(uid))
+	{
+		if (LOGIN_SERVER.GetGameDB()->DeleteCharacter(session->GetAccountUID(), uid))
+		{
+			account->DeleteCharacter(uid);
+			message = LoginPacket::CreateSC_DELETE_CHARACTER_RES(PACKET_SEND_MANAGER.builder, LoginPacket::ErrorCode::ErrorCode_SUCCESS, uid);
+		}
+		else
+		{
+			message = LoginPacket::CreateSC_DELETE_CHARACTER_RES(PACKET_SEND_MANAGER.builder, LoginPacket::ErrorCode::ErrorCode_INVALID_CHARACTER);
+		}
+	}
+	else
+	{
+		message = LoginPacket::CreateSC_DELETE_CHARACTER_RES(PACKET_SEND_MANAGER.builder, LoginPacket::ErrorCode::ErrorCode_INVALID_CHARACTER);
+	}
+
+	PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_SC_DELETE_CHARACTER_RES, message.Union());
+}

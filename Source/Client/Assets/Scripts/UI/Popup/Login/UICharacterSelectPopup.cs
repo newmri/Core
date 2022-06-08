@@ -9,6 +9,7 @@ using TMPro;
 using LoginPacket;
 using System;
 using Define;
+using System.Linq;
 
 public class UICharacterSelectPopup : UIPopup
 {
@@ -70,6 +71,23 @@ public class UICharacterSelectPopup : UIPopup
         _lockList.Add(go.GetOrAddComponent<UICharacterLockSlot>());
     }
 
+    public void DeleteActiveSlot(long uid)
+    {
+        UICharacterActiveSlot slot = _activeList.Find(activeSlot => uid == activeSlot.GetUID());
+        if (null != slot)
+        {
+            _activeList.Remove(slot);
+            CoreManagers.Resource.Destroy(slot.gameObject);
+
+            int index = (_activeList.Count() + _emptyList.Count());
+
+            AddEmptySlot();
+
+            UICharacterEmptySlot addedSlot = _emptyList[_emptyList.Count - 1];
+            addedSlot.transform.SetSiblingIndex(index);
+        }
+    }
+
     public void RemoveLastEmptySlot()
     {
         if (0 == _emptyList.Count)
@@ -78,6 +96,16 @@ public class UICharacterSelectPopup : UIPopup
         UICharacterEmptySlot slot = _emptyList[_emptyList.Count - 1];
         _emptyList.Remove(slot);
         CoreManagers.Resource.Destroy(slot.gameObject);
+    }
+
+    private void SortSlot()
+    {
+        List<Transform> transformList = Util.FindAllChildrens<Transform>(_gird);
+        
+        foreach (Transform transform in transformList)
+        {
+            Debug.Log(transform.name);
+        }
     }
 
     public void OnActiveSlotSelected()

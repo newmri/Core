@@ -7,7 +7,8 @@ enum ErrorCode : byte
 {
   SUCCESS = 0,
   UNKNOWN,
-  ALREADY_LOGINED
+  ALREADY_LOGINED,
+  INVALID_CHARACTER,
 }
 
 union Packet
@@ -19,6 +20,8 @@ union Packet
     CS_LOGOUT_NOTI,
     CS_CREATE_CHARACTER_REQ,
     SC_CREATE_CHARACTER_RES,
+    CS_DELETE_CHARACTER_REQ,
+    SC_DELETE_CHARACTER_RES
 }
 
 table CS_LOGIN_REQ
@@ -66,6 +69,17 @@ table SC_CREATE_CHARACTER_RES
 {
     is_success:bool;
     character_info:CharacterInfo;
+}
+
+table CS_DELETE_CHARACTER_REQ
+{
+    uid:int64;
+}
+
+table SC_DELETE_CHARACTER_RES
+{
+    result:ErrorCode;
+    uid:int64;
 }
 
 table Root

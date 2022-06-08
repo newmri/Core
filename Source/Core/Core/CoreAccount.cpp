@@ -85,10 +85,23 @@ void CoreAccount::GetCharacter(CoreVector<std::shared_ptr<CoreCharacter>>& chara
 	}
 }
 
+bool CoreAccount::HaveCharacter(const int64_t& uid)
+{
+	READ_LOCK(this->characterMutex);
+	auto iter = this->characterList.find(uid);
+	return (IS_NOT_SAME(iter, this->characterList.end()));
+}
+
 void CoreAccount::AddCharacter(std::shared_ptr<CoreCharacter> character)
 {
 	WRITE_LOCK(this->characterMutex);
 	this->characterList[character->GetUID()] = character;
+}
+
+void CoreAccount::DeleteCharacter(const int64_t& uid)
+{
+	WRITE_LOCK(this->characterMutex);
+	this->characterList.erase(uid);
 }
 
 void CoreAccount::SetPlayerOID(const int64_t& oid)

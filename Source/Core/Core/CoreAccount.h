@@ -38,7 +38,11 @@ public:
 	void GetCharacter(CoreVector<std::shared_ptr<CoreCharacter>>& characterList);
 
 public:
+	bool HaveCharacter(const int64_t& uid);
+
+public:
 	void AddCharacter(std::shared_ptr<CoreCharacter> character);
+	void DeleteCharacter(const int64_t& uid);
 
 public:
 	void SetPlayerOID(const int64_t& oid);
