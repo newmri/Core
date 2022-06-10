@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\Network\ServerInfo.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Message\UINetworkErrorPopup.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\GameServerSession.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Message\UIErrorMessagePopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\WorldList\UIWorldListPopupInfo.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -170,13 +171,13 @@
     <Compile Include="Assets\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Game\UIDead.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Message\UINameMessagePopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterEmptySlot.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Message\UIMessagePopup.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\Message\UIErrorMessagePopup.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\Message\UINameMessagePopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Game\UISettingPopup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

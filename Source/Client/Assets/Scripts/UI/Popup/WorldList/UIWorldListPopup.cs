@@ -61,7 +61,8 @@ public class UIWorldListPopup : UIPopup
 
         Managers.Web.SendPostRequest<LoginServerInfoPacketRes>("serverselect", packet, (res) =>
         {
-            Managers.LoginNetwork.Conntect(res);
+            Managers.LoginNetwork.ServerInfo = res;
+            Managers.LoginNetwork.Conntect();
         });
     }
 

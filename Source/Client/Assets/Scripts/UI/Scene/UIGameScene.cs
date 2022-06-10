@@ -35,7 +35,8 @@ public class UIGameScene : UIScene
 
     enum Buttons
     {
-        AttackButton
+        AttackButton,
+        SettingButton
     }
 
     public override void Init()
@@ -48,6 +49,7 @@ public class UIGameScene : UIScene
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.AttackButton).gameObject.BindEvent(OnClickAttackButton);
+        GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSettingButton);
     }
 
     public void UpdateHPBar(int HP, int MaxHP)
@@ -104,5 +106,10 @@ public class UIGameScene : UIScene
     public void OnClickAttackButton(PointerEventData evt)
     {
         Managers.Object.MyPlayer.UseSkill((int)Managers.Object.MyPlayer.MyCharacterInfo.Job);
+    }
+
+    public void OnClickSettingButton(PointerEventData evt)
+    {
+        Managers.UI.ShowPopupUI<UISettingPopup>();
     }
 }

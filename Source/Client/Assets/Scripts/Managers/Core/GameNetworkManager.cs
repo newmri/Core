@@ -18,9 +18,9 @@ public class GameNetworkManager : BaseNetworkManager
         _session = new GameServerSession();
     }
 
-    public override void Conntect(ServerInfo info)
+    public override void Conntect()
     {
-        base.Conntect(info);
+        base.Conntect();
     }
 
     public override void Disconnect(bool newSession = true)

@@ -25,6 +25,7 @@ namespace UnityCoreLibrary
         public void Clear()
         {
             CurrentScene.Clear();
+            CoreManagers.Resource.Destroy(CurrentScene.gameObject);
         }
     }
 }

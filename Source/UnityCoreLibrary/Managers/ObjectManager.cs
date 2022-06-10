@@ -120,7 +120,14 @@ namespace UnityCoreLibrary
 
         public void Clear()
         {
+            foreach (var obj in _clientObjects)
+                CoreManagers.Resource.Destroy(obj.Value);
+
             _clientObjects.Clear();
+
+            foreach (var obj in _serverObjects)
+                CoreManagers.Resource.Destroy(obj.Value);
+
             _serverObjects.Clear();
         }
     }

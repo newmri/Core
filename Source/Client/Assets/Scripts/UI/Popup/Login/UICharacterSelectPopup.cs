@@ -139,8 +139,9 @@ public class UICharacterSelectPopup : UIPopup
 
         Managers.Web.SendPostRequest<LoginServerInfoPacketRes>("serverselect", packet, (res) =>
         {
-            Managers.LoginNetwork.Disconnect(false);
-            Managers.GameNetwork.Conntect(res);
+            Managers.LoginNetwork.Disconnect();
+            Managers.GameNetwork.ServerInfo = res;
+            Managers.GameNetwork.Conntect();
         });
     }
 
