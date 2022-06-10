@@ -30,6 +30,7 @@ class LoginPacketHandler
             return;
         }
 
+        Managers.UI.CloseAllPopupUI();
         UICharacterSelectPopup popUp = Managers.UI.ShowPopupUI<UICharacterSelectPopup>();
 
         popUp.Clear();

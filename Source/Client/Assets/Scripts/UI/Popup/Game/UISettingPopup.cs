@@ -43,16 +43,9 @@ public class UISettingPopup : UIPopup
         Managers.GameNetwork.Disconnect();
 
         Managers.Clear();
+
         CoreManagers.Scene.Clear();
-        CoreManagers.Scene.LoadScene(CoreDefine.Scene.Login);
-
-        CoreManagers.Coroutine.Add(ConnectDelay());
-    }
-
-    IEnumerator ConnectDelay()
-    {
-        yield return new WaitForEndOfFrame();
-        Managers.LoginNetwork.Conntect();
+        CoreManagers.Scene.LoadScene(CoreDefine.Scene.Login, Managers.LoginNetwork.Conntect);
     }
 
     public void OnQuitGameButton(PointerEventData evt)

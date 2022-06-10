@@ -89,6 +89,8 @@ public class LoginNetworkManager : BaseNetworkManager
             {
                 Managers.Account.UID = res.UID;
                 Managers.Account.Token = res.Token;
+
+                Managers.UI.CloseAllPopupUI();
                 Managers.UI.ShowPopupUI<UIWorldListPopup>().SetWorldList(res.WorldList);
             }
             else

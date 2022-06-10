@@ -14,6 +14,7 @@ namespace UnityCoreLibrary
         {
             Unknown,
             Title,
+            Loading,
             Login,
             Lobby,
             Game,

@@ -9,7 +9,7 @@ namespace UnityCoreLibrary
 
         PoolManager _pool = new PoolManager();
         ResourceManager _resource = new ResourceManager();
-        SceneManagerEx _scene = new SceneManagerEx();
+        SceneManagerEx _scene;
         ObjectManager _obj = new ObjectManager();
         CoroutineManager _coroutine;
         DataLoadManager _data = new DataLoadManager();
@@ -48,6 +48,8 @@ namespace UnityCoreLibrary
                 s_instance._pool.Init();
 
                 s_instance._coroutine = Util.GetOrAddComponent<CoroutineManager>("@Coroutine", managersObject.transform);
+                s_instance._scene = Util.GetOrAddComponent<SceneManagerEx>("@Scene", managersObject.transform);
+
             }
         }
 

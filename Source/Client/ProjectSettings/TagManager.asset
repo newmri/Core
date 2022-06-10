@@ -9,6 +9,7 @@ TagManager:
   - Text
   - Effect
   - Projectile
+  - Scene
   layers:
   - Default
   - TransparentFX
