@@ -12,6 +12,7 @@ public class LoadingScene : BaseScene
     protected override void Init(CoreDefine.Scene scene)
     {
         base.Init(scene);
+        Managers.UI.ShowSceneUI<UILoadingScene>();
     }
 
     public override void Clear()

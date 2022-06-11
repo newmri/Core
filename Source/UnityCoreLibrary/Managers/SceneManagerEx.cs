@@ -8,7 +8,7 @@ namespace UnityCoreLibrary
 {
     public class SceneManagerEx : MonoBehaviour
     {
-        private float _fillAmount;
+        public float LoadingAmount;
         private string _nextScene;
         public Action _sceneLoadDoneAction;
 
@@ -45,19 +45,22 @@ namespace UnityCoreLibrary
                 yield return null;
 
                 timer += Time.deltaTime;
-                Debug.Log(_fillAmount);
-                if (asyncScene.progress < 0.9f)
+                float progress = asyncScene.progress;
+
+                if (progress < 0.9f)
                 {
-                    _fillAmount = Mathf.Lerp(_fillAmount, asyncScene.progress, timer);
-                    if (_fillAmount >= asyncScene.progress)
+                    LoadingAmount = Mathf.Lerp(LoadingAmount, progress, timer);
+
+                    if (LoadingAmount >= progress)
                     {
                         timer = 0f;
                     }
                 }
                 else
                 {
-                    _fillAmount = Mathf.Lerp(_fillAmount, 1f, timer);
-                    if (_fillAmount == 1.0f)
+                    LoadingAmount = Mathf.Lerp(LoadingAmount, 1.0f, timer);
+
+                    if (LoadingAmount == 1.0f)
                     {
                         asyncScene.allowSceneActivation = true;
                         CoreManagers.Resource.Destroy(CurrentScene.gameObject);
@@ -78,6 +81,7 @@ namespace UnityCoreLibrary
 
         public void Clear()
         {
+            LoadingAmount = 0.0f;
             CurrentScene.Clear();
 
             var objectList = Resources.FindObjectsOfTypeAll<BaseScene>();
