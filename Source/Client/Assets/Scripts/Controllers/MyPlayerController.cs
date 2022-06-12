@@ -45,7 +45,7 @@ public class MyPlayerController : PlayerController
 		}
 	}
 
-	private long MaxEXP
+	public long MaxEXP
     {
 		get
 		{
@@ -77,11 +77,13 @@ public class MyPlayerController : PlayerController
 	bool _moveKeyPressed = false;
 
 	UIGameScene _uiGameScene;
+	Transform _renderTextureCameraTransform;
 
 	protected override void Init()
 	{
 		base.Init();
 		_uiGameScene = Managers.UI.GetSceneUI<UIGameScene>();
+		_renderTextureCameraTransform = GameObject.FindGameObjectWithTag("RenderTextureCamera").transform;
 
 		RefreshAdditionalStat();
 	}
@@ -123,45 +125,31 @@ public class MyPlayerController : PlayerController
 		base.UpdateMoving();
 	}
 
+
 	void LateUpdate()
 	{
 		Camera.main.transform.position = new Vector3(transform.position.x - 0.5f,
 			Camera.main.transform.position.y, -10);
+
+		_renderTextureCameraTransform.position = new Vector3(transform.position.x, transform.position.y + 2.0f, -10);
 	}
 
 	void GetUIKeyInput()
 	{
-		//if (Input.GetKeyDown(KeyCode.I))
-		//{
-		//	UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-		//	UI_Inventory invenUI = gameSceneUI.InvenUI;
-
-		//	if (invenUI.gameObject.activeSelf)
-		//	{
-		//		invenUI.gameObject.SetActive(false);
-		//	}
-		//	else
-		//	{
-		//		invenUI.gameObject.SetActive(true);
-		//		invenUI.RefreshUI();
-		//	}
-		//}
-		//else if (Input.GetKeyDown(KeyCode.C))
-		//{
-		//	UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-		//	UI_Stat statUI = gameSceneUI.StatUI;
-
-		//	if (statUI.gameObject.activeSelf)
-		//	{
-		//		statUI.gameObject.SetActive(false);
-		//	}
-		//	else
-		//	{
-		//		statUI.gameObject.SetActive(true);
-		//		statUI.RefreshUI();
-		//	}
-		//}
-	}
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+			UIInventoryPopup inventory = Managers.UI.GetSceneUI<UIGameScene>().Inventory;
+			if(inventory.gameObject.activeSelf)
+            {
+				inventory.gameObject.SetActive(false);
+			}
+			else
+            {
+				inventory.Refresh();
+				inventory.gameObject.SetActive(true);
+			}
+		}
+    }
 
 	// 키보드 입력
 	void GetDirInput()

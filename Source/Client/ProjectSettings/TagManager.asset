@@ -10,11 +10,12 @@ TagManager:
   - Effect
   - Projectile
   - Scene
+  - RenderTextureCamera
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BackGround
   - Water
   - UI
   - Map
@@ -22,7 +23,7 @@ TagManager:
   - Projectile
   - Text
   - Effect
-  - 
+  - MyPlayer
   - 
   - 
   - 
@@ -46,6 +47,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 708437165
     locked: 0
   - name: Map
     uniqueID: 2688267453

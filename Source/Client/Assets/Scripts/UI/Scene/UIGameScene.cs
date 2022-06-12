@@ -39,6 +39,8 @@ public class UIGameScene : UIScene
         SettingButton
     }
 
+    public UIInventoryPopup Inventory;
+
     public override void Init()
     {
         Managers.UI.SetCanvas(gameObject);
@@ -50,6 +52,8 @@ public class UIGameScene : UIScene
 
         GetButton((int)Buttons.AttackButton).gameObject.BindEvent(OnClickAttackButton);
         GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSettingButton);
+
+        Inventory = Managers.UI.ShowPopupUI<UIInventoryPopup>();
     }
 
     public void UpdateHPBar(int HP, int MaxHP)
@@ -64,7 +68,11 @@ public class UIGameScene : UIScene
 
     public void UpdateEXPBar(long EXP, long MaxEXP)
     {
-        GetSlider((int)Sliders.EXPSlider).value = (float)EXP / MaxEXP;
+        float value = (float)EXP / MaxEXP;
+        GetSlider((int)Sliders.EXPSlider).value = value;
+
+        if (Inventory.gameObject.activeSelf)
+            Inventory.UpdateEXPBar(value);
     }
 
     public void UpdateCharacterInfo(string name, byte level, Job job)
@@ -74,12 +82,17 @@ public class UIGameScene : UIScene
 
         Sprite jobIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{job.ToString()}Icon");
         GetImage((int)Images.JobIconImage).sprite = jobIcon;
+
+        Inventory.UpdateCharacterName(name);
     }
 
     public void UpdateMoney(MoneyT money)
     {
         this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = money.Value[(int)MoneyType.GEM].ToString();
         this.GetTextMesh((int)TextMeshProUGUIs.GoldText).text = money.Value[(int)MoneyType.GOLD].ToString();
+
+        if(Inventory.gameObject.activeSelf)
+            Inventory.UpdateMoney(money);
     }
 
     Dictionary<int, Images> _skillCoolTimeList = new Dictionary<int, Images>();

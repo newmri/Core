@@ -6,6 +6,7 @@ using UnityCoreLibrary;
 using Info;
 using Define;
 using System;
+using Spine.Unity;
 
 public class ObjectManager
 {
@@ -25,6 +26,7 @@ public class ObjectManager
     public void AddMyPlayer()
     {
         GameObject gameObject = CoreManagers.Obj.Add(MyObjectInfo.ObjectInfo.Oid, "Player", "Player");
+
         MyPlayer = gameObject.GetOrAddComponent<MyPlayerController>();
         CoreManagers.Coroutine.Add(MyPlayerSetInfoDelay());
     }
@@ -36,6 +38,10 @@ public class ObjectManager
 
         // UI 갱신을 위해
         Managers.Account.Money = Managers.Account.Money;
+
+        int layer = LayerMask.NameToLayer("MyPlayer");
+        MyPlayer.gameObject.layer = layer;
+        MyPlayer.GetComponentInChildren<SkeletonAnimation>().gameObject.layer = layer;
 
         MyPlayer.ObjectInfoWithPos = MyObjectInfo;
         MyPlayer.CreatureInfo = MyCreatureInfo;
