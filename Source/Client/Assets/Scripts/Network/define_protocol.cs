@@ -59,11 +59,16 @@ public enum AbilityType : byte
   MAGIC_DEFENCE = 5,
   CRITICAL_RATE = 6,
   MAGIC_CRITICAL_RATE = 7,
-  LIGHT_REGISTTANCE = 8,
-  DARK_REGISTTANCE = 9,
-  FIRE_REGISTTANCE = 10,
-  WATER_REGISTTANCE = 11,
+  LIGHT_REGISTTANCE_RATE = 8,
+  DARK_REGISTTANCE_RATE = 9,
+  FIRE_REGISTTANCE_RATE = 10,
+  WATER_REGISTTANCE_RATE = 11,
   END = 12,
+};
+
+public enum AbilityRate : ushort
+{
+  RATE = 10000,
 };
 
 public enum SpeedType : byte

@@ -3,6 +3,9 @@ using Info;
 using Define;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using UnityCoreLibrary;
+using UnityEngine.EventSystems;
 
 public class UIInventoryPopup : UIPopup
 {
@@ -25,6 +28,13 @@ public class UIInventoryPopup : UIPopup
         EXPSlider
     }
 
+    enum Buttons
+    {
+        BackButton
+    }
+
+    private List<TextMeshProUGUI> _statList = null;
+
     public override void Init()
     {
         base.Init();
@@ -32,6 +42,11 @@ public class UIInventoryPopup : UIPopup
         Bind<GameObject>(typeof(GameObjects));
         Bind<Slider>(typeof(Sliders));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
+        Bind<Button>(typeof(Buttons));
+
+        GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
+
+        _statList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.Stats), "ValueText", true);
 
         gameObject.SetActive(false);
     }
@@ -41,6 +56,17 @@ public class UIInventoryPopup : UIPopup
         UpdateMoney(Managers.Account.Money);
         UpdateCharacterLevel(Managers.Object.MyPlayer.Level);
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
+
+        int index = 0;
+        for (AbilityType abilityType = 0; abilityType < AbilityType.END; ++abilityType)
+        {
+            index = (int)abilityType;
+
+            if(abilityType.ToString().Contains("RATE"))
+                _statList[index].text = ((Managers.Object.MyCreatureInfo.Ability.Value[index] / (float)AbilityRate.RATE) * 100).ToString() + "%";
+            else
+                _statList[index].text = Managers.Object.MyCreatureInfo.Ability.Value[index].ToString();
+        }
     }
 
     public void UpdateMoney(MoneyT money)
@@ -63,5 +89,10 @@ public class UIInventoryPopup : UIPopup
     {
        this.GetTextMesh((int)TextMeshProUGUIs.EXPText).text = value + "%";
        GetSlider((int)Sliders.EXPSlider).value = value;
+    }
+
+    public void OnClickBackButton(PointerEventData evt)
+    {
+        gameObject.SetActive(false);
     }
 }

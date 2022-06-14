@@ -211,10 +211,10 @@ enum AbilityType : uint8_t {
   AbilityType_MAGIC_DEFENCE = 5,
   AbilityType_CRITICAL_RATE = 6,
   AbilityType_MAGIC_CRITICAL_RATE = 7,
-  AbilityType_LIGHT_REGISTTANCE = 8,
-  AbilityType_DARK_REGISTTANCE = 9,
-  AbilityType_FIRE_REGISTTANCE = 10,
-  AbilityType_WATER_REGISTTANCE = 11,
+  AbilityType_LIGHT_REGISTTANCE_RATE = 8,
+  AbilityType_DARK_REGISTTANCE_RATE = 9,
+  AbilityType_FIRE_REGISTTANCE_RATE = 10,
+  AbilityType_WATER_REGISTTANCE_RATE = 11,
   AbilityType_END = 12,
   AbilityType_MIN = AbilityType_HP,
   AbilityType_MAX = AbilityType_END
@@ -230,10 +230,10 @@ inline const AbilityType (&EnumValuesAbilityType())[13] {
     AbilityType_MAGIC_DEFENCE,
     AbilityType_CRITICAL_RATE,
     AbilityType_MAGIC_CRITICAL_RATE,
-    AbilityType_LIGHT_REGISTTANCE,
-    AbilityType_DARK_REGISTTANCE,
-    AbilityType_FIRE_REGISTTANCE,
-    AbilityType_WATER_REGISTTANCE,
+    AbilityType_LIGHT_REGISTTANCE_RATE,
+    AbilityType_DARK_REGISTTANCE_RATE,
+    AbilityType_FIRE_REGISTTANCE_RATE,
+    AbilityType_WATER_REGISTTANCE_RATE,
     AbilityType_END
   };
   return values;
@@ -249,10 +249,10 @@ inline const char * const *EnumNamesAbilityType() {
     "MAGIC_DEFENCE",
     "CRITICAL_RATE",
     "MAGIC_CRITICAL_RATE",
-    "LIGHT_REGISTTANCE",
-    "DARK_REGISTTANCE",
-    "FIRE_REGISTTANCE",
-    "WATER_REGISTTANCE",
+    "LIGHT_REGISTTANCE_RATE",
+    "DARK_REGISTTANCE_RATE",
+    "FIRE_REGISTTANCE_RATE",
+    "WATER_REGISTTANCE_RATE",
     "END",
     nullptr
   };
@@ -263,6 +263,33 @@ inline const char *EnumNameAbilityType(AbilityType e) {
   if (flatbuffers::IsOutRange(e, AbilityType_HP, AbilityType_END)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAbilityType()[index];
+}
+
+enum AbilityRate : uint16_t {
+  AbilityRate_RATE = 10000,
+  AbilityRate_MIN = AbilityRate_RATE,
+  AbilityRate_MAX = AbilityRate_RATE
+};
+
+inline const AbilityRate (&EnumValuesAbilityRate())[1] {
+  static const AbilityRate values[] = {
+    AbilityRate_RATE
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesAbilityRate() {
+  static const char * const names[2] = {
+    "RATE",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameAbilityRate(AbilityRate e) {
+  if (flatbuffers::IsOutRange(e, AbilityRate_RATE, AbilityRate_RATE)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(AbilityRate_RATE);
+  return EnumNamesAbilityRate()[index];
 }
 
 enum SpeedType : uint8_t {
