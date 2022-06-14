@@ -62,7 +62,7 @@ public enum AbilityType : byte
   LIGHT_REGISTTANCE = 8,
   DARK_REGISTTANCE = 9,
   FIRE_REGISTTANCE = 10,
-  ICE_REGISTTANCE = 11,
+  WATER_REGISTTANCE = 11,
   END = 12,
 };
 

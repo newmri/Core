@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class UIInventoryPopup : UIPopup
 {
+    enum GameObjects
+    {
+        Stats
+    }
+
     enum TextMeshProUGUIs
     {
         CharacterNameText,
@@ -24,6 +29,7 @@ public class UIInventoryPopup : UIPopup
     {
         base.Init();
 
+        Bind<GameObject>(typeof(GameObjects));
         Bind<Slider>(typeof(Sliders));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
 

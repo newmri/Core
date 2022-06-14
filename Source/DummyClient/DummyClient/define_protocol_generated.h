@@ -214,7 +214,7 @@ enum AbilityType : uint8_t {
   AbilityType_LIGHT_REGISTTANCE = 8,
   AbilityType_DARK_REGISTTANCE = 9,
   AbilityType_FIRE_REGISTTANCE = 10,
-  AbilityType_ICE_REGISTTANCE = 11,
+  AbilityType_WATER_REGISTTANCE = 11,
   AbilityType_END = 12,
   AbilityType_MIN = AbilityType_HP,
   AbilityType_MAX = AbilityType_END
@@ -233,7 +233,7 @@ inline const AbilityType (&EnumValuesAbilityType())[13] {
     AbilityType_LIGHT_REGISTTANCE,
     AbilityType_DARK_REGISTTANCE,
     AbilityType_FIRE_REGISTTANCE,
-    AbilityType_ICE_REGISTTANCE,
+    AbilityType_WATER_REGISTTANCE,
     AbilityType_END
   };
   return values;
@@ -252,7 +252,7 @@ inline const char * const *EnumNamesAbilityType() {
     "LIGHT_REGISTTANCE",
     "DARK_REGISTTANCE",
     "FIRE_REGISTTANCE",
-    "ICE_REGISTTANCE",
+    "WATER_REGISTTANCE",
     "END",
     nullptr
   };
