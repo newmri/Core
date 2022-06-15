@@ -11,6 +11,7 @@ public class UIInventoryPopup : UIPopup
 {
     enum GameObjects
     {
+        EquipSlot,
         Stats
     }
 
@@ -33,6 +34,7 @@ public class UIInventoryPopup : UIPopup
         BackButton
     }
 
+    private List<Image> _equipList = null;
     private List<TextMeshProUGUI> _statList = null;
 
     public override void Init()
@@ -46,6 +48,8 @@ public class UIInventoryPopup : UIPopup
 
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
 
+        UpdateHandsIcon();
+
         _statList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.Stats), "ValueText", true);
 
         gameObject.SetActive(false);
@@ -56,17 +60,7 @@ public class UIInventoryPopup : UIPopup
         UpdateMoney(Managers.Account.Money);
         UpdateCharacterLevel(Managers.Object.MyPlayer.Level);
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
-
-        int index = 0;
-        for (AbilityType abilityType = 0; abilityType < AbilityType.END; ++abilityType)
-        {
-            index = (int)abilityType;
-
-            if(abilityType.ToString().Contains("RATE"))
-                _statList[index].text = ((Managers.Object.MyCreatureInfo.Ability.Value[index] / (float)AbilityRate.RATE) * 100).ToString() + "%";
-            else
-                _statList[index].text = Managers.Object.MyCreatureInfo.Ability.Value[index].ToString();
-        }
+        UpdateStats();
     }
 
     public void UpdateMoney(MoneyT money)
@@ -89,6 +83,35 @@ public class UIInventoryPopup : UIPopup
     {
        this.GetTextMesh((int)TextMeshProUGUIs.EXPText).text = value + "%";
        GetSlider((int)Sliders.EXPSlider).value = value;
+    }
+
+    private void UpdateHandsIcon()
+    {
+        _equipList = Util.FindAllChildrens<Image>(GetObject((int)GameObjects.EquipSlot), "Icon", true);
+        Sprite leftHandIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{Managers.Object.MyCharacterInfo.Job.ToString()}LeftHandIcon");
+        UpdateEquipSlotIcon(GearType.LEFT_HAND, leftHandIcon);
+
+        Sprite rightHandIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{Managers.Object.MyCharacterInfo.Job.ToString()}RightHandIcon");
+        UpdateEquipSlotIcon(GearType.RIGHT_HAND, rightHandIcon);
+    }
+
+    public void UpdateEquipSlotIcon(GearType gearType, Sprite icon)
+    {
+        _equipList[(int)gearType].sprite = icon;
+    }
+
+    private void UpdateStats()
+    {
+        int index = 0;
+        for (AbilityType abilityType = 0; abilityType < AbilityType.END; ++abilityType)
+        {
+            index = (int)abilityType;
+
+            if (abilityType.ToString().Contains("RATE"))
+                _statList[index].text = ((Managers.Object.MyCreatureInfo.Ability.Value[index] / (float)AbilityRate.RATE) * 100).ToString() + "%";
+            else
+                _statList[index].text = Managers.Object.MyCreatureInfo.Ability.Value[index].ToString();
+        }
     }
 
     public void OnClickBackButton(PointerEventData evt)
