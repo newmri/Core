@@ -42,6 +42,8 @@ public class UICharacterActiveSlot : UIPopup
         CharacterGFX
     }
 
+    private CharacterAnimator _animator = null;
+
     public override void Init()
     {
         base.Init();
@@ -55,6 +57,7 @@ public class UICharacterActiveSlot : UIPopup
         GetButton((int)Buttons.UICharacterActiveSlot).gameObject.BindEvent(OnClickSlotButton);
         GetButton((int)Buttons.DeleteButton).gameObject.BindEvent(OnClickDeleteButton);
 
+        _animator = GetObject((int)GameObjects.Character).GetComponent<CharacterAnimator>();
 
         UpdateSlot();
     }
@@ -108,6 +111,8 @@ public class UICharacterActiveSlot : UIPopup
         _IsSelected = true;
         GetObject((int)GameObjects.CharacterBgDefault).SetActive(false);
         GetObject((int)GameObjects.CharacterBgActive).SetActive(true);
+
+        _animator.ChangeAnimation(Define.ObjectState.WALK, Define.Dir.RIGHT, Define.SkillAnimationType.NONE);
     }
 
     public void OnDeselected()
@@ -115,6 +120,8 @@ public class UICharacterActiveSlot : UIPopup
         _IsSelected = false;
         GetObject((int)GameObjects.CharacterBgDefault).SetActive(true);
         GetObject((int)GameObjects.CharacterBgActive).SetActive(false);
+
+        _animator.ChangeAnimation(Define.ObjectState.IDLE, Define.Dir.RIGHT, Define.SkillAnimationType.NONE);
     }
 
     public void SetInfo(LoginPacket.CharacterInfo info)
