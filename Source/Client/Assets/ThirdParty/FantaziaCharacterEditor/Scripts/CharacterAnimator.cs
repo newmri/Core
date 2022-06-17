@@ -28,7 +28,7 @@ public class CharacterAnimator : MonoBehaviour
     GearEquipper AccGE;
 
     public GameObject ArrowPrefab;
-    bool IsFireArrow=true;
+    bool IsFireArrow = true;
 
     void Awake()
     {
@@ -84,7 +84,7 @@ public class CharacterAnimator : MonoBehaviour
 
             //Managers.Creature.MyPlayer.SendUseSkill();
 
-           // Vector2Int cellPos = new Vector2Int((int)ArrowStartingPosition.x, (int)ArrowStartingPosition.y);
+            // Vector2Int cellPos = new Vector2Int((int)ArrowStartingPosition.x, (int)ArrowStartingPosition.y);
             //Debug.Log(cellPos.x + " " + cellPos.y);
 
             //CoreManagers.Obj.Add(ArrowPrefab, cellPos, 100);
@@ -95,10 +95,10 @@ public class CharacterAnimator : MonoBehaviour
     {
         IsFireArrow = !IsFireArrow;
     }
-    
+
 
     void CreateAnimationsDictionary()
-    { 
+    {
         //Fills the dicitionaries with all the animations of each job
 
         WarriorAnimations.Add(PlayerAnimations.ATTACK_1, "Attack1");
@@ -221,5 +221,5 @@ public class CharacterAnimator : MonoBehaviour
 }
 public enum PlayerAnimations
 {
-    IDLE, WALK, ATTACK_1, DEAD, FullJump,Jump1, Jump2, Jump3, HIT, RUN, Attack2, Special, Buff
+    IDLE, WALK, ATTACK_1, DEAD, FullJump, Jump1, Jump2, Jump3, HIT, RUN, Attack2, Special, Buff
 }

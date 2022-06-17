@@ -148,7 +148,7 @@ public class GearsManager : MonoBehaviour
             OffhandButtonGO.gameObject.SetActive(true);
             WeaponButtonGO.Find("MeleeImage").gameObject.SetActive(true);
             OffhandButtonGO.Find("DuelistOffhandImage").gameObject.SetActive(true);
-            
+
             OffhandButtonGO.GetComponent<Button>().interactable = true;
 
         }
@@ -160,7 +160,7 @@ public class GearsManager : MonoBehaviour
     public void ClickOnCategoryButton(string CategroyName)
     {
         CurrentClicedOnCategory_string = CategroyName;
-        
+
         if (CategroyName == "Weapon")
         {
             CurrentClickedOnCategory = JobsAndWeapons[MyJob];
@@ -178,16 +178,16 @@ public class GearsManager : MonoBehaviour
     }
 
     //Called when the user choose a piece of gear
-    public void ChooseThisGear(Gears CatgeoryChosen,int GearID)
+    public void ChooseThisGear(Gears CatgeoryChosen, int GearID)
     {
-        CurrentChosenGears[CatgeoryChosen] = GearID;     
+        CurrentChosenGears[CatgeoryChosen] = GearID;
         ApplySkinChanges();
     }
 
     //Called when pressed on ? button to generate random gears
     public void ChooseRandomGears()
     {
-        foreach (KeyValuePair<Gears, int> kvp in new Dictionary<Gears,int>(CurrentChosenGears))
+        foreach (KeyValuePair<Gears, int> kvp in new Dictionary<Gears, int>(CurrentChosenGears))
         {
             int RandomSprite = UnityEngine.Random.Range(0, GearsAndSprites[kvp.Key].Count);
             CurrentChosenGears[kvp.Key] = RandomSprite;
@@ -271,7 +271,7 @@ public class GearsManager : MonoBehaviour
         }
 
         //Change the side of the ScrollContent
-        float NewScrollContentHeight = 30 + (Mathf.CeilToInt((float)GearsAndSprites[TheGear].Count/5)) * 140;
+        float NewScrollContentHeight = 30 + (Mathf.CeilToInt((float)GearsAndSprites[TheGear].Count / 5)) * 140;
         ScrollContent.sizeDelta = new Vector2(ScrollContent.sizeDelta.x, NewScrollContentHeight);
     }
 
@@ -279,7 +279,7 @@ public class GearsManager : MonoBehaviour
     //Saves the the chosen character as a prefab
     public void Save()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         string path = UnityEditor.EditorUtility.SaveFilePanel("Save character prefab", "Assets", "Character", "prefab");
 
@@ -290,18 +290,18 @@ public class GearsManager : MonoBehaviour
             Vector3 OldPos = AccGE.transform.position;
             AccGE.transform.position = Vector3.zero;
 
-            #if UNITY_2018_3_OR_NEWER
-            
-                UnityEditor.PrefabUtility.SaveAsPrefabAsset(AccGE.gameObject, path);
-            
-            #else
+#if UNITY_2018_3_OR_NEWER
+
+            UnityEditor.PrefabUtility.SaveAsPrefabAsset(AccGE.gameObject, path);
+
+#else
             
             	UnityEditor.PrefabUtility.CreatePrefab(path, GE.gameObject);
             
-            #endif
+#endif
             AccGE.transform.position = OldPos;
         }
-        #endif
+#endif
     }
 
 

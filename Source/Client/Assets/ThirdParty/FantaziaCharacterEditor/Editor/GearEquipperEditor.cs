@@ -27,35 +27,34 @@ public class GearEquipperEditor : Editor
 
         EditorGUI.BeginChangeCheck();
 
-        GE.Job = (Define.Job)EditorGUILayout.EnumPopup("Job", GE.Job);
+        GE.Job = ((Define.Job)EditorGUILayout.EnumPopup("Job", GE.Job));
 
         if (GE.Job == Define.Job.WARRIOR)
         {
-            GE.Melee = EditorGUILayout.IntSlider("Melee", GE.Melee, 0, 45);
-            GE.Shield = EditorGUILayout.IntSlider("Shield", GE.Shield, 0, 26); //max +1
+            GE.Melee = EditorGUILayout.IntSlider("Melee", GE.Melee, 0, 55);
+            GE.Shield = EditorGUILayout.IntSlider("Shield", GE.Shield, 0, 36); //max +1
         }
         else if (GE.Job == Define.Job.ARCHER)
         {
-            GE.Bow = EditorGUILayout.IntSlider("Bow", GE.Bow, 0, 25);
-            GE.Quiver = EditorGUILayout.IntSlider("Quiver", GE.Quiver, 0, 25);
-        }
-        else if (GE.Job == Define.Job.SORCERER)
-        {
-            GE.Staff = EditorGUILayout.IntSlider("Staff", GE.Staff, 0, 25);
+            GE.Bow = EditorGUILayout.IntSlider("Bow", GE.Bow, 0, 35);
+            GE.Quiver = EditorGUILayout.IntSlider("Quiver", GE.Quiver, 0, 35);
         }
         else if (GE.Job == Define.Job.DUELIST)
         {
-            GE.Melee = EditorGUILayout.IntSlider("Melee", GE.Melee, 0, 45);
-            GE.DuelistOffhand = EditorGUILayout.IntSlider("Offhand", GE.DuelistOffhand, 0, 45);
+            GE.Melee = EditorGUILayout.IntSlider("Melee", GE.Melee, 0, 55);
+            GE.DuelistOffhand = EditorGUILayout.IntSlider("Offhand", GE.DuelistOffhand, 0, 55);
         }
-
-        GE.Armor = EditorGUILayout.IntSlider("Armor", GE.Armor, 0, 25);
-        GE.Helmet = EditorGUILayout.IntSlider("Helmet", GE.Helmet, 0, 27);
-        GE.Shoulder = EditorGUILayout.IntSlider("Shoulder", GE.Shoulder, 0, 25);
-        GE.Arm = EditorGUILayout.IntSlider("Arm", GE.Arm, 0, 25);
-        GE.Feet = EditorGUILayout.IntSlider("Feet", GE.Feet, 0, 25);
-        GE.Hair = EditorGUILayout.IntSlider("Hair", GE.Hair, 0, 18);
-        GE.Face = EditorGUILayout.IntSlider("Face", GE.Face, 0, 18);
+        else if (GE.Job == Define.Job.SORCERER)
+        {
+            GE.Staff = EditorGUILayout.IntSlider("Staff", GE.Staff, 0, 35);
+        }
+        GE.Armor = EditorGUILayout.IntSlider("Armor", GE.Armor, 0, 35);
+        GE.Helmet = EditorGUILayout.IntSlider("Helmet", GE.Helmet, 0, 37);
+        GE.Shoulder = EditorGUILayout.IntSlider("Shoulder", GE.Shoulder, 0, 35);
+        GE.Arm = EditorGUILayout.IntSlider("Arm", GE.Arm, 0, 35);
+        GE.Feet = EditorGUILayout.IntSlider("Feet", GE.Feet, 0, 35);
+        GE.Hair = EditorGUILayout.IntSlider("Hair", GE.Hair, 0, 23);
+        GE.Face = EditorGUILayout.IntSlider("Face", GE.Face, 0, 23);
 
 
         GUILayout.Space(15);
