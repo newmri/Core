@@ -1532,7 +1532,7 @@
 		}
 	},
 	{
-		"name": "ARM 0",
+		"name": "ARM 1",
 		"attachments": {
 			"ARM A2": {
 				"ARM A2": {
@@ -1592,7 +1592,7 @@
 		}
 	},
 	{
-		"name": "ARM 1",
+		"name": "ARM 0",
 		"attachments": {
 			"ARM A2": {
 				"ARM A2": { "name": "1ARM A2", "x": 21.61, "y": -4.55, "rotation": 91.01, "width": 52, "height": 96 }
@@ -2300,7 +2300,7 @@
 		}
 	},
 	{
-		"name": "ARMOR 0",
+		"name": "ARMOR 1",
 		"attachments": {
 			"ARM A1": {
 				"ARM A1": {
@@ -2377,7 +2377,7 @@
 		}
 	},
 	{
-		"name": "ARMOR 1",
+		"name": "ARMOR 0",
 		"attachments": {
 			"ARM A1": {
 				"ARM A1": { "name": "1ARM A1", "x": 25.6, "y": -2.33, "rotation": 105.75, "width": 51, "height": 72 }
@@ -5116,7 +5116,7 @@
 		}
 	},
 	{
-		"name": "FEET 0",
+		"name": "FEET 1",
 		"attachments": {
 			"LEG A2": {
 				"LEG A2": {
@@ -5165,7 +5165,7 @@
 		}
 	},
 	{
-		"name": "FEET 1",
+		"name": "FEET 0",
 		"attachments": {
 			"LEG A2": {
 				"LEG A2": { "name": "1LEG A2", "x": 21.36, "y": 4.74, "rotation": 101.04, "width": 58, "height": 116 }
@@ -6613,7 +6613,7 @@
 		}
 	},
 	{
-		"name": "MELEE 0",
+		"name": "MELEE 1",
 		"attachments": {
 			"WEAPON": {
 				"WEAPON": {
@@ -6629,7 +6629,7 @@
 		}
 	},
 	{
-		"name": "MELEE 1",
+		"name": "MELEE 0",
 		"attachments": {
 			"WEAPON": {
 				"WEAPON": { "name": "1WEAPON", "x": 116.38, "y": -7.5, "rotation": -53.12, "width": 170, "height": 202 }
@@ -7069,7 +7069,7 @@
 		}
 	},
 	{
-		"name": "OFFHAND 0",
+		"name": "OFFHAND 1",
 		"attachments": {
 			"HEAD EYES CLOSED": {
 				"HEAD EYES CLOSED": {
@@ -7096,7 +7096,7 @@
 		}
 	},
 	{
-		"name": "OFFHAND 1",
+		"name": "OFFHAND 0",
 		"attachments": {
 			"OFFHAND1": {
 				"OFFHAND1": { "name": "1WEAPON", "x": 121.68, "y": -10.25, "rotation": -54.78, "width": 170, "height": 202 }
@@ -8592,7 +8592,7 @@
 		}
 	},
 	{
-		"name": "SHOULDER 0",
+		"name": "SHOULDER 1",
 		"attachments": {
 			"SHOULDER A": {
 				"SHOULDER A": {
@@ -8619,7 +8619,7 @@
 		}
 	},
 	{
-		"name": "SHOULDER 1",
+		"name": "SHOULDER 0",
 		"attachments": {
 			"SHOULDER A": {
 				"SHOULDER A": { "name": "1SHOULDER A", "x": 4.37, "y": 21.4, "rotation": -78.44, "width": 65, "height": 61 }
