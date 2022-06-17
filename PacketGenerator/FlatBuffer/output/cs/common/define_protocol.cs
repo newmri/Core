@@ -23,6 +23,7 @@ public enum Job : byte
   ARCHER = 1,
   SORCERER = 2,
   DUELIST = 3,
+  NONE = 255,
 };
 
 public enum AccountLimit : byte
@@ -102,6 +103,7 @@ public enum GearType : byte
   HAIR = 7,
   FACE = 8,
   END = 9,
+  NONE = 255,
 };
 
 public enum Dir : byte

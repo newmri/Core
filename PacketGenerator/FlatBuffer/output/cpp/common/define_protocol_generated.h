@@ -49,35 +49,31 @@ enum Job : uint8_t {
   Job_ARCHER = 1,
   Job_SORCERER = 2,
   Job_DUELIST = 3,
+  Job_NONE = 255,
   Job_MIN = Job_WARRIOR,
-  Job_MAX = Job_DUELIST
+  Job_MAX = Job_NONE
 };
 
-inline const Job (&EnumValuesJob())[4] {
+inline const Job (&EnumValuesJob())[5] {
   static const Job values[] = {
     Job_WARRIOR,
     Job_ARCHER,
     Job_SORCERER,
-    Job_DUELIST
+    Job_DUELIST,
+    Job_NONE
   };
   return values;
 }
 
-inline const char * const *EnumNamesJob() {
-  static const char * const names[5] = {
-    "WARRIOR",
-    "ARCHER",
-    "SORCERER",
-    "DUELIST",
-    nullptr
-  };
-  return names;
-}
-
 inline const char *EnumNameJob(Job e) {
-  if (flatbuffers::IsOutRange(e, Job_WARRIOR, Job_DUELIST)) return "";
-  const size_t index = static_cast<size_t>(e);
-  return EnumNamesJob()[index];
+  switch (e) {
+    case Job_WARRIOR: return "WARRIOR";
+    case Job_ARCHER: return "ARCHER";
+    case Job_SORCERER: return "SORCERER";
+    case Job_DUELIST: return "DUELIST";
+    case Job_NONE: return "NONE";
+    default: return "";
+  }
 }
 
 enum AccountLimit : uint8_t {
@@ -384,11 +380,12 @@ enum GearType : uint8_t {
   GearType_HAIR = 7,
   GearType_FACE = 8,
   GearType_END = 9,
+  GearType_NONE = 255,
   GearType_MIN = GearType_LEFT_HAND,
-  GearType_MAX = GearType_END
+  GearType_MAX = GearType_NONE
 };
 
-inline const GearType (&EnumValuesGearType())[10] {
+inline const GearType (&EnumValuesGearType())[11] {
   static const GearType values[] = {
     GearType_LEFT_HAND,
     GearType_RIGHT_HAND,
@@ -399,32 +396,27 @@ inline const GearType (&EnumValuesGearType())[10] {
     GearType_FEET,
     GearType_HAIR,
     GearType_FACE,
-    GearType_END
+    GearType_END,
+    GearType_NONE
   };
   return values;
 }
 
-inline const char * const *EnumNamesGearType() {
-  static const char * const names[11] = {
-    "LEFT_HAND",
-    "RIGHT_HAND",
-    "ARMOR",
-    "HELMET",
-    "SHOULDER",
-    "ARM",
-    "FEET",
-    "HAIR",
-    "FACE",
-    "END",
-    nullptr
-  };
-  return names;
-}
-
 inline const char *EnumNameGearType(GearType e) {
-  if (flatbuffers::IsOutRange(e, GearType_LEFT_HAND, GearType_END)) return "";
-  const size_t index = static_cast<size_t>(e);
-  return EnumNamesGearType()[index];
+  switch (e) {
+    case GearType_LEFT_HAND: return "LEFT_HAND";
+    case GearType_RIGHT_HAND: return "RIGHT_HAND";
+    case GearType_ARMOR: return "ARMOR";
+    case GearType_HELMET: return "HELMET";
+    case GearType_SHOULDER: return "SHOULDER";
+    case GearType_ARM: return "ARM";
+    case GearType_FEET: return "FEET";
+    case GearType_HAIR: return "HAIR";
+    case GearType_FACE: return "FACE";
+    case GearType_END: return "END";
+    case GearType_NONE: return "NONE";
+    default: return "";
+  }
 }
 
 enum Dir : uint8_t {

@@ -13,7 +13,8 @@ enum Job : ubyte
   WARRIOR = 0,
   ARCHER,
   SORCERER,
-  DUELIST
+  DUELIST,
+  NONE = 255
 }
 
 enum AccountLimit : ubyte
@@ -92,7 +93,8 @@ enum GearType : ubyte
 	FEET,
 	HAIR,
 	FACE,
-	END
+	END,
+	NONE = 255
 }
 
 enum Dir : ubyte

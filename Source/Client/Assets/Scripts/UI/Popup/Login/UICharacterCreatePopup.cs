@@ -52,6 +52,9 @@ public class UICharacterCreatePopup : UIPopup
 
         foreach (Define.Job job in Enum.GetValues(typeof(Define.Job)))
         {
+            if (job == Define.Job.NONE)
+                continue;
+
             GameObject go = CoreManagers.Resource.Instantiate("UI/Popup/UIJobButton", _gird.transform);
             UIJobButton jobButton = go.GetOrAddComponent<UIJobButton>();
             jobButton.SetJob(job);
