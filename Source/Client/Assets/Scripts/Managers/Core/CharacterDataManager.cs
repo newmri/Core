@@ -5,19 +5,20 @@ using UnityCoreLibrary;
 
 public class CharacterDataManager
 {
+    bool _isLoaded = false;
+
     List<Dictionary<string, object>> _skill;
     List<Dictionary<string, object>> _level;
-    bool _isLoaded = false;
 
     public void Load()
     {
         if (_isLoaded)
             return;
 
+        _isLoaded = true;
+
         _skill = CoreManagers.Data.LoadCSV("Data/Character/CharacterSkill");
         _level = CoreManagers.Data.LoadCSV("Data/Character/CharacterLevel");
-
-        _isLoaded = true;
     }
 
     public object GetSkill(int skillID, string name)

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -233,6 +235,22 @@ namespace UnityCoreLibrary
             }
 
             return false;
+        }
+
+        public static string EnumToPascal(string str)
+        {
+            string lowerName = str.ToLower();
+            string[] names = Regex.Split(lowerName, "_");
+            string resultName = "";
+            foreach (string name in names)
+            {
+                string temp = name;
+                temp = temp.Remove(0, 1);
+                temp = temp.Insert(0, name.First().ToString().ToUpper());
+                resultName += temp;
+            }
+
+            return resultName;
         }
     }
 }

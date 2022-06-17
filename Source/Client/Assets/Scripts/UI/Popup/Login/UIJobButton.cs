@@ -35,6 +35,7 @@ public class UIJobButton : UIPopup
     public override void Init()
     {
         base.Init();
+
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));

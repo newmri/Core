@@ -72,7 +72,7 @@ public class UICharacterCreatePopup : UIPopup
         GetObject((int)GameObjects.JobInfo).GetComponent<UIJobInfo>().OnJobSelect(job);
 
         GetObject((int)GameObjects.Character).GetComponent<GearEquipper>().Job = job;
-        GetObject((int)GameObjects.Character).GetComponent<GearEquipper>().ApplySkinChanges();
+        GetObject((int)GameObjects.Character).GetComponent<GearEquipper>().SetGear(Managers.LoginData.GetCreateCharacterGear(job));
         GetObject((int)GameObjects.Character).SetActive(true);
     }
 
