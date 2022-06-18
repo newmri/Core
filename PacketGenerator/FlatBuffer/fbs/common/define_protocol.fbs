@@ -92,7 +92,7 @@ enum GearType : ubyte
 	ARM,
 	FEET,
 	HAIR,
-	FACE,
+	EYES,
 	END,
 	NONE = 255
 }

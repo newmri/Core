@@ -9,7 +9,9 @@ public class Managers : MonoBehaviour
     public static Managers Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
 
     #region Contents
+    ItemManager _item = new ItemManager();
 
+    public static ItemManager Item { get { return Instance._item; } }
     #endregion
 
     #region Core

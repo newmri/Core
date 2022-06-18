@@ -19,15 +19,30 @@ public class PlayerController : CreatureController
 
 	protected GearEquipper _gear;
 
-	public virtual void SetJob(Job job)
-    {
-		_gear.Job = job;
-    }
-
-	public virtual void SetGear(Info.CharacterGearT gear)
+	public virtual Job Job
 	{
-		_gear.SetGear(gear);
+		get
+        {
+			return CharacterInfo.Job;
+		}
+		set
+        {
+			CharacterInfo.Job = value;
+			_gear.Job = value;
+		}
 	}
+
+	public virtual Info.CharacterGearT Gear
+    {
+		get
+        {
+			return CharacterInfo.Gear;
+		}
+		set
+        {
+			_gear.SetGear(value);
+		}
+    }
 
 	public CharacterInfoT CharacterInfo
 	{
@@ -42,8 +57,8 @@ public class PlayerController : CreatureController
 
 			_characterInfo.Value = value;
 
-			SetJob(CharacterInfo.Job);
-			SetGear(CharacterInfo.Gear);
+			Job = CharacterInfo.Job;
+			Gear = CharacterInfo.Gear;
 
 			_name.text = value.Name;
 		}

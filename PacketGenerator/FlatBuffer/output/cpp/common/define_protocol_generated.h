@@ -378,7 +378,7 @@ enum GearType : uint8_t {
   GearType_ARM = 5,
   GearType_FEET = 6,
   GearType_HAIR = 7,
-  GearType_FACE = 8,
+  GearType_EYES = 8,
   GearType_END = 9,
   GearType_NONE = 255,
   GearType_MIN = GearType_LEFT_HAND,
@@ -395,7 +395,7 @@ inline const GearType (&EnumValuesGearType())[11] {
     GearType_ARM,
     GearType_FEET,
     GearType_HAIR,
-    GearType_FACE,
+    GearType_EYES,
     GearType_END,
     GearType_NONE
   };
@@ -412,7 +412,7 @@ inline const char *EnumNameGearType(GearType e) {
     case GearType_ARM: return "ARM";
     case GearType_FEET: return "FEET";
     case GearType_HAIR: return "HAIR";
-    case GearType_FACE: return "FACE";
+    case GearType_EYES: return "EYES";
     case GearType_END: return "END";
     case GearType_NONE: return "NONE";
     default: return "";

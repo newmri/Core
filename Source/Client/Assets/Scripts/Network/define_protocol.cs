@@ -101,7 +101,7 @@ public enum GearType : byte
   ARM = 5,
   FEET = 6,
   HAIR = 7,
-  FACE = 8,
+  EYES = 8,
   END = 9,
   NONE = 255,
 };

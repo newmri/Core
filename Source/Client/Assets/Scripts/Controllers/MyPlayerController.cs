@@ -54,16 +54,31 @@ public class MyPlayerController : PlayerController
 		}
     }
 
-	public override void SetJob(Job job)
+	public override Job Job
 	{
-		base.SetJob(job);
-		_renderTextureTarget.Job = job;
+		get
+		{
+			return MyCharacterInfo.Job;
+		}
+		set
+		{
+			MyCharacterInfo.Job = value;
+			_gear.Job = value;
+			_renderTextureTarget.Job = value;
+		}
 	}
 
-	public override void SetGear(Info.CharacterGearT gear)
+	public override Info.CharacterGearT Gear
 	{
-		base.SetGear(gear);
-		_renderTextureTarget.SetGear(gear);
+		get
+		{
+			return MyCharacterInfo.Gear;
+		}
+		set
+		{
+			base.Gear = value;
+			_renderTextureTarget.SetGear(value);
+		}
 	}
 
 	public MyCharacterInfoT MyCharacterInfo
@@ -79,8 +94,8 @@ public class MyPlayerController : PlayerController
 
 			_characterInfo.Value = value;
 
-			SetJob(MyCharacterInfo.Job);
-			SetGear(MyCharacterInfo.Gear);
+			Job = MyCharacterInfo.Job;
+			Gear = MyCharacterInfo.Gear;
 
 			_uiGameScene.UpdateCharacterInfo(MyCharacterInfo.Name, CreatureInfo.Level, MyCharacterInfo.Job);
 

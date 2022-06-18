@@ -67,7 +67,7 @@ public class GearEquipper : MonoBehaviour
         Arm = gears.Index[(int)Define.GearType.ARM];
         Feet = gears.Index[(int)Define.GearType.FEET];
         Hair = gears.Index[(int)Define.GearType.HAIR];
-        Face = gears.Index[(int)Define.GearType.FACE];
+        Face = gears.Index[(int)Define.GearType.EYES];
 
         ApplySkinChanges();
     }

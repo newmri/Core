@@ -19,6 +19,11 @@ public class UICharacterSelectPopup : UIPopup
 
     GameObject _gird;
 
+    enum GameObjects
+    {
+        CharacterSlotScroll
+    }
+
     enum Buttons
     {
         BackButton,
@@ -29,7 +34,10 @@ public class UICharacterSelectPopup : UIPopup
     {
         base.Init();
 
+        Bind<GameObject>(typeof(GameObjects));
         Bind<Button>(typeof(Buttons));
+
+        GetObject((int)GameObjects.CharacterSlotScroll).GetComponent<ScrollRect>().horizontalNormalizedPosition = 0;
 
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBackButton);
         GetButton((int)Buttons.StartButton).gameObject.BindEvent(OnClickStartButton);

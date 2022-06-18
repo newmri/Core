@@ -37,6 +37,8 @@ public class UIInventoryPopup : UIPopup
     private List<Image> _equipList = null;
     private List<TextMeshProUGUI> _statList = null;
 
+    private Color _equipEmptyColor = new Color(0.373f, 0.306f, 0.392f, 1.0f);
+
     public override void Init()
     {
         base.Init();
@@ -57,6 +59,7 @@ public class UIInventoryPopup : UIPopup
 
     public void Refresh()
     {
+        UpdateEquipSlotIcon();
         UpdateMoney(Managers.Account.Money);
         UpdateCharacterLevel(Managers.Object.MyPlayer.Level);
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
@@ -95,9 +98,24 @@ public class UIInventoryPopup : UIPopup
         UpdateEquipSlotIcon(GearType.RIGHT_HAND, rightHandIcon);
     }
 
-    public void UpdateEquipSlotIcon(GearType gearType, Sprite icon)
+    public void UpdateEquipSlotIcon()
+    {
+        var gear = Managers.Object.MyPlayer.Gear;
+        for (GearType gearType = 0; gearType < GearType.END; ++gearType)
+        {
+            if(gear.Index[(int)gearType] > 0)
+                UpdateEquipSlotIcon(gearType, Managers.Item.GetGearIcon(Managers.Object.MyPlayer.Job, gearType, gear.Index[(int)gearType]), true);
+        }
+    }
+
+    public void UpdateEquipSlotIcon(GearType gearType, Sprite icon, bool isEquiped = false)
     {
         _equipList[(int)gearType].sprite = icon;
+
+        if (isEquiped)
+            _equipList[(int)gearType].color = Color.white;
+        else
+            _equipList[(int)gearType].color = _equipEmptyColor;
     }
 
     private void UpdateStats()
