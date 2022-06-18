@@ -207,10 +207,10 @@ enum AbilityType : uint8_t {
   AbilityType_MAGIC_DEFENCE = 5,
   AbilityType_CRITICAL_RATE = 6,
   AbilityType_MAGIC_CRITICAL_RATE = 7,
-  AbilityType_LIGHT_REGISTTANCE_RATE = 8,
-  AbilityType_DARK_REGISTTANCE_RATE = 9,
-  AbilityType_FIRE_REGISTTANCE_RATE = 10,
-  AbilityType_WATER_REGISTTANCE_RATE = 11,
+  AbilityType_LIGHT_REGISTANCE_RATE = 8,
+  AbilityType_DARK_REGISTANCE_RATE = 9,
+  AbilityType_FIRE_REGISTANCE_RATE = 10,
+  AbilityType_WATER_REGISTANCE_RATE = 11,
   AbilityType_END = 12,
   AbilityType_MIN = AbilityType_HP,
   AbilityType_MAX = AbilityType_END
@@ -226,10 +226,10 @@ inline const AbilityType (&EnumValuesAbilityType())[13] {
     AbilityType_MAGIC_DEFENCE,
     AbilityType_CRITICAL_RATE,
     AbilityType_MAGIC_CRITICAL_RATE,
-    AbilityType_LIGHT_REGISTTANCE_RATE,
-    AbilityType_DARK_REGISTTANCE_RATE,
-    AbilityType_FIRE_REGISTTANCE_RATE,
-    AbilityType_WATER_REGISTTANCE_RATE,
+    AbilityType_LIGHT_REGISTANCE_RATE,
+    AbilityType_DARK_REGISTANCE_RATE,
+    AbilityType_FIRE_REGISTANCE_RATE,
+    AbilityType_WATER_REGISTANCE_RATE,
     AbilityType_END
   };
   return values;
@@ -245,10 +245,10 @@ inline const char * const *EnumNamesAbilityType() {
     "MAGIC_DEFENCE",
     "CRITICAL_RATE",
     "MAGIC_CRITICAL_RATE",
-    "LIGHT_REGISTTANCE_RATE",
-    "DARK_REGISTTANCE_RATE",
-    "FIRE_REGISTTANCE_RATE",
-    "WATER_REGISTTANCE_RATE",
+    "LIGHT_REGISTANCE_RATE",
+    "DARK_REGISTANCE_RATE",
+    "FIRE_REGISTANCE_RATE",
+    "WATER_REGISTANCE_RATE",
     "END",
     nullptr
   };
