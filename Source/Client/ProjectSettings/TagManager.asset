@@ -11,6 +11,7 @@ TagManager:
   - Projectile
   - Scene
   - RenderTextureCamera
+  - RenderTextureTarget
   layers:
   - Default
   - TransparentFX

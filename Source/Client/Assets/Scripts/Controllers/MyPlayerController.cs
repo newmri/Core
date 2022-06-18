@@ -10,6 +10,7 @@ using Spine;
 
 public class MyPlayerController : PlayerController
 {
+
 	public override CreatureInfoT CreatureInfo
 	{
 		get { return base.CreatureInfo; }
@@ -53,6 +54,18 @@ public class MyPlayerController : PlayerController
 		}
     }
 
+	public override void SetJob(Job job)
+	{
+		base.SetJob(job);
+		_renderTextureTarget.Job = job;
+	}
+
+	public override void SetGear(Info.CharacterGearT gear)
+	{
+		base.SetGear(gear);
+		_renderTextureTarget.SetGear(gear);
+	}
+
 	public MyCharacterInfoT MyCharacterInfo
 	{
 		get
@@ -66,8 +79,9 @@ public class MyPlayerController : PlayerController
 
 			_characterInfo.Value = value;
 
-			_gear.Job = MyCharacterInfo.Job;
-			_gear.SetGear(MyCharacterInfo.Gear);
+			SetJob(MyCharacterInfo.Job);
+			SetGear(MyCharacterInfo.Gear);
+
 			_uiGameScene.UpdateCharacterInfo(MyCharacterInfo.Name, CreatureInfo.Level, MyCharacterInfo.Job);
 
 			_name.text = value.Name;
@@ -77,13 +91,13 @@ public class MyPlayerController : PlayerController
 	bool _moveKeyPressed = false;
 
 	UIGameScene _uiGameScene;
-	Transform _renderTextureCameraTransform;
+	GearEquipper _renderTextureTarget;
 
 	protected override void Init()
 	{
 		base.Init();
 		_uiGameScene = Managers.UI.GetSceneUI<UIGameScene>();
-		_renderTextureCameraTransform = GameObject.FindGameObjectWithTag("RenderTextureCamera").transform;
+		_renderTextureTarget = GameObject.FindGameObjectWithTag("RenderTextureTarget").GetComponent<GearEquipper>();
 
 		RefreshAdditionalStat();
 	}
@@ -130,8 +144,6 @@ public class MyPlayerController : PlayerController
 	{
 		Camera.main.transform.position = new Vector3(transform.position.x - 0.5f,
 			Camera.main.transform.position.y, -10);
-
-		_renderTextureCameraTransform.position = new Vector3(transform.position.x, transform.position.y + 2.0f, -10);
 	}
 
 	void GetUIKeyInput()

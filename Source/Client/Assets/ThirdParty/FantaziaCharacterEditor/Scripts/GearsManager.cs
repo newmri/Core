@@ -92,7 +92,7 @@ public class GearsManager : MonoBehaviour
 
         ClickOnCategoryButton(Gears.Armor.ToString());
 
-        ChangeJob(0);
+        SetJob(0);
 
         ChangeWeaponAndOffhandBasedOnJob();
     }
@@ -197,7 +197,7 @@ public class GearsManager : MonoBehaviour
     }
 
     //Manages the job changes
-    public void ChangeJob(int JobID)
+    public void SetJob(int JobID)
     {
         MyJob = (Define.Job)JobID;
 
