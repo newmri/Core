@@ -24,7 +24,11 @@ protected:
 
 protected:
 	std::string Parse(std::string& in);
+	void Parse(std::string& in, bool& out);
 	void Parse(std::string& in, uint8_t& out);
+	void Parse(std::string& in, uint16_t& out);
+	void Parse(std::string& in, uint32_t& out);
+	void Parse(std::string& in, int8_t& out);
 	void Parse(std::string& in, int16_t& out);
 	void Parse(std::string& in, int32_t& out);
 	void Parse(std::string& in, int64_t& out);

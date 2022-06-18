@@ -81,9 +81,34 @@ void CoreLoader::Parse(std::string& in, const size_t dataTypeIndex, char* out)
 {
 #if _DEBUG
 	auto hashCode = HashCode(this->dataTypes[dataTypeIndex].c_str());
-	if (hashCode == HashCode(UINT8_NAME))
+	if (hashCode == HashCode(BOOL_NAME))
+	{
+		Parse(in, CHAR_TO_BOOL_REF out);
+	}
+
+	else if (hashCode == HashCode(UINT8_NAME))
 	{
 		Parse(in, CHAR_TO_UINT8_REF out);
+	}
+
+	else if (hashCode == HashCode(UINT16_NAME))
+	{
+		Parse(in, CHAR_TO_UINT16_REF out);
+	}
+
+	else if (hashCode == HashCode(UINT32_NAME))
+	{
+		Parse(in, CHAR_TO_UINT32_REF out);
+	}
+
+	else if (hashCode == HashCode(UINT64_NAME))
+	{
+		Parse(in, CHAR_TO_UINT64_REF out);
+	}
+
+	else if (hashCode == HashCode(INT8_NAME))
+	{
+		Parse(in, CHAR_TO_INT8_REF out);
 	}
 
 	else if (hashCode == HashCode(INT16_NAME))
@@ -123,8 +148,23 @@ void CoreLoader::Parse(std::string& in, const size_t dataTypeIndex, char* out)
 #else
 	switch (HashCode(this->dataTypes[dataTypeIndex].c_str()))
 	{
+	case HashCode(BOOL_NAME):
+		Parse(in, CHAR_TO_BOOL_REF out);
+		break;
 	case HashCode(UINT8_NAME):
 		Parse(in, CHAR_TO_UINT8_REF out);
+		break;
+	case HashCode(UINT16_NAME):
+		Parse(in, CHAR_TO_UINT16_REF out);
+		break;
+	case HashCode(UINT32_NAME):
+		Parse(in, CHAR_TO_UINT32_REF out);
+		break;
+	case HashCode(UINT64_NAME):
+		Parse(in, CHAR_TO_UINT64_REF out);
+		break;
+	case HashCode(INT8_NAME):
+		Parse(in, CHAR_TO_INT8_REF out);
 		break;
 	case HashCode(INT16_NAME):
 		Parse(in, CHAR_TO_INT16_REF out);
@@ -173,7 +213,27 @@ std::string CoreLoader::Parse(std::string& in)
 	return in;
 }
 
+void CoreLoader::Parse(std::string& in, bool& out)
+{
+	out = stoi(Parse(in));
+}
+
 void CoreLoader::Parse(std::string& in, uint8_t& out)
+{
+	out = stoi(Parse(in));
+}
+
+void CoreLoader::Parse(std::string& in, uint16_t& out)
+{
+	out = static_cast<uint16_t>(stoul(Parse(in)));
+}
+
+void CoreLoader::Parse(std::string& in, uint32_t& out)
+{
+	out = stoul(Parse(in));
+}
+
+void CoreLoader::Parse(std::string& in, int8_t& out)
 {
 	out = stoi(Parse(in));
 }

@@ -4,7 +4,12 @@ IMPLEMENT_SINGLETON(CoreDataTypeManager)
 
 void CoreDataTypeManager::Init(void)
 {
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(BOOL_NAME, &CoreDataTypeManager::GetSizeOfBool));
 	getSizeOfTypeMap.insert(ProcessingMap::value_type(UINT8_NAME, &CoreDataTypeManager::GetSizeOfUInt8));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(UINT16_NAME, &CoreDataTypeManager::GetSizeOfUInt16));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(UINT32_NAME, &CoreDataTypeManager::GetSizeOfUInt32));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(UINT64_NAME, &CoreDataTypeManager::GetSizeOfUInt64));
+	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT8_NAME, &CoreDataTypeManager::GetSizeOfInt8));
 	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT16_NAME, &CoreDataTypeManager::GetSizeOfInt16));
 	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT32_NAME, &CoreDataTypeManager::GetSizeOfInt32));
 	getSizeOfTypeMap.insert(ProcessingMap::value_type(INT64_NAME, &CoreDataTypeManager::GetSizeOfInt64));
@@ -19,9 +24,34 @@ void CoreDataTypeManager::Release(void)
 	GetInstance().~CoreDataTypeManager();
 }
 
+size_t CoreDataTypeManager::GetSizeOfBool(void) const
+{
+	return SIZE_OF_BOOL;
+}
+
 size_t CoreDataTypeManager::GetSizeOfUInt8(void) const
 {
 	return SIZE_OF_UINT8;
+}
+
+size_t CoreDataTypeManager::GetSizeOfUInt16(void) const
+{
+	return SIZE_OF_UINT16;
+}
+
+size_t CoreDataTypeManager::GetSizeOfUInt32(void) const
+{
+	return SIZE_OF_UINT32;
+}
+
+size_t CoreDataTypeManager::GetSizeOfUInt64(void) const
+{
+	return SIZE_OF_UINT64;
+}
+
+size_t CoreDataTypeManager::GetSizeOfInt8(void) const
+{
+	return SIZE_OF_INT8;
 }
 
 size_t CoreDataTypeManager::GetSizeOfInt16(void) const
