@@ -369,6 +369,101 @@ inline const char *EnumNameAbilityByStatType(AbilityByStatType e) {
   return EnumNamesAbilityByStatType()[index];
 }
 
+enum ItemType : int32_t {
+  ItemType_MELEE = 10000,
+  ItemType_BOW = 11000,
+  ItemType_STAFF = 12000,
+  ItemType_SHIELD = 20000,
+  ItemType_QUIVER = 21000,
+  ItemType_ARMOR = 30000,
+  ItemType_HELMET = 40000,
+  ItemType_SHOULDER = 50000,
+  ItemType_ARM = 60000,
+  ItemType_FEET = 70000,
+  ItemType_MIN = ItemType_MELEE,
+  ItemType_MAX = ItemType_FEET
+};
+
+inline const ItemType (&EnumValuesItemType())[10] {
+  static const ItemType values[] = {
+    ItemType_MELEE,
+    ItemType_BOW,
+    ItemType_STAFF,
+    ItemType_SHIELD,
+    ItemType_QUIVER,
+    ItemType_ARMOR,
+    ItemType_HELMET,
+    ItemType_SHOULDER,
+    ItemType_ARM,
+    ItemType_FEET
+  };
+  return values;
+}
+
+inline const char *EnumNameItemType(ItemType e) {
+  switch (e) {
+    case ItemType_MELEE: return "MELEE";
+    case ItemType_BOW: return "BOW";
+    case ItemType_STAFF: return "STAFF";
+    case ItemType_SHIELD: return "SHIELD";
+    case ItemType_QUIVER: return "QUIVER";
+    case ItemType_ARMOR: return "ARMOR";
+    case ItemType_HELMET: return "HELMET";
+    case ItemType_SHOULDER: return "SHOULDER";
+    case ItemType_ARM: return "ARM";
+    case ItemType_FEET: return "FEET";
+    default: return "";
+  }
+}
+
+enum GradeType : uint8_t {
+  GradeType_NORMAL = 0,
+  GradeType_MIDDLE = 1,
+  GradeType_HIGH = 2,
+  GradeType_RARE = 3,
+  GradeType_HERO = 4,
+  GradeType_LEGEND = 5,
+  GradeType_GOD = 6,
+  GradeType_END = 7,
+  GradeType_MIN = GradeType_NORMAL,
+  GradeType_MAX = GradeType_END
+};
+
+inline const GradeType (&EnumValuesGradeType())[8] {
+  static const GradeType values[] = {
+    GradeType_NORMAL,
+    GradeType_MIDDLE,
+    GradeType_HIGH,
+    GradeType_RARE,
+    GradeType_HERO,
+    GradeType_LEGEND,
+    GradeType_GOD,
+    GradeType_END
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesGradeType() {
+  static const char * const names[9] = {
+    "NORMAL",
+    "MIDDLE",
+    "HIGH",
+    "RARE",
+    "HERO",
+    "LEGEND",
+    "GOD",
+    "END",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameGradeType(GradeType e) {
+  if (flatbuffers::IsOutRange(e, GradeType_NORMAL, GradeType_END)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesGradeType()[index];
+}
+
 enum GearType : uint8_t {
   GearType_LEFT_HAND = 0,
   GearType_RIGHT_HAND = 1,
@@ -774,54 +869,6 @@ inline const char *EnumNameReviveTime(ReviveTime e) {
   if (flatbuffers::IsOutRange(e, ReviveTime_COOL_TIME, ReviveTime_COOL_TIME)) return "";
   const size_t index = static_cast<size_t>(e) - static_cast<size_t>(ReviveTime_COOL_TIME);
   return EnumNamesReviveTime()[index];
-}
-
-enum GradeType : uint8_t {
-  GradeType_NORMAL = 0,
-  GradeType_MIDDLE = 1,
-  GradeType_HIGH = 2,
-  GradeType_RARE = 3,
-  GradeType_HERO = 4,
-  GradeType_LEGEND = 5,
-  GradeType_GOD = 6,
-  GradeType_END = 7,
-  GradeType_MIN = GradeType_NORMAL,
-  GradeType_MAX = GradeType_END
-};
-
-inline const GradeType (&EnumValuesGradeType())[8] {
-  static const GradeType values[] = {
-    GradeType_NORMAL,
-    GradeType_MIDDLE,
-    GradeType_HIGH,
-    GradeType_RARE,
-    GradeType_HERO,
-    GradeType_LEGEND,
-    GradeType_GOD,
-    GradeType_END
-  };
-  return values;
-}
-
-inline const char * const *EnumNamesGradeType() {
-  static const char * const names[9] = {
-    "NORMAL",
-    "MIDDLE",
-    "HIGH",
-    "RARE",
-    "HERO",
-    "LEGEND",
-    "GOD",
-    "END",
-    nullptr
-  };
-  return names;
-}
-
-inline const char *EnumNameGradeType(GradeType e) {
-  if (flatbuffers::IsOutRange(e, GradeType_NORMAL, GradeType_END)) return "";
-  const size_t index = static_cast<size_t>(e);
-  return EnumNamesGradeType()[index];
 }
 
 }  // namespace Define

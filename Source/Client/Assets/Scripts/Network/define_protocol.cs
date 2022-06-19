@@ -91,6 +91,32 @@ public enum AbilityByStatType : byte
   END = 6,
 };
 
+public enum ItemType : int
+{
+  MELEE = 10000,
+  BOW = 11000,
+  STAFF = 12000,
+  SHIELD = 20000,
+  QUIVER = 21000,
+  ARMOR = 30000,
+  HELMET = 40000,
+  SHOULDER = 50000,
+  ARM = 60000,
+  FEET = 70000,
+};
+
+public enum GradeType : byte
+{
+  NORMAL = 0,
+  MIDDLE = 1,
+  HIGH = 2,
+  RARE = 3,
+  HERO = 4,
+  LEGEND = 5,
+  GOD = 6,
+  END = 7,
+};
+
 public enum GearType : byte
 {
   LEFT_HAND = 0,
@@ -183,18 +209,6 @@ public enum SkillAnimationType : byte
 public enum ReviveTime : int
 {
   COOL_TIME = 5,
-};
-
-public enum GradeType : byte
-{
-  NORMAL = 0,
-  MIDDLE = 1,
-  HIGH = 2,
-  RARE = 3,
-  HERO = 4,
-  LEGEND = 5,
-  GOD = 6,
-  END = 7,
 };
 
 

@@ -82,6 +82,32 @@ enum AbilityByStatType : ubyte
 	END
 }
 
+enum ItemType : int32
+{
+	MELEE = 10000,
+	BOW = 11000,
+	STAFF = 12000,
+	SHIELD = 20000,
+	QUIVER = 21000,
+	ARMOR = 30000,
+	HELMET = 40000,
+	SHOULDER = 50000,
+	ARM = 60000,
+	FEET = 70000
+}
+
+enum GradeType : ubyte
+{
+	NORMAL = 0,
+	MIDDLE,
+	HIGH,
+	RARE,
+	HERO,
+	LEGEND,
+	GOD,
+	END
+}
+
 enum GearType : ubyte
 {
 	LEFT_HAND = 0,
@@ -174,16 +200,4 @@ enum SkillAnimationType : ubyte
 enum ReviveTime : int32
 {
     COOL_TIME = 5,
-}
-
-enum GradeType : ubyte
-{
-	NORMAL = 0,
-	MIDDLE,
-	HIGH,
-	RARE,
-	HERO,
-	LEGEND,
-	GOD,
-	END
 }
