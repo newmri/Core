@@ -175,3 +175,15 @@ enum ReviveTime : int32
 {
     COOL_TIME = 5,
 }
+
+enum GradeType : ubyte
+{
+	NORMAL = 0,
+	MIDDLE,
+	HIGH,
+	RARE,
+	HERO,
+	LEGEND,
+	GOD,
+	END
+}

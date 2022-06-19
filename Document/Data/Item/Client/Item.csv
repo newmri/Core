@@ -1,0 +1,2 @@
+﻿UID,Name,Explain,Job,ItemType,GearType,UsableMinLevel,UsableMaxLevel,Grade,CoolTime,EffectIndex1,EffectIndex2,EffectIndex3,EffectIndex4,EffectIndex5,IsCashItem,BuyPrice,SellPrice,MaxStackNum,Storage
+1,초보자의 철검,초보자가 사용하기에 적당한 철검,0,0,0,5,255,0,0,1,0,0,0,0,0,100,50,1,0

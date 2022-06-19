@@ -10,8 +10,12 @@ public class Managers : MonoBehaviour
 
     #region Contents
     ItemManager _item = new ItemManager();
+    EffectDataManager _effectData = new EffectDataManager();
+    GradeManager _grade = new GradeManager();
 
     public static ItemManager Item { get { return Instance._item; } }
+    public static EffectDataManager EffectData { get { return Instance._effectData; } }
+    public static GradeManager Grade { get { return Instance._grade; } }
     #endregion
 
     #region Core

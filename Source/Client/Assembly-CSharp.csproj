@@ -161,6 +161,7 @@
     <Compile Include="Assets\Scripts\Scenes\GameScene.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+    <Compile Include="Assets\Scripts\Managers\Contents\ItemManager.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
@@ -181,7 +182,9 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Message\UIMessagePopup.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\Contents\ItemManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Contents\EffectDataManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Game\UIItemInfoPopup.cs" />
+    <Compile Include="Assets\Scripts\Managers\Contents\GradeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

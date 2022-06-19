@@ -8,12 +8,18 @@ public class ItemManager
 {
     bool _isLoaded = false;
 
+    List<Dictionary<string, object>> _item;
+    List<Dictionary<string, object>> _itemStorage;
+
     public void Load()
     {
         if (_isLoaded)
             return;
 
         _isLoaded = true;
+
+        _item = CoreManagers.Data.LoadCSV("Data/Item/Item");
+        _itemStorage = CoreManagers.Data.LoadCSV("Data/Item/ItemStorage");
     }
 
     public Sprite GetGearIcon(Job job, GearType gearType, byte gearIndex)
@@ -24,7 +30,7 @@ public class ItemManager
         return CoreManagers.Resource.Load<Sprite>(path);
     }
 
-    public string GetGearName(Job job, GearType gear)
+    private string GetGearName(Job job, GearType gear)
     {
         string name = "";
         if (gear == GearType.LEFT_HAND || gear == GearType.RIGHT_HAND)

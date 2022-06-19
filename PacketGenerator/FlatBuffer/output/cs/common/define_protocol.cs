@@ -185,5 +185,17 @@ public enum ReviveTime : int
   COOL_TIME = 5,
 };
 
+public enum GradeType : byte
+{
+  NORMAL = 0,
+  MIDDLE = 1,
+  HIGH = 2,
+  RARE = 3,
+  HERO = 4,
+  LEGEND = 5,
+  GOD = 6,
+  END = 7,
+};
+
 
 }

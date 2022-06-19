@@ -12,8 +12,12 @@ public class GameScene : BaseScene
     protected override void Init(CoreDefine.Scene scene)
     {
         base.Init(scene);
+
         Managers.Map.LoadMap(0);
         Managers.CharacterData.Load();
+        Managers.Item.Load();
+        Managers.EffectData.Load();
+        Managers.Grade.Load();
 
         Managers.Account.UIGameScene = Managers.UI.ShowSceneUI<UIGameScene>();
         Managers.Object.AddMyPlayer();

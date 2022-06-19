@@ -776,6 +776,54 @@ inline const char *EnumNameReviveTime(ReviveTime e) {
   return EnumNamesReviveTime()[index];
 }
 
+enum GradeType : uint8_t {
+  GradeType_NORMAL = 0,
+  GradeType_MIDDLE = 1,
+  GradeType_HIGH = 2,
+  GradeType_RARE = 3,
+  GradeType_HERO = 4,
+  GradeType_LEGEND = 5,
+  GradeType_GOD = 6,
+  GradeType_END = 7,
+  GradeType_MIN = GradeType_NORMAL,
+  GradeType_MAX = GradeType_END
+};
+
+inline const GradeType (&EnumValuesGradeType())[8] {
+  static const GradeType values[] = {
+    GradeType_NORMAL,
+    GradeType_MIDDLE,
+    GradeType_HIGH,
+    GradeType_RARE,
+    GradeType_HERO,
+    GradeType_LEGEND,
+    GradeType_GOD,
+    GradeType_END
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesGradeType() {
+  static const char * const names[9] = {
+    "NORMAL",
+    "MIDDLE",
+    "HIGH",
+    "RARE",
+    "HERO",
+    "LEGEND",
+    "GOD",
+    "END",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameGradeType(GradeType e) {
+  if (flatbuffers::IsOutRange(e, GradeType_NORMAL, GradeType_END)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesGradeType()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_
