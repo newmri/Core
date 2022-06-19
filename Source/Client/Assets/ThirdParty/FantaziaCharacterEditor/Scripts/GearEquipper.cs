@@ -96,16 +96,12 @@ public class GearEquipper : MonoBehaviour
         //Combines the skins based on the gear choices
         if (Job == Define.Job.WARRIOR)
         {
-            NewCustomSkin.AddSkin(skeletonData.FindSkin("MELEE " + Melee.ToString()));
-            if (Shield == 0)
-            {
-                NewCustomSkin.AddSkin(skeletonData.FindSkin("EMPTY"));
-
-            }
+            if(Melee == 0)
+                NewCustomSkin.AddSkin(skeletonData.FindSkin("MELEE " + 1.ToString()));
             else
-            {
-                NewCustomSkin.AddSkin(skeletonData.FindSkin("SHIELD " + (Shield - 1).ToString()));
-            }
+                NewCustomSkin.AddSkin(skeletonData.FindSkin("MELEE " + Melee.ToString()));
+
+            NewCustomSkin.AddSkin(skeletonData.FindSkin("SHIELD " + Shield.ToString()));
         }
         else if (Job == Define.Job.ARCHER)
         {

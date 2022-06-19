@@ -6613,7 +6613,7 @@
 		}
 	},
 	{
-		"name": "MELEE 1",
+		"name": "MELEE 2",
 		"attachments": {
 			"WEAPON": {
 				"WEAPON": {
@@ -6637,7 +6637,7 @@
 		}
 	},
 	{
-		"name": "MELEE 2",
+		"name": "MELEE 1",
 		"attachments": {
 			"WEAPON": {
 				"WEAPON": { "name": "2WEAPON", "x": 115.63, "y": -19.23, "rotation": -53.25, "width": 213, "height": 211 }
@@ -7943,7 +7943,7 @@
 		}
 	},
 	{
-		"name": "SHIELD 0",
+		"name": "SHIELD 1",
 		"attachments": {
 			"SHIELD": {
 				"SHIELD": {
@@ -7962,7 +7962,7 @@
 		}
 	},
 	{
-		"name": "SHIELD 1",
+		"name": "SHIELD 0",
 		"attachments": {
 			"SHIELD": {
 				"SHIELD": {
