@@ -31,7 +31,7 @@ private:
 	std::unique_ptr<GameServer> gameServer;
 
 private:
-	std::unordered_map<std::string, std::shared_ptr<DBConfig>> dbConfig;
+	std::unordered_map<std::string, DBConfig> dbConfig;
 	std::shared_ptr<ServerConfig> serverConfig;
 	ServerInfo serverInfo;
 

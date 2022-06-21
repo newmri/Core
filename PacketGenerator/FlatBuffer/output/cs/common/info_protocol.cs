@@ -391,12 +391,12 @@ public struct CharacterGear : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
   public CharacterGear __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public byte Index(int j) { return __p.bb.Get(__p.bb_pos + 0 + j * 1); }
+  public int Index(int j) { return __p.bb.GetInt(__p.bb_pos + 0 + j * 4); }
 
-  public static Offset<Info.CharacterGear> CreateCharacterGear(FlatBufferBuilder builder, byte[] Index) {
-    builder.Prep(1, 9);
+  public static Offset<Info.CharacterGear> CreateCharacterGear(FlatBufferBuilder builder, int[] Index) {
+    builder.Prep(4, 36);
     for (int _idx0 = 9; _idx0 > 0; _idx0--) {
-      builder.PutByte(Index[_idx0-1]);
+      builder.PutInt(Index[_idx0-1]);
     }
     return new Offset<Info.CharacterGear>(builder.Offset);
   }
@@ -406,7 +406,7 @@ public struct CharacterGear : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(CharacterGearT _o) {
-    _o.Index = new byte[9];
+    _o.Index = new int[9];
     for (var _j = 0; _j < 9; ++_j) { _o.Index[_j] = this.Index(_j); }
   }
   public static Offset<Info.CharacterGear> Pack(FlatBufferBuilder builder, CharacterGearT _o) {
@@ -420,10 +420,10 @@ public struct CharacterGear : IFlatbufferObject
 
 public class CharacterGearT
 {
-  public byte[] Index { get; set; }
+  public int[] Index { get; set; }
 
   public CharacterGearT() {
-    this.Index = new byte[9];
+    this.Index = new int[9];
   }
 }
 

@@ -4,9 +4,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>01.Main</Filter>
     </ClCompile>
-    <ClCompile Include="native_info_impl.cpp">
-      <Filter>03.Packet\00.FlatBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="GameServer.cpp">
       <Filter>03.Packet\01.GameServer</Filter>
     </ClCompile>
@@ -69,15 +66,6 @@
     <ClInclude Include="Include.h">
       <Filter>00.Include</Filter>
     </ClInclude>
-    <ClInclude Include="define_protocol_generated.h">
-      <Filter>03.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="info_protocol_generated.h">
-      <Filter>03.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="native_info_impl.h">
-      <Filter>03.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
     <ClInclude Include="GameServerManager.h">
       <Filter>03.Packet\01.GameServer</Filter>
     </ClInclude>
@@ -95,9 +83,6 @@
     </ClInclude>
     <ClInclude Include="GameDB.h">
       <Filter>07.DB\01.GameDB</Filter>
-    </ClInclude>
-    <ClInclude Include="game_protocol_generated.h">
-      <Filter>03.Packet\00.FlatBuffer</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>05.Object\00.Creature\00.Player</Filter>
@@ -161,9 +146,6 @@
     </Filter>
     <Filter Include="03.Packet">
       <UniqueIdentifier>{6ab54531-4381-4aa9-a6e0-23de85cae782}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.Packet\00.FlatBuffer">
-      <UniqueIdentifier>{bfe0475f-12ed-493c-b2d1-667c7efd0b4a}</UniqueIdentifier>
     </Filter>
     <Filter Include="03.Packet\01.GameServer">
       <UniqueIdentifier>{d04b4ac6-466f-4e67-ab7c-3397fa6ac4c6}</UniqueIdentifier>

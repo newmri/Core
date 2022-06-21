@@ -107,7 +107,6 @@
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Zone.cpp" />
     <ClCompile Include="ZoneManager.cpp" />
-    <ClCompile Include="native_info_impl.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sector.cpp" />
@@ -127,10 +126,7 @@
     <ClInclude Include="CharacterData.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="CharacterDataManager.h" />
-    <ClInclude Include="define_protocol_generated.h" />
     <ClInclude Include="GameDB.h" />
-    <ClInclude Include="game_protocol_generated.h" />
-    <ClInclude Include="info_protocol_generated.h" />
     <ClInclude Include="GamePacketFunc.h" />
     <ClInclude Include="GamePacketHandler.h" />
     <ClInclude Include="GameServer.h" />
@@ -144,7 +140,6 @@
     <ClInclude Include="Zone.h" />
     <ClInclude Include="MapData.h" />
     <ClInclude Include="ZoneManager.h" />
-    <ClInclude Include="native_info_impl.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sector.h" />

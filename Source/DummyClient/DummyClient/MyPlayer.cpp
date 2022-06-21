@@ -63,19 +63,19 @@ void MyPlayer::SetState(const Define::ObjectState state)
 
 void MyPlayer::AddSkill(const int32_t skillID)
 {
-	SkillData skillData;
-	if (!CHARACTER_DATA_MANAGER.GetSkillData(skillID, skillData))
+	const SkillData* const skillData = CHARACTER_DATA_MANAGER.GetSkillData(skillID);
+	if (IS_NULL(skillData))
 		return;
 
 	WRITE_LOCK(this->skillMutex);
 
-	switch (skillData.skillType)
+	switch (skillData->skillType)
 	{
 	case Define::SkillType_NORMAL:
-		this->skillList[skillID] = std::make_shared<Skill>(Object::downcasted_shared_from_this<Creature>(), skillData);
+		this->skillList[skillID] = std::make_shared<Skill>(Object::downcasted_shared_from_this<Creature>(), *skillData);
 		break;
 	case Define::SkillType_ARROW:
-		this->skillList[skillID] = std::make_shared<ProjectileSkill>(Object::downcasted_shared_from_this<Creature>(), skillData);
+		this->skillList[skillID] = std::make_shared<ProjectileSkill>(Object::downcasted_shared_from_this<Creature>(), *skillData);
 		break;
 	}
 }

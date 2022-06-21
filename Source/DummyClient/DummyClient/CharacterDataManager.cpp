@@ -16,12 +16,11 @@ void CharacterDataManager::Load(void)
 	CSV_LOAD_AND_TO_HASH_MAP("Data/CharacterSkill.csv", SkillData, this->skill, skillID);
 }
 
-bool CharacterDataManager::GetSkillData(const int32_t skillID, SkillData& skillData)
+const SkillData* const CharacterDataManager::GetSkillData(const int32_t skillID)
 {
 	auto iter = this->skill.find(skillID);
 	if (IS_SAME(iter, this->skill.end()))
-		return false;
+		return nullptr;
 
-	memcpy_s(&skillData, sizeof(SkillData), iter->second.get(), sizeof(SkillData));
-	return true;
+	return &iter->second;
 }

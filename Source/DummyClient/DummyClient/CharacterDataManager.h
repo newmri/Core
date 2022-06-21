@@ -10,8 +10,8 @@ public:
 	void Load(void);
 
 public:
-	bool GetSkillData(const int32_t skillID, SkillData& skillData);
+	const SkillData* const GetSkillData(const int32_t skillID);
 
 private:
-	std::unordered_map<int32_t, std::shared_ptr<SkillData>> skill;
+	std::unordered_map<int32_t, SkillData> skill;
 };

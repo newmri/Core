@@ -260,12 +260,12 @@ namespace NativeInfo
         {
         }
 
-        CharacterGear(const flatbuffers::Array<uint8_t, Define::GearType_END>* index)
+        CharacterGear(const flatbuffers::Array<int32_t, Define::GearType_END>* index)
         {
             std::copy(index->begin(), index->end(), this->index.begin());
         }
 
-        std::array<uint8_t, Define::GearType_END> index = {};
+        std::array<int32_t, Define::GearType_END> index = {};
     };
 
     struct Money

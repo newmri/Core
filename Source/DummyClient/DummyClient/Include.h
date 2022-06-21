@@ -1,9 +1,6 @@
 #pragma once
 
 #include "../../Core/Core/CoreInclude.h"
-#include "native_info_impl.h"
-#include "login_protocol_generated.h"
-#include "game_protocol_generated.h"
 #include "LoginPacketSendManager.h"
 #include "LoginPacketFunc.h"
 #include "LoginPacketHandler.h"

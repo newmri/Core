@@ -16,9 +16,6 @@
     <Filter Include="04.Packet">
       <UniqueIdentifier>{adb8ddea-4059-4358-ade1-e9454d51bb9a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Packet\00.FlatBuffer">
-      <UniqueIdentifier>{82466a53-4571-41da-918c-2070a1358473}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05.Character">
       <UniqueIdentifier>{f810c2c0-bb91-4f89-91af-5174d6ce564b}</UniqueIdentifier>
     </Filter>
@@ -72,9 +69,6 @@
     <ClCompile Include="Character.cpp">
       <Filter>05.Character</Filter>
     </ClCompile>
-    <ClCompile Include="native_info_impl.cpp">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="PacketSendManager.cpp">
       <Filter>04.Packet\01.PacketSendManager</Filter>
     </ClCompile>
@@ -85,9 +79,6 @@
   <ItemGroup>
     <ClInclude Include="Include.h">
       <Filter>00.Include</Filter>
-    </ClInclude>
-    <ClInclude Include="login_protocol_generated.h">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
     </ClInclude>
     <ClInclude Include="LoginServer.h">
       <Filter>02.LoginServer</Filter>
@@ -101,9 +92,6 @@
     <ClInclude Include="LoginServerManager.h">
       <Filter>02.LoginServer</Filter>
     </ClInclude>
-    <ClInclude Include="define_protocol_generated.h">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
     <ClInclude Include="AccountDB.h">
       <Filter>06.DB\00.AccountDB</Filter>
     </ClInclude>
@@ -115,12 +103,6 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>05.Character</Filter>
-    </ClInclude>
-    <ClInclude Include="info_protocol_generated.h">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="native_info_impl.h">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
     </ClInclude>
     <ClInclude Include="CharacterData.h">
       <Filter>03.DataManager\00.CharacterData</Filter>

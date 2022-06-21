@@ -33,9 +33,10 @@
 #include <atlbase.h>
 #include <atlconv.h>
 
+#include "CoreMacro.h"
+
 #include "flatbuffers/flatbuffers.h"
 
-#include "CoreMacro.h"
 #include "CoreUtil.h"
 #include "CoreDataType.h"
 #include "CoreObject.h"
@@ -55,6 +56,13 @@
 #include "CorePriorityQueue.h"
 #include "CoreAlgorithm.h"
 #include "CoreRandomManager.h"
+
+#include "native_info_impl.h"
+#include "define_protocol_generated.h"
+#include "info_protocol_generated.h"
+#include "login_protocol_generated.h"
+#include "game_protocol_generated.h"
+
 #include "CoreLoader.h"
 #include "CoreCSVLoader.h"
 #include "CoreCSVMapLoader.h"
@@ -76,4 +84,5 @@
 #include "CoreCharacter.h"
 #include "CoreAccount.h"
 #include "CoreAccountManager.h"
+#include "CoreItemDataManager.h"
 #include "CoreTestManager.h"

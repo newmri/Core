@@ -126,6 +126,7 @@
     <ClCompile Include="CoreDB.cpp" />
     <ClCompile Include="CoreFileLogger.cpp" />
     <ClCompile Include="CoreGameObject.cpp" />
+    <ClCompile Include="CoreItemDataManager.cpp" />
     <ClCompile Include="CoreLoader.cpp" />
     <ClCompile Include="CoreLogger.cpp" />
     <ClCompile Include="CoreServer.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="CoreDataTypeManager.cpp" />
     <ClCompile Include="CoreUIDObject.cpp" />
     <ClCompile Include="CoreUtil.cpp" />
+    <ClCompile Include="native_info_impl.cpp" />
     <ClCompile Include="WorldDB.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +206,13 @@
     <ClInclude Include="CoreDataTypeManager.h" />
     <ClInclude Include="CoreDelegate.h" />
     <ClInclude Include="CoreThreadManager.h" />
+    <ClInclude Include="CoreItemData.h" />
+    <ClInclude Include="CoreItemDataManager.h" />
+    <ClInclude Include="define_protocol_generated.h" />
+    <ClInclude Include="game_protocol_generated.h" />
+    <ClInclude Include="info_protocol_generated.h" />
+    <ClInclude Include="login_protocol_generated.h" />
+    <ClInclude Include="native_info_impl.h" />
     <ClInclude Include="WorldDB.h" />
   </ItemGroup>
   <ItemGroup>

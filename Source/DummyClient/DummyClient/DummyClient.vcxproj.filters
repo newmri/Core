@@ -13,9 +13,6 @@
     <Filter Include="04.Packet">
       <UniqueIdentifier>{adb8ddea-4059-4358-ade1-e9454d51bb9a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Packet\00.FlatBuffer">
-      <UniqueIdentifier>{82466a53-4571-41da-918c-2070a1358473}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.DummyClient">
       <UniqueIdentifier>{4b05fb9b-f643-4208-9680-d2b7752f8061}</UniqueIdentifier>
     </Filter>
@@ -102,9 +99,6 @@
     <ClCompile Include="DummyClientManager.cpp">
       <Filter>02.DummyClient</Filter>
     </ClCompile>
-    <ClCompile Include="native_info_impl.cpp">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="WebManager.cpp">
       <Filter>04.Packet\03.WebManager</Filter>
     </ClCompile>
@@ -176,23 +170,11 @@
     <ClInclude Include="Include.h">
       <Filter>00.Include</Filter>
     </ClInclude>
-    <ClInclude Include="login_protocol_generated.h">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
     <ClInclude Include="LoginPacketFunc.h">
       <Filter>04.Packet\01.Login\02.LoginPacketFunc</Filter>
     </ClInclude>
     <ClInclude Include="DummyClientManager.h">
       <Filter>02.DummyClient</Filter>
-    </ClInclude>
-    <ClInclude Include="define_protocol_generated.h">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="info_protocol_generated.h">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="native_info_impl.h">
-      <Filter>04.Packet\00.FlatBuffer</Filter>
     </ClInclude>
     <ClInclude Include="CharacterData.h">
       <Filter>03.DataManager\00.Character</Filter>

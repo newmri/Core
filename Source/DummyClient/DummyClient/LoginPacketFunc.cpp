@@ -60,3 +60,7 @@ void LoginPacketFunc::SC_CREATE_CHARACTER_RES(std::shared_ptr<CoreServerSession>
 		DUMMY_CLIENT.ConnectToGameServer(session, characterInfo.uid, characterInfo.name);
 	}
 }
+
+void LoginPacketFunc::SC_DELETE_CHARACTER_RES(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}

@@ -192,22 +192,22 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Speed FLATBUFFERS_FINAL_CLASS {
 };
 FLATBUFFERS_STRUCT_END(Speed, 12);
 
-FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(1) CharacterGear FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) CharacterGear FLATBUFFERS_FINAL_CLASS {
  private:
-  uint8_t index_[9];
+  int32_t index_[9];
 
  public:
   CharacterGear()
       : index_() {
   }
-  CharacterGear(flatbuffers::span<const uint8_t, 9> _index) {
+  CharacterGear(flatbuffers::span<const int32_t, 9> _index) {
     flatbuffers::CastToArray(index_).CopyFromSpan(_index);
   }
-  const flatbuffers::Array<uint8_t, 9> *index() const {
+  const flatbuffers::Array<int32_t, 9> *index() const {
     return &flatbuffers::CastToArray(index_);
   }
 };
-FLATBUFFERS_STRUCT_END(CharacterGear, 9);
+FLATBUFFERS_STRUCT_END(CharacterGear, 36);
 
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Money FLATBUFFERS_FINAL_CLASS {
  private:

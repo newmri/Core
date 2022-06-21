@@ -50,7 +50,7 @@ struct Speed (native_type:"NativeInfo::Speed", native_type_pack_name:"Speed")
 
 struct CharacterGear (native_type:"NativeInfo::CharacterGear", native_type_pack_name:"CharacterGear")
 {
-    index:[ubyte:9];
+    index:[int32:9];
 }
 
 struct Money (native_type:"NativeInfo::Money", native_type_pack_name:"Money")

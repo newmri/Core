@@ -11,7 +11,7 @@ public:
 
 public:
 	NativeInfo::Stat GetCharacterCreateStat(const Define::Job& job);
-	void GetCharacterCreateGear(const Define::Job& job, std::array<uint8_t, Define::GearType_END>& out);
+	void GetCharacterCreateGear(const Define::Job& job, std::array<int32_t, Define::GearType_END>& out);
 	void GetCharacterCreateHPMP(const Define::Job& job, int32_t& HP, int32_t& MP);
 
 private:
