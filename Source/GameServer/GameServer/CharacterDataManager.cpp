@@ -35,14 +35,13 @@ void CharacterDataManager::CalculateSpeed(const Define::Job job, NativeInfo::Spe
 	speed.value = this->characterSpeed[job].value;
 }
 
-bool CharacterDataManager::GetSkillData(const int32_t skillID, SkillData& skillData)
+const SkillData* const CharacterDataManager::GetSkillData(const int32_t skillID)
 {
 	auto iter = this->skill.find(skillID);
 	if (IS_SAME(iter, this->skill.end()))
-		return false;
+		return nullptr;
 
-	memcpy_s(&skillData, sizeof(SkillData), iter->second.get(), sizeof(SkillData));
-	return true;
+	return &iter->second;
 }
 
 void CharacterDataManager::GetLevelData(const uint8_t level, LevelData& levelData)
