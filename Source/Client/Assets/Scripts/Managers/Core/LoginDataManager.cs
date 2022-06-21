@@ -16,8 +16,8 @@ public class LoginDataManager
         if (_isLoaded)
             return;
 
-        _createCharacterGear = CoreManagers.Data.LoadCSV("Data/Character/CharacterCreateGear");
-        _JobExplain = CoreManagers.Data.LoadCSV("Data/Character/JobExplain");
+        CoreManagers.Data.LoadCSV("Data/Character/CharacterCreateGear", out _createCharacterGear);
+        CoreManagers.Data.LoadCSV("Data/Character/JobExplain", out _JobExplain);
 
         _isLoaded = true;
     }
@@ -28,7 +28,7 @@ public class LoginDataManager
 
         for (GearType i = 0; i < GearType.END; ++i)
         {
-           gear.Index[(int)i] = (byte)(int)_createCharacterGear[(int)job][Util.EnumToPascal(i.ToString())];
+            gear.Index[(int)i] = (int)_createCharacterGear[(int)job][Util.EnumToPascal(i.ToString())];
         }
 
         return gear;

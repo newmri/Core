@@ -12,14 +12,15 @@ namespace UnityCoreLibrary
         string _lineSplit = @"\r\n|\n\r|\n|\r";
         char[] _trim = { '\"' };
 
-        public List<Dictionary<string, object>> Load(string path)
+        public void Load(string path, out List<Dictionary<string, object>> dataList)
         {
-            var list = new List<Dictionary<string, object>>();
+            dataList = new List<Dictionary<string, object>>();
             TextAsset data = CoreManagers.Resource.Load<TextAsset>(path);
 
             var lines = Regex.Split(data.text, _lineSplit);
 
-            if (lines.Length <= 1) return list;
+            if (lines.Length <= 1)
+                return;
 
             var header = Regex.Split(lines[0], _split);
             for (var i = 1; i < lines.Length; i++)
@@ -32,7 +33,7 @@ namespace UnityCoreLibrary
                 for (var j = 0; j < header.Length && j < values.Length; j++)
                 {
                     string value = values[j];
-                    //value = value.TrimStart(_trim).TrimEnd(_trim).Replace("\\", "");
+
                     object finalvalue = value;
                     int n;
                     float f;
@@ -46,9 +47,22 @@ namespace UnityCoreLibrary
                     }
                     entry[header[j]] = finalvalue;
                 }
-                list.Add(entry);
+                dataList.Add(entry);
             }
-            return list;
         }
+
+        public void Load(string key, string path, out Dictionary<int, Dictionary<string, object>> dataList)
+        {
+            List<Dictionary<string, object>> data;
+            Load(path, out data);
+
+            dataList = new Dictionary<int, Dictionary<string, object>>();
+
+            foreach (var obj in data)
+            {
+                dataList.Add((int)obj[key], obj);
+            }
+        }
+
     }
 }

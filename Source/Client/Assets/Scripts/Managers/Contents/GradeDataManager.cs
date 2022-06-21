@@ -10,7 +10,7 @@ public struct GradeInfo
     public Sprite frame;
 }
 
-public class GradeManager
+public class GradeDataManager
 {
     bool _isLoaded = false;
     private GradeInfo[] _gradeInfoList;

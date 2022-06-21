@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityCoreLibrary;
 using Define;
+using Info;
+using System;
 
-public class ItemManager
+public class ItemDataManager
 {
     bool _isLoaded = false;
 
-    List<Dictionary<string, object>> _item;
+    Dictionary<int, Dictionary<string, object>> _item;
     List<Dictionary<string, object>> _itemStorage;
 
     public void Load()
@@ -18,8 +20,28 @@ public class ItemManager
 
         _isLoaded = true;
 
-        _item = CoreManagers.Data.LoadCSV("Data/Item/Item");
-        _itemStorage = CoreManagers.Data.LoadCSV("Data/Item/ItemStorage");
+        CoreManagers.Data.LoadCSV("ItemID", "Data/Item/Item", out _item);
+        CoreManagers.Data.LoadCSV("Data/Item/ItemStorage", out _itemStorage);
+    }
+
+    // ItemID -> GearID 로 변환
+    public CharacterGearT ToGearID(CharacterGearT gears)
+    {
+        CharacterGearT convertedGears = new CharacterGearT();
+
+        for (int i = 0; i < (int)GearType.END; ++i)
+            convertedGears.Index[i] = GetGearID(gears.Index[i]);
+
+        return convertedGears;
+    }
+
+    // ItemID -> GearID 로 변환
+    public int GetGearID(int itemID)
+    {
+        if (itemID == 0)
+            return 0;
+
+        return itemID % (int)_item[itemID]["ItemType"];
     }
 
     public Sprite GetGearIcon(Job job, GearType gearType, byte gearIndex)

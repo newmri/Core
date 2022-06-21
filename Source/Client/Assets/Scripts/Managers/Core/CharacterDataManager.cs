@@ -17,8 +17,8 @@ public class CharacterDataManager
 
         _isLoaded = true;
 
-        _skill = CoreManagers.Data.LoadCSV("Data/Character/CharacterSkill");
-        _level = CoreManagers.Data.LoadCSV("Data/Character/CharacterLevel");
+        CoreManagers.Data.LoadCSV("Data/Character/CharacterSkill", out _skill);
+        CoreManagers.Data.LoadCSV("Data/Character/CharacterLevel", out _level);
     }
 
     public object GetSkill(int skillID, string name)

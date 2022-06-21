@@ -17,6 +17,6 @@ public class EffectDataManager
 
         _isLoaded = true;
 
-        _effect = CoreManagers.Data.LoadCSV("Data/Effect/Effect");
+        CoreManagers.Data.LoadCSV("Data/Effect/Effect", out _effect);
     }
 }

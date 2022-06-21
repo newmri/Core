@@ -9,13 +9,13 @@ public class Managers : MonoBehaviour
     public static Managers Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
 
     #region Contents
-    ItemManager _item = new ItemManager();
+    ItemDataManager _itemData = new ItemDataManager();
     EffectDataManager _effectData = new EffectDataManager();
-    GradeManager _grade = new GradeManager();
+    GradeDataManager _gradeData = new GradeDataManager();
 
-    public static ItemManager Item { get { return Instance._item; } }
+    public static ItemDataManager ItemData { get { return Instance._itemData; } }
     public static EffectDataManager EffectData { get { return Instance._effectData; } }
-    public static GradeManager Grade { get { return Instance._grade; } }
+    public static GradeDataManager GradeData { get { return Instance._gradeData; } }
     #endregion
 
     #region Core

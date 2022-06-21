@@ -20,6 +20,7 @@ void LoginServerManager::Init(void)
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
 
 	DATA_MANAGER.Load();
+	CORE_ITEM_DATA_MANAGER.Load();
 }
 
 void LoginServerManager::Release(void)

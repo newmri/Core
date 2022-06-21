@@ -15,9 +15,8 @@ public class GameScene : BaseScene
 
         Managers.Map.LoadMap(0);
         Managers.CharacterData.Load();
-        Managers.Item.Load();
         Managers.EffectData.Load();
-        Managers.Grade.Load();
+        Managers.GradeData.Load();
 
         Managers.Account.UIGameScene = Managers.UI.ShowSceneUI<UIGameScene>();
         Managers.Object.AddMyPlayer();
