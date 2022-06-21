@@ -104,7 +104,7 @@ public class UIInventoryPopup : UIPopup
         for (GearType gearType = 0; gearType < GearType.END; ++gearType)
         {
             if(gear.Index[(int)gearType] > 0)
-                UpdateEquipSlotIcon(gearType, Managers.ItemData.GetGearIcon(Managers.Object.MyPlayer.Job, gearType, (byte)gear.Index[(int)gearType]), true);
+                UpdateEquipSlotIcon(gearType, Managers.ItemData.GetGearIcon(Managers.Object.MyPlayer.Job, gearType, gear.Index[(int)gearType]), true);
         }
     }
 

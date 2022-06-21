@@ -24,30 +24,10 @@ public class ItemDataManager
         CoreManagers.Data.LoadCSV("Data/Item/ItemStorage", out _itemStorage);
     }
 
-    // ItemID -> GearID 로 변환
-    public CharacterGearT ToGearID(CharacterGearT gears)
-    {
-        CharacterGearT convertedGears = new CharacterGearT();
-
-        for (int i = 0; i < (int)GearType.END; ++i)
-            convertedGears.Index[i] = GetGearID(gears.Index[i]);
-
-        return convertedGears;
-    }
-
-    // ItemID -> GearID 로 변환
-    public int GetGearID(int itemID)
-    {
-        if (itemID == 0)
-            return 0;
-
-        return itemID % (int)_item[itemID]["ItemType"];
-    }
-
-    public Sprite GetGearIcon(Job job, GearType gearType, byte gearIndex)
+    public Sprite GetGearIcon(Job job, GearType gearType, int itemID)
     {
         string name = GetGearName(job, gearType);
-        string path = "UI/Item/Gear/" + Util.EnumToPascal(name) + "/" + name + " " + gearIndex.ToString();
+        string path = "UI/Item/Gear/" + Util.EnumToPascal(name) + "/" + name + " " + GetGearID(itemID).ToString();
 
         return CoreManagers.Resource.Load<Sprite>(path);
     }
@@ -87,5 +67,25 @@ public class ItemDataManager
         }
 
         return name;
+    }
+
+    // ItemID -> GearID 로 변환
+    public CharacterGearT ToGearID(CharacterGearT gears)
+    {
+        CharacterGearT convertedGears = new CharacterGearT();
+
+        for (int i = 0; i < (int)GearType.END; ++i)
+            convertedGears.Index[i] = GetGearID(gears.Index[i]);
+
+        return convertedGears;
+    }
+
+    // ItemID -> GearID 로 변환
+    public int GetGearID(int itemID)
+    {
+        if (itemID == 0)
+            return 0;
+
+        return itemID % (int)_item[itemID]["ItemType"];
     }
 }
