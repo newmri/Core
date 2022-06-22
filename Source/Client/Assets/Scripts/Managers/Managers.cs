@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Define;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -31,6 +33,7 @@ public class Managers : MonoBehaviour
 
     public static UIManager UI { get { return Instance._ui; } }
     public static WebManager Web { get { return Instance._web; } }
+
     public static LoginNetworkManager LoginNetwork { get { return Instance._loginNetwork; } }
     public static GameNetworkManager GameNetwork { get { return Instance._gameNetwork; } }
     public static LoginDataManager LoginData { get { return Instance._loginData; } }

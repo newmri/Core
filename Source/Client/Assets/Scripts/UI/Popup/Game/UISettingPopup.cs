@@ -11,11 +11,6 @@ using System.Threading;
 
 public class UISettingPopup : UIPopup
 {
-    enum TextMeshProUGUIs
-    {
-        ReviveText
-    }
-
     enum Buttons
     {
         CloseButton,

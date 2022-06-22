@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityCoreLibrary;
 using UnityEngine.EventSystems;
+using System;
 
 public class UIInventoryPopup : UIPopup
 {
@@ -34,10 +35,10 @@ public class UIInventoryPopup : UIPopup
         BackButton
     }
 
-    private List<Image> _equipList = null;
-    private List<TextMeshProUGUI> _statList = null;
+    private ItemSlot _selectedItemSlot = null;
+    private List<ItemSlot> _equipList = null;
 
-    private Color _equipEmptyColor = new Color(0.373f, 0.306f, 0.392f, 1.0f);
+    private List<TextMeshProUGUI> _statList = null;
 
     public override void Init()
     {
@@ -52,6 +53,10 @@ public class UIInventoryPopup : UIPopup
 
         UpdateHandsIcon();
 
+        List<Button> equipButtonList = Util.FindAllChildrens<Button>(GetObject((int)GameObjects.EquipSlot), null, true);
+        foreach (var button in equipButtonList)
+            button.gameObject.BindEvent(OnClickItemSlotButton);
+
         _statList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.Stats), "ValueText", true);
 
         gameObject.SetActive(false);
@@ -59,11 +64,11 @@ public class UIInventoryPopup : UIPopup
 
     public void Refresh()
     {
-        UpdateEquipSlotIcon();
         UpdateMoney(Managers.Account.Money);
         UpdateCharacterLevel(Managers.Object.MyPlayer.Level);
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
         UpdateStats();
+        UpdateItemSlot();
     }
 
     public void UpdateMoney(MoneyT money)
@@ -90,32 +95,15 @@ public class UIInventoryPopup : UIPopup
 
     private void UpdateHandsIcon()
     {
-        _equipList = Util.FindAllChildrens<Image>(GetObject((int)GameObjects.EquipSlot), "Icon", true);
+        _equipList = Util.FindAllChildrens<ItemSlot>(GetObject((int)GameObjects.EquipSlot));
+
         Sprite leftHandIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{Managers.Object.MyCharacterInfo.Job.ToString()}LeftHandIcon");
-        UpdateEquipSlotIcon(GearType.LEFT_HAND, leftHandIcon);
+        _equipList[(int)GearType.LEFT_HAND].ItemIcon.sprite = leftHandIcon;
+        _equipList[(int)GearType.LEFT_HAND].EmptyItemIconSprite = leftHandIcon;
 
         Sprite rightHandIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{Managers.Object.MyCharacterInfo.Job.ToString()}RightHandIcon");
-        UpdateEquipSlotIcon(GearType.RIGHT_HAND, rightHandIcon);
-    }
-
-    public void UpdateEquipSlotIcon()
-    {
-        var gear = Managers.Object.MyPlayer.Gear;
-        for (GearType gearType = 0; gearType < GearType.END; ++gearType)
-        {
-            if(gear.Index[(int)gearType] > 0)
-                UpdateEquipSlotIcon(gearType, Managers.ItemData.GetGearIcon(Managers.Object.MyPlayer.Job, gearType, gear.Index[(int)gearType]), true);
-        }
-    }
-
-    public void UpdateEquipSlotIcon(GearType gearType, Sprite icon, bool isEquiped = false)
-    {
-        _equipList[(int)gearType].sprite = icon;
-
-        if (isEquiped)
-            _equipList[(int)gearType].color = Color.white;
-        else
-            _equipList[(int)gearType].color = _equipEmptyColor;
+        _equipList[(int)GearType.RIGHT_HAND].ItemIcon.sprite = rightHandIcon;
+        _equipList[(int)GearType.RIGHT_HAND].EmptyItemIconSprite = rightHandIcon;
     }
 
     private void UpdateStats()
@@ -132,8 +120,42 @@ public class UIInventoryPopup : UIPopup
         }
     }
 
+    private void UpdateItemSlot()
+    {
+        OnDeselectedItemSlot();
+
+        var gear = Managers.Object.MyPlayer.Gear;
+        for (GearType gearType = 0; gearType < GearType.HAIR; ++gearType)
+        {
+            _equipList[(int)gearType].ItemID = gear.Index[(int)gearType];
+        }
+    }
+
     public void OnClickBackButton(PointerEventData evt)
     {
         gameObject.SetActive(false);
+    }
+
+    public void OnClickItemSlotButton(PointerEventData evt)
+    {
+        OnDeselectedItemSlot();
+
+        _selectedItemSlot = evt.selectedObject.GetComponent<ItemSlot>();
+        _selectedItemSlot.OnSelected();
+
+        if (_selectedItemSlot.ItemID > 0)
+        {
+            UIItemInfoPopup itemInfo = Managers.UI.ShowPopupUI<UIItemInfoPopup>();
+            itemInfo.ItemSlot = _selectedItemSlot;
+        }
+    }
+
+    private void OnDeselectedItemSlot()
+    {
+        if (_selectedItemSlot != null)
+        {
+            _selectedItemSlot.OnDeselected();
+            _selectedItemSlot = null;
+        }
     }
 }

@@ -24,49 +24,37 @@ public class ItemDataManager
         CoreManagers.Data.LoadCSV("Data/Item/ItemStorage", out _itemStorage);
     }
 
-    public Sprite GetGearIcon(Job job, GearType gearType, int itemID)
+    public Sprite GetFrameIcon(int itemID)
     {
-        string name = GetGearName(job, gearType);
-        string path = "UI/Item/Gear/" + Util.EnumToPascal(name) + "/" + name + " " + GetGearID(itemID).ToString();
-
-        return CoreManagers.Resource.Load<Sprite>(path);
+       GradeType gradeType = (GradeType)(int)GetData(itemID, "Grade");
+       return Managers.GradeData.GradeInfoList[(int)gradeType].frame;
     }
 
-    private string GetGearName(Job job, GearType gear)
+    public Sprite GetIcon(int itemID)
     {
-        string name = "";
-        if (gear == GearType.LEFT_HAND || gear == GearType.RIGHT_HAND)
-        {
-            if (job == Job.WARRIOR)
-            {
-                if (gear == GearType.LEFT_HAND)
-                    name = "MELEE";
-                else
-                    name = "SHIELD";
-            }
-            else if (job == Job.ARCHER)
-            {
-                if (gear == GearType.LEFT_HAND)
-                    name = "BOW";
-                else
-                    name = "QUIVER";
-            }
-            else if (job == Job.SORCERER)
-            {
-                if (gear == GearType.LEFT_HAND)
-                    name = "STAFF";
-            }
-            else if (job == Job.DUELIST)
-            {
-                name = "MELEE";
-            }
-        }
-        else
-        {
-            name = gear.ToString();
-        }
+        return CoreManagers.Resource.Load<Sprite>(GetData(itemID, "IconPath").ToString());
+    }
 
-        return name;
+    public Color GetColor(int itemID)
+    {
+        GradeType gradeType = (GradeType)(int)GetData(itemID, "Grade");
+        return Managers.GradeData.GradeInfoList[(int)gradeType].color;
+    }
+
+    public string GetGradeName(int itemID)
+    {
+        GradeType gradeType = (GradeType)(int)GetData(itemID, "Grade");
+        return Managers.GradeData.GradeInfoList[(int)gradeType].name;
+    }
+
+    public string GetJobName(int itemID)
+    {
+        return Managers.LoginData.GetJobExplain((Job)(int)GetData(itemID, "Job"), "Name").ToString();
+    }
+
+    public object GetData(int itemID, string name)
+    {
+        return _item[itemID][name];
     }
 
     // ItemID -> GearID ·Î º¯È¯

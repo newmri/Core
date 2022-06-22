@@ -165,16 +165,6 @@ namespace UnityCoreLibrary
             return null;
         }
 
-        public static T StringToEnum<T>(string name)
-        {
-            var type = typeof(T);
-
-            if (type.ToString() != name)
-                name = name.Replace(type.FullName, "");
-
-            return (T)Enum.Parse(type, name);
-        }
-
         public static bool IsInRange(Vector2Int dist, float range)
         {
             return dist.magnitude <= range;
@@ -236,6 +226,34 @@ namespace UnityCoreLibrary
 
             return false;
         }
+
+        public static T PascalStringToEnum<T>(string name)
+        {
+            string upperName = name;
+            int count = 0;
+            for (int i = 0; i < name.Length; ++i)
+            {
+                if (i > 0 && Char.IsUpper(name[i]))
+                {
+                    upperName = upperName.Insert(i + count, "_");
+                    ++count;
+                }
+            }
+
+            upperName = upperName.ToUpper();
+            return StringToEnum<T>(upperName);
+        }
+
+        public static T StringToEnum<T>(string name)
+        {
+            var type = typeof(T);
+
+            if (type.ToString() != name)
+                name = name.Replace(type.FullName, "");
+
+            return (T)Enum.Parse(type, name);
+        }
+
 
         public static string EnumToPascal(string str)
         {
