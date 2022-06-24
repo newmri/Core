@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityCoreLibrary;
 using UnityEngine;
 using UnityEngine.UI;
+using Define;
 
 public enum ItemLocation : byte
 {
@@ -31,6 +32,8 @@ public class ItemSlot : MonoBehaviour
 
                 ItemIcon.sprite = Managers.ItemData.GetIcon(_itemID);
                 ItemIcon.color = Color.white;
+
+                Ability = Managers.ItemData.GetAbility(_itemID);
             }
             else
             {
@@ -38,6 +41,8 @@ public class ItemSlot : MonoBehaviour
 
                 ItemIcon.sprite = EmptyItemIconSprite;
                 ItemIcon.color = _emptyColor;
+
+                Array.Clear(_itemAbility, 0, (int)ItemAbility.MAX_NUM);
             }
         }
     }
@@ -53,6 +58,20 @@ public class ItemSlot : MonoBehaviour
         set
         {
             _itemLocation = value;
+        }
+    }
+
+    [SerializeField]
+    Ability[] _itemAbility = new Ability[(int)ItemAbility.MAX_NUM];
+    public Ability[] Ability
+    {
+        get
+        {
+            return _itemAbility;
+        }
+        set
+        {
+            _itemAbility = value;
         }
     }
 

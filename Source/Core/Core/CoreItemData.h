@@ -2,8 +2,6 @@
 
 #pragma pack(push, 1)
 
-static const int32_t ITEM_EFFECT_MAX = 5;
-
 struct CoreItemData
 {
 	CoreItemData()
@@ -17,7 +15,7 @@ struct CoreItemData
 	Define::GearType gearType;
 	Define::GradeType gradeType;
 	int64_t coolTime;
-	int32_t effectIndex[ITEM_EFFECT_MAX];
+	int32_t abilityID[Define::ItemAbility_MAX_NUM];
 	bool isCashItem;
 	int64_t buyPrice;
 	int64_t sellPrice;

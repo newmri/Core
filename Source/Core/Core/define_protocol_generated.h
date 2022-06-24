@@ -369,6 +369,33 @@ inline const char *EnumNameAbilityByStatType(AbilityByStatType e) {
   return EnumNamesAbilityByStatType()[index];
 }
 
+enum ItemAbility : uint8_t {
+  ItemAbility_MAX_NUM = 5,
+  ItemAbility_MIN = ItemAbility_MAX_NUM,
+  ItemAbility_MAX = ItemAbility_MAX_NUM
+};
+
+inline const ItemAbility (&EnumValuesItemAbility())[1] {
+  static const ItemAbility values[] = {
+    ItemAbility_MAX_NUM
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesItemAbility() {
+  static const char * const names[2] = {
+    "MAX_NUM",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameItemAbility(ItemAbility e) {
+  if (flatbuffers::IsOutRange(e, ItemAbility_MAX_NUM, ItemAbility_MAX_NUM)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(ItemAbility_MAX_NUM);
+  return EnumNamesItemAbility()[index];
+}
+
 enum ItemType : int32_t {
   ItemType_MELEE = 10000,
   ItemType_BOW = 11000,

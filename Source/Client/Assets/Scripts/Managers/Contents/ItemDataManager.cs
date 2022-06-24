@@ -119,6 +119,18 @@ public class ItemDataManager
         return (job == Managers.Object.MyPlayer.Job);
     }
 
+    public Ability[] GetAbility(int itemID)
+    {
+        Ability[] ability = new Ability[(int)ItemAbility.MAX_NUM];
+
+        for(int i = 0; i < (int)ItemAbility.MAX_NUM; ++i)
+        {
+            Managers.AbilityData.GetAbility((int)GetData(itemID, "AbilityID" + (i + 1)), ref ability[i]);
+        }
+
+        return ability;
+    }
+
     public object GetData(int itemID, string name)
     {
         return _item[itemID][name];

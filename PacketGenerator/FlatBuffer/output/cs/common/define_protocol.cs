@@ -91,6 +91,11 @@ public enum AbilityByStatType : byte
   END = 6,
 };
 
+public enum ItemAbility : byte
+{
+  MAX_NUM = 5,
+};
+
 public enum ItemType : int
 {
   MELEE = 10000,

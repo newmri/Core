@@ -82,6 +82,11 @@ enum AbilityByStatType : ubyte
 	END
 }
 
+enum ItemAbility : ubyte
+{
+   MAX_NUM = 5
+}
+
 enum ItemType : int32
 {
 	MELEE = 10000,

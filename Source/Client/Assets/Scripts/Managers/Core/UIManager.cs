@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityCoreLibrary;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager
 {

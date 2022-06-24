@@ -45,6 +45,11 @@ public class UIItemInfoPopup : UIPopup
         CloseButton
     }
 
+    enum GameObjects
+    {
+        ItemAbility
+    }
+
     public override void Init()
     {
         base.Init();
@@ -52,9 +57,17 @@ public class UIItemInfoPopup : UIPopup
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Button>(typeof(Buttons));
+        Bind<GameObject>(typeof(GameObjects));
 
         GetImage((int)Images.ItemIcon).sprite = Managers.ItemData.GetIcon(ItemSlot.ItemID);
+        SetText();
+        SetFunction();
 
+        GetButton((int)Buttons.CloseButton).gameObject.BindEvent(OnClickCloseButton);
+    }
+
+    private void SetText()
+    {
         this.GetTextMesh((int)TextMeshProUGUIs.ItemNameText).text = Managers.ItemData.GetData(ItemSlot.ItemID, "Name").ToString();
         this.GetTextMesh((int)TextMeshProUGUIs.ItemNameText).color = Managers.ItemData.GetColor(ItemSlot.ItemID);
 
@@ -66,9 +79,22 @@ public class UIItemInfoPopup : UIPopup
         this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).text = Managers.ItemData.GetJobName(ItemSlot.ItemID);
         this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).color = Managers.ItemData.IsUsableJob(ItemSlot.ItemID) ? Color.green : Color.red;
 
-        SetFunction();
+        List<GameObject> abilityList = Util.FindAllChildrens<GameObject>(GetObject((int)GameObjects.ItemAbility));
 
-        GetButton((int)Buttons.CloseButton).gameObject.BindEvent(OnClickCloseButton);
+        List<TextMeshProUGUI> abilityNameList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.ItemAbility), "NameText", true);
+        List<TextMeshProUGUI> abilityValueList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.ItemAbility), "ValueText", true);
+        for(int i = 0; i < abilityNameList.Count; ++i)
+        {
+            if (ItemSlot.Ability[i].AbilityValue > 0)
+            {
+                abilityNameList[i].text = ItemSlot.Ability[i].AbilityName;
+                abilityValueList[i].text = "+" + ItemSlot.Ability[i].AbilityValue.ToString();
+            }
+            else
+            {
+                abilityNameList[i].transform.parent.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void SetFunction()

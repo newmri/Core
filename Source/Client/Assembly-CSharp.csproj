@@ -79,7 +79,7 @@
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\CustomGrid.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Login\UILoginPopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
-    <Compile Include="Assets\Scripts\Managers\Contents\EffectDataManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Contents\AbilityDataManager.cs" />
     <Compile Include="Assets\Scripts\Network\GameServer\GamePacketQueue.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Controllers\ArrowController.cs" />
@@ -155,6 +155,7 @@
     <Compile Include="Assets\Scripts\Network\LoginServer\login_protocol.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\WorldList\UISignupPopup.cs" />
     <Compile Include="Assets\Scripts\Map\Parallaxing.cs" />
+    <Compile Include="Assets\Scripts\Item\ItemSlot.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\UIParticleSystem.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearEquipper.cs" />
     <Compile Include="Assets\Scripts\Text\DamageText.cs" />
@@ -185,7 +186,6 @@
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Message\UIMessagePopup.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
-    <Compile Include="Assets\Scripts\Item\ItemSlot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />

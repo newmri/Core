@@ -12,11 +12,11 @@ public class Managers : MonoBehaviour
 
     #region Contents
     ItemDataManager _itemData = new ItemDataManager();
-    EffectDataManager _effectData = new EffectDataManager();
+    AbilityDataManager _abilitytData = new AbilityDataManager();
     GradeDataManager _gradeData = new GradeDataManager();
 
     public static ItemDataManager ItemData { get { return Instance._itemData; } }
-    public static EffectDataManager EffectData { get { return Instance._effectData; } }
+    public static AbilityDataManager AbilityData { get { return Instance._abilitytData; } }
     public static GradeDataManager GradeData { get { return Instance._gradeData; } }
     #endregion
 
