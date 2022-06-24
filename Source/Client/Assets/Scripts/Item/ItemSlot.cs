@@ -5,6 +5,13 @@ using UnityCoreLibrary;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ItemLocation : byte
+{
+    INVENTORY = 0,
+    EQUIP = 1,
+    END = 2
+};
+
 public class ItemSlot : MonoBehaviour
 {
     [SerializeField]
@@ -32,6 +39,20 @@ public class ItemSlot : MonoBehaviour
                 ItemIcon.sprite = EmptyItemIconSprite;
                 ItemIcon.color = _emptyColor;
             }
+        }
+    }
+
+    [SerializeField]
+    ItemLocation _itemLocation;
+    public ItemLocation ItemLocation
+    {
+        get
+        {
+            return _itemLocation;
+        }
+        set
+        {
+            _itemLocation = value;
         }
     }
 

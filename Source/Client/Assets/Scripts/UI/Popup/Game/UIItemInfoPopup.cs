@@ -34,13 +34,14 @@ public class UIItemInfoPopup : UIPopup
     {
         ItemNameText,
         ExplainText,
-        LevelText,
         GradeNameText,
-        JobNameText
+        JobNameText,
+        FuctionText
     }
 
     enum Buttons
     {
+        FunctionButton,
         CloseButton
     }
 
@@ -59,18 +60,59 @@ public class UIItemInfoPopup : UIPopup
 
         this.GetTextMesh((int)TextMeshProUGUIs.ExplainText).text = Managers.ItemData.GetData(ItemSlot.ItemID, "Explain").ToString();
 
-        byte minLevel = (byte)(int)Managers.ItemData.GetData(ItemSlot.ItemID, "UsableMinLevel");
-        byte maxLevel = (byte)(int)Managers.ItemData.GetData(ItemSlot.ItemID, "UsableMaxLevel");
-        this.GetTextMesh((int)TextMeshProUGUIs.LevelText).text = $"LV.{minLevel} ~ {maxLevel}";
-
         this.GetTextMesh((int)TextMeshProUGUIs.GradeNameText).text = Managers.ItemData.GetGradeName(ItemSlot.ItemID);
         this.GetTextMesh((int)TextMeshProUGUIs.GradeNameText).color = Managers.ItemData.GetColor(ItemSlot.ItemID);
 
         this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).text = Managers.ItemData.GetJobName(ItemSlot.ItemID);
-        this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).color =
-            Managers.Object.MyPlayer.Job == (Job)(int)Managers.ItemData.GetData(ItemSlot.ItemID, "Job") ? Color.green : Color.red;
+        this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).color = Managers.ItemData.IsUsableJob(ItemSlot.ItemID) ? Color.green : Color.red;
+
+        SetFunction();
 
         GetButton((int)Buttons.CloseButton).gameObject.BindEvent(OnClickCloseButton);
+    }
+
+    private void SetFunction()
+    {
+        switch (ItemSlot.ItemLocation)
+        {
+            case ItemLocation.INVENTORY:
+                if(Managers.ItemData.CanEquip(ItemSlot.ItemID))
+                {
+                    this.GetTextMesh((int)TextMeshProUGUIs.FuctionText).text = "ÀåÂø";
+                    GetButton((int)Buttons.FunctionButton).gameObject.BindEvent(OnClickEquipButton);
+                }
+                else if(Managers.ItemData.CanUse(ItemSlot.ItemID))
+                {
+                    this.GetTextMesh((int)TextMeshProUGUIs.FuctionText).text = "»ç¿ë";
+                    GetButton((int)Buttons.FunctionButton).gameObject.BindEvent(OnClickUseButton);
+                }
+                else
+                {
+                    GetButton((int)Buttons.FunctionButton).gameObject.SetActive(false);
+                }
+                break;
+            case ItemLocation.EQUIP:
+                this.GetTextMesh((int)TextMeshProUGUIs.FuctionText).text = "ÀåÂøÇØÁ¦";
+                GetButton((int)Buttons.FunctionButton).gameObject.BindEvent(OnClickUnEquipButton);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnClickEquipButton(PointerEventData evt)
+    {
+        Managers.UI.ClosePopupUI();
+    }
+
+    private void OnClickUnEquipButton(PointerEventData evt)
+    {
+        Managers.UI.ClosePopupUI();
+    }
+
+    private void OnClickUseButton(PointerEventData evt)
+    {
+        Managers.UI.ClosePopupUI();
     }
 
     private void OnClickCloseButton(PointerEventData evt)

@@ -52,11 +52,6 @@ public class ItemDataManager
         return Managers.LoginData.GetJobExplain((Job)(int)GetData(itemID, "Job"), "Name").ToString();
     }
 
-    public object GetData(int itemID, string name)
-    {
-        return _item[itemID][name];
-    }
-
     // ItemID -> GearID ·Î º¯È¯
     public CharacterGearT ToGearID(CharacterGearT gears)
     {
@@ -74,6 +69,58 @@ public class ItemDataManager
         if (itemID == 0)
             return 0;
 
-        return itemID % (int)_item[itemID]["ItemType"];
+        return itemID % (int)GetItemType(itemID);
+    }
+
+    public bool CanEquip(int itemID)
+    {
+        switch(GetItemType(itemID))
+        {
+            case ItemType.MELEE:
+            case ItemType.BOW:
+            case ItemType.STAFF:
+            case ItemType.SHIELD:
+            case ItemType.QUIVER:
+            case ItemType.ARMOR:
+            case ItemType.HELMET:
+            case ItemType.SHOULDER:
+            case ItemType.ARM:
+            case ItemType.FEET:
+                break;
+            default:
+                return false;
+        }
+
+        return IsUsableItem(itemID);
+    }
+
+    public bool CanUse(int itemID)
+    {
+        return IsUsableItem(itemID);
+    }
+
+    public ItemType GetItemType(int itemID)
+    {
+        return (ItemType)(int)GetData(itemID, "ItemType");
+    }
+
+    public bool IsUsableItem(int itemID)
+    {
+        return IsUsableJob(itemID);
+    }
+
+
+    public bool IsUsableJob(int itemID)
+    {
+        Job job = (Job)(int)GetData(itemID, "Job");
+        if (job == Job.NONE)
+            return true;
+
+        return (job == Managers.Object.MyPlayer.Job);
+    }
+
+    public object GetData(int itemID, string name)
+    {
+        return _item[itemID][name];
     }
 }

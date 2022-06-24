@@ -900,6 +900,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemID: 0
+  _itemLocation: 1
+  ItemIcon: {fileID: 0}
+  EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &344138860315076356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,6 +1970,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemID: 0
+  _itemLocation: 1
+  ItemIcon: {fileID: 0}
+  EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &681938761464842667
 GameObject:
   m_ObjectHideFlags: 0
@@ -5417,6 +5425,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemID: 0
+  _itemLocation: 1
+  ItemIcon: {fileID: 0}
+  EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &1938844920716311366
 GameObject:
   m_ObjectHideFlags: 0
@@ -5707,6 +5719,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemID: 0
+  _itemLocation: 1
+  ItemIcon: {fileID: 0}
+  EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &1971136379695797560
 GameObject:
   m_ObjectHideFlags: 0
@@ -6910,6 +6926,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemID: 0
+  _itemLocation: 1
+  ItemIcon: {fileID: 0}
+  EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2514773516407268039
 GameObject:
   m_ObjectHideFlags: 0
@@ -8543,6 +8563,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemID: 0
+  _itemLocation: 1
+  ItemIcon: {fileID: 0}
+  EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2983783606793144176
 GameObject:
   m_ObjectHideFlags: 0
@@ -14670,6 +14694,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemID: 0
+  _itemLocation: 1
+  ItemIcon: {fileID: 0}
+  EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &5262141583297913060
 GameObject:
   m_ObjectHideFlags: 0

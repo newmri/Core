@@ -15,8 +15,6 @@ struct CoreItemData
 	Define::Job job;
 	Define::ItemType itemType;
 	Define::GearType gearType;
-	uint8_t usableMinLevel;
-	uint8_t usableMaxLevel;
 	Define::GradeType gradeType;
 	int64_t coolTime;
 	int32_t effectIndex[ITEM_EFFECT_MAX];
