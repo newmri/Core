@@ -168,12 +168,11 @@ public class MyPlayerController : PlayerController
 			UIInventoryPopup inventory = Managers.UI.GetSceneUI<UIGameScene>().Inventory;
 			if(inventory.gameObject.activeSelf)
             {
-				inventory.gameObject.SetActive(false);
+				inventory.Close();
 			}
 			else
             {
-				inventory.Refresh();
-				inventory.gameObject.SetActive(true);
+				inventory.Open();
 			}
 		}
     }

@@ -36,6 +36,7 @@ public class UIInventoryPopup : UIPopup
     }
 
     private ItemSlot _selectedItemSlot = null;
+    private UIItemInfoPopup _selectedItemInfo = null;
     private List<ItemSlot> _equipList = null;
 
     private List<TextMeshProUGUI> _statList = null;
@@ -62,13 +63,22 @@ public class UIInventoryPopup : UIPopup
         gameObject.SetActive(false);
     }
 
-    public void Refresh()
+    public void Open()
     {
+        gameObject.SetActive(true);
+
         UpdateMoney(Managers.Account.Money);
         UpdateCharacterLevel(Managers.Object.MyPlayer.Level);
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
         UpdateStats();
         UpdateItemSlot();
+    }
+
+    public void Close()
+    {
+        gameObject.SetActive(false);
+        if (_selectedItemInfo != null)
+            _selectedItemInfo.ClosePopupUI();
     }
 
     public void UpdateMoney(MoneyT money)
@@ -145,8 +155,8 @@ public class UIInventoryPopup : UIPopup
 
         if (_selectedItemSlot.ItemID > 0)
         {
-            UIItemInfoPopup itemInfo = Managers.UI.ShowPopupUI<UIItemInfoPopup>();
-            itemInfo.ItemSlot = _selectedItemSlot;
+            _selectedItemInfo = Managers.UI.ShowPopupUI<UIItemInfoPopup>();
+            _selectedItemInfo.ItemSlot = _selectedItemSlot;
         }
     }
 
