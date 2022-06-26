@@ -20,6 +20,9 @@ public:
 public:
 	virtual void MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset<void>& packet) override;
 
+protected:
+	virtual void CalculateAbilityWithNoLock(void) override;
+
 public:
 	void Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet);
 

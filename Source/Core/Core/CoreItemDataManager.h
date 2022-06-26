@@ -14,6 +14,10 @@ public:
 public:
 	const CoreItemData* const GetItemData(const int32_t itemID);
 
+public:
+	void CalculateAbility(const NativeInfo::CharacterGear& gear, NativeInfo::Ability& ability);
+	void CalculateAbility(const int32_t itemID, NativeInfo::Ability& ability);
+
 private:
 	std::unordered_map<int32_t, CoreItemData> item;
 };

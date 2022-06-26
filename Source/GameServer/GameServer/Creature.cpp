@@ -103,6 +103,11 @@ void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Off
 void Creature::CalculateAbility(void)
 {
 	WRITE_LOCK(this->abilityMutex);
+	CalculateAbilityWithNoLock();
+}
+
+void Creature::CalculateAbilityWithNoLock(void)
+{
 	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(this->creatureInfo);
 }
 

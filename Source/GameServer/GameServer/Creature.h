@@ -27,6 +27,9 @@ public:
 public:
 	void CalculateAbility(void);
 
+protected:
+	virtual void CalculateAbilityWithNoLock(void);
+
 public:
 	virtual void AddSkill(const int32_t skillID);
 	void UseSkill(const int32_t skillID);

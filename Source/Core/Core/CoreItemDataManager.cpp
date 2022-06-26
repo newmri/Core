@@ -24,3 +24,33 @@ const CoreItemData* const CoreItemDataManager::GetItemData(const int32_t itemID)
 
 	return &iter->second;
 }
+
+void CoreItemDataManager::CalculateAbility(const NativeInfo::CharacterGear& gear, NativeInfo::Ability& ability)
+{
+	for (const auto& d : gear.index)
+	{
+		if (IS_SAME(0, d))
+			continue;
+
+		CalculateAbility(d, ability);
+	}
+}
+
+void CoreItemDataManager::CalculateAbility(const int32_t itemID, NativeInfo::Ability& ability)
+{
+	auto itemData = GetItemData(itemID);
+	if (IS_NULL(itemData))
+		return;
+
+	for (int32_t i = 0; i < Define::ItemAbility_MAX_NUM; ++i)
+	{
+		if (IS_SAME(0, itemData->abilityID[i]))
+			continue;
+
+		auto abilityData = CORE_ABILITY_DATA_MANAGER.GetAbilityData(itemData->abilityID[i]);
+		if (IS_NULL(abilityData))
+			continue;
+
+		ability.value[abilityData->abilityType] += abilityData->abilityValue;
+	}
+}

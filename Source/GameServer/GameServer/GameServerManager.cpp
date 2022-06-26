@@ -19,8 +19,10 @@ void GameServerManager::Init(void)
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[WorldID]: " + TO_STR(this->serverConfig->WorldID));
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
 
-	CHARACTER_DATA_MANAGER.Load();
+	CORE_ABILITY_DATA_MANAGER.Load();
 	CORE_ITEM_DATA_MANAGER.Load();
+
+	CHARACTER_DATA_MANAGER.Load();
 
 	ZONE_MANAGER.AddZone(0);
 }

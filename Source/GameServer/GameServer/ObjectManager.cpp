@@ -19,13 +19,12 @@ int64_t ObjectManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<Co
 
 	objectInfoWithPos.object_info.oid = oid;
 	objectInfoWithPos.object_info.objectType = Define::ObjectType_PLAYER;
-	CHARACTER_DATA_MANAGER.CalculateAbilityByStat(creatureInfo);
-	CHARACTER_DATA_MANAGER.CalculateSpeed(characterInfo.job, creatureInfo.speed);
 
 	auto player = std::make_shared<Player>(characterUID, session, objectInfoWithPos, creatureInfo, characterInfo);
 	ZONE_MANAGER.EnterStartPos(objectInfoWithPos.pos_info.mapID, player);
 	objectInfoWithPos.pos_info.pos = player->GetPos();
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
+	creatureInfo = player->GetCreatureInfo();
 
 	WRITE_LOCK(this->playerMutex);
 	this->playerList[oid] = player;

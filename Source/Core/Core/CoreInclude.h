@@ -84,5 +84,6 @@
 #include "CoreCharacter.h"
 #include "CoreAccount.h"
 #include "CoreAccountManager.h"
+#include "CoreAbilityDataManager.h"
 #include "CoreItemDataManager.h"
 #include "CoreTestManager.h"

@@ -151,11 +151,14 @@
     <Filter Include="16.CoreDataManager">
       <UniqueIdentifier>{3f99c66b-f644-4afd-af27-a1eebb6a3d26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="16.CoreDataManager\00.CoreItemDataManager">
-      <UniqueIdentifier>{bde5ef1a-9993-42e0-8b58-b0b15bb14e31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00.CoreGlobal\00.CoreInclude\00.FlatBuffer">
       <UniqueIdentifier>{f259cd75-c357-4fcf-aba8-eb8e14f70592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="16.CoreDataManager\01.CoreItemDataManager">
+      <UniqueIdentifier>{bde5ef1a-9993-42e0-8b58-b0b15bb14e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="16.CoreDataManager\00.CoreAbilityDataManager">
+      <UniqueIdentifier>{726c9f35-6aa9-459d-bc44-b69016c8ed8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,10 +241,13 @@
       <Filter>00.CoreGlobal\01.CoreUtil</Filter>
     </ClCompile>
     <ClCompile Include="CoreItemDataManager.cpp">
-      <Filter>16.CoreDataManager\00.CoreItemDataManager</Filter>
+      <Filter>16.CoreDataManager\01.CoreItemDataManager</Filter>
     </ClCompile>
     <ClCompile Include="native_info_impl.cpp">
       <Filter>00.CoreGlobal\00.CoreInclude\00.FlatBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreAbilityDataManager.cpp">
+      <Filter>16.CoreDataManager\00.CoreAbilityDataManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -426,10 +432,10 @@
       <Filter>00.CoreGlobal\01.CoreUtil</Filter>
     </ClInclude>
     <ClInclude Include="CoreItemData.h">
-      <Filter>16.CoreDataManager\00.CoreItemDataManager</Filter>
+      <Filter>16.CoreDataManager\01.CoreItemDataManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreItemDataManager.h">
-      <Filter>16.CoreDataManager\00.CoreItemDataManager</Filter>
+      <Filter>16.CoreDataManager\01.CoreItemDataManager</Filter>
     </ClInclude>
     <ClInclude Include="define_protocol_generated.h">
       <Filter>00.CoreGlobal\00.CoreInclude\00.FlatBuffer</Filter>
@@ -445,6 +451,12 @@
     </ClInclude>
     <ClInclude Include="game_protocol_generated.h">
       <Filter>00.CoreGlobal\00.CoreInclude\00.FlatBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreAbilityDataManager.h">
+      <Filter>16.CoreDataManager\00.CoreAbilityDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreAbilityData.h">
+      <Filter>16.CoreDataManager\00.CoreAbilityDataManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

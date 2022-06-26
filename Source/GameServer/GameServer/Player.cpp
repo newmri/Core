@@ -24,7 +24,7 @@ Player::~Player()
 
 void Player::Init(void)
 {
-
+	CalculateAbilityWithNoLock();
 }
 
 void Player::Update(void)
@@ -62,6 +62,14 @@ void Player::MakeSpawnPacket(GamePacket::Packet& packetType, flatbuffers::Offset
 
 	packetType = GamePacket::Packet_SC_SPAWN_PLAYER_NOTI;
 	packet = message.Union();
+}
+
+void Player::CalculateAbilityWithNoLock(void)
+{
+	Creature::CalculateAbilityWithNoLock();
+	CORE_ITEM_DATA_MANAGER.CalculateAbility(this->characterInfo.gear, this->creatureInfo.ability);
+
+	CHARACTER_DATA_MANAGER.CalculateSpeed(this->characterInfo.job, this->creatureInfo.speed);
 }
 
 void Player::Send(GamePacket::Packet packetType, flatbuffers::Offset<void> packet)
