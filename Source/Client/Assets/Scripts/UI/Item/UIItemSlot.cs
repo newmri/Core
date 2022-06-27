@@ -5,6 +5,8 @@ using UnityCoreLibrary;
 using UnityEngine;
 using UnityEngine.UI;
 using Define;
+using TMPro;
+using UnityCoreLibrary.UI;
 
 public enum ItemLocation : byte
 {
@@ -13,7 +15,7 @@ public enum ItemLocation : byte
     END = 2
 };
 
-public class ItemSlot : MonoBehaviour
+public class UIItemSlot : UIAwakeBase
 {
     [SerializeField]
     int _itemID;
@@ -77,16 +79,16 @@ public class ItemSlot : MonoBehaviour
 
     private Image _frameIcon = null;
     private Sprite _emptyFrameIconSprite = null;
+    private Image _selectIcon = null;
 
     public Image ItemIcon = null;
     public Sprite EmptyItemIconSprite = null;
 
-    private Image _selectIcon = null;
-
     private Color _emptyColor = new Color(0.373f, 0.306f, 0.392f, 1.0f);
 
-    // Start is called before the first frame update
-    void Awake()
+    private TextMeshProUGUI _numText = null;
+
+    public override void Init()
     {
         _frameIcon = Util.GetOrAddComponent<Image>(gameObject);
         _emptyFrameIconSprite = _frameIcon.sprite;
@@ -95,6 +97,9 @@ public class ItemSlot : MonoBehaviour
         EmptyItemIconSprite = ItemIcon.sprite;
 
         _selectIcon = Util.FindChild<Image>(gameObject, "SelectIcon");
+
+        if (ItemLocation != ItemLocation.EQUIP)
+            _numText = Util.FindChild<TextMeshProUGUI>(gameObject, "NumText");
     }
 
     public void OnSelected()

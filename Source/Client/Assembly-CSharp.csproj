@@ -155,7 +155,7 @@
     <Compile Include="Assets\Scripts\Network\LoginServer\login_protocol.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\WorldList\UISignupPopup.cs" />
     <Compile Include="Assets\Scripts\Map\Parallaxing.cs" />
-    <Compile Include="Assets\Scripts\Item\ItemSlot.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\UIItemSlot.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Extensions\UIParticle\UIParticleSystem.cs" />
     <Compile Include="Assets\ThirdParty\FantaziaCharacterEditor\Scripts\GearEquipper.cs" />
     <Compile Include="Assets\Scripts\Text\DamageText.cs" />

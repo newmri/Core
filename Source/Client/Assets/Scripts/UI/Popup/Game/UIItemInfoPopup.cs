@@ -12,8 +12,8 @@ using System;
 public class UIItemInfoPopup : UIPopup
 {
     [SerializeField]
-    private ItemSlot _itemSlot;
-    public ItemSlot ItemSlot
+    private UIItemSlot _itemSlot;
+    public UIItemSlot ItemSlot
     {
         get
         {

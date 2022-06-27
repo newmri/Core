@@ -13,7 +13,8 @@ public class UIInventoryPopup : UIPopup
     enum GameObjects
     {
         EquipSlot,
-        Stats
+        Stats,
+        ItemSlotContents
     }
 
     enum TextMeshProUGUIs
@@ -35,9 +36,10 @@ public class UIInventoryPopup : UIPopup
         BackButton
     }
 
-    private ItemSlot _selectedItemSlot = null;
+    private UIItemSlot _selectedItemSlot = null;
     private UIItemInfoPopup _selectedItemInfo = null;
-    private List<ItemSlot> _equipList = null;
+    private List<UIItemSlot> _equipList = null;
+    private List<UIItemSlot> _inventoryList = new List<UIItemSlot>();
 
     private List<TextMeshProUGUI> _statList = null;
 
@@ -105,7 +107,7 @@ public class UIInventoryPopup : UIPopup
 
     private void UpdateHandsIcon()
     {
-        _equipList = Util.FindAllChildrens<ItemSlot>(GetObject((int)GameObjects.EquipSlot));
+        _equipList = Util.FindAllChildrens<UIItemSlot>(GetObject((int)GameObjects.EquipSlot));
 
         Sprite leftHandIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{Managers.Object.MyCharacterInfo.Job.ToString()}LeftHandIcon");
         _equipList[(int)GearType.LEFT_HAND].ItemIcon.sprite = leftHandIcon;
@@ -136,9 +138,15 @@ public class UIInventoryPopup : UIPopup
 
         var gear = Managers.Object.MyPlayer.Gear;
         for (GearType gearType = 0; gearType < GearType.HAIR; ++gearType)
-        {
             _equipList[(int)gearType].ItemID = gear.Index[(int)gearType];
-        }
+
+        GameObject itemSlotContents = GetObject((int)GameObjects.ItemSlotContents);
+
+        foreach (Transform child in itemSlotContents.transform)
+            Destroy(child.gameObject);
+
+        //GameObject itemSlot = CoreManagers.Resource.Instantiate("UI/Popup/UIItemSlot", itemSlotContents.transform);
+        //_inventoryList.Add(itemSlot.GetComponent<UIItemSlot>());
     }
 
     public void OnClickBackButton(PointerEventData evt)
@@ -150,7 +158,7 @@ public class UIInventoryPopup : UIPopup
     {
         OnDeselectedItemSlot();
 
-        _selectedItemSlot = evt.selectedObject.GetComponent<ItemSlot>();
+        _selectedItemSlot = evt.selectedObject.GetComponent<UIItemSlot>();
         _selectedItemSlot.OnSelected();
 
         if (_selectedItemSlot.ItemID > 0)
