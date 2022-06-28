@@ -611,5 +611,71 @@ public class CreatureInfoT
   }
 }
 
+public struct ItemSlotInfo : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static ItemSlotInfo GetRootAsItemSlotInfo(ByteBuffer _bb) { return GetRootAsItemSlotInfo(_bb, new ItemSlotInfo()); }
+  public static ItemSlotInfo GetRootAsItemSlotInfo(ByteBuffer _bb, ItemSlotInfo obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public ItemSlotInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public long ItemUid { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public int ItemId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+  public ushort ItemCount { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)0; } }
+
+  public static Offset<Info.ItemSlotInfo> CreateItemSlotInfo(FlatBufferBuilder builder,
+      long item_uid = 0,
+      int item_id = 0,
+      ushort item_count = 0) {
+    builder.StartTable(3);
+    ItemSlotInfo.AddItemUid(builder, item_uid);
+    ItemSlotInfo.AddItemId(builder, item_id);
+    ItemSlotInfo.AddItemCount(builder, item_count);
+    return ItemSlotInfo.EndItemSlotInfo(builder);
+  }
+
+  public static void StartItemSlotInfo(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddItemUid(FlatBufferBuilder builder, long itemUid) { builder.AddLong(0, itemUid, 0); }
+  public static void AddItemId(FlatBufferBuilder builder, int itemId) { builder.AddInt(1, itemId, 0); }
+  public static void AddItemCount(FlatBufferBuilder builder, ushort itemCount) { builder.AddUshort(2, itemCount, 0); }
+  public static Offset<Info.ItemSlotInfo> EndItemSlotInfo(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Info.ItemSlotInfo>(o);
+  }
+  public ItemSlotInfoT UnPack() {
+    var _o = new ItemSlotInfoT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(ItemSlotInfoT _o) {
+    _o.ItemUid = this.ItemUid;
+    _o.ItemId = this.ItemId;
+    _o.ItemCount = this.ItemCount;
+  }
+  public static Offset<Info.ItemSlotInfo> Pack(FlatBufferBuilder builder, ItemSlotInfoT _o) {
+    if (_o == null) return default(Offset<Info.ItemSlotInfo>);
+    return CreateItemSlotInfo(
+      builder,
+      _o.ItemUid,
+      _o.ItemId,
+      _o.ItemCount);
+  }
+};
+
+public class ItemSlotInfoT
+{
+  public long ItemUid { get; set; }
+  public int ItemId { get; set; }
+  public ushort ItemCount { get; set; }
+
+  public ItemSlotInfoT() {
+    this.ItemUid = 0;
+    this.ItemId = 0;
+    this.ItemCount = 0;
+  }
+}
+
 
 }

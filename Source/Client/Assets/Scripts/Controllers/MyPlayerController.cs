@@ -165,7 +165,7 @@ public class MyPlayerController : PlayerController
 	{
         if (Input.GetKeyDown(KeyCode.I))
         {
-			UIInventoryPopup inventory = Managers.UI.GetSceneUI<UIGameScene>().Inventory;
+			UIItemInventoryPopup inventory = Managers.UI.GetSceneUI<UIGameScene>().Inventory;
 			if(inventory.gameObject.activeSelf)
             {
 				inventory.Close();

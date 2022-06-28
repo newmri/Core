@@ -1,4 +1,4 @@
-﻿ItemID,Name,Explain,IconPath,Job,ItemType,GearType,Grade,CoolTime,AbilityID1,AbilityID2,AbilityID3,AbilityID4,AbilityID5,IsCashItem,BuyPrice,SellPrice,MaxStackNum,Storage
+﻿ItemID,Name,Explain,IconPath,Job,ItemType,GearType,Grade,CoolTime,AbilityID1,AbilityID2,AbilityID3,AbilityID4,AbilityID5,IsCashItem,BuyPrice,SellPrice,MaxStackCount,Storage
 10002,초보자의 철검,초보자가 사용하기에 적당한 철검,UI/Item/Gear/Melee/MELEE 2,3,10000,0,0,0,2001,0,0,0,0,0,100,50,1,0
 10003,초보자의 창,초보자가 사용하기에 적당한 창,UI/Item/Gear/Melee/MELEE 3,0,10000,0,0,0,2002,0,0,0,0,0,100,50,1,0
 11001,초보자의 활,초보자가 사용하기에 적당한 활,UI/Item/Gear/Bow/BOW 1,1,11000,0,0,0,2000,0,0,0,0,0,100,50,1,0

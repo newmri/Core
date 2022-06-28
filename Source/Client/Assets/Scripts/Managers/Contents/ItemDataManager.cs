@@ -121,9 +121,9 @@ public class ItemDataManager
 
     public Ability[] GetAbility(int itemID)
     {
-        Ability[] ability = new Ability[(int)ItemAbility.MAX_NUM];
+        Ability[] ability = new Ability[(int)ItemAbility.MAX_COUNT];
 
-        for(int i = 0; i < (int)ItemAbility.MAX_NUM; ++i)
+        for(int i = 0; i < (int)ItemAbility.MAX_COUNT; ++i)
         {
             Managers.AbilityData.GetAbility((int)GetData(itemID, "AbilityID" + (i + 1)), ref ability[i]);
         }

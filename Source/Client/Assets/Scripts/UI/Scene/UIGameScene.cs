@@ -39,7 +39,7 @@ public class UIGameScene : UIScene
         SettingButton
     }
 
-    public UIInventoryPopup Inventory;
+    public UIItemInventoryPopup Inventory;
 
     public override void Init()
     {
@@ -53,7 +53,7 @@ public class UIGameScene : UIScene
         GetButton((int)Buttons.AttackButton).gameObject.BindEvent(OnClickAttackButton);
         GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSettingButton);
 
-        Inventory = Managers.UI.ShowPopupUI<UIInventoryPopup>();
+        Inventory = Managers.UI.ShowPopupUI<UIItemInventoryPopup>();
     }
 
     public void UpdateHPBar(int HP, int MaxHP)

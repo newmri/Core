@@ -15,11 +15,11 @@ struct CoreItemData
 	Define::GearType gearType;
 	Define::GradeType gradeType;
 	int64_t coolTime;
-	int32_t abilityID[Define::ItemAbility_MAX_NUM];
+	int32_t abilityID[Define::ItemAbility_MAX_COUNT];
 	bool isCashItem;
 	int64_t buyPrice;
 	int64_t sellPrice;
-	uint16_t maxStackNum;
+	uint16_t maxStackCount;
 	uint16_t storage;
 };
 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Define;
 using TMPro;
 using UnityCoreLibrary.UI;
+using Info;
 
 public enum ItemLocation : byte
 {
@@ -18,24 +19,24 @@ public enum ItemLocation : byte
 public class UIItemSlot : UIAwakeBase
 {
     [SerializeField]
-    int _itemID;
-    public int ItemID
+    ItemSlotInfoT _itemSlotInfo = new ItemSlotInfoT();
+    public ItemSlotInfoT ItemSlotInfo
     {
         get
         {
-            return _itemID;
+            return _itemSlotInfo;
         }
         set
         {
-            _itemID = value;
-            if(_itemID > 0)
+            _itemSlotInfo = value;
+            if(ItemID > 0)
             {
-                _frameIcon.sprite = Managers.ItemData.GetFrameIcon(_itemID);
+                _frameIcon.sprite = Managers.ItemData.GetFrameIcon(ItemID);
 
-                ItemIcon.sprite = Managers.ItemData.GetIcon(_itemID);
+                ItemIcon.sprite = Managers.ItemData.GetIcon(ItemID);
                 ItemIcon.color = Color.white;
 
-                Ability = Managers.ItemData.GetAbility(_itemID);
+                Ability = Managers.ItemData.GetAbility(ItemID);
             }
             else
             {
@@ -44,8 +45,20 @@ public class UIItemSlot : UIAwakeBase
                 ItemIcon.sprite = EmptyItemIconSprite;
                 ItemIcon.color = _emptyColor;
 
-                Array.Clear(_itemAbility, 0, (int)ItemAbility.MAX_NUM);
+                Array.Clear(_itemAbility, 0, (int)ItemAbility.MAX_COUNT);
             }
+        }
+    }
+
+    public int ItemID
+    {
+        get
+        {
+            return ItemSlotInfo.ItemId;
+        }
+        set
+        {
+            ItemSlotInfo.ItemId = value;
         }
     }
 
@@ -64,7 +77,7 @@ public class UIItemSlot : UIAwakeBase
     }
 
     [SerializeField]
-    Ability[] _itemAbility = new Ability[(int)ItemAbility.MAX_NUM];
+    Ability[] _itemAbility = new Ability[(int)ItemAbility.MAX_COUNT];
     public Ability[] Ability
     {
         get
@@ -86,7 +99,7 @@ public class UIItemSlot : UIAwakeBase
 
     private Color _emptyColor = new Color(0.373f, 0.306f, 0.392f, 1.0f);
 
-    private TextMeshProUGUI _numText = null;
+    private TextMeshProUGUI _countText = null;
 
     public override void Init()
     {
@@ -99,7 +112,7 @@ public class UIItemSlot : UIAwakeBase
         _selectIcon = Util.FindChild<Image>(gameObject, "SelectIcon");
 
         if (ItemLocation != ItemLocation.EQUIP)
-            _numText = Util.FindChild<TextMeshProUGUI>(gameObject, "NumText");
+            _countText = Util.FindChild<TextMeshProUGUI>(gameObject, "CountText");
     }
 
     public void OnSelected()

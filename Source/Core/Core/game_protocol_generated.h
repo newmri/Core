@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "info_protocol_generated.h"
 #include "define_protocol_generated.h"
+#include "info_protocol_generated.h"
 
 namespace GamePacket {
 
@@ -26,6 +26,10 @@ struct MyCharacterInfoT;
 struct SC_LOGIN_RES;
 struct SC_LOGIN_RESBuilder;
 struct SC_LOGIN_REST;
+
+struct SC_ITEM_INVENTORY_INFO_NOTI;
+struct SC_ITEM_INVENTORY_INFO_NOTIBuilder;
+struct SC_ITEM_INVENTORY_INFO_NOTIT;
 
 struct SC_PING_REQ;
 struct SC_PING_REQBuilder;
@@ -132,30 +136,32 @@ enum Packet : uint8_t {
   Packet_NONE = 0,
   Packet_CS_LOGIN_REQ = 1,
   Packet_SC_LOGIN_RES = 2,
-  Packet_SC_PING_REQ = 3,
-  Packet_CS_PING_RES = 4,
-  Packet_CS_LOGOUT_NOTI = 5,
-  Packet_SC_SPAWN_PLAYER_NOTI = 6,
-  Packet_SC_DESPAWN_OBJECT_NOTI = 7,
-  Packet_CS_MOVE_REQ = 8,
-  Packet_SC_MOVE_RES = 9,
-  Packet_CS_SET_STATE_REQ = 10,
-  Packet_SC_SET_STATE_RES = 11,
-  Packet_CS_USE_SKILL_REQ = 12,
-  Packet_SC_USE_SKILL_RES = 13,
-  Packet_SC_GET_DAMAGE_NOTI = 14,
-  Packet_CS_REVIVE_REQ = 15,
-  Packet_SC_REVIVE_RES = 16,
-  Packet_SC_SPAWN_PROJECTILE_NOTI = 17,
+  Packet_SC_ITEM_INVENTORY_INFO_NOTI = 3,
+  Packet_SC_PING_REQ = 4,
+  Packet_CS_PING_RES = 5,
+  Packet_CS_LOGOUT_NOTI = 6,
+  Packet_SC_SPAWN_PLAYER_NOTI = 7,
+  Packet_SC_DESPAWN_OBJECT_NOTI = 8,
+  Packet_CS_MOVE_REQ = 9,
+  Packet_SC_MOVE_RES = 10,
+  Packet_CS_SET_STATE_REQ = 11,
+  Packet_SC_SET_STATE_RES = 12,
+  Packet_CS_USE_SKILL_REQ = 13,
+  Packet_SC_USE_SKILL_RES = 14,
+  Packet_SC_GET_DAMAGE_NOTI = 15,
+  Packet_CS_REVIVE_REQ = 16,
+  Packet_SC_REVIVE_RES = 17,
+  Packet_SC_SPAWN_PROJECTILE_NOTI = 18,
   Packet_MIN = Packet_NONE,
   Packet_MAX = Packet_SC_SPAWN_PROJECTILE_NOTI
 };
 
-inline const Packet (&EnumValuesPacket())[18] {
+inline const Packet (&EnumValuesPacket())[19] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
     Packet_SC_LOGIN_RES,
+    Packet_SC_ITEM_INVENTORY_INFO_NOTI,
     Packet_SC_PING_REQ,
     Packet_CS_PING_RES,
     Packet_CS_LOGOUT_NOTI,
@@ -176,10 +182,11 @@ inline const Packet (&EnumValuesPacket())[18] {
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[19] = {
+  static const char * const names[20] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
+    "SC_ITEM_INVENTORY_INFO_NOTI",
     "SC_PING_REQ",
     "CS_PING_RES",
     "CS_LOGOUT_NOTI",
@@ -216,6 +223,10 @@ template<> struct PacketTraits<GamePacket::CS_LOGIN_REQ> {
 
 template<> struct PacketTraits<GamePacket::SC_LOGIN_RES> {
   static const Packet enum_value = Packet_SC_LOGIN_RES;
+};
+
+template<> struct PacketTraits<GamePacket::SC_ITEM_INVENTORY_INFO_NOTI> {
+  static const Packet enum_value = Packet_SC_ITEM_INVENTORY_INFO_NOTI;
 };
 
 template<> struct PacketTraits<GamePacket::SC_PING_REQ> {
@@ -325,6 +336,14 @@ struct PacketUnion {
   const GamePacket::SC_LOGIN_REST *AsSC_LOGIN_RES() const {
     return type == Packet_SC_LOGIN_RES ?
       reinterpret_cast<const GamePacket::SC_LOGIN_REST *>(value) : nullptr;
+  }
+  GamePacket::SC_ITEM_INVENTORY_INFO_NOTIT *AsSC_ITEM_INVENTORY_INFO_NOTI() {
+    return type == Packet_SC_ITEM_INVENTORY_INFO_NOTI ?
+      reinterpret_cast<GamePacket::SC_ITEM_INVENTORY_INFO_NOTIT *>(value) : nullptr;
+  }
+  const GamePacket::SC_ITEM_INVENTORY_INFO_NOTIT *AsSC_ITEM_INVENTORY_INFO_NOTI() const {
+    return type == Packet_SC_ITEM_INVENTORY_INFO_NOTI ?
+      reinterpret_cast<const GamePacket::SC_ITEM_INVENTORY_INFO_NOTIT *>(value) : nullptr;
   }
   GamePacket::SC_PING_REQT *AsSC_PING_REQ() {
     return type == Packet_SC_PING_REQ ?
@@ -911,6 +930,82 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(
 }
 
 flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_LOGIN_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_ITEM_INVENTORY_INFO_NOTIT : public flatbuffers::NativeTable {
+  typedef SC_ITEM_INVENTORY_INFO_NOTI TableType;
+  uint8_t max_slot_count = 0;
+  std::vector<std::unique_ptr<Info::ItemSlotInfoT>> item_slot_info{};
+};
+
+struct SC_ITEM_INVENTORY_INFO_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_ITEM_INVENTORY_INFO_NOTIT NativeTableType;
+  typedef SC_ITEM_INVENTORY_INFO_NOTIBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_MAX_SLOT_COUNT = 4,
+    VT_ITEM_SLOT_INFO = 6
+  };
+  uint8_t max_slot_count() const {
+    return GetField<uint8_t>(VT_MAX_SLOT_COUNT, 0);
+  }
+  const flatbuffers::Vector<flatbuffers::Offset<Info::ItemSlotInfo>> *item_slot_info() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Info::ItemSlotInfo>> *>(VT_ITEM_SLOT_INFO);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_MAX_SLOT_COUNT) &&
+           VerifyOffset(verifier, VT_ITEM_SLOT_INFO) &&
+           verifier.VerifyVector(item_slot_info()) &&
+           verifier.VerifyVectorOfTables(item_slot_info()) &&
+           verifier.EndTable();
+  }
+  SC_ITEM_INVENTORY_INFO_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_ITEM_INVENTORY_INFO_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_ITEM_INVENTORY_INFO_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_ITEM_INVENTORY_INFO_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_ITEM_INVENTORY_INFO_NOTIBuilder {
+  typedef SC_ITEM_INVENTORY_INFO_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_max_slot_count(uint8_t max_slot_count) {
+    fbb_.AddElement<uint8_t>(SC_ITEM_INVENTORY_INFO_NOTI::VT_MAX_SLOT_COUNT, max_slot_count, 0);
+  }
+  void add_item_slot_info(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Info::ItemSlotInfo>>> item_slot_info) {
+    fbb_.AddOffset(SC_ITEM_INVENTORY_INFO_NOTI::VT_ITEM_SLOT_INFO, item_slot_info);
+  }
+  explicit SC_ITEM_INVENTORY_INFO_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_ITEM_INVENTORY_INFO_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_ITEM_INVENTORY_INFO_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_ITEM_INVENTORY_INFO_NOTI> CreateSC_ITEM_INVENTORY_INFO_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    uint8_t max_slot_count = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Info::ItemSlotInfo>>> item_slot_info = 0) {
+  SC_ITEM_INVENTORY_INFO_NOTIBuilder builder_(_fbb);
+  builder_.add_item_slot_info(item_slot_info);
+  builder_.add_max_slot_count(max_slot_count);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<SC_ITEM_INVENTORY_INFO_NOTI> CreateSC_ITEM_INVENTORY_INFO_NOTIDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    uint8_t max_slot_count = 0,
+    const std::vector<flatbuffers::Offset<Info::ItemSlotInfo>> *item_slot_info = nullptr) {
+  auto item_slot_info__ = item_slot_info ? _fbb.CreateVector<flatbuffers::Offset<Info::ItemSlotInfo>>(*item_slot_info) : 0;
+  return GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(
+      _fbb,
+      max_slot_count,
+      item_slot_info__);
+}
+
+flatbuffers::Offset<SC_ITEM_INVENTORY_INFO_NOTI> CreateSC_ITEM_INVENTORY_INFO_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_ITEM_INVENTORY_INFO_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 struct SC_PING_REQT : public flatbuffers::NativeTable {
   typedef SC_PING_REQ TableType;
@@ -1833,6 +1928,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const GamePacket::SC_LOGIN_RES *packet_as_SC_LOGIN_RES() const {
     return packet_type() == GamePacket::Packet_SC_LOGIN_RES ? static_cast<const GamePacket::SC_LOGIN_RES *>(packet()) : nullptr;
   }
+  const GamePacket::SC_ITEM_INVENTORY_INFO_NOTI *packet_as_SC_ITEM_INVENTORY_INFO_NOTI() const {
+    return packet_type() == GamePacket::Packet_SC_ITEM_INVENTORY_INFO_NOTI ? static_cast<const GamePacket::SC_ITEM_INVENTORY_INFO_NOTI *>(packet()) : nullptr;
+  }
   const GamePacket::SC_PING_REQ *packet_as_SC_PING_REQ() const {
     return packet_type() == GamePacket::Packet_SC_PING_REQ ? static_cast<const GamePacket::SC_PING_REQ *>(packet()) : nullptr;
   }
@@ -1896,6 +1994,10 @@ template<> inline const GamePacket::CS_LOGIN_REQ *Root::packet_as<GamePacket::CS
 
 template<> inline const GamePacket::SC_LOGIN_RES *Root::packet_as<GamePacket::SC_LOGIN_RES>() const {
   return packet_as_SC_LOGIN_RES();
+}
+
+template<> inline const GamePacket::SC_ITEM_INVENTORY_INFO_NOTI *Root::packet_as<GamePacket::SC_ITEM_INVENTORY_INFO_NOTI>() const {
+  return packet_as_SC_ITEM_INVENTORY_INFO_NOTI();
 }
 
 template<> inline const GamePacket::SC_PING_REQ *Root::packet_as<GamePacket::SC_PING_REQ>() const {
@@ -2126,6 +2228,35 @@ inline flatbuffers::Offset<SC_LOGIN_RES> CreateSC_LOGIN_RES(flatbuffers::FlatBuf
       _creature_info,
       _character_info,
       _money);
+}
+
+inline SC_ITEM_INVENTORY_INFO_NOTIT *SC_ITEM_INVENTORY_INFO_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_ITEM_INVENTORY_INFO_NOTIT>(new SC_ITEM_INVENTORY_INFO_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_ITEM_INVENTORY_INFO_NOTI::UnPackTo(SC_ITEM_INVENTORY_INFO_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = max_slot_count(); _o->max_slot_count = _e; }
+  { auto _e = item_slot_info(); if (_e) { _o->item_slot_info.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->item_slot_info[_i] = std::unique_ptr<Info::ItemSlotInfoT>(_e->Get(_i)->UnPack(_resolver)); } } }
+}
+
+inline flatbuffers::Offset<SC_ITEM_INVENTORY_INFO_NOTI> SC_ITEM_INVENTORY_INFO_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_ITEM_INVENTORY_INFO_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_ITEM_INVENTORY_INFO_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_ITEM_INVENTORY_INFO_NOTI> CreateSC_ITEM_INVENTORY_INFO_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_ITEM_INVENTORY_INFO_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_ITEM_INVENTORY_INFO_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _max_slot_count = _o->max_slot_count;
+  auto _item_slot_info = _o->item_slot_info.size() ? _fbb.CreateVector<flatbuffers::Offset<Info::ItemSlotInfo>> (_o->item_slot_info.size(), [](size_t i, _VectorArgs *__va) { return CreateItemSlotInfo(*__va->__fbb, __va->__o->item_slot_info[i].get(), __va->__rehasher); }, &_va ) : 0;
+  return GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(
+      _fbb,
+      _max_slot_count,
+      _item_slot_info);
 }
 
 inline SC_PING_REQT *SC_PING_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
@@ -2601,6 +2732,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_LOGIN_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_ITEM_INVENTORY_INFO_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ITEM_INVENTORY_INFO_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     case Packet_SC_PING_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::SC_PING_REQ *>(obj);
       return verifier.VerifyTable(ptr);
@@ -2687,6 +2822,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_LOGIN_RES *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_ITEM_INVENTORY_INFO_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ITEM_INVENTORY_INFO_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
     case Packet_SC_PING_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::SC_PING_REQ *>(obj);
       return ptr->UnPack(resolver);
@@ -2761,6 +2900,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_LOGIN_REST *>(value);
       return CreateSC_LOGIN_RES(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_ITEM_INVENTORY_INFO_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ITEM_INVENTORY_INFO_NOTIT *>(value);
+      return CreateSC_ITEM_INVENTORY_INFO_NOTI(_fbb, ptr, _rehasher).Union();
+    }
     case Packet_SC_PING_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::SC_PING_REQT *>(value);
       return CreateSC_PING_REQ(_fbb, ptr, _rehasher).Union();
@@ -2833,6 +2976,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_LOGIN_RES: {
       FLATBUFFERS_ASSERT(false);  // GamePacket::SC_LOGIN_REST not copyable.
+      break;
+    }
+    case Packet_SC_ITEM_INVENTORY_INFO_NOTI: {
+      FLATBUFFERS_ASSERT(false);  // GamePacket::SC_ITEM_INVENTORY_INFO_NOTIT not copyable.
       break;
     }
     case Packet_SC_PING_REQ: {
@@ -2909,6 +3056,11 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_LOGIN_RES: {
       auto ptr = reinterpret_cast<GamePacket::SC_LOGIN_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_ITEM_INVENTORY_INFO_NOTI: {
+      auto ptr = reinterpret_cast<GamePacket::SC_ITEM_INVENTORY_INFO_NOTIT *>(value);
       delete ptr;
       break;
     }

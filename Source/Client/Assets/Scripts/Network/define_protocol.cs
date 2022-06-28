@@ -93,7 +93,7 @@ public enum AbilityByStatType : byte
 
 public enum ItemAbility : byte
 {
-  MAX_NUM = 5,
+  MAX_COUNT = 5,
 };
 
 public enum ItemType : int
@@ -135,6 +135,11 @@ public enum GearType : byte
   EYES = 8,
   END = 9,
   NONE = 255,
+};
+
+public enum Inventory : byte
+{
+  MAX_COUNT = 100,
 };
 
 public enum Dir : byte

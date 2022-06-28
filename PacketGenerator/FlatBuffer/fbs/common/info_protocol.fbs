@@ -73,3 +73,10 @@ table CreatureInfo (native_type:"CreatureInfoT")
     ability:Ability (native_inline);
     speed:Speed (native_inline);
 }
+
+table ItemSlotInfo
+{
+   item_uid:int64;
+   item_id:int32;
+   item_count:uint16;
+}

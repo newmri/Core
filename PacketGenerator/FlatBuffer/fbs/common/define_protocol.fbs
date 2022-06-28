@@ -84,7 +84,7 @@ enum AbilityByStatType : ubyte
 
 enum ItemAbility : ubyte
 {
-   MAX_NUM = 5
+   MAX_COUNT = 5
 }
 
 enum ItemType : int32
@@ -126,6 +126,11 @@ enum GearType : ubyte
 	EYES,
 	END,
 	NONE = 255
+}
+
+enum Inventory : ubyte
+{
+   MAX_COUNT = 100
 }
 
 enum Dir : ubyte

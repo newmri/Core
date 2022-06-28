@@ -41,5 +41,8 @@ private:
 	GamePacket::MyCharacterInfoT characterInfo;
 
 private:
+	std::unordered_map<int64_t, Info::ItemSlotInfoT> itemInventory;
+
+private:
 	TIME_VALUE lastMoveTime = 0;
 };

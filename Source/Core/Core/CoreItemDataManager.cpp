@@ -42,7 +42,7 @@ void CoreItemDataManager::CalculateAbility(const int32_t itemID, NativeInfo::Abi
 	if (IS_NULL(itemData))
 		return;
 
-	for (int32_t i = 0; i < Define::ItemAbility_MAX_NUM; ++i)
+	for (int32_t i = 0; i < Define::ItemAbility_MAX_COUNT; ++i)
 	{
 		if (IS_SAME(0, itemData->abilityID[i]))
 			continue;

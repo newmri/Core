@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3485159841399868104
 RectTransform:
   m_ObjectHideFlags: 0
@@ -302,12 +302,12 @@ GameObject:
   - component: {fileID: 7522616875743555608}
   - component: {fileID: 90450526891025058}
   m_Layer: 5
-  m_Name: NumText
+  m_Name: CountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5381402583078493560
 RectTransform:
   m_ObjectHideFlags: 0

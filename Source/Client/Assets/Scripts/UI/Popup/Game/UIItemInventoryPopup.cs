@@ -8,7 +8,7 @@ using UnityCoreLibrary;
 using UnityEngine.EventSystems;
 using System;
 
-public class UIInventoryPopup : UIPopup
+public class UIItemInventoryPopup : UIPopup
 {
     enum GameObjects
     {
@@ -24,6 +24,7 @@ public class UIInventoryPopup : UIPopup
         EXPText,
         GemText,
         GoldText,
+        ItemSlotCountText,
     }
 
     enum Sliders
@@ -42,6 +43,9 @@ public class UIInventoryPopup : UIPopup
     private List<UIItemSlot> _inventoryList = new List<UIItemSlot>();
 
     private List<TextMeshProUGUI> _statList = null;
+
+    public byte CurrSlotCunt { get; set; } = 0;
+    public byte MaxSlotCount { get; set; } = 50;
 
     public override void Init()
     {
@@ -73,7 +77,12 @@ public class UIInventoryPopup : UIPopup
         UpdateCharacterLevel(Managers.Object.MyPlayer.Level);
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
         UpdateStats();
-        UpdateItemSlot();
+        OnDeselectedItemSlot();
+        var gear = Managers.Object.MyPlayer.Gear;
+        for (GearType gearType = 0; gearType < GearType.HAIR; ++gearType)
+        {
+            _equipList[(int)gearType].ItemSlotInfo = new ItemSlotInfoT { ItemUid = 0, ItemId = gear.Index[(int)gearType], ItemCount = 1 };
+        }
     }
 
     public void Close()
@@ -132,21 +141,24 @@ public class UIInventoryPopup : UIPopup
         }
     }
 
-    private void UpdateItemSlot()
+    public void UpdateItemSlot(byte maxSlotCount, List<ItemSlotInfoT> itemSlotInfoList)
     {
-        OnDeselectedItemSlot();
-
-        var gear = Managers.Object.MyPlayer.Gear;
-        for (GearType gearType = 0; gearType < GearType.HAIR; ++gearType)
-            _equipList[(int)gearType].ItemID = gear.Index[(int)gearType];
-
         GameObject itemSlotContents = GetObject((int)GameObjects.ItemSlotContents);
 
         foreach (Transform child in itemSlotContents.transform)
             Destroy(child.gameObject);
 
-        //GameObject itemSlot = CoreManagers.Resource.Instantiate("UI/Popup/UIItemSlot", itemSlotContents.transform);
-        //_inventoryList.Add(itemSlot.GetComponent<UIItemSlot>());
+        for (int i = 0; i < MaxSlotCount; ++i)
+        {
+            GameObject itemSlot = CoreManagers.Resource.Instantiate("UI/Popup/UIItemSlot", itemSlotContents.transform);
+            UIItemSlot uiItemSlot = itemSlot.GetComponent<UIItemSlot>();
+
+            _inventoryList.Add(uiItemSlot);
+        }
+
+        CurrSlotCunt = (byte)itemSlotInfoList.Count;
+        MaxSlotCount = maxSlotCount;
+        this.GetTextMesh((int)TextMeshProUGUIs.ItemSlotCountText).text = $"{CurrSlotCunt} / {MaxSlotCount}";
     }
 
     public void OnClickBackButton(PointerEventData evt)

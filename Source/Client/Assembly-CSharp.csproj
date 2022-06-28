@@ -90,7 +90,7 @@
     <Compile Include="Assets\ThirdParty\FantasyMonsters\Scripts\MonsterVariation.cs" />
     <Compile Include="Assets\Scripts\Effect\Effect.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
-    <Compile Include="Assets\Scripts\UI\Popup\Game\UIInventoryPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\Game\UIItemInventoryPopup.cs" />
     <Compile Include="Assets\ThirdParty\GUI PRO Kit - Fantasy RPG\Scripts\PanelFantasyRPG.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\WorldList\UIWorldListPopup.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\AccountManager.cs" />

@@ -370,29 +370,29 @@ inline const char *EnumNameAbilityByStatType(AbilityByStatType e) {
 }
 
 enum ItemAbility : uint8_t {
-  ItemAbility_MAX_NUM = 5,
-  ItemAbility_MIN = ItemAbility_MAX_NUM,
-  ItemAbility_MAX = ItemAbility_MAX_NUM
+  ItemAbility_MAX_COUNT = 5,
+  ItemAbility_MIN = ItemAbility_MAX_COUNT,
+  ItemAbility_MAX = ItemAbility_MAX_COUNT
 };
 
 inline const ItemAbility (&EnumValuesItemAbility())[1] {
   static const ItemAbility values[] = {
-    ItemAbility_MAX_NUM
+    ItemAbility_MAX_COUNT
   };
   return values;
 }
 
 inline const char * const *EnumNamesItemAbility() {
   static const char * const names[2] = {
-    "MAX_NUM",
+    "MAX_COUNT",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameItemAbility(ItemAbility e) {
-  if (flatbuffers::IsOutRange(e, ItemAbility_MAX_NUM, ItemAbility_MAX_NUM)) return "";
-  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(ItemAbility_MAX_NUM);
+  if (flatbuffers::IsOutRange(e, ItemAbility_MAX_COUNT, ItemAbility_MAX_COUNT)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(ItemAbility_MAX_COUNT);
   return EnumNamesItemAbility()[index];
 }
 
@@ -539,6 +539,33 @@ inline const char *EnumNameGearType(GearType e) {
     case GearType_NONE: return "NONE";
     default: return "";
   }
+}
+
+enum Inventory : uint8_t {
+  Inventory_MAX_COUNT = 100,
+  Inventory_MIN = Inventory_MAX_COUNT,
+  Inventory_MAX = Inventory_MAX_COUNT
+};
+
+inline const Inventory (&EnumValuesInventory())[1] {
+  static const Inventory values[] = {
+    Inventory_MAX_COUNT
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesInventory() {
+  static const char * const names[2] = {
+    "MAX_COUNT",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameInventory(Inventory e) {
+  if (flatbuffers::IsOutRange(e, Inventory_MAX_COUNT, Inventory_MAX_COUNT)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(Inventory_MAX_COUNT);
+  return EnumNamesInventory()[index];
 }
 
 enum Dir : uint8_t {

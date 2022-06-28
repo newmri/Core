@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityCoreLibrary;
 using Define;
+using System;
 
+[Serializable]
 public struct Ability
 {
     public string AbilityName;

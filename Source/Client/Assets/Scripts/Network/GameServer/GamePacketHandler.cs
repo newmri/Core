@@ -38,6 +38,13 @@ class GamePacketHandler
         CoreManagers.Scene.LoadScene(CoreDefine.Scene.Game);
     }
 
+    public static void SC_ITEM_INVENTORY_INFO_NOTI(PacketSession session, Root packet)
+    {
+        SC_ITEM_INVENTORY_INFO_NOTI itemInventoryInfoNoti = packet.PacketAsSC_ITEM_INVENTORY_INFO_NOTI();
+
+        Managers.UI.GetSceneUI<UIGameScene>().Inventory.UpdateItemSlot(itemInventoryInfoNoti.MaxSlotCount, itemInventoryInfoNoti.UnPack().ItemSlotInfo);
+    }
+
     public static void SC_PING_REQ(PacketSession session, Root packet)
     {
         Debug.Log("PingCheck");

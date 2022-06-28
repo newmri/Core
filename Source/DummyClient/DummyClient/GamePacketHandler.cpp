@@ -16,6 +16,7 @@ void GamePacketHandler::Handle(std::shared_ptr<CoreServerSession> session, const
 void GamePacketHandler::Register(void)
 {
     this->func[GamePacket::Packet_SC_LOGIN_RES] = &GamePacketFunc::SC_LOGIN_RES;
+    this->func[GamePacket::Packet_SC_ITEM_INVENTORY_INFO_NOTI] = &GamePacketFunc::SC_ITEM_INVENTORY_INFO_NOTI;
     this->func[GamePacket::Packet_SC_PING_REQ] = &GamePacketFunc::SC_PING_REQ;
     this->func[GamePacket::Packet_SC_SPAWN_PLAYER_NOTI] = &GamePacketFunc::SC_SPAWN_PLAYER_NOTI;
     this->func[GamePacket::Packet_SC_DESPAWN_OBJECT_NOTI] = &GamePacketFunc::SC_DESPAWN_OBJECT_NOTI;

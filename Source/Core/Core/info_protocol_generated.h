@@ -42,6 +42,10 @@ struct CreatureInfo;
 struct CreatureInfoBuilder;
 struct CreatureInfoT;
 
+struct ItemSlotInfo;
+struct ItemSlotInfoBuilder;
+struct ItemSlotInfoT;
+
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Vec2Int FLATBUFFERS_FINAL_CLASS {
  private:
   int32_t x_;
@@ -511,6 +515,80 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(
 
 flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(flatbuffers::FlatBufferBuilder &_fbb, const CreatureInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct ItemSlotInfoT : public flatbuffers::NativeTable {
+  typedef ItemSlotInfo TableType;
+  int64_t item_uid = 0;
+  int32_t item_id = 0;
+  uint16_t item_count = 0;
+};
+
+struct ItemSlotInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef ItemSlotInfoT NativeTableType;
+  typedef ItemSlotInfoBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_ITEM_UID = 4,
+    VT_ITEM_ID = 6,
+    VT_ITEM_COUNT = 8
+  };
+  int64_t item_uid() const {
+    return GetField<int64_t>(VT_ITEM_UID, 0);
+  }
+  int32_t item_id() const {
+    return GetField<int32_t>(VT_ITEM_ID, 0);
+  }
+  uint16_t item_count() const {
+    return GetField<uint16_t>(VT_ITEM_COUNT, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int64_t>(verifier, VT_ITEM_UID) &&
+           VerifyField<int32_t>(verifier, VT_ITEM_ID) &&
+           VerifyField<uint16_t>(verifier, VT_ITEM_COUNT) &&
+           verifier.EndTable();
+  }
+  ItemSlotInfoT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ItemSlotInfoT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<ItemSlotInfo> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ItemSlotInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct ItemSlotInfoBuilder {
+  typedef ItemSlotInfo Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_item_uid(int64_t item_uid) {
+    fbb_.AddElement<int64_t>(ItemSlotInfo::VT_ITEM_UID, item_uid, 0);
+  }
+  void add_item_id(int32_t item_id) {
+    fbb_.AddElement<int32_t>(ItemSlotInfo::VT_ITEM_ID, item_id, 0);
+  }
+  void add_item_count(uint16_t item_count) {
+    fbb_.AddElement<uint16_t>(ItemSlotInfo::VT_ITEM_COUNT, item_count, 0);
+  }
+  explicit ItemSlotInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<ItemSlotInfo> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<ItemSlotInfo>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<ItemSlotInfo> CreateItemSlotInfo(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    int64_t item_uid = 0,
+    int32_t item_id = 0,
+    uint16_t item_count = 0) {
+  ItemSlotInfoBuilder builder_(_fbb);
+  builder_.add_item_uid(item_uid);
+  builder_.add_item_id(item_id);
+  builder_.add_item_count(item_count);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<ItemSlotInfo> CreateItemSlotInfo(flatbuffers::FlatBufferBuilder &_fbb, const ItemSlotInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 inline ObjectInfoWithPosT *ObjectInfoWithPos::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<ObjectInfoWithPosT>(new ObjectInfoWithPosT());
   UnPackTo(_o.get(), _resolver);
@@ -634,6 +712,38 @@ inline flatbuffers::Offset<CreatureInfo> CreateCreatureInfo(flatbuffers::FlatBuf
       _mp,
       &_ability,
       &_speed);
+}
+
+inline ItemSlotInfoT *ItemSlotInfo::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<ItemSlotInfoT>(new ItemSlotInfoT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void ItemSlotInfo::UnPackTo(ItemSlotInfoT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = item_uid(); _o->item_uid = _e; }
+  { auto _e = item_id(); _o->item_id = _e; }
+  { auto _e = item_count(); _o->item_count = _e; }
+}
+
+inline flatbuffers::Offset<ItemSlotInfo> ItemSlotInfo::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ItemSlotInfoT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateItemSlotInfo(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<ItemSlotInfo> CreateItemSlotInfo(flatbuffers::FlatBufferBuilder &_fbb, const ItemSlotInfoT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ItemSlotInfoT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _item_uid = _o->item_uid;
+  auto _item_id = _o->item_id;
+  auto _item_count = _o->item_count;
+  return Info::CreateItemSlotInfo(
+      _fbb,
+      _item_uid,
+      _item_id,
+      _item_count);
 }
 
 }  // namespace Info

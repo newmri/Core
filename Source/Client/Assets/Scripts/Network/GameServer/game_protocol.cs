@@ -21,21 +21,22 @@ public enum Packet : byte
   NONE = 0,
   CS_LOGIN_REQ = 1,
   SC_LOGIN_RES = 2,
-  SC_PING_REQ = 3,
-  CS_PING_RES = 4,
-  CS_LOGOUT_NOTI = 5,
-  SC_SPAWN_PLAYER_NOTI = 6,
-  SC_DESPAWN_OBJECT_NOTI = 7,
-  CS_MOVE_REQ = 8,
-  SC_MOVE_RES = 9,
-  CS_SET_STATE_REQ = 10,
-  SC_SET_STATE_RES = 11,
-  CS_USE_SKILL_REQ = 12,
-  SC_USE_SKILL_RES = 13,
-  SC_GET_DAMAGE_NOTI = 14,
-  CS_REVIVE_REQ = 15,
-  SC_REVIVE_RES = 16,
-  SC_SPAWN_PROJECTILE_NOTI = 17,
+  SC_ITEM_INVENTORY_INFO_NOTI = 3,
+  SC_PING_REQ = 4,
+  CS_PING_RES = 5,
+  CS_LOGOUT_NOTI = 6,
+  SC_SPAWN_PLAYER_NOTI = 7,
+  SC_DESPAWN_OBJECT_NOTI = 8,
+  CS_MOVE_REQ = 9,
+  SC_MOVE_RES = 10,
+  CS_SET_STATE_REQ = 11,
+  SC_SET_STATE_RES = 12,
+  CS_USE_SKILL_REQ = 13,
+  SC_USE_SKILL_RES = 14,
+  SC_GET_DAMAGE_NOTI = 15,
+  CS_REVIVE_REQ = 16,
+  SC_REVIVE_RES = 17,
+  SC_SPAWN_PROJECTILE_NOTI = 18,
 };
 
 public class PacketUnion {
@@ -50,6 +51,7 @@ public class PacketUnion {
   public T As<T>() where T : class { return this.Value as T; }
   public GamePacket.CS_LOGIN_REQT AsCS_LOGIN_REQ() { return this.As<GamePacket.CS_LOGIN_REQT>(); }
   public GamePacket.SC_LOGIN_REST AsSC_LOGIN_RES() { return this.As<GamePacket.SC_LOGIN_REST>(); }
+  public GamePacket.SC_ITEM_INVENTORY_INFO_NOTIT AsSC_ITEM_INVENTORY_INFO_NOTI() { return this.As<GamePacket.SC_ITEM_INVENTORY_INFO_NOTIT>(); }
   public GamePacket.SC_PING_REQT AsSC_PING_REQ() { return this.As<GamePacket.SC_PING_REQT>(); }
   public GamePacket.CS_PING_REST AsCS_PING_RES() { return this.As<GamePacket.CS_PING_REST>(); }
   public GamePacket.CS_LOGOUT_NOTIT AsCS_LOGOUT_NOTI() { return this.As<GamePacket.CS_LOGOUT_NOTIT>(); }
@@ -71,6 +73,7 @@ public class PacketUnion {
       default: return 0;
       case Packet.CS_LOGIN_REQ: return GamePacket.CS_LOGIN_REQ.Pack(builder, _o.AsCS_LOGIN_REQ()).Value;
       case Packet.SC_LOGIN_RES: return GamePacket.SC_LOGIN_RES.Pack(builder, _o.AsSC_LOGIN_RES()).Value;
+      case Packet.SC_ITEM_INVENTORY_INFO_NOTI: return GamePacket.SC_ITEM_INVENTORY_INFO_NOTI.Pack(builder, _o.AsSC_ITEM_INVENTORY_INFO_NOTI()).Value;
       case Packet.SC_PING_REQ: return GamePacket.SC_PING_REQ.Pack(builder, _o.AsSC_PING_REQ()).Value;
       case Packet.CS_PING_RES: return GamePacket.CS_PING_RES.Pack(builder, _o.AsCS_PING_RES()).Value;
       case Packet.CS_LOGOUT_NOTI: return GamePacket.CS_LOGOUT_NOTI.Pack(builder, _o.AsCS_LOGOUT_NOTI()).Value;
@@ -422,6 +425,75 @@ public class SC_LOGIN_REST
     this.CreatureInfo = null;
     this.CharacterInfo = null;
     this.Money = null;
+  }
+}
+
+public struct SC_ITEM_INVENTORY_INFO_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_ITEM_INVENTORY_INFO_NOTI GetRootAsSC_ITEM_INVENTORY_INFO_NOTI(ByteBuffer _bb) { return GetRootAsSC_ITEM_INVENTORY_INFO_NOTI(_bb, new SC_ITEM_INVENTORY_INFO_NOTI()); }
+  public static SC_ITEM_INVENTORY_INFO_NOTI GetRootAsSC_ITEM_INVENTORY_INFO_NOTI(ByteBuffer _bb, SC_ITEM_INVENTORY_INFO_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_ITEM_INVENTORY_INFO_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public byte MaxSlotCount { get { int o = __p.__offset(4); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public Info.ItemSlotInfo? ItemSlotInfo(int j) { int o = __p.__offset(6); return o != 0 ? (Info.ItemSlotInfo?)(new Info.ItemSlotInfo()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
+  public int ItemSlotInfoLength { get { int o = __p.__offset(6); return o != 0 ? __p.__vector_len(o) : 0; } }
+
+  public static Offset<GamePacket.SC_ITEM_INVENTORY_INFO_NOTI> CreateSC_ITEM_INVENTORY_INFO_NOTI(FlatBufferBuilder builder,
+      byte max_slot_count = 0,
+      VectorOffset item_slot_infoOffset = default(VectorOffset)) {
+    builder.StartTable(2);
+    SC_ITEM_INVENTORY_INFO_NOTI.AddItemSlotInfo(builder, item_slot_infoOffset);
+    SC_ITEM_INVENTORY_INFO_NOTI.AddMaxSlotCount(builder, max_slot_count);
+    return SC_ITEM_INVENTORY_INFO_NOTI.EndSC_ITEM_INVENTORY_INFO_NOTI(builder);
+  }
+
+  public static void StartSC_ITEM_INVENTORY_INFO_NOTI(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddMaxSlotCount(FlatBufferBuilder builder, byte maxSlotCount) { builder.AddByte(0, maxSlotCount, 0); }
+  public static void AddItemSlotInfo(FlatBufferBuilder builder, VectorOffset itemSlotInfoOffset) { builder.AddOffset(1, itemSlotInfoOffset.Value, 0); }
+  public static VectorOffset CreateItemSlotInfoVector(FlatBufferBuilder builder, Offset<Info.ItemSlotInfo>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateItemSlotInfoVectorBlock(FlatBufferBuilder builder, Offset<Info.ItemSlotInfo>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartItemSlotInfoVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static Offset<GamePacket.SC_ITEM_INVENTORY_INFO_NOTI> EndSC_ITEM_INVENTORY_INFO_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_ITEM_INVENTORY_INFO_NOTI>(o);
+  }
+  public SC_ITEM_INVENTORY_INFO_NOTIT UnPack() {
+    var _o = new SC_ITEM_INVENTORY_INFO_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_ITEM_INVENTORY_INFO_NOTIT _o) {
+    _o.MaxSlotCount = this.MaxSlotCount;
+    _o.ItemSlotInfo = new List<Info.ItemSlotInfoT>();
+    for (var _j = 0; _j < this.ItemSlotInfoLength; ++_j) {_o.ItemSlotInfo.Add(this.ItemSlotInfo(_j).HasValue ? this.ItemSlotInfo(_j).Value.UnPack() : null);}
+  }
+  public static Offset<GamePacket.SC_ITEM_INVENTORY_INFO_NOTI> Pack(FlatBufferBuilder builder, SC_ITEM_INVENTORY_INFO_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_ITEM_INVENTORY_INFO_NOTI>);
+    var _item_slot_info = default(VectorOffset);
+    if (_o.ItemSlotInfo != null) {
+      var __item_slot_info = new Offset<Info.ItemSlotInfo>[_o.ItemSlotInfo.Count];
+      for (var _j = 0; _j < __item_slot_info.Length; ++_j) { __item_slot_info[_j] = Info.ItemSlotInfo.Pack(builder, _o.ItemSlotInfo[_j]); }
+      _item_slot_info = CreateItemSlotInfoVector(builder, __item_slot_info);
+    }
+    return CreateSC_ITEM_INVENTORY_INFO_NOTI(
+      builder,
+      _o.MaxSlotCount,
+      _item_slot_info);
+  }
+};
+
+public class SC_ITEM_INVENTORY_INFO_NOTIT
+{
+  public byte MaxSlotCount { get; set; }
+  public List<Info.ItemSlotInfoT> ItemSlotInfo { get; set; }
+
+  public SC_ITEM_INVENTORY_INFO_NOTIT() {
+    this.MaxSlotCount = 0;
+    this.ItemSlotInfo = null;
   }
 }
 
@@ -1269,6 +1341,7 @@ public struct Root : IFlatbufferObject
   public TTable? Packet<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(6); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
   public GamePacket.CS_LOGIN_REQ PacketAsCS_LOGIN_REQ() { return Packet<GamePacket.CS_LOGIN_REQ>().Value; }
   public GamePacket.SC_LOGIN_RES PacketAsSC_LOGIN_RES() { return Packet<GamePacket.SC_LOGIN_RES>().Value; }
+  public GamePacket.SC_ITEM_INVENTORY_INFO_NOTI PacketAsSC_ITEM_INVENTORY_INFO_NOTI() { return Packet<GamePacket.SC_ITEM_INVENTORY_INFO_NOTI>().Value; }
   public GamePacket.SC_PING_REQ PacketAsSC_PING_REQ() { return Packet<GamePacket.SC_PING_REQ>().Value; }
   public GamePacket.CS_PING_RES PacketAsCS_PING_RES() { return Packet<GamePacket.CS_PING_RES>().Value; }
   public GamePacket.CS_LOGOUT_NOTI PacketAsCS_LOGOUT_NOTI() { return Packet<GamePacket.CS_LOGOUT_NOTI>().Value; }
@@ -1318,6 +1391,9 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_LOGIN_RES:
         _o.Packet.Value = this.Packet<GamePacket.SC_LOGIN_RES>().HasValue ? this.Packet<GamePacket.SC_LOGIN_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_ITEM_INVENTORY_INFO_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_ITEM_INVENTORY_INFO_NOTI>().HasValue ? this.Packet<GamePacket.SC_ITEM_INVENTORY_INFO_NOTI>().Value.UnPack() : null;
         break;
       case GamePacket.Packet.SC_PING_REQ:
         _o.Packet.Value = this.Packet<GamePacket.SC_PING_REQ>().HasValue ? this.Packet<GamePacket.SC_PING_REQ>().Value.UnPack() : null;
