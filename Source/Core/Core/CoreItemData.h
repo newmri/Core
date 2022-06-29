@@ -23,4 +23,16 @@ struct CoreItemData
 	uint16_t storage;
 };
 
+union CoreItemUID
+{
+	struct
+	{
+		uint32_t value : 32;
+		int16_t serverID : 16;
+		int16_t worldID : 16;
+	};
+
+	int64_t uid;
+};
+
 #pragma pack(pop)
