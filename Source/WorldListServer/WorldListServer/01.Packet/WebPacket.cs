@@ -20,7 +20,7 @@ public class LoginAccountPacketReq
 
 public class WorldListInfo
 {
-	public int ID { get; set; }
+	public short ID { get; set; }
 	public string Name { get; set; }
 	public int BusyScore { get; set; }
 }
@@ -43,7 +43,7 @@ public enum ServerType : byte
 
 public class LoginServerInfoPacketReq
 {
-	public int WorldID { get; set; }
+	public short WorldID { get; set; }
 	public ServerType ServerType { get; set; }
 }
 

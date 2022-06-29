@@ -22,7 +22,7 @@ public class LoginAccountPacketReq
 
 public class WorldListInfo
 {
-	public int ID;
+	public short ID;
 	public string Name;
 	public int BusyScore;
 }
@@ -37,7 +37,7 @@ public class LoginAccountPacketRes
 
 public class LoginServerInfoPacketReq
 {
-	public int WorldID;
+	public short WorldID;
 	public ServerType ServerType;
 }
 

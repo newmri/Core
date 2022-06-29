@@ -14,7 +14,7 @@ void WorldDB::Release(void)
 {
 }
 
-void WorldDB::SetID(const int32_t worldID, const int32_t serverID)
+void WorldDB::SetID(const int16_t worldID, const int16_t serverID)
 {
 	this->worldID = worldID;
 	this->serverID = serverID;

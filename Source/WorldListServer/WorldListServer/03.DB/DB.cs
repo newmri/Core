@@ -141,7 +141,7 @@ namespace WorldListServer
                         while (rdr.Read())
                         {
                             WorldListInfo worldInfo = new WorldListInfo();
-                            worldInfo.ID = Convert.ToInt32(rdr["WorldID"].ToString());
+                            worldInfo.ID = Convert.ToInt16(rdr["WorldID"].ToString());
                             worldInfo.Name = rdr["WorldName"].ToString();
                             worldInfo.BusyScore = Convert.ToInt32(rdr["BusyScore"].ToString());
 

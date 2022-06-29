@@ -2,15 +2,15 @@
 
 struct ServerInfo
 {
-	int32_t GroupID = 0;
+	uint8_t GroupID = 0;
 	int32_t ServerPort = 0;
 };
 
 struct ServerConfig
 {
 	std::string ServerType;
-	int32_t WorldID = 0;
-	int32_t ServerID = 0;
+	int16_t WorldID = 0;
+	int16_t ServerID = 0;
 };
 
 struct ServerConnectInfo
