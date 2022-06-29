@@ -10,6 +10,9 @@ public:
 	virtual void Release(void) override;
 
 public:
+	CoreItemUID LoadItemUID(const int16_t serverID);
+
+public:
 	bool LoadCharacter(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);
 	bool LoadCharacterStat(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);
 	uint8_t LoadMaxCharacterSlotCount(const int64_t accountUID);

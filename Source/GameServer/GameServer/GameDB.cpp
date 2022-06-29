@@ -15,6 +15,25 @@ void GameDB::Release(void)
 {
 }
 
+CoreItemUID GameDB::LoadItemUID(const int16_t serverID)
+{
+	Prepare(L"LoadItemUID");
+	BindArgument(serverID);
+	Execute();
+
+	CoreItemUID itemUID;
+	BindCol(&itemUID.uid, sizeof(itemUID.uid));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+
+	return itemUID;
+}
+
 bool GameDB::LoadCharacter(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
 {
 	Prepare(L"LoadGameCharacter");
