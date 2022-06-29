@@ -32,7 +32,7 @@ union CoreItemUID
 		int16_t worldID : 16;
 	};
 
-	int64_t uid;
+	int64_t uid = 0;
 };
 
 #pragma pack(pop)
