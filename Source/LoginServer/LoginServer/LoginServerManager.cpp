@@ -62,12 +62,12 @@ std::shared_ptr<GameDB> LoginServerManager::GetGameDB(void)
 	return this->gameDB;
 }
 
-int32_t LoginServerManager::GetWorldID(void)
+uint8_t LoginServerManager::GetWorldID(void)
 {
 	return this->serverConfig->WorldID;
 }
 
-int32_t LoginServerManager::GetServerID(void)
+uint8_t LoginServerManager::GetServerID(void)
 {
 	return this->serverConfig->ServerID;
 }

@@ -10,13 +10,13 @@ public:
 	virtual void Release(void) override;
 
 public:
-	void SetID(const int16_t worldID, const int16_t serverID);
+	void SetID(const uint8_t worldID, const uint8_t serverID);
 	void GetServerInfo(ServerInfo& serverInfo);
 
 public:
 	void IncreaseUserCount(void);
 
 private:
-	int16_t worldID = 0;
-	int16_t serverID = 0;
+	uint8_t worldID = 0;
+	uint8_t serverID = 0;
 };

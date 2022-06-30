@@ -9,7 +9,7 @@ class CoreItemDataManager
 	DECLARE_SINGLETON(CoreItemDataManager)
 
 public:
-	void Load(const CoreItemUID itemUID);
+	void Load(void);
 
 public:
 	const CoreItemData* const GetItemData(const int32_t itemID);
@@ -20,7 +20,6 @@ public:
 
 private:
 	CACHE_ALIGN std::shared_mutex itemUIDMutex;
-	CoreItemUID itemUID;
 
 private:
 	std::unordered_map<int32_t, CoreItemData> item;

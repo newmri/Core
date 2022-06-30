@@ -11,10 +11,8 @@ void CoreItemDataManager::Release(void)
 	GetInstance().~CoreItemDataManager();
 }
 
-void CoreItemDataManager::Load(const CoreItemUID itemUID)
+void CoreItemDataManager::Load(void)
 {
-	this->itemUID = itemUID;
-
 	CSV_LOAD_AND_TO_HASH_MAP("Data/Item.csv", CoreItemData, this->item, itemID);
 }
 

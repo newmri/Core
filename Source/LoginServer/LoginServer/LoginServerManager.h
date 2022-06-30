@@ -16,8 +16,8 @@ public:
 	std::shared_ptr<GameDB> GetGameDB(void);
 
 public:
-	int32_t GetWorldID(void);
-	int32_t GetServerID(void);
+	uint8_t GetWorldID(void);
+	uint8_t GetServerID(void);
 
 private:
 	void MakeWorldDB(void);

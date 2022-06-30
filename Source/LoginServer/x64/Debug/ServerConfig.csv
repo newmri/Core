@@ -1,2 +1,2 @@
-string,int16_t,int16_t
-Login,1,1000
+string,uint8_t,uint8_t
+Login,1,1

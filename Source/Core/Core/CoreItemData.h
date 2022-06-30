@@ -28,8 +28,8 @@ union CoreItemUID
 	struct
 	{
 		uint32_t value : 32;
-		int16_t serverID : 16;
-		int16_t worldID : 16;
+		int16_t serverID : 8;
+		int16_t worldID : 8;
 	};
 
 	int64_t uid = 0;

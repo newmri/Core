@@ -50,7 +50,7 @@ public class UIWorldListPopup : UIPopup
         if (WorldList.Count == 0)
             return;
 
-        short WorldID = GetSelectedWorldID();
+        byte WorldID = GetSelectedWorldID();
         Managers.Account.WorldID = WorldID;
 
         LoginServerInfoPacketReq packet = new LoginServerInfoPacketReq()
@@ -66,7 +66,7 @@ public class UIWorldListPopup : UIPopup
         });
     }
 
-    short GetSelectedWorldID()
+    byte GetSelectedWorldID()
     {
         foreach (var worldInfo in WorldList)
         {

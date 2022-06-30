@@ -6,7 +6,7 @@ using Info;
 
 public class AccountManager
 {
-    public short WorldID { get; set; }
+    public byte WorldID { get; set; }
     public string ID { get; set; }
     public string Password { get; set; }
     public long UID { get; set; }

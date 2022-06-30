@@ -10,7 +10,7 @@ enum ConnectState
 
 struct DummyClientConfig
 {
-	int32_t WorldID = 0;
+	uint8_t WorldID = 0;
 	int32_t MaxConnectionCount = 0;
 };
 
@@ -23,7 +23,7 @@ public:
 	void Stop(void);
 
 public:
-	int32_t GetWorldID(void);
+	uint8_t GetWorldID(void);
 	int32_t GetMaxConnectionCount(void);
 
 #pragma region LoginServer

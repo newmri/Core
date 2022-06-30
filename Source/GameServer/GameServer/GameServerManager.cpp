@@ -20,7 +20,7 @@ void GameServerManager::Init(void)
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
 
 	CORE_ABILITY_DATA_MANAGER.Load();
-	CORE_ITEM_DATA_MANAGER.Load(GetGameDB()->LoadItemUID(GetServerID()));
+	CORE_ITEM_DATA_MANAGER.Load();
 
 	CHARACTER_DATA_MANAGER.Load();
 
@@ -66,12 +66,12 @@ std::shared_ptr<GameDB> GameServerManager::GetGameDB(void)
 	return this->gameDB;
 }
 
-int16_t GameServerManager::GetWorldID(void)
+uint8_t GameServerManager::GetWorldID(void)
 {
 	return this->serverConfig->WorldID;
 }
 
-int16_t GameServerManager::GetServerID(void)
+uint8_t GameServerManager::GetServerID(void)
 {
 	return this->serverConfig->ServerID;
 }

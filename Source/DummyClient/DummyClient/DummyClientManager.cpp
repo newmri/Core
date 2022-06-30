@@ -35,7 +35,7 @@ void DummyClientManager::Stop(void)
 
 }
 
-int32_t DummyClientManager::GetWorldID(void)
+uint8_t DummyClientManager::GetWorldID(void)
 {
 	return this->dummyClientConfig.get()->WorldID;
 }

@@ -9,8 +9,8 @@ struct ServerInfo
 struct ServerConfig
 {
 	std::string ServerType;
-	int16_t WorldID = 0;
-	int16_t ServerID = 0;
+	uint8_t WorldID = 0;
+	uint8_t ServerID = 0;
 };
 
 struct ServerConnectInfo
