@@ -1,18 +1,14 @@
 #include "Include.h"
 #include "boost/current_function.hpp"
 
-GameDB::GameDB(std::wstring_view dbName) : CoreDB(dbName)
+GameDB::GameDB(std::wstring_view dbName) : CoreGameDB(dbName)
 {
 
 }
 
 GameDB::~GameDB()
 {
-	Release();
-}
 
-void GameDB::Release(void)
-{
 }
 
 void GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::CharacterInfoT>& infoList)

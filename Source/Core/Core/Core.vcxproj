@@ -119,6 +119,7 @@
   <ItemGroup>
     <ClCompile Include="CoreAbilityDataManager.cpp" />
     <ClCompile Include="CoreAccount.cpp" />
+    <ClCompile Include="CoreAccountDB.cpp" />
     <ClCompile Include="CoreAccountManager.cpp" />
     <ClCompile Include="CoreCharacter.cpp" />
     <ClCompile Include="CoreClient.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="CoreCSVLoader.cpp" />
     <ClCompile Include="CoreDB.cpp" />
     <ClCompile Include="CoreFileLogger.cpp" />
+    <ClCompile Include="CoreGameDB.cpp" />
     <ClCompile Include="CoreGameObject.cpp" />
     <ClCompile Include="CoreItemDataManager.cpp" />
     <ClCompile Include="CoreLoader.cpp" />
@@ -151,6 +153,7 @@
     <ClInclude Include="CoreAbilityData.h" />
     <ClInclude Include="CoreAbilityDataManager.h" />
     <ClInclude Include="CoreAccount.h" />
+    <ClInclude Include="CoreAccountDB.h" />
     <ClInclude Include="CoreAccountManager.h" />
     <ClInclude Include="CoreAlgorithm.h" />
     <ClInclude Include="CoreCharacter.h" />
@@ -160,6 +163,7 @@
     <ClInclude Include="CoreDataType.h" />
     <ClInclude Include="CoreDB.h" />
     <ClInclude Include="CoreFileLogger.h" />
+    <ClInclude Include="CoreGameDB.h" />
     <ClInclude Include="CoreGameObject.h" />
     <ClInclude Include="CoreList.h" />
     <ClInclude Include="CoreList.hpp" />

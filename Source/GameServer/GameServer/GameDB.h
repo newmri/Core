@@ -1,16 +1,10 @@
 #pragma once
 
-class GameDB : public CoreDB
+class GameDB : public CoreGameDB
 {
 public:
 	GameDB(std::wstring_view dbName);
 	virtual ~GameDB() override;
-
-public:
-	virtual void Release(void) override;
-
-public:
-	CoreItemUID GetItemUID(const uint8_t serverID);
 
 public:
 	bool LoadCharacter(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);

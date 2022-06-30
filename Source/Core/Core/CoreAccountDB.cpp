@@ -1,0 +1,37 @@
+#include "CoreInclude.h"
+
+CoreAccountDB::CoreAccountDB(std::wstring_view dbName) : CoreDB(dbName)
+{
+
+}
+
+CoreAccountDB::~CoreAccountDB()
+{
+
+}
+
+bool CoreAccountDB::Login(const int64_t accountUID, CoreToken& token)
+{
+	Prepare(L"Login");
+	BindArgument(accountUID);
+	BindArgument(token.key);
+	Execute();
+
+	bool isSuccess = false;
+	TIME_VALUE time = 0;
+
+	BindCol(&isSuccess, sizeof(isSuccess));
+	BindCol(&time, sizeof(time));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+
+		if (IsSuccess())
+			token.expireTime = time;
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+
+	return isSuccess;
+}

@@ -1,37 +1,14 @@
 #include "Include.h"
 #include "boost/current_function.hpp"
 
-GameDB::GameDB(std::wstring_view dbName) : CoreDB(dbName)
+GameDB::GameDB(std::wstring_view dbName) : CoreGameDB(dbName)
 {
 
 }
 
 GameDB::~GameDB()
 {
-	Release();
-}
 
-void GameDB::Release(void)
-{
-}
-
-CoreItemUID GameDB::GetItemUID(const uint8_t serverID)
-{
-	Prepare(L"GetItemUID");
-	BindArgument(serverID);
-	Execute();
-
-	CoreItemUID itemUID;
-	BindCol(&itemUID.uid, sizeof(itemUID.uid));
-
-	while (IsSuccess())
-	{
-		this->retCode = SQLFetch(this->hstmt);
-	};
-
-	SQLFreeStmt(this->hstmt, SQL_CLOSE);
-
-	return itemUID;
 }
 
 bool GameDB::LoadCharacter(const int64_t accountUID, const int64_t uid, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)

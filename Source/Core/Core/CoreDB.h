@@ -50,7 +50,7 @@ protected:
 	bool Execute(void);
 
 private:
-	virtual void Release(void);
+	void Release(void);
 
 protected:
 	std::wstring dbName;

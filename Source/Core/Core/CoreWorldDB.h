@@ -7,9 +7,6 @@ public:
 	virtual ~CoreWorldDB() override;
 
 public:
-	virtual void Release(void) override;
-
-public:
 	void SetID(const uint8_t worldID, const uint8_t serverID);
 	void GetServerInfo(ServerInfo& serverInfo);
 

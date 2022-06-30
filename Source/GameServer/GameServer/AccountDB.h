@@ -1,17 +1,13 @@
 #pragma once
 
-class AccountDB : public CoreDB
+class AccountDB : public CoreAccountDB
 {
 public:
 	AccountDB(std::wstring_view dbName);
 	virtual ~AccountDB() override;
 
 public:
-	virtual void Release(void) override;
-
-public:
-	bool Login(const int64_t accountUID, CoreToken& token);
-	void Logout(const CoreAccount* account);
+	virtual void Logout(const CoreAccount* account) override;
 
 public:
 	void LoadMoney(const int64_t uid, NativeInfo::Money& money);

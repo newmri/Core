@@ -7,11 +7,7 @@ CoreWorldDB::CoreWorldDB(std::wstring_view dbName) : CoreDB(dbName)
 
 CoreWorldDB::~CoreWorldDB()
 {
-	Release();
-}
 
-void CoreWorldDB::Release(void)
-{
 }
 
 void CoreWorldDB::SetID(const uint8_t worldID, const uint8_t serverID)
