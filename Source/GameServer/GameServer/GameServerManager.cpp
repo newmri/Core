@@ -2,7 +2,7 @@
 
 IMPLEMENT_SINGLETON(GameServerManager)
 
-thread_local std::shared_ptr<WorldDB> GameServerManager::worldDB;
+thread_local std::shared_ptr<CoreWorldDB> GameServerManager::worldDB;
 thread_local std::shared_ptr<AccountDB> GameServerManager::accountDB;
 thread_local std::shared_ptr<GameDB> GameServerManager::gameDB;
 
@@ -42,7 +42,7 @@ void GameServerManager::Stop(void)
 	this->gameServer->Stop();
 }
 
-std::shared_ptr<WorldDB> GameServerManager::GetWorldDB(void)
+std::shared_ptr<CoreWorldDB> GameServerManager::GetWorldDB(void)
 {
 	if (IS_SAME(nullptr, this->worldDB))
 		MakeWorldDB();
@@ -79,7 +79,7 @@ uint8_t GameServerManager::GetServerID(void)
 void GameServerManager::MakeWorldDB(void)
 {
 	std::string dbName = ENUM_TO_STR(World);
-	this->worldDB = std::make_shared<WorldDB>(STRING_MANAGER.Widen(ENUM_TO_STR(World)));
+	this->worldDB = std::make_shared<CoreWorldDB>(STRING_MANAGER.Widen(ENUM_TO_STR(World)));
 	this->worldDB->SetID(this->serverConfig->WorldID, this->serverConfig->ServerID);
 }
 

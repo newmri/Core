@@ -15,9 +15,9 @@ void GameDB::Release(void)
 {
 }
 
-CoreItemUID GameDB::LoadItemUID(const int16_t serverID)
+CoreItemUID GameDB::GetItemUID(const uint8_t serverID)
 {
-	Prepare(L"LoadItemUID");
+	Prepare(L"GetItemUID");
 	BindArgument(serverID);
 	Execute();
 

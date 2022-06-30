@@ -11,7 +11,7 @@ public:
 	void Stop(void);
 
 public:
-	std::shared_ptr<WorldDB> GetWorldDB(void);
+	std::shared_ptr<CoreWorldDB> GetWorldDB(void);
 	std::shared_ptr<AccountDB> GetAccountDB(void);
 	std::shared_ptr<GameDB> GetGameDB(void);
 
@@ -36,7 +36,7 @@ private:
 	ServerInfo serverInfo;
 
 private:
-	static thread_local std::shared_ptr<WorldDB> worldDB;
+	static thread_local std::shared_ptr<CoreWorldDB> worldDB;
 	static thread_local std::shared_ptr<AccountDB> accountDB;
 	static thread_local std::shared_ptr<GameDB> gameDB;
 };

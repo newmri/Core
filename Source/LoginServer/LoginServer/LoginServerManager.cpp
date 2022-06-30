@@ -2,7 +2,7 @@
 
 IMPLEMENT_SINGLETON(LoginServerManager)
 
-thread_local std::shared_ptr<WorldDB> LoginServerManager::worldDB;
+thread_local std::shared_ptr<CoreWorldDB> LoginServerManager::worldDB;
 thread_local std::shared_ptr<AccountDB> LoginServerManager::accountDB;
 thread_local std::shared_ptr<GameDB> LoginServerManager::gameDB;
 
@@ -38,7 +38,7 @@ void LoginServerManager::Stop(void)
 	this->loginServer->Stop();
 }
 
-std::shared_ptr<WorldDB> LoginServerManager::GetWorldDB(void)
+std::shared_ptr<CoreWorldDB> LoginServerManager::GetWorldDB(void)
 {
 	if (IS_SAME(nullptr, this->worldDB))
 		MakeWorldDB();
@@ -75,7 +75,7 @@ uint8_t LoginServerManager::GetServerID(void)
 void LoginServerManager::MakeWorldDB(void)
 {
 	std::string dbName = ENUM_TO_STR(World);
-	this->worldDB = std::make_shared<WorldDB>(STRING_MANAGER.Widen(ENUM_TO_STR(World)));
+	this->worldDB = std::make_shared<CoreWorldDB>(STRING_MANAGER.Widen(ENUM_TO_STR(World)));
 	this->worldDB->SetID(this->serverConfig->WorldID, this->serverConfig->ServerID);
 }
 

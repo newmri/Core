@@ -112,9 +112,6 @@
     <Filter Include="14.CoreDB">
       <UniqueIdentifier>{df50df2a-38ce-4913-b168-5326863fa02a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="14.CoreDB\00.WorldDB">
-      <UniqueIdentifier>{75de028a-93ad-44af-add4-c2687f155a65}</UniqueIdentifier>
-    </Filter>
     <Filter Include="15.CoreAccountManager">
       <UniqueIdentifier>{967eeac4-f532-42f9-ae5c-6f9a77652c84}</UniqueIdentifier>
     </Filter>
@@ -159,6 +156,9 @@
     </Filter>
     <Filter Include="16.CoreDataManager\00.CoreAbilityDataManager">
       <UniqueIdentifier>{726c9f35-6aa9-459d-bc44-b69016c8ed8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="14.CoreDB\00.CoreWorldDB">
+      <UniqueIdentifier>{75de028a-93ad-44af-add4-c2687f155a65}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -216,8 +216,8 @@
     <ClCompile Include="CoreDB.cpp">
       <Filter>14.CoreDB</Filter>
     </ClCompile>
-    <ClCompile Include="WorldDB.cpp">
-      <Filter>14.CoreDB\00.WorldDB</Filter>
+    <ClCompile Include="CoreWorldDB.cpp">
+      <Filter>14.CoreDB\00.CoreWorldDB</Filter>
     </ClCompile>
     <ClCompile Include="CoreAccountManager.cpp">
       <Filter>15.CoreAccountManager</Filter>
@@ -407,8 +407,8 @@
     <ClInclude Include="CoreDB.h">
       <Filter>14.CoreDB</Filter>
     </ClInclude>
-    <ClInclude Include="WorldDB.h">
-      <Filter>14.CoreDB\00.WorldDB</Filter>
+    <ClInclude Include="CoreWorldDB.h">
+      <Filter>14.CoreDB\00.CoreWorldDB</Filter>
     </ClInclude>
     <ClInclude Include="CoreAccountManager.h">
       <Filter>15.CoreAccountManager</Filter>

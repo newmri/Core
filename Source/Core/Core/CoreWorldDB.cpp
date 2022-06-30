@@ -1,26 +1,26 @@
 #include "CoreInclude.h"
 
-WorldDB::WorldDB(std::wstring_view dbName) : CoreDB(dbName)
+CoreWorldDB::CoreWorldDB(std::wstring_view dbName) : CoreDB(dbName)
 {
 
 }
 
-WorldDB::~WorldDB()
+CoreWorldDB::~CoreWorldDB()
 {
 	Release();
 }
 
-void WorldDB::Release(void)
+void CoreWorldDB::Release(void)
 {
 }
 
-void WorldDB::SetID(const uint8_t worldID, const uint8_t serverID)
+void CoreWorldDB::SetID(const uint8_t worldID, const uint8_t serverID)
 {
 	this->worldID = worldID;
 	this->serverID = serverID;
 }
 
-void WorldDB::GetServerInfo(ServerInfo& serverInfo)
+void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)
 {
 	Prepare(L"GetServerInfo");
 
@@ -41,7 +41,7 @@ void WorldDB::GetServerInfo(ServerInfo& serverInfo)
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }
 
-void WorldDB::IncreaseUserCount(void)
+void CoreWorldDB::IncreaseUserCount(void)
 {
 	Prepare(L"IncreaseUserCount");
 

@@ -1,10 +1,10 @@
 #pragma once
 
-class WorldDB : public CoreDB
+class CoreWorldDB : public CoreDB
 {
 public:
-	WorldDB(std::wstring_view dbName);
-	virtual ~WorldDB() override;
+	CoreWorldDB(std::wstring_view dbName);
+	virtual ~CoreWorldDB() override;
 
 public:
 	virtual void Release(void) override;

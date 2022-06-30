@@ -145,7 +145,7 @@
     <ClCompile Include="CoreUIDObject.cpp" />
     <ClCompile Include="CoreUtil.cpp" />
     <ClCompile Include="native_info_impl.cpp" />
-    <ClCompile Include="WorldDB.cpp" />
+    <ClCompile Include="CoreWorldDB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoreAbilityData.h" />
@@ -216,7 +216,7 @@
     <ClInclude Include="info_protocol_generated.h" />
     <ClInclude Include="login_protocol_generated.h" />
     <ClInclude Include="native_info_impl.h" />
-    <ClInclude Include="WorldDB.h" />
+    <ClInclude Include="CoreWorldDB.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
