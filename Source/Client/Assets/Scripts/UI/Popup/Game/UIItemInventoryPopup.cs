@@ -81,7 +81,7 @@ public class UIItemInventoryPopup : UIPopup
         var gear = Managers.Object.MyPlayer.Gear;
         for (GearType gearType = 0; gearType < GearType.HAIR; ++gearType)
         {
-            _equipList[(int)gearType].ItemSlotInfo = new ItemSlotInfoT { ItemUid = 0, ItemId = gear.Index[(int)gearType], ItemCount = 1 };
+            _equipList[(int)gearType].ItemSlotInfo = new ItemSlotInfoT { ItemUid = gear.Info[(int)gearType].ItemUid, ItemId = gear.Info[(int)gearType].ItemId, ItemCount = 1 };
         }
     }
 

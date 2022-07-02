@@ -58,7 +58,10 @@ public class ItemDataManager
         CharacterGearT convertedGears = new CharacterGearT();
 
         for (int i = 0; i < (int)GearType.END; ++i)
-            convertedGears.Index[i] = GetGearID(gears.Index[i]);
+        {
+            convertedGears.Info[i] = new GearSlotInfoT();
+            convertedGears.Info[i].ItemId = GetGearID(gears.Info[i].ItemId);
+        }
 
         return convertedGears;
     }

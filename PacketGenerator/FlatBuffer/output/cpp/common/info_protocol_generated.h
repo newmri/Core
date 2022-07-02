@@ -30,6 +30,8 @@ struct Ability;
 
 struct Speed;
 
+struct GearSlotInfo;
+
 struct CharacterGear;
 
 struct Money;
@@ -196,22 +198,50 @@ FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Speed FLATBUFFERS_FINAL_CLASS {
 };
 FLATBUFFERS_STRUCT_END(Speed, 12);
 
-FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) CharacterGear FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8) GearSlotInfo FLATBUFFERS_FINAL_CLASS {
  private:
-  int32_t index_[9];
+  int64_t item_uid_;
+  int32_t item_id_;
+  int32_t padding0__;
+
+ public:
+  GearSlotInfo()
+      : item_uid_(0),
+        item_id_(0),
+        padding0__(0) {
+    (void)padding0__;
+  }
+  GearSlotInfo(int64_t _item_uid, int32_t _item_id)
+      : item_uid_(flatbuffers::EndianScalar(_item_uid)),
+        item_id_(flatbuffers::EndianScalar(_item_id)),
+        padding0__(0) {
+    (void)padding0__;
+  }
+  int64_t item_uid() const {
+    return flatbuffers::EndianScalar(item_uid_);
+  }
+  int32_t item_id() const {
+    return flatbuffers::EndianScalar(item_id_);
+  }
+};
+FLATBUFFERS_STRUCT_END(GearSlotInfo, 16);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8) CharacterGear FLATBUFFERS_FINAL_CLASS {
+ private:
+  Info::GearSlotInfo info_[9];
 
  public:
   CharacterGear()
-      : index_() {
+      : info_() {
   }
-  CharacterGear(flatbuffers::span<const int32_t, 9> _index) {
-    flatbuffers::CastToArray(index_).CopyFromSpan(_index);
+  CharacterGear(flatbuffers::span<const Info::GearSlotInfo, 9> _info) {
+    flatbuffers::CastToArray(info_).CopyFromSpan(_info);
   }
-  const flatbuffers::Array<int32_t, 9> *index() const {
-    return &flatbuffers::CastToArray(index_);
+  const flatbuffers::Array<Info::GearSlotInfo, 9> *info() const {
+    return &flatbuffers::CastToArray(info_);
   }
 };
-FLATBUFFERS_STRUCT_END(CharacterGear, 36);
+FLATBUFFERS_STRUCT_END(CharacterGear, 144);
 
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Money FLATBUFFERS_FINAL_CLASS {
  private:

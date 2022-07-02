@@ -62,14 +62,34 @@ namespace flatbuffers
 		return NativeInfo::Speed(obj.value());
 	}
 
+	Info::GearSlotInfo PackGearSlotInfo(const NativeInfo::GearSlotInfo& obj)
+	{
+		return Info::GearSlotInfo(obj.itemUID, obj.itemID);
+	}
+
+	NativeInfo::GearSlotInfo UnPackGearSlotInfo(const Info::GearSlotInfo& obj)
+	{
+		return NativeInfo::GearSlotInfo(obj.item_uid(), obj.item_id());
+	}
+
 	Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj)
 	{
-		return Info::CharacterGear(obj.index);
+		Info::GearSlotInfo arr[Define::GearType_END];
+
+		for (int32_t i = 0; i < Define::GearType_END; ++i)
+			arr[i] = PackGearSlotInfo(obj.info[i]);
+
+		return Info::CharacterGear(arr);
 	}
 
 	NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj)
 	{
-		return NativeInfo::CharacterGear(obj.index());
+		NativeInfo::CharacterGear gear;
+
+		for (int32_t i = 0; i < Define::GearType_END; ++i)
+			gear.info[i] = UnPackGearSlotInfo(*obj.info()->Get(i));
+
+		return gear;
 	}
 
 	Info::Money PackMoney(const NativeInfo::Money& obj)

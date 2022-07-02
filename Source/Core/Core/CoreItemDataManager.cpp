@@ -27,12 +27,12 @@ const CoreItemData* const CoreItemDataManager::GetItemData(const int32_t itemID)
 
 void CoreItemDataManager::CalculateAbility(const NativeInfo::CharacterGear& gear, NativeInfo::Ability& ability)
 {
-	for (const auto& d : gear.index)
+	for (const auto& d : gear.info)
 	{
-		if (IS_SAME(0, d))
+		if (IS_SAME(0, d.itemID))
 			continue;
 
-		CalculateAbility(d, ability);
+		CalculateAbility(d.itemID, ability);
 	}
 }
 

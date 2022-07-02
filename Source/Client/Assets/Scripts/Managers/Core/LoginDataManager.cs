@@ -28,7 +28,8 @@ public class LoginDataManager
 
         for (GearType i = 0; i < GearType.END; ++i)
         {
-            gear.Index[(int)i] = (int)_createCharacterGear[(int)job][Util.EnumToPascal(i.ToString())];
+           gear.Info[(int)i] = new Info.GearSlotInfoT();
+           gear.Info[(int)i].ItemId = (int)_createCharacterGear[(int)job][Util.EnumToPascal(i.ToString())];
         }
 
         return gear;

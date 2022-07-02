@@ -27,7 +27,10 @@ void GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::Ch
 	BindCol((uint8_t*)&info.job, sizeof(info.job));
 
 	for (int32_t i = 0; i < Define::GearType_END; ++i)
-		BindCol(&info.gear.index[i], sizeof(info.gear.index[i]));
+	{
+		BindCol(&info.gear.info[i].itemUID, sizeof(info.gear.info[i].itemUID));
+		BindCol(&info.gear.info[i].itemID, sizeof(info.gear.info[i].itemID));
+	}
 
 	while (IsSuccess())
 	{
@@ -85,8 +88,11 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 
 bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, LoginPacket::CharacterInfoT& info)
 {
+	auto itemUID = GetItemUID(LOGIN_SERVER.GetWorldID(), LOGIN_SERVER.GetServerID(), DATA_MANAGER.GetCharacterCreateGear(info.job, info.gear.info));
+
 	Prepare(L"CreateCharacter");
 	BindArgument(accountUID);
+	BindArgument(LOGIN_SERVER.GetServerID());
 	BindArgument(name.data());
 	BindArgument(info.level);
 	BindArgument(info.job);
@@ -100,9 +106,17 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 	for (int32_t i = 0; i < Define::StatType_END; ++i)
 		BindArgument(stat.value[i]);
 
-	DATA_MANAGER.GetCharacterCreateGear(info.job, info.gear.index);
 	for (int32_t i = 0; i < Define::GearType_END; ++i)
-		BindArgument(info.gear.index[i]);
+	{
+		if (info.gear.info[i].itemID)
+		{
+			info.gear.info[i].itemUID = itemUID.uid;
+			++itemUID.value;
+		}
+
+		BindArgument(info.gear.info[i].itemUID);
+		BindArgument(info.gear.info[i].itemID);
+	}
 
 	Execute();
 

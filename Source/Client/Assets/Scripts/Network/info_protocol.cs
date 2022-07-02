@@ -384,6 +384,52 @@ public class SpeedT
   }
 }
 
+public struct GearSlotInfo : IFlatbufferObject
+{
+  private Struct __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
+  public GearSlotInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public long ItemUid { get { return __p.bb.GetLong(__p.bb_pos + 0); } }
+  public int ItemId { get { return __p.bb.GetInt(__p.bb_pos + 8); } }
+
+  public static Offset<Info.GearSlotInfo> CreateGearSlotInfo(FlatBufferBuilder builder, long ItemUid, int ItemId) {
+    builder.Prep(8, 16);
+    builder.Pad(4);
+    builder.PutInt(ItemId);
+    builder.PutLong(ItemUid);
+    return new Offset<Info.GearSlotInfo>(builder.Offset);
+  }
+  public GearSlotInfoT UnPack() {
+    var _o = new GearSlotInfoT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(GearSlotInfoT _o) {
+    _o.ItemUid = this.ItemUid;
+    _o.ItemId = this.ItemId;
+  }
+  public static Offset<Info.GearSlotInfo> Pack(FlatBufferBuilder builder, GearSlotInfoT _o) {
+    if (_o == null) return default(Offset<Info.GearSlotInfo>);
+    return CreateGearSlotInfo(
+      builder,
+      _o.ItemUid,
+      _o.ItemId);
+  }
+};
+
+public class GearSlotInfoT
+{
+  public long ItemUid { get; set; }
+  public int ItemId { get; set; }
+
+  public GearSlotInfoT() {
+    this.ItemUid = 0;
+    this.ItemId = 0;
+  }
+}
+
 public struct CharacterGear : IFlatbufferObject
 {
   private Struct __p;
@@ -391,12 +437,15 @@ public struct CharacterGear : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
   public CharacterGear __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public int Index(int j) { return __p.bb.GetInt(__p.bb_pos + 0 + j * 4); }
+  public Info.GearSlotInfo Info(int j) { return (new Info.GearSlotInfo()).__assign(__p.bb_pos + 0 + j * 16, __p.bb); }
 
-  public static Offset<Info.CharacterGear> CreateCharacterGear(FlatBufferBuilder builder, int[] Index) {
-    builder.Prep(4, 36);
+  public static Offset<Info.CharacterGear> CreateCharacterGear(FlatBufferBuilder builder, long[] info_ItemUid, int[] info_ItemId) {
+    builder.Prep(8, 144);
     for (int _idx0 = 9; _idx0 > 0; _idx0--) {
-      builder.PutInt(Index[_idx0-1]);
+      builder.Prep(8, 16);
+      builder.Pad(4);
+      builder.PutInt(info_ItemId[_idx0-1]);
+      builder.PutLong(info_ItemUid[_idx0-1]);
     }
     return new Offset<Info.CharacterGear>(builder.Offset);
   }
@@ -406,24 +455,28 @@ public struct CharacterGear : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(CharacterGearT _o) {
-    _o.Index = new int[9];
-    for (var _j = 0; _j < 9; ++_j) { _o.Index[_j] = this.Index(_j); }
+    _o.Info = new Info.GearSlotInfoT[9];
+    for (var _j = 0; _j < 9; ++_j) { _o.Info[_j] = this.Info(_j).UnPack(); }
   }
   public static Offset<Info.CharacterGear> Pack(FlatBufferBuilder builder, CharacterGearT _o) {
     if (_o == null) return default(Offset<Info.CharacterGear>);
-    var _index = _o.Index;
+    var _info_item_uid = new long[9];
+    for (var idx0 = 0; idx0 < 9; ++idx0) {_info_item_uid[idx0] = _o.Info[idx0].ItemUid;}
+    var _info_item_id = new int[9];
+    for (var idx0 = 0; idx0 < 9; ++idx0) {_info_item_id[idx0] = _o.Info[idx0].ItemId;}
     return CreateCharacterGear(
       builder,
-      _index);
+      _info_item_uid,
+      _info_item_id);
   }
 };
 
 public class CharacterGearT
 {
-  public int[] Index { get; set; }
+  public Info.GearSlotInfoT[] Info { get; set; }
 
   public CharacterGearT() {
-    this.Index = new int[9];
+    this.Info = new Info.GearSlotInfoT[9];
   }
 }
 

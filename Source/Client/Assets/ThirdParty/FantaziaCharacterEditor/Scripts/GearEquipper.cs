@@ -45,31 +45,31 @@ public class GearEquipper : MonoBehaviour
 
         if (Job == Define.Job.WARRIOR)
         {
-            Melee = convertedGears.Index[(int)Define.GearType.LEFT_HAND];
-            Shield = convertedGears.Index[(int)Define.GearType.RIGHT_HAND];
+            Melee = convertedGears.Info[(int)Define.GearType.LEFT_HAND].ItemId;
+            Shield = convertedGears.Info[(int)Define.GearType.RIGHT_HAND].ItemId;
         }
         else if (Job == Define.Job.ARCHER)
         {
-            Bow = convertedGears.Index[(int)Define.GearType.LEFT_HAND];
-            Quiver = convertedGears.Index[(int)Define.GearType.RIGHT_HAND];
+            Bow = convertedGears.Info[(int)Define.GearType.LEFT_HAND].ItemId;
+            Quiver = convertedGears.Info[(int)Define.GearType.RIGHT_HAND].ItemId;
         }
         else if (Job == Define.Job.SORCERER)
         {
-            Staff = convertedGears.Index[(int)Define.GearType.LEFT_HAND];
+            Staff = convertedGears.Info[(int)Define.GearType.LEFT_HAND].ItemId;
         }
         else if (Job == Define.Job.DUELIST)
         {
-            Melee = convertedGears.Index[(int)Define.GearType.LEFT_HAND];
-            DuelistOffhand = convertedGears.Index[(int)Define.GearType.RIGHT_HAND];
+            Melee = convertedGears.Info[(int)Define.GearType.LEFT_HAND].ItemId;
+            DuelistOffhand = convertedGears.Info[(int)Define.GearType.RIGHT_HAND].ItemId;
         }
 
-        Armor = convertedGears.Index[(int)Define.GearType.ARMOR];
-        Helmet = convertedGears.Index[(int)Define.GearType.HELMET];
-        Shoulder = convertedGears.Index[(int)Define.GearType.SHOULDER];
-        Arm = convertedGears.Index[(int)Define.GearType.ARM];
-        Feet = convertedGears.Index[(int)Define.GearType.FEET];
-        Hair = convertedGears.Index[(int)Define.GearType.HAIR];
-        Face = convertedGears.Index[(int)Define.GearType.EYES];
+        Armor = convertedGears.Info[(int)Define.GearType.ARMOR].ItemId;
+        Helmet = convertedGears.Info[(int)Define.GearType.HELMET].ItemId;
+        Shoulder = convertedGears.Info[(int)Define.GearType.SHOULDER].ItemId;
+        Arm = convertedGears.Info[(int)Define.GearType.ARM].ItemId;
+        Feet = convertedGears.Info[(int)Define.GearType.FEET].ItemId;
+        Hair = convertedGears.Info[(int)Define.GearType.HAIR].ItemId;
+        Face = convertedGears.Info[(int)Define.GearType.EYES].ItemId;
 
         ApplySkinChanges();
     }

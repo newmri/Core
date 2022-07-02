@@ -254,18 +254,27 @@ namespace NativeInfo
         std::array<float_t, Define::SpeedType_END> value = {};
     };
 
+    struct GearSlotInfo
+    {
+        GearSlotInfo()
+        {
+        };
+
+        GearSlotInfo(const int64_t itemUID, const int32_t itemID) : itemUID(itemUID), itemID(itemID)
+        {
+        }
+
+        int64_t itemUID = 0;
+        int32_t itemID = 0;
+    };
+
     struct CharacterGear
     {
         CharacterGear()
         {
         }
 
-        CharacterGear(const flatbuffers::Array<int32_t, Define::GearType_END>* index)
-        {
-            std::copy(index->begin(), index->end(), this->index.begin());
-        }
-
-        std::array<int32_t, Define::GearType_END> index = {};
+        std::array<NativeInfo::GearSlotInfo, Define::GearType_END> info = {};
     };
 
     struct Money
@@ -291,6 +300,7 @@ namespace Info
     struct Stat;
     struct Ability;
     struct Speed;
+    struct GearSlotInfo;
     struct CharacterGear;
     struct Money;
 } 
@@ -314,6 +324,9 @@ namespace flatbuffers
 
     Info::Speed PackSpeed(const NativeInfo::Speed& obj);
     NativeInfo::Speed UnPackSpeed(const Info::Speed& obj);
+
+    Info::GearSlotInfo PackGearSlotInfo(const NativeInfo::GearSlotInfo& obj);
+    NativeInfo::GearSlotInfo UnPackGearSlotInfo(const Info::GearSlotInfo& obj);
 
     Info::CharacterGear PackCharacterGear(const NativeInfo::CharacterGear& obj);
     NativeInfo::CharacterGear UnPackCharacterGear(const Info::CharacterGear& obj);
