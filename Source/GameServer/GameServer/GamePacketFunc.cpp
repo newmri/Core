@@ -7,6 +7,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 	GamePacket::ErrorCode result = GamePacket::ErrorCode_UNKNOWN;
 
 	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(raw->uid());
+	std::shared_ptr<Player> player;
 	CoreToken token(raw->token());
 
 	// 첫 로그인
@@ -61,11 +62,11 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 			return;
 
 		account->SetMaxSlotCount(maxCharacterSlotCount);
-		int64_t oid = OBJECT_MANAGER.AddPlayer(raw->character_uid(), session, objectInfoWithPos, creatureInfo, characterInfo);
-		if (IS_SAME(INVALID_OID, oid))
+		player = OBJECT_MANAGER.AddPlayer(raw->character_uid(), session, objectInfoWithPos, creatureInfo, characterInfo);
+		if (IS_NULL(player))
 			return;
 
-		account->SetPlayerOID(oid);
+		account->SetPlayerOID(objectInfoWithPos.object_info.oid);
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드
@@ -96,6 +97,11 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 	}
 
 	PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_SC_LOGIN_RES, message.Union());
+
+	if (IS_NOT_NULL(player))
+	{
+		player->SendItemInventoryInfo();
+	}
 }
 
 void GamePacketFunc::SC_PING_REQ(std::shared_ptr<CoreClientSession> session)

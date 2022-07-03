@@ -15,6 +15,9 @@ void AccountDB::Logout(const CoreAccount* account)
 {
 	Prepare(L"Logout");
 	BindArgument(account->GetUID());
+	BindArgument(GAME_SERVER.GetWorldID());
+	BindArgument(GAME_SERVER.GetServerID());
+
 	if (!Execute())
 	{
 		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(account->GetUID()) + " ", __FILE__, __FUNCTION__, __LINE__));

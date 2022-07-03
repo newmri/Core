@@ -187,24 +187,3 @@ bool GameDB::LoadItemInventory(const int64_t accountUID, const int64_t uid, std:
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 	return true;
 }
-
-void GameDB::Logout(const int64_t uid)
-{
-	Prepare(L"Logout");
-	BindArgument(uid);
-	BindArgument(GAME_SERVER.GetWorldID());
-	BindArgument(GAME_SERVER.GetServerID());
-	if (!Execute())
-	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
-		SQLFreeStmt(this->hstmt, SQL_CLOSE);
-		return;
-	}
-
-	while (IsSuccess())
-	{
-		this->retCode = SQLFetch(this->hstmt);
-	};
-
-	SQLFreeStmt(this->hstmt, SQL_CLOSE);
-}

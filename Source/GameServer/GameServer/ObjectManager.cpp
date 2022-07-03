@@ -11,7 +11,7 @@ void ObjectManager::Release(void)
 	GetInstance().~ObjectManager();
 }
 
-int64_t ObjectManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
+std::shared_ptr<Player> ObjectManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
 	Info::ObjectInfoWithPosT& objectInfoWithPos, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
 {
 	int64_t oid = this->oid.fetch_add(1);
@@ -29,12 +29,12 @@ int64_t ObjectManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<Co
 	if (!player->LoadData())
 	{
 		this->oid.fetch_sub(1);
-		return INVALID_OID;
+		return nullptr;
 	}
 
 	WRITE_LOCK(this->playerMutex);
 	this->playerList[oid] = player;
-	return oid;
+	return player;
 }
 
 std::shared_ptr<Player> ObjectManager::FindPlayer(const int64_t& oid)
@@ -53,8 +53,6 @@ void ObjectManager::RemovePlayer(const int64_t& oid)
 	auto player = FindPlayer(oid);
 	if (IS_NULL(player))
 		return;
-
-	GAME_SERVER.GetGameDB()->Logout(player->GetUID());
 
 	ZONE_MANAGER.Leave(player);
 

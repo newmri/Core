@@ -41,6 +41,9 @@ public:
 private:
 	bool LoadItemInventory(void);
 
+public:
+	void SendItemInventoryInfo(void);
+
 private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;

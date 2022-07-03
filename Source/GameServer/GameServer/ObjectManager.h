@@ -7,7 +7,7 @@ class ObjectManager
 	DECLARE_SINGLETON(ObjectManager)
 
 public:
-	int64_t AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
+	std::shared_ptr<Player> AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
 		Info::ObjectInfoWithPosT& objectInfoWithPos, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo);
 
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);

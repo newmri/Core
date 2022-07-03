@@ -151,6 +151,8 @@ public class UIItemInventoryPopup : UIPopup
         for (int i = 0; i < MaxSlotCount; ++i)
         {
             GameObject itemSlot = CoreManagers.Resource.Instantiate("UI/Popup/UIItemSlot", itemSlotContents.transform);
+            itemSlot.GetComponent<Button>().gameObject.BindEvent(OnClickItemSlotButton);
+
             UIItemSlot uiItemSlot = itemSlot.GetComponent<UIItemSlot>();
 
             _inventoryList.Add(uiItemSlot);

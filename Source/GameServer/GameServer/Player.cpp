@@ -148,6 +148,8 @@ bool Player::LoadData(void)
 {
 	if (!LoadItemInventory())
 		return false;
+
+	return true;
 }
 
 bool Player::LoadItemInventory(void)
@@ -158,4 +160,31 @@ bool Player::LoadItemInventory(void)
 
 	this->itemInventory.reserve(this->maxItemInventorySlotcount);
 	return GAME_SERVER.GetGameDB()->LoadItemInventory(this->session->GetAccountUID(), GetUID(), this->itemInventory);
+}
+
+void Player::SendItemInventoryInfo(void)
+{
+	flatbuffers::Offset<GamePacket::SC_ITEM_INVENTORY_INFO_NOTI> message;
+
+	READ_LOCK(itemInventoryMutex);
+
+	PACKET_SEND_MANAGER.Clear();
+
+	size_t size = this->itemInventory.size();
+	if (size)
+	{
+		std::vector<flatbuffers::Offset<Info::ItemSlotInfo>> sendList;
+		for (auto& d : this->itemInventory)
+		{
+			sendList.push_back(Info::ItemSlotInfo::Pack(PACKET_SEND_MANAGER.builder, &d.second));
+		}
+
+		message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotcount, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
+	}
+	else
+	{
+		message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotcount);
+	}
+
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_ITEM_INVENTORY_INFO_NOTI, message.Union());
 }

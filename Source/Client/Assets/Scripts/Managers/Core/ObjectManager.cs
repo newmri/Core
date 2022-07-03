@@ -10,7 +10,7 @@ using Spine.Unity;
 
 public class ObjectManager
 {
-    bool _isMyPlayerLoaded = false;
+    public bool IsMyPlayerLoaded = false;
     static int _defaultSortOrder = 0;
     int _sortOrder = _defaultSortOrder;
     Vector2Int _objectDefaultPos = new Vector2Int(0, -100);
@@ -51,12 +51,12 @@ public class ObjectManager
         Managers.UI.GetSceneUI<UIGameScene>().AddSkill((int)MyPlayer.MyCharacterInfo.Job);
 
         Debug.Log($"MyPlayer oid: {MyObjectInfo.ObjectInfo.Oid}");
-        _isMyPlayerLoaded = true;
+        IsMyPlayerLoaded = true;
     }
 
     public IEnumerator AddPlayer(ObjectInfoWithPosT objectInfoWithPos, CreatureInfoT creatureInfo, CharacterInfoT characterInfo)
     {
-        yield return new WaitUntil(() => _isMyPlayerLoaded == true);
+        yield return new WaitUntil(() => IsMyPlayerLoaded == true);
 
         GameObject gameObject = CoreManagers.Obj.Add(objectInfoWithPos.ObjectInfo.Oid, "Player", "Player", _objectDefaultPos, 100);
         PlayerController playerController = gameObject.GetOrAddComponent<PlayerController>();
@@ -65,7 +65,7 @@ public class ObjectManager
 
     public IEnumerator AddProjectile(ObjectInfoWithPosT objectInfoWithPos, ProjectileType projectileType, float speed)
     {
-        yield return new WaitUntil(() => _isMyPlayerLoaded == true);
+        yield return new WaitUntil(() => IsMyPlayerLoaded == true);
 
         GameObject gameObject = CoreManagers.Obj.Add(objectInfoWithPos.ObjectInfo.Oid, "Projectile", projectileType.ToString(), _objectDefaultPos, 100);
         ProjectileController projectileController = gameObject.GetOrAddComponent<ProjectileController>();
@@ -225,7 +225,7 @@ public class ObjectManager
 
     public void Clear()
     {
-        _isMyPlayerLoaded = false;
+        IsMyPlayerLoaded = false;
         SetSortOrder(_defaultSortOrder);
         MyObjectInfo = null;
         MyCreatureInfo = null;

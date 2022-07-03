@@ -41,8 +41,15 @@ class GamePacketHandler
     public static void SC_ITEM_INVENTORY_INFO_NOTI(PacketSession session, Root packet)
     {
         SC_ITEM_INVENTORY_INFO_NOTI itemInventoryInfoNoti = packet.PacketAsSC_ITEM_INVENTORY_INFO_NOTI();
+        List<Info.ItemSlotInfoT> itemSlotInfoList = itemInventoryInfoNoti.UnPack().ItemSlotInfo;
+        CoreManagers.Coroutine.Add(UpdateItemInventoryDelay(itemInventoryInfoNoti.MaxSlotCount, itemSlotInfoList));
 
-        Managers.UI.GetSceneUI<UIGameScene>().Inventory.UpdateItemSlot(itemInventoryInfoNoti.MaxSlotCount, itemInventoryInfoNoti.UnPack().ItemSlotInfo);
+    }
+
+    public static IEnumerator UpdateItemInventoryDelay(byte maxSlotCount, List<Info.ItemSlotInfoT> itemSlotInfoList)
+    {
+        yield return new WaitUntil(() => Managers.Object.IsMyPlayerLoaded == true);
+        Managers.UI.GetSceneUI<UIGameScene>().Inventory.UpdateItemSlot(maxSlotCount, itemSlotInfoList);
     }
 
     public static void SC_PING_REQ(PacketSession session, Root packet)
