@@ -26,6 +26,12 @@ int64_t ObjectManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<Co
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
 	creatureInfo = player->GetCreatureInfo();
 
+	if (!player->LoadData())
+	{
+		this->oid.fetch_sub(1);
+		return INVALID_OID;
+	}
+
 	WRITE_LOCK(this->playerMutex);
 	this->playerList[oid] = player;
 	return oid;

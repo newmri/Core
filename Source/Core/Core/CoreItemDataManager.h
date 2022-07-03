@@ -19,8 +19,5 @@ public:
 	void CalculateAbility(const int32_t itemID, NativeInfo::Ability& ability);
 
 private:
-	CACHE_ALIGN std::shared_mutex itemUIDMutex;
-
-private:
 	std::unordered_map<int32_t, CoreItemData> item;
 };

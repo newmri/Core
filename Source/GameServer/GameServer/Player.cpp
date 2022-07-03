@@ -143,3 +143,19 @@ void Player::AddSkill(const int32_t skillID)
 		break;
 	}
 }
+
+bool Player::LoadData(void)
+{
+	if (!LoadItemInventory())
+		return false;
+}
+
+bool Player::LoadItemInventory(void)
+{
+	this->maxItemInventorySlotcount = GAME_SERVER.GetGameDB()->LoadMaxItemInventorySlotCount(this->session->GetAccountUID(), GetUID());
+	if (IS_SAME(0, this->maxItemInventorySlotcount))
+		return false;
+
+	this->itemInventory.reserve(this->maxItemInventorySlotcount);
+	return GAME_SERVER.GetGameDB()->LoadItemInventory(this->session->GetAccountUID(), GetUID(), this->itemInventory);
+}

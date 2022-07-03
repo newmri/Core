@@ -23,7 +23,13 @@ void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)
 	BindArgument(this->worldID);
 	BindArgument(this->serverID);
 
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "Failed ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		abort();
+		return;
+	}
 
 	BindCol(&serverInfo.GroupID, sizeof(serverInfo.GroupID));
 	BindCol(&serverInfo.ServerPort, sizeof(serverInfo.ServerPort));
@@ -44,7 +50,12 @@ void CoreWorldDB::IncreaseUserCount(void)
 	BindArgument(this->worldID);
 	BindArgument(this->serverID);
 
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "Failed ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return;
+	}
 
 	while (IsSuccess())
 	{

@@ -35,13 +35,21 @@ public:
 public:
 	virtual void AddSkill(const int32_t skillID);
 
+public:
+	bool LoadData(void);
+
+private:
+	bool LoadItemInventory(void);
+
 private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;
 	GamePacket::MyCharacterInfoT characterInfo;
 
 private:
-	std::unordered_map<int64_t, Info::ItemSlotInfoT> itemInventory;
+	CACHE_ALIGN std::shared_mutex itemInventoryMutex;
+	CACHE_ALIGN uint8_t maxItemInventorySlotcount;
+	CACHE_ALIGN std::unordered_map<int64_t, Info::ItemSlotInfoT> itemInventory;
 
 private:
 	TIME_VALUE lastMoveTime = 0;

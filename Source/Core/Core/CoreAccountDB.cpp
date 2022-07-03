@@ -15,7 +15,12 @@ bool CoreAccountDB::Login(const int64_t accountUID, CoreToken& token)
 	Prepare(L"Login");
 	BindArgument(accountUID);
 	BindArgument(token.key);
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
 
 	bool isSuccess = false;
 	TIME_VALUE time = 0;

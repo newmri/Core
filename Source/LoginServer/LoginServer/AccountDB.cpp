@@ -17,7 +17,12 @@ void AccountDB::Logout(const CoreAccount* account)
 	BindArgument(account->GetUID());
 	BindArgument(LOGIN_SERVER.GetWorldID());
 	BindArgument(LOGIN_SERVER.GetServerID());
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(account->GetUID()) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return;
+	}
 
 	while (IsSuccess())
 	{

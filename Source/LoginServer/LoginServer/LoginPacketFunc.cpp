@@ -52,7 +52,9 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		LOGIN_SERVER.GetWorldDB()->IncreaseUserCount();
 
 		std::vector<LoginPacket::CharacterInfoT> infoList;
-		LOGIN_SERVER.GetGameDB()->LoadCharacter(raw->uid(), infoList);
+		if (!LOGIN_SERVER.GetGameDB()->LoadCharacter(raw->uid(), infoList))
+			return;
+
 		uint8_t maxCharacterSlotCount = LOGIN_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
 

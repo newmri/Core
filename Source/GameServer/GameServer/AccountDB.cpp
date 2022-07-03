@@ -15,7 +15,11 @@ void AccountDB::Logout(const CoreAccount* account)
 {
 	Prepare(L"Logout");
 	BindArgument(account->GetUID());
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(account->GetUID()) + " ", __FILE__, __FUNCTION__, __LINE__));
+		return;
+	}
 
 	while (IsSuccess())
 	{
@@ -31,7 +35,11 @@ void AccountDB::LoadMoney(const int64_t accountUID, NativeInfo::Money& money)
 {
 	Prepare(L"LoadMoney");
 	BindArgument(accountUID);
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		return;
+	}
 
 	for (int32_t i = 0; i < Define::MoneyType_END; ++i)
 		BindCol(&money.value[i], sizeof(money.value[i]));

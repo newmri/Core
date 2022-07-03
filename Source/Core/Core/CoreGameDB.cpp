@@ -12,12 +12,18 @@ CoreGameDB::~CoreGameDB()
 
 CoreItemUID CoreGameDB::GetItemUID(const uint8_t worldID, const uint8_t serverID, const uint16_t count)
 {
+	CoreItemUID itemUID;
+
 	Prepare(L"GetItemUID");
 	BindArgument(serverID);
 	BindArgument(count);
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(LogType::LOG_ERROR, "worldID: " + TO_STR(worldID) + "serverID: " + TO_STR(serverID));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return itemUID;
+	}
 
-	CoreItemUID itemUID;
 	BindCol(&itemUID.uid, sizeof(itemUID.uid));
 
 	while (IsSuccess())

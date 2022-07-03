@@ -13,5 +13,9 @@ public:
 	void UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t maxCharacterSlotCount);
 
 public:
+	uint8_t LoadMaxItemInventorySlotCount(const int64_t accountUID, const int64_t uid);
+	bool LoadItemInventory(const int64_t accountUID, const int64_t uid, std::unordered_map<int64_t, Info::ItemSlotInfoT>& itemInventory);
+
+public:
 	void Logout(const int64_t uid);
 };

@@ -57,8 +57,15 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 			return;
 
 		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
+		if (IS_SAME(0, maxCharacterSlotCount))
+			return;
+
 		account->SetMaxSlotCount(maxCharacterSlotCount);
-		account->SetPlayerOID(OBJECT_MANAGER.AddPlayer(raw->character_uid(), session, objectInfoWithPos, creatureInfo, characterInfo));
+		int64_t oid = OBJECT_MANAGER.AddPlayer(raw->character_uid(), session, objectInfoWithPos, creatureInfo, characterInfo);
+		if (IS_SAME(INVALID_OID, oid))
+			return;
+
+		account->SetPlayerOID(oid);
 #pragma endregion 캐릭터 로드
 
 #pragma region 재화 로드

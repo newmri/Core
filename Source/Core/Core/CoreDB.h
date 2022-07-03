@@ -34,6 +34,7 @@ protected:
 	void BindCol(bool* data, const SQLLEN size);
 	void BindCol(uint8_t* data, const SQLLEN size);
 	void BindCol(int16_t* data, const SQLLEN size);
+	void BindCol(uint16_t* data, const SQLLEN size);
 	void BindCol(int32_t* data, const SQLLEN size);
 	void BindCol(int64_t* data, const SQLLEN size);
 	void BindCol(wchar_t** data, const SQLLEN size);

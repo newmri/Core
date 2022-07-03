@@ -11,11 +11,16 @@ GameDB::~GameDB()
 
 }
 
-void GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::CharacterInfoT>& infoList)
+bool GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::CharacterInfoT>& infoList)
 {
 	Prepare(L"LoadLoginCharacter");
 	BindArgument(accountUID);
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
 
 	LoginPacket::CharacterInfoT info;
 	BindCol(&info.uid, sizeof(info.uid));
@@ -44,13 +49,19 @@ void GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::Ch
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return true;
 }
 
 uint8_t GameDB::LoadMaxCharacterSlotCount(const int64_t accountUID)
 {
 	Prepare(L"LoadMaxCharacterSlotCount");
 	BindArgument(accountUID);
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return 0;
+	}
 
 	uint8_t maxCharacterSlotCount = Define::CharacterLimit_EmptyCharacterSlot;
 	BindCol(&maxCharacterSlotCount, sizeof(maxCharacterSlotCount));
@@ -76,7 +87,12 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 	Prepare(L"UpdateMaxCharacterSlotCount");
 	BindArgument(accountUID);
 	BindArgument(maxCharacterSlotCount);
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return;
+	}
 
 	while (IsSuccess())
 	{
@@ -118,7 +134,12 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 		BindArgument(info.gear.info[i].itemID);
 	}
 
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
 
 	bool isSuccess = false;
 	int64_t characterUID = 0;
@@ -144,7 +165,12 @@ bool GameDB::DeleteCharacter(const int64_t accountUID, const int64_t characterUI
 	Prepare(L"DeleteCharacter");
 	BindArgument(accountUID);
 	BindArgument(characterUID);
-	Execute();
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(characterUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
 
 	bool isSuccess = false;
 	BindCol(&isSuccess, sizeof(isSuccess));
