@@ -169,8 +169,7 @@ void GamePacketFunc::CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session
 
 void GamePacketFunc::CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
-	int64_t oid = session->GetPlayerOID();
-	auto player = OBJECT_MANAGER.FindPlayer(oid);
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
 	if (IS_NULL(player))
 		return;
 
@@ -183,10 +182,20 @@ void GamePacketFunc::CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session
 
 void GamePacketFunc::CS_REVIVE_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
-	int64_t oid = session->GetPlayerOID();
-	auto player = OBJECT_MANAGER.FindPlayer(oid);
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
 	if (IS_NULL(player))
 		return;
 
 	player->Revive();
+}
+
+void GamePacketFunc::CS_UNEQUIP_GEAR_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
+	if (IS_NULL(player))
+		return;
+
+	auto raw = static_cast<const GamePacket::CS_UNEQUIP_GEAR_REQ*>(data);
+
+	player->UnEquipGear(raw->gear_type());
 }

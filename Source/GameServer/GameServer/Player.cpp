@@ -164,27 +164,87 @@ bool Player::LoadItemInventory(void)
 
 void Player::SendItemInventoryInfo(void)
 {
+	PACKET_SEND_MANAGER.Clear();
 	flatbuffers::Offset<GamePacket::SC_ITEM_INVENTORY_INFO_NOTI> message;
 
-	READ_LOCK(itemInventoryMutex);
-
-	PACKET_SEND_MANAGER.Clear();
-
-	size_t size = this->itemInventory.size();
-	if (size)
 	{
-		std::vector<flatbuffers::Offset<Info::ItemSlotInfo>> sendList;
-		for (auto& d : this->itemInventory)
+		READ_LOCK(itemInventoryMutex);
+
+		size_t size = this->itemInventory.size();
+		if (size)
 		{
-			sendList.push_back(Info::ItemSlotInfo::Pack(PACKET_SEND_MANAGER.builder, &d.second));
-		}
+			std::vector<flatbuffers::Offset<Info::ItemSlotInfo>> sendList;
+			for (auto& d : this->itemInventory)
+			{
+				sendList.push_back(Info::ItemSlotInfo::Pack(PACKET_SEND_MANAGER.builder, &d.second));
+			}
 
-		message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotcount, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
-	}
-	else
-	{
-		message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotcount);
+			message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotcount, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
+		}
+		else
+		{
+			message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotcount);
+		}
 	}
 
 	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_ITEM_INVENTORY_INFO_NOTI, message.Union());
+}
+
+void Player::UnEquipGear(const Define::GearType gearType)
+{
+	if (!IsBetween<Define::GearType>(gearType, Define::GearType_MIN, static_cast<Define::GearType>(Define::GearType_END - 1)))
+		return;
+
+	GamePacket::ErrorCode result = GamePacket::ErrorCode::ErrorCode_SUCCESS;
+	PACKET_SEND_MANAGER.Clear();
+	flatbuffers::Offset<GamePacket::SC_UNEQUIP_GEAR_RES> message;
+	Info::Ability ability;
+	{
+		WRITE_LOCK(this->infoMutex);
+
+		if (this->characterInfo.gear.info[gearType].itemID)
+		{
+			WRITE_LOCK(this->itemInventoryMutex);
+
+			if (GAME_SERVER.GetGameDB()->UnEquipGear(this->session->GetAccountUID(), GetUID(), gearType, this->characterInfo.gear.info[gearType]))
+			{
+				Info::ItemSlotInfoT itemSlotInfo;
+				itemSlotInfo.item_uid = this->characterInfo.gear.info[gearType].itemUID;
+				itemSlotInfo.item_id = this->characterInfo.gear.info[gearType].itemID;
+				itemSlotInfo.item_count = 1;
+
+				CORE_ITEM_DATA_MANAGER.DecreaseAbility(itemSlotInfo.item_id, this->creatureInfo.ability);
+				ability = flatbuffers::PackAbility(this->creatureInfo.ability);
+
+				this->itemInventory[itemSlotInfo.item_uid] = itemSlotInfo;
+				this->characterInfo.gear.info[gearType].itemUID = 0;
+				this->characterInfo.gear.info[gearType].itemID = 0;
+
+				message = GamePacket::CreateSC_UNEQUIP_GEAR_RES(PACKET_SEND_MANAGER.builder, result, gearType);
+			}
+			else
+			{
+				result = GamePacket::ErrorCode::ErrorCode_UNKNOWN;
+				message = GamePacket::CreateSC_UNEQUIP_GEAR_RES(PACKET_SEND_MANAGER.builder, result);
+			}
+		}
+		else
+		{
+			result = GamePacket::ErrorCode::ErrorCode_UNKNOWN;
+			message = GamePacket::CreateSC_UNEQUIP_GEAR_RES(PACKET_SEND_MANAGER.builder, result);
+		}
+	}
+
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_UNEQUIP_GEAR_RES, message.Union());
+	
+	if (IS_SAME(GamePacket::ErrorCode::ErrorCode_SUCCESS, result))
+		SendAbility(ability);
+}
+
+void Player::SendAbility(const Info::Ability& ability)
+{
+	PACKET_SEND_MANAGER.Clear();
+	flatbuffers::Offset<GamePacket::SC_ABILITY_INFO_NOTI> message;
+	message = GamePacket::CreateSC_ABILITY_INFO_NOTI(PACKET_SEND_MANAGER.builder, &ability);
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_ABILITY_INFO_NOTI, message.Union());
 }

@@ -45,7 +45,6 @@ protected:
 
 protected:
 	CACHE_ALIGN std::shared_mutex infoMutex;
-	CACHE_ALIGN std::shared_mutex abilityMutex;
 
 protected:
 	CACHE_ALIGN std::shared_mutex skillMutex;

@@ -134,6 +134,11 @@ public class ItemDataManager
         return ability;
     }
 
+    public bool IsStackItem(int itemID)
+    {
+        return ((ushort)(int)GetData(itemID, "MaxStackCount")) > 1;
+    }
+
     public object GetData(int itemID, string name)
     {
         return _item[itemID][name];

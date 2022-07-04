@@ -43,7 +43,6 @@ class GamePacketHandler
         SC_ITEM_INVENTORY_INFO_NOTI itemInventoryInfoNoti = packet.PacketAsSC_ITEM_INVENTORY_INFO_NOTI();
         List<Info.ItemSlotInfoT> itemSlotInfoList = itemInventoryInfoNoti.UnPack().ItemSlotInfo;
         CoreManagers.Coroutine.Add(UpdateItemInventoryDelay(itemInventoryInfoNoti.MaxSlotCount, itemSlotInfoList));
-
     }
 
     public static IEnumerator UpdateItemInventoryDelay(byte maxSlotCount, List<Info.ItemSlotInfoT> itemSlotInfoList)
@@ -113,6 +112,37 @@ class GamePacketHandler
             Managers.Object.AddProjectile(spawnNoti.UnPack().ObjectInfoWithPos,
             spawnNoti.UnPack().ProjectileType,
             spawnNoti.UnPack().Speed));
+    }
+
+    public static void SC_UNEQUIP_GEAR_RES(PacketSession session, Root packet)
+    {
+        SC_UNEQUIP_GEAR_RES unEquipGearRes = packet.PacketAsSC_UNEQUIP_GEAR_RES();
+        if (ErrorCode.SUCCESS != unEquipGearRes.Result)
+        {
+            UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+
+            switch (unEquipGearRes.Result)
+            {
+                case ErrorCode.UNKNOWN:
+                    messagePopup.SetText("장착 해제 실패", "다시 시도해주세요");
+                    break;
+            }
+
+            return;
+        }
+
+        Managers.UI.GetSceneUI<UIGameScene>().Inventory.UnEquipGear(unEquipGearRes.GearType);
+    }
+
+    public static void SC_ABILITY_INFO_NOTI(PacketSession session, Root packet)
+    {
+        SC_ABILITY_INFO_NOTI abilityInfo = packet.PacketAsSC_ABILITY_INFO_NOTI();
+
+        Managers.Object.MyCreatureInfo.Ability = abilityInfo.UnPack().Ability;
+
+        UIItemInventoryPopup inventory = Managers.UI.GetSceneUI<UIGameScene>().Inventory;
+        if (inventory.gameObject.activeSelf)
+            inventory.UpdateAbility();
     }
 }
 

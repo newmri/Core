@@ -34,6 +34,8 @@ class GamePacketManager
        _handler.Add(Packet.SC_GET_DAMAGE_NOTI, GamePacketHandler.SC_GET_DAMAGE_NOTI);
        _handler.Add(Packet.SC_REVIVE_RES, GamePacketHandler.SC_REVIVE_RES);
        _handler.Add(Packet.SC_SPAWN_PROJECTILE_NOTI, GamePacketHandler.SC_SPAWN_PROJECTILE_NOTI);
+       _handler.Add(Packet.SC_UNEQUIP_GEAR_RES, GamePacketHandler.SC_UNEQUIP_GEAR_RES);
+       _handler.Add(Packet.SC_ABILITY_INFO_NOTI, GamePacketHandler.SC_ABILITY_INFO_NOTI);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

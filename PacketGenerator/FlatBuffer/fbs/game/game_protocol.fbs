@@ -30,6 +30,9 @@ union Packet
     CS_REVIVE_REQ,
     SC_REVIVE_RES,
     SC_SPAWN_PROJECTILE_NOTI,
+    CS_UNEQUIP_GEAR_REQ,
+    SC_UNEQUIP_GEAR_RES,
+    SC_ABILITY_INFO_NOTI
 }
 
 table CS_LOGIN_REQ
@@ -158,6 +161,22 @@ table SC_SPAWN_PROJECTILE_NOTI
     object_info_with_pos:Info.ObjectInfoWithPos;
     projectile_type:Define.ProjectileType;
     speed:float;
+}
+
+table CS_UNEQUIP_GEAR_REQ
+{
+    gear_type:Define.GearType;
+}
+
+table SC_UNEQUIP_GEAR_RES
+{
+   result:ErrorCode;
+   gear_type:Define.GearType;
+}
+
+table SC_ABILITY_INFO_NOTI
+{
+   ability:Info.Ability (native_inline);
 }
 
 table Root

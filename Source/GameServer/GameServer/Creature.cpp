@@ -36,7 +36,7 @@ Info::CreatureInfoT Creature::GetCreatureInfo(void)
 
 int32_t Creature::GetAbility(const Define::AbilityType abilityType)
 {
-	READ_LOCK(this->abilityMutex);
+	READ_LOCK(this->infoMutex);
 	return this->creatureInfo.ability.value[abilityType];
 }
 
@@ -102,7 +102,7 @@ void Creature::MakeRevivePacket(GamePacket::Packet& packetType, flatbuffers::Off
 
 void Creature::CalculateAbility(void)
 {
-	WRITE_LOCK(this->abilityMutex);
+	WRITE_LOCK(this->infoMutex);
 	CalculateAbilityWithNoLock();
 }
 

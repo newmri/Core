@@ -11,4 +11,5 @@ public:
 	void CS_SET_STATE_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 	void CS_USE_SKILL_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 	void CS_REVIVE_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
+	void CS_UNEQUIP_GEAR_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 };

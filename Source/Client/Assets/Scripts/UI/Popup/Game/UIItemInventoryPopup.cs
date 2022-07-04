@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityCoreLibrary;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections;
 
 public class UIItemInventoryPopup : UIPopup
 {
@@ -44,7 +45,20 @@ public class UIItemInventoryPopup : UIPopup
 
     private List<TextMeshProUGUI> _statList = null;
 
-    public byte CurrSlotCunt { get; set; } = 0;
+    byte _currSlotCount = 0;
+    public byte CurrSlotCount
+    {
+        get
+        {
+            return _currSlotCount;
+        }
+        set
+        {
+            _currSlotCount = value;
+            this.GetTextMesh((int)TextMeshProUGUIs.ItemSlotCountText).text = $"{CurrSlotCount} / {MaxSlotCount}";
+        }
+    }
+
     public byte MaxSlotCount { get; set; } = 50;
 
     public override void Init()
@@ -76,7 +90,7 @@ public class UIItemInventoryPopup : UIPopup
         UpdateMoney(Managers.Account.Money);
         UpdateCharacterLevel(Managers.Object.MyPlayer.Level);
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
-        UpdateStats();
+        UpdateAbility();
         OnDeselectedItemSlot();
         var gear = Managers.Object.MyPlayer.Gear;
         for (GearType gearType = 0; gearType < GearType.HAIR; ++gearType)
@@ -127,7 +141,7 @@ public class UIItemInventoryPopup : UIPopup
         _equipList[(int)GearType.RIGHT_HAND].EmptyItemIconSprite = rightHandIcon;
     }
 
-    private void UpdateStats()
+    public void UpdateAbility()
     {
         int index = 0;
         for (AbilityType abilityType = 0; abilityType < AbilityType.END; ++abilityType)
@@ -139,6 +153,11 @@ public class UIItemInventoryPopup : UIPopup
             else
                 _statList[index].text = Managers.Object.MyCreatureInfo.Ability.Value[index].ToString();
         }
+    }
+
+    public bool HasEmptySlot(byte count)
+    {
+        return (MaxSlotCount - CurrSlotCount) >= count;
     }
 
     public void UpdateItemSlot(byte maxSlotCount, List<ItemSlotInfoT> itemSlotInfoList)
@@ -154,13 +173,98 @@ public class UIItemInventoryPopup : UIPopup
             itemSlot.GetComponent<Button>().gameObject.BindEvent(OnClickItemSlotButton);
 
             UIItemSlot uiItemSlot = itemSlot.GetComponent<UIItemSlot>();
+            uiItemSlot.ItemLocation = ItemLocation.INVENTORY;
 
             _inventoryList.Add(uiItemSlot);
         }
 
-        CurrSlotCunt = (byte)itemSlotInfoList.Count;
+        if(itemSlotInfoList.Count > 0)
+            CoreManagers.Coroutine.Add(AddItemDelay(itemSlotInfoList));
+
         MaxSlotCount = maxSlotCount;
-        this.GetTextMesh((int)TextMeshProUGUIs.ItemSlotCountText).text = $"{CurrSlotCunt} / {MaxSlotCount}";
+        CurrSlotCount = (byte)itemSlotInfoList.Count;
+    }
+
+    private IEnumerator AddItemDelay(List<ItemSlotInfoT> itemSlotInfoList)
+    {
+        yield return new WaitUntil(() => _inventoryList[0].IsInited == true);
+
+        foreach (var itemSlotInfo in itemSlotInfoList)
+            AddItem(itemSlotInfo);
+    }
+
+    public void AddItem(ItemSlotInfoT itemSlotInfo)
+    {
+        if (Managers.ItemData.IsStackItem(itemSlotInfo.ItemId))
+        {
+
+        }
+
+        else
+        {
+            UIItemSlot uiItemSlot = _inventoryList.Find(info => info.ItemID == 0);
+            if (uiItemSlot == null)
+                return;
+
+            uiItemSlot.ItemSlotInfo = itemSlotInfo;
+            ++CurrSlotCount;
+        }
+    }
+
+    public void RemoveItem(UIItemSlot uiItemSlot, ushort count)
+    {
+        bool isEmpty = true;
+
+        if (Managers.ItemData.IsStackItem(uiItemSlot.ItemSlotInfo.ItemId))
+        {
+            uiItemSlot.ItemCount -= count;
+            if (uiItemSlot.ItemCount != 0)
+                isEmpty = false;
+        }
+
+       if(isEmpty)
+        {
+            uiItemSlot.ItemID = 0;
+            --CurrSlotCount;
+        }
+    }
+
+    public void EquipGear(GearType gearType, long itemUID)
+    {
+        UIItemSlot uiItemSlot = _inventoryList.Find(info => info.ItemUID == itemUID);
+        if (uiItemSlot == null)
+            return;
+
+        ItemSlotInfoT itemSlotInfo = new ItemSlotInfoT
+        {
+            ItemUid = uiItemSlot.ItemUID,
+            ItemId = uiItemSlot.ItemID,
+            ItemCount = uiItemSlot.ItemCount
+        };
+
+        RemoveItem(uiItemSlot, 1);
+
+        Managers.Object.MyPlayer.Gear.Info[(int)gearType].ItemUid = itemSlotInfo.ItemUid;
+        Managers.Object.MyPlayer.Gear.Info[(int)gearType].ItemId = itemSlotInfo.ItemId;
+
+        _equipList[(int)gearType].ItemSlotInfo = itemSlotInfo;
+    }
+
+    public void UnEquipGear(GearType gearType)
+    {
+        ItemSlotInfoT itemSlotInfo = new ItemSlotInfoT
+        {
+            ItemUid = _equipList[(int)gearType].ItemSlotInfo.ItemUid,
+            ItemId = _equipList[(int)gearType].ItemSlotInfo.ItemId,
+            ItemCount = _equipList[(int)gearType].ItemSlotInfo.ItemCount
+        };
+
+        AddItem(itemSlotInfo);
+
+        Managers.Object.MyPlayer.Gear.Info[(int)gearType].ItemUid = 0;
+        Managers.Object.MyPlayer.Gear.Info[(int)gearType].ItemId = 0;
+
+         _equipList[(int)gearType].ItemID = 0;
     }
 
     public void OnClickBackButton(PointerEventData evt)

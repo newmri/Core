@@ -37,6 +37,9 @@ public enum Packet : byte
   CS_REVIVE_REQ = 16,
   SC_REVIVE_RES = 17,
   SC_SPAWN_PROJECTILE_NOTI = 18,
+  CS_UNEQUIP_GEAR_REQ = 19,
+  SC_UNEQUIP_GEAR_RES = 20,
+  SC_ABILITY_INFO_NOTI = 21,
 };
 
 public class PacketUnion {
@@ -67,6 +70,9 @@ public class PacketUnion {
   public GamePacket.CS_REVIVE_REQT AsCS_REVIVE_REQ() { return this.As<GamePacket.CS_REVIVE_REQT>(); }
   public GamePacket.SC_REVIVE_REST AsSC_REVIVE_RES() { return this.As<GamePacket.SC_REVIVE_REST>(); }
   public GamePacket.SC_SPAWN_PROJECTILE_NOTIT AsSC_SPAWN_PROJECTILE_NOTI() { return this.As<GamePacket.SC_SPAWN_PROJECTILE_NOTIT>(); }
+  public GamePacket.CS_UNEQUIP_GEAR_REQT AsCS_UNEQUIP_GEAR_REQ() { return this.As<GamePacket.CS_UNEQUIP_GEAR_REQT>(); }
+  public GamePacket.SC_UNEQUIP_GEAR_REST AsSC_UNEQUIP_GEAR_RES() { return this.As<GamePacket.SC_UNEQUIP_GEAR_REST>(); }
+  public GamePacket.SC_ABILITY_INFO_NOTIT AsSC_ABILITY_INFO_NOTI() { return this.As<GamePacket.SC_ABILITY_INFO_NOTIT>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -89,6 +95,9 @@ public class PacketUnion {
       case Packet.CS_REVIVE_REQ: return GamePacket.CS_REVIVE_REQ.Pack(builder, _o.AsCS_REVIVE_REQ()).Value;
       case Packet.SC_REVIVE_RES: return GamePacket.SC_REVIVE_RES.Pack(builder, _o.AsSC_REVIVE_RES()).Value;
       case Packet.SC_SPAWN_PROJECTILE_NOTI: return GamePacket.SC_SPAWN_PROJECTILE_NOTI.Pack(builder, _o.AsSC_SPAWN_PROJECTILE_NOTI()).Value;
+      case Packet.CS_UNEQUIP_GEAR_REQ: return GamePacket.CS_UNEQUIP_GEAR_REQ.Pack(builder, _o.AsCS_UNEQUIP_GEAR_REQ()).Value;
+      case Packet.SC_UNEQUIP_GEAR_RES: return GamePacket.SC_UNEQUIP_GEAR_RES.Pack(builder, _o.AsSC_UNEQUIP_GEAR_RES()).Value;
+      case Packet.SC_ABILITY_INFO_NOTI: return GamePacket.SC_ABILITY_INFO_NOTI.Pack(builder, _o.AsSC_ABILITY_INFO_NOTI()).Value;
     }
   }
 }
@@ -1327,6 +1336,157 @@ public class SC_SPAWN_PROJECTILE_NOTIT
   }
 }
 
+public struct CS_UNEQUIP_GEAR_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_UNEQUIP_GEAR_REQ GetRootAsCS_UNEQUIP_GEAR_REQ(ByteBuffer _bb) { return GetRootAsCS_UNEQUIP_GEAR_REQ(_bb, new CS_UNEQUIP_GEAR_REQ()); }
+  public static CS_UNEQUIP_GEAR_REQ GetRootAsCS_UNEQUIP_GEAR_REQ(ByteBuffer _bb, CS_UNEQUIP_GEAR_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_UNEQUIP_GEAR_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.GearType GearType { get { int o = __p.__offset(4); return o != 0 ? (Define.GearType)__p.bb.Get(o + __p.bb_pos) : Define.GearType.LEFT_HAND; } }
+
+  public static Offset<GamePacket.CS_UNEQUIP_GEAR_REQ> CreateCS_UNEQUIP_GEAR_REQ(FlatBufferBuilder builder,
+      Define.GearType gear_type = Define.GearType.LEFT_HAND) {
+    builder.StartTable(1);
+    CS_UNEQUIP_GEAR_REQ.AddGearType(builder, gear_type);
+    return CS_UNEQUIP_GEAR_REQ.EndCS_UNEQUIP_GEAR_REQ(builder);
+  }
+
+  public static void StartCS_UNEQUIP_GEAR_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddGearType(FlatBufferBuilder builder, Define.GearType gearType) { builder.AddByte(0, (byte)gearType, 0); }
+  public static Offset<GamePacket.CS_UNEQUIP_GEAR_REQ> EndCS_UNEQUIP_GEAR_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CS_UNEQUIP_GEAR_REQ>(o);
+  }
+  public CS_UNEQUIP_GEAR_REQT UnPack() {
+    var _o = new CS_UNEQUIP_GEAR_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_UNEQUIP_GEAR_REQT _o) {
+    _o.GearType = this.GearType;
+  }
+  public static Offset<GamePacket.CS_UNEQUIP_GEAR_REQ> Pack(FlatBufferBuilder builder, CS_UNEQUIP_GEAR_REQT _o) {
+    if (_o == null) return default(Offset<GamePacket.CS_UNEQUIP_GEAR_REQ>);
+    return CreateCS_UNEQUIP_GEAR_REQ(
+      builder,
+      _o.GearType);
+  }
+};
+
+public class CS_UNEQUIP_GEAR_REQT
+{
+  public Define.GearType GearType { get; set; }
+
+  public CS_UNEQUIP_GEAR_REQT() {
+    this.GearType = Define.GearType.LEFT_HAND;
+  }
+}
+
+public struct SC_UNEQUIP_GEAR_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_UNEQUIP_GEAR_RES GetRootAsSC_UNEQUIP_GEAR_RES(ByteBuffer _bb) { return GetRootAsSC_UNEQUIP_GEAR_RES(_bb, new SC_UNEQUIP_GEAR_RES()); }
+  public static SC_UNEQUIP_GEAR_RES GetRootAsSC_UNEQUIP_GEAR_RES(ByteBuffer _bb, SC_UNEQUIP_GEAR_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_UNEQUIP_GEAR_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public GamePacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (GamePacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : GamePacket.ErrorCode.SUCCESS; } }
+  public Define.GearType GearType { get { int o = __p.__offset(6); return o != 0 ? (Define.GearType)__p.bb.Get(o + __p.bb_pos) : Define.GearType.LEFT_HAND; } }
+
+  public static Offset<GamePacket.SC_UNEQUIP_GEAR_RES> CreateSC_UNEQUIP_GEAR_RES(FlatBufferBuilder builder,
+      GamePacket.ErrorCode result = GamePacket.ErrorCode.SUCCESS,
+      Define.GearType gear_type = Define.GearType.LEFT_HAND) {
+    builder.StartTable(2);
+    SC_UNEQUIP_GEAR_RES.AddGearType(builder, gear_type);
+    SC_UNEQUIP_GEAR_RES.AddResult(builder, result);
+    return SC_UNEQUIP_GEAR_RES.EndSC_UNEQUIP_GEAR_RES(builder);
+  }
+
+  public static void StartSC_UNEQUIP_GEAR_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddResult(FlatBufferBuilder builder, GamePacket.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
+  public static void AddGearType(FlatBufferBuilder builder, Define.GearType gearType) { builder.AddByte(1, (byte)gearType, 0); }
+  public static Offset<GamePacket.SC_UNEQUIP_GEAR_RES> EndSC_UNEQUIP_GEAR_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_UNEQUIP_GEAR_RES>(o);
+  }
+  public SC_UNEQUIP_GEAR_REST UnPack() {
+    var _o = new SC_UNEQUIP_GEAR_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_UNEQUIP_GEAR_REST _o) {
+    _o.Result = this.Result;
+    _o.GearType = this.GearType;
+  }
+  public static Offset<GamePacket.SC_UNEQUIP_GEAR_RES> Pack(FlatBufferBuilder builder, SC_UNEQUIP_GEAR_REST _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_UNEQUIP_GEAR_RES>);
+    return CreateSC_UNEQUIP_GEAR_RES(
+      builder,
+      _o.Result,
+      _o.GearType);
+  }
+};
+
+public class SC_UNEQUIP_GEAR_REST
+{
+  public GamePacket.ErrorCode Result { get; set; }
+  public Define.GearType GearType { get; set; }
+
+  public SC_UNEQUIP_GEAR_REST() {
+    this.Result = GamePacket.ErrorCode.SUCCESS;
+    this.GearType = Define.GearType.LEFT_HAND;
+  }
+}
+
+public struct SC_ABILITY_INFO_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_ABILITY_INFO_NOTI GetRootAsSC_ABILITY_INFO_NOTI(ByteBuffer _bb) { return GetRootAsSC_ABILITY_INFO_NOTI(_bb, new SC_ABILITY_INFO_NOTI()); }
+  public static SC_ABILITY_INFO_NOTI GetRootAsSC_ABILITY_INFO_NOTI(ByteBuffer _bb, SC_ABILITY_INFO_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_ABILITY_INFO_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Info.Ability? Ability { get { int o = __p.__offset(4); return o != 0 ? (Info.Ability?)(new Info.Ability()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+
+  public static void StartSC_ABILITY_INFO_NOTI(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddAbility(FlatBufferBuilder builder, Offset<Info.Ability> abilityOffset) { builder.AddStruct(0, abilityOffset.Value, 0); }
+  public static Offset<GamePacket.SC_ABILITY_INFO_NOTI> EndSC_ABILITY_INFO_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_ABILITY_INFO_NOTI>(o);
+  }
+  public SC_ABILITY_INFO_NOTIT UnPack() {
+    var _o = new SC_ABILITY_INFO_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_ABILITY_INFO_NOTIT _o) {
+    _o.Ability = this.Ability.HasValue ? this.Ability.Value.UnPack() : null;
+  }
+  public static Offset<GamePacket.SC_ABILITY_INFO_NOTI> Pack(FlatBufferBuilder builder, SC_ABILITY_INFO_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_ABILITY_INFO_NOTI>);
+    StartSC_ABILITY_INFO_NOTI(builder);
+    AddAbility(builder, Info.Ability.Pack(builder, _o.Ability));
+    return EndSC_ABILITY_INFO_NOTI(builder);
+  }
+};
+
+public class SC_ABILITY_INFO_NOTIT
+{
+  public Info.AbilityT Ability { get; set; }
+
+  public SC_ABILITY_INFO_NOTIT() {
+    this.Ability = new Info.AbilityT();
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -1357,6 +1517,9 @@ public struct Root : IFlatbufferObject
   public GamePacket.CS_REVIVE_REQ PacketAsCS_REVIVE_REQ() { return Packet<GamePacket.CS_REVIVE_REQ>().Value; }
   public GamePacket.SC_REVIVE_RES PacketAsSC_REVIVE_RES() { return Packet<GamePacket.SC_REVIVE_RES>().Value; }
   public GamePacket.SC_SPAWN_PROJECTILE_NOTI PacketAsSC_SPAWN_PROJECTILE_NOTI() { return Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().Value; }
+  public GamePacket.CS_UNEQUIP_GEAR_REQ PacketAsCS_UNEQUIP_GEAR_REQ() { return Packet<GamePacket.CS_UNEQUIP_GEAR_REQ>().Value; }
+  public GamePacket.SC_UNEQUIP_GEAR_RES PacketAsSC_UNEQUIP_GEAR_RES() { return Packet<GamePacket.SC_UNEQUIP_GEAR_RES>().Value; }
+  public GamePacket.SC_ABILITY_INFO_NOTI PacketAsSC_ABILITY_INFO_NOTI() { return Packet<GamePacket.SC_ABILITY_INFO_NOTI>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -1439,6 +1602,15 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_SPAWN_PROJECTILE_NOTI:
         _o.Packet.Value = this.Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().HasValue ? this.Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.CS_UNEQUIP_GEAR_REQ:
+        _o.Packet.Value = this.Packet<GamePacket.CS_UNEQUIP_GEAR_REQ>().HasValue ? this.Packet<GamePacket.CS_UNEQUIP_GEAR_REQ>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_UNEQUIP_GEAR_RES:
+        _o.Packet.Value = this.Packet<GamePacket.SC_UNEQUIP_GEAR_RES>().HasValue ? this.Packet<GamePacket.SC_UNEQUIP_GEAR_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_ABILITY_INFO_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_ABILITY_INFO_NOTI>().HasValue ? this.Packet<GamePacket.SC_ABILITY_INFO_NOTI>().Value.UnPack() : null;
         break;
     }
   }

@@ -29,12 +29,6 @@ bool GameDB::LoadCharacter(const int64_t accountUID, const int64_t uid, Info::Cr
 	BindCol((uint8_t*)&characterInfo.job, sizeof(characterInfo.job));
 	BindCol(&creatureInfo.exp, sizeof(creatureInfo.exp));
 
-	for (int32_t i = 0; i < Define::GearType_END; ++i)
-	{
-		BindCol(&characterInfo.gear.info[i].itemUID, sizeof(characterInfo.gear.info[i].itemUID));
-		BindCol(&characterInfo.gear.info[i].itemID, sizeof(characterInfo.gear.info[i].itemID));
-	}
-
 	while (IsSuccess())
 	{
 		this->retCode = SQLFetch(this->hstmt);
@@ -43,7 +37,10 @@ bool GameDB::LoadCharacter(const int64_t accountUID, const int64_t uid, Info::Cr
 			SQLFreeStmt(this->hstmt, SQL_CLOSE);
 
 			characterInfo.name = STRING_MANAGER.Narrow(name);
-			return LoadCharacterStat(accountUID, uid, creatureInfo, characterInfo);
+			if (!LoadCharacterStat(accountUID, uid, creatureInfo, characterInfo))
+				return false;
+
+			return LoadCharacterGear(accountUID, uid, characterInfo);
 		}
 	};
 
@@ -85,6 +82,38 @@ bool GameDB::LoadCharacterStat(const int64_t accountUID, const int64_t uid, Info
 	return false;
 }
 
+bool GameDB::LoadCharacterGear(const int64_t accountUID, const int64_t uid, GamePacket::MyCharacterInfoT& characterInfo)
+{
+	Prepare(L"LoadCharacterGear");
+	BindArgument(accountUID);
+	BindArgument(uid);
+
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
+
+	NativeInfo::GearSlotInfo gear;
+	BindCol(&gear.itemUID, sizeof(gear.itemUID));
+	BindCol(&gear.itemID, sizeof(gear.itemID));
+
+	int32_t count = 0;
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+
+		if (IsSuccess())
+		{
+			characterInfo.gear.info[count++] = gear;
+		}
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return true;
+}
+
 uint8_t GameDB::LoadMaxCharacterSlotCount(const int64_t accountUID)
 {
 	Prepare(L"LoadMaxCharacterSlotCount");
@@ -107,7 +136,6 @@ uint8_t GameDB::LoadMaxCharacterSlotCount(const int64_t accountUID)
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
-
 	return maxCharacterSlotCount;
 }
 
@@ -133,7 +161,7 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 
 uint8_t GameDB::LoadMaxItemInventorySlotCount(const int64_t accountUID, const int64_t uid)
 {
-	Prepare(L"LoadIMaxtemInventorySlotCount");
+	Prepare(L"LoadMaxItemInventorySlotCount");
 	BindArgument(accountUID);
 	BindArgument(uid);
 	if (!Execute())
@@ -178,12 +206,38 @@ bool GameDB::LoadItemInventory(const int64_t accountUID, const int64_t uid, std:
 		this->retCode = SQLFetch(this->hstmt);
 		if (IsSuccess())
 		{
-			SQLFreeStmt(this->hstmt, SQL_CLOSE);
-
 			itemInventory[itemSlotInfo.item_uid] = itemSlotInfo;
 		}
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 	return true;
+}
+
+bool GameDB::UnEquipGear(const int64_t accountUID, const int64_t uid, const Define::GearType gearType, const NativeInfo::GearSlotInfo& gearSlotInfo)
+{
+	Prepare(L"UnEquipGear");
+	BindArgument(accountUID);
+	BindArgument(uid);
+	BindArgument(gearType);
+	BindArgument(gearSlotInfo.itemUID);
+	BindArgument(gearSlotInfo.itemID);
+
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
+
+	bool isSuccess = false;
+	BindCol(&isSuccess, sizeof(isSuccess));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return isSuccess;
 }

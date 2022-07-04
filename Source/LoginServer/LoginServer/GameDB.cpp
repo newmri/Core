@@ -31,12 +31,6 @@ bool GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::Ch
 	BindCol(&info.level, sizeof(info.level));
 	BindCol((uint8_t*)&info.job, sizeof(info.job));
 
-	for (int32_t i = 0; i < Define::GearType_END; ++i)
-	{
-		BindCol(&info.gear.info[i].itemUID, sizeof(info.gear.info[i].itemUID));
-		BindCol(&info.gear.info[i].itemID, sizeof(info.gear.info[i].itemID));
-	}
-
 	while (IsSuccess())
 	{
 		this->retCode = SQLFetch(this->hstmt);
@@ -45,6 +39,49 @@ bool GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::Ch
 		{
 			info.name = STRING_MANAGER.Narrow(name);
 			infoList.push_back(info);
+		}
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return LoadAllCharacterGear(accountUID, infoList);
+}
+
+bool GameDB::LoadAllCharacterGear(const int64_t accountUID, std::vector<LoginPacket::CharacterInfoT>& infoList)
+{
+	for (auto& d : infoList)
+	{
+		if (!LoadCharacterGear(accountUID, d))
+			return false;
+	}
+
+	return true;
+}
+
+bool GameDB::LoadCharacterGear(const int64_t accountUID, LoginPacket::CharacterInfoT& info)
+{
+	Prepare(L"LoadCharacterGear");
+	BindArgument(accountUID);
+	BindArgument(info.uid);
+
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(info.uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
+
+	NativeInfo::GearSlotInfo gear;
+	BindCol(&gear.itemUID, sizeof(gear.itemUID));
+	BindCol(&gear.itemID, sizeof(gear.itemID));
+
+	int32_t count = 0;
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+
+		if (IsSuccess())
+		{
+			info.gear.info[count++] = gear;
 		}
 	};
 

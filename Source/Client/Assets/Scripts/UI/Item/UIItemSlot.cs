@@ -18,6 +18,8 @@ public enum ItemLocation : byte
 
 public class UIItemSlot : UIAwakeBase
 {
+    public bool IsInited = false;
+
     [SerializeField]
     ItemSlotInfoT _itemSlotInfo = new ItemSlotInfoT();
     public ItemSlotInfoT ItemSlotInfo
@@ -29,24 +31,19 @@ public class UIItemSlot : UIAwakeBase
         set
         {
             _itemSlotInfo = value;
-            if(ItemID > 0)
-            {
-                _frameIcon.sprite = Managers.ItemData.GetFrameIcon(ItemID);
+            OnUpdate();
+        }
+    }
 
-                ItemIcon.sprite = Managers.ItemData.GetIcon(ItemID);
-                ItemIcon.color = Color.white;
-
-                Ability = Managers.ItemData.GetAbility(ItemID);
-            }
-            else
-            {
-                _frameIcon.sprite = _emptyFrameIconSprite;
-
-                ItemIcon.sprite = EmptyItemIconSprite;
-                ItemIcon.color = _emptyColor;
-
-                Array.Clear(_itemAbility, 0, (int)ItemAbility.MAX_COUNT);
-            }
+    public long ItemUID
+    {
+        get
+        {
+            return ItemSlotInfo.ItemUid;
+        }
+        set
+        {
+            ItemSlotInfo.ItemUid = value;
         }
     }
 
@@ -59,6 +56,24 @@ public class UIItemSlot : UIAwakeBase
         set
         {
             ItemSlotInfo.ItemId = value;
+            OnUpdate();
+
+            if(ItemSlotInfo.ItemId == 0)
+            {
+                OnDeselected();
+            }
+        }
+    }
+
+    public ushort ItemCount
+    {
+        get
+        {
+            return ItemSlotInfo.ItemCount;
+        }
+        set
+        {
+            ItemSlotInfo.ItemCount = value;
         }
     }
 
@@ -113,6 +128,36 @@ public class UIItemSlot : UIAwakeBase
 
         if (ItemLocation != ItemLocation.EQUIP)
             _countText = Util.FindChild<TextMeshProUGUI>(gameObject, "CountText");
+
+        IsInited = true;
+    }
+
+    private void OnUpdate()
+    {
+        if (ItemID > 0)
+        {
+            _frameIcon.sprite = Managers.ItemData.GetFrameIcon(ItemID);
+
+            ItemIcon.gameObject.SetActive(true);
+            ItemIcon.sprite = Managers.ItemData.GetIcon(ItemID);
+            ItemIcon.color = Color.white;
+
+            Ability = Managers.ItemData.GetAbility(ItemID);
+        }
+        else
+        {
+            ItemUID = 0;
+
+            _frameIcon.sprite = _emptyFrameIconSprite;
+
+            if(ItemLocation != ItemLocation.EQUIP)
+                ItemIcon.gameObject.SetActive(false);
+
+            ItemIcon.sprite = EmptyItemIconSprite;
+            ItemIcon.color = _emptyColor;
+
+            Array.Clear(_itemAbility, 0, (int)ItemAbility.MAX_COUNT);
+        }
     }
 
     public void OnSelected()

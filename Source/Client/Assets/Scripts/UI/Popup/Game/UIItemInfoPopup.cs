@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using Define;
 using UnityCoreLibrary;
 using System;
+using FlatBuffers;
 
 public class UIItemInfoPopup : UIPopup
 {
@@ -79,8 +80,6 @@ public class UIItemInfoPopup : UIPopup
         this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).text = Managers.ItemData.GetJobName(ItemSlot.ItemID);
         this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).color = Managers.ItemData.IsUsableJob(ItemSlot.ItemID) ? Color.green : Color.red;
 
-        List<GameObject> abilityList = Util.FindAllChildrens<GameObject>(GetObject((int)GameObjects.ItemAbility));
-
         List<TextMeshProUGUI> abilityNameList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.ItemAbility), "NameText", true);
         List<TextMeshProUGUI> abilityValueList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.ItemAbility), "ValueText", true);
         for(int i = 0; i < abilityNameList.Count; ++i)
@@ -133,6 +132,18 @@ public class UIItemInfoPopup : UIPopup
 
     private void OnClickUnEquipButton(PointerEventData evt)
     {
+        if(!Managers.UI.GetSceneUI<UIGameScene>().Inventory.HasEmptySlot(1))
+        {
+            UIErrorMessagePopup errorMessagePopup = Managers.UI.ShowPopupUI<UIErrorMessagePopup>();
+            errorMessagePopup.SetText("인벤토리 공간이 부족합니다.");
+            return;
+        }
+
+        GearType gearType = Util.PascalStringToEnum<GearType>(ItemSlot.gameObject.name);
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        var message = CS_UNEQUIP_GEAR_REQ.CreateCS_UNEQUIP_GEAR_REQ(builder, gearType);
+        Managers.GameNetwork.Send(builder, Packet.CS_UNEQUIP_GEAR_REQ, message.Value);
+
         Managers.UI.ClosePopupUI();
     }
 

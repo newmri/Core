@@ -44,6 +44,12 @@ private:
 public:
 	void SendItemInventoryInfo(void);
 
+public:
+	void UnEquipGear(const Define::GearType gearType);
+
+protected:
+	void SendAbility(const Info::Ability& ability);
+
 private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;

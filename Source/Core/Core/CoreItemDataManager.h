@@ -17,6 +17,7 @@ public:
 public:
 	void CalculateAbility(const NativeInfo::CharacterGear& gear, NativeInfo::Ability& ability);
 	void CalculateAbility(const int32_t itemID, NativeInfo::Ability& ability);
+	void DecreaseAbility(const int32_t itemID, NativeInfo::Ability& ability);
 
 private:
 	std::unordered_map<int32_t, CoreItemData> item;

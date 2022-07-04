@@ -54,3 +54,22 @@ void CoreItemDataManager::CalculateAbility(const int32_t itemID, NativeInfo::Abi
 		ability.value[abilityData->abilityType] += abilityData->abilityValue;
 	}
 }
+
+void CoreItemDataManager::DecreaseAbility(const int32_t itemID, NativeInfo::Ability& ability)
+{
+	auto itemData = GetItemData(itemID);
+	if (IS_NULL(itemData))
+		return;
+
+	for (int32_t i = 0; i < Define::ItemAbility_MAX_COUNT; ++i)
+	{
+		if (IS_SAME(0, itemData->abilityID[i]))
+			continue;
+
+		auto abilityData = CORE_ABILITY_DATA_MANAGER.GetAbilityData(itemData->abilityID[i]);
+		if (IS_NULL(abilityData))
+			continue;
+
+		ability.value[abilityData->abilityType] -= abilityData->abilityValue;
+	}
+}
