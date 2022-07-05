@@ -127,6 +127,10 @@ public class UIItemInfoPopup : UIPopup
 
     private void OnClickEquipButton(PointerEventData evt)
     {
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        var message = CS_EQUIP_GEAR_REQ.CreateCS_EQUIP_GEAR_REQ(builder, ItemSlot.ItemUID);
+        Managers.GameNetwork.Send(builder, Packet.CS_EQUIP_GEAR_REQ, message.Value);
+
         Managers.UI.ClosePopupUI();
     }
 

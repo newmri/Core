@@ -178,11 +178,11 @@ public class UIItemInventoryPopup : UIPopup
             _inventoryList.Add(uiItemSlot);
         }
 
-        if(itemSlotInfoList.Count > 0)
-            CoreManagers.Coroutine.Add(AddItemDelay(itemSlotInfoList));
-
         MaxSlotCount = maxSlotCount;
-        CurrSlotCount = (byte)itemSlotInfoList.Count;
+        CurrSlotCount = 0;
+
+        if (itemSlotInfoList.Count > 0)
+            CoreManagers.Coroutine.Add(AddItemDelay(itemSlotInfoList));
     }
 
     private IEnumerator AddItemDelay(List<ItemSlotInfoT> itemSlotInfoList)
@@ -229,7 +229,7 @@ public class UIItemInventoryPopup : UIPopup
         }
     }
 
-    public void EquipGear(GearType gearType, long itemUID)
+    public void EquipGear(long itemUID)
     {
         UIItemSlot uiItemSlot = _inventoryList.Find(info => info.ItemUID == itemUID);
         if (uiItemSlot == null)
@@ -244,8 +244,8 @@ public class UIItemInventoryPopup : UIPopup
 
         RemoveItem(uiItemSlot, 1);
 
-        Managers.Object.MyPlayer.Gear.Info[(int)gearType].ItemUid = itemSlotInfo.ItemUid;
-        Managers.Object.MyPlayer.Gear.Info[(int)gearType].ItemId = itemSlotInfo.ItemId;
+        GearType gearType = Managers.ItemData.GetGearType(itemSlotInfo.ItemId);
+        Managers.Object.MyPlayer.SetGear(gearType, itemSlotInfo.ItemUid, itemSlotInfo.ItemId);
 
         _equipList[(int)gearType].ItemSlotInfo = itemSlotInfo;
     }
@@ -261,8 +261,7 @@ public class UIItemInventoryPopup : UIPopup
 
         AddItem(itemSlotInfo);
 
-        Managers.Object.MyPlayer.Gear.Info[(int)gearType].ItemUid = 0;
-        Managers.Object.MyPlayer.Gear.Info[(int)gearType].ItemId = 0;
+        Managers.Object.MyPlayer.SetGear(gearType, 0, 0);
 
          _equipList[(int)gearType].ItemID = 0;
     }

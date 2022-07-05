@@ -37,9 +37,11 @@ public enum Packet : byte
   CS_REVIVE_REQ = 16,
   SC_REVIVE_RES = 17,
   SC_SPAWN_PROJECTILE_NOTI = 18,
-  CS_UNEQUIP_GEAR_REQ = 19,
-  SC_UNEQUIP_GEAR_RES = 20,
-  SC_ABILITY_INFO_NOTI = 21,
+  CS_EQUIP_GEAR_REQ = 19,
+  SC_EQUIP_GEAR_RES = 20,
+  CS_UNEQUIP_GEAR_REQ = 21,
+  SC_UNEQUIP_GEAR_RES = 22,
+  SC_ABILITY_INFO_NOTI = 23,
 };
 
 public class PacketUnion {
@@ -70,6 +72,8 @@ public class PacketUnion {
   public GamePacket.CS_REVIVE_REQT AsCS_REVIVE_REQ() { return this.As<GamePacket.CS_REVIVE_REQT>(); }
   public GamePacket.SC_REVIVE_REST AsSC_REVIVE_RES() { return this.As<GamePacket.SC_REVIVE_REST>(); }
   public GamePacket.SC_SPAWN_PROJECTILE_NOTIT AsSC_SPAWN_PROJECTILE_NOTI() { return this.As<GamePacket.SC_SPAWN_PROJECTILE_NOTIT>(); }
+  public GamePacket.CS_EQUIP_GEAR_REQT AsCS_EQUIP_GEAR_REQ() { return this.As<GamePacket.CS_EQUIP_GEAR_REQT>(); }
+  public GamePacket.SC_EQUIP_GEAR_REST AsSC_EQUIP_GEAR_RES() { return this.As<GamePacket.SC_EQUIP_GEAR_REST>(); }
   public GamePacket.CS_UNEQUIP_GEAR_REQT AsCS_UNEQUIP_GEAR_REQ() { return this.As<GamePacket.CS_UNEQUIP_GEAR_REQT>(); }
   public GamePacket.SC_UNEQUIP_GEAR_REST AsSC_UNEQUIP_GEAR_RES() { return this.As<GamePacket.SC_UNEQUIP_GEAR_REST>(); }
   public GamePacket.SC_ABILITY_INFO_NOTIT AsSC_ABILITY_INFO_NOTI() { return this.As<GamePacket.SC_ABILITY_INFO_NOTIT>(); }
@@ -95,6 +99,8 @@ public class PacketUnion {
       case Packet.CS_REVIVE_REQ: return GamePacket.CS_REVIVE_REQ.Pack(builder, _o.AsCS_REVIVE_REQ()).Value;
       case Packet.SC_REVIVE_RES: return GamePacket.SC_REVIVE_RES.Pack(builder, _o.AsSC_REVIVE_RES()).Value;
       case Packet.SC_SPAWN_PROJECTILE_NOTI: return GamePacket.SC_SPAWN_PROJECTILE_NOTI.Pack(builder, _o.AsSC_SPAWN_PROJECTILE_NOTI()).Value;
+      case Packet.CS_EQUIP_GEAR_REQ: return GamePacket.CS_EQUIP_GEAR_REQ.Pack(builder, _o.AsCS_EQUIP_GEAR_REQ()).Value;
+      case Packet.SC_EQUIP_GEAR_RES: return GamePacket.SC_EQUIP_GEAR_RES.Pack(builder, _o.AsSC_EQUIP_GEAR_RES()).Value;
       case Packet.CS_UNEQUIP_GEAR_REQ: return GamePacket.CS_UNEQUIP_GEAR_REQ.Pack(builder, _o.AsCS_UNEQUIP_GEAR_REQ()).Value;
       case Packet.SC_UNEQUIP_GEAR_RES: return GamePacket.SC_UNEQUIP_GEAR_RES.Pack(builder, _o.AsSC_UNEQUIP_GEAR_RES()).Value;
       case Packet.SC_ABILITY_INFO_NOTI: return GamePacket.SC_ABILITY_INFO_NOTI.Pack(builder, _o.AsSC_ABILITY_INFO_NOTI()).Value;
@@ -1336,6 +1342,114 @@ public class SC_SPAWN_PROJECTILE_NOTIT
   }
 }
 
+public struct CS_EQUIP_GEAR_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_EQUIP_GEAR_REQ GetRootAsCS_EQUIP_GEAR_REQ(ByteBuffer _bb) { return GetRootAsCS_EQUIP_GEAR_REQ(_bb, new CS_EQUIP_GEAR_REQ()); }
+  public static CS_EQUIP_GEAR_REQ GetRootAsCS_EQUIP_GEAR_REQ(ByteBuffer _bb, CS_EQUIP_GEAR_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_EQUIP_GEAR_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public long ItemUid { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+
+  public static Offset<GamePacket.CS_EQUIP_GEAR_REQ> CreateCS_EQUIP_GEAR_REQ(FlatBufferBuilder builder,
+      long item_uid = 0) {
+    builder.StartTable(1);
+    CS_EQUIP_GEAR_REQ.AddItemUid(builder, item_uid);
+    return CS_EQUIP_GEAR_REQ.EndCS_EQUIP_GEAR_REQ(builder);
+  }
+
+  public static void StartCS_EQUIP_GEAR_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddItemUid(FlatBufferBuilder builder, long itemUid) { builder.AddLong(0, itemUid, 0); }
+  public static Offset<GamePacket.CS_EQUIP_GEAR_REQ> EndCS_EQUIP_GEAR_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CS_EQUIP_GEAR_REQ>(o);
+  }
+  public CS_EQUIP_GEAR_REQT UnPack() {
+    var _o = new CS_EQUIP_GEAR_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_EQUIP_GEAR_REQT _o) {
+    _o.ItemUid = this.ItemUid;
+  }
+  public static Offset<GamePacket.CS_EQUIP_GEAR_REQ> Pack(FlatBufferBuilder builder, CS_EQUIP_GEAR_REQT _o) {
+    if (_o == null) return default(Offset<GamePacket.CS_EQUIP_GEAR_REQ>);
+    return CreateCS_EQUIP_GEAR_REQ(
+      builder,
+      _o.ItemUid);
+  }
+};
+
+public class CS_EQUIP_GEAR_REQT
+{
+  public long ItemUid { get; set; }
+
+  public CS_EQUIP_GEAR_REQT() {
+    this.ItemUid = 0;
+  }
+}
+
+public struct SC_EQUIP_GEAR_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_EQUIP_GEAR_RES GetRootAsSC_EQUIP_GEAR_RES(ByteBuffer _bb) { return GetRootAsSC_EQUIP_GEAR_RES(_bb, new SC_EQUIP_GEAR_RES()); }
+  public static SC_EQUIP_GEAR_RES GetRootAsSC_EQUIP_GEAR_RES(ByteBuffer _bb, SC_EQUIP_GEAR_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_EQUIP_GEAR_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public GamePacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (GamePacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : GamePacket.ErrorCode.SUCCESS; } }
+  public long ItemUid { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+
+  public static Offset<GamePacket.SC_EQUIP_GEAR_RES> CreateSC_EQUIP_GEAR_RES(FlatBufferBuilder builder,
+      GamePacket.ErrorCode result = GamePacket.ErrorCode.SUCCESS,
+      long item_uid = 0) {
+    builder.StartTable(2);
+    SC_EQUIP_GEAR_RES.AddItemUid(builder, item_uid);
+    SC_EQUIP_GEAR_RES.AddResult(builder, result);
+    return SC_EQUIP_GEAR_RES.EndSC_EQUIP_GEAR_RES(builder);
+  }
+
+  public static void StartSC_EQUIP_GEAR_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddResult(FlatBufferBuilder builder, GamePacket.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
+  public static void AddItemUid(FlatBufferBuilder builder, long itemUid) { builder.AddLong(1, itemUid, 0); }
+  public static Offset<GamePacket.SC_EQUIP_GEAR_RES> EndSC_EQUIP_GEAR_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_EQUIP_GEAR_RES>(o);
+  }
+  public SC_EQUIP_GEAR_REST UnPack() {
+    var _o = new SC_EQUIP_GEAR_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_EQUIP_GEAR_REST _o) {
+    _o.Result = this.Result;
+    _o.ItemUid = this.ItemUid;
+  }
+  public static Offset<GamePacket.SC_EQUIP_GEAR_RES> Pack(FlatBufferBuilder builder, SC_EQUIP_GEAR_REST _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_EQUIP_GEAR_RES>);
+    return CreateSC_EQUIP_GEAR_RES(
+      builder,
+      _o.Result,
+      _o.ItemUid);
+  }
+};
+
+public class SC_EQUIP_GEAR_REST
+{
+  public GamePacket.ErrorCode Result { get; set; }
+  public long ItemUid { get; set; }
+
+  public SC_EQUIP_GEAR_REST() {
+    this.Result = GamePacket.ErrorCode.SUCCESS;
+    this.ItemUid = 0;
+  }
+}
+
 public struct CS_UNEQUIP_GEAR_REQ : IFlatbufferObject
 {
   private Table __p;
@@ -1517,6 +1631,8 @@ public struct Root : IFlatbufferObject
   public GamePacket.CS_REVIVE_REQ PacketAsCS_REVIVE_REQ() { return Packet<GamePacket.CS_REVIVE_REQ>().Value; }
   public GamePacket.SC_REVIVE_RES PacketAsSC_REVIVE_RES() { return Packet<GamePacket.SC_REVIVE_RES>().Value; }
   public GamePacket.SC_SPAWN_PROJECTILE_NOTI PacketAsSC_SPAWN_PROJECTILE_NOTI() { return Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().Value; }
+  public GamePacket.CS_EQUIP_GEAR_REQ PacketAsCS_EQUIP_GEAR_REQ() { return Packet<GamePacket.CS_EQUIP_GEAR_REQ>().Value; }
+  public GamePacket.SC_EQUIP_GEAR_RES PacketAsSC_EQUIP_GEAR_RES() { return Packet<GamePacket.SC_EQUIP_GEAR_RES>().Value; }
   public GamePacket.CS_UNEQUIP_GEAR_REQ PacketAsCS_UNEQUIP_GEAR_REQ() { return Packet<GamePacket.CS_UNEQUIP_GEAR_REQ>().Value; }
   public GamePacket.SC_UNEQUIP_GEAR_RES PacketAsSC_UNEQUIP_GEAR_RES() { return Packet<GamePacket.SC_UNEQUIP_GEAR_RES>().Value; }
   public GamePacket.SC_ABILITY_INFO_NOTI PacketAsSC_ABILITY_INFO_NOTI() { return Packet<GamePacket.SC_ABILITY_INFO_NOTI>().Value; }
@@ -1602,6 +1718,12 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_SPAWN_PROJECTILE_NOTI:
         _o.Packet.Value = this.Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().HasValue ? this.Packet<GamePacket.SC_SPAWN_PROJECTILE_NOTI>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.CS_EQUIP_GEAR_REQ:
+        _o.Packet.Value = this.Packet<GamePacket.CS_EQUIP_GEAR_REQ>().HasValue ? this.Packet<GamePacket.CS_EQUIP_GEAR_REQ>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_EQUIP_GEAR_RES:
+        _o.Packet.Value = this.Packet<GamePacket.SC_EQUIP_GEAR_RES>().HasValue ? this.Packet<GamePacket.SC_EQUIP_GEAR_RES>().Value.UnPack() : null;
         break;
       case GamePacket.Packet.CS_UNEQUIP_GEAR_REQ:
         _o.Packet.Value = this.Packet<GamePacket.CS_UNEQUIP_GEAR_REQ>().HasValue ? this.Packet<GamePacket.CS_UNEQUIP_GEAR_REQ>().Value.UnPack() : null;

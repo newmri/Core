@@ -26,6 +26,7 @@ void GamePacketHandler::Register(void)
     this->func[GamePacket::Packet_SC_GET_DAMAGE_NOTI] = &GamePacketFunc::SC_GET_DAMAGE_NOTI;
     this->func[GamePacket::Packet_SC_REVIVE_RES] = &GamePacketFunc::SC_REVIVE_RES;
     this->func[GamePacket::Packet_SC_SPAWN_PROJECTILE_NOTI] = &GamePacketFunc::SC_SPAWN_PROJECTILE_NOTI;
+    this->func[GamePacket::Packet_SC_EQUIP_GEAR_RES] = &GamePacketFunc::SC_EQUIP_GEAR_RES;
     this->func[GamePacket::Packet_SC_UNEQUIP_GEAR_RES] = &GamePacketFunc::SC_UNEQUIP_GEAR_RES;
     this->func[GamePacket::Packet_SC_ABILITY_INFO_NOTI] = &GamePacketFunc::SC_ABILITY_INFO_NOTI;
 }

@@ -7,6 +7,7 @@ using UnityCoreLibrary;
 using GamePacket;
 using FlatBuffers;
 using Spine;
+using System;
 
 public class MyPlayerController : PlayerController
 {
@@ -330,4 +331,12 @@ public class MyPlayerController : PlayerController
 			}
 		}
     }
+
+    public void SetGear(GearType gearType, long itemUID, int itemID)
+    {
+		Gear.Info[(int)gearType].ItemUid = itemUID;
+		Gear.Info[(int)gearType].ItemId = itemID;
+
+		Gear = Gear;
+	}
 }

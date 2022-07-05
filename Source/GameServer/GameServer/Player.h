@@ -45,9 +45,13 @@ public:
 	void SendItemInventoryInfo(void);
 
 public:
+	void EquipGear(const int64_t itemUID);
 	void UnEquipGear(const Define::GearType gearType);
 
-protected:
+private:
+	Info::ItemSlotInfoT* GetItemSlotInfoWithNoLock(const int64_t itemUID, const uint16_t count);
+
+private:
 	void SendAbility(const Info::Ability& ability);
 
 private:

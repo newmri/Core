@@ -19,5 +19,6 @@ public:
 	bool LoadItemInventory(const int64_t accountUID, const int64_t uid, std::unordered_map<int64_t, Info::ItemSlotInfoT>& itemInventory);
 
 public:
+	bool EquipGear(const int64_t accountUID, const int64_t uid, const Define::GearType gearType, const Info::ItemSlotInfoT& itemSlotInfo);
 	bool UnEquipGear(const int64_t accountUID, const int64_t uid, const Define::GearType gearType, const NativeInfo::GearSlotInfo& gearSlotInfo);
 };

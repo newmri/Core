@@ -15,6 +15,9 @@ public:
 	const CoreItemData* const GetItemData(const int32_t itemID);
 
 public:
+	bool IsValidGearType(const Define::GearType gearType);
+
+public:
 	void CalculateAbility(const NativeInfo::CharacterGear& gear, NativeInfo::Ability& ability);
 	void CalculateAbility(const int32_t itemID, NativeInfo::Ability& ability);
 	void DecreaseAbility(const int32_t itemID, NativeInfo::Ability& ability);

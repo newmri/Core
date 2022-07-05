@@ -25,6 +25,11 @@ const CoreItemData* const CoreItemDataManager::GetItemData(const int32_t itemID)
 	return &iter->second;
 }
 
+bool CoreItemDataManager::IsValidGearType(const Define::GearType gearType)
+{
+	return IsBetween<Define::GearType>(gearType, Define::GearType_MIN, static_cast<Define::GearType>(Define::GearType_END - 1));
+}
+
 void CoreItemDataManager::CalculateAbility(const NativeInfo::CharacterGear& gear, NativeInfo::Ability& ability)
 {
 	for (const auto& d : gear.info)

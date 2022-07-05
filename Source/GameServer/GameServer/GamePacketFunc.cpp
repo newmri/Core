@@ -189,6 +189,17 @@ void GamePacketFunc::CS_REVIVE_REQ(std::shared_ptr<CoreClientSession> session, c
 	player->Revive();
 }
 
+void GamePacketFunc::CS_EQUIP_GEAR_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
+	if (IS_NULL(player))
+		return;
+
+	auto raw = static_cast<const GamePacket::CS_EQUIP_GEAR_REQ*>(data);
+
+	player->EquipGear(raw->item_uid());
+}
+
 void GamePacketFunc::CS_UNEQUIP_GEAR_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
 {
 	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());

@@ -190,9 +190,61 @@ void Player::SendItemInventoryInfo(void)
 	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_ITEM_INVENTORY_INFO_NOTI, message.Union());
 }
 
+void Player::EquipGear(const int64_t itemUID)
+{
+	GamePacket::ErrorCode result = GamePacket::ErrorCode::ErrorCode_SUCCESS;
+	PACKET_SEND_MANAGER.Clear();
+	flatbuffers::Offset<GamePacket::SC_EQUIP_GEAR_RES> message;
+	Info::Ability ability;
+	{
+		WRITE_LOCK(this->itemInventoryMutex);
+
+		auto itemSlotInfo = GetItemSlotInfoWithNoLock(itemUID, 1);
+		if (IS_NULL(itemSlotInfo))
+			return;
+
+		auto itemData = CORE_ITEM_DATA_MANAGER.GetItemData(itemSlotInfo->item_id);
+		if (IS_NULL(itemData))
+			return;
+
+		if (!CORE_ITEM_DATA_MANAGER.IsValidGearType(itemData->gearType))
+			return;
+
+		{
+			WRITE_LOCK(this->infoMutex);
+
+			if (this->characterInfo.gear.info[itemData->gearType].itemID)
+				return;
+
+			if (GAME_SERVER.GetGameDB()->EquipGear(this->session->GetAccountUID(), GetUID(), itemData->gearType, *itemSlotInfo))
+			{
+				CORE_ITEM_DATA_MANAGER.CalculateAbility(itemSlotInfo->item_id, this->creatureInfo.ability);
+				ability = flatbuffers::PackAbility(this->creatureInfo.ability);
+
+				this->characterInfo.gear.info[itemData->gearType].itemUID = itemSlotInfo->item_uid;
+				this->characterInfo.gear.info[itemData->gearType].itemID = itemSlotInfo->item_id;
+
+				this->itemInventory.erase(itemUID);
+
+				message = GamePacket::CreateSC_EQUIP_GEAR_RES(PACKET_SEND_MANAGER.builder, result, itemUID);
+			}
+			else
+			{
+				result = GamePacket::ErrorCode::ErrorCode_UNKNOWN;
+				message = GamePacket::CreateSC_EQUIP_GEAR_RES(PACKET_SEND_MANAGER.builder, result);
+			}
+		}
+	}
+
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_EQUIP_GEAR_RES, message.Union());
+
+	if (IS_SAME(GamePacket::ErrorCode::ErrorCode_SUCCESS, result))
+		SendAbility(ability);
+}
+
 void Player::UnEquipGear(const Define::GearType gearType)
 {
-	if (!IsBetween<Define::GearType>(gearType, Define::GearType_MIN, static_cast<Define::GearType>(Define::GearType_END - 1)))
+	if (!CORE_ITEM_DATA_MANAGER.IsValidGearType(gearType))
 		return;
 
 	GamePacket::ErrorCode result = GamePacket::ErrorCode::ErrorCode_SUCCESS;
@@ -202,7 +254,9 @@ void Player::UnEquipGear(const Define::GearType gearType)
 	{
 		WRITE_LOCK(this->infoMutex);
 
-		if (this->characterInfo.gear.info[gearType].itemID)
+		if (IS_ZERO(this->characterInfo.gear.info[gearType].itemID))
+			return;
+
 		{
 			WRITE_LOCK(this->itemInventoryMutex);
 
@@ -228,17 +282,23 @@ void Player::UnEquipGear(const Define::GearType gearType)
 				message = GamePacket::CreateSC_UNEQUIP_GEAR_RES(PACKET_SEND_MANAGER.builder, result);
 			}
 		}
-		else
-		{
-			result = GamePacket::ErrorCode::ErrorCode_UNKNOWN;
-			message = GamePacket::CreateSC_UNEQUIP_GEAR_RES(PACKET_SEND_MANAGER.builder, result);
-		}
 	}
 
 	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_UNEQUIP_GEAR_RES, message.Union());
 	
 	if (IS_SAME(GamePacket::ErrorCode::ErrorCode_SUCCESS, result))
 		SendAbility(ability);
+}
+
+Info::ItemSlotInfoT* Player::GetItemSlotInfoWithNoLock(const int64_t itemUID, const uint16_t count)
+{
+	if (auto iter = this->itemInventory.find(itemUID); iter != this->itemInventory.end())
+	{
+		if (iter->second.item_count >= count)
+			return &iter->second;
+	}
+
+	return nullptr;
 }
 
 void Player::SendAbility(const Info::Ability& ability)

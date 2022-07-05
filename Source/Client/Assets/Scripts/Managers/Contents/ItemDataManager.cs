@@ -75,6 +75,11 @@ public class ItemDataManager
         return itemID % (int)GetItemType(itemID);
     }
 
+    public GearType GetGearType(int itemID)
+    {
+        return (GearType)(int)GetData(itemID, "GearType");
+    }
+
     public bool CanEquip(int itemID)
     {
         switch(GetItemType(itemID))

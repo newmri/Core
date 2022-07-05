@@ -114,6 +114,26 @@ class GamePacketHandler
             spawnNoti.UnPack().Speed));
     }
 
+    public static void SC_EQUIP_GEAR_RES(PacketSession session, Root packet)
+    {
+        SC_EQUIP_GEAR_RES equipGearRes = packet.PacketAsSC_EQUIP_GEAR_RES();
+        if (ErrorCode.SUCCESS != equipGearRes.Result)
+        {
+            UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+
+            switch (equipGearRes.Result)
+            {
+                case ErrorCode.UNKNOWN:
+                    messagePopup.SetText("장착 실패", "다시 시도해주세요");
+                    break;
+            }
+
+            return;
+        }
+
+        Managers.UI.GetSceneUI<UIGameScene>().Inventory.EquipGear(equipGearRes.ItemUid);
+    }
+
     public static void SC_UNEQUIP_GEAR_RES(PacketSession session, Root packet)
     {
         SC_UNEQUIP_GEAR_RES unEquipGearRes = packet.PacketAsSC_UNEQUIP_GEAR_RES();

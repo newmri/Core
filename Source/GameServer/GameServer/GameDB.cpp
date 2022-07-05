@@ -214,6 +214,34 @@ bool GameDB::LoadItemInventory(const int64_t accountUID, const int64_t uid, std:
 	return true;
 }
 
+bool GameDB::EquipGear(const int64_t accountUID, const int64_t uid, const Define::GearType gearType, const Info::ItemSlotInfoT& itemSlotInfo)
+{
+	Prepare(L"EquipGear");
+	BindArgument(accountUID);
+	BindArgument(uid);
+	BindArgument(gearType);
+	BindArgument(itemSlotInfo.item_uid);
+	BindArgument(itemSlotInfo.item_id);
+
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
+
+	bool isSuccess = false;
+	BindCol(&isSuccess, sizeof(isSuccess));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return isSuccess;
+}
+
 bool GameDB::UnEquipGear(const int64_t accountUID, const int64_t uid, const Define::GearType gearType, const NativeInfo::GearSlotInfo& gearSlotInfo)
 {
 	Prepare(L"UnEquipGear");

@@ -95,6 +95,14 @@ struct SC_SPAWN_PROJECTILE_NOTI;
 struct SC_SPAWN_PROJECTILE_NOTIBuilder;
 struct SC_SPAWN_PROJECTILE_NOTIT;
 
+struct CS_EQUIP_GEAR_REQ;
+struct CS_EQUIP_GEAR_REQBuilder;
+struct CS_EQUIP_GEAR_REQT;
+
+struct SC_EQUIP_GEAR_RES;
+struct SC_EQUIP_GEAR_RESBuilder;
+struct SC_EQUIP_GEAR_REST;
+
 struct CS_UNEQUIP_GEAR_REQ;
 struct CS_UNEQUIP_GEAR_REQBuilder;
 struct CS_UNEQUIP_GEAR_REQT;
@@ -164,14 +172,16 @@ enum Packet : uint8_t {
   Packet_CS_REVIVE_REQ = 16,
   Packet_SC_REVIVE_RES = 17,
   Packet_SC_SPAWN_PROJECTILE_NOTI = 18,
-  Packet_CS_UNEQUIP_GEAR_REQ = 19,
-  Packet_SC_UNEQUIP_GEAR_RES = 20,
-  Packet_SC_ABILITY_INFO_NOTI = 21,
+  Packet_CS_EQUIP_GEAR_REQ = 19,
+  Packet_SC_EQUIP_GEAR_RES = 20,
+  Packet_CS_UNEQUIP_GEAR_REQ = 21,
+  Packet_SC_UNEQUIP_GEAR_RES = 22,
+  Packet_SC_ABILITY_INFO_NOTI = 23,
   Packet_MIN = Packet_NONE,
   Packet_MAX = Packet_SC_ABILITY_INFO_NOTI
 };
 
-inline const Packet (&EnumValuesPacket())[22] {
+inline const Packet (&EnumValuesPacket())[24] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -192,6 +202,8 @@ inline const Packet (&EnumValuesPacket())[22] {
     Packet_CS_REVIVE_REQ,
     Packet_SC_REVIVE_RES,
     Packet_SC_SPAWN_PROJECTILE_NOTI,
+    Packet_CS_EQUIP_GEAR_REQ,
+    Packet_SC_EQUIP_GEAR_RES,
     Packet_CS_UNEQUIP_GEAR_REQ,
     Packet_SC_UNEQUIP_GEAR_RES,
     Packet_SC_ABILITY_INFO_NOTI
@@ -200,7 +212,7 @@ inline const Packet (&EnumValuesPacket())[22] {
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[23] = {
+  static const char * const names[25] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -220,6 +232,8 @@ inline const char * const *EnumNamesPacket() {
     "CS_REVIVE_REQ",
     "SC_REVIVE_RES",
     "SC_SPAWN_PROJECTILE_NOTI",
+    "CS_EQUIP_GEAR_REQ",
+    "SC_EQUIP_GEAR_RES",
     "CS_UNEQUIP_GEAR_REQ",
     "SC_UNEQUIP_GEAR_RES",
     "SC_ABILITY_INFO_NOTI",
@@ -308,6 +322,14 @@ template<> struct PacketTraits<GamePacket::SC_REVIVE_RES> {
 
 template<> struct PacketTraits<GamePacket::SC_SPAWN_PROJECTILE_NOTI> {
   static const Packet enum_value = Packet_SC_SPAWN_PROJECTILE_NOTI;
+};
+
+template<> struct PacketTraits<GamePacket::CS_EQUIP_GEAR_REQ> {
+  static const Packet enum_value = Packet_CS_EQUIP_GEAR_REQ;
+};
+
+template<> struct PacketTraits<GamePacket::SC_EQUIP_GEAR_RES> {
+  static const Packet enum_value = Packet_SC_EQUIP_GEAR_RES;
 };
 
 template<> struct PacketTraits<GamePacket::CS_UNEQUIP_GEAR_REQ> {
@@ -497,6 +519,22 @@ struct PacketUnion {
   const GamePacket::SC_SPAWN_PROJECTILE_NOTIT *AsSC_SPAWN_PROJECTILE_NOTI() const {
     return type == Packet_SC_SPAWN_PROJECTILE_NOTI ?
       reinterpret_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTIT *>(value) : nullptr;
+  }
+  GamePacket::CS_EQUIP_GEAR_REQT *AsCS_EQUIP_GEAR_REQ() {
+    return type == Packet_CS_EQUIP_GEAR_REQ ?
+      reinterpret_cast<GamePacket::CS_EQUIP_GEAR_REQT *>(value) : nullptr;
+  }
+  const GamePacket::CS_EQUIP_GEAR_REQT *AsCS_EQUIP_GEAR_REQ() const {
+    return type == Packet_CS_EQUIP_GEAR_REQ ?
+      reinterpret_cast<const GamePacket::CS_EQUIP_GEAR_REQT *>(value) : nullptr;
+  }
+  GamePacket::SC_EQUIP_GEAR_REST *AsSC_EQUIP_GEAR_RES() {
+    return type == Packet_SC_EQUIP_GEAR_RES ?
+      reinterpret_cast<GamePacket::SC_EQUIP_GEAR_REST *>(value) : nullptr;
+  }
+  const GamePacket::SC_EQUIP_GEAR_REST *AsSC_EQUIP_GEAR_RES() const {
+    return type == Packet_SC_EQUIP_GEAR_RES ?
+      reinterpret_cast<const GamePacket::SC_EQUIP_GEAR_REST *>(value) : nullptr;
   }
   GamePacket::CS_UNEQUIP_GEAR_REQT *AsCS_UNEQUIP_GEAR_REQ() {
     return type == Packet_CS_UNEQUIP_GEAR_REQ ?
@@ -1960,6 +1998,121 @@ inline flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_N
 
 flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_SPAWN_PROJECTILE_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct CS_EQUIP_GEAR_REQT : public flatbuffers::NativeTable {
+  typedef CS_EQUIP_GEAR_REQ TableType;
+  int64_t item_uid = 0;
+};
+
+struct CS_EQUIP_GEAR_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_EQUIP_GEAR_REQT NativeTableType;
+  typedef CS_EQUIP_GEAR_REQBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_ITEM_UID = 4
+  };
+  int64_t item_uid() const {
+    return GetField<int64_t>(VT_ITEM_UID, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int64_t>(verifier, VT_ITEM_UID) &&
+           verifier.EndTable();
+  }
+  CS_EQUIP_GEAR_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_EQUIP_GEAR_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_EQUIP_GEAR_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_EQUIP_GEAR_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct CS_EQUIP_GEAR_REQBuilder {
+  typedef CS_EQUIP_GEAR_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_item_uid(int64_t item_uid) {
+    fbb_.AddElement<int64_t>(CS_EQUIP_GEAR_REQ::VT_ITEM_UID, item_uid, 0);
+  }
+  explicit CS_EQUIP_GEAR_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_EQUIP_GEAR_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_EQUIP_GEAR_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_EQUIP_GEAR_REQ> CreateCS_EQUIP_GEAR_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    int64_t item_uid = 0) {
+  CS_EQUIP_GEAR_REQBuilder builder_(_fbb);
+  builder_.add_item_uid(item_uid);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<CS_EQUIP_GEAR_REQ> CreateCS_EQUIP_GEAR_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_EQUIP_GEAR_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_EQUIP_GEAR_REST : public flatbuffers::NativeTable {
+  typedef SC_EQUIP_GEAR_RES TableType;
+  GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS;
+  int64_t item_uid = 0;
+};
+
+struct SC_EQUIP_GEAR_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_EQUIP_GEAR_REST NativeTableType;
+  typedef SC_EQUIP_GEAR_RESBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_RESULT = 4,
+    VT_ITEM_UID = 6
+  };
+  GamePacket::ErrorCode result() const {
+    return static_cast<GamePacket::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
+  }
+  int64_t item_uid() const {
+    return GetField<int64_t>(VT_ITEM_UID, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int8_t>(verifier, VT_RESULT) &&
+           VerifyField<int64_t>(verifier, VT_ITEM_UID) &&
+           verifier.EndTable();
+  }
+  SC_EQUIP_GEAR_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_EQUIP_GEAR_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_EQUIP_GEAR_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_EQUIP_GEAR_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_EQUIP_GEAR_RESBuilder {
+  typedef SC_EQUIP_GEAR_RES Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_result(GamePacket::ErrorCode result) {
+    fbb_.AddElement<int8_t>(SC_EQUIP_GEAR_RES::VT_RESULT, static_cast<int8_t>(result), 0);
+  }
+  void add_item_uid(int64_t item_uid) {
+    fbb_.AddElement<int64_t>(SC_EQUIP_GEAR_RES::VT_ITEM_UID, item_uid, 0);
+  }
+  explicit SC_EQUIP_GEAR_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_EQUIP_GEAR_RES> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_EQUIP_GEAR_RES>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_EQUIP_GEAR_RES> CreateSC_EQUIP_GEAR_RES(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
+    int64_t item_uid = 0) {
+  SC_EQUIP_GEAR_RESBuilder builder_(_fbb);
+  builder_.add_item_uid(item_uid);
+  builder_.add_result(result);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_EQUIP_GEAR_RES> CreateSC_EQUIP_GEAR_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_EQUIP_GEAR_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct CS_UNEQUIP_GEAR_REQT : public flatbuffers::NativeTable {
   typedef CS_UNEQUIP_GEAR_REQ TableType;
   Define::GearType gear_type = Define::GearType_LEFT_HAND;
@@ -2200,6 +2353,12 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const GamePacket::SC_SPAWN_PROJECTILE_NOTI *packet_as_SC_SPAWN_PROJECTILE_NOTI() const {
     return packet_type() == GamePacket::Packet_SC_SPAWN_PROJECTILE_NOTI ? static_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTI *>(packet()) : nullptr;
   }
+  const GamePacket::CS_EQUIP_GEAR_REQ *packet_as_CS_EQUIP_GEAR_REQ() const {
+    return packet_type() == GamePacket::Packet_CS_EQUIP_GEAR_REQ ? static_cast<const GamePacket::CS_EQUIP_GEAR_REQ *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_EQUIP_GEAR_RES *packet_as_SC_EQUIP_GEAR_RES() const {
+    return packet_type() == GamePacket::Packet_SC_EQUIP_GEAR_RES ? static_cast<const GamePacket::SC_EQUIP_GEAR_RES *>(packet()) : nullptr;
+  }
   const GamePacket::CS_UNEQUIP_GEAR_REQ *packet_as_CS_UNEQUIP_GEAR_REQ() const {
     return packet_type() == GamePacket::Packet_CS_UNEQUIP_GEAR_REQ ? static_cast<const GamePacket::CS_UNEQUIP_GEAR_REQ *>(packet()) : nullptr;
   }
@@ -2291,6 +2450,14 @@ template<> inline const GamePacket::SC_REVIVE_RES *Root::packet_as<GamePacket::S
 
 template<> inline const GamePacket::SC_SPAWN_PROJECTILE_NOTI *Root::packet_as<GamePacket::SC_SPAWN_PROJECTILE_NOTI>() const {
   return packet_as_SC_SPAWN_PROJECTILE_NOTI();
+}
+
+template<> inline const GamePacket::CS_EQUIP_GEAR_REQ *Root::packet_as<GamePacket::CS_EQUIP_GEAR_REQ>() const {
+  return packet_as_CS_EQUIP_GEAR_REQ();
+}
+
+template<> inline const GamePacket::SC_EQUIP_GEAR_RES *Root::packet_as<GamePacket::SC_EQUIP_GEAR_RES>() const {
+  return packet_as_SC_EQUIP_GEAR_RES();
 }
 
 template<> inline const GamePacket::CS_UNEQUIP_GEAR_REQ *Root::packet_as<GamePacket::CS_UNEQUIP_GEAR_REQ>() const {
@@ -2935,6 +3102,61 @@ inline flatbuffers::Offset<SC_SPAWN_PROJECTILE_NOTI> CreateSC_SPAWN_PROJECTILE_N
       _speed);
 }
 
+inline CS_EQUIP_GEAR_REQT *CS_EQUIP_GEAR_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_EQUIP_GEAR_REQT>(new CS_EQUIP_GEAR_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_EQUIP_GEAR_REQ::UnPackTo(CS_EQUIP_GEAR_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = item_uid(); _o->item_uid = _e; }
+}
+
+inline flatbuffers::Offset<CS_EQUIP_GEAR_REQ> CS_EQUIP_GEAR_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_EQUIP_GEAR_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_EQUIP_GEAR_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_EQUIP_GEAR_REQ> CreateCS_EQUIP_GEAR_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_EQUIP_GEAR_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_EQUIP_GEAR_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _item_uid = _o->item_uid;
+  return GamePacket::CreateCS_EQUIP_GEAR_REQ(
+      _fbb,
+      _item_uid);
+}
+
+inline SC_EQUIP_GEAR_REST *SC_EQUIP_GEAR_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_EQUIP_GEAR_REST>(new SC_EQUIP_GEAR_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_EQUIP_GEAR_RES::UnPackTo(SC_EQUIP_GEAR_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = result(); _o->result = _e; }
+  { auto _e = item_uid(); _o->item_uid = _e; }
+}
+
+inline flatbuffers::Offset<SC_EQUIP_GEAR_RES> SC_EQUIP_GEAR_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_EQUIP_GEAR_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_EQUIP_GEAR_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_EQUIP_GEAR_RES> CreateSC_EQUIP_GEAR_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_EQUIP_GEAR_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_EQUIP_GEAR_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _result = _o->result;
+  auto _item_uid = _o->item_uid;
+  return GamePacket::CreateSC_EQUIP_GEAR_RES(
+      _fbb,
+      _result,
+      _item_uid);
+}
+
 inline CS_UNEQUIP_GEAR_REQT *CS_UNEQUIP_GEAR_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<CS_UNEQUIP_GEAR_REQT>(new CS_UNEQUIP_GEAR_REQT());
   UnPackTo(_o.get(), _resolver);
@@ -3122,6 +3344,14 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTI *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_CS_EQUIP_GEAR_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_EQUIP_GEAR_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_SC_EQUIP_GEAR_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_EQUIP_GEAR_RES *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     case Packet_CS_UNEQUIP_GEAR_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_UNEQUIP_GEAR_REQ *>(obj);
       return verifier.VerifyTable(ptr);
@@ -3224,6 +3454,14 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTI *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_CS_EQUIP_GEAR_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_EQUIP_GEAR_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_EQUIP_GEAR_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_EQUIP_GEAR_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
     case Packet_CS_UNEQUIP_GEAR_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_UNEQUIP_GEAR_REQ *>(obj);
       return ptr->UnPack(resolver);
@@ -3314,6 +3552,14 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_SPAWN_PROJECTILE_NOTIT *>(value);
       return CreateSC_SPAWN_PROJECTILE_NOTI(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_CS_EQUIP_GEAR_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_EQUIP_GEAR_REQT *>(value);
+      return CreateCS_EQUIP_GEAR_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_EQUIP_GEAR_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_EQUIP_GEAR_REST *>(value);
+      return CreateSC_EQUIP_GEAR_RES(_fbb, ptr, _rehasher).Union();
+    }
     case Packet_CS_UNEQUIP_GEAR_REQ: {
       auto ptr = reinterpret_cast<const GamePacket::CS_UNEQUIP_GEAR_REQT *>(value);
       return CreateCS_UNEQUIP_GEAR_REQ(_fbb, ptr, _rehasher).Union();
@@ -3402,6 +3648,14 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_SPAWN_PROJECTILE_NOTI: {
       FLATBUFFERS_ASSERT(false);  // GamePacket::SC_SPAWN_PROJECTILE_NOTIT not copyable.
+      break;
+    }
+    case Packet_CS_EQUIP_GEAR_REQ: {
+      value = new GamePacket::CS_EQUIP_GEAR_REQT(*reinterpret_cast<GamePacket::CS_EQUIP_GEAR_REQT *>(u.value));
+      break;
+    }
+    case Packet_SC_EQUIP_GEAR_RES: {
+      value = new GamePacket::SC_EQUIP_GEAR_REST(*reinterpret_cast<GamePacket::SC_EQUIP_GEAR_REST *>(u.value));
       break;
     }
     case Packet_CS_UNEQUIP_GEAR_REQ: {
@@ -3510,6 +3764,16 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_SPAWN_PROJECTILE_NOTI: {
       auto ptr = reinterpret_cast<GamePacket::SC_SPAWN_PROJECTILE_NOTIT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_EQUIP_GEAR_REQ: {
+      auto ptr = reinterpret_cast<GamePacket::CS_EQUIP_GEAR_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_EQUIP_GEAR_RES: {
+      auto ptr = reinterpret_cast<GamePacket::SC_EQUIP_GEAR_REST *>(value);
       delete ptr;
       break;
     }
