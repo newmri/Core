@@ -20,6 +20,11 @@ public static class UIExtension
         return uiBase.Get<TextMeshProUGUI>(index);
     }
 
+    public static TMP_InputField GetInputText(this UIBase uiBase, int index)
+    {
+        return uiBase.Get<TMP_InputField>(index);
+    }
+
     public static void BindEvent(this GameObject go, Action<PointerEventData> action, CoreDefine.UIEvent type = CoreDefine.UIEvent.Click)
     {
         UIBase.BindEvent(go, action, type);

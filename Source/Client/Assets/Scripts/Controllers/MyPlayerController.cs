@@ -164,6 +164,9 @@ public class MyPlayerController : PlayerController
 
 	void GetUIKeyInput()
 	{
+		if (Managers.UI.GetSceneUI<UIGameScene>().Chat.IsFocused())
+			return;
+
         if (Input.GetKeyDown(KeyCode.I))
         {
 			UIItemInventoryPopup inventory = Managers.UI.GetSceneUI<UIGameScene>().Inventory;
@@ -181,6 +184,9 @@ public class MyPlayerController : PlayerController
 	// 키보드 입력
 	void GetDirInput()
 	{
+		if (Managers.UI.GetSceneUI<UIGameScene>().Chat.IsFocused())
+			return;
+
 		_moveKeyPressed = true;
 
 		if (Input.GetKey(KeyCode.A))
@@ -199,6 +205,9 @@ public class MyPlayerController : PlayerController
 
 	void GetRunInput()
 	{
+		if (Managers.UI.GetSceneUI<UIGameScene>().Chat.IsFocused())
+			return;
+
 		if (Input.GetKey(KeyCode.LeftShift))
 		{
 			_isRunning = true;

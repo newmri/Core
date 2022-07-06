@@ -12,6 +12,11 @@ using Info;
 
 public class UIGameScene : UIScene
 {
+    enum GameObjects
+    {
+        Chat
+    }
+
     enum Sliders
     {
         HPSlider,
@@ -40,11 +45,13 @@ public class UIGameScene : UIScene
     }
 
     public UIItemInventoryPopup Inventory;
+    public UIChat Chat;
 
     public override void Init()
     {
         Managers.UI.SetCanvas(gameObject);
 
+        Bind<GameObject>(typeof(GameObjects));
         Bind<Slider>(typeof(Sliders));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
@@ -54,6 +61,12 @@ public class UIGameScene : UIScene
         GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSettingButton);
 
         Inventory = Managers.UI.ShowPopupUI<UIItemInventoryPopup>();
+        Chat = GetObject((int)GameObjects.Chat).GetComponent<UIChat>();
+    }
+
+    private void Update()
+    {
+        Chat.OnUpdate();
     }
 
     public void UpdateHPBar(int HP, int MaxHP)
