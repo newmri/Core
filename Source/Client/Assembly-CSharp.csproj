@@ -183,10 +183,11 @@
     <Compile Include="Assets\Scripts\UI\Popup\Message\UINameMessagePopup.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Login\UICharacterEmptySlot.cs" />
+    <Compile Include="Assets\Scripts\UI\Chat\UIChat.cs" />
     <Compile Include="Assets\ThirdParty\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Message\UIMessagePopup.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\WebManager.cs" />
-    <Compile Include="Assets\Scripts\UI\Chat\UIChat.cs" />
+    <Compile Include="Assets\Scripts\UI\Chat\UIChatData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\TextMesh Pro\Shaders\TMPro.cginc" />
