@@ -221,5 +221,15 @@ public enum ReviveTime : int
   COOL_TIME = 5,
 };
 
+public enum ChatType : byte
+{
+  NORMAL = 0,
+  PARTY = 1,
+  GUILD = 2,
+  WHISPER = 3,
+  SYSTEM = 4,
+  END = 5,
+};
+
 
 }

@@ -925,6 +925,48 @@ inline const char *EnumNameReviveTime(ReviveTime e) {
   return EnumNamesReviveTime()[index];
 }
 
+enum ChatType : uint8_t {
+  ChatType_NORMAL = 0,
+  ChatType_PARTY = 1,
+  ChatType_GUILD = 2,
+  ChatType_WHISPER = 3,
+  ChatType_SYSTEM = 4,
+  ChatType_END = 5,
+  ChatType_MIN = ChatType_NORMAL,
+  ChatType_MAX = ChatType_END
+};
+
+inline const ChatType (&EnumValuesChatType())[6] {
+  static const ChatType values[] = {
+    ChatType_NORMAL,
+    ChatType_PARTY,
+    ChatType_GUILD,
+    ChatType_WHISPER,
+    ChatType_SYSTEM,
+    ChatType_END
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesChatType() {
+  static const char * const names[7] = {
+    "NORMAL",
+    "PARTY",
+    "GUILD",
+    "WHISPER",
+    "SYSTEM",
+    "END",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameChatType(ChatType e) {
+  if (flatbuffers::IsOutRange(e, ChatType_NORMAL, ChatType_END)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesChatType()[index];
+}
+
 }  // namespace Define
 
 #endif  // FLATBUFFERS_GENERATED_DEFINEPROTOCOL_DEFINE_H_

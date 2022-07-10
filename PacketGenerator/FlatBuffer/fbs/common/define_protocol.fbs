@@ -211,3 +211,13 @@ enum ReviveTime : int32
 {
     COOL_TIME = 5,
 }
+
+enum ChatType : ubyte
+{
+    NORMAL,
+    PARTY,
+    GUILD,
+    WHISPER,
+    SYSTEM,
+    END
+}

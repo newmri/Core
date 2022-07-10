@@ -1,19 +1,13 @@
+using Define;
+using FlatBuffers;
+using GamePacket;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityCoreLibrary;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-public enum ChatType
-{
-    NORMAL,
-    PARTY,
-    GUILD,
-    WHISPER,
-    SYSTEM,
-    MAX
-}
 
 public class UIChat : UIBase
 {
@@ -49,12 +43,15 @@ public class UIChat : UIBase
 
     private ChatType _currInputType;
     private Color _currTextColor;
+
     public override void Init()
     {
         Bind<GameObject>(typeof(GameObjects));
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<TMP_InputField>(typeof(InputTexts));
+
+        GetButton((int)Buttons.ChatTypeButton).gameObject.BindEvent(OnClickChatTypeButton);
 
         gameObject.SetActive(false);
         _currInputType = ChatType.NORMAL;
@@ -85,9 +82,10 @@ public class UIChat : UIBase
         {
             if (this.GetInputText((int)InputTexts.ChatInputText).text.Length > 0)
             {
-                GameObject go = CoreManagers.Resource.Instantiate($"UI/UIChatText", GetObject((int)GameObjects.ChatContent).transform, 20);
-                UIChatData chatData = go.GetComponent<UIChatData>();
-                chatData.SetChatData(_currInputType, _currTextColor, $"{this.GetInputText((int)InputTexts.ChatInputText).text}");
+                FlatBufferBuilder builder = new FlatBufferBuilder(1);
+                StringOffset chatMessage = builder.CreateString(this.GetInputText((int)InputTexts.ChatInputText).text);
+                var message = CS_NORMAL_CHAT_REQ.CreateCS_NORMAL_CHAT_REQ(builder, _currInputType, chatMessage);
+                Managers.GameNetwork.Send(builder, Packet.CS_NORMAL_CHAT_REQ, message.Value);
 
                 this.GetInputText((int)InputTexts.ChatInputText).text = "";
             }
@@ -104,7 +102,7 @@ public class UIChat : UIBase
 
     private void UpdateChatInputType()
     {
-        _currInputType = (int)_currInputType < (int)ChatType.MAX - 3 ? _currInputType + 1 : 0;
+        _currInputType = (int)_currInputType < (int)ChatType.END - 3 ? _currInputType + 1 : 0;
         OnChangedChatInputType();
     }
 
@@ -114,5 +112,17 @@ public class UIChat : UIBase
         this.GetTextMesh((int)TextMeshProUGUIs.ChatTypeText).text = _chatInputTypeName[(int)_currInputType];
 
         _currTextColor = _textColorList[(int)_currInputType];
+    }
+
+    private void OnClickChatTypeButton(PointerEventData evt)
+    {
+        UpdateChatInputType();
+    }
+
+    public void AddMessage(long oid, ChatType chatType, string message)
+    {
+        GameObject go = CoreManagers.Resource.Instantiate($"UI/UIChatText", GetObject((int)GameObjects.ChatContent).transform, 20);
+        UIChatData chatData = go.GetComponent<UIChatData>();
+        chatData.SetChatData(chatType, _textColorList[(int)chatType], Managers.Object.GetCharacterName(oid) + ": " + message);
     }
 }

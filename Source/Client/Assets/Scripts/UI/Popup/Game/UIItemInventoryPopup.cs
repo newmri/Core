@@ -92,6 +92,7 @@ public class UIItemInventoryPopup : UIPopup
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
         UpdateAbility();
         OnDeselectedItemSlot();
+
         var gear = Managers.Object.MyPlayer.Gear;
         for (GearType gearType = 0; gearType < GearType.HAIR; ++gearType)
         {

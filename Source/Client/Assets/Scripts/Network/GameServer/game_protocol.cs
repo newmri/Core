@@ -42,6 +42,8 @@ public enum Packet : byte
   CS_UNEQUIP_GEAR_REQ = 21,
   SC_UNEQUIP_GEAR_RES = 22,
   SC_ABILITY_INFO_NOTI = 23,
+  CS_NORMAL_CHAT_REQ = 24,
+  SC_NORMAL_CHAT_RES = 25,
 };
 
 public class PacketUnion {
@@ -77,6 +79,8 @@ public class PacketUnion {
   public GamePacket.CS_UNEQUIP_GEAR_REQT AsCS_UNEQUIP_GEAR_REQ() { return this.As<GamePacket.CS_UNEQUIP_GEAR_REQT>(); }
   public GamePacket.SC_UNEQUIP_GEAR_REST AsSC_UNEQUIP_GEAR_RES() { return this.As<GamePacket.SC_UNEQUIP_GEAR_REST>(); }
   public GamePacket.SC_ABILITY_INFO_NOTIT AsSC_ABILITY_INFO_NOTI() { return this.As<GamePacket.SC_ABILITY_INFO_NOTIT>(); }
+  public GamePacket.CS_NORMAL_CHAT_REQT AsCS_NORMAL_CHAT_REQ() { return this.As<GamePacket.CS_NORMAL_CHAT_REQT>(); }
+  public GamePacket.SC_NORMAL_CHAT_REST AsSC_NORMAL_CHAT_RES() { return this.As<GamePacket.SC_NORMAL_CHAT_REST>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -104,6 +108,8 @@ public class PacketUnion {
       case Packet.CS_UNEQUIP_GEAR_REQ: return GamePacket.CS_UNEQUIP_GEAR_REQ.Pack(builder, _o.AsCS_UNEQUIP_GEAR_REQ()).Value;
       case Packet.SC_UNEQUIP_GEAR_RES: return GamePacket.SC_UNEQUIP_GEAR_RES.Pack(builder, _o.AsSC_UNEQUIP_GEAR_RES()).Value;
       case Packet.SC_ABILITY_INFO_NOTI: return GamePacket.SC_ABILITY_INFO_NOTI.Pack(builder, _o.AsSC_ABILITY_INFO_NOTI()).Value;
+      case Packet.CS_NORMAL_CHAT_REQ: return GamePacket.CS_NORMAL_CHAT_REQ.Pack(builder, _o.AsCS_NORMAL_CHAT_REQ()).Value;
+      case Packet.SC_NORMAL_CHAT_RES: return GamePacket.SC_NORMAL_CHAT_RES.Pack(builder, _o.AsSC_NORMAL_CHAT_RES()).Value;
     }
   }
 }
@@ -1601,6 +1607,144 @@ public class SC_ABILITY_INFO_NOTIT
   }
 }
 
+public struct CS_NORMAL_CHAT_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_NORMAL_CHAT_REQ GetRootAsCS_NORMAL_CHAT_REQ(ByteBuffer _bb) { return GetRootAsCS_NORMAL_CHAT_REQ(_bb, new CS_NORMAL_CHAT_REQ()); }
+  public static CS_NORMAL_CHAT_REQ GetRootAsCS_NORMAL_CHAT_REQ(ByteBuffer _bb, CS_NORMAL_CHAT_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_NORMAL_CHAT_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.ChatType ChatType { get { int o = __p.__offset(4); return o != 0 ? (Define.ChatType)__p.bb.Get(o + __p.bb_pos) : Define.ChatType.NORMAL; } }
+  public string Message { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetMessageBytes() { return __p.__vector_as_span<byte>(6, 1); }
+#else
+  public ArraySegment<byte>? GetMessageBytes() { return __p.__vector_as_arraysegment(6); }
+#endif
+  public byte[] GetMessageArray() { return __p.__vector_as_array<byte>(6); }
+
+  public static Offset<GamePacket.CS_NORMAL_CHAT_REQ> CreateCS_NORMAL_CHAT_REQ(FlatBufferBuilder builder,
+      Define.ChatType chat_type = Define.ChatType.NORMAL,
+      StringOffset messageOffset = default(StringOffset)) {
+    builder.StartTable(2);
+    CS_NORMAL_CHAT_REQ.AddMessage(builder, messageOffset);
+    CS_NORMAL_CHAT_REQ.AddChatType(builder, chat_type);
+    return CS_NORMAL_CHAT_REQ.EndCS_NORMAL_CHAT_REQ(builder);
+  }
+
+  public static void StartCS_NORMAL_CHAT_REQ(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddChatType(FlatBufferBuilder builder, Define.ChatType chatType) { builder.AddByte(0, (byte)chatType, 0); }
+  public static void AddMessage(FlatBufferBuilder builder, StringOffset messageOffset) { builder.AddOffset(1, messageOffset.Value, 0); }
+  public static Offset<GamePacket.CS_NORMAL_CHAT_REQ> EndCS_NORMAL_CHAT_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CS_NORMAL_CHAT_REQ>(o);
+  }
+  public CS_NORMAL_CHAT_REQT UnPack() {
+    var _o = new CS_NORMAL_CHAT_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_NORMAL_CHAT_REQT _o) {
+    _o.ChatType = this.ChatType;
+    _o.Message = this.Message;
+  }
+  public static Offset<GamePacket.CS_NORMAL_CHAT_REQ> Pack(FlatBufferBuilder builder, CS_NORMAL_CHAT_REQT _o) {
+    if (_o == null) return default(Offset<GamePacket.CS_NORMAL_CHAT_REQ>);
+    var _message = _o.Message == null ? default(StringOffset) : builder.CreateString(_o.Message);
+    return CreateCS_NORMAL_CHAT_REQ(
+      builder,
+      _o.ChatType,
+      _message);
+  }
+};
+
+public class CS_NORMAL_CHAT_REQT
+{
+  public Define.ChatType ChatType { get; set; }
+  public string Message { get; set; }
+
+  public CS_NORMAL_CHAT_REQT() {
+    this.ChatType = Define.ChatType.NORMAL;
+    this.Message = null;
+  }
+}
+
+public struct SC_NORMAL_CHAT_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_NORMAL_CHAT_RES GetRootAsSC_NORMAL_CHAT_RES(ByteBuffer _bb) { return GetRootAsSC_NORMAL_CHAT_RES(_bb, new SC_NORMAL_CHAT_RES()); }
+  public static SC_NORMAL_CHAT_RES GetRootAsSC_NORMAL_CHAT_RES(ByteBuffer _bb, SC_NORMAL_CHAT_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_NORMAL_CHAT_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public long Oid { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetLong(o + __p.bb_pos) : (long)0; } }
+  public Define.ChatType ChatType { get { int o = __p.__offset(6); return o != 0 ? (Define.ChatType)__p.bb.Get(o + __p.bb_pos) : Define.ChatType.NORMAL; } }
+  public string Message { get { int o = __p.__offset(8); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetMessageBytes() { return __p.__vector_as_span<byte>(8, 1); }
+#else
+  public ArraySegment<byte>? GetMessageBytes() { return __p.__vector_as_arraysegment(8); }
+#endif
+  public byte[] GetMessageArray() { return __p.__vector_as_array<byte>(8); }
+
+  public static Offset<GamePacket.SC_NORMAL_CHAT_RES> CreateSC_NORMAL_CHAT_RES(FlatBufferBuilder builder,
+      long oid = 0,
+      Define.ChatType chat_type = Define.ChatType.NORMAL,
+      StringOffset messageOffset = default(StringOffset)) {
+    builder.StartTable(3);
+    SC_NORMAL_CHAT_RES.AddOid(builder, oid);
+    SC_NORMAL_CHAT_RES.AddMessage(builder, messageOffset);
+    SC_NORMAL_CHAT_RES.AddChatType(builder, chat_type);
+    return SC_NORMAL_CHAT_RES.EndSC_NORMAL_CHAT_RES(builder);
+  }
+
+  public static void StartSC_NORMAL_CHAT_RES(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddOid(FlatBufferBuilder builder, long oid) { builder.AddLong(0, oid, 0); }
+  public static void AddChatType(FlatBufferBuilder builder, Define.ChatType chatType) { builder.AddByte(1, (byte)chatType, 0); }
+  public static void AddMessage(FlatBufferBuilder builder, StringOffset messageOffset) { builder.AddOffset(2, messageOffset.Value, 0); }
+  public static Offset<GamePacket.SC_NORMAL_CHAT_RES> EndSC_NORMAL_CHAT_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_NORMAL_CHAT_RES>(o);
+  }
+  public SC_NORMAL_CHAT_REST UnPack() {
+    var _o = new SC_NORMAL_CHAT_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_NORMAL_CHAT_REST _o) {
+    _o.Oid = this.Oid;
+    _o.ChatType = this.ChatType;
+    _o.Message = this.Message;
+  }
+  public static Offset<GamePacket.SC_NORMAL_CHAT_RES> Pack(FlatBufferBuilder builder, SC_NORMAL_CHAT_REST _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_NORMAL_CHAT_RES>);
+    var _message = _o.Message == null ? default(StringOffset) : builder.CreateString(_o.Message);
+    return CreateSC_NORMAL_CHAT_RES(
+      builder,
+      _o.Oid,
+      _o.ChatType,
+      _message);
+  }
+};
+
+public class SC_NORMAL_CHAT_REST
+{
+  public long Oid { get; set; }
+  public Define.ChatType ChatType { get; set; }
+  public string Message { get; set; }
+
+  public SC_NORMAL_CHAT_REST() {
+    this.Oid = 0;
+    this.ChatType = Define.ChatType.NORMAL;
+    this.Message = null;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -1636,6 +1780,8 @@ public struct Root : IFlatbufferObject
   public GamePacket.CS_UNEQUIP_GEAR_REQ PacketAsCS_UNEQUIP_GEAR_REQ() { return Packet<GamePacket.CS_UNEQUIP_GEAR_REQ>().Value; }
   public GamePacket.SC_UNEQUIP_GEAR_RES PacketAsSC_UNEQUIP_GEAR_RES() { return Packet<GamePacket.SC_UNEQUIP_GEAR_RES>().Value; }
   public GamePacket.SC_ABILITY_INFO_NOTI PacketAsSC_ABILITY_INFO_NOTI() { return Packet<GamePacket.SC_ABILITY_INFO_NOTI>().Value; }
+  public GamePacket.CS_NORMAL_CHAT_REQ PacketAsCS_NORMAL_CHAT_REQ() { return Packet<GamePacket.CS_NORMAL_CHAT_REQ>().Value; }
+  public GamePacket.SC_NORMAL_CHAT_RES PacketAsSC_NORMAL_CHAT_RES() { return Packet<GamePacket.SC_NORMAL_CHAT_RES>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -1733,6 +1879,12 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_ABILITY_INFO_NOTI:
         _o.Packet.Value = this.Packet<GamePacket.SC_ABILITY_INFO_NOTI>().HasValue ? this.Packet<GamePacket.SC_ABILITY_INFO_NOTI>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.CS_NORMAL_CHAT_REQ:
+        _o.Packet.Value = this.Packet<GamePacket.CS_NORMAL_CHAT_REQ>().HasValue ? this.Packet<GamePacket.CS_NORMAL_CHAT_REQ>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_NORMAL_CHAT_RES:
+        _o.Packet.Value = this.Packet<GamePacket.SC_NORMAL_CHAT_RES>().HasValue ? this.Packet<GamePacket.SC_NORMAL_CHAT_RES>().Value.UnPack() : null;
         break;
     }
   }

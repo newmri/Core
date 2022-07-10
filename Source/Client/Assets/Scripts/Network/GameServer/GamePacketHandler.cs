@@ -164,6 +164,12 @@ class GamePacketHandler
         if (inventory.gameObject.activeSelf)
             inventory.UpdateAbility();
     }
+
+    public static void SC_NORMAL_CHAT_RES(PacketSession session, Root packet)
+    {
+        SC_NORMAL_CHAT_RES chatRes = packet.PacketAsSC_NORMAL_CHAT_RES();
+        Managers.UI.GetSceneUI<UIGameScene>().Chat.AddMessage(chatRes.Oid, chatRes.ChatType, chatRes.Message);
+    }
 }
 
 

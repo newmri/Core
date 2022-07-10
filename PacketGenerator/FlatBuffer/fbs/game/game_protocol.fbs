@@ -34,7 +34,9 @@ union Packet
     SC_EQUIP_GEAR_RES,
     CS_UNEQUIP_GEAR_REQ,
     SC_UNEQUIP_GEAR_RES,
-    SC_ABILITY_INFO_NOTI
+    SC_ABILITY_INFO_NOTI,
+    CS_NORMAL_CHAT_REQ,
+    SC_NORMAL_CHAT_RES
 }
 
 table CS_LOGIN_REQ
@@ -190,6 +192,19 @@ table SC_UNEQUIP_GEAR_RES
 table SC_ABILITY_INFO_NOTI
 {
    ability:Info.Ability (native_inline);
+}
+
+table CS_NORMAL_CHAT_REQ
+{
+   chat_type:Define.ChatType;
+   message:string;
+}
+
+table SC_NORMAL_CHAT_RES
+{
+   oid:int64;
+   chat_type:Define.ChatType;
+   message:string;
 }
 
 table Root

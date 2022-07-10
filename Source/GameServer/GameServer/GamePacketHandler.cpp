@@ -24,4 +24,5 @@ void GamePacketHandler::Register(void)
     this->func[GamePacket::Packet_CS_REVIVE_REQ] = &GamePacketFunc::CS_REVIVE_REQ;
     this->func[GamePacket::Packet_CS_EQUIP_GEAR_REQ] = &GamePacketFunc::CS_EQUIP_GEAR_REQ;
     this->func[GamePacket::Packet_CS_UNEQUIP_GEAR_REQ] = &GamePacketFunc::CS_UNEQUIP_GEAR_REQ;
+    this->func[GamePacket::Packet_CS_NORMAL_CHAT_REQ] = &GamePacketFunc::CS_NORMAL_CHAT_REQ;
 }

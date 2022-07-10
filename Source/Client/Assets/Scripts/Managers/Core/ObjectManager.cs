@@ -223,6 +223,24 @@ public class ObjectManager
         _sortOrder = sortOrder;
     }
 
+    public string GetCharacterName(long oid)
+    {
+        if (MyObjectInfo.ObjectInfo.Oid == oid)
+        {
+            return MyCharacterInfo.Name;
+        }
+        else
+        {
+            ObjectInfoT info = new ObjectInfoT { ObjectType = ObjectType.PLAYER, Oid = oid };
+
+            CreatureController creatureController = GetCreatureController(info);
+            if (creatureController == null)
+                return "";
+
+            return creatureController.name;
+        }
+    }
+
     public void Clear()
     {
         IsMyPlayerLoaded = false;

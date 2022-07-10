@@ -210,3 +210,31 @@ void GamePacketFunc::CS_UNEQUIP_GEAR_REQ(std::shared_ptr<CoreClientSession> sess
 
 	player->UnEquipGear(raw->gear_type());
 }
+
+void GamePacketFunc::CS_NORMAL_CHAT_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
+	if (IS_NULL(player))
+		return;
+
+	auto raw = static_cast<const GamePacket::CS_NORMAL_CHAT_REQ*>(data);
+
+	// 채팅 내용 체크 필요
+	switch (raw->chat_type())
+	{
+	case Define::ChatType_NORMAL:
+		break;
+	case Define::ChatType_PARTY:
+		break;
+	case Define::ChatType_GUILD:
+		break;
+	default:
+		return;
+	}
+
+	PACKET_SEND_MANAGER.Clear();
+	auto message = GamePacket::CreateSC_NORMAL_CHAT_RES(PACKET_SEND_MANAGER.builder,
+													    player->GetOID(), raw->chat_type(), PACKET_SEND_MANAGER.builder.CreateString(raw->message()));
+
+	ZONE_MANAGER.SendAll(player->GetMapID(), GamePacket::Packet_SC_NORMAL_CHAT_RES, message.Union(), player->GetPos());
+}

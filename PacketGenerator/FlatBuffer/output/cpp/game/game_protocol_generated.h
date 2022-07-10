@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "define_protocol_generated.h"
 #include "info_protocol_generated.h"
+#include "define_protocol_generated.h"
 
 namespace GamePacket {
 
@@ -115,6 +115,14 @@ struct SC_ABILITY_INFO_NOTI;
 struct SC_ABILITY_INFO_NOTIBuilder;
 struct SC_ABILITY_INFO_NOTIT;
 
+struct CS_NORMAL_CHAT_REQ;
+struct CS_NORMAL_CHAT_REQBuilder;
+struct CS_NORMAL_CHAT_REQT;
+
+struct SC_NORMAL_CHAT_RES;
+struct SC_NORMAL_CHAT_RESBuilder;
+struct SC_NORMAL_CHAT_REST;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -177,11 +185,13 @@ enum Packet : uint8_t {
   Packet_CS_UNEQUIP_GEAR_REQ = 21,
   Packet_SC_UNEQUIP_GEAR_RES = 22,
   Packet_SC_ABILITY_INFO_NOTI = 23,
+  Packet_CS_NORMAL_CHAT_REQ = 24,
+  Packet_SC_NORMAL_CHAT_RES = 25,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_ABILITY_INFO_NOTI
+  Packet_MAX = Packet_SC_NORMAL_CHAT_RES
 };
 
-inline const Packet (&EnumValuesPacket())[24] {
+inline const Packet (&EnumValuesPacket())[26] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -206,13 +216,15 @@ inline const Packet (&EnumValuesPacket())[24] {
     Packet_SC_EQUIP_GEAR_RES,
     Packet_CS_UNEQUIP_GEAR_REQ,
     Packet_SC_UNEQUIP_GEAR_RES,
-    Packet_SC_ABILITY_INFO_NOTI
+    Packet_SC_ABILITY_INFO_NOTI,
+    Packet_CS_NORMAL_CHAT_REQ,
+    Packet_SC_NORMAL_CHAT_RES
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[25] = {
+  static const char * const names[27] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -237,13 +249,15 @@ inline const char * const *EnumNamesPacket() {
     "CS_UNEQUIP_GEAR_REQ",
     "SC_UNEQUIP_GEAR_RES",
     "SC_ABILITY_INFO_NOTI",
+    "CS_NORMAL_CHAT_REQ",
+    "SC_NORMAL_CHAT_RES",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_ABILITY_INFO_NOTI)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_NORMAL_CHAT_RES)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -342,6 +356,14 @@ template<> struct PacketTraits<GamePacket::SC_UNEQUIP_GEAR_RES> {
 
 template<> struct PacketTraits<GamePacket::SC_ABILITY_INFO_NOTI> {
   static const Packet enum_value = Packet_SC_ABILITY_INFO_NOTI;
+};
+
+template<> struct PacketTraits<GamePacket::CS_NORMAL_CHAT_REQ> {
+  static const Packet enum_value = Packet_CS_NORMAL_CHAT_REQ;
+};
+
+template<> struct PacketTraits<GamePacket::SC_NORMAL_CHAT_RES> {
+  static const Packet enum_value = Packet_SC_NORMAL_CHAT_RES;
 };
 
 struct PacketUnion {
@@ -559,6 +581,22 @@ struct PacketUnion {
   const GamePacket::SC_ABILITY_INFO_NOTIT *AsSC_ABILITY_INFO_NOTI() const {
     return type == Packet_SC_ABILITY_INFO_NOTI ?
       reinterpret_cast<const GamePacket::SC_ABILITY_INFO_NOTIT *>(value) : nullptr;
+  }
+  GamePacket::CS_NORMAL_CHAT_REQT *AsCS_NORMAL_CHAT_REQ() {
+    return type == Packet_CS_NORMAL_CHAT_REQ ?
+      reinterpret_cast<GamePacket::CS_NORMAL_CHAT_REQT *>(value) : nullptr;
+  }
+  const GamePacket::CS_NORMAL_CHAT_REQT *AsCS_NORMAL_CHAT_REQ() const {
+    return type == Packet_CS_NORMAL_CHAT_REQ ?
+      reinterpret_cast<const GamePacket::CS_NORMAL_CHAT_REQT *>(value) : nullptr;
+  }
+  GamePacket::SC_NORMAL_CHAT_REST *AsSC_NORMAL_CHAT_RES() {
+    return type == Packet_SC_NORMAL_CHAT_RES ?
+      reinterpret_cast<GamePacket::SC_NORMAL_CHAT_REST *>(value) : nullptr;
+  }
+  const GamePacket::SC_NORMAL_CHAT_REST *AsSC_NORMAL_CHAT_RES() const {
+    return type == Packet_SC_NORMAL_CHAT_RES ?
+      reinterpret_cast<const GamePacket::SC_NORMAL_CHAT_REST *>(value) : nullptr;
   }
 };
 
@@ -2280,6 +2318,169 @@ inline flatbuffers::Offset<SC_ABILITY_INFO_NOTI> CreateSC_ABILITY_INFO_NOTI(
 
 flatbuffers::Offset<SC_ABILITY_INFO_NOTI> CreateSC_ABILITY_INFO_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_ABILITY_INFO_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct CS_NORMAL_CHAT_REQT : public flatbuffers::NativeTable {
+  typedef CS_NORMAL_CHAT_REQ TableType;
+  Define::ChatType chat_type = Define::ChatType_NORMAL;
+  std::string message{};
+};
+
+struct CS_NORMAL_CHAT_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_NORMAL_CHAT_REQT NativeTableType;
+  typedef CS_NORMAL_CHAT_REQBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_CHAT_TYPE = 4,
+    VT_MESSAGE = 6
+  };
+  Define::ChatType chat_type() const {
+    return static_cast<Define::ChatType>(GetField<uint8_t>(VT_CHAT_TYPE, 0));
+  }
+  const flatbuffers::String *message() const {
+    return GetPointer<const flatbuffers::String *>(VT_MESSAGE);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_CHAT_TYPE) &&
+           VerifyOffset(verifier, VT_MESSAGE) &&
+           verifier.VerifyString(message()) &&
+           verifier.EndTable();
+  }
+  CS_NORMAL_CHAT_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_NORMAL_CHAT_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_NORMAL_CHAT_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_NORMAL_CHAT_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct CS_NORMAL_CHAT_REQBuilder {
+  typedef CS_NORMAL_CHAT_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_chat_type(Define::ChatType chat_type) {
+    fbb_.AddElement<uint8_t>(CS_NORMAL_CHAT_REQ::VT_CHAT_TYPE, static_cast<uint8_t>(chat_type), 0);
+  }
+  void add_message(flatbuffers::Offset<flatbuffers::String> message) {
+    fbb_.AddOffset(CS_NORMAL_CHAT_REQ::VT_MESSAGE, message);
+  }
+  explicit CS_NORMAL_CHAT_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_NORMAL_CHAT_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_NORMAL_CHAT_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_NORMAL_CHAT_REQ> CreateCS_NORMAL_CHAT_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    Define::ChatType chat_type = Define::ChatType_NORMAL,
+    flatbuffers::Offset<flatbuffers::String> message = 0) {
+  CS_NORMAL_CHAT_REQBuilder builder_(_fbb);
+  builder_.add_message(message);
+  builder_.add_chat_type(chat_type);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<CS_NORMAL_CHAT_REQ> CreateCS_NORMAL_CHAT_REQDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    Define::ChatType chat_type = Define::ChatType_NORMAL,
+    const char *message = nullptr) {
+  auto message__ = message ? _fbb.CreateString(message) : 0;
+  return GamePacket::CreateCS_NORMAL_CHAT_REQ(
+      _fbb,
+      chat_type,
+      message__);
+}
+
+flatbuffers::Offset<CS_NORMAL_CHAT_REQ> CreateCS_NORMAL_CHAT_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_NORMAL_CHAT_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_NORMAL_CHAT_REST : public flatbuffers::NativeTable {
+  typedef SC_NORMAL_CHAT_RES TableType;
+  int64_t oid = 0;
+  Define::ChatType chat_type = Define::ChatType_NORMAL;
+  std::string message{};
+};
+
+struct SC_NORMAL_CHAT_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_NORMAL_CHAT_REST NativeTableType;
+  typedef SC_NORMAL_CHAT_RESBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_OID = 4,
+    VT_CHAT_TYPE = 6,
+    VT_MESSAGE = 8
+  };
+  int64_t oid() const {
+    return GetField<int64_t>(VT_OID, 0);
+  }
+  Define::ChatType chat_type() const {
+    return static_cast<Define::ChatType>(GetField<uint8_t>(VT_CHAT_TYPE, 0));
+  }
+  const flatbuffers::String *message() const {
+    return GetPointer<const flatbuffers::String *>(VT_MESSAGE);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int64_t>(verifier, VT_OID) &&
+           VerifyField<uint8_t>(verifier, VT_CHAT_TYPE) &&
+           VerifyOffset(verifier, VT_MESSAGE) &&
+           verifier.VerifyString(message()) &&
+           verifier.EndTable();
+  }
+  SC_NORMAL_CHAT_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_NORMAL_CHAT_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_NORMAL_CHAT_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_NORMAL_CHAT_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_NORMAL_CHAT_RESBuilder {
+  typedef SC_NORMAL_CHAT_RES Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_oid(int64_t oid) {
+    fbb_.AddElement<int64_t>(SC_NORMAL_CHAT_RES::VT_OID, oid, 0);
+  }
+  void add_chat_type(Define::ChatType chat_type) {
+    fbb_.AddElement<uint8_t>(SC_NORMAL_CHAT_RES::VT_CHAT_TYPE, static_cast<uint8_t>(chat_type), 0);
+  }
+  void add_message(flatbuffers::Offset<flatbuffers::String> message) {
+    fbb_.AddOffset(SC_NORMAL_CHAT_RES::VT_MESSAGE, message);
+  }
+  explicit SC_NORMAL_CHAT_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_NORMAL_CHAT_RES> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_NORMAL_CHAT_RES>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_NORMAL_CHAT_RES> CreateSC_NORMAL_CHAT_RES(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    int64_t oid = 0,
+    Define::ChatType chat_type = Define::ChatType_NORMAL,
+    flatbuffers::Offset<flatbuffers::String> message = 0) {
+  SC_NORMAL_CHAT_RESBuilder builder_(_fbb);
+  builder_.add_oid(oid);
+  builder_.add_message(message);
+  builder_.add_chat_type(chat_type);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<SC_NORMAL_CHAT_RES> CreateSC_NORMAL_CHAT_RESDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    int64_t oid = 0,
+    Define::ChatType chat_type = Define::ChatType_NORMAL,
+    const char *message = nullptr) {
+  auto message__ = message ? _fbb.CreateString(message) : 0;
+  return GamePacket::CreateSC_NORMAL_CHAT_RES(
+      _fbb,
+      oid,
+      chat_type,
+      message__);
+}
+
+flatbuffers::Offset<SC_NORMAL_CHAT_RES> CreateSC_NORMAL_CHAT_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_NORMAL_CHAT_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -2367,6 +2568,12 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_ABILITY_INFO_NOTI *packet_as_SC_ABILITY_INFO_NOTI() const {
     return packet_type() == GamePacket::Packet_SC_ABILITY_INFO_NOTI ? static_cast<const GamePacket::SC_ABILITY_INFO_NOTI *>(packet()) : nullptr;
+  }
+  const GamePacket::CS_NORMAL_CHAT_REQ *packet_as_CS_NORMAL_CHAT_REQ() const {
+    return packet_type() == GamePacket::Packet_CS_NORMAL_CHAT_REQ ? static_cast<const GamePacket::CS_NORMAL_CHAT_REQ *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_NORMAL_CHAT_RES *packet_as_SC_NORMAL_CHAT_RES() const {
+    return packet_type() == GamePacket::Packet_SC_NORMAL_CHAT_RES ? static_cast<const GamePacket::SC_NORMAL_CHAT_RES *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -2470,6 +2677,14 @@ template<> inline const GamePacket::SC_UNEQUIP_GEAR_RES *Root::packet_as<GamePac
 
 template<> inline const GamePacket::SC_ABILITY_INFO_NOTI *Root::packet_as<GamePacket::SC_ABILITY_INFO_NOTI>() const {
   return packet_as_SC_ABILITY_INFO_NOTI();
+}
+
+template<> inline const GamePacket::CS_NORMAL_CHAT_REQ *Root::packet_as<GamePacket::CS_NORMAL_CHAT_REQ>() const {
+  return packet_as_CS_NORMAL_CHAT_REQ();
+}
+
+template<> inline const GamePacket::SC_NORMAL_CHAT_RES *Root::packet_as<GamePacket::SC_NORMAL_CHAT_RES>() const {
+  return packet_as_SC_NORMAL_CHAT_RES();
 }
 
 struct RootBuilder {
@@ -3238,6 +3453,67 @@ inline flatbuffers::Offset<SC_ABILITY_INFO_NOTI> CreateSC_ABILITY_INFO_NOTI(flat
       &_ability);
 }
 
+inline CS_NORMAL_CHAT_REQT *CS_NORMAL_CHAT_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_NORMAL_CHAT_REQT>(new CS_NORMAL_CHAT_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_NORMAL_CHAT_REQ::UnPackTo(CS_NORMAL_CHAT_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = chat_type(); _o->chat_type = _e; }
+  { auto _e = message(); if (_e) _o->message = _e->str(); }
+}
+
+inline flatbuffers::Offset<CS_NORMAL_CHAT_REQ> CS_NORMAL_CHAT_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_NORMAL_CHAT_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_NORMAL_CHAT_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_NORMAL_CHAT_REQ> CreateCS_NORMAL_CHAT_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_NORMAL_CHAT_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_NORMAL_CHAT_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _chat_type = _o->chat_type;
+  auto _message = _o->message.empty() ? 0 : _fbb.CreateString(_o->message);
+  return GamePacket::CreateCS_NORMAL_CHAT_REQ(
+      _fbb,
+      _chat_type,
+      _message);
+}
+
+inline SC_NORMAL_CHAT_REST *SC_NORMAL_CHAT_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_NORMAL_CHAT_REST>(new SC_NORMAL_CHAT_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_NORMAL_CHAT_RES::UnPackTo(SC_NORMAL_CHAT_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = oid(); _o->oid = _e; }
+  { auto _e = chat_type(); _o->chat_type = _e; }
+  { auto _e = message(); if (_e) _o->message = _e->str(); }
+}
+
+inline flatbuffers::Offset<SC_NORMAL_CHAT_RES> SC_NORMAL_CHAT_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_NORMAL_CHAT_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_NORMAL_CHAT_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_NORMAL_CHAT_RES> CreateSC_NORMAL_CHAT_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_NORMAL_CHAT_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_NORMAL_CHAT_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _oid = _o->oid;
+  auto _chat_type = _o->chat_type;
+  auto _message = _o->message.empty() ? 0 : _fbb.CreateString(_o->message);
+  return GamePacket::CreateSC_NORMAL_CHAT_RES(
+      _fbb,
+      _oid,
+      _chat_type,
+      _message);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -3364,6 +3640,14 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_ABILITY_INFO_NOTI *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_CS_NORMAL_CHAT_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_NORMAL_CHAT_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_SC_NORMAL_CHAT_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_NORMAL_CHAT_RES *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -3474,6 +3758,14 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_ABILITY_INFO_NOTI *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_CS_NORMAL_CHAT_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_NORMAL_CHAT_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_NORMAL_CHAT_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_NORMAL_CHAT_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -3572,6 +3864,14 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_ABILITY_INFO_NOTIT *>(value);
       return CreateSC_ABILITY_INFO_NOTI(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_CS_NORMAL_CHAT_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_NORMAL_CHAT_REQT *>(value);
+      return CreateCS_NORMAL_CHAT_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_NORMAL_CHAT_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_NORMAL_CHAT_REST *>(value);
+      return CreateSC_NORMAL_CHAT_RES(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -3668,6 +3968,14 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_ABILITY_INFO_NOTI: {
       value = new GamePacket::SC_ABILITY_INFO_NOTIT(*reinterpret_cast<GamePacket::SC_ABILITY_INFO_NOTIT *>(u.value));
+      break;
+    }
+    case Packet_CS_NORMAL_CHAT_REQ: {
+      value = new GamePacket::CS_NORMAL_CHAT_REQT(*reinterpret_cast<GamePacket::CS_NORMAL_CHAT_REQT *>(u.value));
+      break;
+    }
+    case Packet_SC_NORMAL_CHAT_RES: {
+      value = new GamePacket::SC_NORMAL_CHAT_REST(*reinterpret_cast<GamePacket::SC_NORMAL_CHAT_REST *>(u.value));
       break;
     }
     default:
@@ -3789,6 +4097,16 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_ABILITY_INFO_NOTI: {
       auto ptr = reinterpret_cast<GamePacket::SC_ABILITY_INFO_NOTIT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_NORMAL_CHAT_REQ: {
+      auto ptr = reinterpret_cast<GamePacket::CS_NORMAL_CHAT_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_NORMAL_CHAT_RES: {
+      auto ptr = reinterpret_cast<GamePacket::SC_NORMAL_CHAT_REST *>(value);
       delete ptr;
       break;
     }

@@ -29,4 +29,5 @@ void GamePacketHandler::Register(void)
     this->func[GamePacket::Packet_SC_EQUIP_GEAR_RES] = &GamePacketFunc::SC_EQUIP_GEAR_RES;
     this->func[GamePacket::Packet_SC_UNEQUIP_GEAR_RES] = &GamePacketFunc::SC_UNEQUIP_GEAR_RES;
     this->func[GamePacket::Packet_SC_ABILITY_INFO_NOTI] = &GamePacketFunc::SC_ABILITY_INFO_NOTI;
+    this->func[GamePacket::Packet_SC_NORMAL_CHAT_RES] = &GamePacketFunc::SC_NORMAL_CHAT_RES;
 }

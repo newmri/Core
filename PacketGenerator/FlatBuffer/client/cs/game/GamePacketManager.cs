@@ -37,6 +37,7 @@ class GamePacketManager
        _handler.Add(Packet.SC_EQUIP_GEAR_RES, GamePacketHandler.SC_EQUIP_GEAR_RES);
        _handler.Add(Packet.SC_UNEQUIP_GEAR_RES, GamePacketHandler.SC_UNEQUIP_GEAR_RES);
        _handler.Add(Packet.SC_ABILITY_INFO_NOTI, GamePacketHandler.SC_ABILITY_INFO_NOTI);
+       _handler.Add(Packet.SC_NORMAL_CHAT_RES, GamePacketHandler.SC_NORMAL_CHAT_RES);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
