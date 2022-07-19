@@ -162,6 +162,29 @@ inline const char *EnumNameCharacterLimit(CharacterLimit e) {
   return EnumNamesCharacterLimit()[index];
 }
 
+enum ChatLimit : uint8_t {
+  ChatLimit_MinChatLen = 1,
+  ChatLimit_MaxChatLen = 24,
+  ChatLimit_MIN = ChatLimit_MinChatLen,
+  ChatLimit_MAX = ChatLimit_MaxChatLen
+};
+
+inline const ChatLimit (&EnumValuesChatLimit())[2] {
+  static const ChatLimit values[] = {
+    ChatLimit_MinChatLen,
+    ChatLimit_MaxChatLen
+  };
+  return values;
+}
+
+inline const char *EnumNameChatLimit(ChatLimit e) {
+  switch (e) {
+    case ChatLimit_MinChatLen: return "MinChatLen";
+    case ChatLimit_MaxChatLen: return "MaxChatLen";
+    default: return "";
+  }
+}
+
 enum StatType : uint8_t {
   StatType_STR = 0,
   StatType_DEX = 1,

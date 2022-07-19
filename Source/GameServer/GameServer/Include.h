@@ -25,3 +25,4 @@
 #include "GameDB.h"
 #include "GameServer.h"
 #include "GameServerManager.h"
+#include "CheatManager.h"

@@ -42,6 +42,12 @@ public enum CharacterLimit : byte
   MaxNameLen = 8,
 };
 
+public enum ChatLimit : byte
+{
+  MinChatLen = 1,
+  MaxChatLen = 24,
+};
+
 public enum StatType : byte
 {
   STR = 0,

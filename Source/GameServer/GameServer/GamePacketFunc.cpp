@@ -219,6 +219,21 @@ void GamePacketFunc::CS_NORMAL_CHAT_REQ(std::shared_ptr<CoreClientSession> sessi
 
 	auto raw = static_cast<const GamePacket::CS_NORMAL_CHAT_REQ*>(data);
 
+	std::string chatMessage = raw->message()->str();
+	std::wstring wChatMessage = STRING_MANAGER.Widen(chatMessage);
+	if (wChatMessage.size() == 0)
+		return;
+
+	// 치트
+	if (wChatMessage._Starts_with(L"/"))
+	{
+		CHEAT_MANAGER.OnCheat(wChatMessage, player);
+		return;
+	}
+
+	else if (!STRING_MANAGER.IsValidLanguage(wChatMessage, Define::ChatLimit_MinChatLen, Define::ChatLimit_MaxChatLen))
+		return;
+
 	// 채팅 내용 체크 필요
 	switch (raw->chat_type())
 	{

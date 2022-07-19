@@ -61,6 +61,9 @@
     <ClCompile Include="Arrow.cpp">
       <Filter>05.Object\01.Projectile\00.Arrow</Filter>
     </ClCompile>
+    <ClCompile Include="CheatManager.cpp">
+      <Filter>99.CheatManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include.h">
@@ -128,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="Arrow.h">
       <Filter>05.Object\01.Projectile\00.Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="CheatManager.h">
+      <Filter>99.CheatManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +206,9 @@
     </Filter>
     <Filter Include="05.Object\01.Projectile\00.Arrow">
       <UniqueIdentifier>{89e8e455-85b4-4b22-880c-0efa1031f369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.CheatManager">
+      <UniqueIdentifier>{8d5e8b3b-57d9-43a0-a741-9e49aa963bb5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -48,8 +48,11 @@ public:
 	void EquipGear(const int64_t itemUID);
 	void UnEquipGear(const Define::GearType gearType);
 
+public:
+	bool AddItemToInventory(const int32_t itemID, const uint16_t itemCount);
+
 private:
-	Info::ItemSlotInfoT* GetItemSlotInfoWithNoLock(const int64_t itemUID, const uint16_t count);
+	Info::ItemSlotInfoT* GetItemSlotInfoWithNoLock(const int64_t itemUID, const uint16_t itemCount);
 
 private:
 	void SendAbility(const Info::Ability& ability);
@@ -61,7 +64,7 @@ private:
 
 private:
 	CACHE_ALIGN std::shared_mutex itemInventoryMutex;
-	CACHE_ALIGN uint8_t maxItemInventorySlotcount;
+	CACHE_ALIGN uint8_t maxItemInventorySlotCount;
 	CACHE_ALIGN std::unordered_map<int64_t, Info::ItemSlotInfoT> itemInventory;
 
 private:

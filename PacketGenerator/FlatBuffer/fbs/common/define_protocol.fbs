@@ -30,7 +30,13 @@ enum CharacterLimit : ubyte
   MinNameLen = 1,
   MaxNameLen = 8,
   EmptyCharacterSlot = 3,
-  MaxCharacterSlot = 5
+  MaxCharacterSlot = 5,
+}
+
+enum ChatLimit : ubyte
+{
+  MinChatLen = 1,
+  MaxChatLen = 24
 }
 
 enum StatType : ubyte

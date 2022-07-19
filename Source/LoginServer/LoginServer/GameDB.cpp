@@ -142,6 +142,8 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, LoginPacket::CharacterInfoT& info)
 {
 	auto itemUID = GetItemUID(LOGIN_SERVER.GetWorldID(), LOGIN_SERVER.GetServerID(), DATA_MANAGER.GetCharacterCreateGear(info.job, info.gear.info));
+	if (IS_ZERO(itemUID.uid))
+		return false;
 
 	Prepare(L"CreateCharacter");
 	BindArgument(accountUID);

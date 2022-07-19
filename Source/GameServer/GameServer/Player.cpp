@@ -154,11 +154,11 @@ bool Player::LoadData(void)
 
 bool Player::LoadItemInventory(void)
 {
-	this->maxItemInventorySlotcount = GAME_SERVER.GetGameDB()->LoadMaxItemInventorySlotCount(this->session->GetAccountUID(), GetUID());
-	if (IS_SAME(0, this->maxItemInventorySlotcount))
+	this->maxItemInventorySlotCount = GAME_SERVER.GetGameDB()->LoadMaxItemInventorySlotCount(this->session->GetAccountUID(), GetUID());
+	if (IS_SAME(0, this->maxItemInventorySlotCount))
 		return false;
 
-	this->itemInventory.reserve(this->maxItemInventorySlotcount);
+	this->itemInventory.reserve(this->maxItemInventorySlotCount);
 	return GAME_SERVER.GetGameDB()->LoadItemInventory(this->session->GetAccountUID(), GetUID(), this->itemInventory);
 }
 
@@ -179,11 +179,11 @@ void Player::SendItemInventoryInfo(void)
 				sendList.push_back(Info::ItemSlotInfo::Pack(PACKET_SEND_MANAGER.builder, &d.second));
 			}
 
-			message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotcount, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
+			message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotCount, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
 		}
 		else
 		{
-			message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotcount);
+			message = GamePacket::CreateSC_ITEM_INVENTORY_INFO_NOTI(PACKET_SEND_MANAGER.builder, this->maxItemInventorySlotCount);
 		}
 	}
 
@@ -290,11 +290,29 @@ void Player::UnEquipGear(const Define::GearType gearType)
 		SendAbility(ability);
 }
 
-Info::ItemSlotInfoT* Player::GetItemSlotInfoWithNoLock(const int64_t itemUID, const uint16_t count)
+bool Player::AddItemToInventory(const int32_t itemID, const uint16_t itemCount)
+{
+	auto itemData = CORE_ITEM_DATA_MANAGER.GetItemData(itemID);
+	if (IS_NULL(itemData))
+		return false;
+
+	uint8_t needSlotCount = CoreUtil::IntRound(static_cast<float_t>(itemCount) / itemData->maxStackCount);
+	uint8_t emptySlotCount = 0;
+
+	WRITE_LOCK(this->itemInventoryMutex);
+
+	emptySlotCount = this->maxItemInventorySlotCount - this->itemInventory.size();
+	if (emptySlotCount < needSlotCount)
+		return false;
+
+	return true;
+}
+
+Info::ItemSlotInfoT* Player::GetItemSlotInfoWithNoLock(const int64_t itemUID, const uint16_t itemCount)
 {
 	if (auto iter = this->itemInventory.find(itemUID); iter != this->itemInventory.end())
 	{
-		if (iter->second.item_count >= count)
+		if (iter->second.item_count >= itemCount)
 			return &iter->second;
 	}
 

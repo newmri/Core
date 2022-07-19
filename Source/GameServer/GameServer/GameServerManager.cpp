@@ -95,7 +95,6 @@ void GameServerManager::MakeGameDB(void)
 	this->gameDB = std::make_shared<GameDB>(STRING_MANAGER.Widen(ENUM_TO_STR(Game)));
 }
 
-
 void GameServerManager::Close(std::shared_ptr<CoreClientSession> session)
 {
 	this->gameServer->Close(session);

@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "define_protocol_generated.h"
 #include "Info_protocol_generated.h"
+#include "define_protocol_generated.h"
 
 namespace LoginPacket {
 

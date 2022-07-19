@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClCompile Include="AccountDB.cpp" />
     <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="CheatManager.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="CharacterDataManager.cpp" />
     <ClCompile Include="GameDB.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="AccountDB.h" />
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="CharacterData.h" />
+    <ClInclude Include="CheatManager.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="CharacterDataManager.h" />
     <ClInclude Include="GameDB.h" />
