@@ -1,7 +1,7 @@
 #include "Include.h"
 #include "boost/current_function.hpp"
 
-GameDB::GameDB(std::wstring_view dbName) : CoreGameDB(dbName)
+GameDB::GameDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : CoreGameDB(dbName, worldID, serverID)
 {
 
 }
@@ -141,7 +141,7 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 
 bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, LoginPacket::CharacterInfoT& info)
 {
-	auto itemUID = GetItemUID(LOGIN_SERVER.GetWorldID(), LOGIN_SERVER.GetServerID(), DATA_MANAGER.GetCharacterCreateGear(info.job, info.gear.info));
+	auto itemUID = GetItemUID(DATA_MANAGER.GetCharacterCreateGear(info.job, info.gear.info));
 	if (IS_ZERO(itemUID.uid))
 		return false;
 

@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CoreAccountDB::CoreAccountDB(std::wstring_view dbName) : CoreDB(dbName)
+CoreAccountDB::CoreAccountDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : CoreDB(dbName, worldID, serverID)
 {
 
 }

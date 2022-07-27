@@ -18,7 +18,7 @@ class CoreDB : CoreObject
 	OVERRIDE_OBJECT(CoreDB)
 
 public:
-	CoreDB(std::wstring_view dbName);
+	CoreDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID);
 
 protected:
 	bool Connect(void);
@@ -55,6 +55,8 @@ private:
 
 protected:
 	std::wstring dbName;
+	uint8_t worldID = 0;
+	uint8_t serverID = 0;
 
 private:
 	std::wstring command;

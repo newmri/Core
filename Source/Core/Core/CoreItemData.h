@@ -27,12 +27,33 @@ union CoreItemUID
 {
 	struct
 	{
-		uint32_t value : 32;
-		int16_t serverID : 8;
-		int16_t worldID : 8;
+		int64_t value : 48;
+		uint8_t serverID : 8;
+		uint8_t worldID : 8;
 	};
 
 	int64_t uid = 0;
+};
+
+struct ItemCreateSlotInfo
+{
+	ItemCreateSlotInfo()
+	{
+		memset(this, 0, sizeof(this));
+	}
+
+	ItemCreateSlotInfo(const int64_t accountUID, const int64_t uid, const int32_t itemID, const uint16_t itemCount, const uint16_t maxStackCount, const uint8_t needSlotCount) :
+		accountUID(accountUID), uid(uid), itemID(itemID), itemCount(itemCount), maxStackCount(maxStackCount), needSlotCount(needSlotCount)
+	{
+
+	}
+
+	int64_t accountUID;
+	int64_t uid;
+	int32_t itemID;
+	uint16_t itemCount;
+	uint16_t maxStackCount;
+	uint8_t needSlotCount;
 };
 
 #pragma pack(pop)

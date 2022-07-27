@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CoreWorldDB::CoreWorldDB(std::wstring_view dbName) : CoreDB(dbName)
+CoreWorldDB::CoreWorldDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : CoreDB(dbName, worldID, serverID)
 {
 
 }
@@ -8,12 +8,6 @@ CoreWorldDB::CoreWorldDB(std::wstring_view dbName) : CoreDB(dbName)
 CoreWorldDB::~CoreWorldDB()
 {
 
-}
-
-void CoreWorldDB::SetID(const uint8_t worldID, const uint8_t serverID)
-{
-	this->worldID = worldID;
-	this->serverID = serverID;
 }
 
 void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)

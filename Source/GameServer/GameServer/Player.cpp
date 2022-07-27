@@ -299,11 +299,24 @@ bool Player::AddItemToInventory(const int32_t itemID, const uint16_t itemCount)
 	uint8_t needSlotCount = CoreUtil::IntRound(static_cast<float_t>(itemCount) / itemData->maxStackCount);
 	uint8_t emptySlotCount = 0;
 
-	WRITE_LOCK(this->itemInventoryMutex);
+	std::vector<Info::ItemSlotInfoT> itemSlotInfoList;
+	{
+		WRITE_LOCK(this->itemInventoryMutex);
 
-	emptySlotCount = this->maxItemInventorySlotCount - this->itemInventory.size();
-	if (emptySlotCount < needSlotCount)
-		return false;
+		emptySlotCount = this->maxItemInventorySlotCount - static_cast<uint8_t>(this->itemInventory.size());
+		if (emptySlotCount < needSlotCount)
+			return false;
+
+		ItemCreateSlotInfo itemCreateSlotInfo(this->session->GetAccountUID(), GetUID(), itemID, itemCount, itemData->maxStackCount, needSlotCount);
+		GAME_SERVER.GetGameDB()->AddItemToInventory(itemCreateSlotInfo, itemSlotInfoList);
+		if (itemSlotInfoList.empty())
+			return false;
+
+		for (auto& d : itemSlotInfoList)
+			this->itemInventory[d.item_uid] = d;
+	}
+
+	// TODO: 패킷 전송
 
 	return true;
 }

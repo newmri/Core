@@ -5,7 +5,7 @@ CoreDB::CoreDB()
 	abort();
 }
 
-CoreDB::CoreDB(std::wstring_view dbName) : dbName(dbName)
+CoreDB::CoreDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : dbName(dbName), worldID(worldID), serverID(serverID)
 {
 	Init();
 }

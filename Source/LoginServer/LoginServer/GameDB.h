@@ -3,7 +3,7 @@
 class GameDB : public CoreGameDB
 {
 public:
-	GameDB(std::wstring_view dbName);
+	GameDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID);
 	virtual ~GameDB() override;
 
 public:
