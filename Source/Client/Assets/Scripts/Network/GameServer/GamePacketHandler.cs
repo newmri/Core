@@ -170,6 +170,16 @@ class GamePacketHandler
         SC_NORMAL_CHAT_RES chatRes = packet.PacketAsSC_NORMAL_CHAT_RES();
         Managers.UI.GetSceneUI<UIGameScene>().Chat.AddMessage(chatRes.Oid, chatRes.ChatType, chatRes.Message);
     }
+
+    public static void SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(PacketSession session, Root packet)
+    {
+        SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI itemInfo = packet.PacketAsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI();
+
+        UIItemInventoryPopup inventory = Managers.UI.GetSceneUI<UIGameScene>().Inventory;
+        var itemInfoList = itemInfo.UnPack().ItemSlotInfo;
+        foreach (var info in itemInfoList)
+            inventory.AddItem(info);
+    }
 }
 
 

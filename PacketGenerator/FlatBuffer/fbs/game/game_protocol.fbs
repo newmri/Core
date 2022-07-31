@@ -36,7 +36,8 @@ union Packet
     SC_UNEQUIP_GEAR_RES,
     SC_ABILITY_INFO_NOTI,
     CS_NORMAL_CHAT_REQ,
-    SC_NORMAL_CHAT_RES
+    SC_NORMAL_CHAT_RES,
+    SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI,
 }
 
 table CS_LOGIN_REQ
@@ -205,6 +206,11 @@ table SC_NORMAL_CHAT_RES
    oid:int64;
    chat_type:Define.ChatType;
    message:string;
+}
+
+table SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI
+{
+   item_slot_info:[Info.ItemSlotInfo];
 }
 
 table Root

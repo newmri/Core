@@ -44,6 +44,7 @@ public enum Packet : byte
   SC_ABILITY_INFO_NOTI = 23,
   CS_NORMAL_CHAT_REQ = 24,
   SC_NORMAL_CHAT_RES = 25,
+  SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI = 26,
 };
 
 public class PacketUnion {
@@ -81,6 +82,7 @@ public class PacketUnion {
   public GamePacket.SC_ABILITY_INFO_NOTIT AsSC_ABILITY_INFO_NOTI() { return this.As<GamePacket.SC_ABILITY_INFO_NOTIT>(); }
   public GamePacket.CS_NORMAL_CHAT_REQT AsCS_NORMAL_CHAT_REQ() { return this.As<GamePacket.CS_NORMAL_CHAT_REQT>(); }
   public GamePacket.SC_NORMAL_CHAT_REST AsSC_NORMAL_CHAT_RES() { return this.As<GamePacket.SC_NORMAL_CHAT_REST>(); }
+  public GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() { return this.As<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -110,6 +112,7 @@ public class PacketUnion {
       case Packet.SC_ABILITY_INFO_NOTI: return GamePacket.SC_ABILITY_INFO_NOTI.Pack(builder, _o.AsSC_ABILITY_INFO_NOTI()).Value;
       case Packet.CS_NORMAL_CHAT_REQ: return GamePacket.CS_NORMAL_CHAT_REQ.Pack(builder, _o.AsCS_NORMAL_CHAT_REQ()).Value;
       case Packet.SC_NORMAL_CHAT_RES: return GamePacket.SC_NORMAL_CHAT_RES.Pack(builder, _o.AsSC_NORMAL_CHAT_RES()).Value;
+      case Packet.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: return GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI.Pack(builder, _o.AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI()).Value;
     }
   }
 }
@@ -1745,6 +1748,67 @@ public class SC_NORMAL_CHAT_REST
   }
 }
 
+public struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI GetRootAsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(ByteBuffer _bb) { return GetRootAsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(_bb, new SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI()); }
+  public static SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI GetRootAsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(ByteBuffer _bb, SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Info.ItemSlotInfo? ItemSlotInfo(int j) { int o = __p.__offset(4); return o != 0 ? (Info.ItemSlotInfo?)(new Info.ItemSlotInfo()).__assign(__p.__indirect(__p.__vector(o) + j * 4), __p.bb) : null; }
+  public int ItemSlotInfoLength { get { int o = __p.__offset(4); return o != 0 ? __p.__vector_len(o) : 0; } }
+
+  public static Offset<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(FlatBufferBuilder builder,
+      VectorOffset item_slot_infoOffset = default(VectorOffset)) {
+    builder.StartTable(1);
+    SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI.AddItemSlotInfo(builder, item_slot_infoOffset);
+    return SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI.EndSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(builder);
+  }
+
+  public static void StartSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddItemSlotInfo(FlatBufferBuilder builder, VectorOffset itemSlotInfoOffset) { builder.AddOffset(0, itemSlotInfoOffset.Value, 0); }
+  public static VectorOffset CreateItemSlotInfoVector(FlatBufferBuilder builder, Offset<Info.ItemSlotInfo>[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateItemSlotInfoVectorBlock(FlatBufferBuilder builder, Offset<Info.ItemSlotInfo>[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartItemSlotInfoVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static Offset<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> EndSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>(o);
+  }
+  public SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT UnPack() {
+    var _o = new SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT _o) {
+    _o.ItemSlotInfo = new List<Info.ItemSlotInfoT>();
+    for (var _j = 0; _j < this.ItemSlotInfoLength; ++_j) {_o.ItemSlotInfo.Add(this.ItemSlotInfo(_j).HasValue ? this.ItemSlotInfo(_j).Value.UnPack() : null);}
+  }
+  public static Offset<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> Pack(FlatBufferBuilder builder, SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>);
+    var _item_slot_info = default(VectorOffset);
+    if (_o.ItemSlotInfo != null) {
+      var __item_slot_info = new Offset<Info.ItemSlotInfo>[_o.ItemSlotInfo.Count];
+      for (var _j = 0; _j < __item_slot_info.Length; ++_j) { __item_slot_info[_j] = Info.ItemSlotInfo.Pack(builder, _o.ItemSlotInfo[_j]); }
+      _item_slot_info = CreateItemSlotInfoVector(builder, __item_slot_info);
+    }
+    return CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(
+      builder,
+      _item_slot_info);
+  }
+};
+
+public class SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT
+{
+  public List<Info.ItemSlotInfoT> ItemSlotInfo { get; set; }
+
+  public SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT() {
+    this.ItemSlotInfo = null;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -1782,6 +1846,7 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_ABILITY_INFO_NOTI PacketAsSC_ABILITY_INFO_NOTI() { return Packet<GamePacket.SC_ABILITY_INFO_NOTI>().Value; }
   public GamePacket.CS_NORMAL_CHAT_REQ PacketAsCS_NORMAL_CHAT_REQ() { return Packet<GamePacket.CS_NORMAL_CHAT_REQ>().Value; }
   public GamePacket.SC_NORMAL_CHAT_RES PacketAsSC_NORMAL_CHAT_RES() { return Packet<GamePacket.SC_NORMAL_CHAT_RES>().Value; }
+  public GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI PacketAsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() { return Packet<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -1885,6 +1950,9 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_NORMAL_CHAT_RES:
         _o.Packet.Value = this.Packet<GamePacket.SC_NORMAL_CHAT_RES>().HasValue ? this.Packet<GamePacket.SC_NORMAL_CHAT_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>().HasValue ? this.Packet<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>().Value.UnPack() : null;
         break;
     }
   }

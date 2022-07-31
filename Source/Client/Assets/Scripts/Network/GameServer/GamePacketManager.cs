@@ -38,6 +38,7 @@ class GamePacketManager
        _handler.Add(Packet.SC_UNEQUIP_GEAR_RES, GamePacketHandler.SC_UNEQUIP_GEAR_RES);
        _handler.Add(Packet.SC_ABILITY_INFO_NOTI, GamePacketHandler.SC_ABILITY_INFO_NOTI);
        _handler.Add(Packet.SC_NORMAL_CHAT_RES, GamePacketHandler.SC_NORMAL_CHAT_RES);
+       _handler.Add(Packet.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI, GamePacketHandler.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

@@ -50,7 +50,7 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 	Info::ItemSlotInfoT itemSlotInfo;
 	for (uint8_t i = 0; i < itemCreateSlotInfo.needSlotCount; ++i)
 	{
-		addItemCount = itemCreateSlotInfo.itemCount / itemCreateSlotInfo.maxStackCount;
+		addItemCount = itemCreateSlotInfo.maxStackCount;
 		if (remainedItemCount < addItemCount)
 			addItemCount = remainedItemCount;
 

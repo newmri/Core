@@ -316,7 +316,16 @@ bool Player::AddItemToInventory(const int32_t itemID, const uint16_t itemCount)
 			this->itemInventory[d.item_uid] = d;
 	}
 
-	// TODO: 패킷 전송
+	PACKET_SEND_MANAGER.Clear();
+	flatbuffers::Offset<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> message;
+	std::vector<flatbuffers::Offset<Info::ItemSlotInfo>> sendList;
+	for (auto& d : itemSlotInfoList)
+	{
+		sendList.push_back(Info::ItemSlotInfo::Pack(PACKET_SEND_MANAGER.builder, &d));
+	}
+
+	message = GamePacket::CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(PACKET_SEND_MANAGER.builder, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI, message.Union());
 
 	return true;
 }

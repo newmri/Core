@@ -123,6 +123,10 @@ struct SC_NORMAL_CHAT_RES;
 struct SC_NORMAL_CHAT_RESBuilder;
 struct SC_NORMAL_CHAT_REST;
 
+struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI;
+struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIBuilder;
+struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -187,11 +191,12 @@ enum Packet : uint8_t {
   Packet_SC_ABILITY_INFO_NOTI = 23,
   Packet_CS_NORMAL_CHAT_REQ = 24,
   Packet_SC_NORMAL_CHAT_RES = 25,
+  Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI = 26,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_NORMAL_CHAT_RES
+  Packet_MAX = Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI
 };
 
-inline const Packet (&EnumValuesPacket())[26] {
+inline const Packet (&EnumValuesPacket())[27] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -218,13 +223,14 @@ inline const Packet (&EnumValuesPacket())[26] {
     Packet_SC_UNEQUIP_GEAR_RES,
     Packet_SC_ABILITY_INFO_NOTI,
     Packet_CS_NORMAL_CHAT_REQ,
-    Packet_SC_NORMAL_CHAT_RES
+    Packet_SC_NORMAL_CHAT_RES,
+    Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[27] = {
+  static const char * const names[28] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -251,13 +257,14 @@ inline const char * const *EnumNamesPacket() {
     "SC_ABILITY_INFO_NOTI",
     "CS_NORMAL_CHAT_REQ",
     "SC_NORMAL_CHAT_RES",
+    "SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_NORMAL_CHAT_RES)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -364,6 +371,10 @@ template<> struct PacketTraits<GamePacket::CS_NORMAL_CHAT_REQ> {
 
 template<> struct PacketTraits<GamePacket::SC_NORMAL_CHAT_RES> {
   static const Packet enum_value = Packet_SC_NORMAL_CHAT_RES;
+};
+
+template<> struct PacketTraits<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> {
+  static const Packet enum_value = Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI;
 };
 
 struct PacketUnion {
@@ -597,6 +608,14 @@ struct PacketUnion {
   const GamePacket::SC_NORMAL_CHAT_REST *AsSC_NORMAL_CHAT_RES() const {
     return type == Packet_SC_NORMAL_CHAT_RES ?
       reinterpret_cast<const GamePacket::SC_NORMAL_CHAT_REST *>(value) : nullptr;
+  }
+  GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() {
+    return type == Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI ?
+      reinterpret_cast<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *>(value) : nullptr;
+  }
+  const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() const {
+    return type == Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI ?
+      reinterpret_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *>(value) : nullptr;
   }
 };
 
@@ -2481,6 +2500,69 @@ inline flatbuffers::Offset<SC_NORMAL_CHAT_RES> CreateSC_NORMAL_CHAT_RESDirect(
 
 flatbuffers::Offset<SC_NORMAL_CHAT_RES> CreateSC_NORMAL_CHAT_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_NORMAL_CHAT_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT : public flatbuffers::NativeTable {
+  typedef SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI TableType;
+  std::vector<std::unique_ptr<Info::ItemSlotInfoT>> item_slot_info{};
+};
+
+struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT NativeTableType;
+  typedef SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_ITEM_SLOT_INFO = 4
+  };
+  const flatbuffers::Vector<flatbuffers::Offset<Info::ItemSlotInfo>> *item_slot_info() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Info::ItemSlotInfo>> *>(VT_ITEM_SLOT_INFO);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_ITEM_SLOT_INFO) &&
+           verifier.VerifyVector(item_slot_info()) &&
+           verifier.VerifyVectorOfTables(item_slot_info()) &&
+           verifier.EndTable();
+  }
+  SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIBuilder {
+  typedef SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_item_slot_info(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Info::ItemSlotInfo>>> item_slot_info) {
+    fbb_.AddOffset(SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI::VT_ITEM_SLOT_INFO, item_slot_info);
+  }
+  explicit SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Info::ItemSlotInfo>>> item_slot_info = 0) {
+  SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIBuilder builder_(_fbb);
+  builder_.add_item_slot_info(item_slot_info);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<flatbuffers::Offset<Info::ItemSlotInfo>> *item_slot_info = nullptr) {
+  auto item_slot_info__ = item_slot_info ? _fbb.CreateVector<flatbuffers::Offset<Info::ItemSlotInfo>>(*item_slot_info) : 0;
+  return GamePacket::CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(
+      _fbb,
+      item_slot_info__);
+}
+
+flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -2574,6 +2656,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_NORMAL_CHAT_RES *packet_as_SC_NORMAL_CHAT_RES() const {
     return packet_type() == GamePacket::Packet_SC_NORMAL_CHAT_RES ? static_cast<const GamePacket::SC_NORMAL_CHAT_RES *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *packet_as_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() const {
+    return packet_type() == GamePacket::Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI ? static_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -2685,6 +2770,10 @@ template<> inline const GamePacket::CS_NORMAL_CHAT_REQ *Root::packet_as<GamePack
 
 template<> inline const GamePacket::SC_NORMAL_CHAT_RES *Root::packet_as<GamePacket::SC_NORMAL_CHAT_RES>() const {
   return packet_as_SC_NORMAL_CHAT_RES();
+}
+
+template<> inline const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *Root::packet_as<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>() const {
+  return packet_as_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI();
 }
 
 struct RootBuilder {
@@ -3514,6 +3603,32 @@ inline flatbuffers::Offset<SC_NORMAL_CHAT_RES> CreateSC_NORMAL_CHAT_RES(flatbuff
       _message);
 }
 
+inline SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT>(new SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI::UnPackTo(SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = item_slot_info(); if (_e) { _o->item_slot_info.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->item_slot_info[_i] = std::unique_ptr<Info::ItemSlotInfoT>(_e->Get(_i)->UnPack(_resolver)); } } }
+}
+
+inline flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _item_slot_info = _o->item_slot_info.size() ? _fbb.CreateVector<flatbuffers::Offset<Info::ItemSlotInfo>> (_o->item_slot_info.size(), [](size_t i, _VectorArgs *__va) { return CreateItemSlotInfo(*__va->__fbb, __va->__o->item_slot_info[i].get(), __va->__rehasher); }, &_va ) : 0;
+  return GamePacket::CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(
+      _fbb,
+      _item_slot_info);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -3648,6 +3763,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_NORMAL_CHAT_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -3766,6 +3885,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_NORMAL_CHAT_RES *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -3872,6 +3995,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_NORMAL_CHAT_REST *>(value);
       return CreateSC_NORMAL_CHAT_RES(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *>(value);
+      return CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -3976,6 +4103,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_NORMAL_CHAT_RES: {
       value = new GamePacket::SC_NORMAL_CHAT_REST(*reinterpret_cast<GamePacket::SC_NORMAL_CHAT_REST *>(u.value));
+      break;
+    }
+    case Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: {
+      FLATBUFFERS_ASSERT(false);  // GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT not copyable.
       break;
     }
     default:
@@ -4107,6 +4238,11 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_NORMAL_CHAT_RES: {
       auto ptr = reinterpret_cast<GamePacket::SC_NORMAL_CHAT_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: {
+      auto ptr = reinterpret_cast<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *>(value);
       delete ptr;
       break;
     }

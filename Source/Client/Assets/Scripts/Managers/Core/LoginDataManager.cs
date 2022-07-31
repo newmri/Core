@@ -8,7 +8,8 @@ using System.Linq;
 public class LoginDataManager
 {
     List<Dictionary<string, object>> _createCharacterGear;
-    List<Dictionary<string, object>> _JobExplain;
+    Dictionary<int, Dictionary<string, object>> _JobExplain;
+
     bool _isLoaded = false;
 
     public void Load()
@@ -17,7 +18,7 @@ public class LoginDataManager
             return;
 
         CoreManagers.Data.LoadCSV("Data/Character/CharacterCreateGear", out _createCharacterGear);
-        CoreManagers.Data.LoadCSV("Data/Character/JobExplain", out _JobExplain);
+        CoreManagers.Data.LoadCSV("Job", "Data/Character/JobExplain", out _JobExplain);
 
         _isLoaded = true;
     }

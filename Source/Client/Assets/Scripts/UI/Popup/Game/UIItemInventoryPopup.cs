@@ -196,20 +196,12 @@ public class UIItemInventoryPopup : UIPopup
 
     public void AddItem(ItemSlotInfoT itemSlotInfo)
     {
-        if (Managers.ItemData.IsStackItem(itemSlotInfo.ItemId))
-        {
+        UIItemSlot uiItemSlot = _inventoryList.Find(info => info.ItemID == 0);
+        if (uiItemSlot == null)
+            return;
 
-        }
-
-        else
-        {
-            UIItemSlot uiItemSlot = _inventoryList.Find(info => info.ItemID == 0);
-            if (uiItemSlot == null)
-                return;
-
-            uiItemSlot.ItemSlotInfo = itemSlotInfo;
-            ++CurrSlotCount;
-        }
+        uiItemSlot.ItemSlotInfo = itemSlotInfo;
+        ++CurrSlotCount;
     }
 
     public void RemoveItem(UIItemSlot uiItemSlot, ushort count)
