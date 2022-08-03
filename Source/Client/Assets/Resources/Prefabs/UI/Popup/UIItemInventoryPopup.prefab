@@ -506,8 +506,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemID: 0
+  IsInited: 0
   _itemLocation: 1
+  _itemAbility:
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &445496928960390970
@@ -918,8 +934,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemID: 0
+  IsInited: 0
   _itemLocation: 1
+  _itemAbility:
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &681938761464842667
@@ -2437,8 +2469,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemID: 0
+  IsInited: 0
   _itemLocation: 1
+  _itemAbility:
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &1938844920716311366
@@ -2731,8 +2779,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemID: 0
+  IsInited: 0
   _itemLocation: 1
+  _itemAbility:
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2012382895205643000
@@ -3082,8 +3146,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemID: 0
+  IsInited: 0
   _itemLocation: 1
+  _itemAbility:
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2055620534316353046
@@ -3819,8 +3899,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemID: 0
+  IsInited: 0
   _itemLocation: 1
+  _itemAbility:
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2514773516407268039
@@ -4801,8 +4897,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemID: 0
+  IsInited: 0
   _itemLocation: 1
+  _itemAbility:
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2983783606793144176
@@ -7544,8 +7656,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198365addd97fc449741be24bd17e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemID: 0
+  IsInited: 0
   _itemLocation: 1
+  _itemAbility:
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
+  - AbilityName: 
+    AbilityType: 0
+    AbilityValue: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &5359978108577855102
@@ -11866,14 +11994,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.37254903, g: 0.30588236, b: 0.39215687, a: 0.36862746}
+  m_Color: {r: 0.37254903, g: 0.30588236, b: 0.39215687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db2cdeff8da65480bb0894c10fb077a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2148a1638bdab57439e8e5b765838ff4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
