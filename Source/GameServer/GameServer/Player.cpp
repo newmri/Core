@@ -348,3 +348,9 @@ void Player::SendAbility(const Info::Ability& ability)
 	message = GamePacket::CreateSC_ABILITY_INFO_NOTI(PACKET_SEND_MANAGER.builder, &ability);
 	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_ABILITY_INFO_NOTI, message.Union());
 }
+
+void Player::AddStat(const Define::StatType statType)
+{
+	if (!IsBetween<Define::StatType>(statType, Define::StatType_MIN, static_cast<Define::StatType>(Define::StatType_END - 1)))
+		return;
+}

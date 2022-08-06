@@ -14,4 +14,5 @@ public:
 	void CS_EQUIP_GEAR_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 	void CS_UNEQUIP_GEAR_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 	void CS_NORMAL_CHAT_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
+	void CS_ADD_STAT_REQ(std::shared_ptr<CoreClientSession> session, const void* data);
 };

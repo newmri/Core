@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FlatBuffers;
 using GamePacket;
+using Define;
 
 class GamePacketHandler
 {
@@ -179,6 +180,35 @@ class GamePacketHandler
         var itemInfoList = itemInfo.UnPack().ItemSlotInfo;
         foreach (var info in itemInfoList)
             inventory.AddItem(info);
+    }
+
+    public static void SC_ADD_STAT_RES(PacketSession session, Root packet)
+    {
+        SC_ADD_STAT_RES addStatRes = packet.PacketAsSC_ADD_STAT_RES();
+
+        if (ErrorCode.SUCCESS != addStatRes.Result)
+        {
+            UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+
+            switch (addStatRes.Result)
+            {
+                case ErrorCode.UNKNOWN:
+                    messagePopup.SetText("스탯 투자 실패", "다시 시도해주세요");
+                    break;
+            }
+
+            return;
+        }
+
+        Managers.Object.MyCreatureInfo.Stat.Value[(int)addStatRes.StatType] += 1;
+        Managers.Object.MyCharacterInfo.BonusStat -= 1;
+
+        UIItemInventoryPopup inventory = Managers.UI.GetSceneUI<UIGameScene>().Inventory;
+        if (inventory.gameObject.activeSelf)
+        {
+            inventory.UpdateStatPoint(addStatRes.StatType);
+            inventory.UpdateBonusStat();
+        }
     }
 }
 

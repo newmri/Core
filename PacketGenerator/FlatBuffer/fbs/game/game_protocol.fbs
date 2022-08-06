@@ -38,6 +38,8 @@ union Packet
     CS_NORMAL_CHAT_REQ,
     SC_NORMAL_CHAT_RES,
     SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI,
+    CS_ADD_STAT_REQ,
+    SC_ADD_STAT_RES
 }
 
 table CS_LOGIN_REQ
@@ -211,6 +213,17 @@ table SC_NORMAL_CHAT_RES
 table SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI
 {
    item_slot_info:[Info.ItemSlotInfo];
+}
+
+table CS_ADD_STAT_REQ
+{
+   stat_type:Define.StatType;
+}
+
+table SC_ADD_STAT_RES
+{
+   result:ErrorCode;
+   stat_type:Define.StatType;
 }
 
 table Root

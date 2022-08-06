@@ -25,4 +25,5 @@ void GamePacketHandler::Register(void)
     this->func[GamePacket::Packet_CS_EQUIP_GEAR_REQ] = &GamePacketFunc::CS_EQUIP_GEAR_REQ;
     this->func[GamePacket::Packet_CS_UNEQUIP_GEAR_REQ] = &GamePacketFunc::CS_UNEQUIP_GEAR_REQ;
     this->func[GamePacket::Packet_CS_NORMAL_CHAT_REQ] = &GamePacketFunc::CS_NORMAL_CHAT_REQ;
+    this->func[GamePacket::Packet_CS_ADD_STAT_REQ] = &GamePacketFunc::CS_ADD_STAT_REQ;
 }

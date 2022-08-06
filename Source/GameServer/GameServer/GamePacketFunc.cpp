@@ -253,3 +253,14 @@ void GamePacketFunc::CS_NORMAL_CHAT_REQ(std::shared_ptr<CoreClientSession> sessi
 
 	ZONE_MANAGER.SendAll(player->GetMapID(), GamePacket::Packet_SC_NORMAL_CHAT_RES, message.Union(), player->GetPos());
 }
+
+void GamePacketFunc::CS_ADD_STAT_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
+	if (IS_NULL(player))
+		return;
+
+	auto raw = static_cast<const GamePacket::CS_ADD_STAT_REQ*>(data);
+
+	player->AddStat(raw->stat_type());
+}

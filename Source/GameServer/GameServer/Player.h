@@ -57,6 +57,9 @@ private:
 private:
 	void SendAbility(const Info::Ability& ability);
 
+public:
+	void AddStat(const Define::StatType statType);
+
 private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;

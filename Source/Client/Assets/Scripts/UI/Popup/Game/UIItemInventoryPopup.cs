@@ -8,12 +8,15 @@ using UnityCoreLibrary;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;
+using FlatBuffers;
+using GamePacket;
 
 public class UIItemInventoryPopup : UIPopup
 {
     enum GameObjects
     {
         EquipSlot,
+        StatPoint,
         Stats,
         ItemSlotContents
     }
@@ -43,6 +46,7 @@ public class UIItemInventoryPopup : UIPopup
     private List<UIItemSlot> _equipList = null;
     private List<UIItemSlot> _inventoryList = new List<UIItemSlot>();
 
+    private List<TextMeshProUGUI> _statPointList = null;
     private List<TextMeshProUGUI> _statList = null;
 
     byte _currSlotCount = 0;
@@ -78,6 +82,12 @@ public class UIItemInventoryPopup : UIPopup
         foreach (var button in equipButtonList)
             button.gameObject.BindEvent(OnClickItemSlotButton);
 
+        List<Button> statPointAddButtonList = Util.FindAllChildrens<Button>(GetObject((int)GameObjects.StatPoint), null, true);
+        foreach (var button in statPointAddButtonList)
+            button.gameObject.BindEvent(OnClickStatAddButton);
+
+        _statPointList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.StatPoint), "ValueText", true);
+
         _statList = Util.FindAllChildrens<TextMeshProUGUI>(GetObject((int)GameObjects.Stats), "ValueText", true);
 
         gameObject.SetActive(false);
@@ -90,6 +100,8 @@ public class UIItemInventoryPopup : UIPopup
         UpdateMoney(Managers.Account.Money);
         UpdateCharacterLevel(Managers.Object.MyPlayer.Level);
         UpdateEXPBar((float)Managers.Object.MyPlayer.EXP / Managers.Object.MyPlayer.MaxEXP);
+        UpdateStatPoint();
+        UpdateBonusStat();
         UpdateAbility();
         OnDeselectedItemSlot();
 
@@ -140,6 +152,29 @@ public class UIItemInventoryPopup : UIPopup
         Sprite rightHandIcon = CoreManagers.Resource.Load<Sprite>($"UI/Job/{Managers.Object.MyCharacterInfo.Job.ToString()}RightHandIcon");
         _equipList[(int)GearType.RIGHT_HAND].ItemIcon.sprite = rightHandIcon;
         _equipList[(int)GearType.RIGHT_HAND].EmptyItemIconSprite = rightHandIcon;
+    }
+
+    private void UpdateStatPoint()
+    {
+        int index = 0;
+        for (StatType statType = 0; statType < StatType.END; ++statType)
+        {
+            index = (int)statType;
+
+            _statPointList[index].text = Managers.Object.MyCreatureInfo.Stat.Value[index].ToString();
+        }
+
+    }
+
+    public void UpdateStatPoint(StatType statType)
+    {
+        int index = (int)statType;
+        _statPointList[index].text = Managers.Object.MyCreatureInfo.Stat.Value[index].ToString();
+    }
+
+    public void UpdateBonusStat()
+    {
+        _statPointList[(int)StatType.END].text = Managers.Object.MyCharacterInfo.BonusStat.ToString();
     }
 
     public void UpdateAbility()
@@ -264,7 +299,7 @@ public class UIItemInventoryPopup : UIPopup
         gameObject.SetActive(false);
     }
 
-    public void OnClickItemSlotButton(PointerEventData evt)
+    private void OnClickItemSlotButton(PointerEventData evt)
     {
         OnDeselectedItemSlot();
 
@@ -285,5 +320,22 @@ public class UIItemInventoryPopup : UIPopup
             _selectedItemSlot.OnDeselected();
             _selectedItemSlot = null;
         }
+    }
+
+    private void OnClickStatAddButton(PointerEventData evt)
+    {
+        StatType statType = (StatType)evt.selectedObject.transform.parent.GetSiblingIndex();
+        if(statType >= StatType.END)
+        {
+            Debug.Log($"StatAddButton Failed order error {statType}");
+            return;
+        }
+
+        if (Managers.Object.MyCharacterInfo.BonusStat <= 0)
+            return;
+
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        var message = CS_ADD_STAT_REQ.CreateCS_ADD_STAT_REQ(builder, statType);
+        Managers.GameNetwork.Send(builder, Packet.CS_ADD_STAT_REQ, message.Value);
     }
 }

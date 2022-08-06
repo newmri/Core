@@ -45,6 +45,8 @@ public enum Packet : byte
   CS_NORMAL_CHAT_REQ = 24,
   SC_NORMAL_CHAT_RES = 25,
   SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI = 26,
+  CS_ADD_STAT_REQ = 27,
+  SC_ADD_STAT_RES = 28,
 };
 
 public class PacketUnion {
@@ -83,6 +85,8 @@ public class PacketUnion {
   public GamePacket.CS_NORMAL_CHAT_REQT AsCS_NORMAL_CHAT_REQ() { return this.As<GamePacket.CS_NORMAL_CHAT_REQT>(); }
   public GamePacket.SC_NORMAL_CHAT_REST AsSC_NORMAL_CHAT_RES() { return this.As<GamePacket.SC_NORMAL_CHAT_REST>(); }
   public GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() { return this.As<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT>(); }
+  public GamePacket.CS_ADD_STAT_REQT AsCS_ADD_STAT_REQ() { return this.As<GamePacket.CS_ADD_STAT_REQT>(); }
+  public GamePacket.SC_ADD_STAT_REST AsSC_ADD_STAT_RES() { return this.As<GamePacket.SC_ADD_STAT_REST>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -113,6 +117,8 @@ public class PacketUnion {
       case Packet.CS_NORMAL_CHAT_REQ: return GamePacket.CS_NORMAL_CHAT_REQ.Pack(builder, _o.AsCS_NORMAL_CHAT_REQ()).Value;
       case Packet.SC_NORMAL_CHAT_RES: return GamePacket.SC_NORMAL_CHAT_RES.Pack(builder, _o.AsSC_NORMAL_CHAT_RES()).Value;
       case Packet.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: return GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI.Pack(builder, _o.AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI()).Value;
+      case Packet.CS_ADD_STAT_REQ: return GamePacket.CS_ADD_STAT_REQ.Pack(builder, _o.AsCS_ADD_STAT_REQ()).Value;
+      case Packet.SC_ADD_STAT_RES: return GamePacket.SC_ADD_STAT_RES.Pack(builder, _o.AsSC_ADD_STAT_RES()).Value;
     }
   }
 }
@@ -1809,6 +1815,114 @@ public class SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT
   }
 }
 
+public struct CS_ADD_STAT_REQ : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static CS_ADD_STAT_REQ GetRootAsCS_ADD_STAT_REQ(ByteBuffer _bb) { return GetRootAsCS_ADD_STAT_REQ(_bb, new CS_ADD_STAT_REQ()); }
+  public static CS_ADD_STAT_REQ GetRootAsCS_ADD_STAT_REQ(ByteBuffer _bb, CS_ADD_STAT_REQ obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public CS_ADD_STAT_REQ __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public Define.StatType StatType { get { int o = __p.__offset(4); return o != 0 ? (Define.StatType)__p.bb.Get(o + __p.bb_pos) : Define.StatType.STR; } }
+
+  public static Offset<GamePacket.CS_ADD_STAT_REQ> CreateCS_ADD_STAT_REQ(FlatBufferBuilder builder,
+      Define.StatType stat_type = Define.StatType.STR) {
+    builder.StartTable(1);
+    CS_ADD_STAT_REQ.AddStatType(builder, stat_type);
+    return CS_ADD_STAT_REQ.EndCS_ADD_STAT_REQ(builder);
+  }
+
+  public static void StartCS_ADD_STAT_REQ(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddStatType(FlatBufferBuilder builder, Define.StatType statType) { builder.AddByte(0, (byte)statType, 0); }
+  public static Offset<GamePacket.CS_ADD_STAT_REQ> EndCS_ADD_STAT_REQ(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.CS_ADD_STAT_REQ>(o);
+  }
+  public CS_ADD_STAT_REQT UnPack() {
+    var _o = new CS_ADD_STAT_REQT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(CS_ADD_STAT_REQT _o) {
+    _o.StatType = this.StatType;
+  }
+  public static Offset<GamePacket.CS_ADD_STAT_REQ> Pack(FlatBufferBuilder builder, CS_ADD_STAT_REQT _o) {
+    if (_o == null) return default(Offset<GamePacket.CS_ADD_STAT_REQ>);
+    return CreateCS_ADD_STAT_REQ(
+      builder,
+      _o.StatType);
+  }
+};
+
+public class CS_ADD_STAT_REQT
+{
+  public Define.StatType StatType { get; set; }
+
+  public CS_ADD_STAT_REQT() {
+    this.StatType = Define.StatType.STR;
+  }
+}
+
+public struct SC_ADD_STAT_RES : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_ADD_STAT_RES GetRootAsSC_ADD_STAT_RES(ByteBuffer _bb) { return GetRootAsSC_ADD_STAT_RES(_bb, new SC_ADD_STAT_RES()); }
+  public static SC_ADD_STAT_RES GetRootAsSC_ADD_STAT_RES(ByteBuffer _bb, SC_ADD_STAT_RES obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_ADD_STAT_RES __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public GamePacket.ErrorCode Result { get { int o = __p.__offset(4); return o != 0 ? (GamePacket.ErrorCode)__p.bb.GetSbyte(o + __p.bb_pos) : GamePacket.ErrorCode.SUCCESS; } }
+  public Define.StatType StatType { get { int o = __p.__offset(6); return o != 0 ? (Define.StatType)__p.bb.Get(o + __p.bb_pos) : Define.StatType.STR; } }
+
+  public static Offset<GamePacket.SC_ADD_STAT_RES> CreateSC_ADD_STAT_RES(FlatBufferBuilder builder,
+      GamePacket.ErrorCode result = GamePacket.ErrorCode.SUCCESS,
+      Define.StatType stat_type = Define.StatType.STR) {
+    builder.StartTable(2);
+    SC_ADD_STAT_RES.AddStatType(builder, stat_type);
+    SC_ADD_STAT_RES.AddResult(builder, result);
+    return SC_ADD_STAT_RES.EndSC_ADD_STAT_RES(builder);
+  }
+
+  public static void StartSC_ADD_STAT_RES(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddResult(FlatBufferBuilder builder, GamePacket.ErrorCode result) { builder.AddSbyte(0, (sbyte)result, 0); }
+  public static void AddStatType(FlatBufferBuilder builder, Define.StatType statType) { builder.AddByte(1, (byte)statType, 0); }
+  public static Offset<GamePacket.SC_ADD_STAT_RES> EndSC_ADD_STAT_RES(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_ADD_STAT_RES>(o);
+  }
+  public SC_ADD_STAT_REST UnPack() {
+    var _o = new SC_ADD_STAT_REST();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_ADD_STAT_REST _o) {
+    _o.Result = this.Result;
+    _o.StatType = this.StatType;
+  }
+  public static Offset<GamePacket.SC_ADD_STAT_RES> Pack(FlatBufferBuilder builder, SC_ADD_STAT_REST _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_ADD_STAT_RES>);
+    return CreateSC_ADD_STAT_RES(
+      builder,
+      _o.Result,
+      _o.StatType);
+  }
+};
+
+public class SC_ADD_STAT_REST
+{
+  public GamePacket.ErrorCode Result { get; set; }
+  public Define.StatType StatType { get; set; }
+
+  public SC_ADD_STAT_REST() {
+    this.Result = GamePacket.ErrorCode.SUCCESS;
+    this.StatType = Define.StatType.STR;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -1847,6 +1961,8 @@ public struct Root : IFlatbufferObject
   public GamePacket.CS_NORMAL_CHAT_REQ PacketAsCS_NORMAL_CHAT_REQ() { return Packet<GamePacket.CS_NORMAL_CHAT_REQ>().Value; }
   public GamePacket.SC_NORMAL_CHAT_RES PacketAsSC_NORMAL_CHAT_RES() { return Packet<GamePacket.SC_NORMAL_CHAT_RES>().Value; }
   public GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI PacketAsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() { return Packet<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>().Value; }
+  public GamePacket.CS_ADD_STAT_REQ PacketAsCS_ADD_STAT_REQ() { return Packet<GamePacket.CS_ADD_STAT_REQ>().Value; }
+  public GamePacket.SC_ADD_STAT_RES PacketAsSC_ADD_STAT_RES() { return Packet<GamePacket.SC_ADD_STAT_RES>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -1953,6 +2069,12 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI:
         _o.Packet.Value = this.Packet<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>().HasValue ? this.Packet<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.CS_ADD_STAT_REQ:
+        _o.Packet.Value = this.Packet<GamePacket.CS_ADD_STAT_REQ>().HasValue ? this.Packet<GamePacket.CS_ADD_STAT_REQ>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_ADD_STAT_RES:
+        _o.Packet.Value = this.Packet<GamePacket.SC_ADD_STAT_RES>().HasValue ? this.Packet<GamePacket.SC_ADD_STAT_RES>().Value.UnPack() : null;
         break;
     }
   }

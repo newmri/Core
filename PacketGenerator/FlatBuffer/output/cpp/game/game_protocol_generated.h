@@ -127,6 +127,14 @@ struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI;
 struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIBuilder;
 struct SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT;
 
+struct CS_ADD_STAT_REQ;
+struct CS_ADD_STAT_REQBuilder;
+struct CS_ADD_STAT_REQT;
+
+struct SC_ADD_STAT_RES;
+struct SC_ADD_STAT_RESBuilder;
+struct SC_ADD_STAT_REST;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -192,11 +200,13 @@ enum Packet : uint8_t {
   Packet_CS_NORMAL_CHAT_REQ = 24,
   Packet_SC_NORMAL_CHAT_RES = 25,
   Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI = 26,
+  Packet_CS_ADD_STAT_REQ = 27,
+  Packet_SC_ADD_STAT_RES = 28,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI
+  Packet_MAX = Packet_SC_ADD_STAT_RES
 };
 
-inline const Packet (&EnumValuesPacket())[27] {
+inline const Packet (&EnumValuesPacket())[29] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -224,13 +234,15 @@ inline const Packet (&EnumValuesPacket())[27] {
     Packet_SC_ABILITY_INFO_NOTI,
     Packet_CS_NORMAL_CHAT_REQ,
     Packet_SC_NORMAL_CHAT_RES,
-    Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI
+    Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI,
+    Packet_CS_ADD_STAT_REQ,
+    Packet_SC_ADD_STAT_RES
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[28] = {
+  static const char * const names[30] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -258,13 +270,15 @@ inline const char * const *EnumNamesPacket() {
     "CS_NORMAL_CHAT_REQ",
     "SC_NORMAL_CHAT_RES",
     "SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI",
+    "CS_ADD_STAT_REQ",
+    "SC_ADD_STAT_RES",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_ADD_STAT_RES)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -375,6 +389,14 @@ template<> struct PacketTraits<GamePacket::SC_NORMAL_CHAT_RES> {
 
 template<> struct PacketTraits<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> {
   static const Packet enum_value = Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI;
+};
+
+template<> struct PacketTraits<GamePacket::CS_ADD_STAT_REQ> {
+  static const Packet enum_value = Packet_CS_ADD_STAT_REQ;
+};
+
+template<> struct PacketTraits<GamePacket::SC_ADD_STAT_RES> {
+  static const Packet enum_value = Packet_SC_ADD_STAT_RES;
 };
 
 struct PacketUnion {
@@ -616,6 +638,22 @@ struct PacketUnion {
   const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() const {
     return type == Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI ?
       reinterpret_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *>(value) : nullptr;
+  }
+  GamePacket::CS_ADD_STAT_REQT *AsCS_ADD_STAT_REQ() {
+    return type == Packet_CS_ADD_STAT_REQ ?
+      reinterpret_cast<GamePacket::CS_ADD_STAT_REQT *>(value) : nullptr;
+  }
+  const GamePacket::CS_ADD_STAT_REQT *AsCS_ADD_STAT_REQ() const {
+    return type == Packet_CS_ADD_STAT_REQ ?
+      reinterpret_cast<const GamePacket::CS_ADD_STAT_REQT *>(value) : nullptr;
+  }
+  GamePacket::SC_ADD_STAT_REST *AsSC_ADD_STAT_RES() {
+    return type == Packet_SC_ADD_STAT_RES ?
+      reinterpret_cast<GamePacket::SC_ADD_STAT_REST *>(value) : nullptr;
+  }
+  const GamePacket::SC_ADD_STAT_REST *AsSC_ADD_STAT_RES() const {
+    return type == Packet_SC_ADD_STAT_RES ?
+      reinterpret_cast<const GamePacket::SC_ADD_STAT_REST *>(value) : nullptr;
   }
 };
 
@@ -2563,6 +2601,121 @@ inline flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> CreateSC_ADDED_
 
 flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct CS_ADD_STAT_REQT : public flatbuffers::NativeTable {
+  typedef CS_ADD_STAT_REQ TableType;
+  Define::StatType stat_type = Define::StatType_STR;
+};
+
+struct CS_ADD_STAT_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_ADD_STAT_REQT NativeTableType;
+  typedef CS_ADD_STAT_REQBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_STAT_TYPE = 4
+  };
+  Define::StatType stat_type() const {
+    return static_cast<Define::StatType>(GetField<uint8_t>(VT_STAT_TYPE, 0));
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_STAT_TYPE) &&
+           verifier.EndTable();
+  }
+  CS_ADD_STAT_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_ADD_STAT_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_ADD_STAT_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_ADD_STAT_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct CS_ADD_STAT_REQBuilder {
+  typedef CS_ADD_STAT_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_stat_type(Define::StatType stat_type) {
+    fbb_.AddElement<uint8_t>(CS_ADD_STAT_REQ::VT_STAT_TYPE, static_cast<uint8_t>(stat_type), 0);
+  }
+  explicit CS_ADD_STAT_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_ADD_STAT_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_ADD_STAT_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_ADD_STAT_REQ> CreateCS_ADD_STAT_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    Define::StatType stat_type = Define::StatType_STR) {
+  CS_ADD_STAT_REQBuilder builder_(_fbb);
+  builder_.add_stat_type(stat_type);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<CS_ADD_STAT_REQ> CreateCS_ADD_STAT_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_ADD_STAT_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_ADD_STAT_REST : public flatbuffers::NativeTable {
+  typedef SC_ADD_STAT_RES TableType;
+  GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS;
+  Define::StatType stat_type = Define::StatType_STR;
+};
+
+struct SC_ADD_STAT_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_ADD_STAT_REST NativeTableType;
+  typedef SC_ADD_STAT_RESBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_RESULT = 4,
+    VT_STAT_TYPE = 6
+  };
+  GamePacket::ErrorCode result() const {
+    return static_cast<GamePacket::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
+  }
+  Define::StatType stat_type() const {
+    return static_cast<Define::StatType>(GetField<uint8_t>(VT_STAT_TYPE, 0));
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int8_t>(verifier, VT_RESULT) &&
+           VerifyField<uint8_t>(verifier, VT_STAT_TYPE) &&
+           verifier.EndTable();
+  }
+  SC_ADD_STAT_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_ADD_STAT_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_ADD_STAT_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADD_STAT_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_ADD_STAT_RESBuilder {
+  typedef SC_ADD_STAT_RES Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_result(GamePacket::ErrorCode result) {
+    fbb_.AddElement<int8_t>(SC_ADD_STAT_RES::VT_RESULT, static_cast<int8_t>(result), 0);
+  }
+  void add_stat_type(Define::StatType stat_type) {
+    fbb_.AddElement<uint8_t>(SC_ADD_STAT_RES::VT_STAT_TYPE, static_cast<uint8_t>(stat_type), 0);
+  }
+  explicit SC_ADD_STAT_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_ADD_STAT_RES> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_ADD_STAT_RES>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_ADD_STAT_RES> CreateSC_ADD_STAT_RES(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
+    Define::StatType stat_type = Define::StatType_STR) {
+  SC_ADD_STAT_RESBuilder builder_(_fbb);
+  builder_.add_stat_type(stat_type);
+  builder_.add_result(result);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_ADD_STAT_RES> CreateSC_ADD_STAT_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADD_STAT_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -2659,6 +2812,12 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *packet_as_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() const {
     return packet_type() == GamePacket::Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI ? static_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *>(packet()) : nullptr;
+  }
+  const GamePacket::CS_ADD_STAT_REQ *packet_as_CS_ADD_STAT_REQ() const {
+    return packet_type() == GamePacket::Packet_CS_ADD_STAT_REQ ? static_cast<const GamePacket::CS_ADD_STAT_REQ *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_ADD_STAT_RES *packet_as_SC_ADD_STAT_RES() const {
+    return packet_type() == GamePacket::Packet_SC_ADD_STAT_RES ? static_cast<const GamePacket::SC_ADD_STAT_RES *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -2774,6 +2933,14 @@ template<> inline const GamePacket::SC_NORMAL_CHAT_RES *Root::packet_as<GamePack
 
 template<> inline const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *Root::packet_as<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>() const {
   return packet_as_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI();
+}
+
+template<> inline const GamePacket::CS_ADD_STAT_REQ *Root::packet_as<GamePacket::CS_ADD_STAT_REQ>() const {
+  return packet_as_CS_ADD_STAT_REQ();
+}
+
+template<> inline const GamePacket::SC_ADD_STAT_RES *Root::packet_as<GamePacket::SC_ADD_STAT_RES>() const {
+  return packet_as_SC_ADD_STAT_RES();
 }
 
 struct RootBuilder {
@@ -3629,6 +3796,61 @@ inline flatbuffers::Offset<SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> CreateSC_ADDED_
       _item_slot_info);
 }
 
+inline CS_ADD_STAT_REQT *CS_ADD_STAT_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_ADD_STAT_REQT>(new CS_ADD_STAT_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_ADD_STAT_REQ::UnPackTo(CS_ADD_STAT_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = stat_type(); _o->stat_type = _e; }
+}
+
+inline flatbuffers::Offset<CS_ADD_STAT_REQ> CS_ADD_STAT_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_ADD_STAT_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_ADD_STAT_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_ADD_STAT_REQ> CreateCS_ADD_STAT_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_ADD_STAT_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_ADD_STAT_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _stat_type = _o->stat_type;
+  return GamePacket::CreateCS_ADD_STAT_REQ(
+      _fbb,
+      _stat_type);
+}
+
+inline SC_ADD_STAT_REST *SC_ADD_STAT_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_ADD_STAT_REST>(new SC_ADD_STAT_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_ADD_STAT_RES::UnPackTo(SC_ADD_STAT_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = result(); _o->result = _e; }
+  { auto _e = stat_type(); _o->stat_type = _e; }
+}
+
+inline flatbuffers::Offset<SC_ADD_STAT_RES> SC_ADD_STAT_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADD_STAT_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_ADD_STAT_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_ADD_STAT_RES> CreateSC_ADD_STAT_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADD_STAT_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_ADD_STAT_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _result = _o->result;
+  auto _stat_type = _o->stat_type;
+  return GamePacket::CreateSC_ADD_STAT_RES(
+      _fbb,
+      _result,
+      _stat_type);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -3767,6 +3989,14 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_CS_ADD_STAT_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_ADD_STAT_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_SC_ADD_STAT_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADD_STAT_RES *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -3889,6 +4119,14 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_CS_ADD_STAT_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_ADD_STAT_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_ADD_STAT_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADD_STAT_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -3999,6 +4237,14 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *>(value);
       return CreateSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_CS_ADD_STAT_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_ADD_STAT_REQT *>(value);
+      return CreateCS_ADD_STAT_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_ADD_STAT_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADD_STAT_REST *>(value);
+      return CreateSC_ADD_STAT_RES(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -4107,6 +4353,14 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: {
       FLATBUFFERS_ASSERT(false);  // GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT not copyable.
+      break;
+    }
+    case Packet_CS_ADD_STAT_REQ: {
+      value = new GamePacket::CS_ADD_STAT_REQT(*reinterpret_cast<GamePacket::CS_ADD_STAT_REQT *>(u.value));
+      break;
+    }
+    case Packet_SC_ADD_STAT_RES: {
+      value = new GamePacket::SC_ADD_STAT_REST(*reinterpret_cast<GamePacket::SC_ADD_STAT_REST *>(u.value));
       break;
     }
     default:
@@ -4243,6 +4497,16 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: {
       auto ptr = reinterpret_cast<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_ADD_STAT_REQ: {
+      auto ptr = reinterpret_cast<GamePacket::CS_ADD_STAT_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_ADD_STAT_RES: {
+      auto ptr = reinterpret_cast<GamePacket::SC_ADD_STAT_REST *>(value);
       delete ptr;
       break;
     }
