@@ -353,4 +353,33 @@ void Player::AddStat(const Define::StatType statType)
 {
 	if (!IsBetween<Define::StatType>(statType, Define::StatType_MIN, static_cast<Define::StatType>(Define::StatType_END - 1)))
 		return;
+
+	GamePacket::ErrorCode result = GamePacket::ErrorCode::ErrorCode_SUCCESS;
+	PACKET_SEND_MANAGER.Clear();
+	flatbuffers::Offset<GamePacket::SC_ADD_STAT_RES> message;
+	Info::Ability ability;
+
+	{
+		WRITE_LOCK(this->infoMutex);
+		if (IS_ZERO(this->characterInfo.bonus_stat))
+			return;
+
+		if (GAME_SERVER.GetGameDB()->AddStat(this->session->GetAccountUID(), GetUID(), statType))
+		{
+			CalculateAbilityWithNoLock();
+			ability = flatbuffers::PackAbility(this->creatureInfo.ability);
+
+			message = GamePacket::CreateSC_ADD_STAT_RES(PACKET_SEND_MANAGER.builder, result, statType);
+		}
+		else
+		{
+			result = GamePacket::ErrorCode::ErrorCode_UNKNOWN;
+			message = GamePacket::CreateSC_ADD_STAT_RES(PACKET_SEND_MANAGER.builder, result);
+		}
+	}
+
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_ADD_STAT_RES, message.Union());
+
+	if (IS_SAME(GamePacket::ErrorCode::ErrorCode_SUCCESS, result))
+		SendAbility(ability);
 }
