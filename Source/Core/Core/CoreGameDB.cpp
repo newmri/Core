@@ -107,3 +107,39 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 		remainedItemCount -= addItemCount;
 	}
 }
+
+bool CoreGameDB::OnLevelUp(const int64_t accountUID, const int64_t uid, const uint8_t newLevel, const int32_t newBonusStatPoint)
+{
+	CoreItemUID itemUID;
+
+	Prepare(L"LevelUp");
+	BindArgument(accountUID);
+	BindArgument(uid);
+	BindArgument(newLevel);
+	BindArgument(newBonusStatPoint);
+
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR,
+			"accountUID: " + TO_STR(accountUID) +
+			"UID: " + TO_STR(uid) +
+			"newLevel: " + TO_STR(newLevel) +
+			"newBonusStatPoint: " + TO_STR(newBonusStatPoint) +
+			" ",
+			__FILE__, __FUNCTION__, __LINE__));
+
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
+
+	bool isSuccess = false;
+	BindCol(&isSuccess, sizeof(isSuccess));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return isSuccess;
+}

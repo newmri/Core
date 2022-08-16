@@ -383,3 +383,29 @@ void Player::AddStat(const Define::StatType statType)
 	if (IS_SAME(GamePacket::ErrorCode::ErrorCode_SUCCESS, result))
 		SendAbility(ability);
 }
+
+void Player::OnLevelUpCheat(const uint8_t newLevel)
+{
+	auto levelData = CHARACTER_DATA_MANAGER.GetLevelData(newLevel);
+	if (IS_NULL(levelData))
+		return;
+
+	PACKET_SEND_MANAGER.Clear();
+	flatbuffers::Offset<GamePacket::SC_MY_LEVEL_UP_NOTI> myLevelUpMessage;
+
+	{
+		WRITE_LOCK(this->infoMutex);
+
+		int32_t newBonusStatPoint = this->characterInfo.bonus_stat + CHARACTER_DATA_MANAGER.GetBonusStatPoint(this->creatureInfo.level, newLevel);
+		if (!GAME_SERVER.GetGameDB()->OnLevelUp(this->session->GetAccountUID(), GetUID(), newLevel, newBonusStatPoint))
+			return;
+
+		this->creatureInfo.level = newLevel;
+		this->creatureInfo.exp = 0;
+		this->characterInfo.bonus_stat = newBonusStatPoint;
+
+		myLevelUpMessage = GamePacket::CreateSC_MY_LEVEL_UP_NOTI(PACKET_SEND_MANAGER.builder, newLevel, newBonusStatPoint);
+	}
+
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_MY_LEVEL_UP_NOTI, myLevelUpMessage.Union());
+}

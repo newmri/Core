@@ -44,7 +44,29 @@ const SkillData* const CharacterDataManager::GetSkillData(const int32_t skillID)
 	return &iter->second;
 }
 
-void CharacterDataManager::GetLevelData(const uint8_t level, LevelData& levelData)
+const LevelData* const CharacterDataManager::GetLevelData(const uint8_t level)
 {
-	levelData = this->level[level - 1];
+	if (level > static_cast<uint8_t>(this->level.size()))
+		return nullptr;
+
+	return &this->level[level - 1];
+}
+
+int32_t CharacterDataManager::GetBonusStatPoint(uint8_t from, const uint8_t to)
+{
+	int32_t bonusStatPoint = 0;
+
+	if (from > to)
+		return bonusStatPoint;
+
+	for (; from <= to; ++from)
+	{
+		auto levelData = GetLevelData(from);
+		if (IS_NULL(levelData))
+			return bonusStatPoint;
+
+		bonusStatPoint += levelData->bonusPoint;
+	}
+
+	return bonusStatPoint;
 }

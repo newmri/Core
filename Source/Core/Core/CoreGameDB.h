@@ -9,4 +9,7 @@ public:
 public:
 	CoreItemUID GetItemUID(const uint16_t count);
 	void AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo, std::vector<Info::ItemSlotInfoT>& itemSlotInfoList);
+
+public:
+	bool OnLevelUp(const int64_t accountUID, const int64_t uid, const uint8_t newLevel, const int32_t newBonusStatPoint);
 };

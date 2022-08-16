@@ -40,6 +40,7 @@ class GamePacketManager
        _handler.Add(Packet.SC_NORMAL_CHAT_RES, GamePacketHandler.SC_NORMAL_CHAT_RES);
        _handler.Add(Packet.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI, GamePacketHandler.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI);
        _handler.Add(Packet.SC_ADD_STAT_RES, GamePacketHandler.SC_ADD_STAT_RES);
+       _handler.Add(Packet.SC_MY_LEVEL_UP_NOTI, GamePacketHandler.SC_MY_LEVEL_UP_NOTI);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

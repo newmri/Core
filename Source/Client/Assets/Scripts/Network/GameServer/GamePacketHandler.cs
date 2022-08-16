@@ -210,6 +210,11 @@ class GamePacketHandler
             inventory.UpdateBonusStat();
         }
     }
+
+    public static void SC_MY_LEVEL_UP_NOTI(PacketSession session, Root packet)
+    {
+
+    }
 }
 
 

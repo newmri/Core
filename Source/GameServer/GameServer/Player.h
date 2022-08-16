@@ -60,6 +60,9 @@ private:
 public:
 	void AddStat(const Define::StatType statType);
 
+public:
+	void OnLevelUpCheat(const uint8_t newLevel);
+
 private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;

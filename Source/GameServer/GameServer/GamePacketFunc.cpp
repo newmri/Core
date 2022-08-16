@@ -225,9 +225,9 @@ void GamePacketFunc::CS_NORMAL_CHAT_REQ(std::shared_ptr<CoreClientSession> sessi
 		return;
 
 	// ġƮ
-	if (wChatMessage._Starts_with(L"/"))
+	if (chatMessage._Starts_with("/"))
 	{
-		CHEAT_MANAGER.OnCheat(wChatMessage, player);
+		CHEAT_MANAGER.OnCheat(chatMessage, player);
 		return;
 	}
 

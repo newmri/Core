@@ -135,6 +135,10 @@ struct SC_ADD_STAT_RES;
 struct SC_ADD_STAT_RESBuilder;
 struct SC_ADD_STAT_REST;
 
+struct SC_MY_LEVEL_UP_NOTI;
+struct SC_MY_LEVEL_UP_NOTIBuilder;
+struct SC_MY_LEVEL_UP_NOTIT;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -202,11 +206,12 @@ enum Packet : uint8_t {
   Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI = 26,
   Packet_CS_ADD_STAT_REQ = 27,
   Packet_SC_ADD_STAT_RES = 28,
+  Packet_SC_MY_LEVEL_UP_NOTI = 29,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_ADD_STAT_RES
+  Packet_MAX = Packet_SC_MY_LEVEL_UP_NOTI
 };
 
-inline const Packet (&EnumValuesPacket())[29] {
+inline const Packet (&EnumValuesPacket())[30] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -236,13 +241,14 @@ inline const Packet (&EnumValuesPacket())[29] {
     Packet_SC_NORMAL_CHAT_RES,
     Packet_SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI,
     Packet_CS_ADD_STAT_REQ,
-    Packet_SC_ADD_STAT_RES
+    Packet_SC_ADD_STAT_RES,
+    Packet_SC_MY_LEVEL_UP_NOTI
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[30] = {
+  static const char * const names[31] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -272,13 +278,14 @@ inline const char * const *EnumNamesPacket() {
     "SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI",
     "CS_ADD_STAT_REQ",
     "SC_ADD_STAT_RES",
+    "SC_MY_LEVEL_UP_NOTI",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_ADD_STAT_RES)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_MY_LEVEL_UP_NOTI)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -397,6 +404,10 @@ template<> struct PacketTraits<GamePacket::CS_ADD_STAT_REQ> {
 
 template<> struct PacketTraits<GamePacket::SC_ADD_STAT_RES> {
   static const Packet enum_value = Packet_SC_ADD_STAT_RES;
+};
+
+template<> struct PacketTraits<GamePacket::SC_MY_LEVEL_UP_NOTI> {
+  static const Packet enum_value = Packet_SC_MY_LEVEL_UP_NOTI;
 };
 
 struct PacketUnion {
@@ -654,6 +665,14 @@ struct PacketUnion {
   const GamePacket::SC_ADD_STAT_REST *AsSC_ADD_STAT_RES() const {
     return type == Packet_SC_ADD_STAT_RES ?
       reinterpret_cast<const GamePacket::SC_ADD_STAT_REST *>(value) : nullptr;
+  }
+  GamePacket::SC_MY_LEVEL_UP_NOTIT *AsSC_MY_LEVEL_UP_NOTI() {
+    return type == Packet_SC_MY_LEVEL_UP_NOTI ?
+      reinterpret_cast<GamePacket::SC_MY_LEVEL_UP_NOTIT *>(value) : nullptr;
+  }
+  const GamePacket::SC_MY_LEVEL_UP_NOTIT *AsSC_MY_LEVEL_UP_NOTI() const {
+    return type == Packet_SC_MY_LEVEL_UP_NOTI ?
+      reinterpret_cast<const GamePacket::SC_MY_LEVEL_UP_NOTIT *>(value) : nullptr;
   }
 };
 
@@ -2716,6 +2735,69 @@ inline flatbuffers::Offset<SC_ADD_STAT_RES> CreateSC_ADD_STAT_RES(
 
 flatbuffers::Offset<SC_ADD_STAT_RES> CreateSC_ADD_STAT_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADD_STAT_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct SC_MY_LEVEL_UP_NOTIT : public flatbuffers::NativeTable {
+  typedef SC_MY_LEVEL_UP_NOTI TableType;
+  uint8_t new_level = 0;
+  int32_t new_stat_point = 0;
+};
+
+struct SC_MY_LEVEL_UP_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_MY_LEVEL_UP_NOTIT NativeTableType;
+  typedef SC_MY_LEVEL_UP_NOTIBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_NEW_LEVEL = 4,
+    VT_NEW_STAT_POINT = 6
+  };
+  uint8_t new_level() const {
+    return GetField<uint8_t>(VT_NEW_LEVEL, 0);
+  }
+  int32_t new_stat_point() const {
+    return GetField<int32_t>(VT_NEW_STAT_POINT, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_NEW_LEVEL) &&
+           VerifyField<int32_t>(verifier, VT_NEW_STAT_POINT) &&
+           verifier.EndTable();
+  }
+  SC_MY_LEVEL_UP_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_MY_LEVEL_UP_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_MY_LEVEL_UP_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_MY_LEVEL_UP_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_MY_LEVEL_UP_NOTIBuilder {
+  typedef SC_MY_LEVEL_UP_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_new_level(uint8_t new_level) {
+    fbb_.AddElement<uint8_t>(SC_MY_LEVEL_UP_NOTI::VT_NEW_LEVEL, new_level, 0);
+  }
+  void add_new_stat_point(int32_t new_stat_point) {
+    fbb_.AddElement<int32_t>(SC_MY_LEVEL_UP_NOTI::VT_NEW_STAT_POINT, new_stat_point, 0);
+  }
+  explicit SC_MY_LEVEL_UP_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_MY_LEVEL_UP_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_MY_LEVEL_UP_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_MY_LEVEL_UP_NOTI> CreateSC_MY_LEVEL_UP_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    uint8_t new_level = 0,
+    int32_t new_stat_point = 0) {
+  SC_MY_LEVEL_UP_NOTIBuilder builder_(_fbb);
+  builder_.add_new_stat_point(new_stat_point);
+  builder_.add_new_level(new_level);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_MY_LEVEL_UP_NOTI> CreateSC_MY_LEVEL_UP_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_MY_LEVEL_UP_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -2818,6 +2900,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_ADD_STAT_RES *packet_as_SC_ADD_STAT_RES() const {
     return packet_type() == GamePacket::Packet_SC_ADD_STAT_RES ? static_cast<const GamePacket::SC_ADD_STAT_RES *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_MY_LEVEL_UP_NOTI *packet_as_SC_MY_LEVEL_UP_NOTI() const {
+    return packet_type() == GamePacket::Packet_SC_MY_LEVEL_UP_NOTI ? static_cast<const GamePacket::SC_MY_LEVEL_UP_NOTI *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -2941,6 +3026,10 @@ template<> inline const GamePacket::CS_ADD_STAT_REQ *Root::packet_as<GamePacket:
 
 template<> inline const GamePacket::SC_ADD_STAT_RES *Root::packet_as<GamePacket::SC_ADD_STAT_RES>() const {
   return packet_as_SC_ADD_STAT_RES();
+}
+
+template<> inline const GamePacket::SC_MY_LEVEL_UP_NOTI *Root::packet_as<GamePacket::SC_MY_LEVEL_UP_NOTI>() const {
+  return packet_as_SC_MY_LEVEL_UP_NOTI();
 }
 
 struct RootBuilder {
@@ -3851,6 +3940,35 @@ inline flatbuffers::Offset<SC_ADD_STAT_RES> CreateSC_ADD_STAT_RES(flatbuffers::F
       _stat_type);
 }
 
+inline SC_MY_LEVEL_UP_NOTIT *SC_MY_LEVEL_UP_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_MY_LEVEL_UP_NOTIT>(new SC_MY_LEVEL_UP_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_MY_LEVEL_UP_NOTI::UnPackTo(SC_MY_LEVEL_UP_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = new_level(); _o->new_level = _e; }
+  { auto _e = new_stat_point(); _o->new_stat_point = _e; }
+}
+
+inline flatbuffers::Offset<SC_MY_LEVEL_UP_NOTI> SC_MY_LEVEL_UP_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_MY_LEVEL_UP_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_MY_LEVEL_UP_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_MY_LEVEL_UP_NOTI> CreateSC_MY_LEVEL_UP_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_MY_LEVEL_UP_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_MY_LEVEL_UP_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _new_level = _o->new_level;
+  auto _new_stat_point = _o->new_stat_point;
+  return GamePacket::CreateSC_MY_LEVEL_UP_NOTI(
+      _fbb,
+      _new_level,
+      _new_stat_point);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -3997,6 +4115,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_ADD_STAT_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_MY_LEVEL_UP_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_MY_LEVEL_UP_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -4127,6 +4249,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_ADD_STAT_RES *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_MY_LEVEL_UP_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_MY_LEVEL_UP_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -4245,6 +4371,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_ADD_STAT_REST *>(value);
       return CreateSC_ADD_STAT_RES(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_MY_LEVEL_UP_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_MY_LEVEL_UP_NOTIT *>(value);
+      return CreateSC_MY_LEVEL_UP_NOTI(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -4361,6 +4491,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_ADD_STAT_RES: {
       value = new GamePacket::SC_ADD_STAT_REST(*reinterpret_cast<GamePacket::SC_ADD_STAT_REST *>(u.value));
+      break;
+    }
+    case Packet_SC_MY_LEVEL_UP_NOTI: {
+      value = new GamePacket::SC_MY_LEVEL_UP_NOTIT(*reinterpret_cast<GamePacket::SC_MY_LEVEL_UP_NOTIT *>(u.value));
       break;
     }
     default:
@@ -4507,6 +4641,11 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_ADD_STAT_RES: {
       auto ptr = reinterpret_cast<GamePacket::SC_ADD_STAT_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_MY_LEVEL_UP_NOTI: {
+      auto ptr = reinterpret_cast<GamePacket::SC_MY_LEVEL_UP_NOTIT *>(value);
       delete ptr;
       break;
     }

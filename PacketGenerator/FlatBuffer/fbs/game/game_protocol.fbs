@@ -39,7 +39,8 @@ union Packet
     SC_NORMAL_CHAT_RES,
     SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI,
     CS_ADD_STAT_REQ,
-    SC_ADD_STAT_RES
+    SC_ADD_STAT_RES,
+    SC_MY_LEVEL_UP_NOTI
 }
 
 table CS_LOGIN_REQ
@@ -224,6 +225,12 @@ table SC_ADD_STAT_RES
 {
    result:ErrorCode;
    stat_type:Define.StatType;
+}
+
+table SC_MY_LEVEL_UP_NOTI
+{
+   new_level:ubyte;
+   new_stat_point:int32;
 }
 
 table Root

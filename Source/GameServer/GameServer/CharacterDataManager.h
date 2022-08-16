@@ -13,11 +13,12 @@ public:
 	void CalculateAbilityByStat(Info::CreatureInfoT& info);
 	void CalculateSpeed(const Define::Job job, NativeInfo::Speed& speed);
 	const SkillData* const GetSkillData(const int32_t skillID);
-	void GetLevelData(const uint8_t level, LevelData& levelData);
+	const LevelData* const GetLevelData(const uint8_t level);
+	int32_t GetBonusStatPoint(uint8_t from, const uint8_t to);
 
 private:
-	CoreVector<CharacterAbilityByStat> characterAbilityByStat;
-	CoreVector<NativeInfo::Speed> characterSpeed;
+	std::vector<CharacterAbilityByStat> characterAbilityByStat;
+	std::vector<NativeInfo::Speed> characterSpeed;
 	std::unordered_map<int32_t, SkillData> skill;
-	CoreVector<LevelData> level;
+	std::vector<LevelData> level;
 };

@@ -47,6 +47,7 @@ public enum Packet : byte
   SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI = 26,
   CS_ADD_STAT_REQ = 27,
   SC_ADD_STAT_RES = 28,
+  SC_MY_LEVEL_UP_NOTI = 29,
 };
 
 public class PacketUnion {
@@ -87,6 +88,7 @@ public class PacketUnion {
   public GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() { return this.As<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTIT>(); }
   public GamePacket.CS_ADD_STAT_REQT AsCS_ADD_STAT_REQ() { return this.As<GamePacket.CS_ADD_STAT_REQT>(); }
   public GamePacket.SC_ADD_STAT_REST AsSC_ADD_STAT_RES() { return this.As<GamePacket.SC_ADD_STAT_REST>(); }
+  public GamePacket.SC_MY_LEVEL_UP_NOTIT AsSC_MY_LEVEL_UP_NOTI() { return this.As<GamePacket.SC_MY_LEVEL_UP_NOTIT>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -119,6 +121,7 @@ public class PacketUnion {
       case Packet.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI: return GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI.Pack(builder, _o.AsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI()).Value;
       case Packet.CS_ADD_STAT_REQ: return GamePacket.CS_ADD_STAT_REQ.Pack(builder, _o.AsCS_ADD_STAT_REQ()).Value;
       case Packet.SC_ADD_STAT_RES: return GamePacket.SC_ADD_STAT_RES.Pack(builder, _o.AsSC_ADD_STAT_RES()).Value;
+      case Packet.SC_MY_LEVEL_UP_NOTI: return GamePacket.SC_MY_LEVEL_UP_NOTI.Pack(builder, _o.AsSC_MY_LEVEL_UP_NOTI()).Value;
     }
   }
 }
@@ -1923,6 +1926,64 @@ public class SC_ADD_STAT_REST
   }
 }
 
+public struct SC_MY_LEVEL_UP_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_MY_LEVEL_UP_NOTI GetRootAsSC_MY_LEVEL_UP_NOTI(ByteBuffer _bb) { return GetRootAsSC_MY_LEVEL_UP_NOTI(_bb, new SC_MY_LEVEL_UP_NOTI()); }
+  public static SC_MY_LEVEL_UP_NOTI GetRootAsSC_MY_LEVEL_UP_NOTI(ByteBuffer _bb, SC_MY_LEVEL_UP_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_MY_LEVEL_UP_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public byte NewLevel { get { int o = __p.__offset(4); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public int NewStatPoint { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+
+  public static Offset<GamePacket.SC_MY_LEVEL_UP_NOTI> CreateSC_MY_LEVEL_UP_NOTI(FlatBufferBuilder builder,
+      byte new_level = 0,
+      int new_stat_point = 0) {
+    builder.StartTable(2);
+    SC_MY_LEVEL_UP_NOTI.AddNewStatPoint(builder, new_stat_point);
+    SC_MY_LEVEL_UP_NOTI.AddNewLevel(builder, new_level);
+    return SC_MY_LEVEL_UP_NOTI.EndSC_MY_LEVEL_UP_NOTI(builder);
+  }
+
+  public static void StartSC_MY_LEVEL_UP_NOTI(FlatBufferBuilder builder) { builder.StartTable(2); }
+  public static void AddNewLevel(FlatBufferBuilder builder, byte newLevel) { builder.AddByte(0, newLevel, 0); }
+  public static void AddNewStatPoint(FlatBufferBuilder builder, int newStatPoint) { builder.AddInt(1, newStatPoint, 0); }
+  public static Offset<GamePacket.SC_MY_LEVEL_UP_NOTI> EndSC_MY_LEVEL_UP_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_MY_LEVEL_UP_NOTI>(o);
+  }
+  public SC_MY_LEVEL_UP_NOTIT UnPack() {
+    var _o = new SC_MY_LEVEL_UP_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_MY_LEVEL_UP_NOTIT _o) {
+    _o.NewLevel = this.NewLevel;
+    _o.NewStatPoint = this.NewStatPoint;
+  }
+  public static Offset<GamePacket.SC_MY_LEVEL_UP_NOTI> Pack(FlatBufferBuilder builder, SC_MY_LEVEL_UP_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_MY_LEVEL_UP_NOTI>);
+    return CreateSC_MY_LEVEL_UP_NOTI(
+      builder,
+      _o.NewLevel,
+      _o.NewStatPoint);
+  }
+};
+
+public class SC_MY_LEVEL_UP_NOTIT
+{
+  public byte NewLevel { get; set; }
+  public int NewStatPoint { get; set; }
+
+  public SC_MY_LEVEL_UP_NOTIT() {
+    this.NewLevel = 0;
+    this.NewStatPoint = 0;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -1963,6 +2024,7 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI PacketAsSC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI() { return Packet<GamePacket.SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI>().Value; }
   public GamePacket.CS_ADD_STAT_REQ PacketAsCS_ADD_STAT_REQ() { return Packet<GamePacket.CS_ADD_STAT_REQ>().Value; }
   public GamePacket.SC_ADD_STAT_RES PacketAsSC_ADD_STAT_RES() { return Packet<GamePacket.SC_ADD_STAT_RES>().Value; }
+  public GamePacket.SC_MY_LEVEL_UP_NOTI PacketAsSC_MY_LEVEL_UP_NOTI() { return Packet<GamePacket.SC_MY_LEVEL_UP_NOTI>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -2075,6 +2137,9 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_ADD_STAT_RES:
         _o.Packet.Value = this.Packet<GamePacket.SC_ADD_STAT_RES>().HasValue ? this.Packet<GamePacket.SC_ADD_STAT_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_MY_LEVEL_UP_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_MY_LEVEL_UP_NOTI>().HasValue ? this.Packet<GamePacket.SC_MY_LEVEL_UP_NOTI>().Value.UnPack() : null;
         break;
     }
   }

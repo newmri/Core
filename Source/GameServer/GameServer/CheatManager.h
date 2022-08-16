@@ -7,5 +7,5 @@ class CheatManager
 	DECLARE_SINGLETON(CheatManager)
 
 public:
-	void OnCheat(std::wstring message, std::shared_ptr<Player> player);
+	void OnCheat(std::string message, std::shared_ptr<Player> player);
 };
