@@ -366,6 +366,8 @@ void Player::AddStat(const Define::StatType statType)
 
 		if (GAME_SERVER.GetGameDB()->AddStat(this->session->GetAccountUID(), GetUID(), statType))
 		{
+			this->creatureInfo.stat.value[statType] += 1;
+
 			CalculateAbilityWithNoLock();
 			ability = flatbuffers::PackAbility(this->creatureInfo.ability);
 

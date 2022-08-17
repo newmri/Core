@@ -23,6 +23,7 @@ void CharacterDataManager::CalculateAbilityByStat(Info::CreatureInfoT& info)
 {
 	for (int32_t i = 0; i < Define::AbilityByStatType_END; ++i)
 	{
+		info.ability.value[i] = 0;
 		for (int32_t j = 0; j < Define::StatType_END; ++j)
 		{
 			info.ability.value[i] += info.stat.value[j] * this->characterAbilityByStat[j].multipleRate[i];
