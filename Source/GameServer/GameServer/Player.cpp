@@ -399,12 +399,15 @@ void Player::OnLevelUpCheat(const uint8_t newLevel)
 		WRITE_LOCK(this->infoMutex);
 
 		int32_t newBonusStatPoint = this->characterInfo.bonus_stat + CHARACTER_DATA_MANAGER.GetBonusStatPoint(this->creatureInfo.level, newLevel);
-		if (!GAME_SERVER.GetGameDB()->OnLevelUp(this->session->GetAccountUID(), GetUID(), newLevel, newBonusStatPoint))
+		if (!GAME_SERVER.GetGameDB()->OnLevelUp(this->session->GetAccountUID(), GetUID(),
+			newLevel, newBonusStatPoint, this->creatureInfo.ability.value[Define::AbilityType_HP], this->creatureInfo.ability.value[Define::AbilityType_MP]))
 			return;
 
 		this->creatureInfo.level = newLevel;
 		this->creatureInfo.exp = 0;
 		this->characterInfo.bonus_stat = newBonusStatPoint;
+		this->creatureInfo.hp = this->creatureInfo.ability.value[Define::AbilityType_HP];
+		this->creatureInfo.mp = this->creatureInfo.ability.value[Define::AbilityType_MP];
 
 		myLevelUpMessage = GamePacket::CreateSC_MY_LEVEL_UP_NOTI(PACKET_SEND_MANAGER.builder, newLevel, newBonusStatPoint);
 	}

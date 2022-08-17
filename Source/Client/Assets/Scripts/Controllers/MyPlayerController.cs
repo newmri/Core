@@ -104,6 +104,19 @@ public class MyPlayerController : PlayerController
 		}
 	}
 
+	public override byte Level
+    {
+		get
+        {
+			return base.Level;
+		}
+		set
+        {
+			base.Level = value;
+			_uiGameScene.UpdateCharacterLevel(value);
+		}
+    }
+
 	bool _moveKeyPressed = false;
 
 	UIGameScene _uiGameScene;

@@ -99,6 +99,11 @@ public class UIGameScene : UIScene
         Inventory.UpdateCharacterName(name);
     }
 
+    public void UpdateCharacterLevel(byte level)
+    {
+        this.GetTextMesh((int)TextMeshProUGUIs.CharacterLevelText).text = "Lv." + level.ToString();
+    }
+
     public void UpdateMoney(MoneyT money)
     {
         this.GetTextMesh((int)TextMeshProUGUIs.GemText).text = money.Value[(int)MoneyType.GEM].ToString();

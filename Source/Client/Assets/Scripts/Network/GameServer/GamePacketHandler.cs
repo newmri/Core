@@ -213,7 +213,9 @@ class GamePacketHandler
 
     public static void SC_MY_LEVEL_UP_NOTI(PacketSession session, Root packet)
     {
-
+        SC_MY_LEVEL_UP_NOTI myLevelUpNoti = packet.PacketAsSC_MY_LEVEL_UP_NOTI();
+        Managers.Object.MyPlayer.Level = myLevelUpNoti.NewLevel;
+        Managers.Object.MyCharacterInfo.BonusStat = myLevelUpNoti.NewStatPoint;
     }
 }
 

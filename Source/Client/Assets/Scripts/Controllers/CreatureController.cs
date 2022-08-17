@@ -51,10 +51,19 @@ public class CreatureController : BaseController
 		set { CreatureInfo.Mp = value; }
 	}
 
-	public byte Level
+	public virtual byte Level
 	{
 		get { return CreatureInfo.Level; }
-		set { CreatureInfo.Level = value; }
+		set
+		{
+			if(CreatureInfo.Level < value)
+            {
+				HP = CreatureInfo.Ability.Value[(int)Define.AbilityType.HP];
+				MP = CreatureInfo.Ability.Value[(int)Define.AbilityType.MP];
+			}
+
+			CreatureInfo.Level = value; 
+		}
 	}
 
 	public long EXP

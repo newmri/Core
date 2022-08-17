@@ -108,7 +108,7 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 	}
 }
 
-bool CoreGameDB::OnLevelUp(const int64_t accountUID, const int64_t uid, const uint8_t newLevel, const int32_t newBonusStatPoint)
+bool CoreGameDB::OnLevelUp(const int64_t accountUID, const int64_t uid, const uint8_t newLevel, const int32_t newBonusStatPoint, const int32_t newHP, const int32_t newMP)
 {
 	CoreItemUID itemUID;
 
@@ -117,6 +117,8 @@ bool CoreGameDB::OnLevelUp(const int64_t accountUID, const int64_t uid, const ui
 	BindArgument(uid);
 	BindArgument(newLevel);
 	BindArgument(newBonusStatPoint);
+	BindArgument(newHP);
+	BindArgument(newMP);
 
 	if (!Execute())
 	{
