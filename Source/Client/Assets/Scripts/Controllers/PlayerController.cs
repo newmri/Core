@@ -152,6 +152,14 @@ public class PlayerController : CreatureController
 		base.OnDead();
 	}
 
+	public Vector3 NamePos
+    {
+		get
+        {
+			return _name.transform.position;
+		}
+    }
+
 	protected virtual void OnDeadEffect()
     {
 		Vector3 effectPos = _name.transform.position;

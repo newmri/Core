@@ -123,7 +123,7 @@ public class CreatureController : BaseController
 		DamageText text = CoreManagers.Obj.Add("Text", "DamageText", _damageTextPos.position, 30).GetComponent<DamageText>();
 		text.Damage = damage;
 
-		CoreManagers.Obj.Add("Effect", "HitBlood", _bloodPos.position, 30);
+		CoreManagers.Obj.Add("Effect", "HitBlood", EffectPos, 30);
 	}
 
 	protected virtual void OnDead()

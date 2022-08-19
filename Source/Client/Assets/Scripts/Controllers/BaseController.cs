@@ -13,7 +13,7 @@ public class BaseController : MonoBehaviour
 
 	protected bool _isRunning = false;
 	protected Transform _damageTextPos;
-	protected Transform _bloodPos;
+	protected Transform _effectPos;
 	protected Vector3 _posCorrection = new Vector3(0.0f, 0.5f);
 
 	[SerializeField]
@@ -107,6 +107,14 @@ public class BaseController : MonoBehaviour
 		}
 	}
 
+	public Vector3 EffectPos
+    {
+		get
+        {
+			return _effectPos.position;
+		}
+    }
+
 	protected virtual void UpdateAnimation()
 	{
 		
@@ -125,7 +133,7 @@ public class BaseController : MonoBehaviour
 	protected virtual void Init()
 	{
 		_damageTextPos = transform.Find("DamageTextPoint");
-		_bloodPos = transform.Find("BloodPoint");
+		_effectPos = transform.Find("EffectPoint");
 		UpdateAnimation();
 	}
 

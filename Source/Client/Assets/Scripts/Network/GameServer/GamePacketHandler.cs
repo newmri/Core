@@ -216,6 +216,8 @@ class GamePacketHandler
         SC_MY_LEVEL_UP_NOTI myLevelUpNoti = packet.PacketAsSC_MY_LEVEL_UP_NOTI();
         Managers.Object.MyPlayer.Level = myLevelUpNoti.NewLevel;
         Managers.Object.MyCharacterInfo.BonusStat = myLevelUpNoti.NewStatPoint;
+
+        CoreManagers.Obj.Add("Effect", "LevelUp", Managers.Object.MyPlayer.EffectPos);
     }
 }
 

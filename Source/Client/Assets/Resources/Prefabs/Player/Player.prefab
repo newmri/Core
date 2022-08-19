@@ -60,19 +60,14 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
-  - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
-  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
   - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
   - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
+  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
   - {fileID: 2100000, guid: 83ccc2a104201794eabbdc52b28486ef, type: 2}
-  - {fileID: 2100000, guid: c7852dda76abdc84daabc7fad3536fc7, type: 2}
+  - {fileID: 2100000, guid: a828c00893245924d8dacd5083c7753f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -264,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3237389055175664815}
   m_Layer: 10
-  m_Name: BloodPoint
+  m_Name: EffectPoint
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
