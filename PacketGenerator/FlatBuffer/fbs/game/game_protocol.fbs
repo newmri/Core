@@ -40,7 +40,8 @@ union Packet
     SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI,
     CS_ADD_STAT_REQ,
     SC_ADD_STAT_RES,
-    SC_MY_LEVEL_UP_NOTI
+    SC_MY_LEVEL_UP_NOTI,
+    SC_LEVEL_UP_NOTI
 }
 
 table CS_LOGIN_REQ
@@ -231,6 +232,11 @@ table SC_MY_LEVEL_UP_NOTI
 {
    new_level:ubyte;
    new_stat_point:int32;
+}
+
+table SC_LEVEL_UP_NOTI
+{
+   oid:int64;
 }
 
 table Root

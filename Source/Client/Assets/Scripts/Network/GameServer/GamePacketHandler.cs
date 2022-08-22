@@ -219,6 +219,13 @@ class GamePacketHandler
 
         CoreManagers.Obj.Add("Effect", "LevelUp", Managers.Object.MyPlayer.EffectPos);
     }
+
+    public static void SC_LEVEL_UP_NOTI(PacketSession session, Root packet)
+    {
+        SC_LEVEL_UP_NOTI levelUpNoti = packet.PacketAsSC_LEVEL_UP_NOTI();
+
+        Managers.Object.AddEffect(levelUpNoti.Oid, "LevelUp");
+    }
 }
 
 

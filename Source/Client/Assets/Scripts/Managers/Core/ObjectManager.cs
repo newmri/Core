@@ -251,4 +251,15 @@ public class ObjectManager
         MyPlayer = null;
         _playerList.Clear();
     }
+
+    public void AddEffect(long oid, string effectName)
+    {
+        ObjectInfoT info = new ObjectInfoT { ObjectType = ObjectType.PLAYER, Oid = oid };
+
+        CreatureController creatureController = GetCreatureController(info);
+        if (creatureController == null)
+            return;
+
+        CoreManagers.Obj.Add("Effect", effectName, creatureController.EffectPos);
+    }
 }

@@ -413,4 +413,9 @@ void Player::OnLevelUpCheat(const uint8_t newLevel)
 	}
 
 	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_MY_LEVEL_UP_NOTI, myLevelUpMessage.Union());
+
+	PACKET_SEND_MANAGER.Clear();
+	flatbuffers::Offset<GamePacket::SC_LEVEL_UP_NOTI> levelUpMessage;
+	levelUpMessage = GamePacket::CreateSC_LEVEL_UP_NOTI(PACKET_SEND_MANAGER.builder, GetOID());
+	ZONE_MANAGER.SendAllExceptMe(GetMapID(), GetOID(), GamePacket::Packet_SC_LEVEL_UP_NOTI, levelUpMessage.Union(), GetPos());
 }
