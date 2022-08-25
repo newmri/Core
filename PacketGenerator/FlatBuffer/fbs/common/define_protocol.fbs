@@ -93,6 +93,28 @@ enum ItemAbility : ubyte
    MAX_COUNT = 5
 }
 
+enum EffectType : ubyte
+{
+	HP,
+	MP,
+	DAMAGE,
+	MAGIC_DAMAGE,
+	DEFENCE,
+	MAGIC_DEFENCE,
+	CRITICAL_RATE,
+	MAGIC_CRITICAL_RATE,
+	LIGHT_REGISTANCE_RATE,
+	DARK_REGISTANCE_RATE,
+	FIRE_REGISTANCE_RATE,
+	WATER_REGISTANCE_RATE,
+	END
+}
+
+enum ItemEffect : ubyte
+{
+   MAX_COUNT = 5
+}
+
 enum ItemType : int32
 {
 	MELEE = 10000,
@@ -104,7 +126,8 @@ enum ItemType : int32
 	HELMET = 40000,
 	SHOULDER = 50000,
 	ARM = 60000,
-	FEET = 70000
+	FEET = 70000,
+	POTION = 80000
 }
 
 enum GradeType : ubyte

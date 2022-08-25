@@ -102,6 +102,28 @@ public enum ItemAbility : byte
   MAX_COUNT = 5,
 };
 
+public enum EffectType : byte
+{
+  HP = 0,
+  MP = 1,
+  DAMAGE = 2,
+  MAGIC_DAMAGE = 3,
+  DEFENCE = 4,
+  MAGIC_DEFENCE = 5,
+  CRITICAL_RATE = 6,
+  MAGIC_CRITICAL_RATE = 7,
+  LIGHT_REGISTANCE_RATE = 8,
+  DARK_REGISTANCE_RATE = 9,
+  FIRE_REGISTANCE_RATE = 10,
+  WATER_REGISTANCE_RATE = 11,
+  END = 12,
+};
+
+public enum ItemEffect : byte
+{
+  MAX_COUNT = 5,
+};
+
 public enum ItemType : int
 {
   MELEE = 10000,
@@ -114,6 +136,7 @@ public enum ItemType : int
   SHOULDER = 50000,
   ARM = 60000,
   FEET = 70000,
+  POTION = 80000,
 };
 
 public enum GradeType : byte

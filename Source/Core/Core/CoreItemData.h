@@ -16,6 +16,7 @@ struct CoreItemData
 	Define::GradeType gradeType;
 	int64_t coolTime;
 	int32_t abilityID[Define::ItemAbility_MAX_COUNT];
+	int32_t effectID[Define::ItemEffect_MAX_COUNT];
 	bool isCashItem;
 	int64_t buyPrice;
 	int64_t sellPrice;

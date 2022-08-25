@@ -419,6 +419,96 @@ inline const char *EnumNameItemAbility(ItemAbility e) {
   return EnumNamesItemAbility()[index];
 }
 
+enum EffectType : uint8_t {
+  EffectType_HP = 0,
+  EffectType_MP = 1,
+  EffectType_DAMAGE = 2,
+  EffectType_MAGIC_DAMAGE = 3,
+  EffectType_DEFENCE = 4,
+  EffectType_MAGIC_DEFENCE = 5,
+  EffectType_CRITICAL_RATE = 6,
+  EffectType_MAGIC_CRITICAL_RATE = 7,
+  EffectType_LIGHT_REGISTANCE_RATE = 8,
+  EffectType_DARK_REGISTANCE_RATE = 9,
+  EffectType_FIRE_REGISTANCE_RATE = 10,
+  EffectType_WATER_REGISTANCE_RATE = 11,
+  EffectType_END = 12,
+  EffectType_MIN = EffectType_HP,
+  EffectType_MAX = EffectType_END
+};
+
+inline const EffectType (&EnumValuesEffectType())[13] {
+  static const EffectType values[] = {
+    EffectType_HP,
+    EffectType_MP,
+    EffectType_DAMAGE,
+    EffectType_MAGIC_DAMAGE,
+    EffectType_DEFENCE,
+    EffectType_MAGIC_DEFENCE,
+    EffectType_CRITICAL_RATE,
+    EffectType_MAGIC_CRITICAL_RATE,
+    EffectType_LIGHT_REGISTANCE_RATE,
+    EffectType_DARK_REGISTANCE_RATE,
+    EffectType_FIRE_REGISTANCE_RATE,
+    EffectType_WATER_REGISTANCE_RATE,
+    EffectType_END
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesEffectType() {
+  static const char * const names[14] = {
+    "HP",
+    "MP",
+    "DAMAGE",
+    "MAGIC_DAMAGE",
+    "DEFENCE",
+    "MAGIC_DEFENCE",
+    "CRITICAL_RATE",
+    "MAGIC_CRITICAL_RATE",
+    "LIGHT_REGISTANCE_RATE",
+    "DARK_REGISTANCE_RATE",
+    "FIRE_REGISTANCE_RATE",
+    "WATER_REGISTANCE_RATE",
+    "END",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameEffectType(EffectType e) {
+  if (flatbuffers::IsOutRange(e, EffectType_HP, EffectType_END)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesEffectType()[index];
+}
+
+enum ItemEffect : uint8_t {
+  ItemEffect_MAX_COUNT = 5,
+  ItemEffect_MIN = ItemEffect_MAX_COUNT,
+  ItemEffect_MAX = ItemEffect_MAX_COUNT
+};
+
+inline const ItemEffect (&EnumValuesItemEffect())[1] {
+  static const ItemEffect values[] = {
+    ItemEffect_MAX_COUNT
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesItemEffect() {
+  static const char * const names[2] = {
+    "MAX_COUNT",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameItemEffect(ItemEffect e) {
+  if (flatbuffers::IsOutRange(e, ItemEffect_MAX_COUNT, ItemEffect_MAX_COUNT)) return "";
+  const size_t index = static_cast<size_t>(e) - static_cast<size_t>(ItemEffect_MAX_COUNT);
+  return EnumNamesItemEffect()[index];
+}
+
 enum ItemType : int32_t {
   ItemType_MELEE = 10000,
   ItemType_BOW = 11000,
@@ -430,11 +520,12 @@ enum ItemType : int32_t {
   ItemType_SHOULDER = 50000,
   ItemType_ARM = 60000,
   ItemType_FEET = 70000,
+  ItemType_POTION = 80000,
   ItemType_MIN = ItemType_MELEE,
-  ItemType_MAX = ItemType_FEET
+  ItemType_MAX = ItemType_POTION
 };
 
-inline const ItemType (&EnumValuesItemType())[10] {
+inline const ItemType (&EnumValuesItemType())[11] {
   static const ItemType values[] = {
     ItemType_MELEE,
     ItemType_BOW,
@@ -445,7 +536,8 @@ inline const ItemType (&EnumValuesItemType())[10] {
     ItemType_HELMET,
     ItemType_SHOULDER,
     ItemType_ARM,
-    ItemType_FEET
+    ItemType_FEET,
+    ItemType_POTION
   };
   return values;
 }
@@ -462,6 +554,7 @@ inline const char *EnumNameItemType(ItemType e) {
     case ItemType_SHOULDER: return "SHOULDER";
     case ItemType_ARM: return "ARM";
     case ItemType_FEET: return "FEET";
+    case ItemType_POTION: return "POTION";
     default: return "";
   }
 }
