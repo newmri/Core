@@ -142,6 +142,17 @@ public class UIItemSlot : UIAwakeBase
             ItemIcon.sprite = Managers.ItemData.GetIcon(ItemID);
             ItemIcon.color = Color.white;
 
+            if(_countText != null)
+            {
+                if (Managers.ItemData.IsStackItem(ItemID))
+                {
+                    _countText.gameObject.SetActive(true);
+                    _countText.text = ItemCount.ToString();
+                }
+                else
+                    _countText.text = "";
+            }
+
             Ability = Managers.ItemData.GetAbility(ItemID);
         }
         else
@@ -155,6 +166,9 @@ public class UIItemSlot : UIAwakeBase
 
             ItemIcon.sprite = EmptyItemIconSprite;
             ItemIcon.color = _emptyColor;
+
+            if (_countText != null)
+                _countText.text = "";
 
             Array.Clear(_itemAbility, 0, (int)ItemAbility.MAX_COUNT);
         }

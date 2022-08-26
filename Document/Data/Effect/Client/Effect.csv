@@ -1,0 +1,3 @@
+﻿EffectID,EffectName,EffectType,EffectValue,EffectTick,EffectDuration
+1 ,체력,0 ,5 ,0 ,0 
+10000 ,마력,1 ,5 ,0 ,0 

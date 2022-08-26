@@ -296,7 +296,7 @@ bool Player::AddItemToInventory(const int32_t itemID, const uint16_t itemCount)
 	if (IS_NULL(itemData))
 		return false;
 
-	uint8_t needSlotCount = CoreUtil::IntRound(static_cast<float_t>(itemCount) / itemData->maxStackCount);
+	uint8_t needSlotCount = CoreUtil::IntCeil(static_cast<float_t>(itemCount) / itemData->maxStackCount);
 	uint8_t emptySlotCount = 0;
 
 	std::vector<Info::ItemSlotInfoT> itemSlotInfoList;

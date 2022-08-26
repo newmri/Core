@@ -3,6 +3,7 @@
 namespace CoreUtil
 {
 	int32_t IntRound(const float_t value);
+	int32_t IntCeil(const float_t value);
 
 	template<typename T>
 	T Min(const T lValue, const T rValue)
