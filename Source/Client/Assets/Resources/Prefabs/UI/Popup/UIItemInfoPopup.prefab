@@ -2945,7 +2945,7 @@ GameObject:
   - component: {fileID: 6313437713860186317}
   - component: {fileID: 4318215109854965289}
   m_Layer: 5
-  m_Name: Job
+  m_Name: UsableJobText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

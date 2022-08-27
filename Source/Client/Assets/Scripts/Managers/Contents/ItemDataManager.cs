@@ -139,6 +139,18 @@ public class ItemDataManager
         return ability;
     }
 
+    public EffectData[] GetEffect(int itemID)
+    {
+        EffectData[] effect = new EffectData[(int)ItemEffect.MAX_COUNT];
+
+        for (int i = 0; i < (int)ItemEffect.MAX_COUNT; ++i)
+        {
+            Managers.EffectData.GetEffect((int)GetData(itemID, "EffectID" + (i + 1)), ref effect[i]);
+        }
+
+        return effect;
+    }
+
     public bool IsStackItem(int itemID)
     {
         return ((ushort)(int)GetData(itemID, "MaxStackCount")) > 1;

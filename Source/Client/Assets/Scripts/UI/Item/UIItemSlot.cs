@@ -105,6 +105,20 @@ public class UIItemSlot : UIAwakeBase
         }
     }
 
+    [SerializeField]
+    EffectData[] _itemEffect = new EffectData[(int)ItemEffect.MAX_COUNT];
+    public EffectData[] Effect
+    {
+        get
+        {
+            return _itemEffect;
+        }
+        set
+        {
+            _itemEffect = value;
+        }
+    }
+
     private Image _frameIcon = null;
     private Sprite _emptyFrameIconSprite = null;
     private Image _selectIcon = null;
@@ -154,6 +168,7 @@ public class UIItemSlot : UIAwakeBase
             }
 
             Ability = Managers.ItemData.GetAbility(ItemID);
+            Effect = Managers.ItemData.GetEffect(ItemID);
         }
         else
         {

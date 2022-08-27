@@ -16,6 +16,7 @@ public class GameScene : BaseScene
         Managers.Map.LoadMap(0);
         Managers.CharacterData.Load();
         Managers.AbilityData.Load();
+        Managers.EffectData.Load();
         Managers.GradeData.Load();
 
         Managers.Account.UIGameScene = Managers.UI.ShowSceneUI<UIGameScene>();

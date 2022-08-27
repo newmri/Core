@@ -36,6 +36,7 @@ public class UIItemInfoPopup : UIPopup
         ItemNameText,
         ExplainText,
         GradeNameText,
+        UsableJobText,
         JobNameText,
         FuctionText
     }
@@ -72,11 +73,20 @@ public class UIItemInfoPopup : UIPopup
         this.GetTextMesh((int)TextMeshProUGUIs.ItemNameText).text = Managers.ItemData.GetData(ItemSlot.ItemID, "Name").ToString();
         this.GetTextMesh((int)TextMeshProUGUIs.ItemNameText).color = Managers.ItemData.GetColor(ItemSlot.ItemID);
 
-        this.GetTextMesh((int)TextMeshProUGUIs.ExplainText).text = Managers.ItemData.GetData(ItemSlot.ItemID, "Explain").ToString();
+        string explainMessage = Managers.ItemData.GetData(ItemSlot.ItemID, "Explain").ToString().Replace("\\n", "\n");
+        for (int i = 0; i < (int)ItemEffect.MAX_COUNT; ++i)
+        {
+            if(ItemSlot.Effect[i].EffectValue != 0)
+            {
+                explainMessage = string.Format(explainMessage, ItemSlot.Effect[i].EffectValue);
+            }
+        }
+        this.GetTextMesh((int)TextMeshProUGUIs.ExplainText).text = explainMessage;
 
         this.GetTextMesh((int)TextMeshProUGUIs.GradeNameText).text = Managers.ItemData.GetGradeName(ItemSlot.ItemID);
         this.GetTextMesh((int)TextMeshProUGUIs.GradeNameText).color = Managers.ItemData.GetColor(ItemSlot.ItemID);
 
+        this.GetTextMesh((int)TextMeshProUGUIs.UsableJobText).text = Managers.ItemData.CanEquip(ItemSlot.ItemID) == true ? "장착 가능:" : "사용 가능:";
         this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).text = Managers.ItemData.GetJobName(ItemSlot.ItemID);
         this.GetTextMesh((int)TextMeshProUGUIs.JobNameText).color = Managers.ItemData.IsUsableJob(ItemSlot.ItemID) ? Color.green : Color.red;
 
