@@ -34,4 +34,5 @@ void GamePacketHandler::Register(void)
     this->func[GamePacket::Packet_SC_ADD_STAT_RES] = &GamePacketFunc::SC_ADD_STAT_RES;
     this->func[GamePacket::Packet_SC_MY_LEVEL_UP_NOTI] = &GamePacketFunc::SC_MY_LEVEL_UP_NOTI;
     this->func[GamePacket::Packet_SC_LEVEL_UP_NOTI] = &GamePacketFunc::SC_LEVEL_UP_NOTI;
+    this->func[GamePacket::Packet_SC_USE_ITEM_RES] = &GamePacketFunc::SC_USE_ITEM_RES;
 }

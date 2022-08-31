@@ -143,6 +143,14 @@ struct SC_LEVEL_UP_NOTI;
 struct SC_LEVEL_UP_NOTIBuilder;
 struct SC_LEVEL_UP_NOTIT;
 
+struct CS_USE_ITEM_REQ;
+struct CS_USE_ITEM_REQBuilder;
+struct CS_USE_ITEM_REQT;
+
+struct SC_USE_ITEM_RES;
+struct SC_USE_ITEM_RESBuilder;
+struct SC_USE_ITEM_REST;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -212,11 +220,13 @@ enum Packet : uint8_t {
   Packet_SC_ADD_STAT_RES = 28,
   Packet_SC_MY_LEVEL_UP_NOTI = 29,
   Packet_SC_LEVEL_UP_NOTI = 30,
+  Packet_CS_USE_ITEM_REQ = 31,
+  Packet_SC_USE_ITEM_RES = 32,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_LEVEL_UP_NOTI
+  Packet_MAX = Packet_SC_USE_ITEM_RES
 };
 
-inline const Packet (&EnumValuesPacket())[31] {
+inline const Packet (&EnumValuesPacket())[33] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -248,13 +258,15 @@ inline const Packet (&EnumValuesPacket())[31] {
     Packet_CS_ADD_STAT_REQ,
     Packet_SC_ADD_STAT_RES,
     Packet_SC_MY_LEVEL_UP_NOTI,
-    Packet_SC_LEVEL_UP_NOTI
+    Packet_SC_LEVEL_UP_NOTI,
+    Packet_CS_USE_ITEM_REQ,
+    Packet_SC_USE_ITEM_RES
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[32] = {
+  static const char * const names[34] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -286,13 +298,15 @@ inline const char * const *EnumNamesPacket() {
     "SC_ADD_STAT_RES",
     "SC_MY_LEVEL_UP_NOTI",
     "SC_LEVEL_UP_NOTI",
+    "CS_USE_ITEM_REQ",
+    "SC_USE_ITEM_RES",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_LEVEL_UP_NOTI)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_USE_ITEM_RES)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -419,6 +433,14 @@ template<> struct PacketTraits<GamePacket::SC_MY_LEVEL_UP_NOTI> {
 
 template<> struct PacketTraits<GamePacket::SC_LEVEL_UP_NOTI> {
   static const Packet enum_value = Packet_SC_LEVEL_UP_NOTI;
+};
+
+template<> struct PacketTraits<GamePacket::CS_USE_ITEM_REQ> {
+  static const Packet enum_value = Packet_CS_USE_ITEM_REQ;
+};
+
+template<> struct PacketTraits<GamePacket::SC_USE_ITEM_RES> {
+  static const Packet enum_value = Packet_SC_USE_ITEM_RES;
 };
 
 struct PacketUnion {
@@ -692,6 +714,22 @@ struct PacketUnion {
   const GamePacket::SC_LEVEL_UP_NOTIT *AsSC_LEVEL_UP_NOTI() const {
     return type == Packet_SC_LEVEL_UP_NOTI ?
       reinterpret_cast<const GamePacket::SC_LEVEL_UP_NOTIT *>(value) : nullptr;
+  }
+  GamePacket::CS_USE_ITEM_REQT *AsCS_USE_ITEM_REQ() {
+    return type == Packet_CS_USE_ITEM_REQ ?
+      reinterpret_cast<GamePacket::CS_USE_ITEM_REQT *>(value) : nullptr;
+  }
+  const GamePacket::CS_USE_ITEM_REQT *AsCS_USE_ITEM_REQ() const {
+    return type == Packet_CS_USE_ITEM_REQ ?
+      reinterpret_cast<const GamePacket::CS_USE_ITEM_REQT *>(value) : nullptr;
+  }
+  GamePacket::SC_USE_ITEM_REST *AsSC_USE_ITEM_RES() {
+    return type == Packet_SC_USE_ITEM_RES ?
+      reinterpret_cast<GamePacket::SC_USE_ITEM_REST *>(value) : nullptr;
+  }
+  const GamePacket::SC_USE_ITEM_REST *AsSC_USE_ITEM_RES() const {
+    return type == Packet_SC_USE_ITEM_RES ?
+      reinterpret_cast<const GamePacket::SC_USE_ITEM_REST *>(value) : nullptr;
   }
 };
 
@@ -2869,6 +2907,132 @@ inline flatbuffers::Offset<SC_LEVEL_UP_NOTI> CreateSC_LEVEL_UP_NOTI(
 
 flatbuffers::Offset<SC_LEVEL_UP_NOTI> CreateSC_LEVEL_UP_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_LEVEL_UP_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct CS_USE_ITEM_REQT : public flatbuffers::NativeTable {
+  typedef CS_USE_ITEM_REQ TableType;
+  int64_t item_uid = 0;
+};
+
+struct CS_USE_ITEM_REQ FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef CS_USE_ITEM_REQT NativeTableType;
+  typedef CS_USE_ITEM_REQBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_ITEM_UID = 4
+  };
+  int64_t item_uid() const {
+    return GetField<int64_t>(VT_ITEM_UID, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int64_t>(verifier, VT_ITEM_UID) &&
+           verifier.EndTable();
+  }
+  CS_USE_ITEM_REQT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CS_USE_ITEM_REQT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<CS_USE_ITEM_REQ> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_USE_ITEM_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct CS_USE_ITEM_REQBuilder {
+  typedef CS_USE_ITEM_REQ Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_item_uid(int64_t item_uid) {
+    fbb_.AddElement<int64_t>(CS_USE_ITEM_REQ::VT_ITEM_UID, item_uid, 0);
+  }
+  explicit CS_USE_ITEM_REQBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<CS_USE_ITEM_REQ> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<CS_USE_ITEM_REQ>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<CS_USE_ITEM_REQ> CreateCS_USE_ITEM_REQ(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    int64_t item_uid = 0) {
+  CS_USE_ITEM_REQBuilder builder_(_fbb);
+  builder_.add_item_uid(item_uid);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<CS_USE_ITEM_REQ> CreateCS_USE_ITEM_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_USE_ITEM_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
+struct SC_USE_ITEM_REST : public flatbuffers::NativeTable {
+  typedef SC_USE_ITEM_RES TableType;
+  GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS;
+  int64_t item_uid = 0;
+  uint16_t item_count = 0;
+};
+
+struct SC_USE_ITEM_RES FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_USE_ITEM_REST NativeTableType;
+  typedef SC_USE_ITEM_RESBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_RESULT = 4,
+    VT_ITEM_UID = 6,
+    VT_ITEM_COUNT = 8
+  };
+  GamePacket::ErrorCode result() const {
+    return static_cast<GamePacket::ErrorCode>(GetField<int8_t>(VT_RESULT, 0));
+  }
+  int64_t item_uid() const {
+    return GetField<int64_t>(VT_ITEM_UID, 0);
+  }
+  uint16_t item_count() const {
+    return GetField<uint16_t>(VT_ITEM_COUNT, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int8_t>(verifier, VT_RESULT) &&
+           VerifyField<int64_t>(verifier, VT_ITEM_UID) &&
+           VerifyField<uint16_t>(verifier, VT_ITEM_COUNT) &&
+           verifier.EndTable();
+  }
+  SC_USE_ITEM_REST *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_USE_ITEM_REST *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_USE_ITEM_RES> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_ITEM_REST* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_USE_ITEM_RESBuilder {
+  typedef SC_USE_ITEM_RES Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_result(GamePacket::ErrorCode result) {
+    fbb_.AddElement<int8_t>(SC_USE_ITEM_RES::VT_RESULT, static_cast<int8_t>(result), 0);
+  }
+  void add_item_uid(int64_t item_uid) {
+    fbb_.AddElement<int64_t>(SC_USE_ITEM_RES::VT_ITEM_UID, item_uid, 0);
+  }
+  void add_item_count(uint16_t item_count) {
+    fbb_.AddElement<uint16_t>(SC_USE_ITEM_RES::VT_ITEM_COUNT, item_count, 0);
+  }
+  explicit SC_USE_ITEM_RESBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_USE_ITEM_RES> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_USE_ITEM_RES>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_USE_ITEM_RES> CreateSC_USE_ITEM_RES(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    GamePacket::ErrorCode result = GamePacket::ErrorCode_SUCCESS,
+    int64_t item_uid = 0,
+    uint16_t item_count = 0) {
+  SC_USE_ITEM_RESBuilder builder_(_fbb);
+  builder_.add_item_uid(item_uid);
+  builder_.add_item_count(item_count);
+  builder_.add_result(result);
+  return builder_.Finish();
+}
+
+flatbuffers::Offset<SC_USE_ITEM_RES> CreateSC_USE_ITEM_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_ITEM_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -2977,6 +3141,12 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_LEVEL_UP_NOTI *packet_as_SC_LEVEL_UP_NOTI() const {
     return packet_type() == GamePacket::Packet_SC_LEVEL_UP_NOTI ? static_cast<const GamePacket::SC_LEVEL_UP_NOTI *>(packet()) : nullptr;
+  }
+  const GamePacket::CS_USE_ITEM_REQ *packet_as_CS_USE_ITEM_REQ() const {
+    return packet_type() == GamePacket::Packet_CS_USE_ITEM_REQ ? static_cast<const GamePacket::CS_USE_ITEM_REQ *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_USE_ITEM_RES *packet_as_SC_USE_ITEM_RES() const {
+    return packet_type() == GamePacket::Packet_SC_USE_ITEM_RES ? static_cast<const GamePacket::SC_USE_ITEM_RES *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -3108,6 +3278,14 @@ template<> inline const GamePacket::SC_MY_LEVEL_UP_NOTI *Root::packet_as<GamePac
 
 template<> inline const GamePacket::SC_LEVEL_UP_NOTI *Root::packet_as<GamePacket::SC_LEVEL_UP_NOTI>() const {
   return packet_as_SC_LEVEL_UP_NOTI();
+}
+
+template<> inline const GamePacket::CS_USE_ITEM_REQ *Root::packet_as<GamePacket::CS_USE_ITEM_REQ>() const {
+  return packet_as_CS_USE_ITEM_REQ();
+}
+
+template<> inline const GamePacket::SC_USE_ITEM_RES *Root::packet_as<GamePacket::SC_USE_ITEM_RES>() const {
+  return packet_as_SC_USE_ITEM_RES();
 }
 
 struct RootBuilder {
@@ -4073,6 +4251,64 @@ inline flatbuffers::Offset<SC_LEVEL_UP_NOTI> CreateSC_LEVEL_UP_NOTI(flatbuffers:
       _oid);
 }
 
+inline CS_USE_ITEM_REQT *CS_USE_ITEM_REQ::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<CS_USE_ITEM_REQT>(new CS_USE_ITEM_REQT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void CS_USE_ITEM_REQ::UnPackTo(CS_USE_ITEM_REQT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = item_uid(); _o->item_uid = _e; }
+}
+
+inline flatbuffers::Offset<CS_USE_ITEM_REQ> CS_USE_ITEM_REQ::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CS_USE_ITEM_REQT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateCS_USE_ITEM_REQ(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<CS_USE_ITEM_REQ> CreateCS_USE_ITEM_REQ(flatbuffers::FlatBufferBuilder &_fbb, const CS_USE_ITEM_REQT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CS_USE_ITEM_REQT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _item_uid = _o->item_uid;
+  return GamePacket::CreateCS_USE_ITEM_REQ(
+      _fbb,
+      _item_uid);
+}
+
+inline SC_USE_ITEM_REST *SC_USE_ITEM_RES::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_USE_ITEM_REST>(new SC_USE_ITEM_REST());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_USE_ITEM_RES::UnPackTo(SC_USE_ITEM_REST *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = result(); _o->result = _e; }
+  { auto _e = item_uid(); _o->item_uid = _e; }
+  { auto _e = item_count(); _o->item_count = _e; }
+}
+
+inline flatbuffers::Offset<SC_USE_ITEM_RES> SC_USE_ITEM_RES::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_ITEM_REST* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_USE_ITEM_RES(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_USE_ITEM_RES> CreateSC_USE_ITEM_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_ITEM_REST *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_USE_ITEM_REST* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _result = _o->result;
+  auto _item_uid = _o->item_uid;
+  auto _item_count = _o->item_count;
+  return GamePacket::CreateSC_USE_ITEM_RES(
+      _fbb,
+      _result,
+      _item_uid,
+      _item_count);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -4227,6 +4463,14 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_LEVEL_UP_NOTI *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_CS_USE_ITEM_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_USE_ITEM_REQ *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case Packet_SC_USE_ITEM_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_USE_ITEM_RES *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -4365,6 +4609,14 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_LEVEL_UP_NOTI *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_CS_USE_ITEM_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_USE_ITEM_REQ *>(obj);
+      return ptr->UnPack(resolver);
+    }
+    case Packet_SC_USE_ITEM_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_USE_ITEM_RES *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -4491,6 +4743,14 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_LEVEL_UP_NOTIT *>(value);
       return CreateSC_LEVEL_UP_NOTI(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_CS_USE_ITEM_REQ: {
+      auto ptr = reinterpret_cast<const GamePacket::CS_USE_ITEM_REQT *>(value);
+      return CreateCS_USE_ITEM_REQ(_fbb, ptr, _rehasher).Union();
+    }
+    case Packet_SC_USE_ITEM_RES: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_USE_ITEM_REST *>(value);
+      return CreateSC_USE_ITEM_RES(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -4615,6 +4875,14 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_LEVEL_UP_NOTI: {
       value = new GamePacket::SC_LEVEL_UP_NOTIT(*reinterpret_cast<GamePacket::SC_LEVEL_UP_NOTIT *>(u.value));
+      break;
+    }
+    case Packet_CS_USE_ITEM_REQ: {
+      value = new GamePacket::CS_USE_ITEM_REQT(*reinterpret_cast<GamePacket::CS_USE_ITEM_REQT *>(u.value));
+      break;
+    }
+    case Packet_SC_USE_ITEM_RES: {
+      value = new GamePacket::SC_USE_ITEM_REST(*reinterpret_cast<GamePacket::SC_USE_ITEM_REST *>(u.value));
       break;
     }
     default:
@@ -4771,6 +5039,16 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_LEVEL_UP_NOTI: {
       auto ptr = reinterpret_cast<GamePacket::SC_LEVEL_UP_NOTIT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_CS_USE_ITEM_REQ: {
+      auto ptr = reinterpret_cast<GamePacket::CS_USE_ITEM_REQT *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_USE_ITEM_RES: {
+      auto ptr = reinterpret_cast<GamePacket::SC_USE_ITEM_REST *>(value);
       delete ptr;
       break;
     }

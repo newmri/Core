@@ -41,7 +41,9 @@ union Packet
     CS_ADD_STAT_REQ,
     SC_ADD_STAT_RES,
     SC_MY_LEVEL_UP_NOTI,
-    SC_LEVEL_UP_NOTI
+    SC_LEVEL_UP_NOTI,
+    CS_USE_ITEM_REQ,
+    SC_USE_ITEM_RES
 }
 
 table CS_LOGIN_REQ
@@ -237,6 +239,18 @@ table SC_MY_LEVEL_UP_NOTI
 table SC_LEVEL_UP_NOTI
 {
    oid:int64;
+}
+
+table CS_USE_ITEM_REQ
+{
+   item_uid:int64;
+}
+
+table SC_USE_ITEM_RES
+{
+   result:ErrorCode;
+   item_uid:int64;
+   item_count:uint16;
 }
 
 table Root

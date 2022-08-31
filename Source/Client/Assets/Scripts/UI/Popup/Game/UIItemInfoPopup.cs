@@ -164,6 +164,10 @@ public class UIItemInfoPopup : UIPopup
 
     private void OnClickUseButton(PointerEventData evt)
     {
+        FlatBufferBuilder builder = new FlatBufferBuilder(1);
+        var message = CS_USE_ITEM_REQ.CreateCS_USE_ITEM_REQ(builder, ItemSlot.ItemUID);
+        Managers.GameNetwork.Send(builder, Packet.CS_USE_ITEM_REQ, message.Value);
+
         Managers.UI.ClosePopupUI();
     }
 

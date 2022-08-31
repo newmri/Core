@@ -230,6 +230,26 @@ class GamePacketHandler
 
         Managers.Object.AddEffect(levelUpNoti.Oid, "LevelUp");
     }
+
+    public static void SC_USE_ITEM_RES(PacketSession session, Root packet)
+    {
+        SC_USE_ITEM_RES itemUseRes = packet.PacketAsSC_USE_ITEM_RES();
+        if (ErrorCode.SUCCESS != itemUseRes.Result)
+        {
+            UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+
+            switch (itemUseRes.Result)
+            {
+                case ErrorCode.UNKNOWN:
+                    messagePopup.SetText("아이템 사용 실패", "다시 시도해주세요");
+                    break;
+            }
+
+            return;
+        }
+
+        Managers.UI.GetSceneUI<UIGameScene>().Inventory.UpdateItemCount(itemUseRes.ItemUid, itemUseRes.ItemCount);
+    }
 }
 
 

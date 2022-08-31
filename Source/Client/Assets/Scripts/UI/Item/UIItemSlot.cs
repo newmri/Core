@@ -74,6 +74,11 @@ public class UIItemSlot : UIAwakeBase
         set
         {
             ItemSlotInfo.ItemCount = value;
+
+            if (_countText.gameObject.activeSelf)
+            {
+                _countText.text = value.ToString();
+            }
         }
     }
 

@@ -246,22 +246,43 @@ public class UIItemInventoryPopup : UIPopup
         ++CurrSlotCount;
     }
 
-    public void RemoveItem(UIItemSlot uiItemSlot, ushort count)
+    public void UpdateItemCount(long itemUID, ushort newCount)
+    {
+        UIItemSlot uiItemSlot = _inventoryList.Find(info => info.ItemUID == itemUID);
+        if (uiItemSlot == null)
+            return;
+
+        if (newCount > 0)
+        {
+            uiItemSlot.ItemCount = newCount;
+        }
+        else
+        {
+            RemoveItem(uiItemSlot);
+        }
+    }
+
+    public void DecreaseItemCount(UIItemSlot uiItemSlot, ushort decreaseCount)
     {
         bool isEmpty = true;
 
         if (Managers.ItemData.IsStackItem(uiItemSlot.ItemSlotInfo.ItemId))
         {
-            uiItemSlot.ItemCount -= count;
+            uiItemSlot.ItemCount -= decreaseCount;
             if (uiItemSlot.ItemCount != 0)
                 isEmpty = false;
         }
 
-       if(isEmpty)
+        if (isEmpty)
         {
-            uiItemSlot.ItemID = 0;
-            --CurrSlotCount;
+            RemoveItem(uiItemSlot);
         }
+    }
+
+    private void RemoveItem(UIItemSlot uiItemSlot)
+    {
+        uiItemSlot.ItemID = 0;
+        --CurrSlotCount;
     }
 
     public void EquipGear(long itemUID)
@@ -277,7 +298,7 @@ public class UIItemInventoryPopup : UIPopup
             ItemCount = uiItemSlot.ItemCount
         };
 
-        RemoveItem(uiItemSlot, 1);
+        DecreaseItemCount(uiItemSlot, 1);
 
         GearType gearType = Managers.ItemData.GetGearType(itemSlotInfo.ItemId);
         Managers.Object.MyPlayer.SetGear(gearType, itemSlotInfo.ItemUid, itemSlotInfo.ItemId);
