@@ -64,7 +64,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		if (size)
 		{
 			std::vector<flatbuffers::Offset<LoginPacket::CharacterInfo>> sendList;
-	
+			sendList.reserve(size);
 			for (int32_t i = 0; i < size; ++i)
 			{
 				account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), infoList[i].uid, infoList[i]));

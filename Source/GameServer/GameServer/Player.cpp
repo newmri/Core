@@ -166,7 +166,6 @@ void Player::SendItemInventoryInfo(void)
 {
 	PACKET_SEND_MANAGER.Clear();
 	flatbuffers::Offset<GamePacket::SC_ITEM_INVENTORY_INFO_NOTI> message;
-
 	{
 		READ_LOCK(itemInventoryMutex);
 
@@ -174,6 +173,7 @@ void Player::SendItemInventoryInfo(void)
 		if (size)
 		{
 			std::vector<flatbuffers::Offset<Info::ItemSlotInfo>> sendList;
+			sendList.reserve(this->itemInventory.size());
 			for (auto& d : this->itemInventory)
 			{
 				sendList.push_back(Info::ItemSlotInfo::Pack(PACKET_SEND_MANAGER.builder, &d.second));
@@ -319,6 +319,7 @@ bool Player::AddItemToInventory(const int32_t itemID, const uint16_t itemCount)
 	PACKET_SEND_MANAGER.Clear();
 	flatbuffers::Offset<GamePacket::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI> message;
 	std::vector<flatbuffers::Offset<Info::ItemSlotInfo>> sendList;
+	sendList.reserve(itemSlotInfoList.size());
 	for (auto& d : itemSlotInfoList)
 	{
 		sendList.push_back(Info::ItemSlotInfo::Pack(PACKET_SEND_MANAGER.builder, &d));

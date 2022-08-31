@@ -49,6 +49,8 @@ public class UIItemInventoryPopup : UIPopup
     private List<TextMeshProUGUI> _statPointList = null;
     private List<TextMeshProUGUI> _statList = null;
 
+    private bool _isAllSlotInited = false;
+
     byte _currSlotCount = 0;
     public byte CurrSlotCount
     {
@@ -198,6 +200,11 @@ public class UIItemInventoryPopup : UIPopup
 
     public void UpdateItemSlot(byte maxSlotCount, List<ItemSlotInfoT> itemSlotInfoList)
     {
+        if (_isAllSlotInited)
+            return;
+
+        _isAllSlotInited = true;
+
         GameObject itemSlotContents = GetObject((int)GameObjects.ItemSlotContents);
 
         foreach (Transform child in itemSlotContents.transform)

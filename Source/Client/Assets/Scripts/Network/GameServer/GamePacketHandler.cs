@@ -10,6 +10,8 @@ class GamePacketHandler
 {
     public static void SC_LOGIN_RES(PacketSession session, Root packet)
     {
+        Debug.Log("Recv SC_LOGIN_RES");
+
         SC_LOGIN_RES loginRes = packet.PacketAsSC_LOGIN_RES();
         if (ErrorCode.SUCCESS != loginRes.Result)
         {
@@ -41,6 +43,8 @@ class GamePacketHandler
 
     public static void SC_ITEM_INVENTORY_INFO_NOTI(PacketSession session, Root packet)
     {
+        Debug.Log("Recv SC_ITEM_INVENTORY_INFO_NOTI");
+
         SC_ITEM_INVENTORY_INFO_NOTI itemInventoryInfoNoti = packet.PacketAsSC_ITEM_INVENTORY_INFO_NOTI();
         List<Info.ItemSlotInfoT> itemSlotInfoList = itemInventoryInfoNoti.UnPack().ItemSlotInfo;
         CoreManagers.Coroutine.Add(UpdateItemInventoryDelay(itemInventoryInfoNoti.MaxSlotCount, itemSlotInfoList));

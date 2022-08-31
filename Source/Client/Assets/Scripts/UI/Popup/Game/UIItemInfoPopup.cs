@@ -81,6 +81,7 @@ public class UIItemInfoPopup : UIPopup
                 explainMessage = string.Format(explainMessage, ItemSlot.Effect[i].EffectValue);
             }
         }
+
         this.GetTextMesh((int)TextMeshProUGUIs.ExplainText).text = explainMessage;
 
         this.GetTextMesh((int)TextMeshProUGUIs.GradeNameText).text = Managers.ItemData.GetGradeName(ItemSlot.ItemID);
