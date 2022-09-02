@@ -207,11 +207,11 @@ void Player::EquipGear(const int64_t itemUID)
 		if (IS_NULL(itemData))
 			return;
 
-		if (!CORE_ITEM_DATA_MANAGER.IsValidGearType(itemData->gearType))
-			return;
-
 		{
 			WRITE_LOCK(this->infoMutex);
+
+			if (!CORE_ITEM_DATA_MANAGER.CanEquip(itemData, this->characterInfo.job))
+				return;
 
 			if (this->characterInfo.gear.info[itemData->gearType].itemID)
 				return;
@@ -419,4 +419,41 @@ void Player::OnLevelUpCheat(const uint8_t newLevel)
 	flatbuffers::Offset<GamePacket::SC_LEVEL_UP_NOTI> levelUpMessage;
 	levelUpMessage = GamePacket::CreateSC_LEVEL_UP_NOTI(PACKET_SEND_MANAGER.builder, GetOID());
 	ZONE_MANAGER.SendAllExceptMe(GetMapID(), GetOID(), GamePacket::Packet_SC_LEVEL_UP_NOTI, levelUpMessage.Union(), GetPos());
+}
+
+void Player::UseItem(const int64_t itemUID)
+{
+	GamePacket::ErrorCode result = GamePacket::ErrorCode::ErrorCode_SUCCESS;
+	PACKET_SEND_MANAGER.Clear();
+	flatbuffers::Offset<GamePacket::SC_USE_ITEM_RES> message;
+	{
+		WRITE_LOCK(this->itemInventoryMutex);
+
+		auto itemSlotInfo = GetItemSlotInfoWithNoLock(itemUID, 1);
+		if (IS_NULL(itemSlotInfo))
+			return;
+
+		auto itemData = CORE_ITEM_DATA_MANAGER.GetItemData(itemSlotInfo->item_id);
+		if (IS_NULL(itemData))
+			return;
+
+		{
+			WRITE_LOCK(this->infoMutex);
+
+			if (!CORE_ITEM_DATA_MANAGER.CanUse(itemData, this->characterInfo.job))
+				return;
+
+			//if (UseItem(itemData, itemSlotInfo))
+			//{
+			//	message = GamePacket::CreateSC_USE_ITEM_RES(PACKET_SEND_MANAGER.builder, result, itemUID, itemSlotInfo->item_count);
+			//}
+			//else
+			//{
+			//	result = GamePacket::ErrorCode::ErrorCode_UNKNOWN;
+			//	message = GamePacket::CreateSC_USE_ITEM_RES(PACKET_SEND_MANAGER.builder, result);
+			//}
+		}
+	}
+
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_USE_ITEM_RES, message.Union());
 }

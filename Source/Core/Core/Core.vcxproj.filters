@@ -148,9 +148,6 @@
     <Filter Include="15.CoreDataManager">
       <UniqueIdentifier>{3f99c66b-f644-4afd-af27-a1eebb6a3d26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="15.CoreDataManager\01.CoreItemDataManager">
-      <UniqueIdentifier>{bde5ef1a-9993-42e0-8b58-b0b15bb14e31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="15.CoreDataManager\00.CoreAbilityDataManager">
       <UniqueIdentifier>{726c9f35-6aa9-459d-bc44-b69016c8ed8d}</UniqueIdentifier>
     </Filter>
@@ -165,6 +162,12 @@
     </Filter>
     <Filter Include="98.CoreDB\01.CoreAccountDB">
       <UniqueIdentifier>{828a10bc-c1e3-4aaa-bb1d-55e060730e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="15.CoreDataManager\01.CoreEffectDataManager">
+      <UniqueIdentifier>{c127f901-dcb1-4a7b-ac80-8733ff1c0d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="15.CoreDataManager\02.CoreItemDataManager">
+      <UniqueIdentifier>{bde5ef1a-9993-42e0-8b58-b0b15bb14e31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -247,7 +250,7 @@
       <Filter>00.CoreGlobal\01.CoreUtil</Filter>
     </ClCompile>
     <ClCompile Include="CoreItemDataManager.cpp">
-      <Filter>15.CoreDataManager\01.CoreItemDataManager</Filter>
+      <Filter>15.CoreDataManager\02.CoreItemDataManager</Filter>
     </ClCompile>
     <ClCompile Include="native_info_impl.cpp">
       <Filter>00.CoreGlobal\00.CoreInclude\00.FlatBuffer</Filter>
@@ -260,6 +263,9 @@
     </ClCompile>
     <ClCompile Include="CoreAccountDB.cpp">
       <Filter>98.CoreDB\01.CoreAccountDB</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreEffectDataManager.cpp">
+      <Filter>15.CoreDataManager\01.CoreEffectDataManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -444,10 +450,10 @@
       <Filter>00.CoreGlobal\01.CoreUtil</Filter>
     </ClInclude>
     <ClInclude Include="CoreItemData.h">
-      <Filter>15.CoreDataManager\01.CoreItemDataManager</Filter>
+      <Filter>15.CoreDataManager\02.CoreItemDataManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreItemDataManager.h">
-      <Filter>15.CoreDataManager\01.CoreItemDataManager</Filter>
+      <Filter>15.CoreDataManager\02.CoreItemDataManager</Filter>
     </ClInclude>
     <ClInclude Include="define_protocol_generated.h">
       <Filter>00.CoreGlobal\00.CoreInclude\00.FlatBuffer</Filter>
@@ -475,6 +481,12 @@
     </ClInclude>
     <ClInclude Include="CoreAccountDB.h">
       <Filter>98.CoreDB\01.CoreAccountDB</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreEffectDataManager.h">
+      <Filter>15.CoreDataManager\01.CoreEffectDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreEffectData.h">
+      <Filter>15.CoreDataManager\01.CoreEffectDataManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

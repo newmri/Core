@@ -16,6 +16,8 @@ public:
 
 public:
 	bool IsValidGearType(const Define::GearType gearType);
+	bool CanEquip(const CoreItemData* const itemData, const Define::Job job);
+	bool CanUse(const CoreItemData* const itemData, const Define::Job job);
 
 public:
 	void CalculateAbility(const NativeInfo::CharacterGear& gear, NativeInfo::Ability& ability);

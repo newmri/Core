@@ -264,3 +264,14 @@ void GamePacketFunc::CS_ADD_STAT_REQ(std::shared_ptr<CoreClientSession> session,
 
 	player->AddStat(raw->stat_type());
 }
+
+void GamePacketFunc::CS_USE_ITEM_REQ(std::shared_ptr<CoreClientSession> session, const void* data)
+{
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
+	if (IS_NULL(player))
+		return;
+
+	auto raw = static_cast<const GamePacket::CS_USE_ITEM_REQ*>(data);
+
+	player->UseItem(raw->item_uid());
+}

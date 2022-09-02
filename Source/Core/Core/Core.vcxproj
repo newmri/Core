@@ -126,6 +126,7 @@
     <ClCompile Include="CoreConsoleLogger.cpp" />
     <ClCompile Include="CoreCSVLoader.cpp" />
     <ClCompile Include="CoreDB.cpp" />
+    <ClCompile Include="CoreEffectDataManager.cpp" />
     <ClCompile Include="CoreFileLogger.cpp" />
     <ClCompile Include="CoreGameDB.cpp" />
     <ClCompile Include="CoreGameObject.cpp" />
@@ -162,6 +163,8 @@
     <ClInclude Include="CoreCSVLoader.h" />
     <ClInclude Include="CoreDataType.h" />
     <ClInclude Include="CoreDB.h" />
+    <ClInclude Include="CoreEffectData.h" />
+    <ClInclude Include="CoreEffectDataManager.h" />
     <ClInclude Include="CoreFileLogger.h" />
     <ClInclude Include="CoreGameDB.h" />
     <ClInclude Include="CoreGameObject.h" />

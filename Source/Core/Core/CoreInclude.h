@@ -83,6 +83,7 @@
 #include "CoreAccount.h"
 #include "CoreAccountManager.h"
 #include "CoreAbilityDataManager.h"
+#include "CoreEffectDataManager.h"
 #include "CoreItemDataManager.h"
 #include "CoreDB.h"
 #include "CoreWorldDB.h"

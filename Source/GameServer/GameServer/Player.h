@@ -63,6 +63,9 @@ public:
 public:
 	void OnLevelUpCheat(const uint8_t newLevel);
 
+public:
+	void UseItem(const int64_t itemUID);
+
 private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;

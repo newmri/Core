@@ -20,6 +20,7 @@ void GameServerManager::Init(void)
 	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
 
 	CORE_ABILITY_DATA_MANAGER.Load();
+	CORE_EFFECT_DATA_MANAGER.Load();
 	CORE_ITEM_DATA_MANAGER.Load();
 
 	CHARACTER_DATA_MANAGER.Load();

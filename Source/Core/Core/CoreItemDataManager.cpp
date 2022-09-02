@@ -30,6 +30,29 @@ bool CoreItemDataManager::IsValidGearType(const Define::GearType gearType)
 	return IsBetween<Define::GearType>(gearType, Define::GearType_MIN, static_cast<Define::GearType>(Define::GearType_END - 1));
 }
 
+bool CoreItemDataManager::CanEquip(const CoreItemData* const itemData, const Define::Job job)
+{
+	if(!IsValidGearType(itemData->gearType))
+		return false;
+
+	if (IS_NOT_SAME(itemData->job, Define::Job_NONE) && IS_NOT_SAME(itemData->job, job))
+		return false;
+}
+
+bool CoreItemDataManager::CanUse(const CoreItemData* const itemData, const Define::Job job)
+{
+	if (IS_NOT_SAME(itemData->job, Define::Job_NONE) && IS_NOT_SAME(itemData->job, job))
+		return false;
+
+	switch (itemData->itemType)
+	{
+	case Define::ItemType_POTION:
+		return true;
+	default:
+		return false;
+	}
+}
+
 void CoreItemDataManager::CalculateAbility(const NativeInfo::CharacterGear& gear, NativeInfo::Ability& ability)
 {
 	for (const auto& d : gear.info)
