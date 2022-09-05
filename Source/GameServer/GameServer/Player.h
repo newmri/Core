@@ -67,6 +67,9 @@ public:
 	void UseItem(const int64_t itemUID);
 
 private:
+	bool UseItem(const CoreItemData* const itemData, Info::ItemSlotInfoT* itemSlotInfo, const uint16_t useCount);
+	
+private:
 	int64_t uid;
 	std::shared_ptr<CoreClientSession> session;
 	GamePacket::MyCharacterInfoT characterInfo;

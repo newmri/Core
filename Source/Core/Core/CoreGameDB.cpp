@@ -108,6 +108,82 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 	}
 }
 
+bool CoreGameDB::UpdateInventoryItemCount(const int64_t accountUID, const int64_t uid, Info::ItemSlotInfoT* itemSlotInfo, const uint16_t useCount)
+{
+	Prepare(L"UpdateInventoryItemCount");
+	BindArgument(accountUID);
+	BindArgument(uid);
+	BindArgument(itemSlotInfo->item_uid);
+	BindArgument(useCount);
+
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR,
+			"accountUID: " + TO_STR(accountUID) +
+			"UID: " + TO_STR(uid) +
+			"item_uid: " + TO_STR(itemSlotInfo->item_uid) +
+			"useCount: " + TO_STR(useCount) +
+			" ",
+			__FILE__, __FUNCTION__, __LINE__));
+
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
+
+	bool isSuccess = false;
+	BindCol(&isSuccess, sizeof(isSuccess));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	if (isSuccess)
+	{
+		itemSlotInfo->item_count -= useCount;
+	}
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return isSuccess;
+}
+
+bool CoreGameDB::DeleteInventoryItem(const int64_t accountUID, const int64_t uid, Info::ItemSlotInfoT* itemSlotInfo)
+{
+	Prepare(L"DeleteInventoryItem");
+	BindArgument(accountUID);
+	BindArgument(uid);
+	BindArgument(itemSlotInfo->item_uid);
+
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR,
+			"accountUID: " + TO_STR(accountUID) +
+			"UID: " + TO_STR(uid) +
+			"item_uid: " + TO_STR(itemSlotInfo->item_uid) +
+			" ",
+			__FILE__, __FUNCTION__, __LINE__));
+
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return false;
+	}
+
+	bool isSuccess = false;
+	BindCol(&isSuccess, sizeof(isSuccess));
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	if (isSuccess)
+	{
+		memset(itemSlotInfo, 0, sizeof(Info::ItemSlotInfoT));
+	}
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	return isSuccess;;
+}
+
 bool CoreGameDB::OnLevelUp(const int64_t accountUID, const int64_t uid, const uint8_t newLevel, const int32_t newBonusStatPoint, const int32_t newHP, const int32_t newMP)
 {
 	CoreItemUID itemUID;

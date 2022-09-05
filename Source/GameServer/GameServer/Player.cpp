@@ -443,17 +443,39 @@ void Player::UseItem(const int64_t itemUID)
 			if (!CORE_ITEM_DATA_MANAGER.CanUse(itemData, this->characterInfo.job))
 				return;
 
-			//if (UseItem(itemData, itemSlotInfo))
-			//{
-			//	message = GamePacket::CreateSC_USE_ITEM_RES(PACKET_SEND_MANAGER.builder, result, itemUID, itemSlotInfo->item_count);
-			//}
-			//else
-			//{
-			//	result = GamePacket::ErrorCode::ErrorCode_UNKNOWN;
-			//	message = GamePacket::CreateSC_USE_ITEM_RES(PACKET_SEND_MANAGER.builder, result);
-			//}
+			if (UseItem(itemData, itemSlotInfo, 1))
+			{
+				message = GamePacket::CreateSC_USE_ITEM_RES(PACKET_SEND_MANAGER.builder, result, itemUID, itemSlotInfo->item_count);
+			}
+			else
+			{
+				result = GamePacket::ErrorCode::ErrorCode_UNKNOWN;
+				message = GamePacket::CreateSC_USE_ITEM_RES(PACKET_SEND_MANAGER.builder, result);
+			}
 		}
 	}
 
 	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_USE_ITEM_RES, message.Union());
+}
+
+bool Player::UseItem(const CoreItemData* const itemData, Info::ItemSlotInfoT* itemSlotInfo, const uint16_t useCount)
+{
+	uint16_t remainCount = itemSlotInfo->item_count - useCount;
+
+	if (IS_ZERO(remainCount))
+	{
+		int64_t itemUID = itemSlotInfo->item_count;
+
+		if (!GAME_SERVER.GetGameDB()->DeleteInventoryItem(this->session->GetAccountUID(), GetUID(), itemSlotInfo))
+			return false;
+
+		this->itemInventory.erase(itemUID);
+	}
+	else
+	{
+		if (!GAME_SERVER.GetGameDB()->UpdateInventoryItemCount(this->session->GetAccountUID(), GetUID(), itemSlotInfo, 1))
+			return false;
+	}
+
+	return true;
 }

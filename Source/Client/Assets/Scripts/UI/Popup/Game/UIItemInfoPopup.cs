@@ -164,6 +164,25 @@ public class UIItemInfoPopup : UIPopup
 
     private void OnClickUseButton(PointerEventData evt)
     {
+        ItemUseError error = ItemSlot.CanUse();
+        switch (error)
+        {
+            case ItemUseError.SUCCESS:
+                break;
+            case ItemUseError.UNKNOWN:
+                {
+                    UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+                    messagePopup.SetText("아이템 사용 실패", "알수 없는 에러입니다");
+                    return;
+                }
+            case ItemUseError.HP_MAX:
+                {
+                    UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
+                    messagePopup.SetText("아이템 사용 실패", "더 이상 회복 할 수 없습니다");
+                    return;
+                }
+        }
+
         FlatBufferBuilder builder = new FlatBufferBuilder(1);
         var message = CS_USE_ITEM_REQ.CreateCS_USE_ITEM_REQ(builder, ItemSlot.ItemUID);
         Managers.GameNetwork.Send(builder, Packet.CS_USE_ITEM_REQ, message.Value);

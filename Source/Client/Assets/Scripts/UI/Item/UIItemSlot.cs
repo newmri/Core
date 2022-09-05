@@ -16,6 +16,13 @@ public enum ItemLocation : byte
     END = 2
 };
 
+public enum ItemUseError : byte
+{
+    SUCCESS,
+    UNKNOWN,
+    HP_MAX
+}
+
 public class UIItemSlot : UIAwakeBase
 {
     public bool IsInited = false;
@@ -202,5 +209,36 @@ public class UIItemSlot : UIAwakeBase
     public void OnDeselected()
     {
         _selectIcon.gameObject.SetActive(false);
+    }
+
+    public ItemUseError CanUse()
+    {
+        ItemUseError error = ItemUseError.SUCCESS;
+
+        for (int i = 0; i < (int)ItemEffect.MAX_COUNT; ++i)
+        {
+            if (Effect[i].EffectValue != 0)
+            {
+                error = CanUse(Effect[i]);
+                if (ItemUseError.SUCCESS != error)
+                    return error;
+            }
+        }
+        return error;
+    }
+
+    private ItemUseError CanUse(EffectData effectData)
+    {
+        switch(effectData.EffectType)
+        {
+            case EffectType.HP:
+                if (Managers.Object.MyPlayer.IsMaxAbility(AbilityType.HP))
+                    return ItemUseError.HP_MAX;
+                break;
+            default:
+                return ItemUseError.UNKNOWN;
+        }
+
+        return ItemUseError.SUCCESS;
     }
 }

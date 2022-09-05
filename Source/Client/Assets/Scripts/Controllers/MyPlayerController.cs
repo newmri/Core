@@ -361,4 +361,15 @@ public class MyPlayerController : PlayerController
 
 		Gear = Gear;
 	}
+
+	public bool IsMaxAbility(AbilityType abilityType)
+    {
+		switch(abilityType)
+        {
+			case AbilityType.HP:
+				return (HP == CreatureInfo.Ability.Value[(int)abilityType]);
+			default:
+				return true;
+        }
+    }
 }
