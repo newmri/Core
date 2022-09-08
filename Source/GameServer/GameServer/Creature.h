@@ -18,6 +18,8 @@ protected:
 public:
 	bool UseHPMP(const int32_t HP, const int32_t MP);
 	void AddHP(const int32_t HP);
+	void AddHPWithNoLock(const int32_t HP);
+
 	std::tuple<int32_t, int32_t> GetHPMP(void);
 
 public:

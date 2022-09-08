@@ -43,6 +43,7 @@ class GamePacketManager
        _handler.Add(Packet.SC_MY_LEVEL_UP_NOTI, GamePacketHandler.SC_MY_LEVEL_UP_NOTI);
        _handler.Add(Packet.SC_LEVEL_UP_NOTI, GamePacketHandler.SC_LEVEL_UP_NOTI);
        _handler.Add(Packet.SC_USE_ITEM_RES, GamePacketHandler.SC_USE_ITEM_RES);
+       _handler.Add(Packet.SC_ADDED_EFFECT_NOTI, GamePacketHandler.SC_ADDED_EFFECT_NOTI);
 	}
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

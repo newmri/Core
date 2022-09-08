@@ -29,7 +29,8 @@ public class MyPlayerController : PlayerController
 		get { return base.HP; }
 		set
 		{
-			base.HP = value;
+			base.HP = Math.Min(value, base.CreatureInfo.Ability.Value[(int)Define.AbilityType.HP]);
+
 			_uiGameScene.UpdateHPBar(base.HP, CreatureInfo.Ability.Value[(int)Define.AbilityType.HP]);
 
 			if (IsDead())

@@ -250,6 +250,24 @@ class GamePacketHandler
 
         Managers.UI.GetSceneUI<UIGameScene>().Inventory.UpdateItemCount(itemUseRes.ItemUid, itemUseRes.ItemCount);
     }
+
+    public static void SC_ADDED_EFFECT_NOTI(PacketSession session, Root packet)
+    {
+        SC_ADDED_EFFECT_NOTI addedEffectNoti = packet.PacketAsSC_ADDED_EFFECT_NOTI();
+        for (int i = 0; i < addedEffectNoti.EffectIdLength; ++i)
+        {
+            EffectData effect = new EffectData();
+            Managers.EffectData.GetEffect(addedEffectNoti.EffectId(i), ref effect);
+            switch (effect.EffectType)
+            {
+                case EffectType.HP:
+                    Managers.Object.MyPlayer.HP += effect.EffectValue;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
 
 

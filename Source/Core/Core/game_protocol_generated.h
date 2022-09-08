@@ -151,6 +151,10 @@ struct SC_USE_ITEM_RES;
 struct SC_USE_ITEM_RESBuilder;
 struct SC_USE_ITEM_REST;
 
+struct SC_ADDED_EFFECT_NOTI;
+struct SC_ADDED_EFFECT_NOTIBuilder;
+struct SC_ADDED_EFFECT_NOTIT;
+
 struct Root;
 struct RootBuilder;
 struct RootT;
@@ -222,11 +226,12 @@ enum Packet : uint8_t {
   Packet_SC_LEVEL_UP_NOTI = 30,
   Packet_CS_USE_ITEM_REQ = 31,
   Packet_SC_USE_ITEM_RES = 32,
+  Packet_SC_ADDED_EFFECT_NOTI = 33,
   Packet_MIN = Packet_NONE,
-  Packet_MAX = Packet_SC_USE_ITEM_RES
+  Packet_MAX = Packet_SC_ADDED_EFFECT_NOTI
 };
 
-inline const Packet (&EnumValuesPacket())[33] {
+inline const Packet (&EnumValuesPacket())[34] {
   static const Packet values[] = {
     Packet_NONE,
     Packet_CS_LOGIN_REQ,
@@ -260,13 +265,14 @@ inline const Packet (&EnumValuesPacket())[33] {
     Packet_SC_MY_LEVEL_UP_NOTI,
     Packet_SC_LEVEL_UP_NOTI,
     Packet_CS_USE_ITEM_REQ,
-    Packet_SC_USE_ITEM_RES
+    Packet_SC_USE_ITEM_RES,
+    Packet_SC_ADDED_EFFECT_NOTI
   };
   return values;
 }
 
 inline const char * const *EnumNamesPacket() {
-  static const char * const names[34] = {
+  static const char * const names[35] = {
     "NONE",
     "CS_LOGIN_REQ",
     "SC_LOGIN_RES",
@@ -300,13 +306,14 @@ inline const char * const *EnumNamesPacket() {
     "SC_LEVEL_UP_NOTI",
     "CS_USE_ITEM_REQ",
     "SC_USE_ITEM_RES",
+    "SC_ADDED_EFFECT_NOTI",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNamePacket(Packet e) {
-  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_USE_ITEM_RES)) return "";
+  if (flatbuffers::IsOutRange(e, Packet_NONE, Packet_SC_ADDED_EFFECT_NOTI)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesPacket()[index];
 }
@@ -441,6 +448,10 @@ template<> struct PacketTraits<GamePacket::CS_USE_ITEM_REQ> {
 
 template<> struct PacketTraits<GamePacket::SC_USE_ITEM_RES> {
   static const Packet enum_value = Packet_SC_USE_ITEM_RES;
+};
+
+template<> struct PacketTraits<GamePacket::SC_ADDED_EFFECT_NOTI> {
+  static const Packet enum_value = Packet_SC_ADDED_EFFECT_NOTI;
 };
 
 struct PacketUnion {
@@ -730,6 +741,14 @@ struct PacketUnion {
   const GamePacket::SC_USE_ITEM_REST *AsSC_USE_ITEM_RES() const {
     return type == Packet_SC_USE_ITEM_RES ?
       reinterpret_cast<const GamePacket::SC_USE_ITEM_REST *>(value) : nullptr;
+  }
+  GamePacket::SC_ADDED_EFFECT_NOTIT *AsSC_ADDED_EFFECT_NOTI() {
+    return type == Packet_SC_ADDED_EFFECT_NOTI ?
+      reinterpret_cast<GamePacket::SC_ADDED_EFFECT_NOTIT *>(value) : nullptr;
+  }
+  const GamePacket::SC_ADDED_EFFECT_NOTIT *AsSC_ADDED_EFFECT_NOTI() const {
+    return type == Packet_SC_ADDED_EFFECT_NOTI ?
+      reinterpret_cast<const GamePacket::SC_ADDED_EFFECT_NOTIT *>(value) : nullptr;
   }
 };
 
@@ -3033,6 +3052,68 @@ inline flatbuffers::Offset<SC_USE_ITEM_RES> CreateSC_USE_ITEM_RES(
 
 flatbuffers::Offset<SC_USE_ITEM_RES> CreateSC_USE_ITEM_RES(flatbuffers::FlatBufferBuilder &_fbb, const SC_USE_ITEM_REST *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
+struct SC_ADDED_EFFECT_NOTIT : public flatbuffers::NativeTable {
+  typedef SC_ADDED_EFFECT_NOTI TableType;
+  std::vector<int32_t> effect_id{};
+};
+
+struct SC_ADDED_EFFECT_NOTI FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SC_ADDED_EFFECT_NOTIT NativeTableType;
+  typedef SC_ADDED_EFFECT_NOTIBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_EFFECT_ID = 4
+  };
+  const flatbuffers::Vector<int32_t> *effect_id() const {
+    return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_EFFECT_ID);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_EFFECT_ID) &&
+           verifier.VerifyVector(effect_id()) &&
+           verifier.EndTable();
+  }
+  SC_ADDED_EFFECT_NOTIT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SC_ADDED_EFFECT_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static flatbuffers::Offset<SC_ADDED_EFFECT_NOTI> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_EFFECT_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+};
+
+struct SC_ADDED_EFFECT_NOTIBuilder {
+  typedef SC_ADDED_EFFECT_NOTI Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_effect_id(flatbuffers::Offset<flatbuffers::Vector<int32_t>> effect_id) {
+    fbb_.AddOffset(SC_ADDED_EFFECT_NOTI::VT_EFFECT_ID, effect_id);
+  }
+  explicit SC_ADDED_EFFECT_NOTIBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SC_ADDED_EFFECT_NOTI> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SC_ADDED_EFFECT_NOTI>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SC_ADDED_EFFECT_NOTI> CreateSC_ADDED_EFFECT_NOTI(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::Vector<int32_t>> effect_id = 0) {
+  SC_ADDED_EFFECT_NOTIBuilder builder_(_fbb);
+  builder_.add_effect_id(effect_id);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<SC_ADDED_EFFECT_NOTI> CreateSC_ADDED_EFFECT_NOTIDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<int32_t> *effect_id = nullptr) {
+  auto effect_id__ = effect_id ? _fbb.CreateVector<int32_t>(*effect_id) : 0;
+  return GamePacket::CreateSC_ADDED_EFFECT_NOTI(
+      _fbb,
+      effect_id__);
+}
+
+flatbuffers::Offset<SC_ADDED_EFFECT_NOTI> CreateSC_ADDED_EFFECT_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_EFFECT_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+
 struct RootT : public flatbuffers::NativeTable {
   typedef Root TableType;
   GamePacket::PacketUnion packet{};
@@ -3147,6 +3228,9 @@ struct Root FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   const GamePacket::SC_USE_ITEM_RES *packet_as_SC_USE_ITEM_RES() const {
     return packet_type() == GamePacket::Packet_SC_USE_ITEM_RES ? static_cast<const GamePacket::SC_USE_ITEM_RES *>(packet()) : nullptr;
+  }
+  const GamePacket::SC_ADDED_EFFECT_NOTI *packet_as_SC_ADDED_EFFECT_NOTI() const {
+    return packet_type() == GamePacket::Packet_SC_ADDED_EFFECT_NOTI ? static_cast<const GamePacket::SC_ADDED_EFFECT_NOTI *>(packet()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -3286,6 +3370,10 @@ template<> inline const GamePacket::CS_USE_ITEM_REQ *Root::packet_as<GamePacket:
 
 template<> inline const GamePacket::SC_USE_ITEM_RES *Root::packet_as<GamePacket::SC_USE_ITEM_RES>() const {
   return packet_as_SC_USE_ITEM_RES();
+}
+
+template<> inline const GamePacket::SC_ADDED_EFFECT_NOTI *Root::packet_as<GamePacket::SC_ADDED_EFFECT_NOTI>() const {
+  return packet_as_SC_ADDED_EFFECT_NOTI();
 }
 
 struct RootBuilder {
@@ -4309,6 +4397,32 @@ inline flatbuffers::Offset<SC_USE_ITEM_RES> CreateSC_USE_ITEM_RES(flatbuffers::F
       _item_count);
 }
 
+inline SC_ADDED_EFFECT_NOTIT *SC_ADDED_EFFECT_NOTI::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+  auto _o = std::unique_ptr<SC_ADDED_EFFECT_NOTIT>(new SC_ADDED_EFFECT_NOTIT());
+  UnPackTo(_o.get(), _resolver);
+  return _o.release();
+}
+
+inline void SC_ADDED_EFFECT_NOTI::UnPackTo(SC_ADDED_EFFECT_NOTIT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+  (void)_o;
+  (void)_resolver;
+  { auto _e = effect_id(); if (_e) { _o->effect_id.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->effect_id[_i] = _e->Get(_i); } } }
+}
+
+inline flatbuffers::Offset<SC_ADDED_EFFECT_NOTI> SC_ADDED_EFFECT_NOTI::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_EFFECT_NOTIT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+  return CreateSC_ADDED_EFFECT_NOTI(_fbb, _o, _rehasher);
+}
+
+inline flatbuffers::Offset<SC_ADDED_EFFECT_NOTI> CreateSC_ADDED_EFFECT_NOTI(flatbuffers::FlatBufferBuilder &_fbb, const SC_ADDED_EFFECT_NOTIT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+  (void)_rehasher;
+  (void)_o;
+  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SC_ADDED_EFFECT_NOTIT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _effect_id = _o->effect_id.size() ? _fbb.CreateVector(_o->effect_id) : 0;
+  return GamePacket::CreateSC_ADDED_EFFECT_NOTI(
+      _fbb,
+      _effect_id);
+}
+
 inline RootT *Root::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<RootT>(new RootT());
   UnPackTo(_o.get(), _resolver);
@@ -4471,6 +4585,10 @@ inline bool VerifyPacket(flatbuffers::Verifier &verifier, const void *obj, Packe
       auto ptr = reinterpret_cast<const GamePacket::SC_USE_ITEM_RES *>(obj);
       return verifier.VerifyTable(ptr);
     }
+    case Packet_SC_ADDED_EFFECT_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_EFFECT_NOTI *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
     default: return true;
   }
 }
@@ -4617,6 +4735,10 @@ inline void *PacketUnion::UnPack(const void *obj, Packet type, const flatbuffers
       auto ptr = reinterpret_cast<const GamePacket::SC_USE_ITEM_RES *>(obj);
       return ptr->UnPack(resolver);
     }
+    case Packet_SC_ADDED_EFFECT_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_EFFECT_NOTI *>(obj);
+      return ptr->UnPack(resolver);
+    }
     default: return nullptr;
   }
 }
@@ -4751,6 +4873,10 @@ inline flatbuffers::Offset<void> PacketUnion::Pack(flatbuffers::FlatBufferBuilde
       auto ptr = reinterpret_cast<const GamePacket::SC_USE_ITEM_REST *>(value);
       return CreateSC_USE_ITEM_RES(_fbb, ptr, _rehasher).Union();
     }
+    case Packet_SC_ADDED_EFFECT_NOTI: {
+      auto ptr = reinterpret_cast<const GamePacket::SC_ADDED_EFFECT_NOTIT *>(value);
+      return CreateSC_ADDED_EFFECT_NOTI(_fbb, ptr, _rehasher).Union();
+    }
     default: return 0;
   }
 }
@@ -4883,6 +5009,10 @@ inline PacketUnion::PacketUnion(const PacketUnion &u) : type(u.type), value(null
     }
     case Packet_SC_USE_ITEM_RES: {
       value = new GamePacket::SC_USE_ITEM_REST(*reinterpret_cast<GamePacket::SC_USE_ITEM_REST *>(u.value));
+      break;
+    }
+    case Packet_SC_ADDED_EFFECT_NOTI: {
+      value = new GamePacket::SC_ADDED_EFFECT_NOTIT(*reinterpret_cast<GamePacket::SC_ADDED_EFFECT_NOTIT *>(u.value));
       break;
     }
     default:
@@ -5049,6 +5179,11 @@ inline void PacketUnion::Reset() {
     }
     case Packet_SC_USE_ITEM_RES: {
       auto ptr = reinterpret_cast<GamePacket::SC_USE_ITEM_REST *>(value);
+      delete ptr;
+      break;
+    }
+    case Packet_SC_ADDED_EFFECT_NOTI: {
+      auto ptr = reinterpret_cast<GamePacket::SC_ADDED_EFFECT_NOTIT *>(value);
       delete ptr;
       break;
     }

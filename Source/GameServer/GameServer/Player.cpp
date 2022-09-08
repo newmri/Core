@@ -423,8 +423,8 @@ void Player::OnLevelUpCheat(const uint8_t newLevel)
 
 void Player::UseItem(const int64_t itemUID)
 {
-	GamePacket::ErrorCode result = GamePacket::ErrorCode::ErrorCode_SUCCESS;
 	PACKET_SEND_MANAGER.Clear();
+	GamePacket::ErrorCode result = GamePacket::ErrorCode::ErrorCode_SUCCESS;
 	flatbuffers::Offset<GamePacket::SC_USE_ITEM_RES> message;
 	{
 		WRITE_LOCK(this->itemInventoryMutex);
@@ -445,6 +445,7 @@ void Player::UseItem(const int64_t itemUID)
 
 			if (UseItem(itemData, itemSlotInfo, 1))
 			{
+				PACKET_SEND_MANAGER.Clear();
 				message = GamePacket::CreateSC_USE_ITEM_RES(PACKET_SEND_MANAGER.builder, result, itemUID, itemSlotInfo->item_count);
 			}
 			else
@@ -477,5 +478,31 @@ bool Player::UseItem(const CoreItemData* const itemData, Info::ItemSlotInfoT* it
 			return false;
 	}
 
+	flatbuffers::Offset<GamePacket::SC_ADDED_EFFECT_NOTI> message;
+	std::vector<int32_t> sendList;
+	sendList.reserve(Define::ItemEffect_MAX);
+
+	for (uint8_t i = 0; i < Define::ItemEffect_MAX; ++i)
+	{
+		if (IS_ZERO(itemData->effectID[i]))
+			continue;
+
+		auto data = CORE_EFFECT_DATA_MANAGER.GetEffectData(itemData->effectID[i]);
+		if (IS_NULL(data))
+			continue;
+
+		switch (data->effectType)
+		{
+		case Define::EffectType::EffectType_HP:
+			AddHPWithNoLock(data->effectValue);
+			sendList.push_back(data->effectID);
+			break;
+		default:
+			break;
+		}
+	}
+
+	message = GamePacket::CreateSC_ADDED_EFFECT_NOTI(PACKET_SEND_MANAGER.builder, PACKET_SEND_MANAGER.builder.CreateVector(sendList));
+	PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_SC_ADDED_EFFECT_NOTI, message.Union());
 	return true;
 }

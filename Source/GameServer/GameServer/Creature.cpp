@@ -69,6 +69,11 @@ bool Creature::UseHPMP(const int32_t HP, const int32_t MP)
 void Creature::AddHP(const int32_t HP)
 {
 	WRITE_LOCK(this->infoMutex);
+	AddHPWithNoLock(HP);
+}
+
+void Creature::AddHPWithNoLock(const int32_t HP)
+{
 	this->creatureInfo.hp += HP;
 
 	if (0 >= this->creatureInfo.hp)
@@ -76,6 +81,10 @@ void Creature::AddHP(const int32_t HP)
 		this->creatureInfo.hp = 0;
 		this->deadTime = CORE_TIME_MANAGER.GetNowSeconds();
 		SetStateWithNoLock(Define::ObjectState_DEAD);
+	}
+	else if (this->creatureInfo.hp > this->creatureInfo.ability.value[Define::AbilityByStatType_HP])
+	{
+		this->creatureInfo.hp = this->creatureInfo.ability.value[Define::AbilityByStatType_HP];
 	}
 }
 

@@ -43,7 +43,8 @@ union Packet
     SC_MY_LEVEL_UP_NOTI,
     SC_LEVEL_UP_NOTI,
     CS_USE_ITEM_REQ,
-    SC_USE_ITEM_RES
+    SC_USE_ITEM_RES,
+    SC_ADDED_EFFECT_NOTI
 }
 
 table CS_LOGIN_REQ
@@ -251,6 +252,11 @@ table SC_USE_ITEM_RES
    result:ErrorCode;
    item_uid:int64;
    item_count:uint16;
+}
+
+table SC_ADDED_EFFECT_NOTI
+{
+   effect_id:[int32];
 }
 
 table Root

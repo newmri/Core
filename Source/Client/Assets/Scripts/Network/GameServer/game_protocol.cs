@@ -51,6 +51,7 @@ public enum Packet : byte
   SC_LEVEL_UP_NOTI = 30,
   CS_USE_ITEM_REQ = 31,
   SC_USE_ITEM_RES = 32,
+  SC_ADDED_EFFECT_NOTI = 33,
 };
 
 public class PacketUnion {
@@ -95,6 +96,7 @@ public class PacketUnion {
   public GamePacket.SC_LEVEL_UP_NOTIT AsSC_LEVEL_UP_NOTI() { return this.As<GamePacket.SC_LEVEL_UP_NOTIT>(); }
   public GamePacket.CS_USE_ITEM_REQT AsCS_USE_ITEM_REQ() { return this.As<GamePacket.CS_USE_ITEM_REQT>(); }
   public GamePacket.SC_USE_ITEM_REST AsSC_USE_ITEM_RES() { return this.As<GamePacket.SC_USE_ITEM_REST>(); }
+  public GamePacket.SC_ADDED_EFFECT_NOTIT AsSC_ADDED_EFFECT_NOTI() { return this.As<GamePacket.SC_ADDED_EFFECT_NOTIT>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, PacketUnion _o) {
     switch (_o.Type) {
@@ -131,6 +133,7 @@ public class PacketUnion {
       case Packet.SC_LEVEL_UP_NOTI: return GamePacket.SC_LEVEL_UP_NOTI.Pack(builder, _o.AsSC_LEVEL_UP_NOTI()).Value;
       case Packet.CS_USE_ITEM_REQ: return GamePacket.CS_USE_ITEM_REQ.Pack(builder, _o.AsCS_USE_ITEM_REQ()).Value;
       case Packet.SC_USE_ITEM_RES: return GamePacket.SC_USE_ITEM_RES.Pack(builder, _o.AsSC_USE_ITEM_RES()).Value;
+      case Packet.SC_ADDED_EFFECT_NOTI: return GamePacket.SC_ADDED_EFFECT_NOTI.Pack(builder, _o.AsSC_ADDED_EFFECT_NOTI()).Value;
     }
   }
 }
@@ -2159,6 +2162,72 @@ public class SC_USE_ITEM_REST
   }
 }
 
+public struct SC_ADDED_EFFECT_NOTI : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static SC_ADDED_EFFECT_NOTI GetRootAsSC_ADDED_EFFECT_NOTI(ByteBuffer _bb) { return GetRootAsSC_ADDED_EFFECT_NOTI(_bb, new SC_ADDED_EFFECT_NOTI()); }
+  public static SC_ADDED_EFFECT_NOTI GetRootAsSC_ADDED_EFFECT_NOTI(ByteBuffer _bb, SC_ADDED_EFFECT_NOTI obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public SC_ADDED_EFFECT_NOTI __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public int EffectId(int j) { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(__p.__vector(o) + j * 4) : (int)0; }
+  public int EffectIdLength { get { int o = __p.__offset(4); return o != 0 ? __p.__vector_len(o) : 0; } }
+#if ENABLE_SPAN_T
+  public Span<int> GetEffectIdBytes() { return __p.__vector_as_span<int>(4, 4); }
+#else
+  public ArraySegment<byte>? GetEffectIdBytes() { return __p.__vector_as_arraysegment(4); }
+#endif
+  public int[] GetEffectIdArray() { return __p.__vector_as_array<int>(4); }
+
+  public static Offset<GamePacket.SC_ADDED_EFFECT_NOTI> CreateSC_ADDED_EFFECT_NOTI(FlatBufferBuilder builder,
+      VectorOffset effect_idOffset = default(VectorOffset)) {
+    builder.StartTable(1);
+    SC_ADDED_EFFECT_NOTI.AddEffectId(builder, effect_idOffset);
+    return SC_ADDED_EFFECT_NOTI.EndSC_ADDED_EFFECT_NOTI(builder);
+  }
+
+  public static void StartSC_ADDED_EFFECT_NOTI(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddEffectId(FlatBufferBuilder builder, VectorOffset effectIdOffset) { builder.AddOffset(0, effectIdOffset.Value, 0); }
+  public static VectorOffset CreateEffectIdVector(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddInt(data[i]); return builder.EndVector(); }
+  public static VectorOffset CreateEffectIdVectorBlock(FlatBufferBuilder builder, int[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static void StartEffectIdVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static Offset<GamePacket.SC_ADDED_EFFECT_NOTI> EndSC_ADDED_EFFECT_NOTI(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<GamePacket.SC_ADDED_EFFECT_NOTI>(o);
+  }
+  public SC_ADDED_EFFECT_NOTIT UnPack() {
+    var _o = new SC_ADDED_EFFECT_NOTIT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(SC_ADDED_EFFECT_NOTIT _o) {
+    _o.EffectId = new List<int>();
+    for (var _j = 0; _j < this.EffectIdLength; ++_j) {_o.EffectId.Add(this.EffectId(_j));}
+  }
+  public static Offset<GamePacket.SC_ADDED_EFFECT_NOTI> Pack(FlatBufferBuilder builder, SC_ADDED_EFFECT_NOTIT _o) {
+    if (_o == null) return default(Offset<GamePacket.SC_ADDED_EFFECT_NOTI>);
+    var _effect_id = default(VectorOffset);
+    if (_o.EffectId != null) {
+      var __effect_id = _o.EffectId.ToArray();
+      _effect_id = CreateEffectIdVector(builder, __effect_id);
+    }
+    return CreateSC_ADDED_EFFECT_NOTI(
+      builder,
+      _effect_id);
+  }
+};
+
+public class SC_ADDED_EFFECT_NOTIT
+{
+  public List<int> EffectId { get; set; }
+
+  public SC_ADDED_EFFECT_NOTIT() {
+    this.EffectId = null;
+  }
+}
+
 public struct Root : IFlatbufferObject
 {
   private Table __p;
@@ -2203,6 +2272,7 @@ public struct Root : IFlatbufferObject
   public GamePacket.SC_LEVEL_UP_NOTI PacketAsSC_LEVEL_UP_NOTI() { return Packet<GamePacket.SC_LEVEL_UP_NOTI>().Value; }
   public GamePacket.CS_USE_ITEM_REQ PacketAsCS_USE_ITEM_REQ() { return Packet<GamePacket.CS_USE_ITEM_REQ>().Value; }
   public GamePacket.SC_USE_ITEM_RES PacketAsSC_USE_ITEM_RES() { return Packet<GamePacket.SC_USE_ITEM_RES>().Value; }
+  public GamePacket.SC_ADDED_EFFECT_NOTI PacketAsSC_ADDED_EFFECT_NOTI() { return Packet<GamePacket.SC_ADDED_EFFECT_NOTI>().Value; }
 
   public static Offset<GamePacket.Root> CreateRoot(FlatBufferBuilder builder,
       GamePacket.Packet packet_type = GamePacket.Packet.NONE,
@@ -2327,6 +2397,9 @@ public struct Root : IFlatbufferObject
         break;
       case GamePacket.Packet.SC_USE_ITEM_RES:
         _o.Packet.Value = this.Packet<GamePacket.SC_USE_ITEM_RES>().HasValue ? this.Packet<GamePacket.SC_USE_ITEM_RES>().Value.UnPack() : null;
+        break;
+      case GamePacket.Packet.SC_ADDED_EFFECT_NOTI:
+        _o.Packet.Value = this.Packet<GamePacket.SC_ADDED_EFFECT_NOTI>().HasValue ? this.Packet<GamePacket.SC_ADDED_EFFECT_NOTI>().Value.UnPack() : null;
         break;
     }
   }

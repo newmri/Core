@@ -37,6 +37,8 @@ bool CoreItemDataManager::CanEquip(const CoreItemData* const itemData, const Def
 
 	if (IS_NOT_SAME(itemData->job, Define::Job_NONE) && IS_NOT_SAME(itemData->job, job))
 		return false;
+
+	return true;
 }
 
 bool CoreItemDataManager::CanUse(const CoreItemData* const itemData, const Define::Job job)
