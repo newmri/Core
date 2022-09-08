@@ -214,6 +214,8 @@ void MyPlayer::MoveRandom(bool isRun)
 
 	if (0.0f < moveSpeed)
 	{
+		std::cout << CoreUtil::IntRound(moveSpeed) << std::endl;
+
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(std::bind(&MyPlayer::Move, Object::downcasted_shared_from_this<MyPlayer>()),
 				static_cast<TIME_VALUE>(SEC / CoreUtil::IntRound(moveSpeed))));

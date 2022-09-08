@@ -105,7 +105,7 @@ bool WebManager::Login(std::shared_ptr<CoreServerSession> session)
 	{
 		session->SetAccountUID(root["UID"].asInt64());
 		session->SetToken(root["Token"].asInt());
-		int32_t worldID = 0;
+		uint8_t worldID = 0;
 
 		Json::Value worldList = root["WorldList"];
 		auto iter_begin = worldList.begin();

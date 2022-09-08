@@ -3,6 +3,7 @@
 
 int32_t CoreUtil::IntRound(const float_t value)
 {
+	int32_t v = static_cast<int32_t>(value + 0.5f);
 	return static_cast<int32_t>(value + 0.5f);
 }
 

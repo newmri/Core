@@ -18,6 +18,10 @@ void GamePacketFunc::SC_LOGIN_RES(std::shared_ptr<CoreServerSession> session, co
 	}
 }
 
+void GamePacketFunc::SC_ITEM_INVENTORY_INFO_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
 void GamePacketFunc::SC_PING_REQ(std::shared_ptr<CoreServerSession> session, const void* data)
 {
 	GAME_PACKET_SEND_MANAGER.Clear();
@@ -111,5 +115,45 @@ void GamePacketFunc::SC_REVIVE_RES(std::shared_ptr<CoreServerSession> session, c
 }
 
 void GamePacketFunc::SC_SPAWN_PROJECTILE_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_EQUIP_GEAR_RES(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_UNEQUIP_GEAR_RES(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_ABILITY_INFO_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_NORMAL_CHAT_RES(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_ADDED_ITEM_TO_ITEM_INVENTORY_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_ADD_STAT_RES(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_MY_LEVEL_UP_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_LEVEL_UP_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_USE_ITEM_RES(std::shared_ptr<CoreServerSession> session, const void* data)
+{
+}
+
+void GamePacketFunc::SC_ADDED_EFFECT_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
 {
 }

@@ -8,11 +8,13 @@ enum ConnectState
 	GAME
 };
 
+#pragma pack(push, 1)
 struct DummyClientConfig
 {
 	uint8_t WorldID = 0;
 	int32_t MaxConnectionCount = 0;
 };
+#pragma pack(pop)
 
 class DummyClientManager
 {
