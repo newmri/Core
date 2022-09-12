@@ -40,6 +40,8 @@ private:
 private:
 	TIME_VALUE lastMoveTime = 0;
 	TIME_VALUE reviveTime = Define::ReviveTime_COOL_TIME * SEC;
+	TIME_VALUE aiMinTime = 300;
+	TIME_VALUE aiMaxTime = 1000;
 
 private:
 	uint8_t destDist;

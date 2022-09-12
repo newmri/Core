@@ -15,7 +15,7 @@ void LoginPacketFunc::SC_LOGIN_RES(std::shared_ptr<CoreServerSession> session, c
 		{
 			LOGIN_PACKET_SEND_MANAGER.Clear();
 			auto pakcedCharacterName = LOGIN_PACKET_SEND_MANAGER.builder.CreateString(session->GetAccountID());
-			auto job = static_cast<Define::Job>(CORE_RANDOM_MANAGER_INT.GetRandom(Define::Job_MIN, Define::Job_MAX));
+			auto job = static_cast<Define::Job>(CORE_RANDOM_MANAGER_INT.GetRandom(Define::Job_MIN, Define::Job_DUELIST));
 			auto message = LoginPacket::CreateCS_CREATE_CHARACTER_REQ(LOGIN_PACKET_SEND_MANAGER.builder, pakcedCharacterName, job);
 			LOGIN_PACKET_SEND_MANAGER.Send(session, LoginPacket::Packet_CS_CREATE_CHARACTER_REQ, message.Union());
 		}

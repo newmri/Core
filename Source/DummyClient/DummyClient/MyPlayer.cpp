@@ -22,7 +22,7 @@ void MyPlayer::Init(void)
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
 			std::bind(&MyPlayer::DoAI, this),
-			CORE_RANDOM_MANAGER_TIME.GetRandom(SEC, SEC * 2)));
+			CORE_RANDOM_MANAGER_TIME.GetRandom(this->aiMinTime, this->aiMaxTime)));
 }
 
 void MyPlayer::Update(void)
@@ -139,7 +139,7 @@ void MyPlayer::DoAI(void)
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(
 				std::bind(&MyPlayer::DoAI, Object::downcasted_shared_from_this<MyPlayer>()),
-				CORE_RANDOM_MANAGER_TIME.GetRandom(SEC, SEC * 2)));
+				CORE_RANDOM_MANAGER_TIME.GetRandom(this->aiMinTime, this->aiMaxTime)));
 
 		return;
 	}
@@ -181,7 +181,7 @@ void MyPlayer::DoAI(void)
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
 			std::bind(&MyPlayer::DoAI, Object::downcasted_shared_from_this<MyPlayer>()),
-			CORE_RANDOM_MANAGER_TIME.GetRandom(SEC, SEC * 2)));
+			CORE_RANDOM_MANAGER_TIME.GetRandom(this->aiMinTime, this->aiMaxTime)));
 }
 
 void MyPlayer::MoveRandom(bool isRun)
@@ -214,8 +214,6 @@ void MyPlayer::MoveRandom(bool isRun)
 
 	if (0.0f < moveSpeed)
 	{
-		std::cout << CoreUtil::IntRound(moveSpeed) << std::endl;
-
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(std::bind(&MyPlayer::Move, Object::downcasted_shared_from_this<MyPlayer>()),
 				static_cast<TIME_VALUE>(SEC / CoreUtil::IntRound(moveSpeed))));

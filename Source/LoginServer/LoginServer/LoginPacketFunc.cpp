@@ -130,7 +130,7 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 	if(!STRING_MANAGER.IsValidLanguage(wName, Define::CharacterLimit_MinNameLen, Define::CharacterLimit_MaxNameLen))
 		return;
 
-	if (!IsBetween(raw->job(), Define::Job_MIN, Define::Job_MAX))
+	if (!IsBetween(raw->job(), Define::Job_MIN, Define::Job_DUELIST))
 		return;
 
 	if (!account->CanCreateCharacter())
