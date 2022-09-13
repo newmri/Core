@@ -64,6 +64,21 @@ std::shared_ptr<Object> ObjectManager::FindObject(const NativeInfo::ObjectInfo& 
 	return nullptr;
 }
 
+std::shared_ptr<Creature> ObjectManager::FindCreature(const NativeInfo::ObjectInfo& objectInfo)
+{
+	switch (objectInfo.objectType)
+	{
+	case Define::ObjectType_PLAYER:
+		return FindPlayer(objectInfo.oid);
+	case Define::ObjectType_MONSTER:
+		break;
+	default:
+		return nullptr;
+	}
+
+	return nullptr;
+}
+
 void ObjectManager::RemovePlayer(const int64_t& oid)
 {
 	auto player = FindPlayer(oid);

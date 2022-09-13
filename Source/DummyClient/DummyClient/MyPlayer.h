@@ -27,6 +27,7 @@ public:
 public:
 	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
 	void SendReviveReq(void);
+	virtual bool Revive(const Info::ObjectInfoWithPosT& objectInfoWithPos) override;
 
 private:
 	void DoAI(void);
@@ -39,7 +40,7 @@ private:
 
 private:
 	TIME_VALUE lastMoveTime = 0;
-	TIME_VALUE reviveTime = Define::ReviveTime_COOL_TIME * SEC;
+	TIME_VALUE reviveTime = (Define::ReviveTime_COOL_TIME + 1) * SEC;
 	TIME_VALUE aiMinTime = 300;
 	TIME_VALUE aiMaxTime = 1000;
 

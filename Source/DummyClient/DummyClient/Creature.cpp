@@ -95,10 +95,12 @@ bool Creature::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
 	return AddHP(-damageInfo.damage);
 }
 
-void Creature::Revive(void)
+bool Creature::Revive(const Info::ObjectInfoWithPosT& objectInfoWithPos)
 {
 	if (!IsDead())
-		return;
+		return false;
 
-	SetState(Define::ObjectState_IDLE);
+	WRITE_LOCK(this->infoMutex);
+	this->objectInfoWithPos = objectInfoWithPos;
+	return true;
 }

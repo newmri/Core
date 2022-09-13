@@ -109,11 +109,7 @@ bool MyPlayer::OnGetDamage(const GamePacket::DamageInfoT& damageInfo)
 {
 	if (Player::OnGetDamage(damageInfo))
 	{
-		CORE_TIME_DELEGATE_MANAGER.Push(
-			CoreTimeDelegate<>(
-				std::bind(&MyPlayer::SendReviveReq, Object::downcasted_shared_from_this<MyPlayer>()),
-				this->reviveTime, this->reviveTime, 2));
-
+		DoAI();
 		return true;
 	}
 
@@ -128,6 +124,14 @@ void MyPlayer::SendReviveReq(void)
 		auto message = GamePacket::CreateCS_REVIVE_REQ(GAME_PACKET_SEND_MANAGER.builder);
 		GAME_PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_CS_REVIVE_REQ, message.Union());
 	}
+}
+
+bool MyPlayer::Revive(const Info::ObjectInfoWithPosT& objectInfoWithPos)
+{
+	if (!Creature::Revive(objectInfoWithPos))
+		return false;
+
+	return true;
 }
 
 void MyPlayer::DoAI(void)
@@ -227,6 +231,12 @@ void MyPlayer::MoveRandom(bool isRun)
 
 void MyPlayer::Move(void)
 {
+	if (IsDead())
+	{
+		DoAI();
+		return;
+	}
+
 	bool isRun = false;
 	float_t moveSpeed = 0.0f;
 	bool hasNextMove = true;

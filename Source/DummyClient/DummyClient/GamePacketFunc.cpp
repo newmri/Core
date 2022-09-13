@@ -107,11 +107,11 @@ void GamePacketFunc::SC_REVIVE_RES(std::shared_ptr<CoreServerSession> session, c
 {
 	auto raw = static_cast<const GamePacket::SC_REVIVE_RES*>(data);
 	auto unpakcedObjectInfoWithPos = raw->object_info_with_pos()->UnPack();
-	auto object = OBJECT_MANAGER.FindObject(unpakcedObjectInfoWithPos->object_info);
-	if (IS_NULL(object))
+	auto creature = OBJECT_MANAGER.FindCreature(unpakcedObjectInfoWithPos->object_info);
+	if (IS_NULL(creature))
 		return;
 
-	object->SetObjectInfoWithPos(*unpakcedObjectInfoWithPos);
+	creature->Revive(*unpakcedObjectInfoWithPos);
 }
 
 void GamePacketFunc::SC_SPAWN_PROJECTILE_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)

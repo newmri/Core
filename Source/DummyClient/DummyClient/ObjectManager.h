@@ -13,6 +13,7 @@ public:
 public:
 	void RemoveObject(const NativeInfo::ObjectInfo& objectInfo);
 	std::shared_ptr<Object> FindObject(const NativeInfo::ObjectInfo& objectInfo);
+	std::shared_ptr<Creature> FindCreature(const NativeInfo::ObjectInfo& objectInfo);
 
 private:
 	void RemovePlayer(const int64_t& oid);

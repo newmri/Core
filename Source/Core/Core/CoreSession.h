@@ -39,4 +39,5 @@ protected:
 	boost::asio::ip::tcp::socket socket;
 	CorePacket read;
 	CoreQueue<CorePacket> writeQueue;
+	std::atomic<bool> isWriting = false;
 };

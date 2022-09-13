@@ -24,7 +24,7 @@ public:
 	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
 
 public:
-	virtual void Revive(void);
+	virtual bool Revive(const Info::ObjectInfoWithPosT& objectInfoWithPos);
 
 protected:
 	Info::CreatureInfoT creatureInfo;

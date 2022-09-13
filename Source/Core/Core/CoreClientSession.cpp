@@ -20,8 +20,11 @@ void CoreClientSession::Write(const CorePacket& packet)
 {
 	this->writeQueue.push(packet);
 
-	if (IS_SAME(1, this->writeQueue.size()))
+	if (!this->isWriting)
+	{
+		this->isWriting = true;
 		Write();
+	}
 }
 
 void CoreClientSession::Write(void)
@@ -41,7 +44,9 @@ void CoreClientSession::Write(void)
 			else
 			{
 				this->writeQueue.pop();
-				if (!this->writeQueue.empty())
+				if (this->writeQueue.empty())
+					this->isWriting = false;
+				else
 					Write();
 			}
 		});
