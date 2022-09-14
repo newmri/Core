@@ -9,20 +9,37 @@ public class DamageText : MonoBehaviour
     float _mvoveSpeed;
     float _alphaSpeed = 1.0f;
     float LifeTime = 5.0f;
-    public int Damage;
+
+
+    int _damage = 0;
+    public int Damage
+    {
+        get
+        {
+            return _damage;
+        }
+        set
+        {
+            _damage = value;
+            text.text = Damage.ToString();
+
+            color.a = 1.0f;
+            _mvoveSpeed = Random.Range(1.0f, 5.0f);
+        }
+    }
 
     TextMeshPro text;
     Color color;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        _mvoveSpeed = Random.Range(1.0f, 5.0f);
-
         text = GetComponent<TextMeshPro>();
-        text.text = Damage.ToString();
         color = text.color;
+    }
 
+    void OnEnable()
+    {
         Invoke("DestroyObject", LifeTime);
     }
 

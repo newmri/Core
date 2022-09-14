@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7892568504862617594}
   - component: {fileID: 8569659799696053160}
   - component: {fileID: -5970231225112611852}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DamageText
   m_TagString: Text
   m_Icon: {fileID: 0}
@@ -184,10 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064b419bd98b9ef439e644001d162f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 1
-  AlphaSpeed: 1
-  LifeTime: 3
-  Damage: 0
 --- !u!114 &-5970231225112611852
 MonoBehaviour:
   m_ObjectHideFlags: 0
