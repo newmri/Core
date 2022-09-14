@@ -34,8 +34,6 @@ bool CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 
 void CoreServerSession::Close(void)
 {
-	auto self(shared_from_this());
-
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
 			std::bind(&CoreServerSession::OnDisconnectedFunc, shared_from_this()),
