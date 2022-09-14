@@ -51,7 +51,4 @@ public:
 
 protected:
 	Info::ObjectInfoWithPosT objectInfoWithPos;
-
-private:
-	CACHE_ALIGN std::shared_mutex infoMutex;
 };

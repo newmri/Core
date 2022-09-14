@@ -27,7 +27,6 @@ void Object::Clear(void)
 
 Info::ObjectInfoWithPosT Object::GetObjectInfoWithPos(void)
 {
-	READ_LOCK(this->infoMutex);
 	return this->objectInfoWithPos;
 }
 
@@ -43,7 +42,6 @@ Info::ObjectInfo Object::GetPackedObjectInfo(void)
 
 NativeInfo::PositionInfo Object::GetPosInfo(void)
 {
-	READ_LOCK(this->infoMutex);
 	return this->objectInfoWithPos.pos_info;
 }
 
@@ -59,31 +57,26 @@ int64_t Object::GetOID(void) const
 
 int32_t Object::GetMapID(void)
 {
-	READ_LOCK(this->infoMutex);
 	return this->objectInfoWithPos.pos_info.mapID;
 }
 
 NativeInfo::Vec2Int Object::GetPos(void)
 {
-	READ_LOCK(this->infoMutex);
 	return GetPosWithNoLock();
 }
 
 Define::Dir Object::GetDir(void)
 {
-	READ_LOCK(this->infoMutex);
 	return this->objectInfoWithPos.pos_info.moveDir;
 }
 
 bool Object::IsDead(void)
 {
-	READ_LOCK(this->infoMutex);
 	return (IS_SAME(Define::ObjectState_DEAD, GetState()));
 }
 
 Define::ObjectState Object::GetState(void)
 {
-	READ_LOCK(this->infoMutex);
 	return GetStateWithNoLock();
 }
 
@@ -104,13 +97,11 @@ Define::Dir Object::GetDirWithNoLock(void) const
 
 void Object::SetObjectInfoWithPos(const Info::ObjectInfoWithPosT& objectInfoWithPos)
 {
-	WRITE_LOCK(this->infoMutex);
 	this->objectInfoWithPos = objectInfoWithPos;
 }
 
 void Object::SetMove(const Define::ObjectState state, const NativeInfo::Vec2Int& destPos)
 {
-	WRITE_LOCK(this->infoMutex);
 	SetStateWithNoLock(state);
 	SetDirectionWithNoLock(destPos);
 	SetPosWithNoLock(destPos);
@@ -118,19 +109,16 @@ void Object::SetMove(const Define::ObjectState state, const NativeInfo::Vec2Int&
 
 void Object::SetState(const Define::ObjectState state)
 {
-	WRITE_LOCK(this->infoMutex);
 	SetStateWithNoLock(state);
 }
 
 void Object::SetDirection(const NativeInfo::Vec2Int& destPos)
 {
-	WRITE_LOCK(this->infoMutex);
 	SetDirectionWithNoLock(destPos);
 }
 
 void Object::SetPos(const NativeInfo::Vec2Int& pos)
 {
-	WRITE_LOCK(this->infoMutex);
 	SetPosWithNoLock(pos);
 }
 

@@ -30,19 +30,16 @@ void Creature::Clear(void)
 
 Info::CreatureInfoT Creature::GetCreatureInfo(void)
 {
-	READ_LOCK(this->infoMutex);
 	return this->creatureInfo;
 }
 
 int32_t Creature::GetAbility(const Define::AbilityType abilityType)
 {
-	READ_LOCK(this->abilityMutex);
 	return this->creatureInfo.ability.value[abilityType];
 }
 
 float Creature::GetSpeed(const Define::SpeedType speedType)
 {
-	READ_LOCK(this->infoMutex);
 	return GetSpeedWithNoLock(speedType);
 }
 
@@ -53,8 +50,6 @@ float Creature::GetSpeedWithNoLock(const Define::SpeedType speedType) const
 
 bool Creature::UseHPMP(const int32_t HP, const int32_t MP)
 {
-	WRITE_LOCK(this->infoMutex);
-
 	if (IS_SAME(0, HP) && IS_SAME(0, MP))
 		return true;
 
@@ -68,7 +63,6 @@ bool Creature::UseHPMP(const int32_t HP, const int32_t MP)
 
 bool Creature::AddHP(const int32_t HP)
 {
-	WRITE_LOCK(this->infoMutex);
 	this->creatureInfo.hp += HP;
 
 	if (0 >= this->creatureInfo.hp)
@@ -83,7 +77,6 @@ bool Creature::AddHP(const int32_t HP)
 
 std::tuple<int32_t, int32_t> Creature::GetHPMP(void)
 {
-	READ_LOCK(this->infoMutex);
 	return std::tuple<int32_t, int32_t>(this->creatureInfo.hp, this->creatureInfo.mp);
 }
 
@@ -100,7 +93,6 @@ bool Creature::Revive(const Info::ObjectInfoWithPosT& objectInfoWithPos)
 	if (!IsDead())
 		return false;
 
-	WRITE_LOCK(this->infoMutex);
 	this->objectInfoWithPos = objectInfoWithPos;
 	return true;
 }

@@ -39,7 +39,6 @@ GamePacket::CharacterInfoT MyPlayer::GetCharacterInfo(void)
 {
 	GamePacket::CharacterInfoT info;
 
-	READ_LOCK(this->infoMutex);
 	info.name = this->characterInfo.name;
 	info.job = this->characterInfo.job;
 	memcpy_s(&info.gear, sizeof(info.gear), &this->characterInfo.gear, sizeof(this->characterInfo.gear));
@@ -193,8 +192,6 @@ void MyPlayer::MoveRandom(bool isRun)
 	uint8_t range = static_cast<uint8_t>(CORE_RANDOM_MANAGER_INT.GetRandom(2, 20));
 	float_t moveSpeed = 0.0f;
 	{
-		WRITE_LOCK(this->infoMutex);
-
 		auto pos = GetPosWithNoLock();
 
 		Define::Dir dir = pos.GetRandomDir();
@@ -241,8 +238,6 @@ void MyPlayer::Move(void)
 	float_t moveSpeed = 0.0f;
 	bool hasNextMove = true;
 	{
-		WRITE_LOCK(this->infoMutex);
-
 		auto pos = GetPosWithNoLock();
 		auto destPos = pos.GetFrontPos(GetDirWithNoLock());
 
