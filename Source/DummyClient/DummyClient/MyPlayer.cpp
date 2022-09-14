@@ -263,7 +263,7 @@ void MyPlayer::Move(void)
 		}
 	}
 
-	if (hasNextMove)
+	if (hasNextMove && this->destDist > 0)
 	{
 		GAME_PACKET_SEND_MANAGER.Clear();
 		auto packedPosInfo = flatbuffers::PackPositionInfo(GetPosInfo());

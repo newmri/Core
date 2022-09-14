@@ -115,6 +115,9 @@ bool Player::IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos)
 	TIME_VALUE timeDiff = nowTime - this->lastMoveTime;
 	int32_t serverDist = CoreUtil::IntRound(moveSpeed * (timeDiff / SEC_FLOAT));
 
+	if (IS_ZERO(serverDist))
+		return false;
+
 	if (clientDist > serverDist)
 	{
 		CORE_LOG.Log(LogType::LOG_HACK, GetOID(), "ClientDist: " + TO_STR(clientDist) + "ServerDist: " + TO_STR(serverDist));
