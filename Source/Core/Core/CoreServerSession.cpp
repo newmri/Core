@@ -16,7 +16,7 @@ bool CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 	boost::asio::connect(this->socket, endpoint, error);
 	if (error)
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "connect error " + error.value() + error.message());
+		CORE_LOG.Log(LogType::LOG_ERROR, "connect error " + TO_STR(error.value()) + " " + error.message());
 		return false;
 	}
 	else
@@ -90,7 +90,7 @@ void CoreServerSession::ReadHeader(void)
 					CORE_LOG.Log("Disconnected");
 
 				else
-					CORE_LOG.Log(LogType::LOG_ERROR, "read error " + error.value() + error.message());
+					CORE_LOG.Log(LogType::LOG_ERROR, "read error " + TO_STR(error.value()) + " " + error.message());
 
 				Close();
 			}
@@ -114,7 +114,7 @@ void CoreServerSession::ReadBody(void)
 				if (IS_SAME(boost::asio::error::eof, error))
 					CORE_LOG.Log("Disconnected");
 				else
-					CORE_LOG.Log(LogType::LOG_ERROR, "read error " + error.value() + error.message());
+					CORE_LOG.Log(LogType::LOG_ERROR, "read error " + TO_STR(error.value()) + " " + error.message());
 
 				Close();
 			}
