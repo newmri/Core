@@ -105,6 +105,10 @@ void CoreClientSession::ReadBody(void)
 
 bool CoreClientSession::IsValidPacketSpeed(void)
 {
+#if _DEBUG
+	return true;
+#endif // _DEBUG
+
 	TIME_VALUE _prevPacketTime = 0;
 	{
 		READ_LOCK(this->speedHackMutex);
