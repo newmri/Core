@@ -10,6 +10,7 @@ public:
 
 public:
 	void Start(void);
+	virtual void Close(void) override;
 	virtual void Write(const CorePacket& packet) override;
 
 private:

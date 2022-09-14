@@ -8,7 +8,7 @@ public:
 
 public:
 	bool Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint);
-	void Close(void);
+	virtual void Close(void) override;
 
 public:
 	virtual void Write(const CorePacket& packet) override;

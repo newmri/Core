@@ -8,6 +8,7 @@ CoreServerSession::CoreServerSession(const int64_t oid, boost::asio::io_context&
 
 CoreServerSession::~CoreServerSession()
 {
+	CoreSession::Close();
 }
 
 bool CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint)
@@ -34,6 +35,8 @@ bool CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_ty
 
 void CoreServerSession::Close(void)
 {
+	CoreSession::Close();
+
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
 			std::bind(&CoreServerSession::OnDisconnectedFunc, shared_from_this()),
@@ -53,6 +56,12 @@ void CoreServerSession::Write(const CorePacket& packet)
 
 void CoreServerSession::Write(void)
 {
+	if (!IsConnected())
+	{
+		this->writeQueue.clear();
+		return;
+	}
+
 	auto self(shared_from_this());
 
 	CorePacket packet = this->writeQueue.front();

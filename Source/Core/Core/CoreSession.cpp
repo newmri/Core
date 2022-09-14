@@ -55,3 +55,12 @@ bool CoreSession::IsConnected(void)
 {
 	return this->socket.is_open();
 }
+
+void CoreSession::Close(void)
+{
+	if (IsConnected())
+	{
+		this->socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
+		this->socket.close();
+	}
+}

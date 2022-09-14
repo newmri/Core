@@ -23,6 +23,9 @@ public:
 	bool IsConnected(void);
 
 public:
+	virtual void Close(void);
+
+public:
 	virtual void Write(const CorePacket& packet) CORE_PURE;
 
 protected:

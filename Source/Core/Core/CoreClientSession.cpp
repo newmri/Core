@@ -8,12 +8,17 @@ CoreClientSession::CoreClientSession(const int64_t oid, boost::asio::ip::tcp::so
 
 CoreClientSession::~CoreClientSession()
 {
-
+	Close();
 }
 
 void CoreClientSession::Start(void)
 {
 	ReadHeader();
+}
+
+void CoreClientSession::Close(void)
+{
+	CoreSession::Close();
 }
 
 void CoreClientSession::Write(const CorePacket& packet)
@@ -29,6 +34,12 @@ void CoreClientSession::Write(const CorePacket& packet)
 
 void CoreClientSession::Write(void)
 {
+	if (!IsConnected())
+	{
+		this->writeQueue.clear();
+		return;
+	}
+
 	auto self(shared_from_this());
 
 	CorePacket packet = this->writeQueue.front();

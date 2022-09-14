@@ -108,6 +108,10 @@ int32_t DummyClientManager::GetConnectedLoginClientCount(void)
 void DummyClientManager::DeleteLoginClient(const int64_t oid)
 {
 	WRITE_LOCK(this->loginMutex);
+
+	if (auto iter = this->loginClientList.find(oid); iter == this->loginClientList.end())
+		return;
+
 	this->loginClientList[oid]->Stop();
 	this->loginClientList.erase(oid);
 }
@@ -191,7 +195,10 @@ void DummyClientManager::DeleteGameClient(const int64_t oid)
 {
 	WRITE_LOCK(this->gameMutex);
 
-	OBJECT_MANAGER.RemoveObject(NativeInfo::ObjectInfo(Define::ObjectType_PLAYER, gameClientList[oid]->GetPlayerOID()));
+	if (auto iter = this->gameClientList.find(oid); iter == this->gameClientList.end())
+		return;
+
+	OBJECT_MANAGER.RemoveObject(NativeInfo::ObjectInfo(Define::ObjectType_PLAYER, this->gameClientList[oid]->GetPlayerOID()));
 
 	this->gameClientList[oid]->Stop();
 	this->gameClientList.erase(oid);
