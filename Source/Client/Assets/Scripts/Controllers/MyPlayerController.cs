@@ -24,6 +24,18 @@ public class MyPlayerController : PlayerController
 		}
 	}
 
+	public override string Name
+	{
+		get
+        {
+			return MyCharacterInfo.Name;
+		}
+		set
+        {
+			MyCharacterInfo.Name = value;
+		}
+	}
+
 	public override int HP
 	{
 		get { return base.HP; }

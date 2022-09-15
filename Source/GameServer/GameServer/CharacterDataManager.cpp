@@ -53,6 +53,11 @@ const LevelData* const CharacterDataManager::GetLevelData(const uint8_t level)
 	return &this->level[level - 1];
 }
 
+uint8_t CharacterDataManager::GetMaxLevel(void)
+{
+	return this->level.size();
+}
+
 int32_t CharacterDataManager::GetBonusStatPoint(uint8_t from, const uint8_t to)
 {
 	int32_t bonusStatPoint = 0;

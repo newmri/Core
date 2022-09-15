@@ -29,6 +29,12 @@ public class CreatureController : BaseController
 		set { CreatureInfo.Speed.Value[(int)SpeedType.MOVE_SPEED] = value; }
 	}
 
+	public virtual string Name
+    {
+		get;
+		set;
+    }
+
 	public virtual int HP
 	{
 		get { return CreatureInfo.Hp; }

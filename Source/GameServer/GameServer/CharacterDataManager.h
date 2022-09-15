@@ -14,6 +14,7 @@ public:
 	void CalculateSpeed(const Define::Job job, NativeInfo::Speed& speed);
 	const SkillData* const GetSkillData(const int32_t skillID);
 	const LevelData* const GetLevelData(const uint8_t level);
+	uint8_t GetMaxLevel(void);
 	int32_t GetBonusStatPoint(uint8_t from, const uint8_t to);
 
 private:

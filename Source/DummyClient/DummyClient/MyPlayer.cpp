@@ -121,7 +121,7 @@ void MyPlayer::SendReviveReq(void)
 	{
 		GAME_PACKET_SEND_MANAGER.Clear();
 		auto message = GamePacket::CreateCS_REVIVE_REQ(GAME_PACKET_SEND_MANAGER.builder);
-		GAME_PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_CS_REVIVE_REQ, message.Union());
+		GAME_PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_CS_REVIVE_REQ, message.Union());
 	}
 }
 
@@ -147,38 +147,35 @@ void MyPlayer::DoAI(void)
 		return;
 	}
 
-	static int32_t stateMin = Define::ObjectState_MIN;
-	static int32_t stateMax = Define::ObjectState_MAX;
+	AIBehavior behavior = static_cast<AIBehavior>(CORE_RANDOM_MANAGER_INT.GetRandom(AIBehavior::IDLE, (AIBehavior::MAX - 1)));
 
-	auto currState = GetState();
-	Define::ObjectState state = static_cast<Define::ObjectState>(CORE_RANDOM_MANAGER_INT.GetRandom(stateMin, stateMax));
-
-	if (IS_NOT_SAME(currState, state))
+	switch (behavior)
 	{
-		switch (state)
-		{
-		case Define::ObjectState_IDLE:
-		{
-			SetState(state);
+	case AIBehavior::IDLE:
+	{
+		SetState(Define::ObjectState_IDLE);
 
-			GAME_PACKET_SEND_MANAGER.Clear();
-			auto message = GamePacket::CreateCS_SET_STATE_REQ(GAME_PACKET_SEND_MANAGER.builder, state);
-			GAME_PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_CS_SET_STATE_REQ, message.Union());
-		}
-			break;
-		case Define::ObjectState_WALK:
-			MoveRandom(false);
-			return;
-		case Define::ObjectState_RUN:
-			MoveRandom(true);
-			return;
-		case Define::ObjectState_SKILL:
-			UseSkill();
-			break;
-		default:
-			MoveRandom(false);
-			return;
-		}
+		GAME_PACKET_SEND_MANAGER.Clear();
+		auto message = GamePacket::CreateCS_SET_STATE_REQ(GAME_PACKET_SEND_MANAGER.builder, Define::ObjectState_IDLE);
+		GAME_PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_CS_SET_STATE_REQ, message.Union());
+	}
+	break;
+	case AIBehavior::WALK:
+		MoveRandom(false);
+		break;
+	case AIBehavior::RUN:
+		MoveRandom(true);
+		break;
+	case AIBehavior::SKILL:
+		UseSkill();
+		break;
+	case AIBehavior::CHAT:
+		//Chat("Hello");
+		break;
+	case AIBehavior::LEVEL_UP:
+		std::string message = "/level " + TO_STR(CORE_RANDOM_MANAGER_INT.GetRandom(1, 10));
+		Chat(message);
+		break;
 	}
 
 	CORE_TIME_DELEGATE_MANAGER.Push(
@@ -268,7 +265,7 @@ void MyPlayer::Move(void)
 		GAME_PACKET_SEND_MANAGER.Clear();
 		auto packedPosInfo = flatbuffers::PackPositionInfo(GetPosInfo());
 		auto message = GamePacket::CreateCS_MOVE_REQ(GAME_PACKET_SEND_MANAGER.builder, isRun, &packedPosInfo);
-		GAME_PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_CS_MOVE_REQ, message.Union());
+		GAME_PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_CS_MOVE_REQ, message.Union());
 
 		CORE_TIME_DELEGATE_MANAGER.Push(
 			CoreTimeDelegate<>(std::bind(&MyPlayer::Move, Object::downcasted_shared_from_this<MyPlayer>()),
@@ -278,9 +275,18 @@ void MyPlayer::Move(void)
 	{
 		GAME_PACKET_SEND_MANAGER.Clear();
 		auto message = GamePacket::CreateCS_SET_STATE_REQ(GAME_PACKET_SEND_MANAGER.builder, Define::ObjectState_IDLE);
-		GAME_PACKET_SEND_MANAGER.Send(session, GamePacket::Packet_CS_SET_STATE_REQ, message.Union());
+		GAME_PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_CS_SET_STATE_REQ, message.Union());
 
 		DoAI();
 	}
+}
 
+void MyPlayer::Chat(std::string_view chatMessage)
+{
+	if (IsDead())
+		return;
+
+	GAME_PACKET_SEND_MANAGER.Clear();
+	auto message = GamePacket::CreateCS_NORMAL_CHAT_REQ(GAME_PACKET_SEND_MANAGER.builder, Define::ChatType_NORMAL, GAME_PACKET_SEND_MANAGER.builder.CreateString(chatMessage));
+	GAME_PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_CS_NORMAL_CHAT_REQ, message.Union());
 }

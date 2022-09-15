@@ -123,6 +123,10 @@ public class UIChat : UIBase
     {
         GameObject go = CoreManagers.Resource.Instantiate($"UI/UIChatText", GetObject((int)GameObjects.ChatContent).transform, 20);
         UIChatData chatData = go.GetComponent<UIChatData>();
-        chatData.SetChatData(chatType, _textColorList[(int)chatType], Managers.Object.GetCharacterName(oid) + ": " + message);
+        string name = Managers.Object.GetCharacterName(oid);
+        if (name == "")
+            return;
+
+        chatData.SetChatData(chatType, _textColorList[(int)chatType], name + ": " + message);
     }
 }

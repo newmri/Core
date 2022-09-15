@@ -17,6 +17,8 @@ public:
 
 private:
 	void RemovePlayer(const int64_t& oid);
+
+public:
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);
 
 public:

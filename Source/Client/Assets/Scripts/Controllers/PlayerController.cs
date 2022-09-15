@@ -19,6 +19,22 @@ public class PlayerController : CreatureController
 
 	protected GearEquipper _gear;
 
+	public override string Name
+	{
+		get
+		{
+			if (_name)
+				return _name.text;
+			else
+				return "";
+		}
+		set
+		{
+			if(_name)
+				_name.text = value;
+		}
+	}
+
 	public virtual Job Job
 	{
 		get

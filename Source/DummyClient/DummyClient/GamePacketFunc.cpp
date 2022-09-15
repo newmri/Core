@@ -144,6 +144,10 @@ void GamePacketFunc::SC_ADD_STAT_RES(std::shared_ptr<CoreServerSession> session,
 
 void GamePacketFunc::SC_MY_LEVEL_UP_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)
 {
+	auto raw = static_cast<const GamePacket::SC_MY_LEVEL_UP_NOTI*>(data);
+	auto player = OBJECT_MANAGER.FindPlayer(session->GetPlayerOID());
+	if (IS_NULL(player))
+		return;
 }
 
 void GamePacketFunc::SC_LEVEL_UP_NOTI(std::shared_ptr<CoreServerSession> session, const void* data)

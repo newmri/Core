@@ -1,5 +1,16 @@
 #pragma once
 
+enum AIBehavior : int32_t
+{
+	IDLE,
+	WALK,
+	RUN,
+	SKILL,
+	CHAT,
+	LEVEL_UP,
+	MAX
+};
+
 class MyPlayer : public Player, public CoreMemoryPoolObj<MyPlayer, CORE_BIG_SIZE>
 {
 	OVERRIDE_GAME_OBJECT(MyPlayer)
@@ -33,6 +44,7 @@ private:
 	void DoAI(void);
 	void MoveRandom(bool isRun);
 	void Move(void);
+	void Chat(std::string_view chatMessage);
 
 private:
 	std::shared_ptr<CoreServerSession> session;

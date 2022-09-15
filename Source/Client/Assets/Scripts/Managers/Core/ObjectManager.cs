@@ -163,6 +163,9 @@ public class ObjectManager
     public void Revive(ObjectInfoWithPosT objectInfoWithPos)
     {
         BaseController baseController = GetBaseController(objectInfoWithPos.ObjectInfo);
+        if (baseController == null)
+            return;
+
         baseController.PosInfo = objectInfoWithPos.PosInfo;
         baseController.SyncPos();
     }
@@ -170,7 +173,8 @@ public class ObjectManager
     public void SetState(ObjectInfoT objectInfo, ObjectState state)
     {
         BaseController baseController = GetBaseController(objectInfo);
-        baseController.State = state;
+        if(baseController)
+            baseController.State = state;
     }
 
     public void UseSkill(ObjectInfoT objectInfo, int skillID)
@@ -189,7 +193,8 @@ public class ObjectManager
                   $"Damaged:{damageInfo.Damage}");
 
         CreatureController creatureController = GetCreatureController(damageInfo.ObjectInfo);
-        creatureController.OnHit(damageInfo.Damage, damageInfo.IsCritical);
+        if(creatureController)
+            creatureController.OnHit(damageInfo.Damage, damageInfo.IsCritical);
     }
 
     public void Remove(ObjectInfoT objectInfo)
@@ -237,7 +242,7 @@ public class ObjectManager
             if (creatureController == null)
                 return "";
 
-            return creatureController.name;
+            return creatureController.Name;
         }
     }
 
