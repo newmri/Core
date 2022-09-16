@@ -20,6 +20,7 @@ private:
 
 public:
 	std::shared_ptr<Player> FindPlayer(const int64_t& oid);
+	std::shared_ptr<MyPlayer> FindMyPlayer(const int64_t& oid);
 
 public:
 	void AddProjectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoWithPosT& objectInfoWithPos);

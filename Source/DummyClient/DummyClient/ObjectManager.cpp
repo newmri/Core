@@ -102,6 +102,17 @@ std::shared_ptr<Player> ObjectManager::FindPlayer(const int64_t& oid)
 	return nullptr;
 }
 
+std::shared_ptr<MyPlayer> ObjectManager::FindMyPlayer(const int64_t& oid)
+{
+	READ_LOCK(this->playerMutex);
+
+	auto iter = this->playerList.find(oid);
+	if (IS_NOT_SAME(iter, this->playerList.end()))
+		return std::static_pointer_cast<MyPlayer>(iter->second);
+
+	return nullptr;
+}
+
 void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, const Info::ObjectInfoWithPosT& objectInfoWithPos)
 {
 	std::shared_ptr<Projectile> projectile = nullptr;

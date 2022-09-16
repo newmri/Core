@@ -133,6 +133,18 @@ bool MyPlayer::Revive(const Info::ObjectInfoWithPosT& objectInfoWithPos)
 	return true;
 }
 
+void MyPlayer::OnLevelUp(const uint8_t newLevel, const int32_t newStatPoint)
+{
+	if (this->creatureInfo.level < newLevel)
+	{
+		this->creatureInfo.hp = this->GetAbility(Define::AbilityType_HP);
+		this->creatureInfo.mp = this->GetAbility(Define::AbilityType_MP);
+	}
+
+	this->creatureInfo.level = newLevel;
+	this->characterInfo.bonus_stat = newStatPoint;
+}
+
 void MyPlayer::DoAI(void)
 {
 	if (IsDead())
@@ -148,6 +160,20 @@ void MyPlayer::DoAI(void)
 	}
 
 	AIBehavior behavior = static_cast<AIBehavior>(CORE_RANDOM_MANAGER_INT.GetRandom(AIBehavior::IDLE, (AIBehavior::MAX - 1)));
+	if (this->currBehavior != behavior)
+	{
+		SetBehavior(behavior);
+	}
+
+	CORE_TIME_DELEGATE_MANAGER.Push(
+		CoreTimeDelegate<>(
+			std::bind(&MyPlayer::DoAI, Object::downcasted_shared_from_this<MyPlayer>()),
+			CORE_RANDOM_MANAGER_TIME.GetRandom(this->aiMinTime, this->aiMaxTime)));
+}
+
+void MyPlayer::SetBehavior(const AIBehavior behavior)
+{
+	this->currBehavior = behavior;
 
 	switch (behavior)
 	{
@@ -177,11 +203,6 @@ void MyPlayer::DoAI(void)
 		Chat(message);
 		break;
 	}
-
-	CORE_TIME_DELEGATE_MANAGER.Push(
-		CoreTimeDelegate<>(
-			std::bind(&MyPlayer::DoAI, Object::downcasted_shared_from_this<MyPlayer>()),
-			CORE_RANDOM_MANAGER_TIME.GetRandom(this->aiMinTime, this->aiMaxTime)));
 }
 
 void MyPlayer::MoveRandom(bool isRun)

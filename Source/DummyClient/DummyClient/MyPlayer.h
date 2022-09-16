@@ -39,9 +39,11 @@ public:
 	virtual bool OnGetDamage(const GamePacket::DamageInfoT& damageInfo) override;
 	void SendReviveReq(void);
 	virtual bool Revive(const Info::ObjectInfoWithPosT& objectInfoWithPos) override;
+	void OnLevelUp(const uint8_t newLevel, const int32_t newStatPoint);
 
 private:
 	void DoAI(void);
+	void SetBehavior(const AIBehavior behavior);
 	void MoveRandom(bool isRun);
 	void Move(void);
 	void Chat(std::string_view chatMessage);
@@ -51,9 +53,10 @@ private:
 	GamePacket::MyCharacterInfoT characterInfo;
 
 private:
+	AIBehavior currBehavior = AIBehavior::MAX;
 	TIME_VALUE lastMoveTime = 0;
 	TIME_VALUE reviveTime = (Define::ReviveTime_COOL_TIME + 1) * SEC;
-	TIME_VALUE aiMinTime = 300;
+	TIME_VALUE aiMinTime = 200;
 	TIME_VALUE aiMaxTime = 1000;
 
 private:
