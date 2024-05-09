@@ -6,22 +6,22 @@ struct CoreItemData
 {
 	CoreItemData()
 	{
-		memset(this, 0, sizeof(this));
+
 	}
 
-	int32_t itemID;
-	Define::Job job;
-	Define::ItemType itemType;
-	Define::GearType gearType;
-	Define::GradeType gradeType;
-	int64_t coolTime;
-	int32_t abilityID[Define::ItemAbility_MAX_COUNT];
-	int32_t effectID[Define::ItemEffect_MAX_COUNT];
-	bool isCashItem;
-	int64_t buyPrice;
-	int64_t sellPrice;
-	uint16_t maxStackCount;
-	uint16_t storage;
+	int32_t itemID = 0;
+	Define::Job job = Define::Job::Job_NONE;
+	Define::ItemType itemType = Define::ItemType::ItemType_MIN;
+	Define::GearType gearType = Define::GearType_NONE;
+	Define::GradeType gradeType = Define::GradeType::GradeType_NORMAL;
+	int64_t coolTime = 0;
+	std::array<int32_t, Define::ItemAbility_MAX_COUNT> abilityID = {};
+	std::array<int32_t, Define::ItemEffect_MAX_COUNT> effectID = {};
+	bool isCashItem = false;
+	int64_t buyPrice = 0;
+	int64_t sellPrice = 0;
+	uint16_t maxStackCount = 0;
+	uint16_t storage = 0;
 };
 
 union CoreItemUID
@@ -40,7 +40,7 @@ struct ItemCreateSlotInfo
 {
 	ItemCreateSlotInfo()
 	{
-		memset(this, 0, sizeof(this));
+
 	}
 
 	ItemCreateSlotInfo(const int64_t accountUID, const int64_t uid, const int32_t itemID, const uint16_t itemCount, const uint16_t maxStackCount, const uint8_t needSlotCount) :
@@ -49,12 +49,12 @@ struct ItemCreateSlotInfo
 
 	}
 
-	int64_t accountUID;
-	int64_t uid;
-	int32_t itemID;
-	uint16_t itemCount;
-	uint16_t maxStackCount;
-	uint8_t needSlotCount;
+	int64_t accountUID = 0;
+	int64_t uid = 0;
+	int32_t itemID = 0;
+	uint16_t itemCount = 0;
+	uint16_t maxStackCount = 0;
+	uint8_t needSlotCount = 0;
 };
 
 #pragma pack(pop)

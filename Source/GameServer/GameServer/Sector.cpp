@@ -2,7 +2,7 @@
 
 Sector::Sector()
 {
-	Init();
+
 }
 
 Sector::~Sector()
@@ -27,7 +27,7 @@ void Sector::Add(std::shared_ptr<Object> object)
 
 	SendSpawnPacketToOldPlayer(object);
 
-	Define::ObjectType objectType = object->GetObjectType();
+	auto objectType = object->GetObjectType();
 
 	switch (objectType)
 	{

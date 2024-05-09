@@ -4,9 +4,9 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 {
 	auto raw = static_cast<const GamePacket::CS_LOGIN_REQ*>(data);
 
-	GamePacket::ErrorCode result = GamePacket::ErrorCode_UNKNOWN;
+	auto result = GamePacket::ErrorCode_UNKNOWN;
 
-	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(raw->uid());
+	auto account = CORE_ACCOUNT_MANAGER.Find(raw->uid());
 	std::shared_ptr<Player> player;
 	CoreToken token(raw->token());
 
@@ -57,7 +57,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		if (!GAME_SERVER.GetGameDB()->LoadCharacter(raw->uid(), raw->character_uid(), creatureInfo, characterInfo))
 			return;
 
-		uint8_t maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
+		auto maxCharacterSlotCount = GAME_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		if (IS_SAME(0, maxCharacterSlotCount))
 			return;
 

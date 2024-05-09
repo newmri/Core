@@ -54,5 +54,5 @@ protected:
 
 protected:
 	std::shared_mutex mutex;
-	std::map<int64_t, std::shared_ptr<CoreClientSession>> sessionList;
+	std::unordered_map<int64_t, std::shared_ptr<CoreClientSession>> sessionList;
 };

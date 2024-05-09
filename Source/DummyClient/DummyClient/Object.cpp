@@ -2,7 +2,7 @@
 
 Object::Object(const Info::ObjectInfoWithPosT& objectInfoWithPos) : objectInfoWithPos(objectInfoWithPos)
 {
-	Init();
+	
 }
 
 Object::~Object()
@@ -12,7 +12,7 @@ Object::~Object()
 
 void Object::Init(void)
 {
-
+	CoreGameObject::Init();
 }
 
 void Object::Update(void)

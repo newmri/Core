@@ -3,19 +3,16 @@
 template<typename T>
 class CoreList : public CoreQueue<T>
 {
-	OVERRIDE_OBJECT(CoreList<T>)
-
 public:
+	CoreList() CORE_DEFAULT;
 	CoreList(CoreList<T>& rhs);
+	virtual ~CoreList() override;
 
 public:
 	CoreList<T>& operator=(CoreList<T>& rhs);
 
 private:
 	void Copy(const CoreList<T>& rhs);
-
-public:
-	virtual void clear(void) override;
 
 public:
 	void push_front(const T& data);

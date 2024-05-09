@@ -80,16 +80,19 @@ uint8_t GameServerManager::GetServerID(void)
 void GameServerManager::MakeWorldDB(void)
 {
 	this->worldDB = std::make_shared<CoreWorldDB>(STRING_MANAGER.Widen(ENUM_TO_STR(World)), this->serverConfig->WorldID, this->serverConfig->ServerID);
+	this->worldDB->Init();
 }
 
 void GameServerManager::MakeAccountDB(void)
 {
 	this->accountDB = std::make_shared<AccountDB>(STRING_MANAGER.Widen(ENUM_TO_STR(Account)), this->serverConfig->WorldID, this->serverConfig->ServerID);
+	this->accountDB->Init();
 }
 
 void GameServerManager::MakeGameDB(void)
 {
 	this->gameDB = std::make_shared<GameDB>(STRING_MANAGER.Widen(ENUM_TO_STR(Game)), this->serverConfig->WorldID, this->serverConfig->ServerID);
+	this->gameDB->Init();
 }
 
 void GameServerManager::Close(std::shared_ptr<CoreClientSession> session)

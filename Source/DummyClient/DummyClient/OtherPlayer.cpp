@@ -3,7 +3,7 @@
 OtherPlayer::OtherPlayer(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo) :
 	Player(objectInfoWithPos, creatureInfo, PlayerType::OTHER_PLAYER), characterInfo(characterInfo)
 {
-	Init();
+	
 }
 
 OtherPlayer::~OtherPlayer()
@@ -13,12 +13,12 @@ OtherPlayer::~OtherPlayer()
 
 void OtherPlayer::Init(void)
 {
-
+	Player::Init();
 }
 
 void OtherPlayer::Update(void)
 {
-
+	Player::Update();
 }
 
 void OtherPlayer::Clear(void)

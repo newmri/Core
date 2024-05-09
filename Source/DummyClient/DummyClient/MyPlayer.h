@@ -56,9 +56,9 @@ private:
 	AIBehavior currBehavior = AIBehavior::MAX;
 	TIME_VALUE lastMoveTime = 0;
 	TIME_VALUE reviveTime = (Define::ReviveTime_COOL_TIME + 1) * SEC;
-	TIME_VALUE aiMinTime = 200;
+	TIME_VALUE aiMinTime = 500;
 	TIME_VALUE aiMaxTime = 1000;
 
 private:
-	uint8_t destDist;
+	uint8_t destDist = 0;
 };

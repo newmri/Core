@@ -12,6 +12,6 @@ private:
 	void Register(void);
 
 private:
-	std::map<GamePacket::Packet, std::function<void(GamePacketFunc&, std::shared_ptr<CoreServerSession>, const void*)>> func;
+	std::unordered_map<GamePacket::Packet, std::function<void(GamePacketFunc&, std::shared_ptr<CoreServerSession>, const void*)>> func;
 	GamePacketFunc packetFunc;
 };

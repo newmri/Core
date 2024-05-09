@@ -6,12 +6,12 @@ struct CoreAbilityData
 {
 	CoreAbilityData()
 	{
-		memset(this, 0, sizeof(this));
+
 	}
 
-	int32_t abilityID;
-	Define::AbilityType abilityType;
-	int32_t abilityValue;
+	int32_t abilityID = 0;
+	Define::AbilityType abilityType = Define::AbilityType::AbilityType_HP;
+	int32_t abilityValue = 0;
 };
 
 #pragma pack(pop)

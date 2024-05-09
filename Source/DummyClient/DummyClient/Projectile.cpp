@@ -14,12 +14,12 @@ Projectile::~Projectile()
 
 void Projectile::Init(void)
 {
-
+	Object::Init();
 }
 
 void Projectile::Update(void)
 {
-
+	Object::Update();
 }
 
 void Projectile::Clear(void)

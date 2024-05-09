@@ -99,10 +99,7 @@ static constexpr size_t CORE_BIG_SIZE = 1024;
 	IN_TYPE* data = reinterpret_cast<IN_TYPE*>(RAW_PTR);					\
 																			\
 	for (size_t i = 0; i < ROWS; ++i)										\
-	{																		\
-		IN_TYPE info = data[i];												\
-		OUT[data[i].KEY] = info;											\
-	}																		\
+		OUT[data[i].KEY] = data[i];											\
 																			\
 	SAFE_DELETE_DTOR(ROWS, RAW_PTR, IN_TYPE, data);
 
@@ -122,10 +119,9 @@ static constexpr size_t CORE_BIG_SIZE = 1024;
 		IN_TYPE* data = reinterpret_cast<IN_TYPE*>(table);					\
 																			\
 		for (size_t i = 0; i < rows; ++i)									\
-		{																	\
-			IN_TYPE info = data[i];											\
-			OUT.push_back(info);											\
-		}																	\
+			OUT.push_back(data[i]);											\
+																			\
+		SAFE_DELETE_DTOR(rows, table, IN_TYPE, data);						\
 	}
 
 #ifdef _UNICODE

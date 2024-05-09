@@ -4,7 +4,7 @@ MyPlayer::MyPlayer(const std::shared_ptr<CoreServerSession> session,
 	const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo) :
 	session(session), Player(objectInfoWithPos, creatureInfo, PlayerType::MY_PLAYER), characterInfo(characterInfo)
 {
-	Init();
+
 }
 
 std::shared_ptr<CoreServerSession> MyPlayer::GetSession(void)
@@ -19,6 +19,8 @@ MyPlayer::~MyPlayer()
 
 void MyPlayer::Init(void)
 {
+	Player::Init();
+
 	CORE_TIME_DELEGATE_MANAGER.Push(
 		CoreTimeDelegate<>(
 			std::bind(&MyPlayer::DoAI, this),
@@ -27,7 +29,7 @@ void MyPlayer::Init(void)
 
 void MyPlayer::Update(void)
 {
-
+	Player::Update();
 }
 
 void MyPlayer::Clear(void)
@@ -66,17 +68,23 @@ void MyPlayer::AddSkill(const int32_t skillID)
 	if (IS_NULL(skillData))
 		return;
 
-	WRITE_LOCK(this->skillMutex);
-
+	std::shared_ptr<Skill> skill;
 	switch (skillData->skillType)
 	{
 	case Define::SkillType_NORMAL:
-		this->skillList[skillID] = std::make_shared<Skill>(Object::downcasted_shared_from_this<Creature>(), *skillData);
+		skill = std::make_shared<Skill>(Object::downcasted_shared_from_this<Creature>(), *skillData);
 		break;
 	case Define::SkillType_ARROW:
-		this->skillList[skillID] = std::make_shared<ProjectileSkill>(Object::downcasted_shared_from_this<Creature>(), *skillData);
+		skill = std::make_shared<ProjectileSkill>(Object::downcasted_shared_from_this<Creature>(), *skillData);
 		break;
+	default:
+		return;
 	}
+
+	skill->Init();
+
+	WRITE_LOCK(this->skillMutex);
+	this->skillList[skillID] = skill;
 }
 
 void MyPlayer::UseSkill(void)

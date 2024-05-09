@@ -17,21 +17,6 @@ CoreQueue<T>::~CoreQueue()
 }
 
 template<typename T>
-void CoreQueue<T>::Init(void)
-{
-	CoreContainer<T>::Init();
-
-	this->head = new CoreNode<T>();
-	this->tail = this->head;
-	this->head->next = this->tail;
-
-	if (this->head)
-	{
-		CoreContainer<T>::SetSize(0);
-	}
-}
-
-template<typename T>
 CoreQueue<T>::CoreQueue(CoreQueue<T>& rhs)
 {
 	READ_LOCK(rhs.mutex);
@@ -44,6 +29,19 @@ CoreQueue<T>& CoreQueue<T>::operator=(CoreQueue<T>& rhs)
 	READ_LOCK(rhs.mutex);
 	Copy(rhs);
 	return *this;
+}
+
+template<typename T>
+void CoreQueue<T>::Init(void)
+{
+	this->head = new CoreNode<T>();
+	this->tail = this->head;
+	this->head->next = this->tail;
+
+	if (this->head)
+	{
+		CoreContainer<T>::SetSize(0);
+	}
 }
 
 template<typename T>

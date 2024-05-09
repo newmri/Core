@@ -13,7 +13,7 @@ Projectile::~Projectile()
 
 void Projectile::Init(void)
 {
-
+	Object::Init();
 }
 
 void Projectile::Clear(void)

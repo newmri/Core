@@ -21,6 +21,7 @@ template<typename T>
 void CoreLoadManager<T>::Init(void)
 {
 	loader = std::make_unique<T>();
+	loader->Init();
 }
 
 template<typename T>

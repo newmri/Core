@@ -13,7 +13,9 @@ void ZoneManager::Release(void)
 
 void ZoneManager::AddZone(const int32_t id)
 {
-	this->zoneList.push_back(std::make_unique<Zone>(id));
+	auto zone = std::make_unique<Zone>(id);
+	zone->Init();
+	this->zoneList.push_back(std::move(zone));
 }
 
 bool ZoneManager::CanMove(const int32_t id, const NativeInfo::Vec2Int& cellDestPos, const bool checkObjects)

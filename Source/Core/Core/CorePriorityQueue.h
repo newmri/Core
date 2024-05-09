@@ -11,9 +11,6 @@ public:
 	virtual ~CorePriorityQueue() override;
 	CorePriorityQueue(CorePriorityQueue<T>& rhs);
 
-protected:																
-	virtual void Init(void) override;
-
 public:
 	CorePriorityQueue<T>& operator=(CorePriorityQueue<T>& rhs);
 
@@ -21,7 +18,7 @@ private:
 	void Copy(const CorePriorityQueue<T>& rhs);
 
 public:
-	virtual void clear(void) override;
+	void clear(void);
 
 public:
 	void push(const T& data);

@@ -7,7 +7,7 @@ Zone::Zone()
 
 Zone::Zone(const int32_t id) : id(id)
 {
-	Init();
+
 }
 
 Zone::~Zone()

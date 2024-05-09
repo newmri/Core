@@ -63,7 +63,7 @@ private:
 private:
 	CACHE_ALIGN std::shared_mutex characterMutex;
 	uint8_t maxCharacterSlotCount;
-	std::map<int64_t, std::shared_ptr<CoreCharacter>> characterList;
+	std::unordered_map<int64_t, std::shared_ptr<CoreCharacter>> characterList;
 	CoreVector<int32_t> moneyList;
 
 private:

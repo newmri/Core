@@ -2,7 +2,7 @@
 
 CoreFileLogger::CoreFileLogger()
 {
-    Init();
+
 }
 
 CoreFileLogger::~CoreFileLogger()
@@ -17,6 +17,8 @@ void CoreFileLogger::MakeFullPath(void)
 
 void CoreFileLogger::Init(void)
 {
+    CoreLogger::Init();
+
     _mkdir(filePath.c_str());
     MakeFullPath();
 }

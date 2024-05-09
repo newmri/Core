@@ -7,5 +7,5 @@ public:
 	virtual ~AccountDB() override;
 
 public:
-	virtual void Logout(const CoreAccount* account) override;
+	virtual void Logout(std::shared_ptr<CoreAccount> account) override;
 };

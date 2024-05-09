@@ -16,6 +16,7 @@ void ObjectManager::AddPlayer(std::shared_ptr<CoreServerSession> session, const 
 	session->SetPlayerOID(objectInfoWithPos.object_info.oid);
 
 	auto player = std::make_shared<MyPlayer>(session, objectInfoWithPos, creatureInfo, characterInfo);
+	player->Init();
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
 
 	WRITE_LOCK(this->playerMutex);
@@ -25,6 +26,7 @@ void ObjectManager::AddPlayer(std::shared_ptr<CoreServerSession> session, const 
 void ObjectManager::AddPlayer(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::CharacterInfoT& characterInfo)
 {
 	auto player = std::make_shared<OtherPlayer>(objectInfoWithPos, creatureInfo, characterInfo);
+	player->Init();
 
 	WRITE_LOCK(this->playerMutex);
 	this->playerList[objectInfoWithPos.object_info.oid] = player;
@@ -124,6 +126,8 @@ void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, 
 	default:
 		return;
 	}
+
+	projectile->Init();
 
 	WRITE_LOCK(this->projectileMutex);
 	this->projectileList[objectInfoWithPos.object_info.oid] = projectile;

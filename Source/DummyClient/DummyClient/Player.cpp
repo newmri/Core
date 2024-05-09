@@ -3,7 +3,7 @@
 Player::Player(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const PlayerType playerType) :
 	Creature(objectInfoWithPos, creatureInfo), playerType(playerType)
 {
-	Init();
+	
 }
 
 PlayerType Player::GetPlayerType(void)
@@ -18,12 +18,12 @@ Player::~Player()
 
 void Player::Init(void)
 {
-
+	Creature::Init();
 }
 
 void Player::Update(void)
 {
-
+	Creature::Update();
 }
 
 void Player::Clear(void)

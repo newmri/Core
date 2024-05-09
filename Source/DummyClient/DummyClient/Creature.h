@@ -35,5 +35,5 @@ protected:
 
 protected:
 	CACHE_ALIGN std::shared_mutex skillMutex;
-	std::map<int32_t, std::shared_ptr<Skill>> skillList;
+	std::unordered_map<int32_t, std::shared_ptr<Skill>> skillList;
 };

@@ -5,12 +5,12 @@
 template<typename T>
 class CoreVector : public CoreContainer<T>
 {
-	OVERRIDE_OBJECT(CoreVector<T>)
-
 public:
+	CoreVector();
 	template<typename... Types>
 	CoreVector(const size_t maxBlockNum, Types... args);
 	CoreVector(CoreVector<T>& rhs);
+	virtual ~CoreVector() override;
 
 public:
 	CoreVector<T>& operator=(CoreVector<T>& rhs);
@@ -21,7 +21,7 @@ private:
 	void Copy(const CoreVector<T>& rhs);
 
 public:
-	virtual void clear(void) override;
+	void clear(void);
 
 public:
 	size_t capacity(void);

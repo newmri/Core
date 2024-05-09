@@ -2,7 +2,7 @@
 
 Creature::Creature(const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo) : Object(objectInfoWithPos), creatureInfo(creatureInfo)
 {
-	Init();
+
 }
 
 Creature::~Creature()
@@ -12,12 +12,12 @@ Creature::~Creature()
 
 void Creature::Init(void)
 {
-
+	Object::Init();
 }
 
 void Creature::Update(void)
 {
-
+	Object::Update();
 }
 
 void Creature::Clear(void)

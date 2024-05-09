@@ -2,7 +2,7 @@
 
 ProjectileSkill::ProjectileSkill()
 {
-	Init();
+	
 }
 
 ProjectileSkill::~ProjectileSkill()
@@ -11,6 +11,7 @@ ProjectileSkill::~ProjectileSkill()
 
 void ProjectileSkill::Init(void)
 {
+	Skill::Init();
 }
 
 ProjectileSkill::ProjectileSkill(const std::shared_ptr<Creature> owner, const SkillData& skillData) : Skill(owner, skillData)

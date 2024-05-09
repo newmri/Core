@@ -28,7 +28,9 @@ void LoginPacketFunc::SC_LOGIN_RES(std::shared_ptr<CoreServerSession> session, c
 			for (; iter_begin != iter_end; ++iter_begin)
 			{
 				auto info = iter_begin->UnPack();
-				account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), info->uid, *info));
+				auto character = std::make_shared<Character>(session->GetAccountUID(), info->uid, *info);
+				character->Init();
+				account->AddCharacter(character);
 			}
 
 			DUMMY_CLIENT.ConnectToGameServer(session, characterUID, characterName);
@@ -51,11 +53,13 @@ void LoginPacketFunc::SC_CREATE_CHARACTER_RES(std::shared_ptr<CoreServerSession>
 	{
 		auto characterInfo = *raw->UnPack()->character_info;
 
-		CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
+		auto account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
 		if (IS_NULL(account))
 			return;
 
-		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), characterInfo.uid, characterInfo));
+		auto character = std::make_shared<Character>(session->GetAccountUID(), characterInfo.uid, characterInfo);
+		character->Init();
+		account->AddCharacter(character);
 
 		DUMMY_CLIENT.ConnectToGameServer(session, characterInfo.uid, characterInfo.name);
 	}

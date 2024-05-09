@@ -36,6 +36,7 @@ template<typename T>
 void CoreLogManager<T>::Init(void)
 {
 	logger = std::make_unique<T>();
+	logger->Init();
 }
 
 template<typename T>

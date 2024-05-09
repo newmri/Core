@@ -6,14 +6,14 @@ struct CoreEffectData
 {
 	CoreEffectData()
 	{
-		memset(this, 0, sizeof(this));
+
 	}
 
-	int32_t effectID;
-	Define::EffectType effectType;
-	int32_t effectValue;
-	int32_t effectTick;
-	int32_t effectDuration;
+	int32_t effectID = 0;
+	Define::EffectType effectType = Define::EffectType::EffectType_HP;
+	int32_t effectValue = 0;
+	int32_t effectTick = 0;
+	int32_t effectDuration = 0;
 };
 
 #pragma pack(pop)

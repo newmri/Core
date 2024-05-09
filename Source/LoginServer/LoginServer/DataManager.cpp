@@ -2,6 +2,8 @@
 
 IMPLEMENT_SINGLETON(DataManager)
 
+using NativeInfo::Stat;
+
 void DataManager::Init(void)
 {
 }
@@ -13,7 +15,7 @@ void DataManager::Release(void)
 
 void DataManager::Load(void)
 {
-	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateStat.csv", NativeInfo::Stat, this->characterCreateStat);
+	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateStat.csv", Stat, this->characterCreateStat);
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateGear.csv", GearSlot, this->characterCreateGear);
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterAbilityByStat.csv", CharacterAbilityByStat, this->characterAbilityByStat);
 }

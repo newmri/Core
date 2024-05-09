@@ -2,7 +2,7 @@
 
 Object::Object(const Info::ObjectInfoWithPosT& objectInfoWithPos) : objectInfoWithPos(objectInfoWithPos)
 {
-	Init();
+
 }
 
 Object::~Object()
@@ -12,6 +12,8 @@ Object::~Object()
 
 void Object::Init(void)
 {
+	CoreGameObject::Init();
+
 	switch (this->objectInfoWithPos.object_info.objectType)
 	{
 	case Define::ObjectType_PLAYER:

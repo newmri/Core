@@ -2,7 +2,7 @@
 
 CoreConsoleLogger::CoreConsoleLogger()
 {
-	Init();
+
 }
 
 CoreConsoleLogger::~CoreConsoleLogger()
@@ -12,7 +12,7 @@ CoreConsoleLogger::~CoreConsoleLogger()
 
 void CoreConsoleLogger::Init(void)
 {
-
+	CoreLogger::Init();
 }
 
 void CoreConsoleLogger::Log(std::string_view logMessage)

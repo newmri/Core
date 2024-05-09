@@ -2,7 +2,7 @@
 
 CoreLogger::CoreLogger()
 {
-	Init();
+
 }
 
 CoreLogger::~CoreLogger()

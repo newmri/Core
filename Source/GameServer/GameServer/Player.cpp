@@ -4,7 +4,7 @@ Player::Player(const int64_t& uid, const std::shared_ptr<CoreClientSession> sess
 	const Info::ObjectInfoWithPosT& objectInfoWithPos, const Info::CreatureInfoT& creatureInfo, const GamePacket::MyCharacterInfoT& characterInfo) :
 	uid(uid), session(session), Creature(objectInfoWithPos, creatureInfo), characterInfo(characterInfo)
 {
-	Init();
+
 }
 
 int64_t Player::GetUID(void) const
@@ -24,6 +24,8 @@ Player::~Player()
 
 void Player::Init(void)
 {
+	Creature::Init();
+
 	CalculateAbilityWithNoLock();
 }
 
@@ -144,7 +146,11 @@ void Player::AddSkill(const int32_t skillID)
 	case Define::SkillType_ARROW:
 		this->skillList[skillID] = std::make_shared<ProjectileSkill>(Object::downcasted_shared_from_this<Creature>(), *skillData);
 		break;
+	default:
+		return;
 	}
+
+	this->skillList[skillID]->Init();
 }
 
 bool Player::LoadData(void)

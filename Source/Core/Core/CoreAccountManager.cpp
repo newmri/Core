@@ -12,7 +12,7 @@ void CoreAccountManager::Release(void)
 	GetInstance().~CoreAccountManager();
 }
 
-CoreAccount* CoreAccountManager::Find(const int64_t& uid)
+std::shared_ptr<CoreAccount> CoreAccountManager::Find(const int64_t& uid)
 {
 	READ_LOCK(this->mutex);
 	
@@ -23,9 +23,10 @@ CoreAccount* CoreAccountManager::Find(const int64_t& uid)
 	return nullptr;
 }
 
-CoreAccount* CoreAccountManager::Add(const int64_t& uid, const CoreToken& token)
+std::shared_ptr<CoreAccount> CoreAccountManager::Add(const int64_t& uid, const CoreToken& token)
 {
-	CoreAccount* account = new CoreAccount(uid, token);
+	auto account = std::make_shared<CoreAccount>(uid, token);
+	account->Init();
 
 	WRITE_LOCK(this->mutex);
 	this->accountList[uid] = account;
@@ -34,7 +35,7 @@ CoreAccount* CoreAccountManager::Add(const int64_t& uid, const CoreToken& token)
 
 void CoreAccountManager::SetLogout(const int64_t& uid)
 {
-	CoreAccount* account = Find(uid);
+	auto account = Find(uid);
 
 	if (IS_NULL(account))
 		return;
@@ -43,7 +44,7 @@ void CoreAccountManager::SetLogout(const int64_t& uid)
 	this->logoutFunc(account);
 }
 
-void CoreAccountManager::SetLogoutFunc(std::function<void(const CoreAccount*)> func)
+void CoreAccountManager::SetLogoutFunc(std::function<void(std::shared_ptr<CoreAccount>)> func)
 {
 	this->logoutFunc = func;
 }

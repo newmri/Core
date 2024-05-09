@@ -13,12 +13,15 @@ enum DBType
 	Game
 };
 
-class CoreDB : CoreObject
+class CoreDB
 {
-	OVERRIDE_OBJECT(CoreDB)
+public:
+	CoreDB();
+	CoreDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID);
+	virtual ~CoreDB();
 
 public:
-	CoreDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID);
+	void Init(void);
 
 protected:
 	bool Connect(void);

@@ -14,13 +14,15 @@ void ObjectManager::Release(void)
 std::shared_ptr<Player> ObjectManager::AddPlayer(const int64_t& characterUID, std::shared_ptr<CoreClientSession> session,
 	Info::ObjectInfoWithPosT& objectInfoWithPos, Info::CreatureInfoT& creatureInfo, GamePacket::MyCharacterInfoT& characterInfo)
 {
-	int64_t oid = this->oid.fetch_add(1);
+	auto oid = this->oid.fetch_add(1);
 	session->SetPlayerOID(oid);
 
 	objectInfoWithPos.object_info.oid = oid;
 	objectInfoWithPos.object_info.objectType = Define::ObjectType_PLAYER;
 
 	auto player = std::make_shared<Player>(characterUID, session, objectInfoWithPos, creatureInfo, characterInfo);
+	player->Init();
+
 	ZONE_MANAGER.EnterStartPos(objectInfoWithPos.pos_info.mapID, player);
 	objectInfoWithPos.pos_info.pos = player->GetPos();
 	player->AddSkill(static_cast<int32_t>(player->GetCharacterInfo().job));
@@ -79,6 +81,8 @@ void ObjectManager::AddProjectile(const std::shared_ptr<ProjectileSkill> owner, 
 	default:
 		return;
 	}
+
+	projectile->Init();
 
 	ZONE_MANAGER.Enter(objectInfoWithPos.pos_info.mapID, projectile, false);
 

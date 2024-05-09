@@ -76,7 +76,7 @@ private:
 
 private:
 	CACHE_ALIGN std::shared_mutex itemInventoryMutex;
-	CACHE_ALIGN uint8_t maxItemInventorySlotCount;
+	CACHE_ALIGN uint8_t maxItemInventorySlotCount = 0;
 	CACHE_ALIGN std::unordered_map<int64_t, Info::ItemSlotInfoT> itemInventory;
 
 private:

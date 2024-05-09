@@ -7,7 +7,7 @@ CoreDB::CoreDB()
 
 CoreDB::CoreDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : dbName(dbName), worldID(worldID), serverID(serverID)
 {
-	Init();
+
 }
 
 CoreDB::~CoreDB()
@@ -28,7 +28,6 @@ void CoreDB::Init(void)
 		CORE_LOG.Log(LogType::LOG_ERROR, "Can't Connect");
 		abort();
 	}
-
 }
 
 bool CoreDB::Connect(void)
@@ -169,7 +168,7 @@ void CoreDB::BindArgument(const wchar_t* data)
 
 bool CoreDB::Execute(void)
 {
-	size_t index = this->command.length() - 1;
+	auto index = this->command.length() - 1;
 	this->command.replace(index, index, L"\0");
 
 	this->retCode = SQLExecDirect(this->hstmt, const_cast<SQLWCHAR*>(this->command.c_str()), SQL_NTS);

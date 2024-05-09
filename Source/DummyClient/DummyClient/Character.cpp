@@ -10,3 +10,8 @@ Character::~Character()
 {
 
 }
+
+void Character::Init(void)
+{
+	CoreCharacter::Init();
+}

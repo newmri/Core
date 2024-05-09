@@ -6,19 +6,22 @@
 template<typename T>
 class CoreQueue : public CoreContainer<T>
 {
-	OVERRIDE_OBJECT(CoreQueue<T>)
-
 public:
+	CoreQueue();
 	CoreQueue(CoreQueue<T>& rhs);
+	virtual ~CoreQueue() override;
 
 public:
 	CoreQueue<T>& operator=(CoreQueue<T>& rhs);
+
+protected:
+	void Init(void);
 
 private:
 	void Copy(const CoreQueue<T>& rhs);
 
 public:
-	virtual void clear(void) override;
+	void clear(void);
 
 public:
 	void push(const T& data);

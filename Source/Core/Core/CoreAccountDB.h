@@ -8,5 +8,5 @@ public:
 
 public:
 	bool Login(const int64_t accountUID, CoreToken& token);
-	virtual void Logout(const CoreAccount* account) CORE_PURE;
+	virtual void Logout(std::shared_ptr<CoreAccount> account) CORE_PURE;
 };

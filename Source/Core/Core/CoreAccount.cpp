@@ -7,12 +7,12 @@ CoreAccount::~CoreAccount()
 
 void CoreAccount::Init(void)
 {
-
+	CoreUIDObject::Init();
 }
 
 CoreAccount::CoreAccount(const int64_t& uid, const CoreToken& token) : CoreUIDObject(uid), token(token), isLogined(true), maxCharacterSlotCount(0)
 {
-	Init();
+
 }
 
 bool CoreAccount::IsTokenExpired(void)

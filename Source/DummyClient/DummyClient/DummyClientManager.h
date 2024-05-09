@@ -80,12 +80,12 @@ private:
 	std::unique_ptr<LoginPacketHandler> loginHandler;
 	std::vector<std::thread> loginThread;
 	std::shared_mutex loginMutex;
-	std::map<int64_t, std::shared_ptr<LoginClient>> loginClientList;
+	std::unordered_map<int64_t, std::shared_ptr<LoginClient>> loginClientList;
 
 private:
 	std::unique_ptr<GamePacketHandler> gameHandler;
 	std::shared_mutex gameMutex;
-	std::map<int64_t, std::shared_ptr<GameClient>> gameClientList;
+	std::unordered_map<int64_t, std::shared_ptr<GameClient>> gameClientList;
 
 private:
 	ConnectState connectState = ConnectState::LOGIN;

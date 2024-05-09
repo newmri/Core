@@ -2,7 +2,7 @@
 
 CoreCSVLoader::CoreCSVLoader()
 {
-	Init();
+
 }
 
 CoreCSVLoader::~CoreCSVLoader()
@@ -12,6 +12,8 @@ CoreCSVLoader::~CoreCSVLoader()
 
 void CoreCSVLoader::Init(void)
 {
+	CoreLoader::Init();
+
 	this->delimiter = ",";
 }
 

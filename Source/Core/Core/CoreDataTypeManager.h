@@ -69,6 +69,6 @@ public:
 
 private:
 	typedef size_t(CoreDataTypeManager::* FUNC)() const;
-	typedef std::map<std::string, FUNC> ProcessingMap;
+	typedef std::unordered_map<std::string, FUNC> ProcessingMap;
 	ProcessingMap getSizeOfTypeMap;
 };

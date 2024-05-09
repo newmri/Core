@@ -14,10 +14,10 @@ void CoreTestManager::Release(void)
 
 void CoreTestManager::Work(void (*func)(void), TestInfo testInfo)
 {
-	size_t testNumber = testInfo.testNumber;
+	auto testNumber = testInfo.testNumber;
 	size_t size = 0;
 
-	size_t threadNumber = testInfo.startThreadNumber;
+	auto threadNumber = testInfo.startThreadNumber;
 
 	for (; threadNumber <= testInfo.endThreadNumber; threadNumber *= testInfo.increaseThreadNumberTimes)
 	{

@@ -12,7 +12,7 @@ Arrow::~Arrow()
 
 void Arrow::Init(void)
 {
-
+	Projectile::Init();
 }
 
 void Arrow::Update(void)

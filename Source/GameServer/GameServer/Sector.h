@@ -37,6 +37,6 @@ private:
 
 private:
 	NativeInfo::Vec2Int index;
-	std::map<int64_t, std::shared_ptr<Player>> playerList;
-	std::map<int64_t, std::shared_ptr<Projectile>> projectileList;
+	std::unordered_map<int64_t, std::shared_ptr<Player>> playerList;
+	std::unordered_map<int64_t, std::shared_ptr<Projectile>> projectileList;
 };

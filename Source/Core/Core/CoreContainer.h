@@ -1,12 +1,11 @@
 #pragma once
 
 template<typename T>
-class CoreContainer : public CoreObject
+class CoreContainer
 {
-	OVERRIDE_OBJECT(CoreContainer<T>)
-
 public:
-	virtual void clear(void) CORE_PURE;
+	CoreContainer() CORE_DEFAULT;
+	virtual ~CoreContainer();
 
 public:
 	size_t size(void);
@@ -25,19 +24,9 @@ protected:
 };
 
 template<typename T>
-CoreContainer<T>::CoreContainer()
-{
-}
-
-template<typename T>
 CoreContainer<T>::~CoreContainer()
 {
-	WRITE_LOCK(this->mutex);
-}
-
-template<typename T>
-void CoreContainer<T>::Init(void)
-{
+	
 }
 
 template<typename T>

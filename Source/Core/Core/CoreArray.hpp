@@ -5,7 +5,7 @@
 template<typename T, const size_t N>
 CoreArray<T, N>::CoreArray()
 {
-	Init();
+	memset(this->data, 0, sizeof(T) * N);
 }
 
 template<typename T, const size_t N>
@@ -16,9 +16,8 @@ CoreArray<T, N>::CoreArray(std::initializer_list<T> list)
 }
 
 template<typename T, const size_t N>
-CoreArray<T, N>::CoreArray(CoreArray<T, N>& rhs)
+CoreArray<T, N>::CoreArray(const CoreArray<T, N>& rhs)
 {
-	READ_LOCK(rhs.mutex);
 	Copy(rhs);
 }
 
@@ -26,12 +25,6 @@ template<typename T, const size_t N>
 CoreArray<T, N>::~CoreArray()
 {
 
-}
-
-template<typename T, const size_t N>
-void CoreArray<T, N>::Init(void)
-{
-	memset(this->data, 0, sizeof(T) * N);
 }
 
 template<typename T, const size_t N>

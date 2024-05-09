@@ -7,17 +7,17 @@ class CoreAccountManager
 	DECLARE_SINGLETON(CoreAccountManager)
 
 public:
-	CoreAccount* Find(const int64_t& uid);
-	CoreAccount* Add(const int64_t& uid, const CoreToken& token);
+	std::shared_ptr<CoreAccount> Find(const int64_t& uid);
+	std::shared_ptr<CoreAccount> Add(const int64_t& uid, const CoreToken& token);
 	void SetLogout(const int64_t& uid);
 
 public:
-	void SetLogoutFunc(std::function<void(const CoreAccount*)> func);
+	void SetLogoutFunc(std::function<void(std::shared_ptr<CoreAccount>)> func);
 
 private:
 	CACHE_ALIGN std::shared_mutex mutex;
-	std::map<int64_t, CoreAccount*> accountList;
+	std::unordered_map<int64_t, std::shared_ptr<CoreAccount>> accountList;
 
 private:
-	std::function<void(const CoreAccount*)> logoutFunc;
+	std::function<void(std::shared_ptr<CoreAccount>)> logoutFunc;
 };

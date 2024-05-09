@@ -1,5 +1,7 @@
 #include "Include.h"
 
+using NativeInfo::Speed;
+
 IMPLEMENT_SINGLETON(CharacterDataManager)
 
 void CharacterDataManager::Init(void)
@@ -14,7 +16,7 @@ void CharacterDataManager::Release(void)
 void CharacterDataManager::Load(void)
 {
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterAbilityByStat.csv", CharacterAbilityByStat, this->characterAbilityByStat);
-	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateSpeedStat.csv", NativeInfo::Speed, this->characterSpeed);
+	CSV_LOAD_AND_TO_VECTOR("Data/CharacterCreateSpeedStat.csv", Speed, this->characterSpeed);
 	CSV_LOAD_AND_TO_HASH_MAP("Data/CharacterSkill.csv", SkillData, this->skill, skillID);
 	CSV_LOAD_AND_TO_VECTOR("Data/CharacterLevel.csv", LevelData, this->level);
 }
@@ -55,7 +57,7 @@ const LevelData* const CharacterDataManager::GetLevelData(const uint8_t level)
 
 uint8_t CharacterDataManager::GetMaxLevel(void)
 {
-	return this->level.size();
+	return static_cast<uint8_t>(this->level.size());
 }
 
 int32_t CharacterDataManager::GetBonusStatPoint(uint8_t from, const uint8_t to)

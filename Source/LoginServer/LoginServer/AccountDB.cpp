@@ -11,7 +11,7 @@ AccountDB::~AccountDB()
 
 }
 
-void AccountDB::Logout(const CoreAccount* account)
+void AccountDB::Logout(std::shared_ptr<CoreAccount> account)
 {
 	Prepare(L"Logout");
 	BindArgument(account->GetUID());

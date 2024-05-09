@@ -8,7 +8,7 @@ void GamePacketFunc::SC_LOGIN_RES(std::shared_ptr<CoreServerSession> session, co
 	{
 		OBJECT_MANAGER.AddPlayer(session, *raw->object_info_with_pos()->UnPack(), *raw->creature_info()->UnPack(), *raw->character_info()->UnPack());
 
-		CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
+		auto account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
 		if (IS_NULL(account))
 			return;
 

@@ -2,7 +2,7 @@
 
 CoreGameObject::CoreGameObject()
 {
-	Init();
+
 }
 
 CoreGameObject::~CoreGameObject()

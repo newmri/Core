@@ -11,6 +11,7 @@ CoreVector<T>::CoreVector()
 template<typename T>
 CoreVector<T>::~CoreVector()
 {
+	WRITE_LOCK(this->mutex);
 	SAFE_DELETE(this->dataCapacity, this->data);
 	SetCapacity(0);
 	CoreContainer<T>::SetSize(0);
@@ -25,12 +26,6 @@ CoreVector<T>::CoreVector(const size_t maxBlockNum, Types... args) : CoreContain
 		SetCapacity(maxBlockNum);
 		CoreContainer<T>::SetSize(0);
 	}
-}
-
-template<typename T>
-void CoreVector<T>::Init(void)
-{
-	CoreContainer<T>::Init();
 }
 
 template<typename T>

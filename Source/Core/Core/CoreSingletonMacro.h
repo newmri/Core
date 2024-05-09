@@ -7,7 +7,7 @@
 	public:																	\
 		virtual ~CLASS() CORE_DEFAULT;										\
 																			\
-	private:																\
+	public:																\
 		virtual void Init(void) CORE_PURE;																										
 
 #define OVERRIDE_OBJECT(CLASS)												\
@@ -15,7 +15,7 @@
 		CLASS();															\
 		virtual ~CLASS() override;											\
 																			\
-	protected:																\
+	public:																\
 		virtual void Init(void) override;									
 
 #define OVERRIDE_OBJECT_DELETE_DEFAULT_CONSTRUCTOR(CLASS)					\
@@ -23,7 +23,7 @@
 		CLASS() CORE_DELETE;												\
 		virtual ~CLASS() override;											\
 																			\
-	private:																\
+	public:																\
 		virtual void Init(void) override;									
 
 #define OVERRIDE_GAME_OBJECT(CLASS)											\

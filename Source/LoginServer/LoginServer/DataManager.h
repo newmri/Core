@@ -4,7 +4,7 @@
 
 struct GearSlot
 {
-	std::array<int32_t, Define::GearType_END> itemID;
+	std::array<int32_t, Define::GearType_END> itemID = {};
 };
 
 class DataManager

@@ -7,7 +7,7 @@ Zone::Zone()
 
 Zone::Zone(const int32_t id) : id(id)
 {
-	Init();
+
 }
 
 Zone::~Zone()
@@ -70,7 +70,10 @@ void Zone::InitSector(void)
 
 	this->sectors = new Sector*[this->sectorCount.y];
 	for (int32_t i = 0; i < this->sectorCount.y; ++i)
+	{
 		this->sectors[i] = new Sector[this->sectorCount.x];
+		this->sectors[i]->Init();
+	}
 
 	NativeInfo::Vec2Int index;
 	for (; index.y < this->sectorCount.y; ++index.y)
@@ -103,7 +106,7 @@ bool Zone::Enter(std::shared_ptr<Object> object, const NativeInfo::Vec2Int& cell
 
 	NativeInfo::Vec2Int index = CellPosToIndex(cellPos);
 
-	Sector* sector = GetSector(index);
+	auto sector = GetSector(index);
 
 	WRITE_LOCK(this->mutex);
 
@@ -189,8 +192,8 @@ std::tuple<bool, std::shared_ptr<Object>> Zone::Move(std::shared_ptr<Object> obj
 	NativeInfo::Vec2Int sourceIndex = CellPosToIndex(cellSourcePos);
 	NativeInfo::Vec2Int destIndex = CellPosToIndex(cellDestPos);
 
-	Sector* sourceSector = GetSector(sourceIndex);
-	Sector* destSector = GetSector(destIndex);
+	auto sourceSector = GetSector(sourceIndex);
+	auto destSector = GetSector(destIndex);
 
 	WRITE_LOCK(this->mutex);
 
@@ -228,7 +231,7 @@ bool Zone::Leave(std::shared_ptr<Object> object)
 
 	NativeInfo::Vec2Int index = CellPosToIndex(object->GetPos());
 
-	Sector* sector = GetSector(index);
+	auto sector = GetSector(index);
 
 	WRITE_LOCK(this->mutex);
 	_Leave(object, sector, index);
@@ -264,7 +267,7 @@ void Zone::GetCreatures(std::shared_ptr<Creature> creature, const Define::RangeD
 
 	NativeInfo::Vec2Int index = CellPosToIndex(creature->GetPos());
 
-	Sector* sector = GetSector(index);
+	auto sector = GetSector(index);
 
 	WRITE_LOCK(this->mutex);
 	sector->GetCreatures(creature, rangeDir, range, creatureList, liveCreatureOnly);
@@ -277,8 +280,8 @@ void Zone::Revive(std::shared_ptr<Creature> creature)
 
 	NativeInfo::Vec2Int deadIndex = CellPosToIndex(creature->GetPos());
 
-	Sector* deadSector = GetSector(deadIndex);
-	Sector* reviveSector = GetSector(this->data.startIndex);
+	auto deadSector = GetSector(deadIndex);
+	auto reviveSector = GetSector(this->data.startIndex);
 
 	creature->SetPos(this->data.startCellPos);
 

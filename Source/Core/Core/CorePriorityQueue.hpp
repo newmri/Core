@@ -2,6 +2,7 @@
 
 #include "CorePriorityQueue.h"
 
+
 template<typename T>
 CorePriorityQueue<T>::CorePriorityQueue(bool (*compare)(const T&, const T&)) : compare(compare)
 {
@@ -18,12 +19,6 @@ CorePriorityQueue<T>::~CorePriorityQueue()
 {
 	clear();
 	SAFE_DELETE(this->head);
-}
-
-template<typename T>
-void CorePriorityQueue<T>::Init(void)
-{
-	CoreContainer<T>::Init();
 }
 
 template<typename T>

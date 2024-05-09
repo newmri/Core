@@ -3,21 +3,9 @@
 #include "CoreList.h"
 
 template<typename T>
-CoreList<T>::CoreList()
-{
-	Init();
-}
-
-template<typename T>
 CoreList<T>::~CoreList()
 {
-	clear();
-}
 
-template<typename T>
-void CoreList<T>::Init(void)
-{
-	
 }
 
 template<typename T>
@@ -38,12 +26,11 @@ CoreList<T>& CoreList<T>::operator=(CoreList<T>& rhs)
 template<typename T>
 void CoreList<T>::Copy(const CoreList<T>& rhs)
 {
-	clear();
+	CoreQueue<T>::clear();
 
 	WRITE_LOCK(this->mutex);
 	SAFE_DELETE(this->head);
 	CoreQueue<T>::Init();
-	Init();
 
 	if (this->head)
 	{
@@ -55,12 +42,6 @@ void CoreList<T>::Copy(const CoreList<T>& rhs)
 
 		CoreContainer<T>::SetSize(rhs.dataSize);
 	}
-}
-
-template<typename T>
-void CoreList<T>::clear(void)
-{
-	CoreQueue<T>::clear();
 }
 
 template<typename T>

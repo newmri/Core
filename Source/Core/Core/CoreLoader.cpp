@@ -2,7 +2,7 @@
 
 CoreLoader::CoreLoader()
 {
-	Init();
+
 }
 
 CoreLoader::~CoreLoader()

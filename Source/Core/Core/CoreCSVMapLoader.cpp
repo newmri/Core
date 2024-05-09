@@ -2,7 +2,7 @@
 
 CoreCSVMapLoader::CoreCSVMapLoader()
 {
-	Init();
+
 }
 
 CoreCSVMapLoader::~CoreCSVMapLoader()

@@ -6,7 +6,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 
 	LoginPacket::ErrorCode result = LoginPacket::ErrorCode_UNKNOWN;
 
-	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(raw->uid());
+	auto account = CORE_ACCOUNT_MANAGER.Find(raw->uid());
 	CoreToken token(raw->token());
 
 	// 첫 로그인
@@ -55,11 +55,11 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		if (!LOGIN_SERVER.GetGameDB()->LoadCharacter(raw->uid(), infoList))
 			return;
 
-		uint8_t maxCharacterSlotCount = LOGIN_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
+		auto maxCharacterSlotCount = LOGIN_SERVER.GetGameDB()->LoadMaxCharacterSlotCount(raw->uid());
 		account->SetMaxSlotCount(maxCharacterSlotCount);
 
-		size_t size = infoList.size();
-		uint8_t emptyCharacterSlotCount = maxCharacterSlotCount - static_cast<uint8_t>(size);
+		auto size = infoList.size();
+		auto emptyCharacterSlotCount = maxCharacterSlotCount - static_cast<uint8_t>(size);
 
 		if (size)
 		{
@@ -67,7 +67,9 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 			sendList.reserve(size);
 			for (int32_t i = 0; i < size; ++i)
 			{
-				account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), infoList[i].uid, infoList[i]));
+				auto charactger = std::make_shared<Character>(session->GetAccountUID(), infoList[i].uid, infoList[i]);
+				charactger->Init();
+				account->AddCharacter(charactger);
 				sendList.push_back(LoginPacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &infoList[i]));
 			}
 
@@ -121,12 +123,12 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 {
 	auto raw = static_cast<const LoginPacket::CS_CREATE_CHARACTER_REQ*>(data);
 
-	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
+	auto account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
 	if (IS_NULL(account))
 		return;
 
-	std::string name = raw->name()->str();
-	std::wstring wName = STRING_MANAGER.Widen(name);
+	auto name = raw->name()->str();
+	auto wName = STRING_MANAGER.Widen(name);
 	if(!STRING_MANAGER.IsValidLanguage(wName, Define::CharacterLimit_MinNameLen, Define::CharacterLimit_MaxNameLen))
 		return;
 
@@ -149,7 +151,9 @@ void LoginPacketFunc::CS_CREATE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 
 	if (isSuccess)
 	{
-		account->AddCharacter(std::make_shared<Character>(session->GetAccountUID(), info.uid, info));
+		auto character = std::make_shared<Character>(session->GetAccountUID(), info.uid, info);
+		character->Init();
+		account->AddCharacter(character);
 		
 		auto packedInfo = LoginPacket::CharacterInfo::Pack(PACKET_SEND_MANAGER.builder, &info);
 
@@ -167,7 +171,7 @@ void LoginPacketFunc::CS_DELETE_CHARACTER_REQ(std::shared_ptr<CoreClientSession>
 {
 	auto raw = static_cast<const LoginPacket::CS_DELETE_CHARACTER_REQ*>(data);
 
-	CoreAccount* account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
+	auto account = CORE_ACCOUNT_MANAGER.Find(session->GetAccountUID());
 	if (IS_NULL(account))
 		return;
 

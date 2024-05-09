@@ -2,7 +2,7 @@
 
 Skill::Skill()
 {
-	Init();
+
 }
 
 Skill::~Skill()
@@ -18,7 +18,7 @@ void Skill::Init(void)
 Skill::Skill(const std::shared_ptr<Creature> owner, const SkillData& skillData)
 	: owner(owner), skillData(skillData)
 {
-	Init();
+	
 }
 
 void Skill::UseSkill(void)

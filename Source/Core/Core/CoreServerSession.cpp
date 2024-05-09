@@ -8,7 +8,7 @@ CoreServerSession::CoreServerSession(const int64_t oid, boost::asio::io_context&
 
 CoreServerSession::~CoreServerSession()
 {
-	CoreSession::Close();
+	
 }
 
 bool CoreServerSession::Connect(const boost::asio::ip::tcp::resolver::results_type& endpoint)

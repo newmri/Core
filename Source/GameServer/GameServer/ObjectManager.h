@@ -27,10 +27,10 @@ private:
 
 private:
 	CACHE_ALIGN std::shared_mutex playerMutex;
-	std::map<int64_t, std::shared_ptr<Player>> playerList;
+	std::unordered_map<int64_t, std::shared_ptr<Player>> playerList;
 
 private:
 	CACHE_ALIGN std::shared_mutex projectileMutex;
-	std::map<int64_t, std::shared_ptr<Projectile>> projectileList;
+	std::unordered_map<int64_t, std::shared_ptr<Projectile>> projectileList;
 
 };
