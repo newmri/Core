@@ -25,8 +25,7 @@ public class ObjectManager
 
     public void AddMyPlayer()
     {
-        GameObject gameObject = CoreManagers.Obj.Add(MyObjectInfo.ObjectInfo.Oid, "Player", "Player");
-
+        GameObject gameObject = CoreManagers.Obj.Add(MyObjectInfo.ObjectInfo.Oid, "Player", "Player", _objectDefaultPos);
         MyPlayer = gameObject.GetOrAddComponent<MyPlayerController>();
         CoreManagers.Coroutine.Add(MyPlayerSetInfoDelay());
     }
