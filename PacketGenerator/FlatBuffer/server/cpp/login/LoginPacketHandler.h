@@ -12,6 +12,6 @@ private:
 	void Register(void);
 
 private:
-	std::map<LoginPacket::Packet, std::function<void(LoginPacketFunc&, std::shared_ptr<CoreClientSession>, const void*)>> func;
+	std::unordered_map<LoginPacket::Packet, std::function<void(LoginPacketFunc&, std::shared_ptr<CoreClientSession>, const void*)>> func;
 	LoginPacketFunc packetFunc;
 };
