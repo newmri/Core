@@ -524,6 +524,32 @@ MonoBehaviour:
   - AbilityName: 
     AbilityType: 0
     AbilityValue: 0
+  _itemEffect:
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &445496928960390970
@@ -952,6 +978,32 @@ MonoBehaviour:
   - AbilityName: 
     AbilityType: 0
     AbilityValue: 0
+  _itemEffect:
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &681938761464842667
@@ -1447,7 +1499,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7666677451197620218
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2675,6 +2727,32 @@ MonoBehaviour:
   - AbilityName: 
     AbilityType: 0
     AbilityValue: 0
+  _itemEffect:
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &1938844920716311366
@@ -2985,6 +3063,32 @@ MonoBehaviour:
   - AbilityName: 
     AbilityType: 0
     AbilityValue: 0
+  _itemEffect:
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2012382895205643000
@@ -3352,6 +3456,32 @@ MonoBehaviour:
   - AbilityName: 
     AbilityType: 0
     AbilityValue: 0
+  _itemEffect:
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2055620534316353046
@@ -4164,6 +4294,32 @@ MonoBehaviour:
   - AbilityName: 
     AbilityType: 0
     AbilityValue: 0
+  _itemEffect:
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2514773516407268039
@@ -5298,6 +5454,32 @@ MonoBehaviour:
   - AbilityName: 
     AbilityType: 0
     AbilityValue: 0
+  _itemEffect:
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &2983783606793144176
@@ -8808,6 +8990,32 @@ MonoBehaviour:
   - AbilityName: 
     AbilityType: 0
     AbilityValue: 0
+  _itemEffect:
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
+  - EffectName: 
+    EffectType: 0
+    EffectValue: 0
+    EffectTick: 0
+    EffectDuration: 0
   ItemIcon: {fileID: 0}
   EmptyItemIconSprite: {fileID: 0}
 --- !u!1 &5359978108577855102
