@@ -125,12 +125,12 @@ public class BaseController : MonoBehaviour
 		Init();
 	}
 
-	void Update()
-	{
-		UpdateController();
-	}
+    protected virtual void Update()
+    {
+        UpdateController();
+    }
 
-	protected virtual void Init()
+    protected virtual void Init()
 	{
 		_damageTextPos = transform.Find("DamageTextPoint");
 		_effectPos = transform.Find("EffectPoint");

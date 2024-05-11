@@ -182,8 +182,10 @@ public class MyPlayerController : PlayerController
 	}
 
 
-	void LateUpdate()
+	protected override void Update()
 	{
+		base.Update();
+
 		Camera.main.transform.position = new Vector3(transform.position.x - 0.5f,
 			Camera.main.transform.position.y, -10);
 	}
