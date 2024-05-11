@@ -192,19 +192,24 @@ void MyPlayer::SetBehavior(const AIBehavior behavior)
 		GAME_PACKET_SEND_MANAGER.Clear();
 		auto message = GamePacket::CreateCS_SET_STATE_REQ(GAME_PACKET_SEND_MANAGER.builder, Define::ObjectState_IDLE);
 		GAME_PACKET_SEND_MANAGER.Send(this->session, GamePacket::Packet_CS_SET_STATE_REQ, message.Union());
+		Chat("IDLE");
 	}
 	break;
 	case AIBehavior::WALK:
 		MoveRandom(false);
+		MoveRandom(WALK);
+		Chat("WALK");
 		break;
 	case AIBehavior::RUN:
 		MoveRandom(true);
+		Chat("RUN");
 		break;
 	case AIBehavior::SKILL:
 		UseSkill();
+		Chat("SKILL");
 		break;
 	case AIBehavior::CHAT:
-		Chat("æ»≥Á«œººø‰");
+		Chat("CHAT");
 		break;
 	case AIBehavior::LEVEL_UP:
 		std::string message = "/level " + TO_STR(CORE_RANDOM_MANAGER_INT.GetRandom(1, 10));
