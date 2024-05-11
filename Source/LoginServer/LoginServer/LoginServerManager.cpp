@@ -21,6 +21,8 @@ void LoginServerManager::Init(void)
 
 	DATA_MANAGER.Load();
 	CORE_ITEM_DATA_MANAGER.Load();
+
+	GetAccountDB();
 }
 
 void LoginServerManager::Release(void)

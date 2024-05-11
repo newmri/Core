@@ -21,7 +21,7 @@ public:
 	virtual ~CoreDB();
 
 public:
-	void Init(void);
+	virtual void Init(void);
 
 protected:
 	bool Connect(void);

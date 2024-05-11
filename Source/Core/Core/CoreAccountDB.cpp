@@ -10,6 +10,23 @@ CoreAccountDB::~CoreAccountDB()
 
 }
 
+void CoreAccountDB::Init(void)
+{
+	CoreDB::Init();
+
+	Prepare(L"ResetLogin");
+	BindArgument(this->worldID);
+	BindArgument(this->serverID);
+	if (!Execute())
+	{
+		CORE_LOG.Log(LogType::LOG_ERROR, "ResetLogin Fail");
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		abort();
+	}
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}
+
 bool CoreAccountDB::Login(const int64_t accountUID, CoreToken& token)
 {
 	Prepare(L"Login");

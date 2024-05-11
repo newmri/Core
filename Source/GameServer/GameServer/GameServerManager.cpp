@@ -26,6 +26,8 @@ void GameServerManager::Init(void)
 	CHARACTER_DATA_MANAGER.Load();
 
 	ZONE_MANAGER.AddZone(0);
+
+	GetAccountDB();
 }
 
 void GameServerManager::Release(void)
