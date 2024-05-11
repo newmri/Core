@@ -1,5 +1,12 @@
 namespace Define;
 
+enum WebLoginResultCode : ubyte
+{
+  SUCCESS,
+  LOGINED,
+  WRONG,
+}
+
 enum ServerType : ubyte
 {
   WorldList,

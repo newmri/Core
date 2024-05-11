@@ -204,7 +204,7 @@ void MyPlayer::SetBehavior(const AIBehavior behavior)
 		UseSkill();
 		break;
 	case AIBehavior::CHAT:
-		//Chat("Hello");
+		Chat("æ»≥Á«œººø‰");
 		break;
 	case AIBehavior::LEVEL_UP:
 		std::string message = "/level " + TO_STR(CORE_RANDOM_MANAGER_INT.GetRandom(1, 10));

@@ -13,23 +13,7 @@ AccountDB::~AccountDB()
 
 void AccountDB::Logout(std::shared_ptr<CoreAccount> account)
 {
-	Prepare(L"Logout");
-	BindArgument(account->GetUID());
-	BindArgument(GAME_SERVER.GetWorldID());
-	BindArgument(GAME_SERVER.GetServerID());
-
-	if (!Execute())
-	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(account->GetUID()) + " ", __FILE__, __FUNCTION__, __LINE__));
-		return;
-	}
-
-	while (IsSuccess())
-	{
-		this->retCode = SQLFetch(this->hstmt);
-	};
-
-	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+	CoreAccountDB::Logout(account);
 
 	OBJECT_MANAGER.RemovePlayer(account->GetPlayerOID());
 }

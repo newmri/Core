@@ -15,6 +15,8 @@ bool CoreAccountDB::Login(const int64_t accountUID, CoreToken& token)
 	Prepare(L"Login");
 	BindArgument(accountUID);
 	BindArgument(token.key);
+	BindArgument(this->worldID);
+	BindArgument(this->serverID);
 	if (!Execute())
 	{
 		CORE_LOG.Log(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID));
@@ -40,3 +42,41 @@ bool CoreAccountDB::Login(const int64_t accountUID, CoreToken& token)
 
 	return isSuccess;
 }
+
+void CoreAccountDB::SetLogin(const int64_t accountUID)
+{
+	Prepare(L"SetLogin");
+	BindArgument(accountUID);
+	BindArgument(this->worldID);
+	BindArgument(this->serverID);
+	if (!Execute())
+	{
+		CORE_LOG.Log(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return;
+	}
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}
+
+void CoreAccountDB::Logout(std::shared_ptr<CoreAccount> account)
+{
+	Prepare(L"Logout");
+	BindArgument(account->GetUID());
+	BindArgument(this->worldID);
+	BindArgument(this->serverID);
+	if (!Execute())
+	{
+		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(account->GetUID()) + " ", __FILE__, __FUNCTION__, __LINE__));
+		SQLFreeStmt(this->hstmt, SQL_CLOSE);
+		return;
+	}
+
+	while (IsSuccess())
+	{
+		this->retCode = SQLFetch(this->hstmt);
+	};
+
+	SQLFreeStmt(this->hstmt, SQL_CLOSE);
+}
+

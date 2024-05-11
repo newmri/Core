@@ -7,6 +7,7 @@ using UnityCoreLibrary;
 using FlatBuffers;
 using LoginPacket;
 using System.Threading;
+using Define;
 
 public class LoginNetworkManager : BaseNetworkManager
 {
@@ -85,18 +86,23 @@ public class LoginNetworkManager : BaseNetworkManager
 
         Managers.Web.SendPostRequest<LoginAccountPacketRes>("login", packet, (res) =>
         {
-            if (res.IsSuccess)
-            {
-                Managers.Account.UID = res.UID;
-                Managers.Account.Token = res.Token;
+            UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
 
-                Managers.UI.CloseAllPopupUI();
-                Managers.UI.ShowPopupUI<UIWorldListPopup>().SetWorldList(res.WorldList);
-            }
-            else
+            switch (res.Code)
             {
-                UIMessagePopup messagePopup = Managers.UI.ShowPopupUI<UIMessagePopup>();
-                messagePopup.SetText("로그인 실패", "아이디 또는 비밀번호가 틀렸습니다\n 다시 입력해주세요");
+                case WebLoginResultCode.SUCCESS:
+                    Managers.Account.UID = res.UID;
+                    Managers.Account.Token = res.Token;
+
+                    Managers.UI.CloseAllPopupUI();
+                    Managers.UI.ShowPopupUI<UIWorldListPopup>().SetWorldList(res.WorldList);
+                    break;
+                case WebLoginResultCode.LOGINED:
+                    messagePopup.SetText("로그인 실패", "이미 접속중입니다");
+                    break;
+                case WebLoginResultCode.WRONG:
+                    messagePopup.SetText("로그인 실패", "아이디 또는 비밀번호가 틀렸습니다\n 다시 입력해주세요");
+                    break;
             }
         });
     }

@@ -29,7 +29,7 @@ public class WorldListInfo
 
 public class LoginAccountPacketRes
 {
-	public bool IsSuccess;
+	public WebLoginResultCode Code;
 	public long UID;
 	public int Token;
 	public List<WorldListInfo> WorldList = new List<WorldListInfo>();

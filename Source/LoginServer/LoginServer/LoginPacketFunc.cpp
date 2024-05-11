@@ -35,6 +35,7 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 		}
 		else
 		{
+			LOGIN_SERVER.GetAccountDB()->SetLogin(raw->uid());
 			account->SetLogin();
 			result = LoginPacket::ErrorCode_SUCCESS;
 		}

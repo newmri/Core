@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using static LoginAccountPacketRes;
 
 // 나중에 redis로 바꾸면 좋지 않을까?
 namespace WorldListServer
@@ -51,7 +52,7 @@ namespace WorldListServer
             if (!AccountDefine.IsValidAccount(req.ID, req.Password))
                 return res;
 
-            if (!LoginAccount(req, ref res))
+            if (WebLoginResultCode.SUCCESS != LoginAccount(req, ref res))
                 return res;
 
             UpdateAccountToken(req, ref res);
@@ -61,7 +62,7 @@ namespace WorldListServer
             return res;
         }
 
-        private bool LoginAccount(LoginAccountPacketReq req, ref LoginAccountPacketRes res)
+        private WebLoginResultCode LoginAccount(LoginAccountPacketReq req, ref LoginAccountPacketRes res)
         {
             using (SqlConnection connection = new SqlConnection(_info))
             {
@@ -78,7 +79,7 @@ namespace WorldListServer
                     {
                         while (rdr.Read())
                         {
-                            res.IsSuccess = Convert.ToBoolean(rdr["IsSuccess"].ToString());
+                            res.Code = (WebLoginResultCode)Convert.ToInt32(rdr["ResultCode"].ToString());
                         }
                     }
                 }
@@ -87,7 +88,7 @@ namespace WorldListServer
                 connection.Dispose();
             }
 
-            return res.IsSuccess;
+            return res.Code;
         }
 
         private void UpdateAccountToken(LoginAccountPacketReq req, ref LoginAccountPacketRes res)

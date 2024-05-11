@@ -101,7 +101,7 @@ bool WebManager::Login(std::shared_ptr<CoreServerSession> session)
 		abort();
 	}
 
-	if (root["IsSuccess"].asBool())
+	if (Define::WebLoginResultCode_SUCCESS == static_cast<Define::WebLoginResultCode>(root["Code"].asUInt()))
 	{
 		session->SetAccountUID(root["UID"].asInt64());
 		session->SetToken(root["Token"].asInt());

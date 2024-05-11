@@ -36,6 +36,7 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 		}
 		else
 		{
+			GAME_SERVER.GetAccountDB()->SetLogin(raw->uid());
 			account->SetLogin();
 			result = GamePacket::ErrorCode_SUCCESS;
 		}

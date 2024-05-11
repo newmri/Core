@@ -9,6 +9,13 @@ using global::System;
 using global::System.Collections.Generic;
 using global::FlatBuffers;
 
+public enum WebLoginResultCode : byte
+{
+  SUCCESS = 0,
+  LOGINED = 1,
+  WRONG = 2,
+};
+
 public enum ServerType : byte
 {
   WorldList = 0,

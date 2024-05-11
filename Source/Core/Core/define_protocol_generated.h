@@ -8,6 +8,39 @@
 
 namespace Define {
 
+enum WebLoginResultCode : uint8_t {
+  WebLoginResultCode_SUCCESS = 0,
+  WebLoginResultCode_LOGINED = 1,
+  WebLoginResultCode_WRONG = 2,
+  WebLoginResultCode_MIN = WebLoginResultCode_SUCCESS,
+  WebLoginResultCode_MAX = WebLoginResultCode_WRONG
+};
+
+inline const WebLoginResultCode (&EnumValuesWebLoginResultCode())[3] {
+  static const WebLoginResultCode values[] = {
+    WebLoginResultCode_SUCCESS,
+    WebLoginResultCode_LOGINED,
+    WebLoginResultCode_WRONG
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesWebLoginResultCode() {
+  static const char * const names[4] = {
+    "SUCCESS",
+    "LOGINED",
+    "WRONG",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameWebLoginResultCode(WebLoginResultCode e) {
+  if (flatbuffers::IsOutRange(e, WebLoginResultCode_SUCCESS, WebLoginResultCode_WRONG)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesWebLoginResultCode()[index];
+}
+
 enum ServerType : uint8_t {
   ServerType_WorldList = 0,
   ServerType_Login = 1,

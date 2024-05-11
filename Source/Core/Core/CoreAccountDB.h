@@ -1,5 +1,7 @@
 #pragma once
 
+class CoreAccount;
+
 class CoreAccountDB : public CoreDB
 {
 public:
@@ -8,5 +10,6 @@ public:
 
 public:
 	bool Login(const int64_t accountUID, CoreToken& token);
-	virtual void Logout(std::shared_ptr<CoreAccount> account) CORE_PURE;
+	void SetLogin(const int64_t accountUID);
+	virtual void Logout(std::shared_ptr<CoreAccount> account);
 };
