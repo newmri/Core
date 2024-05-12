@@ -36,25 +36,3 @@ void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);
 }
-
-void CoreWorldDB::IncreaseUserCount(void)
-{
-	Prepare(L"IncreaseUserCount");
-
-	BindArgument(this->worldID);
-	BindArgument(this->serverID);
-
-	if (!Execute())
-	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "Failed ", __FILE__, __FUNCTION__, __LINE__));
-		SQLFreeStmt(this->hstmt, SQL_CLOSE);
-		return;
-	}
-
-	while (IsSuccess())
-	{
-		this->retCode = SQLFetch(this->hstmt);
-	};
-
-	SQLFreeStmt(this->hstmt, SQL_CLOSE);
-}

@@ -49,8 +49,6 @@ void GamePacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, co
 	{
 		session->SetAccountUID(raw->uid());
 		
-		GAME_SERVER.GetWorldDB()->IncreaseUserCount();
-
 #pragma region 캐릭터 로드
 		Info::ObjectInfoWithPosT objectInfoWithPos;
 		Info::CreatureInfoT creatureInfo;

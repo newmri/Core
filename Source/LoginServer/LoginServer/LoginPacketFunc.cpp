@@ -50,8 +50,6 @@ void LoginPacketFunc::CS_LOGIN_REQ(std::shared_ptr<CoreClientSession> session, c
 	{
 		session->SetAccountUID(raw->uid());
 
-		LOGIN_SERVER.GetWorldDB()->IncreaseUserCount();
-
 		std::vector<LoginPacket::CharacterInfoT> infoList;
 		if (!LOGIN_SERVER.GetGameDB()->LoadCharacter(raw->uid(), infoList))
 			return;

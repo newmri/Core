@@ -8,7 +8,4 @@ public:
 
 public:
 	void GetServerInfo(ServerInfo& serverInfo);
-
-public:
-	void IncreaseUserCount(void);
 };
