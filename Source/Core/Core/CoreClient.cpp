@@ -14,7 +14,7 @@ bool CoreClient::Connect(std::string_view ip, std::string_view port)
 {
 	if (this->session->Connect(resolver.resolve(ip, port)))
 	{
-		this->thread = boost::thread(boost::bind(&boost::asio::io_service::run, &GetContext()));
+		this->thread = boost::thread([this]() { this->ioContext.run(); });
 		return true;
 	}
 	

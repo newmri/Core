@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using static LoginAccountPacketRes;
 
 // 나중에 redis로 바꾸면 좋지 않을까?
@@ -10,7 +10,8 @@ namespace WorldListServer
 {
 	public class DB
 	{
-        private static string _info = "Data Source=127.0.0.1;Initial Catalog=World;Integrated Security=True;";
+        private static string _info = "Data Source=192.168.30.60;Initial Catalog=World;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;";
+
 
         public bool SignupAccount(SignupAccountPacketReq req)
         {

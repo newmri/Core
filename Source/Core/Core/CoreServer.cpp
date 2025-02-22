@@ -11,7 +11,7 @@ CoreServer::~CoreServer()
 
 void CoreServer::Run(void)
 {
-	this->asyncWork.reset(new boost::asio::io_context::work(this->ioContext));
+	this->asyncWork.reset(new boost::asio::executor_work_guard<boost::asio::io_context::executor_type>(this->ioContext.get_executor()));
 
 	int32_t threadNum = (std::thread::hardware_concurrency() * 2) + 1;
 	for(int32_t i = 0; i < threadNum; ++i)

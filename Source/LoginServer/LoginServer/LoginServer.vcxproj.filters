@@ -74,9 +74,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Include.h">
       <Filter>00.Include</Filter>
     </ClInclude>
@@ -110,5 +107,8 @@
     <ClInclude Include="PacketSendManager.h">
       <Filter>04.Packet\01.PacketSendManager</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

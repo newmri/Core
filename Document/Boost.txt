@@ -1,6 +1,7 @@
 Boost 설치 해야하는 것들
 
-boost 1.78.0
-boost_thread-vc143 1.78.0
-boost_chrono-vc143 1.78.0
-boost_date_time-vc143 1.78.0
+boost 1.87.0
+boost_thread-vc143 1.87.0
+boost_chrono-vc143 1.87.0
+boost_date_time-vc143 1.87.0
+boost_locale-vc143 1.87.0

@@ -1,10 +1,14 @@
 #include "CoreInclude.h"
+#include <boost/locale.hpp>
 
 IMPLEMENT_SINGLETON(CoreStringManager)
 
 void CoreStringManager::Init(void)
 {
-	setlocale(LC_ALL, "");
+	boost::locale::generator gen;
+	std::locale::global(gen("ko_KR.EUC-KR"));
+	std::cout.imbue(std::locale());
+	std::wcout.imbue(std::locale());
 }
 
 void CoreStringManager::Release(void)
@@ -78,10 +82,10 @@ bool CoreStringManager::IsValidLen(std::wstring_view str, const int8_t min, cons
 
 std::wstring CoreStringManager::Widen(std::string_view source)
 {
-	return CA2W(source.data(), CP_UTF8).m_psz;
+	return boost::locale::conv::to_utf<wchar_t>(std::string(source), "EUC-KR");
 }
 
 std::string CoreStringManager::Narrow(std::wstring_view source)
 {
-	return CW2A(source.data(), CP_UTF8).m_psz;
+	return boost::locale::conv::from_utf<wchar_t>(source.data(), "EUC-KR");
 }

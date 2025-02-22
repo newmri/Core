@@ -30,8 +30,6 @@
 #include <sqlext.h>
 #include <locale>
 #include <regex>
-#include <atlbase.h>
-#include <atlconv.h>
 
 #include "CoreMacro.h"
 

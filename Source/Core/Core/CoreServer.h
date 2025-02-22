@@ -49,7 +49,7 @@ protected:
 	boost::asio::io_context ioContext;
 	boost::asio::ip::tcp::acceptor acceptor;
 
-	boost::shared_ptr<boost::asio::io_service::work> asyncWork;
+	std::shared_ptr<boost::asio::executor_work_guard<boost::asio::io_context::executor_type>> asyncWork;
 	boost::thread_group asyncThread;
 
 protected:

@@ -77,8 +77,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -91,7 +92,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,8 +108,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -235,11 +238,17 @@
     <Import Project="..\..\Core\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets" Condition="Exists('..\..\Core\packages\boost_thread-vc142.1.78.0\build\boost_thread-vc142.targets')" />
     <Import Project="..\..\Core\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets" Condition="Exists('..\..\Core\packages\boost_chrono-vc142.1.78.0\build\boost_chrono-vc142.targets')" />
     <Import Project="..\..\Core\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets" Condition="Exists('..\..\Core\packages\boost_date_time-vc142.1.78.0\build\boost_date_time-vc142.targets')" />
-    <Import Project="..\..\LoginServer\packages\boost.1.78.0\build\boost.targets" Condition="Exists('..\..\LoginServer\packages\boost.1.78.0\build\boost.targets')" />
-    <Import Project="..\..\LoginServer\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_thread-vc143.1.78.0\build\boost_thread-vc143.targets')" />
-    <Import Project="..\..\LoginServer\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_date_time-vc143.1.78.0\build\boost_date_time-vc143.targets')" />
-    <Import Project="..\..\LoginServer\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_chrono-vc143.1.78.0\build\boost_chrono-vc143.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost.1.87.0\build\boost.targets" Condition="Exists('..\..\LoginServer\packages\boost.1.87.0\build\boost.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost_chrono-vc143.1.87.0\build\boost_chrono-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_chrono-vc143.1.87.0\build\boost_chrono-vc143.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost_date_time-vc143.1.87.0\build\boost_date_time-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_date_time-vc143.1.87.0\build\boost_date_time-vc143.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost_thread-vc143.1.87.0\build\boost_thread-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_thread-vc143.1.87.0\build\boost_thread-vc143.targets')" />
+    <Import Project="..\..\LoginServer\packages\boost_locale-vc143.1.87.0\build\boost_locale-vc143.targets" Condition="Exists('..\..\LoginServer\packages\boost_locale-vc143.1.87.0\build\boost_locale-vc143.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost.1.87.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost.1.87.0\build\boost.targets'))" />
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost_chrono-vc143.1.87.0\build\boost_chrono-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost_chrono-vc143.1.87.0\build\boost_chrono-vc143.targets'))" />
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost_date_time-vc143.1.87.0\build\boost_date_time-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost_date_time-vc143.1.87.0\build\boost_date_time-vc143.targets'))" />
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost_thread-vc143.1.87.0\build\boost_thread-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost_thread-vc143.1.87.0\build\boost_thread-vc143.targets'))" />
+    <Error Condition="!Exists('..\..\LoginServer\packages\boost_locale-vc143.1.87.0\build\boost_locale-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\LoginServer\packages\boost_locale-vc143.1.87.0\build\boost_locale-vc143.targets'))" />
   </Target>
 </Project>
