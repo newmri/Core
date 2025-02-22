@@ -27,8 +27,7 @@ size_t CoreGetLen(T* start, T* end)
 {
 	if (start >= end)
 	{
-		std::string errorMessage = "start " + TO_STR(*start) + " is Greater or Same than end " + TO_STR(*end);
-		CORE_LOG.Log(LogType::LOG_ERROR, errorMessage);
+		CORE_ERROR_LOG("start {}  is Greater or Same than end {}", *start, *end);
 		return 0;
 	}
 

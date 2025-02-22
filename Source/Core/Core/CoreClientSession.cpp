@@ -140,7 +140,7 @@ bool CoreClientSession::IsValidPacketSpeed(void)
 
 		if (this->maxPacketCount <= _packetCount)
 		{
-			CORE_LOG.Log(LogType::LOG_HACK, GetOID(), ENUM_TO_STR(SPEED_HACK) + " PacketCount: " + TO_STR(_packetCount));
+			CORE_LOG(LogType::LOG_HACK, "OID: {} {}  PacketCount: {}", GetOID(), ENUM_TO_STR(SPEED_HACK), _packetCount);
 			this->server->Close(shared_from_this());
 			return false;
 		}
@@ -163,7 +163,7 @@ void CoreClientSession::CheckPingPongTime(void)
 
 	if (this->pingPongCheckTime < timeDiff)
 	{
-		CORE_LOG.Log(LogType::LOG_DEBUG, GetOID(), ENUM_TO_STR(PING_PONG_NO_RESPONSE) + " TimeDiff: " + TO_STR(timeDiff));
+		CORE_LOG(LogType::LOG_DEBUG, "OID: {} {}  TimeDiff: {}", GetOID(), ENUM_TO_STR(PING_PONG_NO_RESPONSE), timeDiff);
 		server->Close(shared_from_this());
 		return;
 	}

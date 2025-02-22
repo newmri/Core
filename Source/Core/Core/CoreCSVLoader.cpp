@@ -54,7 +54,7 @@ void CoreCSVLoader::PreLoad(std::string_view filePath, char*& out)
 			if (IS_SAME(0, this->rows))
 				ParseDataTypesAndCalRowSize(strForParse);
 
-			CORE_LOG.Log(LogType::LOG_INFO, log);
+			CORE_LOG(LogType::LOG_INFO, log);
 
 			log = "";
 			log.append(str, newLinePos + 1);

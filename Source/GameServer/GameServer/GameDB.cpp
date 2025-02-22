@@ -18,7 +18,7 @@ bool GameDB::LoadCharacter(const int64_t accountUID, const int64_t uid, Info::Cr
 	BindArgument(uid);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -55,7 +55,7 @@ bool GameDB::LoadCharacterStat(const int64_t accountUID, const int64_t uid, Info
 	BindArgument(uid);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -90,7 +90,7 @@ bool GameDB::LoadCharacterGear(const int64_t accountUID, const int64_t uid, Game
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -120,7 +120,7 @@ uint8_t GameDB::LoadMaxCharacterSlotCount(const int64_t accountUID)
 	BindArgument(accountUID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return 0;
 	}
@@ -146,7 +146,7 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 	BindArgument(maxCharacterSlotCount);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return;
 	}
@@ -166,7 +166,7 @@ uint8_t GameDB::LoadMaxItemInventorySlotCount(const int64_t accountUID, const in
 	BindArgument(uid);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return 0;
 	}
@@ -190,7 +190,7 @@ bool GameDB::LoadItemInventory(const int64_t accountUID, const int64_t uid, std:
 	BindArgument(uid);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -225,7 +225,7 @@ bool GameDB::EquipGear(const int64_t accountUID, const int64_t uid, const Define
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -253,7 +253,7 @@ bool GameDB::UnEquipGear(const int64_t accountUID, const int64_t uid, const Defi
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -279,7 +279,7 @@ bool GameDB::AddStat(const int64_t accountUID, const int64_t uid, const Define::
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}

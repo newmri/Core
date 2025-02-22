@@ -34,7 +34,7 @@ void WebManager::GetWorldList(void)
 	auto response = Get("http://localhost:5000/worldlist");
 	if (response.empty())
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "GetWorldList curl Failed");
+		CORE_ERROR_LOG("GetWorldList curl Failed");
 		abort();
 	}
 
@@ -42,15 +42,15 @@ void WebManager::GetWorldList(void)
 	Json::Value root;
 	if (!reader.parse(response, root))
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "GetWorldList Parse Failed");
+		CORE_ERROR_LOG("GetWorldList Parse Failed");
 		abort();
 	}
 
-	CORE_LOG.Log(LogType::LOG_DEBUG, "[WorldList]");
+	CORE_LOG(LogType::LOG_DEBUG, "[WorldList]");
 	auto member = root.getMemberNames();
 	for (auto& d : member)
 	{
-		CORE_LOG.Log(LogType::LOG_DEBUG, d + ": " + root[d].asString());
+		CORE_LOG(LogType::LOG_DEBUG, "{}:{}", d, root[d].asString());
 	}
 }
 
@@ -64,7 +64,7 @@ void WebManager::Signup(std::shared_ptr<CoreServerSession> session)
 		Json::FastWriter fastWriter;
 		if (response = Post(fastWriter.write(root), "http://localhost:5000/worldlist/signup"); response.empty())
 		{
-			CORE_LOG.Log(LogType::LOG_ERROR, "Signup curl Failed");
+			CORE_ERROR_LOG("Signup curl Failed");
 			abort();
 		}
 	}
@@ -73,7 +73,7 @@ void WebManager::Signup(std::shared_ptr<CoreServerSession> session)
 	Json::Value root;
 	if (!reader.parse(response, root))
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "Signup Parse Failed");
+		CORE_ERROR_LOG("Signup Parse Failed");
 		abort();
 	}
 }
@@ -88,7 +88,7 @@ bool WebManager::Login(std::shared_ptr<CoreServerSession> session)
 		Json::FastWriter fastWriter;
 		if (response = Post(fastWriter.write(root), "http://localhost:5000/worldlist/login"); response.empty())
 		{
-			CORE_LOG.Log(LogType::LOG_ERROR, "Login curl Failed");
+			CORE_ERROR_LOG("Login curl Failed");
 			abort();
 		}
 	}
@@ -97,7 +97,7 @@ bool WebManager::Login(std::shared_ptr<CoreServerSession> session)
 	Json::Value root;
 	if (!reader.parse(response, root))
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "Login Parse Failed");
+		CORE_ERROR_LOG("Login Parse Failed");
 		abort();
 	}
 
@@ -131,7 +131,7 @@ ServerConnectInfo WebManager::SelectServer(const Define::ServerType serverType)
 		Json::FastWriter fastWriter;
 		if (response = Post(fastWriter.write(root), "http://localhost:5000/worldlist/serverselect"); response.empty())
 		{
-			CORE_LOG.Log(LogType::LOG_ERROR, "SelectServer curl Failed");
+			CORE_ERROR_LOG("SelectServer curl Failed");
 			abort();
 		}
 	}
@@ -140,7 +140,7 @@ ServerConnectInfo WebManager::SelectServer(const Define::ServerType serverType)
 	Json::Value root;
 	if (!reader.parse(response, root))
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "SelectServer Parse Failed");
+		CORE_ERROR_LOG("SelectServer Parse Failed");
 		abort();
 	}
 

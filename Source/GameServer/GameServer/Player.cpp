@@ -122,7 +122,7 @@ bool Player::IsValidMoveSpeed(const NativeInfo::Vec2Int& destPos)
 
 	if (clientDist > serverDist)
 	{
-		CORE_LOG.Log(LogType::LOG_HACK, GetOID(), "ClientDist: " + TO_STR(clientDist) + "ServerDist: " + TO_STR(serverDist));
+		CORE_LOG(LogType::LOG_HACK, "OID: {} ClientDist: {} ServerDist: {}", GetOID(), clientDist, serverDist);
 		return false;
 	}
 

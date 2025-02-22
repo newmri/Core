@@ -24,7 +24,7 @@ void AccountDB::LoadMoney(const int64_t accountUID, NativeInfo::Money& money)
 	BindArgument(accountUID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		return;
 	}
 

@@ -21,11 +21,11 @@ void CoreDB::Init(void)
 
 	if (Connect())
 	{
-		CORE_LOG.Log(LogType::LOG_CONNECT, STRING_MANAGER.Narrow(this->dbName) + "DB is Connected");
+		CORE_LOG(LogType::LOG_CONNECT, "{} DB is Connected", STRING_MANAGER.Narrow(this->dbName));
 	}
 	else
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "Can't Connect");
+		CORE_ERROR_LOG("Can't Connect");
 		abort();
 	}
 }

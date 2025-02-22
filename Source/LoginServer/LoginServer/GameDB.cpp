@@ -17,7 +17,7 @@ bool GameDB::LoadCharacter(const int64_t accountUID, std::vector<LoginPacket::Ch
 	BindArgument(accountUID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -65,7 +65,7 @@ bool GameDB::LoadCharacterGear(const int64_t accountUID, LoginPacket::CharacterI
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(info.uid) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} uid: {}", accountUID, info.uid);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -95,7 +95,7 @@ uint8_t GameDB::LoadMaxCharacterSlotCount(const int64_t accountUID)
 	BindArgument(accountUID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return 0;
 	}
@@ -126,7 +126,7 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 	BindArgument(maxCharacterSlotCount);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return;
 	}
@@ -175,7 +175,7 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -206,7 +206,7 @@ bool GameDB::DeleteCharacter(const int64_t accountUID, const int64_t characterUI
 	BindArgument(characterUID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID) + " uid: " + TO_STR(characterUID) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {} characterUID: {}", accountUID, characterUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}

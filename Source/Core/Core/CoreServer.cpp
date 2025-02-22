@@ -17,9 +17,9 @@ void CoreServer::Run(void)
 	for(int32_t i = 0; i < threadNum; ++i)
 		this->asyncThread.create_thread(boost::bind(&boost::asio::io_context::run, &this->ioContext));
 
-	CORE_LOG.Log(LogType::LOG_DEBUG, "Server is Running...");
-	CORE_LOG.Log(LogType::LOG_DEBUG, "[Thread Num]: " + TO_STR(threadNum));
-	CORE_LOG.Log(LogType::LOG_DEBUG, "[Port]: " + TO_STR(this->acceptor.local_endpoint().port()));
+	CORE_LOG(LogType::LOG_DEBUG, "Server is Running...");
+	CORE_LOG(LogType::LOG_DEBUG, "[Thread Num]: {}", threadNum);
+	CORE_LOG(LogType::LOG_DEBUG, "[Port]: {}", this->acceptor.local_endpoint().port());
 
 	Accept();
 }
@@ -32,7 +32,7 @@ void CoreServer::Stop(void)
 
 	CORE_TIME_DELEGATE_MANAGER.Stop();
 
-	CORE_LOG.Log("Server Stoped");
+	CORE_LOG(LogType::LOG_DEBUG, "Server Stopped");
 }
 
 void CoreServer::Accept(void)
@@ -42,13 +42,13 @@ void CoreServer::Accept(void)
 		{
 			if (error)
 			{
-				CORE_LOG.Log(LogType::LOG_ERROR, "accept error " + error.value() + error.message());
+				CORE_ERROR_LOG("accept error {} {}", error.value(), error.message());
 			}
 			else
 			{
 				int64_t oid = this->oid.fetch_add(1);
 				std::string ip = socket.remote_endpoint().address().to_string();
-				CORE_LOG.Log(LogType::LOG_CONNECT, oid, "[ip]: " + ip);
+				CORE_LOG(LogType::LOG_CONNECT, "[oid]: {} [ip]: {}", oid, ip);
 
 				auto session = std::make_shared<CoreClientSession>(oid, std::move(socket), this);
 				session->Start();
@@ -78,7 +78,7 @@ void CoreServer::Close(std::shared_ptr<CoreClientSession> session)
 
 		session->Close();
 
-		CORE_LOG.Log(LogType::LOG_DISCONNECT, oid, "");
+		CORE_LOG(LogType::LOG_DISCONNECT, "{}", oid);
 
 		CORE_ACCOUNT_MANAGER.SetLogout(session->GetAccountUID());
 

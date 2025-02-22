@@ -19,7 +19,7 @@ CoreItemUID CoreGameDB::GetItemUID(const uint16_t count)
 	BindArgument(count);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "count: " + TO_STR(count) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("count: {}", count);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return itemUID;
 	}
@@ -63,13 +63,13 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 
 		if (!Execute())
 		{
-			CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, 
-				"accountUID: " + TO_STR(itemCreateSlotInfo.accountUID) +
-				"UID: " + TO_STR(itemCreateSlotInfo.uid) +
-				"itemID: " + TO_STR(itemCreateSlotInfo.itemID) +
-				"itemCount: " + TO_STR(itemCreateSlotInfo.itemCount) +
-				" ",
-				__FILE__, __FUNCTION__, __LINE__));
+			CORE_ERROR_LOG(
+				"accountUID: {} UID: {} itemID: {} itemCount: {}"
+				, itemCreateSlotInfo.accountUID
+				, itemCreateSlotInfo.uid
+				, itemCreateSlotInfo.itemID
+				, itemCreateSlotInfo.itemCount
+				);
 
 			SQLFreeStmt(this->hstmt, SQL_CLOSE);
 			return;
@@ -94,13 +94,13 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 		}
 		else
 		{
-			CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR,
-				"accountUID: " + TO_STR(itemCreateSlotInfo.accountUID) +
-				"UID: " + TO_STR(itemCreateSlotInfo.uid) +
-				"itemID: " + TO_STR(itemCreateSlotInfo.itemID) +
-				"itemCount: " + TO_STR(addItemCount) +
-				" ",
-				__FILE__, __FUNCTION__, __LINE__));
+			CORE_ERROR_LOG(
+				"accountUID: {} UID: {} itemID: {} itemCount: {}"
+				, itemCreateSlotInfo.accountUID
+				, itemCreateSlotInfo.uid
+				, itemCreateSlotInfo.itemID
+				, itemCreateSlotInfo.itemCount
+			);
 		}
 
 		++itemUID.uid;
@@ -118,13 +118,13 @@ bool CoreGameDB::UpdateInventoryItemCount(const int64_t accountUID, const int64_
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR,
-			"accountUID: " + TO_STR(accountUID) +
-			"UID: " + TO_STR(uid) +
-			"item_uid: " + TO_STR(itemSlotInfo->item_uid) +
-			"useCount: " + TO_STR(useCount) +
-			" ",
-			__FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG(
+			"accountUID: {} UID: {} item_uid: {} useCount: {}"
+			, accountUID
+			, uid
+			, itemSlotInfo->item_uid
+			, useCount
+		);
 
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
@@ -156,12 +156,12 @@ bool CoreGameDB::DeleteInventoryItem(const int64_t accountUID, const int64_t uid
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR,
-			"accountUID: " + TO_STR(accountUID) +
-			"UID: " + TO_STR(uid) +
-			"item_uid: " + TO_STR(itemSlotInfo->item_uid) +
-			" ",
-			__FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG(
+			"accountUID: {} UID: {} item_uid: {} useCount: {}"
+			, accountUID
+			, uid
+			, itemSlotInfo->item_uid
+		);
 
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
@@ -198,13 +198,13 @@ bool CoreGameDB::OnLevelUp(const int64_t accountUID, const int64_t uid, const ui
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR,
-			"accountUID: " + TO_STR(accountUID) +
-			"UID: " + TO_STR(uid) +
-			"newLevel: " + TO_STR(newLevel) +
-			"newBonusStatPoint: " + TO_STR(newBonusStatPoint) +
-			" ",
-			__FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG(
+			"accountUID: {} UID: {} item_uid: {} newLevel: {} newBonusStatPoint: {}"
+			, accountUID
+			, uid
+			, newLevel
+			, newBonusStatPoint
+		);
 
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;

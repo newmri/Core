@@ -11,7 +11,6 @@ private:
 public:
 	virtual void Log(std::string_view logMessage) override;
 	virtual void Log(const LogType logType, std::string_view logMessage) override;
-	virtual void Log(const LogType logType, const size_t oid, std::string_view logMessage) override;
 
 private:
 	std::string prevFullPath, currFullPath;

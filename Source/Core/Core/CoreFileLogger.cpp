@@ -40,7 +40,8 @@ void CoreFileLogger::UpdateFile(void)
 
         if (!this->output.is_open())
         {
-            throw std::runtime_error(CORE_LOG.MakeLog(LogType::LOG_ERROR, this->currFullPath, __FILE__, __FUNCTION__, __LINE__));
+            CORE_ERROR_LOG("currFullPath: {}", this->currFullPath);
+            throw std::runtime_error("is_open fail");
         }
     }
 }
@@ -55,15 +56,6 @@ void CoreFileLogger::Log(std::string_view logMessage)
 void CoreFileLogger::Log(const LogType logType, std::string_view logMessage)
 {
     MakeLog(logType, logMessage);
-
-    UpdateFile();
-
-   this->output << CORE_TIME_MANAGER.GetTime() << this->delimiter << CoreUtil::GetThreadID() << this->delimiter << this->log << std::endl;
-}
-
-void CoreFileLogger::Log(const LogType logType, const size_t oid, std::string_view logMessage)
-{
-    MakeLog(logType, oid, logMessage);
 
     UpdateFile();
 

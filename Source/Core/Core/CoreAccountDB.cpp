@@ -19,7 +19,7 @@ void CoreAccountDB::Init(void)
 	BindArgument(this->serverID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "ResetLogin Fail");
+		CORE_ERROR_LOG("ResetLogin Fail");
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		abort();
 	}
@@ -36,7 +36,7 @@ bool CoreAccountDB::Login(const int64_t accountUID, CoreToken& token)
 	BindArgument(this->serverID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return false;
 	}
@@ -68,7 +68,7 @@ void CoreAccountDB::SetLogin(const int64_t accountUID)
 	BindArgument(this->serverID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(LogType::LOG_ERROR, "accountUID: " + TO_STR(accountUID));
+		CORE_ERROR_LOG("accountUID: {}", accountUID);
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return;
 	}
@@ -84,7 +84,7 @@ void CoreAccountDB::Logout(std::shared_ptr<CoreAccount> account)
 	BindArgument(this->serverID);
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "accountUID: " + TO_STR(account->GetUID()) + " ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("accountUID: {}",account->GetUID());
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		return;
 	}

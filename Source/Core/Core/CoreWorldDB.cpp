@@ -19,7 +19,7 @@ void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)
 
 	if (!Execute())
 	{
-		CORE_LOG.Log(CORE_LOG.MakeLog(LogType::LOG_ERROR, "Failed ", __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("Failed");
 		SQLFreeStmt(this->hstmt, SQL_CLOSE);
 		abort();
 		return;

@@ -14,10 +14,10 @@ void GameServerManager::Init(void)
 	GetWorldDB()->GetServerInfo(this->serverInfo);
 	this->gameServer = std::make_unique<GameServer>(this->serverInfo.ServerPort);
 
-	CORE_LOG.Log(LogType::LOG_DEBUG, "[Server Type]: " + this->serverConfig->ServerType);
-	CORE_LOG.Log(LogType::LOG_DEBUG, "[GroupID]: " + TO_STR(this->serverInfo.GroupID));
-	CORE_LOG.Log(LogType::LOG_DEBUG, "[WorldID]: " + TO_STR(this->serverConfig->WorldID));
-	CORE_LOG.Log(LogType::LOG_DEBUG, "[ServerID]: " + TO_STR(this->serverConfig->ServerID));
+	CORE_LOG(LogType::LOG_DEBUG, "[Server Type]: {}", this->serverConfig->ServerType);
+	CORE_LOG(LogType::LOG_DEBUG, "[GroupID]: {}", this->serverInfo.GroupID);
+	CORE_LOG(LogType::LOG_DEBUG, "[WorldID]: {}", this->serverConfig->WorldID);
+	CORE_LOG(LogType::LOG_DEBUG, "[ServerID]: {}", this->serverConfig->ServerID);
 
 	CORE_ABILITY_DATA_MANAGER.Load();
 	CORE_EFFECT_DATA_MANAGER.Load();

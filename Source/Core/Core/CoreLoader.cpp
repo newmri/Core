@@ -35,7 +35,8 @@ void CoreLoader::Open()
 
 	if (!this->fileStream.is_open())
 	{
-		throw std::invalid_argument(CORE_LOG.MakeLog(LogType::LOG_ERROR, filePath, __FILE__, __FUNCTION__, __LINE__));
+		CORE_ERROR_LOG("filePath: {}", filePath);
+		throw std::runtime_error("is_open fail");
 	}
 }
 
@@ -55,7 +56,7 @@ void CoreLoader::LogLoadingStart(void)
 	this->logStart.append(this->filePath);
 	this->logStart.append(" is loading...]");
 
-	CORE_LOG.Log(LogType::LOG_INFO, this->logStart);
+	CORE_LOG(LogType::LOG_INFO, this->logStart);
 }
 
 void CoreLoader::LogLoadingEnd(void)
@@ -65,7 +66,7 @@ void CoreLoader::LogLoadingEnd(void)
 	this->logEnd.append(this->filePath);
 	this->logEnd.append(" is loaded...]");
 
-	CORE_LOG.Log(LogType::LOG_INFO, this->logEnd);
+	CORE_LOG(LogType::LOG_INFO, this->logEnd);
 }
 
 void CoreLoader::Parse(std::string& in, char* out)
