@@ -54,7 +54,7 @@
 #include "CoreList.h"
 #include "CorePriorityQueue.h"
 #include "CoreAlgorithm.h"
-#include "CoreRandomManager.h"
+#include "CoreRandomGenerator.h"
 
 #include "native_info_impl.h"
 #include "define_protocol_generated.h"

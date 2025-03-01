@@ -61,9 +61,6 @@
     <Filter Include="06.CoreAlgorithm\00.CoreSort">
       <UniqueIdentifier>{557aa9c6-11a7-4e3a-b80f-ae74aad9a0b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07.CoreRandomManager">
-      <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08.CoreLoadManager">
       <UniqueIdentifier>{82e1f301-ba5a-4dcc-afce-389a0a0722f5}</UniqueIdentifier>
     </Filter>
@@ -168,6 +165,9 @@
     </Filter>
     <Filter Include="15.CoreDataManager\02.CoreItemDataManager">
       <UniqueIdentifier>{bde5ef1a-9993-42e0-8b58-b0b15bb14e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07.CoreRandomGenerator">
+      <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -314,8 +314,8 @@
     <ClInclude Include="CoreMemoryPoolManager.h">
       <Filter>01.CoreMemoryPoolManager</Filter>
     </ClInclude>
-    <ClInclude Include="CoreRandomManager.h">
-      <Filter>07.CoreRandomManager</Filter>
+    <ClInclude Include="CoreRandomGenerator.h">
+      <Filter>07.CoreRandomGenerator</Filter>
     </ClInclude>
     <ClInclude Include="CoreMemoryPoolManager.hpp">
       <Filter>01.CoreMemoryPoolManager</Filter>

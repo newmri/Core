@@ -194,7 +194,7 @@
     <ClInclude Include="CorePriorityQueue.hpp" />
     <ClInclude Include="CoreQueue.h" />
     <ClInclude Include="CoreQueue.hpp" />
-    <ClInclude Include="CoreRandomManager.h" />
+    <ClInclude Include="CoreRandomGenerator.h" />
     <ClInclude Include="CoreClientSession.h" />
     <ClInclude Include="CoreServerSession.h" />
     <ClInclude Include="CoreSession.h" />
