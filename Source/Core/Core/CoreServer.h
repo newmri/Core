@@ -6,9 +6,16 @@ struct ServerInfo
 	int32_t ServerPort = 0;
 };
 
+enum CountryCode
+{
+	None = 0,
+	KR
+};
+
 struct ServerConfig
 {
 	std::string ServerType;
+	CountryCode CountryID = CountryCode::None;
 	uint8_t WorldID = 0;
 	uint8_t ServerID = 0;
 };

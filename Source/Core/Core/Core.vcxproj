@@ -148,6 +148,7 @@
     <ClCompile Include="CoreTimeDelegateManager.cpp" />
     <ClCompile Include="CoreTimeManager.cpp" />
     <ClCompile Include="CoreDataTypeManager.cpp" />
+    <ClCompile Include="CoreUIDGenerator.cpp" />
     <ClCompile Include="CoreUIDObject.cpp" />
     <ClCompile Include="CoreUtil.cpp" />
     <ClCompile Include="native_info_impl.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="CoreTimeDelegate.h" />
     <ClInclude Include="CoreTimeDelegateManager.h" />
     <ClInclude Include="CoreTimeManager.h" />
+    <ClInclude Include="CoreUIDGenerator.h" />
     <ClInclude Include="CoreUIDObject.h" />
     <ClInclude Include="CoreUtil.h" />
     <ClInclude Include="CoreVector.h" />

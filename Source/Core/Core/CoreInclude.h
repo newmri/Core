@@ -89,3 +89,4 @@
 #include "CoreAccountDB.h"
 #include "CoreGameDB.h"
 #include "CoreTestManager.h"
+#include "CoreUIDGenerator.h"

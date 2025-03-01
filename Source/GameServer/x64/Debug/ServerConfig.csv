@@ -1,2 +1,2 @@
-string,uint8_t,uint8_t
-Game,1,30
+string,uint8_t,uint8_t,uint8_t
+Game,1,1,31

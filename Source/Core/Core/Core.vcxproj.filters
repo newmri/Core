@@ -169,6 +169,9 @@
     <Filter Include="07.CoreRandomGenerator">
       <UniqueIdentifier>{180396e9-7d4c-42d5-97e2-4c11ce126108}</UniqueIdentifier>
     </Filter>
+    <Filter Include="16.CoreUIDGenerator">
+      <UniqueIdentifier>{38e81706-935a-4ac0-9847-856d0a5c3b4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreTimeManager.cpp">
@@ -266,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="CoreEffectDataManager.cpp">
       <Filter>15.CoreDataManager\01.CoreEffectDataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreUIDGenerator.cpp">
+      <Filter>16.CoreUIDGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="CoreEffectData.h">
       <Filter>15.CoreDataManager\01.CoreEffectDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreUIDGenerator.h">
+      <Filter>16.CoreUIDGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@ void LoginServerManager::Init(void)
 
 	CORE_LOG(LogType::LOG_DEBUG, "[Server Type]: {}", this->serverConfig->ServerType);
 	CORE_LOG(LogType::LOG_DEBUG, "[GroupID]: {}", this->serverInfo.GroupID);
+	CORE_LOG(LogType::LOG_DEBUG, "[CountryID]: {}", ENUM_TO_STR(this->serverConfig->CountryID));
 	CORE_LOG(LogType::LOG_DEBUG, "[WorldID]: {}", this->serverConfig->WorldID);
 	CORE_LOG(LogType::LOG_DEBUG, "[ServerID]: {}", this->serverConfig->ServerID);
 
