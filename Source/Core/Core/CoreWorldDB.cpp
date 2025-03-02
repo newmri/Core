@@ -1,6 +1,6 @@
 #include "CoreInclude.h"
 
-CoreWorldDB::CoreWorldDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : CoreDB(dbName, worldID, serverID)
+CoreWorldDB::CoreWorldDB(DBInfo&& dbInfo) : CoreDB(std::move(dbInfo))
 {
 
 }
@@ -14,8 +14,8 @@ void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)
 {
 	Prepare(L"GetServerInfo");
 
-	BindArgument(this->worldID);
-	BindArgument(this->serverID);
+	BindArgument(this->dbInfo.worldID);
+	BindArgument(this->dbInfo.serverID);
 
 	if (!Execute())
 	{
@@ -25,8 +25,8 @@ void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)
 		return;
 	}
 
-	BindCol(&serverInfo.GroupID, sizeof(serverInfo.GroupID));
-	BindCol(&serverInfo.ServerPort, sizeof(serverInfo.ServerPort));
+	BindCol(&serverInfo.groupID, sizeof(serverInfo.groupID));
+	BindCol(&serverInfo.serverPort, sizeof(serverInfo.serverPort));
 
 	do
 	{

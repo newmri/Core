@@ -6,7 +6,7 @@ static constexpr uint8_t TIME_STAMP_BITS = 34;
 static constexpr uint8_t COUNTRY_BITS = 7;
 static constexpr uint8_t WORLD_BITS = 5;
 static constexpr uint8_t DB_BITS = 3;
-static constexpr uint8_t SEQUENCE_BITS = 15;
+static constexpr uint8_t SEQUENCE_BITS = 14;
 
 static constexpr uint64_t MAX_TIMESTAMP = (1ULL << TIME_STAMP_BITS) - 1;
 static constexpr uint64_t MAX_COUNTRY_NUM = (1ULL << COUNTRY_BITS) - 1;
@@ -19,7 +19,8 @@ class CoreUIDGenerator
 	DECLARE_SINGLETON(CoreUIDGenerator)
 
 public:
-	uint64_t GetUID(const CountryCode countryID, const uint8_t worldID, const uint8_t dbID);
+	int64_t GetUID(const DBInfo& dbInfo);
+	void ParseUID(const int64_t uid) const;
 
 private:
 	std::mutex mutex;

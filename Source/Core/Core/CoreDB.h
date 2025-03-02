@@ -1,9 +1,27 @@
 #pragma once
 
-struct DBConfig
+struct DBInfo
 {
-	std::string Name;
-	std::string IP;
+	std::wstring dbName;
+	CountryCode countryCode = CountryCode::None;
+	uint8_t worldID = 0;
+	uint8_t serverID = 0;
+	uint8_t dbID = 0;
+};
+
+class DBInfoBuilder
+{
+public:
+	DBInfoBuilder& SetDBName(const std::wstring& dbName);
+	DBInfoBuilder& SetCountryCode(CountryCode countryCode);
+	DBInfoBuilder& SetWorldID(uint8_t worldID);
+	DBInfoBuilder& SetServerID(uint8_t serverID);
+	DBInfoBuilder& SetDBID(uint8_t dbID);
+	DBInfo Build();
+
+private:
+	DBInfo dbInfo;
+
 };
 
 enum DBType
@@ -17,7 +35,7 @@ class CoreDB
 {
 public:
 	CoreDB();
-	CoreDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID);
+	CoreDB(DBInfo&& dbInfo);
 	virtual ~CoreDB();
 
 public:
@@ -57,9 +75,7 @@ private:
 	void Release(void);
 
 protected:
-	std::wstring dbName;
-	uint8_t worldID = 0;
-	uint8_t serverID = 0;
+	DBInfo dbInfo;
 
 private:
 	std::wstring command;

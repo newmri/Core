@@ -2,11 +2,11 @@
 
 struct ServerInfo
 {
-	uint8_t GroupID = 0;
-	int32_t ServerPort = 0;
+	uint8_t groupID = 0;
+	int32_t serverPort = 0;
 };
 
-enum CountryCode
+enum class CountryCode : uint8_t
 {
 	None = 0,
 	KR
@@ -14,10 +14,10 @@ enum CountryCode
 
 struct ServerConfig
 {
-	std::string ServerType;
-	CountryCode CountryID = CountryCode::None;
-	uint8_t WorldID = 0;
-	uint8_t ServerID = 0;
+	std::string serverType;
+	CountryCode countryCode = CountryCode::None;
+	uint8_t worldID = 0;
+	uint8_t serverID = 0;
 };
 
 struct ServerConnectInfo

@@ -1,11 +1,46 @@
 #include "CoreInclude.h"
 
+DBInfoBuilder& DBInfoBuilder::SetDBName(const std::wstring& dbName)
+{
+	dbInfo.dbName = dbName;
+	return *this;
+}
+
+DBInfoBuilder& DBInfoBuilder::SetCountryCode(CountryCode countryCode)
+{
+	dbInfo.countryCode = countryCode;
+	return *this;
+}
+
+DBInfoBuilder& DBInfoBuilder::SetWorldID(uint8_t worldID)
+{
+	dbInfo.worldID = worldID;
+	return *this;
+}
+
+DBInfoBuilder& DBInfoBuilder::SetServerID(uint8_t serverID)
+{
+	dbInfo.serverID = serverID;
+	return *this;
+}
+
+DBInfoBuilder& DBInfoBuilder::SetDBID(uint8_t dbID)
+{
+	dbInfo.dbID = dbID;
+	return *this;
+}
+
+DBInfo DBInfoBuilder::Build()
+{
+	return std::move(dbInfo);
+}
+
 CoreDB::CoreDB()
 {
 	abort();
 }
 
-CoreDB::CoreDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : dbName(dbName), worldID(worldID), serverID(serverID)
+CoreDB::CoreDB(DBInfo&& dbInfo) : dbInfo(std::move(dbInfo))
 {
 
 }
@@ -21,7 +56,7 @@ void CoreDB::Init(void)
 
 	if (Connect())
 	{
-		CORE_LOG(LogType::LOG_CONNECT, "{} DB is Connected", STRING_MANAGER.Narrow(this->dbName));
+		CORE_LOG(LogType::LOG_CONNECT, "{} DB is Connected", STRING_MANAGER.Narrow(this->dbInfo.dbName));
 	}
 	else
 	{
@@ -50,7 +85,7 @@ bool CoreDB::Connect(void)
 			{
 				SQLSetConnectAttr(this->hdbc, SQL_LOGIN_TIMEOUT, reinterpret_cast<SQLPOINTER>(5), 0);
 
-				this->retCode = SQLConnect(this->hdbc, const_cast<SQLWCHAR*>(this->dbName.c_str()), SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);
+				this->retCode = SQLConnect(this->hdbc, const_cast<SQLWCHAR*>(this->dbInfo.dbName.c_str()), SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);
 				this->retCode = SQLAllocHandle(SQL_HANDLE_STMT, this->hdbc, &this->hstmt);
 
 				// Allocate statement handle  

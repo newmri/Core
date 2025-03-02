@@ -1,7 +1,7 @@
 #include "Include.h"
 #include "boost/current_function.hpp"
 
-GameDB::GameDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : CoreGameDB(dbName, worldID, serverID)
+GameDB::GameDB(DBInfo&& dbInfo) : CoreGameDB(std::move(dbInfo))
 {
 
 }

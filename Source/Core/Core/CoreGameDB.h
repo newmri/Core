@@ -3,11 +3,11 @@
 class CoreGameDB : public CoreDB
 {
 public:
-	CoreGameDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID);
+	CoreGameDB() = default;
+	CoreGameDB(DBInfo&& dbInfo);
 	virtual ~CoreGameDB() override;
 
 public:
-	CoreItemUID GetItemUID(const uint16_t count);
 	void AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo, std::vector<Info::ItemSlotInfoT>& itemSlotInfoList);
 	bool UpdateInventoryItemCount(const int64_t accountUID, const int64_t uid, Info::ItemSlotInfoT* itemSlotInfo, const uint16_t useCount);
 	bool DeleteInventoryItem(const int64_t accountUID, const int64_t uid, Info::ItemSlotInfoT* itemSlotInfo);

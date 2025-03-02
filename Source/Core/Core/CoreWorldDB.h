@@ -3,7 +3,8 @@
 class CoreWorldDB : public CoreDB
 {
 public:
-	CoreWorldDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID);
+	CoreWorldDB() = default;
+	CoreWorldDB(DBInfo&& dbInfo);
 	virtual ~CoreWorldDB() override;
 
 public:

@@ -1,8 +1,7 @@
 #include "CoreInclude.h"
 
-CoreGameDB::CoreGameDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : CoreDB(dbName, worldID, serverID)
+CoreGameDB::CoreGameDB(DBInfo&& dbInfo) : CoreDB(std::move(dbInfo))
 {
-
 }
 
 CoreGameDB::~CoreGameDB()
@@ -10,39 +9,9 @@ CoreGameDB::~CoreGameDB()
 
 }
 
-CoreItemUID CoreGameDB::GetItemUID(const uint16_t count)
-{
-	CoreItemUID itemUID;
-
-	Prepare(L"GetItemUID");
-	BindArgument(this->serverID);
-	BindArgument(count);
-	if (!Execute())
-	{
-		CORE_ERROR_LOG("count: {}", count);
-		SQLFreeStmt(this->hstmt, SQL_CLOSE);
-		return itemUID;
-	}
-
-	BindCol(&itemUID.uid, sizeof(itemUID.uid));
-
-	while (IsSuccess())
-	{
-		this->retCode = SQLFetch(this->hstmt);
-	};
-
-	SQLFreeStmt(this->hstmt, SQL_CLOSE);
-
-	itemUID.worldID = this->worldID;
-	itemUID.serverID = this->serverID;
-	return itemUID;
-}
-
 void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo, std::vector<Info::ItemSlotInfoT>& itemSlotInfoList)
 {
-	auto itemUID = GetItemUID(itemCreateSlotInfo.needSlotCount);
-	if (IS_ZERO(itemUID.uid))
-		return;
+	int64_t itemUID = 0;
 
 	bool isSuccess = false;
 	uint16_t addItemCount = 0;
@@ -50,6 +19,8 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 	Info::ItemSlotInfoT itemSlotInfo;
 	for (uint8_t i = 0; i < itemCreateSlotInfo.needSlotCount; ++i)
 	{
+		itemUID = CORE_UID_GENERATOR.GetUID(this->dbInfo);
+
 		addItemCount = itemCreateSlotInfo.maxStackCount;
 		if (remainedItemCount < addItemCount)
 			addItemCount = remainedItemCount;
@@ -57,16 +28,17 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 		Prepare(L"AddItemToInventory");
 		BindArgument(itemCreateSlotInfo.accountUID);
 		BindArgument(itemCreateSlotInfo.uid);
-		BindArgument(itemUID.uid);
+		BindArgument(itemUID);
 		BindArgument(itemCreateSlotInfo.itemID);
 		BindArgument(addItemCount);
 
 		if (!Execute())
 		{
 			CORE_ERROR_LOG(
-				"accountUID: {} UID: {} itemID: {} itemCount: {}"
+				"accountUID: {} UID: {} itemUID: {} itemID: {} itemCount: {}"
 				, itemCreateSlotInfo.accountUID
 				, itemCreateSlotInfo.uid
+				, itemUID
 				, itemCreateSlotInfo.itemID
 				, itemCreateSlotInfo.itemCount
 				);
@@ -86,7 +58,7 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 
 		if (isSuccess)
 		{
-			itemSlotInfo.item_uid = itemUID.uid;
+			itemSlotInfo.item_uid = itemUID;
 			itemSlotInfo.item_id = itemCreateSlotInfo.itemID;
 			itemSlotInfo.item_count = addItemCount;
 
@@ -95,15 +67,15 @@ void CoreGameDB::AddItemToInventory(const ItemCreateSlotInfo& itemCreateSlotInfo
 		else
 		{
 			CORE_ERROR_LOG(
-				"accountUID: {} UID: {} itemID: {} itemCount: {}"
+				"accountUID: {} UID: {} itemUID: {} itemID: {} itemCount: {}"
 				, itemCreateSlotInfo.accountUID
 				, itemCreateSlotInfo.uid
+				, itemUID
 				, itemCreateSlotInfo.itemID
 				, itemCreateSlotInfo.itemCount
 			);
 		}
 
-		++itemUID.uid;
 		remainedItemCount -= addItemCount;
 	}
 }

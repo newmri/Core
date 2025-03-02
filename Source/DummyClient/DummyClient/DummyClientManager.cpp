@@ -27,7 +27,6 @@ void DummyClientManager::Run(void)
 	ShowConnectedLoginClientCount();
 	CORE_ALL_LOG(LogType::LOG_DEBUG, "Trying to connect to GameServer..... ");
 	ShowConnectedGameClientCount();
-	DeleteAllLoginClient();
 }
 
 void DummyClientManager::Stop(void)
@@ -134,13 +133,14 @@ void DummyClientManager::DeleteAllLoginClient(void)
 
 void DummyClientManager::ConnectToGameServer(std::shared_ptr<CoreServerSession> session, const int64_t characterUID, std::string_view characterName)
 {
+	auto oid = session->GetOID();
+	CORE_TIME_DELEGATE_MANAGER.Push(CoreTimeDelegate<>(std::bind(&DummyClientManager::DeleteLoginClient, this, oid)));
+
 	WRITE_LOCK(this->gameMutex);
 
 	auto client = std::make_shared<GameClient>(session, characterUID, characterName);
 	if (!client->Connect())
 		Shutdown();
-
-	auto oid = session->GetOID();
 
 	this->gameClientList[oid] = client;
 }

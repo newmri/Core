@@ -25,17 +25,14 @@ NativeInfo::Stat DataManager::GetCharacterCreateStat(const Define::Job& job)
 	return this->characterCreateStat[job];
 }
 
-uint16_t DataManager::GetCharacterCreateGear(const Define::Job& job, std::array<NativeInfo::GearSlotInfo, Define::GearType_END>& out)
+void DataManager::GetCharacterCreateGear(const DBInfo& dbInfo, const Define::Job& job, std::array<NativeInfo::GearSlotInfo, Define::GearType_END>& out)
 {
-	uint16_t count = 0;
 	for (int32_t i = 0; i < Define::GearType_END; ++i)
 	{
 		out[i].itemID = this->characterCreateGear[job].itemID[i];
 		if (out[i].itemID)
-			++count;
+			out[i].itemUID = CORE_UID_GENERATOR.GetUID(dbInfo);
 	}
-
-	return count;
 }
 
 void DataManager::GetCharacterCreateHPMP(const Define::Job& job, int32_t& HP, int32_t& MP)

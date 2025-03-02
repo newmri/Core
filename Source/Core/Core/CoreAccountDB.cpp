@@ -1,8 +1,7 @@
 #include "CoreInclude.h"
 
-CoreAccountDB::CoreAccountDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : CoreDB(dbName, worldID, serverID)
+CoreAccountDB::CoreAccountDB(DBInfo&& dbInfo) : CoreDB(std::move(dbInfo))
 {
-
 }
 
 CoreAccountDB::~CoreAccountDB()
@@ -15,8 +14,8 @@ void CoreAccountDB::Init(void)
 	CoreDB::Init();
 
 	Prepare(L"ResetLogin");
-	BindArgument(this->worldID);
-	BindArgument(this->serverID);
+	BindArgument(this->dbInfo.worldID);
+	BindArgument(this->dbInfo.serverID);
 	if (!Execute())
 	{
 		CORE_ERROR_LOG("ResetLogin Fail");
@@ -32,8 +31,8 @@ bool CoreAccountDB::Login(const int64_t accountUID, CoreToken& token)
 	Prepare(L"Login");
 	BindArgument(accountUID);
 	BindArgument(token.key);
-	BindArgument(this->worldID);
-	BindArgument(this->serverID);
+	BindArgument(this->dbInfo.worldID);
+	BindArgument(this->dbInfo.serverID);
 	if (!Execute())
 	{
 		CORE_ERROR_LOG("accountUID: {}", accountUID);
@@ -64,8 +63,8 @@ void CoreAccountDB::SetLogin(const int64_t accountUID)
 {
 	Prepare(L"SetLogin");
 	BindArgument(accountUID);
-	BindArgument(this->worldID);
-	BindArgument(this->serverID);
+	BindArgument(this->dbInfo.worldID);
+	BindArgument(this->dbInfo.serverID);
 	if (!Execute())
 	{
 		CORE_ERROR_LOG("accountUID: {}", accountUID);
@@ -80,8 +79,8 @@ void CoreAccountDB::Logout(std::shared_ptr<CoreAccount> account)
 {
 	Prepare(L"Logout");
 	BindArgument(account->GetUID());
-	BindArgument(this->worldID);
-	BindArgument(this->serverID);
+	BindArgument(this->dbInfo.worldID);
+	BindArgument(this->dbInfo.serverID);
 	if (!Execute())
 	{
 		CORE_ERROR_LOG("accountUID: {}",account->GetUID());

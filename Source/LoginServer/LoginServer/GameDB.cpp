@@ -1,9 +1,8 @@
 #include "Include.h"
 #include "boost/current_function.hpp"
 
-GameDB::GameDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID) : CoreGameDB(dbName, worldID, serverID)
+GameDB::GameDB(DBInfo&& dbInfo) : CoreGameDB(std::move(dbInfo))
 {
-
 }
 
 GameDB::~GameDB()
@@ -141,13 +140,14 @@ void GameDB::UpdateMaxCharacterSlotCount(const int64_t accountUID, const uint8_t
 
 bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, LoginPacket::CharacterInfoT& info)
 {
-	auto itemUID = GetItemUID(DATA_MANAGER.GetCharacterCreateGear(info.job, info.gear.info));
-	if (IS_ZERO(itemUID.uid))
-		return false;
+	info.uid = CORE_UID_GENERATOR.GetUID(dbInfo);
+
+	DATA_MANAGER.GetCharacterCreateGear(this->dbInfo, info.job, info.gear.info);
 
 	Prepare(L"CreateCharacter");
 	BindArgument(accountUID);
-	BindArgument(LOGIN_SERVER.GetServerID());
+	BindArgument(info.uid);
+	BindArgument(this->dbInfo.serverID);
 	BindArgument(name.data());
 	BindArgument(info.level);
 	BindArgument(info.job);
@@ -163,12 +163,6 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 
 	for (int32_t i = 0; i < Define::GearType_END; ++i)
 	{
-		if (info.gear.info[i].itemID)
-		{
-			info.gear.info[i].itemUID = itemUID.uid;
-			++itemUID.value;
-		}
-
 		BindArgument(info.gear.info[i].itemUID);
 		BindArgument(info.gear.info[i].itemID);
 	}
@@ -184,14 +178,10 @@ bool GameDB::CreateCharacter(const int64_t accountUID, std::wstring_view name, L
 	int64_t characterUID = 0;
 
 	BindCol(&isSuccess, sizeof(isSuccess));
-	BindCol(&characterUID, sizeof(characterUID));
 
 	while (IsSuccess())
 	{
 		this->retCode = SQLFetch(this->hstmt);
-
-		if (IsSuccess())
-			info.uid = characterUID;
 	};
 
 	SQLFreeStmt(this->hstmt, SQL_CLOSE);

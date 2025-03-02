@@ -5,7 +5,8 @@ class CoreAccount;
 class CoreAccountDB : public CoreDB
 {
 public:
-	CoreAccountDB(std::wstring_view dbName, const uint8_t worldID, const uint8_t serverID);
+	CoreAccountDB() = default;
+	CoreAccountDB(DBInfo&& dbInfo);
 	virtual ~CoreAccountDB() override;
 
 public:
