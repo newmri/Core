@@ -10,7 +10,7 @@ CoreWorldDB::~CoreWorldDB()
 
 }
 
-void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)
+void CoreWorldDB::GetServerInfo(std::shared_ptr<ServerInfo>& serverInfo)
 {
 	Prepare(L"GetServerInfo");
 
@@ -25,8 +25,8 @@ void CoreWorldDB::GetServerInfo(ServerInfo& serverInfo)
 		return;
 	}
 
-	BindCol(&serverInfo.groupID, sizeof(serverInfo.groupID));
-	BindCol(&serverInfo.serverPort, sizeof(serverInfo.serverPort));
+	BindCol(&serverInfo->groupID, sizeof(serverInfo->groupID));
+	BindCol(&serverInfo->serverPort, sizeof(serverInfo->serverPort));
 
 	do
 	{

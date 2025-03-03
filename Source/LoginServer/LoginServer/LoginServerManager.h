@@ -15,10 +15,6 @@ public:
 	std::shared_ptr<AccountDB> GetAccountDB(void);
 	std::shared_ptr<GameDB> GetGameDB(void);
 
-public:
-	uint8_t GetWorldID(void);
-	uint8_t GetServerID(void);
-
 private:
 	void MakeWorldDB(void);
 	void MakeAccountDB(void);
@@ -29,10 +25,6 @@ public:
 
 private:
 	std::unique_ptr<LoginServer> loginServer;
-
-private:
-	std::shared_ptr<ServerConfig> serverConfig;
-	ServerInfo serverInfo;
 
 private:
 	static thread_local std::shared_ptr<CoreWorldDB> worldDB;

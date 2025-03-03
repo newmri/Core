@@ -8,5 +8,5 @@ public:
 	virtual ~CoreWorldDB() override;
 
 public:
-	void GetServerInfo(ServerInfo& serverInfo);
+	void GetServerInfo(std::shared_ptr<ServerInfo>& serverInfo);
 };

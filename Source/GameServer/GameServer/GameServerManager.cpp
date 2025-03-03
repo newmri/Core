@@ -8,16 +8,11 @@ thread_local std::shared_ptr<GameDB> GameServerManager::gameDB;
 
 void GameServerManager::Init(void)
 {
-	CSV_LOAD_ONE_ROW("ServerConfig.csv", ServerConfig, this->serverConfig);
+	auto serverInfo = CORE_SERVER_CONFIG.GetServerInfo();
 
-	GetWorldDB()->GetServerInfo(this->serverInfo);
-	this->gameServer = std::make_unique<GameServer>(this->serverInfo.serverPort);
+	GetWorldDB()->GetServerInfo(serverInfo);
 
-	CORE_LOG(LogType::LOG_DEBUG, "[Server Type]: {}", this->serverConfig->serverType);
-	CORE_LOG(LogType::LOG_DEBUG, "[GroupID]: {}", this->serverInfo.groupID);
-	CORE_LOG(LogType::LOG_DEBUG, "[CountryID]: {}", ENUM_TO_STR(this->serverConfig->countryID));
-	CORE_LOG(LogType::LOG_DEBUG, "[WorldID]: {}", this->serverConfig->worldID);
-	CORE_LOG(LogType::LOG_DEBUG, "[ServerID]: {}", this->serverConfig->serverID);
+	this->gameServer = std::make_unique<GameServer>(serverInfo->serverPort);
 
 	CORE_ABILITY_DATA_MANAGER.Load();
 	CORE_EFFECT_DATA_MANAGER.Load();
@@ -69,24 +64,16 @@ std::shared_ptr<GameDB> GameServerManager::GetGameDB(void)
 	return this->gameDB;
 }
 
-uint8_t GameServerManager::GetWorldID(void)
-{
-	return this->serverConfig->worldID;
-}
-
-uint8_t GameServerManager::GetServerID(void)
-{
-	return this->serverConfig->serverID;
-}
-
 void GameServerManager::MakeWorldDB(void)
 {
+	const auto serverConfig = CORE_SERVER_CONFIG.GetServerConfig();
+
 	this->worldDB = std::make_shared<CoreWorldDB>(
 		DBInfoBuilder()
 		.SetDBName(STRING_MANAGER.Widen(ENUM_TO_STR(World)))
-		.SetCountryCode(this->serverConfig->countryCode)
-		.SetWorldID(this->serverConfig->worldID)
-		.SetServerID(this->serverConfig->serverID)
+		.SetCountryCode(serverConfig->countryCode)
+		.SetWorldID(serverConfig->worldID)
+		.SetServerID(serverConfig->serverID)
 		.SetDBID(0)
 		.Build()
 	);
@@ -96,12 +83,14 @@ void GameServerManager::MakeWorldDB(void)
 
 void GameServerManager::MakeAccountDB(void)
 {
+	const auto serverConfig = CORE_SERVER_CONFIG.GetServerConfig();
+
 	this->accountDB = std::make_shared<AccountDB>(
 		DBInfoBuilder()
 		.SetDBName(STRING_MANAGER.Widen(ENUM_TO_STR(Account)))
-		.SetCountryCode(this->serverConfig->countryCode)
-		.SetWorldID(this->serverConfig->worldID)
-		.SetServerID(this->serverConfig->serverID)
+		.SetCountryCode(serverConfig->countryCode)
+		.SetWorldID(serverConfig->worldID)
+		.SetServerID(serverConfig->serverID)
 		.SetDBID(0)
 		.Build()
 	);
@@ -111,11 +100,13 @@ void GameServerManager::MakeAccountDB(void)
 
 void GameServerManager::MakeGameDB(void)
 {
+	const auto serverConfig = CORE_SERVER_CONFIG.GetServerConfig();
+
 	this->gameDB = std::make_shared<GameDB>(DBInfoBuilder()
 		.SetDBName(STRING_MANAGER.Widen(ENUM_TO_STR(Game)))
-		.SetCountryCode(this->serverConfig->countryCode)
-		.SetWorldID(this->serverConfig->worldID)
-		.SetServerID(this->serverConfig->serverID)
+		.SetCountryCode(serverConfig->countryCode)
+		.SetWorldID(serverConfig->worldID)
+		.SetServerID(serverConfig->serverID)
 		.SetDBID(0)
 		.Build()
 	);

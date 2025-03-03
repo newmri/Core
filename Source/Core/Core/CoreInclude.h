@@ -88,5 +88,6 @@
 #include "CoreWorldDB.h"
 #include "CoreAccountDB.h"
 #include "CoreGameDB.h"
+#include "CoreServerConfigManager.h"
 #include "CoreTestManager.h"
 #include "CoreUIDGenerator.h"

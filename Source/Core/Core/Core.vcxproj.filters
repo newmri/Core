@@ -148,18 +148,6 @@
     <Filter Include="15.CoreDataManager\00.CoreAbilityDataManager">
       <UniqueIdentifier>{726c9f35-6aa9-459d-bc44-b69016c8ed8d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98.CoreDB">
-      <UniqueIdentifier>{df50df2a-38ce-4913-b168-5326863fa02a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98.CoreDB\00.CoreWorldDB">
-      <UniqueIdentifier>{75de028a-93ad-44af-add4-c2687f155a65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98.CoreDB\02.CoreGameDB">
-      <UniqueIdentifier>{90905521-d996-424e-aa0c-b72b229cbdbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98.CoreDB\01.CoreAccountDB">
-      <UniqueIdentifier>{828a10bc-c1e3-4aaa-bb1d-55e060730e5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="15.CoreDataManager\01.CoreEffectDataManager">
       <UniqueIdentifier>{c127f901-dcb1-4a7b-ac80-8733ff1c0d42}</UniqueIdentifier>
     </Filter>
@@ -171,6 +159,21 @@
     </Filter>
     <Filter Include="16.CoreUIDGenerator">
       <UniqueIdentifier>{38e81706-935a-4ac0-9847-856d0a5c3b4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97.CoreDB">
+      <UniqueIdentifier>{df50df2a-38ce-4913-b168-5326863fa02a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97.CoreDB\00.CoreWorldDB">
+      <UniqueIdentifier>{75de028a-93ad-44af-add4-c2687f155a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97.CoreDB\02.CoreGameDB">
+      <UniqueIdentifier>{90905521-d996-424e-aa0c-b72b229cbdbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97.CoreDB\01.CoreAccountDB">
+      <UniqueIdentifier>{828a10bc-c1e3-4aaa-bb1d-55e060730e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.CoreServerConfigManager">
+      <UniqueIdentifier>{a20b95b6-5d71-4c8d-b1f7-5129156fa3d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -226,10 +229,10 @@
       <Filter>13.CoreNetwork\02.CoreClient</Filter>
     </ClCompile>
     <ClCompile Include="CoreDB.cpp">
-      <Filter>98.CoreDB</Filter>
+      <Filter>97.CoreDB</Filter>
     </ClCompile>
     <ClCompile Include="CoreWorldDB.cpp">
-      <Filter>98.CoreDB\00.CoreWorldDB</Filter>
+      <Filter>97.CoreDB\00.CoreWorldDB</Filter>
     </ClCompile>
     <ClCompile Include="CoreAccountManager.cpp">
       <Filter>14.CoreAccountManager</Filter>
@@ -262,16 +265,19 @@
       <Filter>15.CoreDataManager\00.CoreAbilityDataManager</Filter>
     </ClCompile>
     <ClCompile Include="CoreGameDB.cpp">
-      <Filter>98.CoreDB\02.CoreGameDB</Filter>
+      <Filter>97.CoreDB\02.CoreGameDB</Filter>
     </ClCompile>
     <ClCompile Include="CoreAccountDB.cpp">
-      <Filter>98.CoreDB\01.CoreAccountDB</Filter>
+      <Filter>97.CoreDB\01.CoreAccountDB</Filter>
     </ClCompile>
     <ClCompile Include="CoreEffectDataManager.cpp">
       <Filter>15.CoreDataManager\01.CoreEffectDataManager</Filter>
     </ClCompile>
     <ClCompile Include="CoreUIDGenerator.cpp">
       <Filter>16.CoreUIDGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreServerConfigManager.cpp">
+      <Filter>98.CoreServerConfigManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -429,10 +435,10 @@
       <Filter>13.CoreNetwork\02.CoreClient</Filter>
     </ClInclude>
     <ClInclude Include="CoreDB.h">
-      <Filter>98.CoreDB</Filter>
+      <Filter>97.CoreDB</Filter>
     </ClInclude>
     <ClInclude Include="CoreWorldDB.h">
-      <Filter>98.CoreDB\00.CoreWorldDB</Filter>
+      <Filter>97.CoreDB\00.CoreWorldDB</Filter>
     </ClInclude>
     <ClInclude Include="CoreAccountManager.h">
       <Filter>14.CoreAccountManager</Filter>
@@ -483,10 +489,10 @@
       <Filter>15.CoreDataManager\00.CoreAbilityDataManager</Filter>
     </ClInclude>
     <ClInclude Include="CoreGameDB.h">
-      <Filter>98.CoreDB\02.CoreGameDB</Filter>
+      <Filter>97.CoreDB\02.CoreGameDB</Filter>
     </ClInclude>
     <ClInclude Include="CoreAccountDB.h">
-      <Filter>98.CoreDB\01.CoreAccountDB</Filter>
+      <Filter>97.CoreDB\01.CoreAccountDB</Filter>
     </ClInclude>
     <ClInclude Include="CoreEffectDataManager.h">
       <Filter>15.CoreDataManager\01.CoreEffectDataManager</Filter>
@@ -496,6 +502,9 @@
     </ClInclude>
     <ClInclude Include="CoreUIDGenerator.h">
       <Filter>16.CoreUIDGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreServerConfigManager.h">
+      <Filter>98.CoreServerConfigManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
